@@ -113,11 +113,32 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .hdr{padding:24px;}
 .main{padding:24px;}
 }
+
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.15),transparent 65%);}
+.lb{width:100%;max-width:340px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:4px;color:var(--bone);margin-bottom:4px;}.ll span{color:var(--fire);}
+.ls{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
+.linp{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:12px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:16px;outline:none;margin-bottom:28px;}
+.linp:focus{border-bottom-color:var(--fire);}
+.linp::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:12px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;}
+.lbtn:hover{background:var(--ember);}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
 </style>
 </head>
 <body>
 
-<header class="hdr">
+
+<div id="loginScreen">
+  <div class="lb">
+    <div class="ll">OMA <span>OPS</span></div>
+    <div class="ls">🦞 ACESSO RESTRITO</div>
+    <input class="linp" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">ENTRAR</button>
+    <div class="lerr" id="lerr">Senha incorreta</div>
+  </div>
+</div>
+<div id="appContent" style="display:none"><header class="hdr">
   <div class="hdr-brand">
     <div class="hdr-logo">OMA <span>AGENTS</span></div>
     <div class="hdr-sub">🦞 TIME DE AGENTES · OPERAÇÃO EM TEMPO REAL</div>
@@ -315,6 +336,27 @@ function updateClock(){
 }
 updateClock();
 setInterval(updateClock, 1000);
+</script>
+</div>
+<script>
+function doLogin(){
+  if(document.getElementById('pw').value==='omaproject2026'){
+    sessionStorage.setItem('ops','1');
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('appContent').style.display='block';
+  } else {
+    document.getElementById('lerr').style.display='block';
+    document.getElementById('pw').value='';
+  }
+}
+if(sessionStorage.getItem('ops')==='1'){
+  window.addEventListener('DOMContentLoaded',()=>{
+    const ls=document.getElementById('loginScreen');
+    const ac=document.getElementById('appContent');
+    if(ls)ls.style.display='none';
+    if(ac)ac.style.display='block';
+  });
+}
 </script>
 </body>
 </html>

@@ -7,6 +7,10 @@
     {
       "source": "/status",
       "destination": "/status.html"
+    },
+    {
+      "source": "/ops",
+      "destination": "/ops.html"
     }
   ]
 }
