@@ -148,13 +148,48 @@ td{padding:10px 14px;vertical-align:middle;}
 <div class="sp"></div><div class="nsl">Segmentos</div><div class="ni" onclick="fSg('Advocacia',this)">⚖️ Advocacia</div><div class="ni" onclick="fSg('Consultório',this)">🏥 Consultório</div><div class="ni" onclick="fSg('Ótica',this)">👓 Ótica/Varejo</div><div class="ni" onclick="fSg('Condomínio',this)">🏢 Condomínio</div><div class="ni" onclick="fSg('Shopping',this)">🛍️ Shopping</div><div class="ni" onclick="fSg('Distribuidor',this)">🍺 Distribuidor</div>
 <div class="sp"></div><div class="nsl">Porte</div><div class="ni" onclick="fPo('PME',this)">◾ PME</div><div class="ni" onclick="fPo('Enterprise',this)">◆ Enterprise</div></nav>
 <main class="mn">
-<div id="vp"><div class="ph"><div class="pt">PIPELINE</div><div class="pm" id="pd"></div></div><div class="tb"><input class="sr" placeholder="Buscar lead, empresa..." oninput="dSr(this.value)"><button class="fb ac" onclick="fSt('all',this)">Todos</button><button class="fb" onclick="fSt('quente',this)">🔥 Quentes</button><button class="fb" onclick="fSt('agendado',this)">📅 Agendados</button><button class="bf" onclick="oAdd()">+ NOVO LEAD</button></div><div class="pl" id="pb"></div></div>
-<div id="vl" style="display:none"><div class="ph"><div class="pt">TODOS OS LEADS</div><div class="pm" id="lc"></div></div><div class="tb"><input class="sr" placeholder="Buscar..." oninput="dSr(this.value)"><button class="bf" onclick="oAdd()">+ NOVO LEAD</button></div><div class="tw"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Segmento</th><th>Porte</th><th>Canal</th><th>Score</th><th>Status</th><th>Ticket</th><th>Contato</th></tr></thead><tbody id="lt"></tbody></table></div></div>
-<div id="vc" style="display:none"><div class="ph"><div class="pt">CLIENTES ATIVOS</div></div><div class="tb"><button class="bf" onclick="oAdd()">+ NOVO LEAD</button></div><div class="tw"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Segmento</th><th>Módulos</th><th>Ticket/mês</th><th>Setup</th><th>Desde</th></tr></thead><tbody id="ct"></tbody></table></div></div>
+<div id="vp"><div class="ph"><div class="pt">PIPELINE</div><div class="pm" id="pd"></div></div><div class="tb"><input class="sr" placeholder="Buscar lead, empresa..." oninput="dSr(this.value)"><button class="fb ac" onclick="fSt('all',this)">Todos</button><button class="fb" onclick="fSt('quente',this)">🔥 Quentes</button><button class="fb" onclick="fSt('agendado',this)">📅 Agendados</button><button class="bf" onclick="oAdd()">+ NOVO LEAD</button><button class="fb" onclick="oImp()" style="margin-left:4px">📥 IMPORTAR</button></div><div class="pl" id="pb"></div></div>
+<div id="vl" style="display:none"><div class="ph"><div class="pt">TODOS OS LEADS</div><div class="pm" id="lc"></div></div><div class="tb"><input class="sr" placeholder="Buscar..." oninput="dSr(this.value)"><button class="bf" onclick="oAdd()">+ NOVO LEAD</button><button class="fb" onclick="oImp()" style="margin-left:4px">📥 IMPORTAR</button></div><div class="tw"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Segmento</th><th>Porte</th><th>Canal</th><th>Score</th><th>Status</th><th>Ticket</th><th>Contato</th></tr></thead><tbody id="lt"></tbody></table></div></div>
+<div id="vc" style="display:none"><div class="ph"><div class="pt">CLIENTES ATIVOS</div></div><div class="tb"><button class="bf" onclick="oAdd()">+ NOVO LEAD</button><button class="fb" onclick="oImp()" style="margin-left:4px">📥 IMPORTAR</button></div><div class="tw"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Segmento</th><th>Módulos</th><th>Ticket/mês</th><th>Setup</th><th>Desde</th></tr></thead><tbody id="ct"></tbody></table></div></div>
 </main></div></div>
 <div class="ov" id="od"><div class="mo2"><div class="mh"><div class="mt2" id="dn"></div><button class="mc" onclick="cM('od')">✕</button></div><div class="mb"><div class="smv"><button class="smb" onclick="mS(-1)">◀</button><span id="ds"></span><button class="smb" onclick="mS(1)">▶</button></div><div class="mg"><div class="mfi"><div class="ml2">Empresa</div><div class="mv" id="dco"></div></div><div class="mfi"><div class="ml2">Segmento</div><div class="mv" id="dsg"></div></div><div class="mfi"><div class="ml2">Porte</div><div class="mv" id="dpo"></div></div><div class="mfi"><div class="ml2">Canal</div><div class="mv" id="dca"></div></div><div class="mfi"><div class="ml2">Score</div><div class="mv" id="dsc"></div></div><div class="mfi"><div class="ml2">Status</div><div class="mv" id="dst"></div></div><div class="mfi"><div class="ml2">WhatsApp</div><div class="mv" id="dwa"></div></div><div class="mfi"><div class="ml2">Email</div><div class="mv" id="dem"></div></div><div class="mfi"><div class="ml2">Cargo</div><div class="mv" id="dcg"></div></div><div class="mfi"><div class="ml2">Ticket</div><div class="mv go" id="dtk"></div></div><div class="mfi"><div class="ml2">Setup Fee</div><div class="mv" id="dsp"></div></div><div class="mfi"><div class="ml2">Módulos</div><div class="mv" id="dmd"></div></div></div><div class="mfi"><div class="ml2">Dor Principal</div><div class="dr" id="ddr"></div></div><div class="mfi"><div class="ml2">Diagnóstico / Notas</div><div class="dg" id="ddg"></div></div></div><div class="mf2"><button class="ma dr2" onclick="dL2()">Excluir</button><button class="ma" onclick="eL()">Editar</button><button class="ma pr" onclick="gW()">📱 WhatsApp</button></div></div></div>
 <div class="ov" id="of"><div class="mo2"><div class="mh"><div class="mt2" id="ft"></div><button class="mc" onclick="cM('of')">✕</button></div><div class="mb"><input type="hidden" id="fId"><div class="fgd"><div class="fg2"><label class="fl">Nome <span class="rq">*</span></label><input class="fi2" id="fN" placeholder="Nome completo"></div><div class="fg2"><label class="fl">Empresa</label><input class="fi2" id="fE" placeholder="Nome da empresa"></div><div class="fg2"><label class="fl">WhatsApp</label><input class="fi2" id="fW" placeholder="5511999998888"></div><div class="fg2"><label class="fl">Email</label><input class="fi2" id="fM" placeholder="email@empresa.com"></div></div><div class="fgd"><div class="fg2"><label class="fl">Segmento</label><select class="fs2" id="fSg2"><option value="">Selecionar...</option><option>Advocacia</option><option>Consultório / Clínica</option><option>Ótica / Varejo</option><option>Administradora de Condomínio</option><option>Shopping Center</option><option>Distribuidor de Bebidas</option><option>Contabilidade</option><option>Indústria / Serviços</option><option>Outro</option></select></div><div class="fg2"><label class="fl">Porte</label><select class="fs2" id="fPo2"><option value="PME">PME</option><option value="Enterprise">Enterprise</option></select></div><div class="fg2"><label class="fl">Canal</label><select class="fs2" id="fCn"><option>WhatsApp</option><option>Instagram</option><option>Site</option><option>Indicação</option><option>Outbound</option><option>LinkedIn</option></select></div><div class="fg2"><label class="fl">Cargo</label><select class="fs2" id="fCg" onchange="cSc()"><option>Sócio / Dono</option><option>CEO / Presidente</option><option>Diretor</option><option>Gerente</option><option>Outro</option></select></div></div><div class="fgd"><div class="fg2"><label class="fl">Ticket Estimado</label><input class="fi2" id="fT" placeholder="R$ 2.500/mês"></div><div class="fg2"><label class="fl">Setup Fee</label><input class="fi2" id="fSp" placeholder="R$ 1.500"></div><div class="fg2"><label class="fl">Módulos</label><input class="fi2" id="fMd" placeholder="Atendimento, Financeiro..."></div><div class="fg2"><label class="fl">Stage</label><select class="fs2" id="fSt2"><option value="novo">Novo</option><option value="qualificado">Qualificado</option><option value="conversa">Em Conversa</option><option value="agendado">Agendado</option><option value="proposta">Proposta Enviada</option><option value="cliente">Cliente Ativo</option><option value="perdido">Perdido</option></select></div></div><div class="fg2"><label class="fl">Dor Principal</label><textarea class="fta" id="fDr" placeholder="O que o lead disse..."></textarea></div><div class="fg2"><label class="fl">Diagnóstico / Notas</label><textarea class="fta" id="fDg" placeholder="Mini-plano, próximos passos..."></textarea></div><input type="hidden" id="fSc"></div><div class="mf2"><button class="ma" onclick="cM('of')">Cancelar</button><button class="ma pr" onclick="sL()">SALVAR</button></div></div></div>
 <div class="ov" id="ow"><div class="mo2" style="max-width:400px"><div class="mh"><div class="mt2">WORKSPACES</div><button class="mc" onclick="cM('ow')">✕</button></div><div class="mb"><p style="font-size:12px;color:var(--ash);margin-bottom:16px;line-height:1.5">Cada workspace é um CRM isolado — seu ou do seu cliente.</p><div id="wl"></div><div class="wa2" onclick="aWS()">+ Novo Workspace</div></div></div></div>
+<div class="ov" id="oimp">
+<div class="mo2" style="max-width:640px">
+<div class="mh"><div class="mt2">IMPORTAR CONTATOS</div><button class="mc" onclick="cM('oimp')">✕</button></div>
+<div class="mb">
+<p style="font-size:12px;color:var(--ash);margin-bottom:20px;line-height:1.6">Faça upload de um arquivo <b style="color:var(--bone)">CSV ou Excel (.xlsx)</b>.<br>A primeira linha deve ser o cabeçalho. Mapeie as colunas abaixo.</p>
+<div style="border:2px dashed var(--steel);padding:32px;text-align:center;margin-bottom:20px;cursor:pointer" onclick="document.getElementById('fUpload').click()" id="dropZone">
+  <div style="font-size:32px;margin-bottom:8px">📂</div>
+  <div style="font-size:13px;color:var(--fog)">Clique para selecionar ou arraste o arquivo aqui</div>
+  <div style="font-size:11px;color:var(--ash);margin-top:4px">CSV ou XLSX — máximo 1.000 contatos</div>
+  <input type="file" id="fUpload" accept=".csv,.xlsx,.xls" style="display:none" onchange="loadFile(this)">
+</div>
+<div id="impPreview" style="display:none">
+  <div style="font-size:11px;color:var(--green);margin-bottom:16px;font-family:Space Mono,monospace" id="impStatus"></div>
+  <div class="fgd" style="margin-bottom:16px">
+    <div class="fg2"><label class="fl">Coluna → Nome</label><select class="fs2" id="mNome"></select></div>
+    <div class="fg2"><label class="fl">Coluna → Empresa</label><select class="fs2" id="mEmpresa"></select></div>
+    <div class="fg2"><label class="fl">Coluna → WhatsApp</label><select class="fs2" id="mWA"></select></div>
+    <div class="fg2"><label class="fl">Coluna → Email</label><select class="fs2" id="mEmail"></select></div>
+    <div class="fg2"><label class="fl">Coluna → Segmento</label><select class="fs2" id="mSeg"></select></div>
+    <div class="fg2"><label class="fl">Coluna → Cargo</label><select class="fs2" id="mCargo"></select></div>
+  </div>
+  <div style="background:var(--graphite);border:1px solid var(--iron);overflow:auto;max-height:200px">
+    <table style="width:100%;font-size:11px;border-collapse:collapse">
+      <thead id="prevHead"></thead>
+      <tbody id="prevBody"></tbody>
+    </table>
+  </div>
+</div>
+</div>
+<div class="mf2">
+  <button class="ma" onclick="cM('oimp')">Cancelar</button>
+  <button class="ma pr" id="btnImport" onclick="doImport()" style="display:none">IMPORTAR LEADS</button>
+</div>
+</div>
+</div>
 <div class="tst" id="ts"></div>
 <script>
 const PW='omaproject2026',SK='oma-crm-v2';
@@ -199,6 +234,113 @@ function cM(id){document.getElementById(id).classList.remove('op');}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('op');}));
 function toast(m,t){const e=document.getElementById('ts');e.textContent=m;e.className=`tst sh ${t||''}`;setTimeout(()=>e.className='tst',2500);}
 function demo(){return[{id:1,ws:'oma',nome:'Carlos Mendes',empresa:'Mendes & Assoc.',seg:'Advocacia',porte:'PME',canal:'WhatsApp',cargo:'Sócio / Dono',wa:'5511991234567',email:'carlos@mendes.adv.br',score:80,stage:'agendado',ticket:'R$3.500/mês',setup:'R$2.500',modulos:'Controle Interno',dor:'Perde 3h/dia com prazos e cobrança',diag:'Controle Interno resolve.',time:'hoje'},{id:2,ws:'oma',nome:'Dra. Ana Luiza',empresa:'Clínica Vida',seg:'Consultório / Clínica',porte:'PME',canal:'Instagram',cargo:'Sócio / Dono',wa:'5511987654321',email:'ana@clinicavida.com',score:75,stage:'qualificado',ticket:'R$2.000/mês',setup:'R$1.500',modulos:'Agenda',dor:'5 faltas/semana sem aviso',diag:'Agente de Agenda resolve.',time:'hoje'},{id:3,ws:'oma',nome:'Marcos Oliveira',empresa:'Admin. Paulista',seg:'Administradora de Condomínio',porte:'Enterprise',canal:'Indicação',cargo:'CEO / Presidente',wa:'5511965432109',email:'marcos@adminpaulista.com',score:95,stage:'proposta',ticket:'R$18.000/mês',setup:'R$8.000',modulos:'Atendimento, Controle, Comunicação',dor:'42 condomínios, backoffice manual',diag:'Automação completa. Escalar Fabio.',time:'hoje'},{id:4,ws:'oma',nome:'Rafael Nunes',empresa:'Studio Médico',seg:'Consultório / Clínica',porte:'PME',canal:'Indicação',cargo:'Sócio / Dono',wa:'5511887654321',email:'rafael@studiomedico.com',score:90,stage:'cliente',ticket:'R$2.000/mês',setup:'R$1.500',modulos:'Agenda, Atendimento',dor:'Fechado',diag:'CLIENTE ATIVO desde 20/03/2026',time:'hoje'}];}
+
+// ── IMPORT ────────────────────────────────────────────────────────
+let impRows=[], impHeaders=[];
+
+function oImp(){
+  document.getElementById('impPreview').style.display='none';
+  document.getElementById('btnImport').style.display='none';
+  document.getElementById('fUpload').value='';
+  document.getElementById('oimp').classList.add('op');
+}
+
+function loadFile(input){
+  const file=input.files[0]; if(!file)return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  if(ext==='csv'){
+    const reader=new FileReader();
+    reader.onload=e=>parseCSV(e.target.result);
+    reader.readAsText(file,'UTF-8');
+  } else if(ext==='xlsx'||ext==='xls'){
+    const reader=new FileReader();
+    reader.onload=e=>parseXLSX(e.target.result);
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+function parseCSV(text){
+  const lines=text.trim().split(/\r?\n/);
+  if(lines.length<2){toast('Arquivo vazio ou inválido','er');return;}
+  impHeaders=lines[0].split(/[,;\t]/).map(h=>h.trim().replace(/^"|"$/g,''));
+  impRows=lines.slice(1).filter(l=>l.trim()).map(l=>l.split(/[,;\t]/).map(c=>c.trim().replace(/^"|"$/g,'')));
+  showPreview();
+}
+
+function parseXLSX(buf){
+  // Fallback simples para XLSX — lê como binário e extrai texto
+  try {
+    const bytes=new Uint8Array(buf);
+    const str=new TextDecoder('utf-8',{fatal:false}).decode(bytes);
+    // Tenta extrair strings XML do XLSX
+    const strings=[];
+    const re=/<t[^>]*>([^<]+)<\/t>/g;
+    let m;
+    while((m=re.exec(str))!==null) strings.push(m[1]);
+    if(strings.length<2){toast('Não foi possível ler o XLSX. Tente exportar como CSV.','er');return;}
+    // Heurística: primeira linha como headers, resto como dados
+    // Para XLSX complexo, recomendar CSV
+    toast('XLSX detectado. Para melhor resultado, exporte como CSV.','ok');
+    // Tenta processar mesmo assim com os primeiros valores
+    const cols=Math.min(10,Math.floor(strings.length/2));
+    impHeaders=strings.slice(0,cols);
+    impRows=[strings.slice(cols,cols*2)];
+    showPreview();
+  } catch(e) {
+    toast('Erro ao ler XLSX. Por favor exporte como CSV.','er');
+  }
+}
+
+function showPreview(){
+  document.getElementById('impStatus').textContent=`✅ ${impRows.length} contatos encontrados · ${impHeaders.length} colunas`;
+  // Preenche selects de mapeamento
+  const opts='<option value="">— ignorar —</option>'+impHeaders.map((h,i)=>`<option value="${i}">${h}</option>`).join('');
+  ['mNome','mEmpresa','mWA','mEmail','mSeg','mCargo'].forEach(id=>{
+    document.getElementById(id).innerHTML=opts;
+  });
+  // Auto-mapeamento inteligente
+  const map={mNome:['nome','name','contato','contact'],mEmpresa:['empresa','company','negócio','loja'],mWA:['whatsapp','wa','celular','telefone','phone','fone'],mEmail:['email','e-mail','mail'],mSeg:['segmento','segment','ramo','setor'],mCargo:['cargo','função','role','posição']};
+  Object.entries(map).forEach(([id,keys])=>{
+    const idx=impHeaders.findIndex(h=>keys.some(k=>h.toLowerCase().includes(k)));
+    if(idx>=0) document.getElementById(id).value=idx;
+  });
+  // Preview tabela
+  const head=document.getElementById('prevHead');
+  const body=document.getElementById('prevBody');
+  head.innerHTML='<tr>'+impHeaders.map(h=>`<th style="padding:6px 10px;background:var(--graphite);color:var(--ash);text-align:left;font-size:9px;letter-spacing:1px;white-space:nowrap">${x(h)}</th>`).join('')+'</tr>';
+  body.innerHTML=impRows.slice(0,5).map(r=>'<tr>'+impHeaders.map((_,i)=>`<td style="padding:5px 10px;border-bottom:1px solid var(--iron);color:var(--fog);font-size:11px;white-space:nowrap">${x(r[i]||'')}</td>`).join('')+'</tr>').join('');
+  document.getElementById('impPreview').style.display='block';
+  document.getElementById('btnImport').style.display='block';
+}
+
+function doImport(){
+  const get=id=>{const v=document.getElementById(id).value;return v===''?null:parseInt(v);};
+  const iN=get('mNome'),iE=get('mEmpresa'),iW=get('mWA'),iM=get('mEmail'),iS=get('mSeg'),iC=get('mCargo');
+  if(iN===null){toast('Mapeie pelo menos a coluna Nome','er');return;}
+  let count=0;
+  impRows.forEach(row=>{
+    const nome=(row[iN]||'').trim(); if(!nome)return;
+    const lead={
+      id:Date.now()+Math.random(),ws:S.currentWS,
+      nome,
+      empresa:iE!==null?row[iE]||'':'',
+      wa:iW!==null?row[iW]||'':'',
+      email:iM!==null?row[iM]||'':'',
+      seg:iS!==null?row[iS]||'':'',
+      cargo:iC!==null?row[iC]||'Sócio / Dono':'Sócio / Dono',
+      porte:'PME',canal:'Importado',
+      score:40,stage:'novo',
+      ticket:'',setup:'',modulos:'',dor:'',diag:'',
+      time:new Date().toLocaleDateString('pt-BR'),
+    };
+    if(!S.leads)S.leads=[];
+    S.leads.unshift(lead);
+    count++;
+  });
+  sv();F=wl();render();cM('oimp');
+  toast(`${count} leads importados com sucesso!`,'ok');
+}
+
 if(sessionStorage.getItem('a')==='1'){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{setTimeout(()=>document.getElementById('ldr').classList.add('h'),1200);}
 </script>
 </body>
