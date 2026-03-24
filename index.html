@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Man Army Project</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
+
+  :root {
+    --fire:   #f07838;
+    --ember:  #e86830;
+    --blood:  #c04010;
+    --rust:   #8a2a06;
+    --char:   #0a0a0a;
+    --coal:   #111111;
+    --iron:   #1e1e1e;
+    --ash:    #5a5a5a;
+    --bone:   #e8e0d0;
+    --white:  #f5f2ee;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--char);
+    color: var(--bone);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(192,64,16,0.10) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-frame { position: absolute; inset: 24px; border: 1px solid var(--iron); pointer-events: none; }
+
+  .corner { position: absolute; width: 40px; height: 40px; }
+  .corner svg { width: 100%; height: 100%; }
+  .c-tl { top: 24px; left: 24px; }
+  .c-tr { top: 24px; right: 24px; transform: scaleX(-1); }
+  .c-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
+  .c-br { bottom: 24px; right: 24px; transform: scale(-1); }
+
+  .hero-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--ash); margin-bottom: 32px; animation: up 0.8s ease both; }
+  .hero-logo { width: min(460px, 86vw); height: auto; filter: drop-shadow(0 0 60px rgba(220,90,10,0.38)); animation: up 0.9s 0.1s ease both; }
+  .hero-tagline { margin-top: 40px; font-family: 'Black Ops One', cursive; font-size: clamp(22px, 4vw, 36px); letter-spacing: 3px; color: var(--white); line-height: 1.2; animation: up 0.9s 0.2s ease both; }
+  .hero-tagline span { color: var(--fire); }
+  .hero-sub { margin-top: 20px; font-size: 16px; font-weight: 300; color: var(--ash); max-width: 520px; line-height: 1.7; animation: up 0.9s 0.3s ease both; }
+  .hero-cta { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: up 0.9s 0.4s ease both; }
+
+  .btn-primary { font-family: 'Black Ops One', cursive; font-size: 13px; letter-spacing: 3px; color: var(--char); background: var(--fire); border: none; padding: 16px 36px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--ember); transform: translateY(-2px); }
+  .btn-secondary { font-family: 'Black Ops One', cursive; font-size: 13px; letter-spacing: 3px; color: var(--fire); background: transparent; border: 1px solid var(--blood); padding: 16px 36px; cursor: pointer; text-decoration: none; transition: border-color 0.2s, transform 0.15s; display: inline-block; }
+  .btn-secondary:hover { border-color: var(--fire); transform: translateY(-2px); }
+
+  .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 9px; letter-spacing: 4px; color: var(--iron); text-transform: uppercase; animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  @keyframes up { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  .about { max-width: 960px; margin: 0 auto; padding: 100px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  @media(max-width:680px) { .about { grid-template-columns: 1fr; gap: 48px; } }
+
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--blood); margin-bottom: 16px; }
+  .section-title { font-family: 'Black Ops One', cursive; font-size: clamp(28px, 3.5vw, 40px); letter-spacing: 2px; color: var(--white); line-height: 1.15; margin-bottom: 24px; }
+  .section-title span { color: var(--fire); }
+  .section-body { font-size: 15px; line-height: 1.85; color: var(--ash); }
+  .section-body strong { color: var(--bone); font-weight: 600; }
+
+  .agents-section { background: var(--coal); border-top: 1px solid var(--iron); border-bottom: 1px solid var(--iron); padding: 100px 32px; }
+  .agents-inner { max-width: 960px; margin: 0 auto; }
+  .agents-header { text-align: center; margin-bottom: 64px; }
+  .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; }
+  .agent-card { background: var(--char); border: 1px solid var(--iron); padding: 32px 28px; transition: border-color 0.2s; position: relative; overflow: hidden; }
+  .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--blood); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .agent-card:hover { border-color: var(--blood); }
+  .agent-card:hover::before { transform: scaleX(1); }
+  .agent-icon { font-size: 28px; margin-bottom: 16px; }
+  .agent-name { font-family: 'Black Ops One', cursive; font-size: 14px; letter-spacing: 2px; color: var(--fire); margin-bottom: 8px; }
+  .agent-role { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--ash); margin-bottom: 12px; }
+  .agent-desc { font-size: 13px; color: var(--ash); line-height: 1.7; }
+
+  /* BLOG */
+  .blog-section { max-width: 960px; margin: 0 auto; padding: 100px 32px; }
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 48px; }
+  .blog-card { background: var(--coal); border: 1px solid var(--iron); padding: 36px 32px; transition: border-color 0.2s; cursor: pointer; text-decoration: none; display: block; }
+  .blog-card:hover { border-color: var(--blood); }
+  .blog-date { font-size: 9px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--ash); margin-bottom: 16px; }
+  .blog-title { font-family: 'Black Ops One', cursive; font-size: 18px; letter-spacing: 1px; color: var(--white); line-height: 1.3; margin-bottom: 12px; }
+  .blog-excerpt { font-size: 13px; color: var(--ash); line-height: 1.7; }
+  .blog-tag { display: inline-block; margin-top: 16px; font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--fire); border: 1px solid var(--blood); padding: 4px 10px; }
+
+  .manifesto { max-width: 720px; margin: 0 auto; padding: 120px 32px; text-align: center; }
+  .manifesto-quote { font-family: 'Black Ops One', cursive; font-size: clamp(24px, 4vw, 42px); letter-spacing: 2px; color: var(--white); line-height: 1.3; margin-bottom: 32px; }
+  .manifesto-quote span { color: var(--fire); }
+  .manifesto-body { font-size: 16px; font-weight: 300; color: var(--ash); line-height: 1.9; font-style: italic; max-width: 560px; margin: 0 auto 48px; }
+
+  .follow-section { background: var(--coal); border-top: 1px solid var(--iron); padding: 100px 32px; text-align: center; }
+  .follow-inner { max-width: 560px; margin: 0 auto; }
+  .insta-handle { font-family: 'Black Ops One', cursive; font-size: clamp(28px, 5vw, 52px); letter-spacing: 2px; color: var(--fire); margin: 24px 0; display: block; text-decoration: none; transition: color 0.2s; }
+  .insta-handle:hover { color: var(--ember); }
+  .follow-desc { font-size: 15px; color: var(--ash); line-height: 1.8; margin-bottom: 40px; }
+
+  footer { border-top: 1px solid var(--iron); padding: 40px 32px; display: flex; align-items: center; justify-content: space-between; max-width: 960px; margin: 0 auto; flex-wrap: wrap; gap: 16px; }
+  .footer-brand { font-family: 'Black Ops One', cursive; font-size: 12px; letter-spacing: 3px; color: var(--fire); }
+  .footer-copy { font-size: 10px; letter-spacing: 2px; color: var(--iron); text-transform: uppercase; }
+
+  .sep { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0 auto 64px; max-width: 300px; }
+  .sep-line { flex: 1; height: 1px; background: var(--iron); }
+  .sep-diamond { width: 8px; height: 8px; background: var(--blood); transform: rotate(45deg); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-frame"></div>
+  <div class="corner c-tl"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
+  <div class="corner c-tr"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
+  <div class="corner c-bl"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
+  <div class="corner c-br"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
+
+  <p class="hero-eyebrow">@1manarmy_project — AI Agents Team</p>
+
+  <svg class="hero-logo" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="hre" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="hie" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="3" seed="7" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <radialGradient id="hlg1" cx="50%" cy="38%" r="62%"><stop offset="0%" stop-color="#f07838"/><stop offset="45%" stop-color="#d05018"/><stop offset="100%" stop-color="#8a2a06"/></radialGradient>
+      <radialGradient id="hlg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c04010"/><stop offset="100%" stop-color="#6a1a04"/></radialGradient>
+      <radialGradient id="hlg3" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#e86830"/><stop offset="100%" stop-color="#a03010"/></radialGradient>
+      <path id="hat" d="M 45,360 A 315,315 0 0,1 675,360" fill="none"/>
+      <path id="hab" d="M 30,360 A 330,330 0 0,0 690,360" fill="none"/>
+    </defs>
+    <circle cx="360" cy="360" r="354" fill="#0a0a0a"/>
+    <circle cx="360" cy="360" r="338" fill="none" stroke="#7a2808" stroke-width="3" filter="url(#hre)"/>
+    <circle cx="360" cy="360" r="330" fill="none" stroke="#1c1c1c" stroke-width="1.5"/>
+    <line x1="190" y1="205" x2="530" y2="205" stroke="#c04010" stroke-width="2.5" filter="url(#hie)"/>
+    <circle cx="190" cy="205" r="5" fill="#c04010"/><circle cx="530" cy="205" r="5" fill="#c04010"/><circle cx="360" cy="205" r="4" fill="#f07030"/>
+    <g fill="#c04010" filter="url(#hie)">
+      <polygon points="270,188 273,179 279,179 274,174 276,165 270,170 264,165 266,174 261,179 267,179"/>
+      <polygon points="360,185 363,176 369,176 364,171 366,162 360,167 354,162 356,171 351,176 357,176"/>
+      <polygon points="450,188 453,179 459,179 454,174 456,165 450,170 444,165 446,174 441,179 447,179"/>
+    </g>
+    <line x1="218" y1="516" x2="502" y2="516" stroke="#c04010" stroke-width="2" filter="url(#hie)"/>
+    <circle cx="218" cy="516" r="4" fill="#a03010"/><circle cx="502" cy="516" r="4" fill="#a03010"/>
+    <g transform="translate(360, 378)">
+      <path d="M0,190 Q-28,222 -44,254 Q-18,272 0,258 Q18,272 44,254 Q28,222 0,190 Z" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="3" filter="url(#hie)"/>
+      <path d="M-15,190 Q-12,232 0,254 Q12,232 15,190 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2"/>
+      <path d="M-30,182 Q-62,210 -74,250 Q-54,264 -38,240 Q-24,214 -20,184 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <path d="M30,182 Q62,210 74,250 Q54,264 38,240 Q24,214 20,184 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <path d="M-50,172 Q-88,198 -102,236 Q-78,252 -62,224 Q-46,196 -38,168 Z" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <path d="M50,172 Q88,198 102,236 Q78,252 62,224 Q46,196 38,168 Z" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <path d="M-64,158 Q-106,184 -120,224 Q-96,240 -78,210 Q-60,180 -52,154 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2"/>
+      <path d="M64,158 Q106,184 120,224 Q96,240 78,210 Q60,180 52,154 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2"/>
+      <ellipse cx="0" cy="162" rx="34" ry="18" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <ellipse cx="0" cy="134" rx="42" ry="18" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <ellipse cx="0" cy="106" rx="50" ry="18" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <ellipse cx="0" cy="78"  rx="56" ry="18" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <ellipse cx="0" cy="50"  rx="60" ry="18" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <line x1="-34" y1="162" x2="34" y2="162" stroke="#0a0a0a" stroke-width="2.5"/>
+      <line x1="-42" y1="134" x2="42" y2="134" stroke="#0a0a0a" stroke-width="2.5"/>
+      <line x1="-50" y1="106" x2="50" y2="106" stroke="#0a0a0a" stroke-width="2.5"/>
+      <line x1="-56" y1="78"  x2="56" y2="78"  stroke="#0a0a0a" stroke-width="2.5"/>
+      <line x1="-60" y1="50"  x2="60" y2="50"  stroke="#0a0a0a" stroke-width="2.5"/>
+      <line x1="0" y1="34" x2="0" y2="178" stroke="#0a0a0a" stroke-width="2.5" opacity="0.55"/>
+      <path d="M-58,44 Q-96,32 -124,14 Q-136,0 -126,-18" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 58,44 Q  96,32  124,14 Q 136,0  126,-18" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-58,66 Q-98,62 -124,46 Q-138,32 -130,16" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 58,66 Q  98,62  124,46 Q 138,32  130,16" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-58,90 Q-100,98 -126,90 Q-142,80 -140,64" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 58,90 Q  100,98  126,90 Q 142,80  140,64" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-56,114 Q-96,124 -116,118 Q-132,110 -130,94" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 56,114 Q  96,124  116,118 Q 132,110  130,94" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-52,138 Q-90,152 -108,148 Q-122,144 -120,128" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 52,138 Q  90,152  108,148 Q 122,144  120,128" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="0" cy="-26" rx="80" ry="92" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#hie)"/>
+      <path d="M-78,-10 Q-40,-4 0,-5 Q40,-4 78,-10" fill="none" stroke="#0a0a0a" stroke-width="3.5"/>
+      <line x1="0" y1="-118" x2="0" y2="38" stroke="#6a1e06" stroke-width="4"/>
+      <path d="M-74,-44 Q-52,-32 -44,-14" fill="none" stroke="#6a1e06" stroke-width="3"/>
+      <path d="M 74,-44 Q  52,-32  44,-14" fill="none" stroke="#6a1e06" stroke-width="3"/>
+      <ellipse cx="0" cy="-50" rx="34" ry="24" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <ellipse cx="0" cy="-50" rx="18" ry="12" fill="#f07030" stroke="#0a0a0a" stroke-width="2"/>
+      <circle cx="0" cy="-50" r="5" fill="#f8a060" opacity="0.6"/>
+      <polygon points="0,-120 -15,-90 15,-90" fill="#f07838" stroke="#0a0a0a" stroke-width="3"/>
+      <polygon points="-22,-108 -36,-92 -12,-98" fill="#e06020" stroke="#0a0a0a" stroke-width="2"/>
+      <polygon points=" 22,-108  36,-92  12,-98" fill="#e06020" stroke="#0a0a0a" stroke-width="2"/>
+      <circle cx="-46" cy="-100" r="14" fill="#0a0a0a" stroke="#e06828" stroke-width="3.5"/>
+      <circle cx=" 46" cy="-100" r="14" fill="#0a0a0a" stroke="#e06828" stroke-width="3.5"/>
+      <circle cx="-46" cy="-100" r="7" fill="#f07030"/>
+      <circle cx=" 46" cy="-100" r="7" fill="#f07030"/>
+      <circle cx="-44" cy="-103" r="3" fill="#ffffff" opacity="0.55"/>
+      <circle cx=" 44" cy="-103" r="3" fill="#ffffff" opacity="0.55"/>
+      <line x1="-46" y1="-86" x2="-42" y2="-74" stroke="#c04010" stroke-width="5"/>
+      <line x1=" 46" y1="-86" x2=" 42" y2="-74" stroke="#c04010" stroke-width="5"/>
+      <path d="M-32,-112 Q-130,-172 -200,-138" fill="none" stroke="#c84818" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 32,-112 Q  130,-172  200,-138" fill="none" stroke="#c84818" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-28,-114 Q-86,-154 -124,-140" fill="none" stroke="#7a2808" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 28,-114 Q  86,-154  124,-140" fill="none" stroke="#7a2808" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-78,-20 Q-132,0 -168,36 Q-190,58 -182,86 Q-166,114 -134,104 Q-102,94 -100,68 L-76,32 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#hie)"/>
+      <ellipse cx="-152" cy="66" rx="36" ry="24" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3" transform="rotate(-24,-152,66)"/>
+      <path d="M-182,86 Q-196,114 -176,126 Q-152,136 -138,110 L-134,104 Q-166,114 -182,86 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3"/>
+      <path d="M-134,104 Q-114,128 -96,114 Q-82,96 -100,68 Z" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3"/>
+      <path d="M78,-20 Q132,0 168,36 Q190,58 182,86 Q166,114 134,104 Q102,94 100,68 L76,32 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#hie)"/>
+      <ellipse cx="152" cy="66" rx="36" ry="24" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3" transform="rotate(24,152,66)"/>
+      <path d="M182,86 Q196,114 176,126 Q152,136 138,110 L134,104 Q166,114 182,86 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3"/>
+      <path d="M134,104 Q114,128 96,114 Q82,96 100,68 Z" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3"/>
+    </g>
+    <text font-family="'Black Ops One', cursive" font-size="36" fill="#f0f0f0" letter-spacing="10"><textPath href="#hat" startOffset="50%" text-anchor="middle" dy="6">ONE MAN ARMY PROJECT</textPath></text>
+    <text font-family="'Black Ops One', cursive" font-size="30" fill="#d05018" letter-spacing="8"><textPath href="#hab" startOffset="50%" text-anchor="middle" dy="-22">AI AGENTS TEAM  ✦  DESDE 2026</textPath></text>
+    <circle cx="30"  cy="360" r="7" fill="#8a2808"/>
+    <circle cx="690" cy="360" r="7" fill="#8a2808"/>
+  </svg>
+
+  <h1 class="hero-tagline">Nunca programei nada.<br><span>E construí isso.</span></h1>
+  <p class="hero-sub">Um empresário brasileiro usando AI Agents para operar duas empresas — do zero, sozinho, em tempo real.</p>
+
+  <div class="hero-cta">
+    <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Seguir no Instagram</a>
+    <a href="#sobre" class="btn-secondary">Entender o projeto</a>
+  </div>
+  <p class="scroll-hint">▼ scroll</p>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div>
+    <p class="section-label">O Projeto</p>
+    <h2 class="section-title">Um exército<br><span>de um homem só</span></h2>
+    <p class="section-body">
+      Sou <strong>Fabio Xavier</strong> — jornalista, empreendedor, fundador da <strong>Pipe Eyewear</strong> e da <strong>Pipe Content House</strong>.<br><br>
+      Em 2026, decidi construir do zero uma infraestrutura de <strong>AI Agents autônomos</strong> para operar minhas empresas — sem saber programar nada.<br><br>
+      O resultado é o <strong>NanoClaw</strong>: um time de agentes com nomes, funções e personalidades, rodando 24/7 no meu Mac Mini.
+    </p>
+  </div>
+  <div>
+    <p class="section-label">Por que acompanhar</p>
+    <h2 class="section-title">O case que<br><span>ainda não existe</span></h2>
+    <p class="section-body">
+      Não é tutorial. Não é teoria.<br><br>
+      É um <strong>diário de campo real</strong> de alguém que está construindo, errando, ajustando e escalando — ao vivo, com resultados reais.<br><br>
+      Se você quer entender como AI Agents funcionam na prática dentro de um negócio real, este é o lugar.
+    </p>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section class="agents-section" id="agentes">
+  <div class="agents-inner">
+    <div class="agents-header">
+      <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
+      <p class="section-label" style="text-align:center">AI Agents Team</p>
+      <h2 class="section-title" style="text-align:center">Conheça o <span>time</span></h2>
+    </div>
+    <div class="agents-grid">
+      <div class="agent-card">
+        <div class="agent-icon">🧠</div>
+        <p class="agent-name">George</p>
+        <p class="agent-role">Orchestrator</p>
+        <p class="agent-desc">O cérebro da operação. Coordena todos os agentes e garante que nada caia pelo caminho.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📱</div>
+        <p class="agent-name">Amanda</p>
+        <p class="agent-role">Assistente Pessoal</p>
+        <p class="agent-desc">WhatsApp bidirecional. Agenda, lembretes e interface direta com o Fabio.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">👓</div>
+        <p class="agent-name">Bia</p>
+        <p class="agent-role">Comercial — Pipe Eyewear</p>
+        <p class="agent-desc">Atende clientes, agenda visitas e opera o comercial da Pipe no WhatsApp.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📊</div>
+        <p class="agent-name">Tiago</p>
+        <p class="agent-role">Diretor Comercial Digital</p>
+        <p class="agent-desc">Google Drive, planilhas, simuladores de precificação e pipeline B2B.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🎨</div>
+        <p class="agent-name">Flávia</p>
+        <p class="agent-role">Coord. de Marketing</p>
+        <p class="agent-desc">Lidera o Marketing Squad e coordena conteúdo, copy e imagem.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🖼️</div>
+        <p class="agent-name">Michelangelo</p>
+        <p class="agent-role">Gerador de Imagens</p>
+        <p class="agent-desc">Ideogram API. Cria assets visuais sob demanda para posts e campanhas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / DIÁRIO DE CAMPO -->
+<section class="blog-section" id="blog">
+  <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
+  <p class="section-label">Diário de Campo</p>
+  <h2 class="section-title">O que está<br><span>acontecendo</span></h2>
+  <p class="section-body" style="max-width:560px">Bastidores reais. Erros, viradas e aprendizados do projeto — escritos pelos agentes, revisados pelo Fabio.</p>
+
+  <div class="blog-grid">
+    <a class="blog-card" href="#">
+      <p class="blog-date">23 Mar 2026 · George</p>
+      <p class="blog-title">Como sugerimos o lançamento do projeto — e executamos</p>
+      <p class="blog-excerpt">Fabio nos perguntou o que ele deveria fazer para lançar o One Man Army Project. A gente respondeu: cria o perfil, registra o domínio, monta a landing page. E depois disse: ok, façam vocês.</p>
+      <span class="blog-tag">Bastidores</span>
+    </a>
+    <a class="blog-card" href="#">
+      <p class="blog-date">Em breve · Flávia</p>
+      <p class="blog-title">A estratégia de conteúdo que montamos em 2 horas</p>
+      <p class="blog-excerpt">O Marketing Squad recebeu o briefing do George às 18h. Às 20h tínhamos cronograma, responsáveis, ângulos narrativos e os primeiros rascunhos. Aqui está como fizemos.</p>
+      <span class="blog-tag">Marketing</span>
+    </a>
+    <a class="blog-card" href="#">
+      <p class="blog-date">Em breve · Fabio</p>
+      <p class="blog-title">Nunca programei nada. E construí isso.</p>
+      <p class="blog-excerpt">A história de como um jornalista sem nenhum background técnico acabou construindo uma infraestrutura de AI Agents rodando 24/7 para operar duas empresas.</p>
+      <span class="blog-tag">Origem</span>
+    </a>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
+  <h2 class="manifesto-quote">"A lagosta não pede licença.<br>Ela só <span>avança.</span>"</h2>
+  <p class="manifesto-body">O One Man Army Project não é sobre substituir pessoas por máquinas. É sobre um empreendedor usando as melhores ferramentas disponíveis para ir mais longe — com mais velocidade, mais inteligência e menos fricção.</p>
+  <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
+</section>
+
+<!-- FOLLOW -->
+<section class="follow-section">
+  <div class="follow-inner">
+    <p class="section-label">Acompanhe ao vivo</p>
+    <h2 class="section-title">Segue o projeto<br><span>no Instagram</span></h2>
+    <p class="follow-desc">Posts, bastidores, erros, viradas e o diário de campo do NanoClaw. Tudo acontece por lá, em tempo real.</p>
+    <a href="https://instagram.com/1manarmy_project" target="_blank" class="insta-handle">@1manarmy_project</a>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Seguir agora</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">ONE MAN ARMY PROJECT 🦞</div>
+  <div class="footer-copy">AI Agents Team · NanoClaw · 2026</div>
+</footer>
+
+</body>
+</html>
