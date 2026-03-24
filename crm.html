@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--char:#0a0a0a;--carbon:#111;--graphite:#1a1a1a;--iron:#222;--steel:#2e2e2e;--ash:#666;--fog:#888;--bone:#e4ddd3;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--blue:#4a90d9;--green:#4aaa70;--purple:#9070d0;}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.15),transparent 65%);}
+.lb{width:100%;max-width:360px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:28px;letter-spacing:4px;color:var(--bone);margin-bottom:4px;}.ll span{color:var(--fire);}
+.ls2{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
+.ll3{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);text-align:left;display:block;margin-bottom:8px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:12px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:16px;outline:none;transition:border-color .2s;margin-bottom:32px;}
+.li:focus{border-bottom-color:var(--fire);}
+.lb2{width:100%;background:var(--fire);border:none;color:var(--char);padding:14px;font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;cursor:pointer;}
+.lb2:hover{background:var(--ember);}
+.le{color:#ff6040;font-size:11px;margin-top:12px;font-family:'Space Mono',monospace;display:none;}
+#ldr{position:fixed;inset:0;background:var(--char);display:flex;align-items:center;justify-content:center;z-index:999;transition:opacity .4s;}
+#ldr.h{opacity:0;pointer-events:none;}
+.ll4{font-family:'Black Ops One',cursive;font-size:28px;letter-spacing:4px;color:var(--fire);text-align:center;}
+.ls3{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;text-align:center;margin-top:4px;}
+.lb3{width:180px;height:2px;background:var(--iron);margin:20px auto 0;overflow:hidden;}
+.lp{height:100%;background:var(--fire);animation:lda 1s ease forwards;}
+@keyframes lda{from{width:0}to{width:100%}}
+#app{display:none;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hbr{display:flex;align-items:center;gap:10px;}
+.hlo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;}.hlo span{color:var(--fire);}
+.hbg{background:var(--blood);color:var(--bone);font-family:'Space Mono',monospace;font-size:9px;padding:3px 7px;}
+.hst{display:flex;gap:24px;}
+.hsv{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--fire);line-height:1;}
+.hsl{font-size:9px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.hob{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;}
+.hob:hover{color:var(--bone);}
+.lay{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 56px);}
+.sb{background:var(--carbon);border-right:1px solid var(--iron);padding:20px 0;overflow-y:auto;}
+.nsl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);padding:0 16px;margin:20px 0 6px;}
+.nsl:first-child{margin-top:0;}
+.ni{display:flex;align-items:center;gap:8px;padding:9px 16px;cursor:pointer;font-size:12px;color:var(--fog);border-left:2px solid transparent;transition:all .15s;}
+.ni:hover{background:var(--graphite);color:var(--bone);}
+.ni.ac{background:var(--graphite);color:var(--bone);border-left-color:var(--fire);}
+.nc{margin-left:auto;font-family:'Space Mono',monospace;font-size:9px;padding:2px 5px;background:var(--steel);color:var(--ash);}
+.nc.ht{background:var(--blood);color:var(--bone);}
+.sp{height:1px;background:var(--iron);margin:12px 0;}
+.ws{margin:0 12px 16px;background:var(--graphite);border:1px solid var(--iron);padding:8px 10px;cursor:pointer;}
+.wsl{font-size:9px;letter-spacing:1px;color:var(--ash);text-transform:uppercase;margin-bottom:3px;}
+.wsc{font-size:12px;font-weight:600;color:var(--bone);display:flex;align-items:center;justify-content:space-between;}
+.mn{padding:24px 28px;overflow-y:auto;max-height:calc(100vh - 56px);}
+.ph{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;}
+.pt{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:2px;}
+.pm{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+.tb{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+.sr{flex:1;min-width:200px;max-width:300px;background:var(--graphite);border:1px solid var(--iron);padding:8px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;}
+.sr::placeholder{color:var(--ash);}
+.fb{background:var(--graphite);border:1px solid var(--iron);color:var(--fog);padding:8px 14px;font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;transition:all .15s;}
+.fb:hover,.fb.ac{background:var(--iron);color:var(--bone);}
+.bf{background:var(--fire);border:none;color:var(--char);padding:8px 18px;font-family:'Black Ops One',cursive;font-size:11px;cursor:pointer;letter-spacing:1px;transition:background .15s;margin-left:auto;}
+.bf:hover{background:var(--ember);}
+.pl{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;}
+.pl::-webkit-scrollbar{height:3px;}
+.pl::-webkit-scrollbar-thumb{background:var(--steel);}
+.st{min-width:170px;flex-shrink:0;}
+.shd{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;margin-bottom:10px;border-bottom:2px solid var(--iron);}
+.sn{border-color:var(--ash)}.sq{border-color:var(--blue)}.sc{border-color:var(--gold)}.sa{border-color:var(--purple)}.sp2{border-color:var(--fire)}.sk{border-color:var(--green)}.sx{border-color:var(--blood);}
+.sn2{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--fog);}
+.sc2{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+.cd{background:var(--graphite);border:1px solid var(--iron);padding:10px;margin-bottom:7px;cursor:pointer;transition:all .15s;position:relative;}
+.cd:hover{border-color:var(--steel);background:var(--iron);transform:translateY(-1px);}
+.cn{font-size:12px;font-weight:600;color:var(--bone);margin-bottom:3px;padding-right:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cc{font-size:10px;color:var(--ash);margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ct{display:flex;gap:4px;flex-wrap:wrap;}
+.tg{font-size:9px;padding:2px 5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.ts{background:var(--steel);color:var(--fog);}
+.tc{border:1px solid var(--steel);color:var(--ash);}
+.te{background:rgba(200,164,86,.15);color:var(--gold);}
+.cs{position:absolute;top:8px;right:8px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;}
+.hi{color:var(--green)}.mi{color:var(--gold)}.lo{color:var(--ash);}
+.ctm{font-size:9px;color:var(--ash);font-family:'Space Mono',monospace;margin-top:7px;}
+.ca{border:1px dashed var(--steel);padding:10px;text-align:center;color:var(--ash);font-size:10px;cursor:pointer;transition:all .15s;}
+.ca:hover{border-color:var(--fog);color:var(--fog);}
+.pu{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);animation:pla 2s infinite;margin-right:5px;vertical-align:middle;}
+@keyframes pla{0%,100%{opacity:1}50%{opacity:.3}}
+.tw{background:var(--carbon);border:1px solid var(--iron);overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead th{background:var(--graphite);padding:10px 14px;text-align:left;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ash);font-weight:700;border-bottom:1px solid var(--iron);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--iron);cursor:pointer;transition:background .1s;}
+tbody tr:hover{background:var(--graphite);}
+tbody tr:last-child{border-bottom:none;}
+td{padding:10px 14px;vertical-align:middle;}
+.fw{font-weight:600;}.dm{color:var(--fog);font-size:11px;}.mo{font-family:'Space Mono',monospace;font-size:11px;}.go{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);}
+.pi{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;}
+.pn{background:var(--steel);color:var(--fog);}.pq{background:rgba(74,144,217,.15);color:var(--blue);}.pco{background:rgba(200,164,86,.15);color:var(--gold);}.pag{background:rgba(144,112,208,.15);color:var(--purple);}.ppr{background:rgba(232,112,58,.2);color:var(--fire);}.pcl{background:rgba(74,170,112,.15);color:var(--green);}.ppe{background:rgba(122,34,4,.2);color:#ff6040;}.ppme{background:var(--steel);color:var(--fog);}.pent{background:rgba(200,164,86,.12);color:var(--gold);}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.ov.op{display:flex;}
+.mo2{background:var(--carbon);border:1px solid var(--steel);width:100%;max-width:600px;max-height:88vh;overflow-y:auto;display:flex;flex-direction:column;}
+.mh{padding:18px 22px;border-bottom:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--carbon);z-index:1;}
+.mt2{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:1px;}
+.mc{background:none;border:none;color:var(--ash);cursor:pointer;font-size:18px;}
+.mc:hover{color:var(--bone);}
+.mb{padding:22px;flex:1;}
+.mf2{padding:16px 22px;border-top:1px solid var(--iron);display:flex;gap:8px;position:sticky;bottom:0;background:var(--carbon);}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.mfi{margin-bottom:14px;}
+.ml2{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ash);margin-bottom:5px;}
+.mv{font-size:13px;color:var(--bone);}
+.dr{background:var(--graphite);border-left:3px solid var(--fire);padding:11px 14px;font-size:12px;color:var(--bone);line-height:1.5;margin-bottom:14px;}
+.dg{background:var(--graphite);border:1px solid var(--steel);padding:14px;font-size:12px;line-height:1.6;color:var(--fog);}
+.dg b{color:var(--fire);}
+.smv{display:flex;align-items:center;gap:8px;background:var(--graphite);padding:10px 14px;margin-bottom:14px;}
+.smv span{font-size:10px;color:var(--ash);flex:1;text-align:center;}
+.smb{background:var(--steel);border:none;color:var(--bone);padding:5px 12px;cursor:pointer;font-size:12px;}
+.smb:hover{background:var(--iron);}
+.ma{flex:1;padding:9px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid var(--steel);background:transparent;color:var(--fog);transition:all .15s;}
+.ma:hover{background:var(--graphite);color:var(--bone);}
+.ma.pr{background:var(--fire);border-color:var(--fire);color:var(--char);}
+.ma.pr:hover{background:var(--ember);}
+.ma.dr2{border-color:var(--blood);color:#ff6040;}
+.fg2{margin-bottom:14px;}
+.fl{display:block;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ash);margin-bottom:5px;}
+.fi2,.fs2,.fta{width:100%;background:var(--graphite);border:1px solid var(--iron);padding:9px 11px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;}
+.fi2::placeholder,.fta::placeholder{color:var(--ash);}
+.fs2 option{background:var(--graphite);}
+.fta{min-height:72px;resize:vertical;}
+.fgd{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.rq{color:var(--fire);}
+.wi{background:var(--graphite);border:1px solid var(--iron);padding:12px 14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.wi:hover{border-color:var(--steel);}
+.wi.cu{border-color:var(--fire);}
+.wn{font-weight:600;font-size:13px;}.wm{font-size:10px;color:var(--ash);margin-top:2px;}
+.wa2{border:1px dashed var(--steel);padding:10px 14px;cursor:pointer;text-align:center;color:var(--ash);font-size:11px;margin-top:10px;}
+.wa2:hover{border-color:var(--fog);color:var(--fog);}
+.tst{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--graphite);border:1px solid var(--steel);padding:10px 20px;font-size:11px;color:var(--bone);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Space Mono',monospace;white-space:nowrap;}
+.tst.sh{opacity:1;}.tst.ok{border-color:var(--green);color:var(--green);}.tst.er{border-color:#ff6040;color:#ff6040;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-thumb{background:var(--steel);}
+</style>
+</head>
+<body>
+<div id="ldr"><div><div class="ll4">OMA CRM</div><div class="ls3">🦞 ONE MAN ARMY PROJECT</div><div class="lb3"><div class="lp"></div></div></div></div>
+<div id="ls"><div class="lb"><div class="ll">OMA <span>CRM</span></div><div class="ls2">🦞 ONE MAN ARMY PROJECT</div><label class="ll3">Senha de acesso</label><input class="li" type="password" id="pi" placeholder="••••••••" onkeydown="if(event.key==='Enter')dL()"><button class="lb2" onclick="dL()">ENTRAR</button><div class="le" id="le">Senha incorreta</div></div></div>
+<div id="app">
+<header class="hdr"><div class="hbr"><div class="hlo">OMA <span>CRM</span></div><div class="hbg">🦞 v2.0</div></div><div class="hst"><div><div class="hsv" id="hT">0</div><div class="hsl">Leads</div></div><div><div class="hsv" id="hQ">0</div><div class="hsl">Quentes</div></div><div><div class="hsv" id="hP">R$0</div><div class="hsl">Pipeline</div></div><div><div class="hsv" id="hC">0</div><div class="hsl">Clientes</div></div></div><button class="hob" onclick="lo()">Sair</button></header>
+<div class="lay">
+<nav class="sb"><div class="ws" onclick="oWS()"><div class="wsl">Workspace</div><div class="wsc"><span id="wsN">OMA Project</span> ▾</div></div>
+<div class="nsl">Visões</div><div class="ni ac" onclick="sV('p',this)">⬛ Pipeline<span class="nc ht" id="nP">0</span></div><div class="ni" onclick="sV('l',this)">◻ Todos os Leads<span class="nc" id="nA">0</span></div><div class="ni" onclick="sV('c',this)">★ Clientes<span class="nc" id="nC">0</span></div>
+<div class="sp"></div><div class="nsl">Canais</div><div class="ni" onclick="fCan('WhatsApp',this)">📱 WhatsApp<span class="nc" id="nW">0</span></div><div class="ni" onclick="fCan('Instagram',this)">📸 Instagram<span class="nc" id="nI">0</span></div><div class="ni" onclick="fCan('Site',this)">🌐 Site<span class="nc" id="nS">0</span></div><div class="ni" onclick="fCan('Indicação',this)">🤝 Indicação<span class="nc" id="nIn">0</span></div>
+<div class="sp"></div><div class="nsl">Segmentos</div><div class="ni" onclick="fSg('Advocacia',this)">⚖️ Advocacia</div><div class="ni" onclick="fSg('Consultório',this)">🏥 Consultório</div><div class="ni" onclick="fSg('Ótica',this)">👓 Ótica/Varejo</div><div class="ni" onclick="fSg('Condomínio',this)">🏢 Condomínio</div><div class="ni" onclick="fSg('Shopping',this)">🛍️ Shopping</div><div class="ni" onclick="fSg('Distribuidor',this)">🍺 Distribuidor</div>
+<div class="sp"></div><div class="nsl">Porte</div><div class="ni" onclick="fPo('PME',this)">◾ PME</div><div class="ni" onclick="fPo('Enterprise',this)">◆ Enterprise</div></nav>
+<main class="mn">
+<div id="vp"><div class="ph"><div class="pt">PIPELINE</div><div class="pm" id="pd"></div></div><div class="tb"><input class="sr" placeholder="Buscar lead, empresa..." oninput="dSr(this.value)"><button class="fb ac" onclick="fSt('all',this)">Todos</button><button class="fb" onclick="fSt('quente',this)">🔥 Quentes</button><button class="fb" onclick="fSt('agendado',this)">📅 Agendados</button><button class="bf" onclick="oAdd()">+ NOVO LEAD</button></div><div class="pl" id="pb"></div></div>
+<div id="vl" style="display:none"><div class="ph"><div class="pt">TODOS OS LEADS</div><div class="pm" id="lc"></div></div><div class="tb"><input class="sr" placeholder="Buscar..." oninput="dSr(this.value)"><button class="bf" onclick="oAdd()">+ NOVO LEAD</button></div><div class="tw"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Segmento</th><th>Porte</th><th>Canal</th><th>Score</th><th>Status</th><th>Ticket</th><th>Contato</th></tr></thead><tbody id="lt"></tbody></table></div></div>
+<div id="vc" style="display:none"><div class="ph"><div class="pt">CLIENTES ATIVOS</div></div><div class="tb"><button class="bf" onclick="oAdd()">+ NOVO LEAD</button></div><div class="tw"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Segmento</th><th>Módulos</th><th>Ticket/mês</th><th>Setup</th><th>Desde</th></tr></thead><tbody id="ct"></tbody></table></div></div>
+</main></div></div>
+<div class="ov" id="od"><div class="mo2"><div class="mh"><div class="mt2" id="dn"></div><button class="mc" onclick="cM('od')">✕</button></div><div class="mb"><div class="smv"><button class="smb" onclick="mS(-1)">◀</button><span id="ds"></span><button class="smb" onclick="mS(1)">▶</button></div><div class="mg"><div class="mfi"><div class="ml2">Empresa</div><div class="mv" id="dco"></div></div><div class="mfi"><div class="ml2">Segmento</div><div class="mv" id="dsg"></div></div><div class="mfi"><div class="ml2">Porte</div><div class="mv" id="dpo"></div></div><div class="mfi"><div class="ml2">Canal</div><div class="mv" id="dca"></div></div><div class="mfi"><div class="ml2">Score</div><div class="mv" id="dsc"></div></div><div class="mfi"><div class="ml2">Status</div><div class="mv" id="dst"></div></div><div class="mfi"><div class="ml2">WhatsApp</div><div class="mv" id="dwa"></div></div><div class="mfi"><div class="ml2">Email</div><div class="mv" id="dem"></div></div><div class="mfi"><div class="ml2">Cargo</div><div class="mv" id="dcg"></div></div><div class="mfi"><div class="ml2">Ticket</div><div class="mv go" id="dtk"></div></div><div class="mfi"><div class="ml2">Setup Fee</div><div class="mv" id="dsp"></div></div><div class="mfi"><div class="ml2">Módulos</div><div class="mv" id="dmd"></div></div></div><div class="mfi"><div class="ml2">Dor Principal</div><div class="dr" id="ddr"></div></div><div class="mfi"><div class="ml2">Diagnóstico / Notas</div><div class="dg" id="ddg"></div></div></div><div class="mf2"><button class="ma dr2" onclick="dL2()">Excluir</button><button class="ma" onclick="eL()">Editar</button><button class="ma pr" onclick="gW()">📱 WhatsApp</button></div></div></div>
+<div class="ov" id="of"><div class="mo2"><div class="mh"><div class="mt2" id="ft"></div><button class="mc" onclick="cM('of')">✕</button></div><div class="mb"><input type="hidden" id="fId"><div class="fgd"><div class="fg2"><label class="fl">Nome <span class="rq">*</span></label><input class="fi2" id="fN" placeholder="Nome completo"></div><div class="fg2"><label class="fl">Empresa</label><input class="fi2" id="fE" placeholder="Nome da empresa"></div><div class="fg2"><label class="fl">WhatsApp</label><input class="fi2" id="fW" placeholder="5511999998888"></div><div class="fg2"><label class="fl">Email</label><input class="fi2" id="fM" placeholder="email@empresa.com"></div></div><div class="fgd"><div class="fg2"><label class="fl">Segmento</label><select class="fs2" id="fSg2"><option value="">Selecionar...</option><option>Advocacia</option><option>Consultório / Clínica</option><option>Ótica / Varejo</option><option>Administradora de Condomínio</option><option>Shopping Center</option><option>Distribuidor de Bebidas</option><option>Contabilidade</option><option>Indústria / Serviços</option><option>Outro</option></select></div><div class="fg2"><label class="fl">Porte</label><select class="fs2" id="fPo2"><option value="PME">PME</option><option value="Enterprise">Enterprise</option></select></div><div class="fg2"><label class="fl">Canal</label><select class="fs2" id="fCn"><option>WhatsApp</option><option>Instagram</option><option>Site</option><option>Indicação</option><option>Outbound</option><option>LinkedIn</option></select></div><div class="fg2"><label class="fl">Cargo</label><select class="fs2" id="fCg" onchange="cSc()"><option>Sócio / Dono</option><option>CEO / Presidente</option><option>Diretor</option><option>Gerente</option><option>Outro</option></select></div></div><div class="fgd"><div class="fg2"><label class="fl">Ticket Estimado</label><input class="fi2" id="fT" placeholder="R$ 2.500/mês"></div><div class="fg2"><label class="fl">Setup Fee</label><input class="fi2" id="fSp" placeholder="R$ 1.500"></div><div class="fg2"><label class="fl">Módulos</label><input class="fi2" id="fMd" placeholder="Atendimento, Financeiro..."></div><div class="fg2"><label class="fl">Stage</label><select class="fs2" id="fSt2"><option value="novo">Novo</option><option value="qualificado">Qualificado</option><option value="conversa">Em Conversa</option><option value="agendado">Agendado</option><option value="proposta">Proposta Enviada</option><option value="cliente">Cliente Ativo</option><option value="perdido">Perdido</option></select></div></div><div class="fg2"><label class="fl">Dor Principal</label><textarea class="fta" id="fDr" placeholder="O que o lead disse..."></textarea></div><div class="fg2"><label class="fl">Diagnóstico / Notas</label><textarea class="fta" id="fDg" placeholder="Mini-plano, próximos passos..."></textarea></div><input type="hidden" id="fSc"></div><div class="mf2"><button class="ma" onclick="cM('of')">Cancelar</button><button class="ma pr" onclick="sL()">SALVAR</button></div></div></div>
+<div class="ov" id="ow"><div class="mo2" style="max-width:400px"><div class="mh"><div class="mt2">WORKSPACES</div><button class="mc" onclick="cM('ow')">✕</button></div><div class="mb"><p style="font-size:12px;color:var(--ash);margin-bottom:16px;line-height:1.5">Cada workspace é um CRM isolado — seu ou do seu cliente.</p><div id="wl"></div><div class="wa2" onclick="aWS()">+ Novo Workspace</div></div></div></div>
+<div class="tst" id="ts"></div>
+<script>
+const PW='omaproject2026',SK='oma-crm-v2';
+const STS=[{id:'novo',l:'Novo',c:'sn'},{id:'qualificado',l:'Qualificado',c:'sq'},{id:'conversa',l:'Em Conversa',c:'sc'},{id:'agendado',l:'Agendado',c:'sa'},{id:'proposta',l:'Proposta',c:'sp2'},{id:'cliente',l:'Cliente',c:'sk'},{id:'perdido',l:'Perdido',c:'sx'}];
+const SCC={'Sócio / Dono':80,'CEO / Presidente':80,'Diretor':60,'Gerente':40,'Outro':25};
+let S={workspaces:[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}],currentWS:'oma',leads:[]},F=[],aid=null;
+function ld(){try{return JSON.parse(localStorage.getItem(SK));}catch{return null;}}
+function sv(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+function wl(){return(S.leads||[]).filter(l=>l.ws===S.currentWS);}
+function cw(){return(S.workspaces||[]).find(w=>w.id===S.currentWS)||{name:'OMA Project'};}
+function dL(){if(document.getElementById('pi').value===PW){sessionStorage.setItem('a','1');document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{document.getElementById('le').style.display='block';document.getElementById('pi').value='';}}
+function lo(){sessionStorage.removeItem('a');location.reload();}
+function init(){const d=ld();if(d){S={...S,...d};if(!S.workspaces?.length)S.workspaces=[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}];}else{S.leads=demo();}F=wl();document.getElementById('pd').textContent=new Date().toLocaleDateString('pt-BR');document.getElementById('wsN').textContent=cw().name;render();setTimeout(()=>document.getElementById('ldr').classList.add('h'),1200);}
+function render(){stats();pipe();tbl();cltbl();}
+function x(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function ss(s){if(!s)return'?';if(s.includes('Cond'))return'Cond.';if(s.includes('Shop'))return'Shop.';if(s.includes('Dist'))return'Dist.';if(s.includes('Ind'))return'Ind.';return s.split('/')[0].trim().substring(0,9);}
+function pl(st){const m={novo:'pn Novo',qualificado:'pq Qualificado',conversa:'pco Em Conversa',agendado:'pag Agendado',proposta:'ppr Proposta',cliente:'pcl Cliente ★',perdido:'ppe Perdido'};const[c,l]=(m[st]||'pn Novo').split(' ');return`<span class="pi ${c}">${l}</span>`;}
+function pipe(){const b=document.getElementById('pb');b.innerHTML='';STS.forEach(st=>{const items=F.filter(l=>l.stage===st.id);const col=document.createElement('div');col.className='st';col.innerHTML=`<div class="shd ${st.c}"><span class="sn2">${st.l}</span><span class="sc2">${items.length}</span></div>${items.map(ch).join('')}<div class="ca" onclick="oAdd('${st.id}')">+ adicionar</div>`;b.appendChild(col);});}
+function ch(l){const s=l.score||0,c=s>=70?'hi':s>=50?'mi':'lo',d=l.stage==='agendado'?'<span class="pu"></span>':'';return`<div class="cd" onclick="oD(${l.id})"><span class="cs ${c}">${s}</span><div class="cn">${d}${x(l.nome)}</div><div class="cc">${x(l.empresa||'—')}</div><div class="ct"><span class="tg ts">${x(ss(l.seg))}</span><span class="tg tc">${x(l.canal||'')}</span>${l.porte==='Enterprise'?'<span class="tg te">ENT</span>':''}</div><div class="ctm">${x(l.time||'')}</div></div>`;}
+function tbl(){const tb=document.getElementById('lt');document.getElementById('lc').textContent=`${F.length} registros`;tb.innerHTML=F.map(l=>{const s=l.score||0,c=s>=70?'hi':s>=50?'mi':'lo';return`<tr onclick="oD(${l.id})"><td class="fw">${l.stage==='agendado'?'<span class="pu"></span>':''}${x(l.nome)}</td><td class="dm">${x(l.empresa||'—')}</td><td><span class="tg ts">${x(ss(l.seg))}</span></td><td><span class="pi ${l.porte==='Enterprise'?'pent':'ppme'}">${l.porte||'PME'}</span></td><td class="dm">${x(l.canal||'—')}</td><td class="mo ${c}">${s}</td><td>${pl(l.stage)}</td><td class="go">${x(l.ticket||'—')}</td><td class="mo" style="color:var(--ash)">${x(l.time||'—')}</td></tr>`;}).join('')||'<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--ash)">Nenhum lead</td></tr>';}
+function cltbl(){const tb=document.getElementById('ct');const c=wl().filter(l=>l.stage==='cliente');tb.innerHTML=c.map(l=>`<tr onclick="oD(${l.id})"><td class="fw">${x(l.nome)}</td><td class="dm">${x(l.empresa||'—')}</td><td><span class="tg ts">${x(ss(l.seg))}</span></td><td class="dm">${x(l.modulos||'—')}</td><td class="go">${x(l.ticket||'—')}</td><td class="mo" style="color:var(--fog)">${x(l.setup||'—')}</td><td class="mo" style="color:var(--ash)">${x(l.time||'—')}</td></tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--ash)">Nenhum cliente ativo</td></tr>';}
+function stats(){const all=wl(),hot=all.filter(l=>(l.score||0)>=70&&l.stage!=='perdido'),cli=all.filter(l=>l.stage==='cliente');let p=0;all.filter(l=>l.stage!=='perdido').forEach(l=>{if(l.ticket){const m=l.ticket.match(/[\d.]+/);if(m)p+=parseFloat(m[0].replace('.','')||0);}});document.getElementById('hT').textContent=all.length;document.getElementById('hQ').textContent=hot.length;document.getElementById('hP').textContent=p>=1000?`R$${Math.round(p/1000)}k`:`R$${p}`;document.getElementById('hC').textContent=cli.length;document.getElementById('nP').textContent=all.filter(l=>l.stage!=='perdido').length;document.getElementById('nA').textContent=all.length;document.getElementById('nC').textContent=cli.length;document.getElementById('nW').textContent=all.filter(l=>l.canal==='WhatsApp').length;document.getElementById('nI').textContent=all.filter(l=>l.canal==='Instagram').length;document.getElementById('nS').textContent=all.filter(l=>l.canal==='Site').length;document.getElementById('nIn').textContent=all.filter(l=>l.canal==='Indicação').length;}
+function oD(id){const l=(S.leads||[]).find(z=>z.id===id);if(!l)return;aid=id;const s=l.score||0;document.getElementById('dn').textContent=l.nome;document.getElementById('dco').textContent=l.empresa||'—';document.getElementById('dsg').textContent=l.seg||'—';document.getElementById('dpo').innerHTML=`<span class="pi ${l.porte==='Enterprise'?'pent':'ppme'}">${l.porte||'PME'}</span>`;document.getElementById('dca').textContent=l.canal||'—';document.getElementById('dsc').innerHTML=`<span class="${s>=70?'hi':s>=50?'mi':'lo'}">${s} pts</span>`;document.getElementById('dst').innerHTML=pl(l.stage);document.getElementById('ds').innerHTML=pl(l.stage);document.getElementById('dwa').textContent=l.wa||'—';document.getElementById('dem').textContent=l.email||'—';document.getElementById('dcg').textContent=l.cargo||'—';document.getElementById('dtk').textContent=l.ticket||'—';document.getElementById('dsp').textContent=l.setup||'—';document.getElementById('dmd').textContent=l.modulos||'—';document.getElementById('ddr').textContent=l.dor||'—';document.getElementById('ddg').innerHTML=l.diag?`<b>Diagnóstico:</b><br>${x(l.diag)}`:'—';document.getElementById('od').classList.add('op');}
+function mS(d){const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;const i=STS.findIndex(s=>s.id===l.stage);l.stage=STS[Math.max(0,Math.min(STS.length-1,i+d))].id;l.time=new Date().toLocaleDateString('pt-BR');sv();F=wl();render();oD(aid);toast('Stage atualizado','ok');}
+function gW(){const l=(S.leads||[]).find(z=>z.id===aid);if(l?.wa)window.open(`https://wa.me/${l.wa.replace(/\D/g,'')}`);}
+function dL2(){if(!confirm('Excluir?'))return;S.leads=(S.leads||[]).filter(l=>l.id!==aid);sv();F=wl();render();cM('od');toast('Excluído');}
+function eL(){const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;cM('od');oAdd(l.stage,l);}
+function oAdd(st,lead){document.getElementById('ft').textContent=lead?'EDITAR LEAD':'NOVO LEAD';document.getElementById('fId').value=lead?.id||'';document.getElementById('fN').value=lead?.nome||'';document.getElementById('fE').value=lead?.empresa||'';document.getElementById('fW').value=lead?.wa||'';document.getElementById('fM').value=lead?.email||'';document.getElementById('fSg2').value=lead?.seg||'';document.getElementById('fPo2').value=lead?.porte||'PME';document.getElementById('fCn').value=lead?.canal||'WhatsApp';document.getElementById('fCg').value=lead?.cargo||'Sócio / Dono';document.getElementById('fT').value=lead?.ticket||'';document.getElementById('fSp').value=lead?.setup||'';document.getElementById('fMd').value=lead?.modulos||'';document.getElementById('fDr').value=lead?.dor||'';document.getElementById('fDg').value=lead?.diag||'';document.getElementById('fSt2').value=lead?.stage||st||'novo';cSc();document.getElementById('of').classList.add('op');}
+function cSc(){document.getElementById('fSc').value=SCC[document.getElementById('fCg').value]||40;}
+function sL(){const n=document.getElementById('fN').value.trim();if(!n){toast('Nome obrigatório','er');return;}const eid=document.getElementById('fId').value;const l={id:eid?parseInt(eid):Date.now(),ws:S.currentWS,nome:n,empresa:document.getElementById('fE').value,wa:document.getElementById('fW').value,email:document.getElementById('fM').value,seg:document.getElementById('fSg2').value,porte:document.getElementById('fPo2').value,canal:document.getElementById('fCn').value,cargo:document.getElementById('fCg').value,ticket:document.getElementById('fT').value,setup:document.getElementById('fSp').value,modulos:document.getElementById('fMd').value,dor:document.getElementById('fDr').value,diag:document.getElementById('fDg').value,stage:document.getElementById('fSt2').value,score:parseInt(document.getElementById('fSc').value)||40,time:new Date().toLocaleDateString('pt-BR')};if(eid){const i=(S.leads||[]).findIndex(l=>l.id===parseInt(eid));if(i>=0)S.leads[i]=l;}else{if(!S.leads)S.leads=[];S.leads.unshift(l);}sv();F=wl();render();cM('of');toast(eid?'Atualizado':'Lead salvo','ok');}
+function oWS(){rWL();document.getElementById('ow').classList.add('op');}
+function rWL(){document.getElementById('wl').innerHTML=(S.workspaces||[]).map(w=>`<div class="wi ${w.id===S.currentWS?'cu':''}" onclick="swWS('${w.id}')"><div><div class="wn">${x(w.name)}</div><div class="wm">${x(w.desc||'')} · ${(S.leads||[]).filter(l=>l.ws===w.id).length} leads</div></div>${w.id===S.currentWS?'<span style="color:var(--fire)">✓</span>':''}</div>`).join('');}
+function swWS(id){S.currentWS=id;sv();F=wl();document.getElementById('wsN').textContent=cw().name;render();cM('ow');toast(`Workspace: ${cw().name}`);}
+function aWS(){const n=prompt('Nome do workspace:');if(!n)return;S.workspaces.push({id:'ws'+Date.now(),name:n,desc:'CRM do cliente'});sv();rWL();toast('Workspace criado','ok');}
+function dSr(q){const s=q.toLowerCase();F=wl().filter(l=>l.nome?.toLowerCase().includes(s)||l.empresa?.toLowerCase().includes(s)||l.seg?.toLowerCase().includes(s));pipe();tbl();}
+function fSt(s,btn){document.querySelectorAll('.fb').forEach(b=>b.classList.remove('ac'));btn?.classList.add('ac');const all=wl();F=s==='all'?all:s==='quente'?all.filter(l=>(l.score||0)>=70&&l.stage!=='perdido'):all.filter(l=>l.stage===s);pipe();tbl();}
+function fCan(c,el){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('ac'));el?.classList.add('ac');F=wl().filter(l=>l.canal===c);pipe();tbl();}
+function fSg(s,el){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('ac'));el?.classList.add('ac');F=wl().filter(l=>l.seg?.toLowerCase().includes(s.toLowerCase()));pipe();tbl();}
+function fPo(p,el){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('ac'));el?.classList.add('ac');F=wl().filter(l=>l.porte===p);pipe();tbl();}
+function sV(v,el){document.getElementById('vp').style.display=v==='p'?'':'none';document.getElementById('vl').style.display=v==='l'?'':'none';document.getElementById('vc').style.display=v==='c'?'':'none';document.querySelectorAll('.ni').forEach(n=>n.classList.remove('ac'));el?.classList.add('ac');if(v==='c')cltbl();}
+function cM(id){document.getElementById(id).classList.remove('op');}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('op');}));
+function toast(m,t){const e=document.getElementById('ts');e.textContent=m;e.className=`tst sh ${t||''}`;setTimeout(()=>e.className='tst',2500);}
+function demo(){return[{id:1,ws:'oma',nome:'Carlos Mendes',empresa:'Mendes & Assoc.',seg:'Advocacia',porte:'PME',canal:'WhatsApp',cargo:'Sócio / Dono',wa:'5511991234567',email:'carlos@mendes.adv.br',score:80,stage:'agendado',ticket:'R$3.500/mês',setup:'R$2.500',modulos:'Controle Interno',dor:'Perde 3h/dia com prazos e cobrança',diag:'Controle Interno resolve.',time:'hoje'},{id:2,ws:'oma',nome:'Dra. Ana Luiza',empresa:'Clínica Vida',seg:'Consultório / Clínica',porte:'PME',canal:'Instagram',cargo:'Sócio / Dono',wa:'5511987654321',email:'ana@clinicavida.com',score:75,stage:'qualificado',ticket:'R$2.000/mês',setup:'R$1.500',modulos:'Agenda',dor:'5 faltas/semana sem aviso',diag:'Agente de Agenda resolve.',time:'hoje'},{id:3,ws:'oma',nome:'Marcos Oliveira',empresa:'Admin. Paulista',seg:'Administradora de Condomínio',porte:'Enterprise',canal:'Indicação',cargo:'CEO / Presidente',wa:'5511965432109',email:'marcos@adminpaulista.com',score:95,stage:'proposta',ticket:'R$18.000/mês',setup:'R$8.000',modulos:'Atendimento, Controle, Comunicação',dor:'42 condomínios, backoffice manual',diag:'Automação completa. Escalar Fabio.',time:'hoje'},{id:4,ws:'oma',nome:'Rafael Nunes',empresa:'Studio Médico',seg:'Consultório / Clínica',porte:'PME',canal:'Indicação',cargo:'Sócio / Dono',wa:'5511887654321',email:'rafael@studiomedico.com',score:90,stage:'cliente',ticket:'R$2.000/mês',setup:'R$1.500',modulos:'Agenda, Atendimento',dor:'Fechado',diag:'CLIENTE ATIVO desde 20/03/2026',time:'hoje'}];}
+if(sessionStorage.getItem('a')==='1'){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{setTimeout(()=>document.getElementById('ldr').classList.add('h'),1200);}
+</script>
+</body>
+</html>
