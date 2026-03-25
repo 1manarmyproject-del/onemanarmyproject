@@ -139,9 +139,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
 </div>
 <div id="appContent" style="display:none"><header class="hdr">
-  <div class="hdr-brand">
-    <div class="hdr-logo">OMA <span>AGENTS</span></div>
-    <div class="hdr-sub">🦞 TIME DE AGENTES · OPERAÇÃO EM TEMPO REAL</div>
+  <div class="hdr-brand" style="display:flex;align-items:center;gap:16px">
+    <a href="/hub" style="font-family:Space Mono,monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;border:1px solid var(--steel);padding:6px 12px;transition:color .15s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--ash)'">← HUB</a>
+    <div>
+      <div class="hdr-logo">OMA <span>AGENTS</span></div>
+      <div class="hdr-sub">🦞 TIME DE AGENTES · OPERAÇÃO EM TEMPO REAL</div>
+    </div>
   </div>
   <div class="hdr-time">
     <span id="clock"></span>
@@ -341,7 +344,7 @@ setInterval(updateClock, 1000);
 <script>
 function doLogin(){
   if(document.getElementById('pw').value==='omaproject2026'){
-    sessionStorage.setItem('ops','1');
+    localStorage.setItem('ops','1');
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('appContent').style.display='block';
   } else {
@@ -349,7 +352,7 @@ function doLogin(){
     document.getElementById('pw').value='';
   }
 }
-if(sessionStorage.getItem('ops')==='1'){
+if(localStorage.getItem('ops')==='1'){
   window.addEventListener('DOMContentLoaded',()=>{
     const ls=document.getElementById('loginScreen');
     const ac=document.getElementById('appContent');

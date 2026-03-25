@@ -116,6 +116,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
       <div class="cmeta"><span class="ctag tf">Pipeline</span><span class="ctag ta">Bia</span><span class="ctag ta">Leads</span></div></div>
       <div class="cfoot"><span class="clink">ACESSAR CRM</span><span class="carr">→</span></div>
     </a>
+    <a class="card" href="/traffic"><div class="card-icon">📡</div><div class="card-title">TRAFFIC</div><div class="card-sub">Tráfego por canal</div></a>
     <a class="card cg" href="/ops">
       <div class="ci"><span class="cicon">◉</span><div class="ctitle">OPS</div>
       <div class="cdesc">Performance dos agentes, custo de tokens, uptime do sistema e atividade em tempo real.</div>
@@ -158,11 +159,11 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 </div>
 <script>
 const P="omaproject2026";
-function dL(){if(document.getElementById("pw").value===P){["oma_hub","oma_auth","oma_monitor","ops"].forEach(k=>sessionStorage.setItem(k,"1"));document.getElementById("ls").style.display="none";document.getElementById("app").style.display="flex";}else{document.getElementById("le").style.display="block";document.getElementById("pw").value="";}}
-function lo(){["oma_hub","oma_auth","oma_monitor","ops"].forEach(k=>sessionStorage.removeItem(k));location.reload();}
+function dL(){if(document.getElementById("pw").value===P){["oma_hub","oma_auth","oma_monitor","ops"].forEach(k=>localStorage.setItem(k,"1"));document.getElementById("ls").style.display="none";document.getElementById("app").style.display="flex";}else{document.getElementById("le").style.display="block";document.getElementById("pw").value="";}}
+function lo(){["oma_hub","oma_auth","oma_monitor","ops"].forEach(k=>localStorage.removeItem(k));location.reload();}
 function tick(){document.getElementById("ck").textContent=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});}
 setInterval(tick,1000);tick();
-if(sessionStorage.getItem("oma_hub")==="1"){document.getElementById("ls").style.display="none";document.getElementById("app").style.display="flex";}
+if(localStorage.getItem("oma_hub")==="1"){document.getElementById("ls").style.display="none";document.getElementById("app").style.display="flex";}
 </script>
 </body>
 </html>

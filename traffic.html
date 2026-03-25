@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Traffic</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{--char:#080808;--coal:#0f0f0f;--graph:#131313;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--purple:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{width:320px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:15px;outline:none;margin-bottom:24px;}
+.li:focus{border-bottom-color:var(--fire);}.li::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:11px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+#app{display:none;}
+nav{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.nbrand{display:flex;align-items:center;gap:10px;}
+.nlogo{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;}.nlogo span{color:var(--fire);}
+.nbadge{font-family:'Space Mono',monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;}
+.nright{display:flex;align-items:center;gap:16px;}
+.nback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;transition:color .15s;}.nback:hover{color:var(--fire);}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.nout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-size:11px;cursor:pointer;}
+.nck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.ubar{background:var(--graph);border-bottom:1px solid var(--iron);padding:6px 32px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);}
+.filters{padding:14px 32px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--iron);background:var(--coal);}
+.flbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;}
+.pbtn{font-family:'Space Mono',monospace;font-size:10px;padding:5px 12px;background:transparent;border:1px solid var(--iron);color:var(--fog);cursor:pointer;letter-spacing:1px;}
+.pbtn.active{background:var(--fire);border-color:var(--fire);color:var(--char);}
+.fright{margin-left:auto;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);}
+.cnt{padding:24px 32px;max-width:1200px;}
+.krow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;}
+.kpi{background:var(--coal);border:1px solid var(--iron);padding:16px 18px;position:relative;overflow:hidden;}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.kpi:hover::before{transform:scaleX(1);}
+.k-total::before{background:var(--gold);}.k-site::before{background:var(--fire);}
+.k-wa::before{background:var(--green);}.k-ig::before{background:var(--purple);}
+.k-tg::before{background:var(--blue);}
+.klbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.kval{font-family:'Black Ops One',cursive;font-size:30px;line-height:1;margin-bottom:4px;}
+.k-total .kval{color:var(--gold);}.k-site .kval{color:var(--fire);}
+.k-wa .kval{color:var(--green);}.k-ig .kval{color:var(--purple);}.k-tg .kval{color:var(--blue);}
+.kd{font-family:'Space Mono',monospace;font-size:9px;}.dup{color:var(--green);}.ddn{color:var(--fire);}
+.ksub{font-size:10px;color:var(--ash);margin-top:2px;}
+.g3{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.card{background:var(--coal);border:1px solid var(--iron);}
+.chd{padding:13px 18px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;}
+.cbd{padding:16px 18px;}
+.cw{position:relative;height:200px;}.cws{position:relative;height:150px;}
+.funnel{display:flex;flex-direction:column;gap:6px;}
+.fr{display:flex;align-items:center;gap:10px;}
+.flb{font-size:11px;color:var(--fog);width:110px;flex-shrink:0;}
+.fbar{flex:1;height:26px;background:var(--iron);position:relative;overflow:hidden;}
+.ff{height:100%;position:absolute;left:0;top:0;display:flex;align-items:center;padding-left:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--char);font-weight:700;}
+.fp{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);width:36px;text-align:right;}
+.chlist{display:flex;flex-direction:column;}
+.chi{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.chi:last-child{border-bottom:none;}
+.cico{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.chn{font-size:12px;color:var(--bone);flex:1;}
+.cbw{width:100px;}.cbar{height:4px;background:var(--iron);overflow:hidden;}.cbf{height:100%;}
+.cpct{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);width:32px;text-align:right;}
+.cnum{font-family:'Black Ops One',cursive;font-size:16px;margin-left:8px;}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;}
+.tbl th{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 10px;border-bottom:1px solid var(--iron);text-transform:uppercase;}
+.tbl td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--fog);}
+.tbl tr:hover td{background:var(--graph);}
+.pill{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;border-radius:2px;}
+.pg{background:rgba(61,158,96,.15);color:var(--green);}.pf{background:rgba(232,112,58,.15);color:var(--fire);}
+.pp{background:rgba(139,92,246,.15);color:var(--purple);}.pb{background:rgba(58,123,213,.15);color:var(--blue);}
+.po{background:rgba(200,164,86,.15);color:var(--gold);}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.ms{background:var(--graph);border:1px solid var(--iron);padding:12px;}
+.ml{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);margin-bottom:6px;}
+.mv{font-family:'Black Ops One',cursive;font-size:22px;}
+</style>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">OMA <span>TRAFFIC</span></div>
+  <div class="lsub">🦞 TRÁFEGO POR CANAL · ACESSO RESTRITO</div>
+  <input class="li" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+  <div class="lerr" id="le">Senha incorreta</div>
+</div></div>
+<div id="app">
+<nav>
+  <div class="nbrand"><div class="nlogo">OMA <span>TRAFFIC</span></div><div class="nbadge">🦞 TRÁFEGO POR CANAL</div></div>
+  <div class="nright">
+    <a href="/hub" class="nback">← HUB</a>
+    <span class="nck"><span class="live"></span><span id="ck">--:--</span></span>
+    <button class="nout" onclick="lo()">Sair</button>
+  </div>
+</nav>
+<div class="ubar">Última atualização: <span id="ua">--</span> &nbsp;·&nbsp; Dados simulados · integração GA4 + Meta Ads + Instagram API em breve</div>
+<div class="filters">
+  <span class="flbl">Período:</span>
+  <button class="pbtn active" onclick="sP(7,this)">7 dias</button>
+  <button class="pbtn" onclick="sP(30,this)">30 dias</button>
+  <button class="pbtn" onclick="sP(90,this)">90 dias</button>
+  <span class="fright" id="pl">19 a 25 mar 2026</span>
+</div>
+<div class="cnt">
+  <div class="krow">
+    <div class="kpi k-total"><div class="klbl"><div class="cdot" style="background:var(--gold)"></div>Total sessões</div><div class="kval">3.847</div><div class="kd dup">↑ +23% vs anterior</div></div>
+    <div class="kpi k-site"><div class="klbl"><div class="cdot" style="background:var(--fire)"></div>Site direto</div><div class="kval">1.204</div><div class="kd dup">↑ +18%</div><div class="ksub">31% do total</div></div>
+    <div class="kpi k-wa"><div class="klbl"><div class="cdot" style="background:var(--green)"></div>WhatsApp</div><div class="kval">1.089</div><div class="kd dup">↑ +41%</div><div class="ksub">28% do total</div></div>
+    <div class="kpi k-ig"><div class="klbl"><div class="cdot" style="background:var(--purple)"></div>Instagram</div><div class="kval">892</div><div class="kd dup">↑ +67%</div><div class="ksub">23% do total</div></div>
+    <div class="kpi k-tg"><div class="klbl"><div class="cdot" style="background:var(--blue)"></div>Telegram</div><div class="kval">662</div><div class="kd ddn">↓ -4%</div><div class="ksub">17% do total</div></div>
+  </div>
+  <div class="g3">
+    <div class="card"><div class="chd"><span>Sessões por canal</span><span id="cpl">últimos 7 dias</span></div><div class="cbd"><div class="cw"><canvas id="lC"></canvas></div></div></div>
+    <div class="card"><div class="chd"><span>Mix de canais</span></div><div class="cbd">
+      <div class="cws"><canvas id="dC"></canvas></div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-top:12px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px"><div style="width:8px;height:8px;background:var(--fire)"></div><span style="flex:1;color:var(--fog)">Site direto</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">31%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px"><div style="width:8px;height:8px;background:var(--green)"></div><span style="flex:1;color:var(--fog)">WhatsApp</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">28%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px"><div style="width:8px;height:8px;background:var(--purple)"></div><span style="flex:1;color:var(--fog)">Instagram</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">23%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px"><div style="width:8px;height:8px;background:var(--blue)"></div><span style="flex:1;color:var(--fog)">Telegram</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">17%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px"><div style="width:8px;height:8px;background:var(--gold)"></div><span style="flex:1;color:var(--fog)">Outros</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">1%</span></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="chd"><span>Funil de conversão por canal</span></div><div class="cbd">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;margin-bottom:10px">SITE DIRETO</div>
+      <div class="funnel" style="margin-bottom:16px">
+        <div class="fr"><span class="flb">Visitantes</span><div class="fbar"><div class="ff" style="width:100%;background:var(--fire)">1.204</div></div><span class="fp">100%</span></div>
+        <div class="fr"><span class="flb">Clicou Bia</span><div class="fbar"><div class="ff" style="width:34%;background:var(--ember)">412</div></div><span class="fp">34%</span></div>
+        <div class="fr"><span class="flb">Abriu WA</span><div class="fbar"><div class="ff" style="width:21%;background:var(--blood)">258</div></div><span class="fp">21%</span></div>
+        <div class="fr"><span class="flb">P6 completo</span><div class="fbar"><div class="ff" style="width:9%;background:#5a1a0a">112</div></div><span class="fp">9%</span></div>
+      </div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;margin-bottom:10px">INSTAGRAM</div>
+      <div class="funnel">
+        <div class="fr"><span class="flb">Cliques link</span><div class="fbar"><div class="ff" style="width:100%;background:var(--purple)">892</div></div><span class="fp">100%</span></div>
+        <div class="fr"><span class="flb">Abriu WA</span><div class="fbar"><div class="ff" style="width:28%;background:#6b3aab">248</div></div><span class="fp">28%</span></div>
+        <div class="fr"><span class="flb">P6 completo</span><div class="fbar"><div class="ff" style="width:12%;background:#3d2266">104</div></div><span class="fp">12%</span></div>
+      </div>
+    </div></div>
+    <div class="card"><div class="chd"><span>Páginas mais acessadas</span></div><div class="cbd">
+      <table class="tbl"><thead><tr><th>Página</th><th>Visitas</th><th>Canal</th></tr></thead><tbody>
+        <tr><td>/ Home</td><td>1.847</td><td><span class="pill pf">Site</span></td></tr>
+        <tr><td>/hub</td><td>612</td><td><span class="pill pb">Telegram</span></td></tr>
+        <tr><td>/monitor</td><td>408</td><td><span class="pill pb">Telegram</span></td></tr>
+        <tr><td>/#modulos</td><td>389</td><td><span class="pill pp">Instagram</span></td></tr>
+        <tr><td>/ops</td><td>287</td><td><span class="pill pb">Telegram</span></td></tr>
+        <tr><td>/#para-quem</td><td>241</td><td><span class="pill pg">WhatsApp</span></td></tr>
+        <tr><td>/crm</td><td>198</td><td><span class="pill pb">Telegram</span></td></tr>
+        <tr><td>/#manifesto</td><td>156</td><td><span class="pill pp">Instagram</span></td></tr>
+      </tbody></table>
+    </div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="chd"><span>WhatsApp — origem das conversas</span></div><div class="cbd">
+      <div class="chlist">
+        <div class="chi"><div class="cico" style="background:rgba(139,92,246,.15)">📸</div><span class="chn">Instagram → Link Bio</span><div class="cbw"><div class="cbar"><div class="cbf" style="width:48%;background:var(--purple)"></div></div></div><span class="cpct">48%</span><span class="cnum" style="color:var(--purple)">523</span></div>
+        <div class="chi"><div class="cico" style="background:rgba(232,112,58,.15)">🌐</div><span class="chn">Site → Botão Bia</span><div class="cbw"><div class="cbar"><div class="cbf" style="width:24%;background:var(--fire)"></div></div></div><span class="cpct">24%</span><span class="cnum" style="color:var(--fire)">258</span></div>
+        <div class="chi"><div class="cico" style="background:rgba(58,123,213,.15)">✈️</div><span class="chn">Telegram → Link direto</span><div class="cbw"><div class="cbar"><div class="cbf" style="width:16%;background:var(--blue)"></div></div></div><span class="cpct">16%</span><span class="cnum" style="color:var(--blue)">174</span></div>
+        <div class="chi"><div class="cico" style="background:rgba(200,164,86,.15)">👥</div><span class="chn">Indicação direta</span><div class="cbw"><div class="cbar"><div class="cbf" style="width:12%;background:var(--gold)"></div></div></div><span class="cpct">12%</span><span class="cnum" style="color:var(--gold)">134</span></div>
+      </div>
+    </div></div>
+    <div class="card"><div class="chd"><span>Tráfego pago — Meta Ads</span><span style="color:var(--blood)">PERFORMANCE</span></div><div class="cbd">
+      <div class="mg">
+        <div class="ms"><div class="ml">INVESTIDO</div><div class="mv" style="color:var(--gold)">R$1.240</div></div>
+        <div class="ms"><div class="ml">LEADS GERADOS</div><div class="mv" style="color:var(--green)">47</div></div>
+        <div class="ms"><div class="ml">CPL MÉDIO</div><div class="mv" style="color:var(--fire)">R$26</div></div>
+        <div class="ms"><div class="ml">CONV. REUNIÃO</div><div class="mv" style="color:var(--blue)">34%</div></div>
+      </div>
+      <table class="tbl"><thead><tr><th>Campanha</th><th>Leads</th><th>CPL</th><th>Conv.</th></tr></thead><tbody>
+        <tr><td>SAC · Advocacia SP</td><td>18</td><td>R$22</td><td><span class="pill pg">41%</span></td></tr>
+        <tr><td>Agenda · Clínicas</td><td>14</td><td>R$28</td><td><span class="pill pg">36%</span></td></tr>
+        <tr><td>Cobrança · PME</td><td>9</td><td>R$31</td><td><span class="pill pf">22%</span></td></tr>
+        <tr><td>Geral · Distribuid.</td><td>6</td><td>R$34</td><td><span class="pill pf">17%</span></td></tr>
+      </tbody></table>
+    </div></div>
+  </div>
+  <div class="card" style="margin-bottom:12px"><div class="chd"><span>Instagram @1manarmy_project — engajamento por post</span><span style="color:var(--purple)">ORGÂNICO</span></div>
+    <div class="cbd" style="overflow-x:auto"><table class="tbl" style="min-width:580px">
+      <thead><tr><th>Post</th><th>Alcance</th><th>Engaj.</th><th>Cliques Link</th><th>WA Abertos</th><th>Conv.</th></tr></thead>
+      <tbody>
+        <tr><td>Manifesto 01 — Injustiça silenciosa</td><td>4.820</td><td>8,4%</td><td>312</td><td>87</td><td><span class="pill pg">28%</span></td></tr>
+        <tr><td>P1 — Execução antes de perfeição</td><td>3.241</td><td>6,2%</td><td>198</td><td>54</td><td><span class="pill pg">27%</span></td></tr>
+        <tr><td>Módulo SAC 24h</td><td>2.988</td><td>7,1%</td><td>247</td><td>71</td><td><span class="pill pg">29%</span></td></tr>
+        <tr><td>Lagosta — Não pede licença</td><td>5.102</td><td>11,3%</td><td>189</td><td>42</td><td><span class="pill pf">22%</span></td></tr>
+        <tr><td>Não é só fazer — Inteligência</td><td>3.677</td><td>9,8%</td><td>221</td><td>63</td><td><span class="pill pg">29%</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div></div>
+<script>
+const PWD='omaproject2026';
+function dL(){if(document.getElementById('pw').value===PWD){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.setItem(k,'1'));document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}}
+function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.removeItem(k));location.reload();}
+function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
+const D={7:{l:['19/03','20/03','21/03','22/03','23/03','24/03','25/03'],s:[142,168,155,189,201,178,171],w:[98,124,118,156,168,143,162],i:[87,103,98,134,128,118,124],t:[72,88,91,104,98,108,101]},30:{l:['27/02','01/03','05/03','10/03','15/03','20/03','25/03'],s:[890,1020,980,1140,1190,1080,1204],w:[620,720,698,820,890,780,1089],i:[410,520,480,640,720,680,892],t:[380,420,398,480,520,498,662]},90:{l:['Jan','Fev-i','Fev-f','Mar-i','Mar-m','Hoje'],s:[2800,3200,3600,4100,4500,1204],w:[1800,2200,2600,3100,3600,1089],i:[800,1200,1800,2400,3000,892],t:[1200,1400,1600,1800,2100,662]}};
+let lc,dc;
+function bC(p){const d=D[p];if(lc)lc.destroy();lc=new Chart(document.getElementById('lC'),{type:'line',data:{labels:d.l,datasets:[{label:'Site',data:d.s,borderColor:'#e8703a',backgroundColor:'rgba(232,112,58,.08)',tension:.4,pointRadius:3,borderWidth:2},{label:'WhatsApp',data:d.w,borderColor:'#3d9e60',backgroundColor:'rgba(61,158,96,.08)',tension:.4,pointRadius:3,borderWidth:2},{label:'Instagram',data:d.i,borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,.08)',tension:.4,pointRadius:3,borderWidth:2},{label:'Telegram',data:d.t,borderColor:'#3a7bd5',backgroundColor:'rgba(58,123,213,.08)',tension:.4,pointRadius:3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:9}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:9}},grid:{color:'rgba(255,255,255,.04)'}}}}});
+if(dc)dc.destroy();const t=[d.s.reduce((a,b)=>a+b),d.w.reduce((a,b)=>a+b),d.i.reduce((a,b)=>a+b),d.t.reduce((a,b)=>a+b)];dc=new Chart(document.getElementById('dC'),{type:'doughnut',data:{labels:['Site','WA','IG','TG'],datasets:[{data:t,backgroundColor:['#e8703a','#3d9e60','#8b5cf6','#3a7bd5'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false}}}});}
+function sP(p,el){document.querySelectorAll('.pbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');bC(p);document.getElementById('cpl').textContent={7:'últimos 7 dias',30:'últimos 30 dias',90:'últimos 90 dias'}[p];document.getElementById('pl').textContent={7:'19 a 25 mar 2026',30:'24 fev a 25 mar 2026',90:'26 dez 2025 a 25 mar 2026'}[p];}
+function init(){bC(7);document.getElementById('ua').textContent=new Date().toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+if(['oma_monitor','oma_hub','oma_auth','ops'].some(k=>localStorage.getItem(k)==='1')){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}
+</script></body></html>

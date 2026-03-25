@@ -43,6 +43,10 @@
     {
       "source": "/agent/darwin",
       "destination": "/agent-darwin.html"
+    },
+    {
+      "source": "/traffic",
+      "destination": "/traffic.html"
     }
   ]
 }

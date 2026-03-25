@@ -200,8 +200,8 @@ function ld(){try{return JSON.parse(localStorage.getItem(SK));}catch{return null
 function sv(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
 function wl(){return(S.leads||[]).filter(l=>l.ws===S.currentWS);}
 function cw(){return(S.workspaces||[]).find(w=>w.id===S.currentWS)||{name:'OMA Project'};}
-function dL(){if(document.getElementById('pi').value===PW){sessionStorage.setItem('a','1');document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{document.getElementById('le').style.display='block';document.getElementById('pi').value='';}}
-function lo(){sessionStorage.removeItem('a');location.reload();}
+function dL(){if(document.getElementById('pi').value===PW){localStorage.setItem('a','1');document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{document.getElementById('le').style.display='block';document.getElementById('pi').value='';}}
+function lo(){localStorage.removeItem('a');location.reload();}
 function init(){const d=ld();if(d){S={...S,...d};if(!S.workspaces?.length)S.workspaces=[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}];}else{S.leads=demo();}F=wl();document.getElementById('pd').textContent=new Date().toLocaleDateString('pt-BR');document.getElementById('wsN').textContent=cw().name;render();setTimeout(()=>document.getElementById('ldr').classList.add('h'),1200);}
 function render(){stats();pipe();tbl();cltbl();}
 function x(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -341,7 +341,7 @@ function doImport(){
   toast(`${count} leads importados com sucesso!`,'ok');
 }
 
-if(sessionStorage.getItem('a')==='1'){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{setTimeout(()=>document.getElementById('ldr').classList.add('h'),1200);}
+if(localStorage.getItem('a')==='1'){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{setTimeout(()=>document.getElementById('ldr').classList.add('h'),1200);}
 </script>
 </body>
 </html>
