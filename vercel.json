@@ -19,6 +19,30 @@
     {
       "source": "/monitor",
       "destination": "/monitor.html"
+    },
+    {
+      "source": "/agent/george",
+      "destination": "/agent-george.html"
+    },
+    {
+      "source": "/agent/bia",
+      "destination": "/agent-bia.html"
+    },
+    {
+      "source": "/agent/amanda",
+      "destination": "/agent-amanda.html"
+    },
+    {
+      "source": "/agent/tiago",
+      "destination": "/agent-tiago.html"
+    },
+    {
+      "source": "/agent/flavia",
+      "destination": "/agent-flavia.html"
+    },
+    {
+      "source": "/agent/darwin",
+      "destination": "/agent-darwin.html"
     }
   ]
 }
