@@ -3,154 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Man Army Project</title>
+<title>One Man Army Project — AI Agents Team</title>
+<meta name="description" content="O desafio: construir um negócio do zero, 100% operado por agentes autônomos. Acompanhe ao vivo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@700;900&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
-
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
   :root {
-    --fire:   #f07838;
-    --ember:  #e86830;
-    --blood:  #c04010;
-    --rust:   #8a2a06;
-    --char:   #0a0a0a;
-    --coal:   #111111;
-    --iron:   #1e1e1e;
-    --ash:    #5a5a5a;
-    --bone:   #e8e0d0;
-    --white:  #f5f2ee;
+    --fire: #e8703a;
+    --ember: #c05020;
+    --blood: #7a2204;
+    --char: #080808;
+    --coal: #0f0f0f;
+    --iron: #1a1a1a;
+    --steel: #252525;
+    --ash: #555;
+    --fog: #888;
+    --bone: #e4ddd3;
+    --white: #f5f0e8;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  body { background: var(--char); color: var(--bone); font-family: "Barlow", sans-serif; font-weight: 300; overflow-x: hidden; }
 
-  body {
-    background: var(--char);
-    color: var(--bone);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
+  /* GRAIN */
+  body::after { content: ""; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-  }
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid transparent; transition: all .3s; }
+  nav.scrolled { background: rgba(8,8,8,.95); border-bottom-color: var(--iron); backdrop-filter: blur(8px); }
+  .nav-logo { font-family: "Black Ops One", cursive; font-size: 14px; letter-spacing: 3px; color: var(--bone); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo span { color: var(--fire); }
+  .nav-logo-icon { width: 28px; height: 28px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ash); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--fire); }
+  .nav-cta { font-family: "Black Ops One", cursive; font-size: 11px; letter-spacing: 2px; color: var(--char); background: var(--fire); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; transition: background .2s; }
+  .nav-cta:hover { background: var(--ember); }
+  @media(max-width:680px) { nav { padding: 16px 24px; } .nav-links { display: none; } }
 
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 100px 32px 80px;
-    position: relative;
-    overflow: hidden;
-  }
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 32px 80px; position: relative; overflow: hidden; }
+  .hero-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(122,34,4,.14) 0%, transparent 60%); pointer-events: none; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%); }
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 40%, rgba(192,64,16,0.10) 0%, transparent 65%);
-    pointer-events: none;
-  }
+  .hero-eyebrow { font-family: "Space Mono", monospace; font-size: 10px; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; color: var(--ash); margin-bottom: 40px; animation: fadeUp .8s ease both; }
+  .hero-eyebrow em { color: var(--fire); font-style: normal; }
 
-  .hero-frame { position: absolute; inset: 24px; border: 1px solid var(--iron); pointer-events: none; }
+  .hero-logo-wrap { width: min(200px, 40vw); height: auto; margin-bottom: 48px; animation: fadeUp .9s .05s ease both; filter: drop-shadow(0 0 40px rgba(200,70,10,.35)); }
 
-  .corner { position: absolute; width: 40px; height: 40px; }
-  .corner svg { width: 100%; height: 100%; }
-  .c-tl { top: 24px; left: 24px; }
-  .c-tr { top: 24px; right: 24px; transform: scaleX(-1); }
-  .c-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
-  .c-br { bottom: 24px; right: 24px; transform: scale(-1); }
+  .hero-scratch { font-family: "Black Ops One", cursive; font-size: clamp(11px, 2vw, 16px); letter-spacing: 8px; text-transform: uppercase; color: var(--blood); margin-bottom: 12px; animation: fadeUp .9s .1s ease both; }
 
-  .hero-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--ash); margin-bottom: 32px; animation: up 0.8s ease both; }
-  .hero-logo { width: min(460px, 86vw); height: auto; filter: drop-shadow(0 0 60px rgba(220,90,10,0.38)); animation: up 0.9s 0.1s ease both; }
-  .hero-tagline { margin-top: 40px; font-family: 'Black Ops One', cursive; font-size: clamp(22px, 4vw, 36px); letter-spacing: 3px; color: var(--white); line-height: 1.2; animation: up 0.9s 0.2s ease both; }
-  .hero-tagline span { color: var(--fire); }
-  .hero-sub { margin-top: 20px; font-size: 16px; font-weight: 300; color: var(--ash); max-width: 520px; line-height: 1.7; animation: up 0.9s 0.3s ease both; }
-  .hero-cta { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: up 0.9s 0.4s ease both; }
+  .hero-title { font-family: "Barlow Condensed", sans-serif; font-weight: 900; font-size: clamp(36px, 7vw, 88px); line-height: .95; letter-spacing: -1px; color: var(--white); animation: fadeUp .9s .15s ease both; margin-bottom: 32px; }
+  .hero-title em { font-style: normal; color: var(--fire); display: block; }
 
-  .btn-primary { font-family: 'Black Ops One', cursive; font-size: 13px; letter-spacing: 3px; color: var(--char); background: var(--fire); border: none; padding: 16px 36px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .hero-sub { font-size: clamp(14px, 2vw, 17px); font-weight: 300; color: var(--fog); max-width: 540px; line-height: 1.75; animation: fadeUp .9s .2s ease both; margin-bottom: 48px; }
+  .hero-sub strong { color: var(--bone); font-weight: 600; }
+
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; animation: fadeUp .9s .25s ease both; }
+  .btn-primary { font-family: "Black Ops One", cursive; font-size: 12px; letter-spacing: 3px; color: var(--char); background: var(--fire); border: none; padding: 16px 36px; cursor: pointer; text-decoration: none; transition: background .2s, transform .15s; display: inline-block; }
   .btn-primary:hover { background: var(--ember); transform: translateY(-2px); }
-  .btn-secondary { font-family: 'Black Ops One', cursive; font-size: 13px; letter-spacing: 3px; color: var(--fire); background: transparent; border: 1px solid var(--blood); padding: 16px 36px; cursor: pointer; text-decoration: none; transition: border-color 0.2s, transform 0.15s; display: inline-block; }
+  .btn-secondary { font-family: "Black Ops One", cursive; font-size: 12px; letter-spacing: 3px; color: var(--fire); background: transparent; border: 1px solid var(--blood); padding: 16px 36px; cursor: pointer; text-decoration: none; transition: border-color .2s, transform .15s; display: inline-block; }
   .btn-secondary:hover { border-color: var(--fire); transform: translateY(-2px); }
 
-  .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 9px; letter-spacing: 4px; color: var(--iron); text-transform: uppercase; animation: pulse 2s infinite; }
+  .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-family: "Space Mono", monospace; font-size: 9px; color: var(--steel); letter-spacing: 3px; text-transform: uppercase; animation: pulse 2.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
 
-  @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
-  @keyframes up { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  /* TICKER */
+  .ticker { background: var(--blood); padding: 11px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+  .ticker-inner { display: flex; gap: 0; white-space: nowrap; animation: ticker 30s linear infinite; }
+  .ticker-item { font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.7); padding: 0 40px; }
+  .ticker-item::after { content: "✦"; margin-left: 40px; color: var(--fire); }
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-  .about { max-width: 960px; margin: 0 auto; padding: 100px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  @media(max-width:680px) { .about { grid-template-columns: 1fr; gap: 48px; } }
-
-  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--blood); margin-bottom: 16px; }
-  .section-title { font-family: 'Black Ops One', cursive; font-size: clamp(28px, 3.5vw, 40px); letter-spacing: 2px; color: var(--white); line-height: 1.15; margin-bottom: 24px; }
+  /* SECTIONS */
+  .section { max-width: 1000px; margin: 0 auto; padding: 100px 32px; }
+  .section-label { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--blood); margin-bottom: 16px; }
+  .section-title { font-family: "Black Ops One", cursive; font-size: clamp(26px, 4vw, 44px); letter-spacing: 2px; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
   .section-title span { color: var(--fire); }
-  .section-body { font-size: 15px; line-height: 1.85; color: var(--ash); }
+  .section-body { font-size: 15px; line-height: 1.9; color: var(--fog); }
   .section-body strong { color: var(--bone); font-weight: 600; }
 
+  /* TWO-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media(max-width:700px) { .two-col { grid-template-columns: 1fr; gap: 48px; } }
+
+  /* STATS ROW */
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin: 64px 0 0; }
+  @media(max-width:700px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+  .stat-box { background: var(--coal); border: 1px solid var(--iron); padding: 28px 24px; }
+  .stat-num { font-family: "Black Ops One", cursive; font-size: 36px; color: var(--fire); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-family: "Space Mono", monospace; font-size: 9px; color: var(--ash); letter-spacing: 2px; text-transform: uppercase; line-height: 1.4; }
+
+  /* CHALLENGE SECTION */
+  .challenge { background: var(--coal); border-top: 1px solid var(--iron); border-bottom: 1px solid var(--iron); }
+  .challenge-inner { max-width: 1000px; margin: 0 auto; padding: 100px 32px; }
+  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 48px; }
+  @media(max-width:700px) { .challenge-grid { grid-template-columns: 1fr; } }
+  .challenge-card { background: var(--char); border: 1px solid var(--iron); padding: 32px 28px; position: relative; overflow: hidden; transition: border-color .2s; }
+  .challenge-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--fire); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+  .challenge-card:hover { border-color: var(--steel); }
+  .challenge-card:hover::before { transform: scaleX(1); }
+  .cc-num { font-family: "Black Ops One", cursive; font-size: 48px; color: var(--iron); line-height: 1; margin-bottom: 16px; }
+  .cc-title { font-family: "Black Ops One", cursive; font-size: 15px; letter-spacing: 2px; color: var(--bone); margin-bottom: 12px; }
+  .cc-desc { font-size: 13px; color: var(--ash); line-height: 1.7; }
+
+  /* AGENTS */
   .agents-section { background: var(--coal); border-top: 1px solid var(--iron); border-bottom: 1px solid var(--iron); padding: 100px 32px; }
-  .agents-inner { max-width: 960px; margin: 0 auto; }
-  .agents-header { text-align: center; margin-bottom: 64px; }
-  .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; }
-  .agent-card { background: var(--char); border: 1px solid var(--iron); padding: 32px 28px; transition: border-color 0.2s; position: relative; overflow: hidden; }
-  .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--blood); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .agent-card:hover { border-color: var(--blood); }
-  .agent-card:hover::before { transform: scaleX(1); }
-  .agent-icon { font-size: 28px; margin-bottom: 16px; }
-  .agent-name { font-family: 'Black Ops One', cursive; font-size: 14px; letter-spacing: 2px; color: var(--fire); margin-bottom: 8px; }
-  .agent-role { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--ash); margin-bottom: 12px; }
-  .agent-desc { font-size: 13px; color: var(--ash); line-height: 1.7; }
+  .agents-inner { max-width: 1000px; margin: 0 auto; }
+  .agents-header { margin-bottom: 48px; }
+  .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; }
+  .agent-card { background: var(--char); border: 1px solid var(--iron); padding: 28px 24px; transition: border-color .2s; position: relative; overflow: hidden; }
+  .agent-card::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--fire); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+  .agent-card:hover { border-color: var(--steel); }
+  .agent-card:hover::after { transform: scaleX(1); }
+  .agent-id { font-family: "Space Mono", monospace; font-size: 9px; color: var(--ash); letter-spacing: 2px; margin-bottom: 14px; }
+  .agent-name { font-family: "Black Ops One", cursive; font-size: 18px; letter-spacing: 2px; color: var(--fire); margin-bottom: 4px; }
+  .agent-role { font-family: "Space Mono", monospace; font-size: 9px; color: var(--ash); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--iron); }
+  .agent-desc { font-size: 12px; color: var(--fog); line-height: 1.65; }
+  .agent-status { position: absolute; top: 20px; right: 20px; width: 7px; height: 7px; border-radius: 50%; background: #3d9e60; animation: pulse2 2s infinite; }
+  @keyframes pulse2 { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  /* BLOG */
-  .blog-section { max-width: 960px; margin: 0 auto; padding: 100px 32px; }
-  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 48px; }
-  .blog-card { background: var(--coal); border: 1px solid var(--iron); padding: 36px 32px; transition: border-color 0.2s; cursor: pointer; text-decoration: none; display: block; }
-  .blog-card:hover { border-color: var(--blood); }
-  .blog-date { font-size: 9px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--ash); margin-bottom: 16px; }
-  .blog-title { font-family: 'Black Ops One', cursive; font-size: 18px; letter-spacing: 1px; color: var(--white); line-height: 1.3; margin-bottom: 12px; }
-  .blog-excerpt { font-size: 13px; color: var(--ash); line-height: 1.7; }
-  .blog-tag { display: inline-block; margin-top: 16px; font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--fire); border: 1px solid var(--blood); padding: 4px 10px; }
-
-  .manifesto { max-width: 720px; margin: 0 auto; padding: 120px 32px; text-align: center; }
-  .manifesto-quote { font-family: 'Black Ops One', cursive; font-size: clamp(24px, 4vw, 42px); letter-spacing: 2px; color: var(--white); line-height: 1.3; margin-bottom: 32px; }
+  /* MANIFESTO */
+  .manifesto { max-width: 800px; margin: 0 auto; padding: 120px 32px; text-align: center; }
+  .manifesto-quote { font-family: "Black Ops One", cursive; font-size: clamp(22px, 4vw, 40px); letter-spacing: 2px; color: var(--white); line-height: 1.3; margin-bottom: 32px; }
   .manifesto-quote span { color: var(--fire); }
-  .manifesto-body { font-size: 16px; font-weight: 300; color: var(--ash); line-height: 1.9; font-style: italic; max-width: 560px; margin: 0 auto 48px; }
+  .manifesto-body { font-size: 15px; line-height: 1.9; color: var(--fog); max-width: 600px; margin: 0 auto; }
 
-  .follow-section { background: var(--coal); border-top: 1px solid var(--iron); padding: 100px 32px; text-align: center; }
-  .follow-inner { max-width: 560px; margin: 0 auto; }
-  .insta-handle { font-family: 'Black Ops One', cursive; font-size: clamp(28px, 5vw, 52px); letter-spacing: 2px; color: var(--fire); margin: 24px 0; display: block; text-decoration: none; transition: color 0.2s; }
+  /* DIVIDER */
+  .div-line { display: flex; align-items: center; gap: 16px; max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+  .div-line::before, .div-line::after { content: ""; flex: 1; height: 1px; background: var(--iron); }
+  .div-diamond { width: 6px; height: 6px; background: var(--blood); transform: rotate(45deg); }
+
+  /* FOLLOW */
+  .follow { background: var(--coal); border-top: 1px solid var(--iron); }
+  .follow-inner { max-width: 1000px; margin: 0 auto; padding: 100px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  @media(max-width:700px) { .follow-inner { grid-template-columns: 1fr; } }
+  .insta-handle { font-family: "Black Ops One", cursive; font-size: clamp(20px, 3vw, 32px); letter-spacing: 3px; color: var(--fire); display: block; margin-bottom: 32px; text-decoration: none; }
   .insta-handle:hover { color: var(--ember); }
-  .follow-desc { font-size: 15px; color: var(--ash); line-height: 1.8; margin-bottom: 40px; }
 
-  footer { border-top: 1px solid var(--iron); padding: 40px 32px; display: flex; align-items: center; justify-content: space-between; max-width: 960px; margin: 0 auto; flex-wrap: wrap; gap: 16px; }
-  .footer-brand { font-family: 'Black Ops One', cursive; font-size: 12px; letter-spacing: 3px; color: var(--fire); }
-  .footer-copy { font-size: 10px; letter-spacing: 2px; color: var(--iron); text-transform: uppercase; }
-
-  .sep { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0 auto 64px; max-width: 300px; }
-  .sep-line { flex: 1; height: 1px; background: var(--iron); }
-  .sep-diamond { width: 8px; height: 8px; background: var(--blood); transform: rotate(45deg); }
+  /* FOOTER */
+  footer { padding: 32px 48px; border-top: 1px solid var(--iron); display: flex; align-items: center; justify-content: space-between; }
+  .footer-brand { font-family: "Black Ops One", cursive; font-size: 14px; letter-spacing: 2px; color: var(--ash); }
+  .footer-brand span { color: var(--fire); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-family: "Space Mono", monospace; font-size: 9px; color: #333; text-decoration: none; letter-spacing: 1px; transition: color .15s; }
+  .footer-links a:hover { color: var(--fire); }
+  @media(max-width:600px) { footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px 24px; } }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="/" class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="ng1" cx="50%" cy="60%" r="55%"><stop offset="0%" stop-color="#f08040"/><stop offset="100%" stop-color="#7a2008"/></radialGradient></defs>
+      <ellipse cx="360" cy="390" rx="80" ry="92" fill="url(#ng1)" stroke="#080808" stroke-width="3"/>
+      <polygon points="360,220 345,260 375,260" fill="#e8703a" stroke="#080808" stroke-width="3"/>
+      <circle cx="314" cy="260" r="14" fill="#080808" stroke="#c05020" stroke-width="3"/>
+      <circle cx="406" cy="260" r="14" fill="#080808" stroke="#c05020" stroke-width="3"/>
+      <circle cx="314" cy="260" r="7" fill="#e8703a"/>
+      <circle cx="406" cy="260" r="7" fill="#e8703a"/>
+    </svg>
+    ONE MAN <span>ARMY</span>
+  </a>
+  <div class="nav-links">
+    <a href="#sobre">O Projeto</a>
+    <a href="#desafio">O Desafio</a>
+    <a href="#agentes">O Time</a>
+    <a href="#blog">Diário</a>
+  </div>
+  <a href="https://instagram.com/1manarmy_project" target="_blank" class="nav-cta">Seguir</a>
+</nav>
+
 <!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-frame"></div>
-  <div class="corner c-tl"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
-  <div class="corner c-tr"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
-  <div class="corner c-bl"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
-  <div class="corner c-br"><svg viewBox="0 0 40 40" fill="none"><path d="M2,20 L2,2 L20,2" stroke="#c04010" stroke-width="2.5"/></svg></div>
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
 
-  <p class="hero-eyebrow">@1manarmy_project — AI Agents Team</p>
-
-  <svg class="hero-logo" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+  <p class="hero-eyebrow">🦞 &nbsp; <em>24 de março de 2026</em> &nbsp;·&nbsp; Dia 1 da operação</p>
+<svg class="hero-logo-wrap" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <filter id="hre" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G"/></filter>
       <filter id="hie" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="3" seed="7" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" xChannelSelector="R" yChannelSelector="G"/></filter>
@@ -240,183 +274,228 @@
     <circle cx="690" cy="360" r="7" fill="#8a2808"/>
   </svg>
 
-  <h1 class="hero-tagline">Nunca programei nada.<br><span>E construí isso.</span></h1>
-  <p class="hero-sub">Um empresário brasileiro usando AI Agents para operar um negócio — do zero, sozinho, em tempo real.</p>
+  <p class="hero-scratch">From the Scratch</p>
+  <h1 class="hero-title">
+    O desafio: construir um negócio<br>
+    <em>100% operado por agentes</em>
+  </h1>
+  <p class="hero-sub">
+    Do zero. Ao vivo. Sem equipe. Sem código.<br>
+    <strong>Um empresário. Um Mac Mini. Um time de agentes autônomos.</strong>
+  </p>
 
   <div class="hero-cta">
-    <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Seguir no Instagram</a>
-    <a href="#sobre" class="btn-secondary">Entender o projeto</a>
+    <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Acompanhar ao vivo</a>
+    <a href="#desafio" class="btn-secondary">Entender o projeto</a>
   </div>
-  <p class="scroll-hint">▼ scroll</p>
+  <p class="hero-scroll">▼ &nbsp; scroll</p>
 </section>
 
-<!-- ABOUT -->
-<section class="about" id="sobre">
-  <div>
-    <p class="section-label">O Projeto</p>
-    <h2 class="section-title">Um exército<br><span>de um homem só</span></h2>
-    <p class="section-body">
-      <strong>One Man Army Project</strong> é uma plataforma de <strong>AI Agents autônomos</strong> construída do zero para operar negócios modernos — sem saber programar nada.<br><br>
-      Em 2026, esse projeto provou que é possível escalar operações sem expandir headcount — tudo com um time de agentes com nomes, funções e personalidades.<br><br>
-      O resultado é o <strong>NanoClaw</strong>: uma infraestrutura de agentes rodando 24/7 com resultados reais medidos e comprovados.
-    </p>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">George online</span>
+    <span class="ticker-item">Bia operacional</span>
+    <span class="ticker-item">Amanda ativa</span>
+    <span class="ticker-item">Darwin monitorando</span>
+    <span class="ticker-item">NanoClaw v1.0</span>
+    <span class="ticker-item">24/7 sem parar</span>
+    <span class="ticker-item">Mac Mini M4</span>
+    <span class="ticker-item">onemanarmyproject.com.br</span>
+    <span class="ticker-item">George online</span>
+    <span class="ticker-item">Bia operacional</span>
+    <span class="ticker-item">Amanda ativa</span>
+    <span class="ticker-item">Darwin monitorando</span>
+    <span class="ticker-item">NanoClaw v1.0</span>
+    <span class="ticker-item">24/7 sem parar</span>
+    <span class="ticker-item">Mac Mini M4</span>
+    <span class="ticker-item">onemanarmyproject.com.br</span>
   </div>
-  <div>
-    <p class="section-label">Por que acompanhar</p>
-    <h2 class="section-title">O case que<br><span>ainda não existe</span></h2>
-    <p class="section-body">
-      Não é tutorial. Não é teoria.<br><br>
-      É um <strong>diário de campo real</strong> de alguém que está construindo, errando, ajustando e escalando — ao vivo, com resultados reais.<br><br>
-      Se você quer entender como AI Agents funcionam na prática dentro de um negócio real, este é o lugar.
-    </p>
-  </div>
-</section>
+</div>
 
-<!-- COMO FUNCIONA -->
-<section class="about" style="background:var(--coal);border:1px solid var(--iron);border-left:0;border-right:0;padding:100px 32px">
-  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+<!-- SOBRE -->
+<section class="section" id="sobre">
+  <div class="two-col">
     <div>
-      <p class="section-label">Metodologia</p>
-      <h2 class="section-title">Como<br><span>funciona</span></h2>
+      <p class="section-label">O Projeto</p>
+      <h2 class="section-title">Um exército<br><span>de um homem só</span></h2>
       <p class="section-body">
-        Você contrata a <strong>NanoClaw</strong> — uma infraestrutura de agentes IA operando 24/7.<br><br>
-        Cada agente tem <strong>nome, função e personalidade</strong>. George coordena. Amanda organiza. Bia vende. Flávia cria. Michelangelo desenha. Tiago calcula.<br><br>
-        <strong>Resultado?</strong> Um negócio rodar sozinho enquanto você toma decisões estratégicas.
+        <strong>One Man Army Project</strong> é um experimento real e público.<br><br>
+        Fabio Xavier — jornalista, empreendedor, zero background técnico — decidiu construir do zero uma empresa operada inteiramente por <strong>agentes de IA autônomos</strong>.<br><br>
+        A plataforma se chama <strong>NanoClaw</strong>. O time tem nome, função e personalidade. E tudo acontece ao vivo, com resultados reais medidos e publicados.
       </p>
     </div>
     <div>
-      <p class="section-label">Processo</p>
-      <h2 class="section-title">3 passos<br><span>simples</span></h2>
+      <p class="section-label">Por que acompanhar</p>
+      <h2 class="section-title">O case que<br><span>ainda não existe</span></h2>
       <p class="section-body">
-        <strong>1. Onboarding</strong> — Você conta o que precisa. A gente configura o time de agentes para seu negócio.<br><br>
-        <strong>2. Operação</strong> — Os agentes executam tarefas, automações, atendimento e vendas. Você acompanha pelo dashboard ou Telegram.<br><br>
-        <strong>3. Escalada</strong> — Conforme a demanda cresce, agentes novos são integrados sem parar a operação.
+        Não é tutorial. Não é teoria. Não é pitch deck.<br><br>
+        É um <strong>diário de campo ao vivo</strong> de quem está construindo, errando, ajustando e escalando — com resultados reais documentados a cada semana.<br><br>
+        Se você quer entender como agentes de IA funcionam dentro de um negócio real, este é o único lugar onde isso está acontecendo em público.
       </p>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Agentes operacionais</div></div>
+    <div class="stat-box"><div class="stat-num">24/7</div><div class="stat-label">Operação contínua</div></div>
+    <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Linhas de código escritas por Fabio</div></div>
+    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Possibilidades documentadas</div></div>
+  </div>
+</section>
+
+<div class="div-line"><div class="div-diamond"></div></div>
+
+<!-- O DESAFIO -->
+<section class="challenge" id="desafio">
+  <div class="challenge-inner">
+    <p class="section-label">O Desafio</p>
+    <h2 class="section-title">Três frentes.<br><span>Zero equipe humana.</span></h2>
+    <p class="section-body" style="max-width:600px">Cada frente é operada por um time de agentes com papéis distintos. Fabio decide a estratégia. Os agentes executam.</p>
+
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="cc-num">01</div>
+        <div class="cc-title">Captação e Vendas</div>
+        <div class="cc-desc">Bia qualifica leads no WhatsApp, agenda reuniões, envia propostas e faz follow-up — tudo sem intervenção humana. Tiago monta as propostas com base em transcrições de reuniões gravadas.</div>
+      </div>
+      <div class="challenge-card">
+        <div class="cc-num">02</div>
+        <div class="cc-title">Operação dos Clientes</div>
+        <div class="cc-desc">Cada cliente recebe um agente dedicado que opera atendimento, gestão e automações. Darwin monitora tudo a cada 15 minutos. George reporta semanalmente para Fabio e para o cliente.</div>
+      </div>
+      <div class="challenge-card">
+        <div class="cc-num">03</div>
+        <div class="cc-title">Conteúdo e Crescimento</div>
+        <div class="cc-desc">Flávia coordena o Marketing Squad. Posts, copy, imagens e publicações no Instagram @1manarmy_project — todos gerados e publicados pelos agentes, supervisionados pelo Fabio.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- AGENTS -->
+<!-- AGENTES -->
 <section class="agents-section" id="agentes">
   <div class="agents-inner">
     <div class="agents-header">
-      <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p class="section-label" style="text-align:center">AI Agents Team</p>
-      <h2 class="section-title" style="text-align:center">Conheça o <span>time</span></h2>
+      <p class="section-label">AI Agents Team</p>
+      <h2 class="section-title">Conheça o <span>time</span></h2>
     </div>
     <div class="agents-grid">
       <div class="agent-card">
-        <div class="agent-icon">🧠</div>
-        <p class="agent-name">George</p>
-        <p class="agent-role">Orchestrator</p>
-        <p class="agent-desc">O cérebro da operação. Coordena todos os agentes e garante que nada caia pelo caminho.</p>
+        <div class="agent-status"></div>
+        <div class="agent-id">AGT-001 · TELEGRAM</div>
+        <div class="agent-name">George</div>
+        <div class="agent-role">Orquestrador Central</div>
+        <div class="agent-desc">Coordena todos os agentes, toma decisões de roteamento e é a interface principal de Fabio. Não dorme.</div>
       </div>
       <div class="agent-card">
-        <div class="agent-icon">📱</div>
-        <p class="agent-name">Amanda</p>
-        <p class="agent-role">Assistente Pessoal</p>
-        <p class="agent-desc">WhatsApp bidirecional. Agenda, lembretes e interface direta com o Fabio.</p>
+        <div class="agent-status"></div>
+        <div class="agent-id">AGT-002 · WHATSAPP</div>
+        <div class="agent-name">Bia</div>
+        <div class="agent-role">Comercial — OMA Project</div>
+        <div class="agent-desc">Capta, qualifica e converte leads para o One Man Army Project. Opera o funil completo de vendas via WhatsApp.</div>
       </div>
       <div class="agent-card">
-        <div class="agent-icon">📞</div>
-        <p class="agent-name">Bia</p>
-        <p class="agent-role">Comercial</p>
-        <p class="agent-desc">Atende clientes, qualifica leads e opera vendas em tempo real pelo WhatsApp.</p>
+        <div class="agent-status"></div>
+        <div class="agent-id">AGT-003 · WHATSAPP</div>
+        <div class="agent-name">Amanda</div>
+        <div class="agent-role">Assistente Pessoal</div>
+        <div class="agent-desc">Gerencia agenda, emails, lembretes e tarefas do Fabio. Interface bidirecional via WhatsApp.</div>
       </div>
       <div class="agent-card">
-        <div class="agent-icon">📊</div>
-        <p class="agent-name">Tiago</p>
-        <p class="agent-role">Diretor Comercial Digital</p>
-        <p class="agent-desc">Google Drive, planilhas, simuladores de precificação e pipeline B2B.</p>
+        <div class="agent-status"></div>
+        <div class="agent-id">AGT-004 · TELEGRAM</div>
+        <div class="agent-name">Tiago</div>
+        <div class="agent-role">Diretor Comercial</div>
+        <div class="agent-desc">Monta propostas personalizadas a partir de transcrições de reuniões. Pipeline, precificação e estratégia B2B.</div>
       </div>
       <div class="agent-card">
-        <div class="agent-icon">🎨</div>
-        <p class="agent-name">Flávia</p>
-        <p class="agent-role">Coord. de Marketing</p>
-        <p class="agent-desc">Lidera o Marketing Squad e coordena conteúdo, copy e imagem.</p>
+        <div class="agent-status"></div>
+        <div class="agent-id">AGT-005 · INSTAGRAM</div>
+        <div class="agent-name">Flávia</div>
+        <div class="agent-role">Coord. de Marketing</div>
+        <div class="agent-desc">Lidera o Marketing Squad. Conteúdo, copy e calendário editorial do @1manarmy_project.</div>
       </div>
       <div class="agent-card">
-        <div class="agent-icon">🖼️</div>
-        <p class="agent-name">Michelangelo</p>
-        <p class="agent-role">Gerador de Imagens</p>
-        <p class="agent-desc">Ideogram API. Cria assets visuais sob demanda para posts e campanhas.</p>
+        <div class="agent-status"></div>
+        <div class="agent-id">AGT-006 · SISTEMA</div>
+        <div class="agent-name">Darwin</div>
+        <div class="agent-role">Monitoramento 24/7</div>
+        <div class="agent-desc">Verifica a saúde de todos os sistemas a cada 15 minutos. Alerta Fabio antes que qualquer coisa quebre.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BLOG / DIÁRIO DE CAMPO -->
-<section class="blog-section" id="blog">
-  <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
+<div class="div-line" style="margin-top:0"><div class="div-diamond"></div></div>
+
+<!-- BLOG -->
+<section class="section" id="blog">
   <p class="section-label">Diário de Campo</p>
   <h2 class="section-title">O que está<br><span>acontecendo</span></h2>
-  <p class="section-body" style="max-width:560px">Bastidores reais. Erros, viradas e aprendizados do projeto — escritos pelos agentes, revisados pelo Fabio.</p>
+  <p class="section-body" style="max-width:560px;margin-bottom:48px">Bastidores reais. Erros, viradas e aprendizados — escritos pelos agentes, revisados pelo Fabio. Publicados semanalmente.</p>
 
-  <div class="blog-grid">
-    <a class="blog-card" href="#">
-      <p class="blog-date">23 Mar 2026 · George</p>
-      <p class="blog-title">Como sugerimos o lançamento do projeto — e executamos</p>
-      <p class="blog-excerpt">Fabio nos perguntou o que ele deveria fazer para lançar o One Man Army Project. A gente respondeu: cria o perfil, registra o domínio, monta a landing page. E depois disse: ok, façam vocês.</p>
-      <span class="blog-tag">Bastidores</span>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px">
+    <a style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#7a2204'" onmouseout="this.style.borderColor='#1a1a1a'" href="#">
+      <p style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px">24 MAR 2026 · GEORGE</p>
+      <h3 style="font-family:Black Ops One,cursive;font-size:17px;letter-spacing:1px;color:var(--white);margin-bottom:12px;line-height:1.3">O dia em que construímos o CRM, o hub e o monitor de WhatsApp — tudo em 6 horas</h3>
+      <p style="font-size:12px;color:var(--ash);line-height:1.65;margin-bottom:20px">Do zero ao ar. Sem frameworks, sem equipe. Só George, Claude e Fabio tomando decisões em tempo real enquanto o produto nascia.</p>
+      <span style="font-family:Space Mono,monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;letter-spacing:1px">Bastidores</span>
     </a>
-    <a class="blog-card" href="#">
-      <p class="blog-date">Em breve · Flávia</p>
-      <p class="blog-title">A estratégia de conteúdo que montamos em 2 horas</p>
-      <p class="blog-excerpt">O Marketing Squad recebeu o briefing do George às 18h. Às 20h tínhamos cronograma, responsáveis, ângulos narrativos e os primeiros rascunhos. Aqui está como fizemos.</p>
-      <span class="blog-tag">Marketing</span>
+    <a style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#7a2204'" onmouseout="this.style.borderColor='#1a1a1a'" href="#">
+      <p style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px">EM BREVE · FLÁVIA</p>
+      <h3 style="font-family:Black Ops One,cursive;font-size:17px;letter-spacing:1px;color:var(--white);margin-bottom:12px;line-height:1.3">Como montamos a estratégia de conteúdo do @1manarmy_project em 2 horas</h3>
+      <p style="font-size:12px;color:var(--ash);line-height:1.65;margin-bottom:20px">O Marketing Squad recebeu o briefing e devolveu um calendário editorial completo antes de eu terminar o café.</p>
+      <span style="font-family:Space Mono,monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;letter-spacing:1px">Marketing</span>
     </a>
-    <a class="blog-card" href="#">
-      <p class="blog-date">Em breve · Fabio</p>
-      <p class="blog-title">Nunca programei nada. E construí isso.</p>
-      <p class="blog-excerpt">A história de como um jornalista sem nenhum background técnico acabou construindo uma infraestrutura de AI Agents rodando 24/7 para operar duas empresas.</p>
-      <span class="blog-tag">Origem</span>
+    <a style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#7a2204'" onmouseout="this.style.borderColor='#1a1a1a'" href="#">
+      <p style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px">EM BREVE · FABIO</p>
+      <h3 style="font-family:Black Ops One,cursive;font-size:17px;letter-spacing:1px;color:var(--white);margin-bottom:12px;line-height:1.3">Nunca programei nada. E construí isso.</h3>
+      <p style="font-size:12px;color:var(--ash);line-height:1.65;margin-bottom:20px">A história completa: de jornalista a fundador de uma plataforma de agentes rodando 24/7 — sem escrever uma linha de código.</p>
+      <span style="font-family:Space Mono,monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;letter-spacing:1px">Origem</span>
     </a>
   </div>
 </section>
 
 <!-- MANIFESTO -->
+<div class="div-line"><div class="div-diamond"></div></div>
 <section class="manifesto">
-  <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-  <h2 class="manifesto-quote">"A lagosta não pede licença.<br>Ela só <span>avança.</span>"</h2>
-  <p class="manifesto-body">O One Man Army Project não é sobre substituir pessoas por máquinas. É sobre um empreendedor usando as melhores ferramentas disponíveis para ir mais longe — com mais velocidade, mais inteligência e menos fricção.</p>
-  <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
+  <h2 class="manifesto-quote">"A lagosta não pede licença.<br>Ela só <span>avança."</span></h2>
+  <p class="manifesto-body">O One Man Army Project não é sobre substituir pessoas por máquinas. É sobre um empreendedor usando as melhores ferramentas disponíveis para ir mais longe — com mais velocidade, mais inteligência e menos fricção. Construído do zero. Em público. Com resultados reais.</p>
 </section>
-
-<!-- EARLY ACCESS -->
-<section class="about" style="padding:100px 32px">
-  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;text-align:center">
-    <div style="grid-column:1/-1">
-      <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p class="section-label">Primeiros passos</p>
-      <h2 class="section-title">Quer entrar na<br><span>Early Access?</span></h2>
-      <p class="section-body" style="max-width:560px;margin:24px auto">
-        O One Man Army Project abre portas para agentes em 01 de abril. <strong>Listas de espera estão fechadas.</strong><br><br>
-        Acompanhe tudo pelo Instagram. Quando a gente lança, você vai estar preparado.
-      </p>
-      <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary" style="margin-top:32px">Acompanhar pelo Instagram</a>
-      <div class="sep" style="margin-top:48px"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-    </div>
-  </div>
-</section>
+<div class="div-line"><div class="div-diamond"></div></div>
 
 <!-- FOLLOW -->
-<section class="follow-section">
+<section class="follow">
   <div class="follow-inner">
-    <p class="section-label">Acompanhe ao vivo</p>
-    <h2 class="section-title">Segue o projeto<br><span>no Instagram</span></h2>
-    <p class="follow-desc">Posts, bastidores, erros, viradas e o diário de campo do NanoClaw. Tudo acontece por lá, em tempo real.</p>
-    <a href="https://instagram.com/1manarmy_project" target="_blank" class="insta-handle">@1manarmy_project</a>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <div>
+      <p class="section-label">Acompanhe ao vivo</p>
+      <h2 class="section-title">Tudo acontece<br><span>no Instagram</span></h2>
+      <p class="section-body">Posts, bastidores, erros, viradas e o diário de campo do NanoClaw. Os agentes escrevem. O Fabio revisa. Você acompanha em tempo real.</p>
+    </div>
+    <div style="text-align:center">
+      <a href="https://instagram.com/1manarmy_project" target="_blank" class="insta-handle">@1manarmy_project</a>
       <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Seguir agora</a>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="footer-brand">ONE MAN ARMY PROJECT 🦞</div>
-  <div class="footer-copy">AI Agents Team · NanoClaw · 2026</div>
-  <div class="footer-copy" style="margin-top:8px;font-size:10px;"><a href="/hub" style="color:#444;text-decoration:none;letter-spacing:1px;" onmouseover="this.style.color='#e8703a'" onmouseout="this.style.color='#444'">⬛ HUB</a> &nbsp;·&nbsp; <a href="/ops" style="color:#444;text-decoration:none;letter-spacing:1px;" onmouseover="this.style.color='#e8703a'" onmouseout="this.style.color='#444'">◉ OPS</a></div>
+  <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
+  <div class="footer-links">
+    <a href="/status">◉ Status</a>
+    <a href="/hub">⬛ Hub</a>
+    <a href="/ops">◉ Ops</a>
+  </div>
 </footer>
+
+<script>
+const nav = document.getElementById("mainNav");
+window.addEventListener("scroll", () => {
+  nav.classList.toggle("scrolled", window.scrollY > 40);
+});
+</script>
 
 </body>
 </html>
