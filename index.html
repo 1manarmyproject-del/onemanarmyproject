@@ -3,499 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Man Army Project — AI Agents Team</title>
-<meta name="description" content="O desafio: construir um negócio do zero, 100% operado por agentes autônomos. Acompanhe ao vivo.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@700;900&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<title>One Man Army Project — Agentes de IA para o seu negócio</title>
+<meta name="description" content="Terceirize um time de agentes de IA. Atendimento, gestão, vendas e mais — 24h, sem encargos, sem complicação.">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-  :root {
-    --fire: #e8703a;
-    --ember: #c05020;
-    --blood: #7a2204;
-    --char: #080808;
-    --coal: #0f0f0f;
-    --iron: #1a1a1a;
-    --steel: #252525;
-    --ash: #555;
-    --fog: #888;
-    --bone: #e4ddd3;
-    --white: #f5f0e8;
-  }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--char); color: var(--bone); font-family: "Barlow", sans-serif; font-weight: 300; overflow-x: hidden; }
-
-  /* GRAIN */
-  body::after { content: ""; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
-
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid transparent; transition: all .3s; }
-  nav.scrolled { background: rgba(8,8,8,.95); border-bottom-color: var(--iron); backdrop-filter: blur(8px); }
-  .nav-logo { font-family: "Black Ops One", cursive; font-size: 14px; letter-spacing: 3px; color: var(--bone); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .nav-logo span { color: var(--fire); }
-  .nav-logo-icon { width: 28px; height: 28px; }
-  .nav-links { display: flex; align-items: center; gap: 32px; }
-  .nav-links a { font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ash); text-decoration: none; transition: color .2s; }
-  .nav-links a:hover { color: var(--fire); }
-  .nav-cta { font-family: "Black Ops One", cursive; font-size: 11px; letter-spacing: 2px; color: var(--char); background: var(--fire); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; transition: background .2s; }
-  .nav-cta:hover { background: var(--ember); }
-  @media(max-width:680px) { nav { padding: 16px 24px; } .nav-links { display: none; } }
-
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 32px 80px; position: relative; overflow: hidden; }
-  .hero-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(122,34,4,.14) 0%, transparent 60%); pointer-events: none; }
-  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%); }
-
-  .hero-eyebrow { font-family: "Space Mono", monospace; font-size: 10px; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; color: var(--ash); margin-bottom: 40px; animation: fadeUp .8s ease both; }
-  .hero-eyebrow em { color: var(--fire); font-style: normal; }
-
-  .hero-logo-wrap { width: min(200px, 40vw); height: auto; margin-bottom: 48px; animation: fadeUp .9s .05s ease both; filter: drop-shadow(0 0 40px rgba(200,70,10,.35)); }
-
-  .hero-scratch { font-family: "Black Ops One", cursive; font-size: clamp(11px, 2vw, 16px); letter-spacing: 8px; text-transform: uppercase; color: var(--blood); margin-bottom: 12px; animation: fadeUp .9s .1s ease both; }
-
-  .hero-title { font-family: "Barlow Condensed", sans-serif; font-weight: 900; font-size: clamp(36px, 7vw, 88px); line-height: .95; letter-spacing: -1px; color: var(--white); animation: fadeUp .9s .15s ease both; margin-bottom: 32px; }
-  .hero-title em { font-style: normal; color: var(--fire); display: block; }
-
-  .hero-sub { font-size: clamp(14px, 2vw, 17px); font-weight: 300; color: var(--fog); max-width: 540px; line-height: 1.75; animation: fadeUp .9s .2s ease both; margin-bottom: 48px; }
-  .hero-sub strong { color: var(--bone); font-weight: 600; }
-
-  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; animation: fadeUp .9s .25s ease both; }
-  .btn-primary { font-family: "Black Ops One", cursive; font-size: 12px; letter-spacing: 3px; color: var(--char); background: var(--fire); border: none; padding: 16px 36px; cursor: pointer; text-decoration: none; transition: background .2s, transform .15s; display: inline-block; }
-  .btn-primary:hover { background: var(--ember); transform: translateY(-2px); }
-  .btn-secondary { font-family: "Black Ops One", cursive; font-size: 12px; letter-spacing: 3px; color: var(--fire); background: transparent; border: 1px solid var(--blood); padding: 16px 36px; cursor: pointer; text-decoration: none; transition: border-color .2s, transform .15s; display: inline-block; }
-  .btn-secondary:hover { border-color: var(--fire); transform: translateY(-2px); }
-
-  .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-family: "Space Mono", monospace; font-size: 9px; color: var(--steel); letter-spacing: 3px; text-transform: uppercase; animation: pulse 2.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
-
-  /* TICKER */
-  .ticker { background: var(--blood); padding: 11px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
-  .ticker-inner { display: flex; gap: 0; white-space: nowrap; animation: ticker 30s linear infinite; }
-  .ticker-item { font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.7); padding: 0 40px; }
-  .ticker-item::after { content: "✦"; margin-left: 40px; color: var(--fire); }
-  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-  /* SECTIONS */
-  .section { max-width: 1000px; margin: 0 auto; padding: 100px 32px; }
-  .section-label { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--blood); margin-bottom: 16px; }
-  .section-title { font-family: "Black Ops One", cursive; font-size: clamp(26px, 4vw, 44px); letter-spacing: 2px; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
-  .section-title span { color: var(--fire); }
-  .section-body { font-size: 15px; line-height: 1.9; color: var(--fog); }
-  .section-body strong { color: var(--bone); font-weight: 600; }
-
-  /* TWO-COL */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  @media(max-width:700px) { .two-col { grid-template-columns: 1fr; gap: 48px; } }
-
-  /* STATS ROW */
-  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin: 64px 0 0; }
-  @media(max-width:700px) { .stats-row { grid-template-columns: 1fr 1fr; } }
-  .stat-box { background: var(--coal); border: 1px solid var(--iron); padding: 28px 24px; }
-  .stat-num { font-family: "Black Ops One", cursive; font-size: 36px; color: var(--fire); line-height: 1; margin-bottom: 8px; }
-  .stat-label { font-family: "Space Mono", monospace; font-size: 9px; color: var(--ash); letter-spacing: 2px; text-transform: uppercase; line-height: 1.4; }
-
-  /* CHALLENGE SECTION */
-  .challenge { background: var(--coal); border-top: 1px solid var(--iron); border-bottom: 1px solid var(--iron); }
-  .challenge-inner { max-width: 1000px; margin: 0 auto; padding: 100px 32px; }
-  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 48px; }
-  @media(max-width:700px) { .challenge-grid { grid-template-columns: 1fr; } }
-  .challenge-card { background: var(--char); border: 1px solid var(--iron); padding: 32px 28px; position: relative; overflow: hidden; transition: border-color .2s; }
-  .challenge-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--fire); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
-  .challenge-card:hover { border-color: var(--steel); }
-  .challenge-card:hover::before { transform: scaleX(1); }
-  .cc-num { font-family: "Black Ops One", cursive; font-size: 48px; color: var(--iron); line-height: 1; margin-bottom: 16px; }
-  .cc-title { font-family: "Black Ops One", cursive; font-size: 15px; letter-spacing: 2px; color: var(--bone); margin-bottom: 12px; }
-  .cc-desc { font-size: 13px; color: var(--ash); line-height: 1.7; }
-
-  /* AGENTS */
-  .agents-section { background: var(--coal); border-top: 1px solid var(--iron); border-bottom: 1px solid var(--iron); padding: 100px 32px; }
-  .agents-inner { max-width: 1000px; margin: 0 auto; }
-  .agents-header { margin-bottom: 48px; }
-  .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; }
-  .agent-card { background: var(--char); border: 1px solid var(--iron); padding: 28px 24px; transition: border-color .2s; position: relative; overflow: hidden; }
-  .agent-card::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--fire); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
-  .agent-card:hover { border-color: var(--steel); }
-  .agent-card:hover::after { transform: scaleX(1); }
-  .agent-id { font-family: "Space Mono", monospace; font-size: 9px; color: var(--ash); letter-spacing: 2px; margin-bottom: 14px; }
-  .agent-name { font-family: "Black Ops One", cursive; font-size: 18px; letter-spacing: 2px; color: var(--fire); margin-bottom: 4px; }
-  .agent-role { font-family: "Space Mono", monospace; font-size: 9px; color: var(--ash); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--iron); }
-  .agent-desc { font-size: 12px; color: var(--fog); line-height: 1.65; }
-  .agent-status { position: absolute; top: 20px; right: 20px; width: 7px; height: 7px; border-radius: 50%; background: #3d9e60; animation: pulse2 2s infinite; }
-  @keyframes pulse2 { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-  /* MANIFESTO */
-  .manifesto { max-width: 800px; margin: 0 auto; padding: 120px 32px; text-align: center; }
-  .manifesto-quote { font-family: "Black Ops One", cursive; font-size: clamp(22px, 4vw, 40px); letter-spacing: 2px; color: var(--white); line-height: 1.3; margin-bottom: 32px; }
-  .manifesto-quote span { color: var(--fire); }
-  .manifesto-body { font-size: 15px; line-height: 1.9; color: var(--fog); max-width: 600px; margin: 0 auto; }
-
-  /* DIVIDER */
-  .div-line { display: flex; align-items: center; gap: 16px; max-width: 1000px; margin: 0 auto; padding: 0 32px; }
-  .div-line::before, .div-line::after { content: ""; flex: 1; height: 1px; background: var(--iron); }
-  .div-diamond { width: 6px; height: 6px; background: var(--blood); transform: rotate(45deg); }
-
-  /* FOLLOW */
-  .follow { background: var(--coal); border-top: 1px solid var(--iron); }
-  .follow-inner { max-width: 1000px; margin: 0 auto; padding: 100px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  @media(max-width:700px) { .follow-inner { grid-template-columns: 1fr; } }
-  .insta-handle { font-family: "Black Ops One", cursive; font-size: clamp(20px, 3vw, 32px); letter-spacing: 3px; color: var(--fire); display: block; margin-bottom: 32px; text-decoration: none; }
-  .insta-handle:hover { color: var(--ember); }
-
-  /* FOOTER */
-  footer { padding: 32px 48px; border-top: 1px solid var(--iron); display: flex; align-items: center; justify-content: space-between; }
-  .footer-brand { font-family: "Black Ops One", cursive; font-size: 14px; letter-spacing: 2px; color: var(--ash); }
-  .footer-brand span { color: var(--fire); }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a { font-family: "Space Mono", monospace; font-size: 9px; color: #333; text-decoration: none; letter-spacing: 1px; transition: color .15s; }
-  .footer-links a:hover { color: var(--fire); }
-  @media(max-width:600px) { footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px 24px; } }
+:root{--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;--ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);}
+.nav-name span{color:var(--fire);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ash);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--bone);}
+.nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
+.nav-cta:hover{background:var(--ember);}
+@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 80px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(122,34,4,.16) 0%,transparent 62%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%);pointer-events:none;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--ash);margin-bottom:44px;animation:up .7s ease both;}
+.hero-badge em{color:var(--fire);font-style:normal;}
+.hero-logo{width:clamp(120px,18vw,180px);height:auto;margin-bottom:44px;animation:up .8s .05s ease both;filter:drop-shadow(0 0 48px rgba(200,70,10,.4));}
+.hero-scratch{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--blood);margin-bottom:16px;animation:up .8s .1s ease both;}
+.hero-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(38px,7.5vw,92px);line-height:.93;letter-spacing:-1px;color:var(--white);animation:up .9s .15s ease both;margin-bottom:12px;}
+.hero-h1 em{font-style:normal;color:var(--fire);}
+.hero-h2{font-family:'Black Ops One',cursive;font-size:clamp(13px,2vw,20px);letter-spacing:3px;color:var(--bone);opacity:.6;animation:up .9s .18s ease both;margin-bottom:28px;}
+.hero-sub{font-size:clamp(14px,1.8vw,17px);color:var(--fog);max-width:520px;line-height:1.75;animation:up .9s .22s ease both;margin-bottom:52px;}
+.hero-sub strong{color:var(--bone);font-weight:600;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:up .9s .28s ease both;}
+.btn-fire{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:3px;background:var(--fire);color:var(--char);border:none;padding:17px 40px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
+.btn-fire:hover{background:var(--ember);transform:translateY(-2px);}
+.btn-ghost{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:3px;color:var(--fire);background:transparent;border:1px solid var(--blood);padding:17px 40px;cursor:pointer;text-decoration:none;transition:border-color .2s,transform .15s;display:inline-block;}
+.btn-ghost:hover{border-color:var(--fire);transform:translateY(-2px);}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:3px;animation:pulse 2.5s infinite;}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.8}}
+.ticker{background:var(--blood);padding:10px 0;overflow:hidden;}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite;}
+.tick-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.65);padding:0 36px;}
+.tick-item::after{content:'✦';margin-left:36px;color:rgba(255,255,255,.3);}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sec{max-width:1020px;margin:0 auto;padding:96px 32px;}
+.sec-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:14px;}
+.sec-title{font-family:'Black Ops One',cursive;font-size:clamp(26px,4vw,46px);letter-spacing:2px;color:var(--white);line-height:1.1;margin-bottom:22px;}
+.sec-title span{color:var(--fire);}
+.sec-body{font-size:15px;line-height:1.9;color:var(--fog);}
+.sec-body strong{color:var(--bone);font-weight:600;}
+.div{display:flex;align-items:center;gap:16px;max-width:1020px;margin:0 auto;padding:0 32px;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--iron);}
+.div-gem{width:7px;height:7px;background:var(--blood);transform:rotate(45deg);}
+.segs{background:var(--coal);border-top:1px solid var(--iron);border-bottom:1px solid var(--iron);}
+.segs-inner{max-width:1020px;margin:0 auto;padding:96px 32px;}
+.segs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
+@media(max-width:700px){.segs-grid{grid-template-columns:1fr;}}
+.seg-card{background:var(--char);border:1px solid var(--iron);padding:32px 28px;transition:border-color .2s;position:relative;overflow:hidden;}
+.seg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.seg-card:hover{border-color:var(--steel);}.seg-card:hover::before{transform:scaleX(1);}
+.seg-ico{font-size:24px;margin-bottom:18px;}
+.seg-name{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;color:var(--bone);margin-bottom:8px;}
+.seg-dor{font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);letter-spacing:1px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--iron);}
+.seg-res{font-size:12px;color:var(--ash);line-height:1.65;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;}
+@media(max-width:700px){.steps{grid-template-columns:1fr;}}
+.step{background:var(--coal);border:1px solid var(--iron);padding:36px 28px;}
+.step-num{font-family:'Black Ops One',cursive;font-size:52px;color:var(--iron);line-height:1;margin-bottom:20px;}
+.step-title{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;color:var(--bone);margin-bottom:12px;}
+.step-desc{font-size:13px;color:var(--ash);line-height:1.7;}
+.step-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);background:rgba(232,112,58,.1);padding:3px 8px;letter-spacing:1px;margin-top:16px;}
+.proof{background:var(--coal);border-top:1px solid var(--iron);border-bottom:1px solid var(--iron);}
+.proof-inner{max-width:1020px;margin:0 auto;padding:96px 32px;}
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;}
+@media(max-width:700px){.proof-grid{grid-template-columns:1fr;}}
+.proof-card{background:var(--char);border:1px solid var(--iron);padding:32px 28px;}
+.proof-num{font-family:'Black Ops One',cursive;font-size:48px;color:var(--fire);line-height:1;margin-bottom:8px;}
+.proof-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;line-height:1.5;}
+.proof-note{font-size:12px;color:var(--steel);margin-top:8px;}
+.agents-bg{background:var(--coal);border-top:1px solid var(--iron);}
+.agents-inner{max-width:1020px;margin:0 auto;padding:96px 32px;}
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin-top:48px;}
+.agent-card{background:var(--char);border:1px solid var(--iron);padding:28px 24px;position:relative;overflow:hidden;transition:border-color .2s;}
+.agent-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.agent-card:hover{border-color:var(--steel);}.agent-card:hover::after{transform:scaleX(1);}
+.agent-dot{position:absolute;top:20px;right:20px;width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.agent-id{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:14px;}
+.agent-name{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);margin-bottom:4px;}
+.agent-role{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--iron);}
+.agent-desc{font-size:12px;color:var(--fog);line-height:1.65;}
+.manifesto{max-width:760px;margin:0 auto;padding:112px 32px;text-align:center;}
+.manifesto-q{font-family:'Black Ops One',cursive;font-size:clamp(20px,4vw,40px);letter-spacing:2px;color:var(--white);line-height:1.3;margin-bottom:28px;}
+.manifesto-q span{color:var(--fire);}
+.manifesto-p{font-size:15px;line-height:1.9;color:var(--fog);max-width:580px;margin:0 auto;}
+.cta-band{background:var(--blood);padding:72px 32px;text-align:center;}
+.cta-band-title{font-family:'Black Ops One',cursive;font-size:clamp(22px,4vw,44px);letter-spacing:3px;color:var(--white);margin-bottom:16px;line-height:1.2;}
+.cta-band-sub{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;}
+.cta-band a{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;background:var(--white);color:var(--blood);border:none;padding:18px 48px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
+.cta-band a:hover{background:var(--bone);transform:translateY(-2px);}
+.cta-band-note{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);margin-top:20px;letter-spacing:1px;}
+footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
+.footer-brand span{color:var(--fire);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:9px;color:#2a2a2a;text-decoration:none;letter-spacing:1px;transition:color .15s;}
+.footer-links a:hover{color:var(--fire);}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="/" class="nav-logo">
-    <svg class="nav-logo-icon" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
-      <defs><radialGradient id="ng1" cx="50%" cy="60%" r="55%"><stop offset="0%" stop-color="#f08040"/><stop offset="100%" stop-color="#7a2008"/></radialGradient></defs>
-      <ellipse cx="360" cy="390" rx="80" ry="92" fill="url(#ng1)" stroke="#080808" stroke-width="3"/>
-      <polygon points="360,220 345,260 375,260" fill="#e8703a" stroke="#080808" stroke-width="3"/>
-      <circle cx="314" cy="260" r="14" fill="#080808" stroke="#c05020" stroke-width="3"/>
-      <circle cx="406" cy="260" r="14" fill="#080808" stroke="#c05020" stroke-width="3"/>
-      <circle cx="314" cy="260" r="7" fill="#e8703a"/>
-      <circle cx="406" cy="260" r="7" fill="#e8703a"/>
-    </svg>
-    ONE MAN <span>ARMY</span>
+<nav id="nav">
+  <a href="/" class="nav-brand">
+    <span class="nav-name">ONE MAN <span>ARMY</span> 🦞</span>
   </a>
   <div class="nav-links">
-    <a href="#sobre">O Projeto</a>
-    <a href="#desafio">O Desafio</a>
-    <a href="#agentes">O Time</a>
-    <a href="#blog">Diário</a>
+    <a href="#para-quem">Para quem</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#time">O time</a>
   </div>
-  <a href="https://instagram.com/1manarmy_project" target="_blank" class="nav-cta">Seguir</a>
+  <a href="https://wa.me/5541991196134?text=Oi+Bia,+vim+pelo+site" target="_blank" class="nav-cta">Falar com a Bia</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
-
-  <p class="hero-eyebrow">🦞 &nbsp; <em>24 de março de 2026</em> &nbsp;·&nbsp; Dia 1 da operação</p>
-<svg class="hero-logo-wrap" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+  <p class="hero-badge">🦞 &nbsp; Lançamento <em>01 de abril de 2026</em></p>
+  <svg class="hero-logo" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <filter id="hre" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G"/></filter>
-      <filter id="hie" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="3" seed="7" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" xChannelSelector="R" yChannelSelector="G"/></filter>
-      <radialGradient id="hlg1" cx="50%" cy="38%" r="62%"><stop offset="0%" stop-color="#f07838"/><stop offset="45%" stop-color="#d05018"/><stop offset="100%" stop-color="#8a2a06"/></radialGradient>
-      <radialGradient id="hlg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c04010"/><stop offset="100%" stop-color="#6a1a04"/></radialGradient>
-      <radialGradient id="hlg3" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#e86830"/><stop offset="100%" stop-color="#a03010"/></radialGradient>
-      <path id="hat" d="M 45,360 A 315,315 0 0,1 675,360" fill="none"/>
-      <path id="hab" d="M 30,360 A 330,330 0 0,0 690,360" fill="none"/>
+      <radialGradient id="g1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#f09050"/><stop offset="60%" stop-color="#c84818"/><stop offset="100%" stop-color="#7a2008"/></radialGradient>
+      <radialGradient id="g2" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#e07030"/><stop offset="100%" stop-color="#8a2808"/></radialGradient>
+      <radialGradient id="g3" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#d06028"/><stop offset="100%" stop-color="#6a1e06"/></radialGradient>
+      <filter id="sh"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity=".6"/></filter>
     </defs>
-    <circle cx="360" cy="360" r="354" fill="#0a0a0a"/>
-    <circle cx="360" cy="360" r="338" fill="none" stroke="#7a2808" stroke-width="3" filter="url(#hre)"/>
-    <circle cx="360" cy="360" r="330" fill="none" stroke="#1c1c1c" stroke-width="1.5"/>
-    <line x1="190" y1="205" x2="530" y2="205" stroke="#c04010" stroke-width="2.5" filter="url(#hie)"/>
-    <circle cx="190" cy="205" r="5" fill="#c04010"/><circle cx="530" cy="205" r="5" fill="#c04010"/><circle cx="360" cy="205" r="4" fill="#f07030"/>
-    <g fill="#c04010" filter="url(#hie)">
-      <polygon points="270,188 273,179 279,179 274,174 276,165 270,170 264,165 266,174 261,179 267,179"/>
-      <polygon points="360,185 363,176 369,176 364,171 366,162 360,167 354,162 356,171 351,176 357,176"/>
-      <polygon points="450,188 453,179 459,179 454,174 456,165 450,170 444,165 446,174 441,179 447,179"/>
-    </g>
-    <line x1="218" y1="516" x2="502" y2="516" stroke="#c04010" stroke-width="2" filter="url(#hie)"/>
-    <circle cx="218" cy="516" r="4" fill="#a03010"/><circle cx="502" cy="516" r="4" fill="#a03010"/>
-    <g transform="translate(360, 378)">
-      <path d="M0,190 Q-28,222 -44,254 Q-18,272 0,258 Q18,272 44,254 Q28,222 0,190 Z" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="3" filter="url(#hie)"/>
-      <path d="M-15,190 Q-12,232 0,254 Q12,232 15,190 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2"/>
-      <path d="M-30,182 Q-62,210 -74,250 Q-54,264 -38,240 Q-24,214 -20,184 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <path d="M30,182 Q62,210 74,250 Q54,264 38,240 Q24,214 20,184 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <path d="M-50,172 Q-88,198 -102,236 Q-78,252 -62,224 Q-46,196 -38,168 Z" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <path d="M50,172 Q88,198 102,236 Q78,252 62,224 Q46,196 38,168 Z" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <path d="M-64,158 Q-106,184 -120,224 Q-96,240 -78,210 Q-60,180 -52,154 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2"/>
-      <path d="M64,158 Q106,184 120,224 Q96,240 78,210 Q60,180 52,154 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2"/>
-      <ellipse cx="0" cy="162" rx="34" ry="18" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <ellipse cx="0" cy="134" rx="42" ry="18" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <ellipse cx="0" cy="106" rx="50" ry="18" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <ellipse cx="0" cy="78"  rx="56" ry="18" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <ellipse cx="0" cy="50"  rx="60" ry="18" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="2.5"/>
-      <line x1="-34" y1="162" x2="34" y2="162" stroke="#0a0a0a" stroke-width="2.5"/>
-      <line x1="-42" y1="134" x2="42" y2="134" stroke="#0a0a0a" stroke-width="2.5"/>
-      <line x1="-50" y1="106" x2="50" y2="106" stroke="#0a0a0a" stroke-width="2.5"/>
-      <line x1="-56" y1="78"  x2="56" y2="78"  stroke="#0a0a0a" stroke-width="2.5"/>
-      <line x1="-60" y1="50"  x2="60" y2="50"  stroke="#0a0a0a" stroke-width="2.5"/>
-      <line x1="0" y1="34" x2="0" y2="178" stroke="#0a0a0a" stroke-width="2.5" opacity="0.55"/>
-      <path d="M-58,44 Q-96,32 -124,14 Q-136,0 -126,-18" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
-      <path d="M 58,44 Q  96,32  124,14 Q 136,0  126,-18" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-58,66 Q-98,62 -124,46 Q-138,32 -130,16" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
-      <path d="M 58,66 Q  98,62  124,46 Q 138,32  130,16" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
+    <g transform="translate(360,360)">
       <path d="M-58,90 Q-100,98 -126,90 Q-142,80 -140,64" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
-      <path d="M 58,90 Q  100,98  126,90 Q 142,80  140,64" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 58,90 Q 100,98 126,90 Q 142,80 140,64" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
       <path d="M-56,114 Q-96,124 -116,118 Q-132,110 -130,94" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
-      <path d="M 56,114 Q  96,124  116,118 Q 132,110  130,94" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 56,114 Q 96,124 116,118 Q 132,110 130,94" fill="none" stroke="#b84010" stroke-width="4" stroke-linecap="round"/>
       <path d="M-52,138 Q-90,152 -108,148 Q-122,144 -120,128" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
-      <path d="M 52,138 Q  90,152  108,148 Q 122,144  120,128" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
-      <ellipse cx="0" cy="-26" rx="80" ry="92" fill="url(#hlg1)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#hie)"/>
+      <path d="M 52,138 Q 90,152 108,148 Q 122,144 120,128" fill="none" stroke="#e06828" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="0" cy="-26" rx="80" ry="92" fill="url(#g1)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#sh)"/>
       <path d="M-78,-10 Q-40,-4 0,-5 Q40,-4 78,-10" fill="none" stroke="#0a0a0a" stroke-width="3.5"/>
-      <line x1="0" y1="-118" x2="0" y2="38" stroke="#6a1e06" stroke-width="4"/>
-      <path d="M-74,-44 Q-52,-32 -44,-14" fill="none" stroke="#6a1e06" stroke-width="3"/>
-      <path d="M 74,-44 Q  52,-32  44,-14" fill="none" stroke="#6a1e06" stroke-width="3"/>
-      <ellipse cx="0" cy="-50" rx="34" ry="24" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="2.5"/>
+      <ellipse cx="0" cy="-50" rx="34" ry="24" fill="url(#g2)" stroke="#0a0a0a" stroke-width="2.5"/>
       <ellipse cx="0" cy="-50" rx="18" ry="12" fill="#f07030" stroke="#0a0a0a" stroke-width="2"/>
-      <circle cx="0" cy="-50" r="5" fill="#f8a060" opacity="0.6"/>
       <polygon points="0,-120 -15,-90 15,-90" fill="#f07838" stroke="#0a0a0a" stroke-width="3"/>
-      <polygon points="-22,-108 -36,-92 -12,-98" fill="#e06020" stroke="#0a0a0a" stroke-width="2"/>
-      <polygon points=" 22,-108  36,-92  12,-98" fill="#e06020" stroke="#0a0a0a" stroke-width="2"/>
       <circle cx="-46" cy="-100" r="14" fill="#0a0a0a" stroke="#e06828" stroke-width="3.5"/>
       <circle cx=" 46" cy="-100" r="14" fill="#0a0a0a" stroke="#e06828" stroke-width="3.5"/>
       <circle cx="-46" cy="-100" r="7" fill="#f07030"/>
       <circle cx=" 46" cy="-100" r="7" fill="#f07030"/>
-      <circle cx="-44" cy="-103" r="3" fill="#ffffff" opacity="0.55"/>
-      <circle cx=" 44" cy="-103" r="3" fill="#ffffff" opacity="0.55"/>
-      <line x1="-46" y1="-86" x2="-42" y2="-74" stroke="#c04010" stroke-width="5"/>
-      <line x1=" 46" y1="-86" x2=" 42" y2="-74" stroke="#c04010" stroke-width="5"/>
       <path d="M-32,-112 Q-130,-172 -200,-138" fill="none" stroke="#c84818" stroke-width="5" stroke-linecap="round"/>
-      <path d="M 32,-112 Q  130,-172  200,-138" fill="none" stroke="#c84818" stroke-width="5" stroke-linecap="round"/>
-      <path d="M-28,-114 Q-86,-154 -124,-140" fill="none" stroke="#7a2808" stroke-width="3" stroke-linecap="round"/>
-      <path d="M 28,-114 Q  86,-154  124,-140" fill="none" stroke="#7a2808" stroke-width="3" stroke-linecap="round"/>
-      <path d="M-78,-20 Q-132,0 -168,36 Q-190,58 -182,86 Q-166,114 -134,104 Q-102,94 -100,68 L-76,32 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#hie)"/>
-      <ellipse cx="-152" cy="66" rx="36" ry="24" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3" transform="rotate(-24,-152,66)"/>
-      <path d="M-182,86 Q-196,114 -176,126 Q-152,136 -138,110 L-134,104 Q-166,114 -182,86 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3"/>
-      <path d="M-134,104 Q-114,128 -96,114 Q-82,96 -100,68 Z" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3"/>
-      <path d="M78,-20 Q132,0 168,36 Q190,58 182,86 Q166,114 134,104 Q102,94 100,68 L76,32 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#hie)"/>
-      <ellipse cx="152" cy="66" rx="36" ry="24" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3" transform="rotate(24,152,66)"/>
-      <path d="M182,86 Q196,114 176,126 Q152,136 138,110 L134,104 Q166,114 182,86 Z" fill="url(#hlg2)" stroke="#0a0a0a" stroke-width="3"/>
-      <path d="M134,104 Q114,128 96,114 Q82,96 100,68 Z" fill="url(#hlg3)" stroke="#0a0a0a" stroke-width="3"/>
+      <path d="M 32,-112 Q 130,-172 200,-138" fill="none" stroke="#c84818" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-78,-20 Q-132,0 -168,36 Q-190,58 -182,86 Q-166,114 -134,104 Q-102,94 -100,68 L-76,32 Z" fill="url(#g2)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#sh)"/>
+      <path d="M-182,86 Q-196,114 -176,126 Q-152,136 -138,110 L-134,104 Q-166,114 -182,86 Z" fill="url(#g2)" stroke="#0a0a0a" stroke-width="3"/>
+      <path d="M78,-20 Q132,0 168,36 Q190,58 182,86 Q166,114 134,104 Q102,94 100,68 L76,32 Z" fill="url(#g2)" stroke="#0a0a0a" stroke-width="3.5" filter="url(#sh)"/>
+      <path d="M182,86 Q196,114 176,126 Q152,136 138,110 L134,104 Q166,114 182,86 Z" fill="url(#g2)" stroke="#0a0a0a" stroke-width="3"/>
     </g>
-    <text font-family="'Black Ops One', cursive" font-size="36" fill="#f0f0f0" letter-spacing="10"><textPath href="#hat" startOffset="50%" text-anchor="middle" dy="6">ONE MAN ARMY PROJECT</textPath></text>
-    <text font-family="'Black Ops One', cursive" font-size="30" fill="#d05018" letter-spacing="8"><textPath href="#hab" startOffset="50%" text-anchor="middle" dy="-22">AI AGENTS TEAM  ✦  DESDE 2026</textPath></text>
-    <circle cx="30"  cy="360" r="7" fill="#8a2808"/>
-    <circle cx="690" cy="360" r="7" fill="#8a2808"/>
   </svg>
-
-  <p class="hero-scratch">From the Scratch</p>
-  <h1 class="hero-title">
-    O desafio: construir um negócio<br>
-    <em>100% operado por agentes</em>
-  </h1>
-  <p class="hero-sub">
-    Do zero. Ao vivo. Sem equipe. Sem código.<br>
-    <strong>Um empresário. Um Mac Mini. Um time de agentes autônomos.</strong>
-  </p>
-
+  <p class="hero-scratch">From the Scratch · 2026</p>
+  <h1 class="hero-h1">Terceirize um time<br>de <em>agentes de IA</em></h1>
+  <p class="hero-h2">para o seu negócio</p>
+  <p class="hero-sub">Atendimento, gestão, vendas e agenda — operando <strong>24 horas por dia</strong>, sem encargos trabalhistas, sem treinamento, sem turnover. Um time que nunca falta.</p>
   <div class="hero-cta">
-    <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Acompanhar ao vivo</a>
-    <a href="#desafio" class="btn-secondary">Entender o projeto</a>
+    <a href="https://wa.me/5541991196134?text=Oi+Bia,+vim+pelo+site" target="_blank" class="btn-fire">Falar com a Bia agora</a>
+    <a href="#como-funciona" class="btn-ghost">Como funciona</a>
   </div>
-  <p class="hero-scroll">▼ &nbsp; scroll</p>
+  <p class="hero-scroll">▼ scroll</p>
 </section>
 
-<!-- TICKER -->
 <div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">George online</span>
-    <span class="ticker-item">Bia operacional</span>
-    <span class="ticker-item">Amanda ativa</span>
-    <span class="ticker-item">Darwin monitorando</span>
-    <span class="ticker-item">NanoClaw v1.0</span>
-    <span class="ticker-item">24/7 sem parar</span>
-    <span class="ticker-item">Mac Mini M4</span>
-    <span class="ticker-item">onemanarmyproject.com.br</span>
-    <span class="ticker-item">George online</span>
-    <span class="ticker-item">Bia operacional</span>
-    <span class="ticker-item">Amanda ativa</span>
-    <span class="ticker-item">Darwin monitorando</span>
-    <span class="ticker-item">NanoClaw v1.0</span>
-    <span class="ticker-item">24/7 sem parar</span>
-    <span class="ticker-item">Mac Mini M4</span>
-    <span class="ticker-item">onemanarmyproject.com.br</span>
+  <div class="ticker-track">
+    <span class="tick-item">Atendimento 24h</span><span class="tick-item">Gestão de agenda</span><span class="tick-item">Qualificação de leads</span><span class="tick-item">Controle financeiro</span><span class="tick-item">Follow-up automático</span><span class="tick-item">Relatórios semanais</span><span class="tick-item">Sem encargos</span><span class="tick-item">Sem turnover</span><span class="tick-item">Atendimento 24h</span><span class="tick-item">Gestão de agenda</span><span class="tick-item">Qualificação de leads</span><span class="tick-item">Controle financeiro</span><span class="tick-item">Follow-up automático</span><span class="tick-item">Relatórios semanais</span><span class="tick-item">Sem encargos</span><span class="tick-item">Sem turnover</span>
   </div>
 </div>
 
-<!-- SOBRE -->
-<section class="section" id="sobre">
-  <div class="two-col">
-    <div>
-      <p class="section-label">O Projeto</p>
-      <h2 class="section-title">Um exército<br><span>de um homem só</span></h2>
-      <p class="section-body">
-        <strong>One Man Army Project</strong> é um experimento real e público.<br><br>
-        Fabio Xavier — jornalista, empreendedor, zero background técnico — decidiu construir do zero uma empresa operada inteiramente por <strong>agentes de IA autônomos</strong>.<br><br>
-        A plataforma se chama <strong>NanoClaw</strong>. O time tem nome, função e personalidade. E tudo acontece ao vivo, com resultados reais medidos e publicados.
-      </p>
-    </div>
-    <div>
-      <p class="section-label">Por que acompanhar</p>
-      <h2 class="section-title">O case que<br><span>ainda não existe</span></h2>
-      <p class="section-body">
-        Não é tutorial. Não é teoria. Não é pitch deck.<br><br>
-        É um <strong>diário de campo ao vivo</strong> de quem está construindo, errando, ajustando e escalando — com resultados reais documentados a cada semana.<br><br>
-        Se você quer entender como agentes de IA funcionam dentro de um negócio real, este é o único lugar onde isso está acontecendo em público.
-      </p>
-    </div>
-  </div>
-
-  <div class="stats-row">
-    <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Agentes operacionais</div></div>
-    <div class="stat-box"><div class="stat-num">24/7</div><div class="stat-label">Operação contínua</div></div>
-    <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Linhas de código escritas por Fabio</div></div>
-    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Possibilidades documentadas</div></div>
-  </div>
-</section>
-
-<div class="div-line"><div class="div-diamond"></div></div>
-
-<!-- O DESAFIO -->
-<section class="challenge" id="desafio">
-  <div class="challenge-inner">
-    <p class="section-label">O Desafio</p>
-    <h2 class="section-title">Três frentes.<br><span>Zero equipe humana.</span></h2>
-    <p class="section-body" style="max-width:600px">Cada frente é operada por um time de agentes com papéis distintos. Fabio decide a estratégia. Os agentes executam.</p>
-
-    <div class="challenge-grid">
-      <div class="challenge-card">
-        <div class="cc-num">01</div>
-        <div class="cc-title">Captação e Vendas</div>
-        <div class="cc-desc">Bia qualifica leads no WhatsApp, agenda reuniões, envia propostas e faz follow-up — tudo sem intervenção humana. Tiago monta as propostas com base em transcrições de reuniões gravadas.</div>
-      </div>
-      <div class="challenge-card">
-        <div class="cc-num">02</div>
-        <div class="cc-title">Operação dos Clientes</div>
-        <div class="cc-desc">Cada cliente recebe um agente dedicado que opera atendimento, gestão e automações. Darwin monitora tudo a cada 15 minutos. George reporta semanalmente para Fabio e para o cliente.</div>
-      </div>
-      <div class="challenge-card">
-        <div class="cc-num">03</div>
-        <div class="cc-title">Conteúdo e Crescimento</div>
-        <div class="cc-desc">Flávia coordena o Marketing Squad. Posts, copy, imagens e publicações no Instagram @1manarmy_project — todos gerados e publicados pelos agentes, supervisionados pelo Fabio.</div>
-      </div>
+<section class="segs" id="para-quem">
+  <div class="segs-inner">
+    <p class="sec-lbl">Para quem é</p>
+    <h2 class="sec-title">Seu negócio perde dinheiro<br><span>com problemas que têm solução.</span></h2>
+    <p class="sec-body" style="max-width:580px">Trabalhamos com os segmentos onde os agentes entregam mais resultado. Se você se reconhece em uma dessas dores, a conversa vale a pena.</p>
+    <div class="segs-grid">
+      <div class="seg-card"><div class="seg-ico">⚖️</div><div class="seg-name">Advocacia</div><div class="seg-dor">"Perco 3h por dia em controle de prazos"</div><div class="seg-res">Agente controla prazos processuais, cobra documentos pendentes, agenda audiências e confirma compromissos automaticamente.</div></div>
+      <div class="seg-card"><div class="seg-ico">🏥</div><div class="seg-name">Consultórios</div><div class="seg-dor">"5 faltas por semana sem aviso"</div><div class="seg-res">Agente confirma consultas, reagenda automaticamente, zera vaga ociosa e responde dúvidas 24h no WhatsApp.</div></div>
+      <div class="seg-card"><div class="seg-ico">🍺</div><div class="seg-name">Distribuidores</div><div class="seg-dor">"Meu time vende menos porque responde WhatsApp"</div><div class="seg-res">Agente atende pedidos, verifica estoque e libera o time de vendas para fechar negócios.</div></div>
+      <div class="seg-card"><div class="seg-ico">🏢</div><div class="seg-name">Administradoras</div><div class="seg-dor">"42 condomínios, backoffice manual"</div><div class="seg-res">Agente centraliza comunicação com moradores, automatiza cobranças e gera relatórios de ocorrências.</div></div>
+      <div class="seg-card"><div class="seg-ico">👓</div><div class="seg-name">Varejo e Óticas</div><div class="seg-dor">"Perco clientes fora do horário"</div><div class="seg-res">Agente atende WhatsApp 24h, qualifica intenção de compra e faz follow-up de orçamentos.</div></div>
+      <div class="seg-card"><div class="seg-ico">🏗️</div><div class="seg-name">Outros segmentos</div><div class="seg-dor">"Tenho uma operação diferente"</div><div class="seg-res">Cada agente é configurado para o seu negócio. A Bia faz o diagnóstico e propõe a solução certa.</div></div>
     </div>
   </div>
 </section>
 
-<!-- AGENTES -->
-<section class="agents-section" id="agentes">
+<section class="sec" id="como-funciona">
+  <p class="sec-lbl">Como funciona</p>
+  <h2 class="sec-title">Do contato ao agente<br><span>operando em 48 horas.</span></h2>
+  <p class="sec-body" style="max-width:540px">Simples, sem burocracia. Você não precisa saber nada de tecnologia.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Diagnóstico</div><div class="step-desc">A Bia conversa com você pelo WhatsApp, entende a sua operação e identifica onde um agente gera mais resultado. Sem compromisso.</div><span class="step-tag">Bia · WhatsApp · Gratuito</span></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Proposta e setup</div><div class="step-desc">Você recebe uma proposta personalizada. Aprovando, configuramos o agente em até 48 horas. Contrato mínimo de 6 meses.</div><span class="step-tag">Tiago · George · 48h</span></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Operação contínua</div><div class="step-desc">Agente entra em operação. Você recebe relatório semanal com resultados. A cada 3 meses revisamos o que pode melhorar ou expandir.</div><span class="step-tag">Darwin · Relatório semanal</span></div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<section class="proof">
+  <div class="proof-inner">
+    <p class="sec-lbl">Por que confiar</p>
+    <h2 class="sec-title">Usamos os mesmos agentes<br><span>para operar o nosso negócio.</span></h2>
+    <p class="sec-body" style="max-width:580px;margin-bottom:0">Não estamos vendendo uma promessa. O One Man Army Project opera com os mesmos agentes que oferecemos — ao vivo, com resultados reais publicados toda semana.</p>
+    <div class="proof-grid">
+      <div class="proof-card"><div class="proof-num">7</div><div class="proof-label">Agentes em produção</div><div class="proof-note">George, Bia, Amanda, Tiago, Flávia, Darwin e mais</div></div>
+      <div class="proof-card"><div class="proof-num">24/7</div><div class="proof-label">Operação sem interrupção</div><div class="proof-note">Mac Mini M4 · NanoClaw · Monitoramento a cada 15 min</div></div>
+      <div class="proof-card"><div class="proof-num">48h</div><div class="proof-label">Do contrato ao agente operando</div><div class="proof-note">Onboarding automatizado · Zero configuração pelo cliente</div></div>
+      <div class="proof-card"><div class="proof-num">0</div><div class="proof-label">Linhas de código pelo fundador</div><div class="proof-note">Construído por um empresário sem background técnico — para empresários como você</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="agents-bg" id="time">
   <div class="agents-inner">
-    <div class="agents-header">
-      <p class="section-label">AI Agents Team</p>
-      <h2 class="section-title">Conheça o <span>time</span></h2>
-    </div>
+    <p class="sec-lbl">O time</p>
+    <h2 class="sec-title">Agentes com nome,<br><span>função e personalidade.</span></h2>
+    <p class="sec-body" style="max-width:560px">Quando você contrata, recebe um agente dedicado ao seu negócio — treinado com o seu contexto, operando no seu WhatsApp.</p>
     <div class="agents-grid">
-      <div class="agent-card">
-        <div class="agent-status"></div>
-        <div class="agent-id">AGT-001 · TELEGRAM</div>
-        <div class="agent-name">George</div>
-        <div class="agent-role">Orquestrador Central</div>
-        <div class="agent-desc">Coordena todos os agentes, toma decisões de roteamento e é a interface principal de Fabio. Não dorme.</div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-status"></div>
-        <div class="agent-id">AGT-002 · WHATSAPP</div>
-        <div class="agent-name">Bia</div>
-        <div class="agent-role">Comercial — OMA Project</div>
-        <div class="agent-desc">Capta, qualifica e converte leads para o One Man Army Project. Opera o funil completo de vendas via WhatsApp.</div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-status"></div>
-        <div class="agent-id">AGT-003 · WHATSAPP</div>
-        <div class="agent-name">Amanda</div>
-        <div class="agent-role">Assistente Pessoal</div>
-        <div class="agent-desc">Gerencia agenda, emails, lembretes e tarefas do Fabio. Interface bidirecional via WhatsApp.</div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-status"></div>
-        <div class="agent-id">AGT-004 · TELEGRAM</div>
-        <div class="agent-name">Tiago</div>
-        <div class="agent-role">Diretor Comercial</div>
-        <div class="agent-desc">Monta propostas personalizadas a partir de transcrições de reuniões. Pipeline, precificação e estratégia B2B.</div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-status"></div>
-        <div class="agent-id">AGT-005 · INSTAGRAM</div>
-        <div class="agent-name">Flávia</div>
-        <div class="agent-role">Coord. de Marketing</div>
-        <div class="agent-desc">Lidera o Marketing Squad. Conteúdo, copy e calendário editorial do @1manarmy_project.</div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-status"></div>
-        <div class="agent-id">AGT-006 · SISTEMA</div>
-        <div class="agent-name">Darwin</div>
-        <div class="agent-role">Monitoramento 24/7</div>
-        <div class="agent-desc">Verifica a saúde de todos os sistemas a cada 15 minutos. Alerta Fabio antes que qualquer coisa quebre.</div>
-      </div>
+      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-001 · ORQUESTRADOR</div><div class="agent-name">George</div><div class="agent-role">Coordenação Central</div><div class="agent-desc">Coordena todos os agentes, gera relatórios semanais e garante que nada caia. Interface direta com o responsável do cliente.</div></div>
+      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-002 · COMERCIAL</div><div class="agent-name">Bia</div><div class="agent-role">Captação e Diagnóstico</div><div class="agent-desc">Porta de entrada. Qualifica leads, entende a dor e propõe o agente certo para cada negócio.</div></div>
+      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-003 · ATENDIMENTO</div><div class="agent-name">Amanda</div><div class="agent-role">Assistente e Agenda</div><div class="agent-desc">Responde WhatsApp, confirma consultas, agenda compromissos e gerencia tarefas operacionais.</div></div>
+      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-004 · ESTRATÉGIA</div><div class="agent-name">Tiago</div><div class="agent-role">Proposta Comercial</div><div class="agent-desc">Monta propostas personalizadas com base no diagnóstico e nas reuniões gravadas.</div></div>
+      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-005 · MONITORAMENTO</div><div class="agent-name">Darwin</div><div class="agent-role">Qualidade 24/7</div><div class="agent-desc">Monitora todos os agentes a cada 15 minutos. Detecta problemas antes que o cliente perceba.</div></div>
+      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-006 · MARKETING</div><div class="agent-name">Flávia</div><div class="agent-role">Conteúdo e Comunicação</div><div class="agent-desc">Coordena o marketing do projeto. Posts e calendário editorial do @1manarmy_project.</div></div>
     </div>
   </div>
 </section>
 
-<div class="div-line" style="margin-top:0"><div class="div-diamond"></div></div>
+<div class="div"><div class="div-gem"></div></div>
 
-<!-- BLOG -->
-<section class="section" id="blog">
-  <p class="section-label">Diário de Campo</p>
-  <h2 class="section-title">O que está<br><span>acontecendo</span></h2>
-  <p class="section-body" style="max-width:560px;margin-bottom:48px">Bastidores reais. Erros, viradas e aprendizados — escritos pelos agentes, revisados pelo Fabio. Publicados semanalmente.</p>
-
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px">
-    <a style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#7a2204'" onmouseout="this.style.borderColor='#1a1a1a'" href="#">
-      <p style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px">24 MAR 2026 · GEORGE</p>
-      <h3 style="font-family:Black Ops One,cursive;font-size:17px;letter-spacing:1px;color:var(--white);margin-bottom:12px;line-height:1.3">O dia em que construímos o CRM, o hub e o monitor de WhatsApp — tudo em 6 horas</h3>
-      <p style="font-size:12px;color:var(--ash);line-height:1.65;margin-bottom:20px">Do zero ao ar. Sem frameworks, sem equipe. Só George, Claude e Fabio tomando decisões em tempo real enquanto o produto nascia.</p>
-      <span style="font-family:Space Mono,monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;letter-spacing:1px">Bastidores</span>
-    </a>
-    <a style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#7a2204'" onmouseout="this.style.borderColor='#1a1a1a'" href="#">
-      <p style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px">EM BREVE · FLÁVIA</p>
-      <h3 style="font-family:Black Ops One,cursive;font-size:17px;letter-spacing:1px;color:var(--white);margin-bottom:12px;line-height:1.3">Como montamos a estratégia de conteúdo do @1manarmy_project em 2 horas</h3>
-      <p style="font-size:12px;color:var(--ash);line-height:1.65;margin-bottom:20px">O Marketing Squad recebeu o briefing e devolveu um calendário editorial completo antes de eu terminar o café.</p>
-      <span style="font-family:Space Mono,monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;letter-spacing:1px">Marketing</span>
-    </a>
-    <a style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#7a2204'" onmouseout="this.style.borderColor='#1a1a1a'" href="#">
-      <p style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px">EM BREVE · FABIO</p>
-      <h3 style="font-family:Black Ops One,cursive;font-size:17px;letter-spacing:1px;color:var(--white);margin-bottom:12px;line-height:1.3">Nunca programei nada. E construí isso.</h3>
-      <p style="font-size:12px;color:var(--ash);line-height:1.65;margin-bottom:20px">A história completa: de jornalista a fundador de uma plataforma de agentes rodando 24/7 — sem escrever uma linha de código.</p>
-      <span style="font-family:Space Mono,monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 8px;letter-spacing:1px">Origem</span>
-    </a>
-  </div>
-</section>
-
-<!-- MANIFESTO -->
-<div class="div-line"><div class="div-diamond"></div></div>
 <section class="manifesto">
-  <h2 class="manifesto-quote">"A lagosta não pede licença.<br>Ela só <span>avança."</span></h2>
-  <p class="manifesto-body">O One Man Army Project não é sobre substituir pessoas por máquinas. É sobre um empreendedor usando as melhores ferramentas disponíveis para ir mais longe — com mais velocidade, mais inteligência e menos fricção. Construído do zero. Em público. Com resultados reais.</p>
-</section>
-<div class="div-line"><div class="div-diamond"></div></div>
-
-<!-- FOLLOW -->
-<section class="follow">
-  <div class="follow-inner">
-    <div>
-      <p class="section-label">Acompanhe ao vivo</p>
-      <h2 class="section-title">Tudo acontece<br><span>no Instagram</span></h2>
-      <p class="section-body">Posts, bastidores, erros, viradas e o diário de campo do NanoClaw. Os agentes escrevem. O Fabio revisa. Você acompanha em tempo real.</p>
-    </div>
-    <div style="text-align:center">
-      <a href="https://instagram.com/1manarmy_project" target="_blank" class="insta-handle">@1manarmy_project</a>
-      <a href="https://instagram.com/1manarmy_project" target="_blank" class="btn-primary">Seguir agora</a>
-    </div>
-  </div>
+  <h2 class="manifesto-q">"A lagosta não pede licença.<br>Ela só <span>avança."</span></h2>
+  <p class="manifesto-p">O One Man Army Project não é sobre substituir pessoas por máquinas. É sobre um empreendedor usando as melhores ferramentas disponíveis para ir mais longe — com mais velocidade, mais inteligência e menos fricção.</p>
 </section>
 
-<!-- FOOTER -->
+<div class="div"><div class="div-gem"></div></div>
+
+<section class="cta-band">
+  <h2 class="cta-band-title">Pronto para ter<br>um time que nunca falta?</h2>
+  <p class="cta-band-sub">A Bia faz o diagnóstico gratuito pelo WhatsApp. Sem compromisso. Sem jargão técnico. Em menos de 30 minutos você entende se faz sentido para o seu negócio.</p>
+  <a href="https://wa.me/5541991196134?text=Oi+Bia,+vim+pelo+site+do+OMA+Project" target="_blank">Falar com a Bia agora</a>
+  <p class="cta-band-note">Lançamento 01 de abril de 2026 · Vagas limitadas para os primeiros clientes</p>
+</section>
+
 <footer>
   <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
   <div class="footer-links">
+    <a href="https://instagram.com/1manarmy_project" target="_blank">@1manarmy_project</a>
     <a href="/status">◉ Status</a>
     <a href="/hub">⬛ Hub</a>
-    <a href="/ops">◉ Ops</a>
   </div>
 </footer>
 
 <script>
-const nav = document.getElementById("mainNav");
-window.addEventListener("scroll", () => {
-  nav.classList.toggle("scrolled", window.scrollY > 40);
-});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
 </script>
-
 </body>
 </html>
