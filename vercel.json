@@ -47,6 +47,10 @@
     {
       "source": "/traffic",
       "destination": "/traffic.html"
+    },
+    {
+      "source": "/demo",
+      "destination": "/demo.html"
     }
   ]
 }

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Demo — Portal do Cliente</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
+<style>
+:root{--char:#080808;--coal:#0f0f0f;--graph:#131313;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;}
+*{margin:0;padding:0;box-sizing:border-box;}html{font-size:14px;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column;}
+.chrome{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;height:100vh;max-height:700px;width:100%;max-width:1100px;margin:auto;box-shadow:0 40px 120px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04);}
+.chrome-bar{background:#111;padding:10px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1a1a1a;flex-shrink:0;}
+.dots{display:flex;gap:6px;}.dot{width:12px;height:12px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.url-bar{flex:1;background:#1a1a1a;border-radius:5px;padding:5px 12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);display:flex;align-items:center;gap:8px;}
+.url-lock{color:var(--green);font-size:9px;}.url-text{color:#888;}.url-text span{color:var(--fire);}
+.portal{display:flex;flex:1;overflow:hidden;}
+.sidebar{width:200px;background:var(--coal);border-right:1px solid var(--iron);display:flex;flex-direction:column;flex-shrink:0;}
+.sidebar-brand{padding:20px 16px 16px;border-bottom:1px solid var(--iron);}
+.sidebar-logo{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;color:var(--bone);}.sidebar-logo span{color:var(--fire);}
+.sidebar-client{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:4px;letter-spacing:1px;}
+.sidebar-nav{flex:1;padding:12px 8px;overflow-y:auto;}
+.nav-section{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;padding:8px 8px 4px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:4px;cursor:pointer;transition:background .1s;margin-bottom:1px;}
+.nav-item:hover{background:var(--iron);}.nav-item.active{background:rgba(232,112,58,.12);}
+.nav-item.active .nav-label{color:var(--fire);}
+.nav-icon{font-size:12px;width:16px;text-align:center;flex-shrink:0;}
+.nav-label{font-size:11px;color:var(--fog);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-badge{margin-left:auto;background:var(--blood);color:var(--bone);font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;}
+.sidebar-footer{padding:12px 16px;border-top:1px solid var(--iron);}
+.agent-status{display:flex;align-items:center;gap:8px;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.status-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1px;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--char);}
+.main-header{padding:16px 24px;border-bottom:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--coal);}
+.main-title{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:var(--bone);}
+.main-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px;letter-spacing:1px;}
+.clock{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.main-body{flex:1;overflow-y:auto;padding:20px 24px;}
+.main-body::-webkit-scrollbar{width:3px;}.main-body::-webkit-scrollbar-thumb{background:var(--steel);}
+.view{display:none;animation:fadeIn .2s ease;}.view.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.stat-card{background:var(--graph);border:1px solid var(--iron);padding:14px 16px;}
+.stat-val{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);line-height:1;margin-bottom:4px;}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;line-height:1.4;}
+.stat-delta{font-size:10px;margin-top:4px;}.delta-up{color:var(--fire);}.delta-dn{color:var(--green);}
+.chat-window{background:var(--graph);border:1px solid var(--iron);display:flex;flex-direction:column;height:320px;margin-bottom:16px;}
+.chat-header{padding:10px 16px;border-bottom:1px solid var(--iron);display:flex;align-items:center;gap:8px;}
+.chat-agent-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:1px;color:var(--fire);}
+.chat-agent-role{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);margin-left:auto;letter-spacing:1px;}
+.chat-messages{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
+.chat-messages::-webkit-scrollbar{width:2px;}.chat-messages::-webkit-scrollbar-thumb{background:var(--steel);}
+.msg{display:flex;flex-direction:column;max-width:75%;}
+.msg.bot{align-self:flex-start;}.msg.user{align-self:flex-end;}
+.msg-bubble{padding:8px 12px;font-size:12px;line-height:1.5;}
+.msg.bot .msg-bubble{background:var(--iron);color:var(--bone);border-left:2px solid var(--fire);}
+.msg.user .msg-bubble{background:rgba(232,112,58,.12);color:var(--bone);border-right:2px solid var(--ember);}
+.msg-time{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);margin-top:3px;}
+.msg.user .msg-time{text-align:right;}
+.chat-input-bar{padding:10px 16px;border-top:1px solid var(--iron);display:flex;gap:8px;align-items:center;}
+.chat-input{flex:1;background:var(--iron);border:none;padding:7px 10px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;}
+.chat-input::placeholder{color:var(--ash);}
+.chat-send{background:var(--fire);border:none;color:var(--char);padding:7px 14px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;cursor:pointer;}
+.log-list{display:flex;flex-direction:column;}
+.log-item{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;}
+.log-time{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);white-space:nowrap;flex-shrink:0;width:50px;}
+.log-tag{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;flex-shrink:0;}
+.tag-ok{background:rgba(61,158,96,.15);color:var(--green);}
+.tag-info{background:rgba(58,123,213,.15);color:var(--blue);}
+.tag-warn{background:rgba(232,112,58,.15);color:var(--fire);}
+.log-text{color:var(--fog);line-height:1.4;}
+.agenda-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px;}
+.agenda-day{background:var(--graph);border:1px solid var(--iron);padding:8px;min-height:72px;}
+.agenda-day.today{border-color:var(--fire);}
+.agenda-day-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-bottom:6px;}
+.agenda-day.today .agenda-day-num{color:var(--fire);}
+.agenda-event{font-size:9px;padding:2px 4px;margin-bottom:2px;line-height:1.3;}
+.ev-confirmed{background:rgba(61,158,96,.2);color:var(--green);}
+.ev-pending{background:rgba(232,112,58,.15);color:var(--fire);}
+.ev-canceled{background:rgba(255,255,255,.05);color:var(--ash);text-decoration:line-through;}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;}
+.tbl th{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase;}
+.tbl td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog);}
+.tbl tr:hover td{background:var(--graph);}
+.pill{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;}
+.pill-green{background:rgba(61,158,96,.15);color:var(--green);}
+.pill-orange{background:rgba(232,112,58,.15);color:var(--fire);}
+.pill-red{background:rgba(192,80,32,.2);color:#ff8060;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.bar-label{font-size:11px;color:var(--fog);width:120px;flex-shrink:0;}
+.bar-track{flex:1;height:6px;background:var(--iron);overflow:hidden;}
+.bar-fill{height:100%;background:var(--fire);}
+.bar-fill.green{background:var(--green);}
+.bar-val{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);width:32px;text-align:right;}
+.instrucao-bar{margin-top:12px;background:var(--graph);border:1px solid var(--iron);padding:12px 16px;display:flex;gap:8px;align-items:center;}
+.instrucao-label{font-family:'Space Mono',monospace;font-size:8px;color:var(--blood);letter-spacing:1px;flex-shrink:0;}
+.instrucao-input{flex:1;background:transparent;border:none;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;opacity:.4;}
+.instrucao-btn{font-family:'Black Ops One',cursive;font-size:9px;letter-spacing:1px;background:transparent;border:1px solid var(--blood);color:var(--fire);padding:5px 10px;cursor:pointer;opacity:.5;}
+.typing{display:flex;gap:4px;align-items:center;padding:8px 0;}
+.typing-dot{width:5px;height:5px;border-radius:50%;background:var(--ash);animation:bounce .8s infinite;}
+.typing-dot:nth-child(2){animation-delay:.15s;}.typing-dot:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+.ag-row{display:flex;align-items:center;gap:10px;padding:8px;background:var(--iron);margin-bottom:4px;}
+.ag-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse2 2s infinite;flex-shrink:0;}
+.ag-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:1px;color:var(--fire);}
+.ag-role{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
+.ag-status{font-family:'Space Mono',monospace;font-size:8px;color:var(--green);}
+</style>
+</head>
+<body>
+<div class="chrome">
+  <div class="chrome-bar">
+    <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+    <div class="url-bar"><span class="url-lock">🔒</span><span class="url-text">onemanarmyproject.com.br/<span id="urlPath">cliente/mendes-advocacia</span></span></div>
+  </div>
+  <div class="portal">
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">OMA <span>AGENTS</span></div>
+        <div class="sidebar-client">MENDES ADVOCACIA</div>
+      </div>
+      <div class="sidebar-nav">
+        <div class="nav-section">Painel</div>
+        <div class="nav-item active" data-view="overview" onclick="switchView(this)"><span class="nav-icon">◉</span><span class="nav-label">Visão Geral</span></div>
+        <div class="nav-item" data-view="chat" onclick="switchView(this)"><span class="nav-icon">💬</span><span class="nav-label">Atendimento</span><span class="nav-badge">3</span></div>
+        <div class="nav-section">Módulos</div>
+        <div class="nav-item" data-view="agenda" onclick="switchView(this)"><span class="nav-icon">📅</span><span class="nav-label">Agenda</span></div>
+        <div class="nav-item" data-view="cobranca" onclick="switchView(this)"><span class="nav-icon">💰</span><span class="nav-label">Cobrança</span><span class="nav-badge">5</span></div>
+        <div class="nav-item" data-view="processos" onclick="switchView(this)"><span class="nav-icon">📋</span><span class="nav-label">Processos</span></div>
+        <div class="nav-item" data-view="relatorio" onclick="switchView(this)"><span class="nav-icon">📊</span><span class="nav-label">Relatório</span></div>
+        <div class="nav-section">Sistema</div>
+        <div class="nav-item" data-view="agentes" onclick="switchView(this)"><span class="nav-icon">🤖</span><span class="nav-label">Agentes</span></div>
+        <div class="nav-item" data-view="log" onclick="switchView(this)"><span class="nav-icon">⬛</span><span class="nav-label">Log</span></div>
+      </div>
+      <div class="sidebar-footer"><div class="agent-status"><div class="status-dot"></div><span class="status-label" id="agentStatusLabel">AMANDA · ONLINE</span></div></div>
+    </div>
+    <div class="main">
+      <div class="main-header">
+        <div><div class="main-title" id="mainTitle">VISÃO GERAL</div><div class="main-sub" id="mainSub">Resumo da operação — hoje</div></div>
+        <div><span class="clock" id="clock">--:--</span></div>
+      </div>
+      <div class="main-body">
+
+        <!-- OVERVIEW -->
+        <div class="view active" id="view-overview">
+          <div class="stats-row">
+            <div class="stat-card"><div class="stat-val">47</div><div class="stat-lbl">Atendimentos esta semana</div><div class="stat-delta delta-dn">↓ -8% vs semana anterior</div></div>
+            <div class="stat-card"><div class="stat-val">94%</div><div class="stat-lbl">Taxa de resolução</div><div class="stat-delta delta-up">↑ +3% vs mês anterior</div></div>
+            <div class="stat-card"><div class="stat-val">2min</div><div class="stat-lbl">Tempo médio de resposta</div><div class="stat-delta delta-dn">↓ era 18min</div></div>
+            <div class="stat-card"><div class="stat-val">R$0</div><div class="stat-lbl">Custo de horas extras</div><div class="stat-delta delta-dn">↓ R$4.800/mês economizados</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+            <div style="background:var(--graph);border:1px solid var(--iron);padding:14px 16px">
+              <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase">Últimas atividades</div>
+              <div class="log-list">
+                <div class="log-item"><span class="log-time">09:47</span><span class="log-tag tag-ok">SAC</span><span class="log-text">Rodrigo — prazo de recurso esclarecido</span></div>
+                <div class="log-item"><span class="log-time">09:12</span><span class="log-tag tag-info">AGENDA</span><span class="log-text">Consulta 14h confirmada</span></div>
+                <div class="log-item"><span class="log-time">08:55</span><span class="log-tag tag-warn">COBRANÇA</span><span class="log-text">Lembrete D+3 enviado — Ana Paula</span></div>
+                <div class="log-item"><span class="log-time">08:30</span><span class="log-tag tag-ok">PROCESSO</span><span class="log-text">Prazo trabalhista consultado</span></div>
+                <div class="log-item"><span class="log-time">08:00</span><span class="log-tag tag-info">RELATÓRIO</span><span class="log-text">Relatório semanal enviado</span></div>
+              </div>
+            </div>
+            <div style="background:var(--graph);border:1px solid var(--iron);padding:14px 16px">
+              <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase">Volume por módulo</div>
+              <div class="bar-row"><span class="bar-label">SAC</span><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><span class="bar-val">31</span></div>
+              <div class="bar-row"><span class="bar-label">Agenda</span><div class="bar-track"><div class="bar-fill green" style="width:55%"></div></div><span class="bar-val">21</span></div>
+              <div class="bar-row"><span class="bar-label">Cobrança</span><div class="bar-track"><div class="bar-fill" style="width:34%"></div></div><span class="bar-val">13</span></div>
+              <div class="bar-row"><span class="bar-label">Processos</span><div class="bar-track"><div class="bar-fill green" style="width:26%"></div></div><span class="bar-val">10</span></div>
+            </div>
+          </div>
+          <div class="instrucao-bar"><span class="instrucao-label">INSTRUÇÃO</span><input class="instrucao-input" value="Priorizar atendimentos sobre prazo esta semana..." readonly><button class="instrucao-btn">ENVIAR</button></div>
+        </div>
+
+        <!-- CHAT -->
+        <div class="view" id="view-chat">
+          <div class="chat-window">
+            <div class="chat-header"><div class="status-dot"></div><span class="chat-agent-name">Amanda</span><span class="chat-agent-role">SAC 24h · Mendes Advocacia</span></div>
+            <div class="chat-messages" id="chatMessages">
+              <div class="msg bot"><div class="msg-bubble">Olá! Sou a Amanda, assistente da Mendes Advocacia. Como posso ajudar?</div><div class="msg-time">08:02</div></div>
+              <div class="msg user"><div class="msg-bubble">Preciso saber sobre o prazo do meu processo trabalhista</div><div class="msg-time">08:04</div></div>
+              <div class="msg bot"><div class="msg-bubble">Pode me passar o número do processo ou seu CPF?</div><div class="msg-time">08:04</div></div>
+              <div class="msg user"><div class="msg-bubble">CPF: 832.xxx.xxx-10</div><div class="msg-time">08:05</div></div>
+              <div class="msg bot"><div class="msg-bubble">Processo nº 0023847-12.2025. O prazo para defesa é 15/04/2026. Dr. Mendes já está ciente. Posso agendar uma consulta de alinhamento?</div><div class="msg-time">08:05</div></div>
+            </div>
+            <div class="chat-input-bar"><input class="chat-input" id="chatInput" placeholder="Digite uma mensagem..." onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">ENVIAR</button></div>
+          </div>
+        </div>
+
+        <!-- AGENDA -->
+        <div class="view" id="view-agenda">
+          <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+            <div class="stat-card"><div class="stat-val">18</div><div class="stat-lbl">Consultas esta semana</div></div>
+            <div class="stat-card"><div class="stat-val">0</div><div class="stat-lbl">Faltas sem aviso</div><div class="stat-delta delta-dn">↓ era 5/semana</div></div>
+            <div class="stat-card"><div class="stat-val">3</div><div class="stat-lbl">Encaixes preenchidos</div></div>
+          </div>
+          <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:8px">SEMANA DE 24 A 28 MAR</div>
+          <div class="agenda-grid">
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);text-align:center;padding:4px">SEG</div>
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);text-align:center;padding:4px">TER</div>
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);text-align:center;padding:4px">QUA</div>
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);text-align:center;padding:4px">QUI</div>
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--fire);text-align:center;padding:4px">HOJ</div>
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);text-align:center;padding:4px">SEX</div>
+            <div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);text-align:center;padding:4px">SÁB</div>
+          </div>
+          <div class="agenda-grid">
+            <div class="agenda-day"><div class="agenda-day-num">24</div><div class="agenda-event ev-confirmed">09h Rodrigo S.</div><div class="agenda-event ev-confirmed">14h Maria C.</div></div>
+            <div class="agenda-day"><div class="agenda-day-num">25</div><div class="agenda-event ev-confirmed">10h Carlos M.</div><div class="agenda-event ev-canceled">15h — cancel.</div></div>
+            <div class="agenda-day"><div class="agenda-day-num">26</div><div class="agenda-event ev-confirmed">09h Beatriz F.</div><div class="agenda-event ev-pending">14h — pendente</div></div>
+            <div class="agenda-day"><div class="agenda-day-num">27</div><div class="agenda-event ev-confirmed">10h Sandra W.</div><div class="agenda-event ev-confirmed">16h Rodrigo C.</div></div>
+            <div class="agenda-day today"><div class="agenda-day-num">25</div><div class="agenda-event ev-confirmed">09h Ricardo A.</div><div class="agenda-event ev-confirmed">14h Dr. Mendes</div><div class="agenda-event ev-pending">16h Luísa P.</div></div>
+            <div class="agenda-day"><div class="agenda-day-num">28</div><div class="agenda-event ev-pending">10h — pendente</div><div class="agenda-event ev-confirmed">15h30 Julio V.</div></div>
+            <div class="agenda-day"><div class="agenda-day-num">29</div></div>
+          </div>
+        </div>
+
+        <!-- COBRANÇA -->
+        <div class="view" id="view-cobranca">
+          <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+            <div class="stat-card"><div class="stat-val">R$28k</div><div class="stat-lbl">Em aberto</div></div>
+            <div class="stat-card"><div class="stat-val">5</div><div class="stat-lbl">Réguas ativas</div></div>
+            <div class="stat-card"><div class="stat-val">R$12k</div><div class="stat-lbl">Recuperado este mês</div></div>
+          </div>
+          <table class="tbl"><thead><tr><th>Cliente</th><th>Valor</th><th>Vencimento</th><th>Régua</th><th>Próxima ação</th></tr></thead><tbody>
+            <tr><td>Ana Paula R.</td><td>R$3.200</td><td>20/03</td><td><span class="pill pill-orange">D+5</span></td><td>Cobrança amanhã</td></tr>
+            <tr><td>Carlos Mendes</td><td>R$5.800</td><td>15/03</td><td><span class="pill pill-red">D+10</span></td><td>Escalação hoje</td></tr>
+            <tr><td>Rodrigo Silva</td><td>R$1.900</td><td>22/03</td><td><span class="pill pill-orange">D+3</span></td><td>Lembrete enviado</td></tr>
+            <tr><td>Beatriz Fontes</td><td>R$8.400</td><td>10/03</td><td><span class="pill pill-red">D+15</span></td><td>Aguarda humano</td></tr>
+            <tr><td>Mariana Costa</td><td>R$6.600</td><td>18/03</td><td><span class="pill pill-green">Pago</span></td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- PROCESSOS -->
+        <div class="view" id="view-processos">
+          <div class="chat-window">
+            <div class="chat-header"><div class="status-dot"></div><span class="chat-agent-name">Manual</span><span class="chat-agent-role">Consultor · 47 documentos</span></div>
+            <div class="chat-messages" id="processMessages">
+              <div class="msg bot"><div class="msg-bubble">Olá. Sou o Manual, consultor de processos da Mendes Advocacia. O que precisa saber?</div><div class="msg-time">09:30</div></div>
+              <div class="msg user"><div class="msg-bubble">Qual o prazo para recurso em processo trabalhista?</div><div class="msg-time">09:31</div></div>
+              <div class="msg bot"><div class="msg-bubble">Conforme o manual interno (seção 4.2): o prazo para Recurso Ordinário é de 8 dias corridos a partir da intimação. Fonte: Consolidação de Processos v3.1, jan/2026.</div><div class="msg-time">09:31</div></div>
+            </div>
+            <div class="chat-input-bar"><input class="chat-input" id="processInput" placeholder="Consulte qualquer processo interno..." onkeydown="if(event.key==='Enter')sendProcess()"><button class="chat-send" onclick="sendProcess()">CONSULTAR</button></div>
+          </div>
+        </div>
+
+        <!-- RELATÓRIO -->
+        <div class="view" id="view-relatorio">
+          <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:12px">RELATÓRIO SEMANAL · 17–23 MAR 2026 · MENDES ADVOCACIA</div>
+          <div style="background:var(--graph);border:1px solid var(--iron);padding:16px;margin-bottom:8px">
+            <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Atendimentos</div>
+            <div class="bar-row"><span class="bar-label">SAC resolvido</span><div class="bar-track"><div class="bar-fill green" style="width:94%"></div></div><span class="bar-val">94%</span></div>
+            <div class="bar-row"><span class="bar-label">Escalado p/ humano</span><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><span class="bar-val">6%</span></div>
+          </div>
+          <div style="background:var(--graph);border:1px solid var(--iron);padding:16px;margin-bottom:8px">
+            <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Agenda</div>
+            <div class="bar-row"><span class="bar-label">Confirmadas</span><div class="bar-track"><div class="bar-fill green" style="width:88%"></div></div><span class="bar-val">22</span></div>
+            <div class="bar-row"><span class="bar-label">Faltas</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0</span></div>
+          </div>
+          <div style="background:var(--graph);border:1px solid var(--iron);padding:16px">
+            <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Cobrança</div>
+            <div class="bar-row"><span class="bar-label">Réguas enviadas</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">18</span></div>
+            <div class="bar-row"><span class="bar-label">Pagamentos</span><div class="bar-track"><div class="bar-fill green" style="width:67%"></div></div><span class="bar-val">R$12k</span></div>
+          </div>
+        </div>
+
+        <!-- AGENTES -->
+        <div class="view" id="view-agentes">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+            <div style="background:var(--graph);border:1px solid var(--iron);padding:14px 16px">
+              <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase">Agentes ativos neste cliente</div>
+              <div class="ag-row"><div class="ag-dot"></div><div style="flex:1"><div class="ag-name">Amanda</div><div class="ag-role">SAC 24H · AGENDA · WHATSAPP</div></div><div class="ag-status">ONLINE</div></div>
+              <div class="ag-row"><div class="ag-dot"></div><div style="flex:1"><div class="ag-name">Régua</div><div class="ag-role">COBRANÇA · FOLLOW-UP</div></div><div class="ag-status">ONLINE</div></div>
+              <div class="ag-row"><div class="ag-dot"></div><div style="flex:1"><div class="ag-name">Manual</div><div class="ag-role">CONSULTOR DE PROCESSOS</div></div><div class="ag-status">ONLINE</div></div>
+              <div class="ag-row"><div class="ag-dot"></div><div style="flex:1"><div class="ag-name">Darwin</div><div class="ag-role">MONITORAMENTO 24H</div></div><div class="ag-status" style="color:var(--gold)">MONITOR</div></div>
+            </div>
+            <div style="background:var(--graph);border:1px solid var(--iron);padding:14px 16px">
+              <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase">Indicadores — Hoje</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+                <div style="background:var(--iron);padding:12px"><div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-bottom:4px">EXECUÇÕES</div><div style="font-family:Black Ops One,cursive;font-size:24px;color:var(--fire)">47</div></div>
+                <div style="background:var(--iron);padding:12px"><div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-bottom:4px">RESOLVIDOS</div><div style="font-family:Black Ops One,cursive;font-size:24px;color:var(--green)">44</div></div>
+                <div style="background:var(--iron);padding:12px"><div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-bottom:4px">ESCALAÇÕES</div><div style="font-family:Black Ops One,cursive;font-size:24px;color:var(--gold)">3</div></div>
+                <div style="background:var(--iron);padding:12px"><div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-bottom:4px">TEMPO MÉDIO</div><div style="font-family:Black Ops One,cursive;font-size:24px;color:var(--blue)">2min</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--graph);border:1px solid var(--iron);padding:14px 16px">
+            <div style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase">Últimas ações dos agentes</div>
+            <div class="log-list">
+              <div class="log-item"><span class="log-time">09:47</span><span class="log-tag tag-ok">Amanda</span><span class="log-text">Rodrigo S. — prazo de recurso esclarecido automaticamente</span></div>
+              <div class="log-item"><span class="log-time">09:31</span><span class="log-tag tag-info">Manual</span><span class="log-text">Prazo recurso trabalhista — respondido com fonte (seção 4.2)</span></div>
+              <div class="log-item"><span class="log-time">08:55</span><span class="log-tag tag-warn">Régua</span><span class="log-text">Ana Paula R. — lembrete D+3 enviado (R$3.200)</span></div>
+              <div class="log-item"><span class="log-time">08:00</span><span class="log-tag tag-info">Darwin</span><span class="log-text">Check de saúde — todos os agentes operacionais</span></div>
+            </div>
+          </div>
+          <div class="instrucao-bar"><span class="instrucao-label">INSTRUÇÃO</span><input class="instrucao-input" value="Focar em confirmar todas as consultas de segunda-feira..." readonly><button class="instrucao-btn">ENVIAR</button></div>
+        </div>
+
+        <!-- LOG -->
+        <div class="view" id="view-log">
+          <div class="log-list">
+            <div class="log-item"><span class="log-time">09:47</span><span class="log-tag tag-ok">RESOLVE</span><span class="log-text">Amanda · Rodrigo S. — consulta de prazo resolvida sem escalação</span></div>
+            <div class="log-item"><span class="log-time">09:31</span><span class="log-tag tag-info">CONSULTA</span><span class="log-text">Manual · Prazo recurso trabalhista — respondido (seção 4.2)</span></div>
+            <div class="log-item"><span class="log-time">09:12</span><span class="log-tag tag-ok">AGENDA</span><span class="log-text">Amanda · Consulta 14h confirmada — SMS + WhatsApp</span></div>
+            <div class="log-item"><span class="log-time">08:55</span><span class="log-tag tag-warn">COBRANÇA</span><span class="log-text">Régua · Ana Paula R. — D+3 enviado (R$3.200)</span></div>
+            <div class="log-item"><span class="log-time">08:30</span><span class="log-tag tag-ok">RESOLVE</span><span class="log-text">Amanda · João P. — agendamento confirmado 27/03 16h</span></div>
+            <div class="log-item"><span class="log-time">08:15</span><span class="log-tag tag-warn">ESCALA</span><span class="log-text">Amanda · Carlos M. → Dr. Mendes — negociação de honorários</span></div>
+            <div class="log-item"><span class="log-time">08:00</span><span class="log-tag tag-info">RELATÓRIO</span><span class="log-text">Sistema · Relatório semanal 17-23/03 enviado</span></div>
+            <div class="log-item"><span class="log-time">00:14</span><span class="log-tag tag-ok">SAC</span><span class="log-text">Amanda · Pedro A. — dúvida respondida às 23h, fora do expediente</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const views={overview:{title:'VISÃO GERAL',sub:'Resumo da operação — hoje',agent:'AMANDA · ONLINE',url:'cliente/mendes-advocacia'},chat:{title:'ATENDIMENTO',sub:'SAC 24h — conversas ativas',agent:'AMANDA · ONLINE',url:'cliente/mendes-advocacia/sac'},agenda:{title:'AGENDA',sub:'Gestão de consultas',agent:'AMANDA · ONLINE',url:'cliente/mendes-advocacia/agenda'},cobranca:{title:'COBRANÇA',sub:'Régua automática — follow-up ativo',agent:'RÉGUA · ONLINE',url:'cliente/mendes-advocacia/cobranca'},processos:{title:'PROCESSOS',sub:'Consultor interno — 47 docs',agent:'MANUAL · ONLINE',url:'cliente/mendes-advocacia/processos'},relatorio:{title:'RELATÓRIO',sub:'Semana 17–23 mar 2026',agent:'GEORGE · ONLINE',url:'cliente/mendes-advocacia/relatorio'},agentes:{title:'AGENTES',sub:'4 agentes ativos — operação contínua',agent:'DARWIN · MONITORANDO',url:'cliente/mendes-advocacia/agentes'},log:{title:'LOG DE ATIVIDADES',sub:'Todas as ações dos agentes',agent:'DARWIN · MONITORANDO',url:'cliente/mendes-advocacia/log'}};
+function switchView(el){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active');const v=el.dataset.view;document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');const m=views[v];document.getElementById('mainTitle').textContent=m.title;document.getElementById('mainSub').textContent=m.sub;document.getElementById('agentStatusLabel').textContent=m.agent;document.getElementById('urlPath').textContent=m.url;}
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
+const chatR=['Quinta 27/03 às 16h confirmada! Você receberá lembretes 24h e 2h antes.','Posso ajudar com mais alguma dúvida sobre o seu processo?','Vou registrar uma nota para o Dr. Mendes. Ele retorna até o fim do dia.'];
+let ci=0;
+function sendChat(){const inp=document.getElementById('chatInput');const msgs=document.getElementById('chatMessages');const txt=inp.value.trim();if(!txt)return;inp.value='';const u=document.createElement('div');u.className='msg user';u.innerHTML='<div class="msg-bubble">'+txt+'</div><div class="msg-time">'+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</div>';msgs.appendChild(u);const t=document.createElement('div');t.className='msg bot';t.innerHTML='<div class="msg-bubble"><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>{t.remove();const b=document.createElement('div');b.className='msg bot';b.innerHTML='<div class="msg-bubble">'+chatR[ci%chatR.length]+'</div><div class="msg-time">'+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</div>';ci++;msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;},1200);}
+const procR=['Conforme o manual (seção 2.1): prazo para emissão de nota é 5 dias úteis após pagamento. Fonte: Procedimentos Financeiros v2.3.','Conforme a política interna (seção 6.4): clientes em rescisão têm prioridade no agendamento.','Não encontrei informação específica. Escalando para Dr. Mendes — resposta em até 2h.'];
+let pi=0;
+function sendProcess(){const inp=document.getElementById('processInput');const msgs=document.getElementById('processMessages');const txt=inp.value.trim();if(!txt)return;inp.value='';const u=document.createElement('div');u.className='msg user';u.innerHTML='<div class="msg-bubble">'+txt+'</div><div class="msg-time">'+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</div>';msgs.appendChild(u);const t=document.createElement('div');t.className='msg bot';t.innerHTML='<div class="msg-bubble"><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>{t.remove();const b=document.createElement('div');b.className='msg bot';b.innerHTML='<div class="msg-bubble">'+procR[pi%procR.length]+'</div><div class="msg-time">'+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</div>';pi++;msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;},1000);}
+</script>
+</body>
+</html>
