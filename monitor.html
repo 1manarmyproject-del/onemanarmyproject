@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA — Monitor WhatsApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;--red:#c0392b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+
+/* LOGIN */
+#loginScreen{flex:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.15),transparent 65%);}
+.lb{width:100%;max-width:340px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
+.ls{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
+.linp{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:12px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:16px;outline:none;margin-bottom:28px;}
+.linp:focus{border-bottom-color:var(--fire);}
+.linp::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:12px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;}
+.lbtn:hover{background:var(--ember);}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+
+/* APP */
+#app{display:none;flex-direction:column;flex:1;}
+
+/* HEADER */
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;flex-shrink:0;}
+.hbrand{display:flex;align-items:center;gap:10px;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;}.hlogo span{color:var(--fire);}
+.hbadge{background:var(--blood);color:var(--bone);font-family:'Space Mono',monospace;font-size:9px;padding:3px 7px;}
+.hright{display:flex;align-items:center;gap:16px;}
+.hclock{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;transition:all .15s;}
+.hout:hover{color:var(--bone);}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* NAV BAR */
+.nav{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 24px;display:flex;align-items:center;gap:0;flex-shrink:0;}
+.nback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;padding:14px 16px 14px 0;border-right:1px solid var(--iron);margin-right:16px;transition:color .15s;}
+.nback:hover{color:var(--fire);}
+.ntab{padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--fog);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none;white-space:nowrap;}
+.ntab:hover{color:var(--bone);}
+.ntab.active{color:var(--fire);border-bottom-color:var(--fire);}
+.ncount{font-size:9px;background:var(--steel);padding:1px 5px;margin-left:6px;font-family:'Space Mono',monospace;}
+.ncount.hot{background:var(--blood);}
+.nflex{flex:1;}
+.nrefresh{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);background:none;border:1px solid var(--steel);padding:6px 12px;cursor:pointer;transition:all .15s;}
+.nrefresh:hover{color:var(--bone);border-color:var(--fog);}
+.nrefresh.loading{color:var(--fire);}
+
+/* MAIN */
+.main{display:grid;grid-template-columns:280px 1fr;flex:1;overflow:hidden;max-height:calc(100vh - 112px);}
+
+/* SIDEBAR — LISTA DE CONVERSAS */
+.sidebar{background:var(--carbon);border-right:1px solid var(--iron);overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar::-webkit-scrollbar{width:3px;}.sidebar::-webkit-scrollbar-thumb{background:var(--steel);}
+.sb-search{padding:12px;border-bottom:1px solid var(--iron);}
+.sb-input{width:100%;background:var(--graph);border:1px solid var(--iron);padding:8px 10px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;}
+.sb-input::placeholder{color:var(--ash);}
+.sb-input:focus{border-color:var(--steel);}
+.conv-item{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .1s;position:relative;}
+.conv-item:hover{background:var(--graph);}
+.conv-item.active{background:var(--graph);border-left:2px solid var(--fire);}
+.conv-item.unread{border-left:2px solid var(--fire);}
+.conv-agent{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.conv-agent.bia{color:var(--fire);}
+.conv-agent.amanda{color:var(--gold);}
+.conv-name{font-size:13px;font-weight:600;color:var(--bone);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:40px;}
+.conv-preview{font-size:11px;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.conv-time{position:absolute;top:14px;right:14px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);}
+.conv-badge{position:absolute;top:32px;right:14px;background:var(--fire);color:var(--char);font-size:9px;padding:1px 5px;font-family:'Space Mono',monospace;font-weight:700;}
+.conv-empty{padding:40px 16px;text-align:center;color:var(--ash);font-size:12px;}
+
+/* CHAT */
+.chat{display:flex;flex-direction:column;overflow:hidden;}
+.chat-header{padding:16px 24px;border-bottom:1px solid var(--iron);background:var(--carbon);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.chat-contact{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:1px;}
+.chat-meta{font-size:11px;color:var(--ash);margin-top:3px;font-family:'Space Mono',monospace;}
+.chat-tag{font-size:9px;padding:3px 8px;font-family:'Space Mono',monospace;font-weight:700;letter-spacing:1px;}
+.tag-bia{background:rgba(232,112,58,.15);color:var(--fire);}
+.tag-amanda{background:rgba(200,164,86,.15);color:var(--gold);}
+.chat-body{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:10px;}
+.chat-body::-webkit-scrollbar{width:3px;}.chat-body::-webkit-scrollbar-thumb{background:var(--steel);}
+.chat-empty{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--ash);}
+.chat-empty-icon{font-size:32px;opacity:.3;}
+.chat-empty-text{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;}
+
+/* MESSAGES */
+.msg{display:flex;flex-direction:column;max-width:72%;}
+.msg.bot{align-self:flex-start;}
+.msg.user{align-self:flex-end;}
+.msg-bubble{padding:10px 14px;font-size:13px;line-height:1.5;}
+.msg.bot .msg-bubble{background:var(--graph);border:1px solid var(--iron);color:var(--bone);border-radius:0 8px 8px 0;}
+.msg.user .msg-bubble{background:rgba(232,112,58,.12);border:1px solid rgba(232,112,58,.2);color:var(--bone);border-radius:8px 0 0 8px;}
+.msg-meta{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.msg-sender{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.msg.bot .msg-sender{color:var(--fire);}
+.msg.user .msg-sender{color:var(--ash);text-align:right;width:100%;}
+.msg-time{font-size:9px;font-family:'Space Mono',monospace;color:var(--ash);}
+.msg-date-sep{align-self:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);background:var(--iron);padding:3px 10px;letter-spacing:1px;margin:8px 0;}
+
+/* PLACEHOLDER */
+.placeholder{flex:1;display:flex;align-items:center;justify-content:center;}
+.placeholder-inner{text-align:center;}
+.placeholder-logo{font-family:'Black Ops One',cursive;font-size:32px;letter-spacing:4px;color:var(--iron);margin-bottom:8px;}
+.placeholder-logo span{color:var(--fire);}
+.placeholder-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;}
+
+/* LOADING */
+.loading-dots{display:inline-flex;gap:4px;}
+.loading-dots span{width:5px;height:5px;border-radius:50%;background:var(--ash);animation:dot .8s infinite both;}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,100%{opacity:.2}50%{opacity:1}}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--graph);border:1px solid var(--steel);padding:10px 20px;font-size:11px;color:var(--bone);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Space Mono',monospace;white-space:nowrap;}
+.toast.show{opacity:1;}.toast.ok{border-color:var(--green);color:var(--green);}.toast.err{border-color:#ff6040;color:#ff6040;}
+
+@media(max-width:768px){
+  .main{grid-template-columns:1fr;}
+  .chat{display:none;}
+  .chat.visible{display:flex;}
+  .sidebar.hidden{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="lb">
+    <div class="ll">OMA <span>MONITOR</span></div>
+    <div class="ls">🦞 WHATSAPP · ACESSO RESTRITO</div>
+    <input class="linp" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">ENTRAR</button>
+    <div class="lerr" id="lerr">Senha incorreta</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <header class="hdr">
+    <div class="hbrand">
+      <div class="hlogo">OMA <span>MONITOR</span></div>
+      <div class="hbadge">🦞 WHATSAPP</div>
+    </div>
+    <div class="hright">
+      <span class="hclock"><span class="live"></span><span id="clock">--:--</span></span>
+      <button class="hout" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="/hub" class="nback">← HUB</a>
+    <div class="ntab active" onclick="setTab('all',this)">Todas<span class="ncount" id="cAll">0</span></div>
+    <div class="ntab" onclick="setTab('bia',this)">Bia<span class="ncount hot" id="cBia">0</span></div>
+    <div class="ntab" onclick="setTab('amanda',this)">Amanda<span class="ncount" id="cAmanda">0</span></div>
+    <div class="nflex"></div>
+    <button class="nrefresh" id="refreshBtn" onclick="loadConversations()">↻ Atualizar</button>
+  </nav>
+
+  <div class="main">
+    <div class="sidebar" id="sidebar">
+      <div class="sb-search">
+        <input class="sb-input" placeholder="Buscar contato..." oninput="filterConvs(this.value)" id="searchInput">
+      </div>
+      <div id="convList"><div class="conv-empty">Carregando...</div></div>
+    </div>
+
+    <div class="chat" id="chatPanel">
+      <div class="placeholder">
+        <div class="placeholder-inner">
+          <div class="placeholder-logo">OMA <span>WA</span></div>
+          <div class="placeholder-sub">Selecione uma conversa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PWD = 'omaproject2026';
+const MCP = 'https://mcp.pipeeyewear.com.br/mcp';
+
+let allConvs = [], activeTab = 'all', activeJid = null;
+
+// ── AUTH ──────────────────────────────────────────
+function doLogin(){
+  if(document.getElementById('pw').value === PWD){
+    sessionStorage.setItem('oma_monitor','1');
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('app').style.display='flex';
+    init();
+  } else {
+    document.getElementById('lerr').style.display='block';
+    document.getElementById('pw').value='';
+  }
+}
+function logout(){ sessionStorage.removeItem('oma_monitor'); location.reload(); }
+
+// ── CLOCK ─────────────────────────────────────────
+function tick(){
+  const t = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('clock').textContent = t;
+}
+setInterval(tick,1000); tick();
+
+// ── MCP CALL ──────────────────────────────────────
+async function mcpQuery(sql){
+  try {
+    const res = await fetch(MCP, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: Date.now(), method: 'tools/call',
+        params: { name: 'run_command', arguments: { command: `sqlite3 /Users/georgejetson/nanoclaw/store/messages.db "${sql.replace(/"/g,"'")}"` }}
+      })
+    });
+    const d = await res.json();
+    return d?.result?.content?.[0]?.text || '';
+  } catch(e) {
+    console.error('MCP error:', e);
+    return '';
+  }
+}
+
+// ── LOAD CONVERSATIONS ────────────────────────────
+async function loadConversations(){
+  const btn = document.getElementById('refreshBtn');
+  btn.textContent = '↻ Carregando...';
+  btn.classList.add('loading');
+
+  const sql = `SELECT chat_jid, MAX(timestamp) as last_ts, COUNT(*) as total, SUM(CASE WHEN is_bot_message=1 THEN 1 ELSE 0 END) as bot_count FROM messages WHERE (chat_jid LIKE 'amanda:%' OR chat_jid LIKE 'bia:%') AND chat_jid NOT LIKE '%direct%' GROUP BY chat_jid ORDER BY last_ts DESC LIMIT 50`;
+
+  const raw = await mcpQuery(sql);
+  
+  if(!raw.trim()){
+    // Fallback: usa dados do localStorage ou demo
+    allConvs = getDemoConvs();
+    toast('Usando dados em cache — MCP offline', 'err');
+  } else {
+    allConvs = raw.trim().split('\n').map(line => {
+      const [jid, ts, total, bot] = line.split('|');
+      const agent = jid?.startsWith('bia:') ? 'bia' : 'amanda';
+      const phone = jid?.replace(/^(bia:|amanda:)/, '').replace('@s.whatsapp.net','');
+      return { jid, agent, phone, ts, total: parseInt(total)||0, bot: parseInt(bot)||0 };
+    }).filter(c => c.jid);
+    toast(`${allConvs.length} conversas carregadas`, 'ok');
+  }
+
+  renderConvList();
+  btn.textContent = '↻ Atualizar';
+  btn.classList.remove('loading');
+}
+
+function getDemoConvs(){
+  return [
+    {jid:'amanda:5521994452765@s.whatsapp.net', agent:'amanda', phone:'5521994452765', ts:'2026-03-24T22:47:21.965Z', total:8, bot:4},
+    {jid:'amanda:5511956766085@s.whatsapp.net', agent:'amanda', phone:'5511956766085', ts:'2026-03-24T13:35:14.000Z', total:4, bot:2},
+    {jid:'bia:5511966621506@s.whatsapp.net', agent:'bia', phone:'5511966621506', ts:'2026-03-24T17:10:00.000Z', total:6, bot:3},
+  ];
+}
+
+// ── RENDER CONV LIST ──────────────────────────────
+function renderConvList(filter=''){
+  const f = filter.toLowerCase();
+  const filtered = allConvs.filter(c => {
+    if(activeTab === 'bia' && c.agent !== 'bia') return false;
+    if(activeTab === 'amanda' && c.agent !== 'amanda') return false;
+    if(f && !c.phone.includes(f)) return false;
+    return true;
+  });
+
+  const counts = { all: allConvs.length, bia: allConvs.filter(c=>c.agent==='bia').length, amanda: allConvs.filter(c=>c.agent==='amanda').length };
+  document.getElementById('cAll').textContent = counts.all;
+  document.getElementById('cBia').textContent = counts.bia;
+  document.getElementById('cAmanda').textContent = counts.amanda;
+
+  const el = document.getElementById('convList');
+  if(!filtered.length){ el.innerHTML = '<div class="conv-empty">Nenhuma conversa encontrada</div>'; return; }
+
+  el.innerHTML = filtered.map(c => {
+    const t = new Date(c.ts);
+    const timeStr = isToday(t) ? t.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) : t.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+    const name = formatPhone(c.phone);
+    return `<div class="conv-item ${c.jid===activeJid?'active':''}" onclick="openConv('${c.jid}','${c.agent}','${c.phone}')">
+      <div class="conv-agent ${c.agent}">${c.agent.toUpperCase()}</div>
+      <div class="conv-name">${name}</div>
+      <div class="conv-preview">${c.total} msgs · ${c.bot} respostas do agente</div>
+      <div class="conv-time">${timeStr}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── OPEN CONVERSATION ─────────────────────────────
+async function openConv(jid, agent, phone){
+  activeJid = jid;
+  renderConvList(document.getElementById('searchInput').value);
+
+  const panel = document.getElementById('chatPanel');
+  panel.innerHTML = `
+    <div class="chat-header">
+      <div>
+        <div class="chat-contact">${formatPhone(phone)}</div>
+        <div class="chat-meta">${phone} · ${agent.toUpperCase()}</div>
+      </div>
+      <span class="chat-tag ${agent==='bia'?'tag-bia':'tag-amanda'}">${agent.toUpperCase()}</span>
+    </div>
+    <div class="chat-body" id="msgBody">
+      <div style="align-self:center"><div class="loading-dots"><span></span><span></span><span></span></div></div>
+    </div>`;
+
+  const sql = `SELECT sender_name, content, timestamp, is_bot_message FROM messages WHERE chat_jid='${jid}' ORDER BY timestamp ASC LIMIT 100`;
+  const raw = await mcpQuery(sql);
+
+  const body = document.getElementById('msgBody');
+  if(!raw.trim()){ body.innerHTML = '<div class="chat-empty"><div class="chat-empty-icon">💬</div><div class="chat-empty-text">Sem mensagens</div></div>'; return; }
+
+  const msgs = raw.trim().split('\n').map(line => {
+    const parts = line.split('|');
+    return { sender: parts[0], content: parts[1], ts: parts[2], isBot: parts[3]==='1' };
+  });
+
+  let lastDate = '';
+  body.innerHTML = msgs.map(m => {
+    const d = new Date(m.ts);
+    const dateStr = d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'});
+    const timeStr = d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    let sep = '';
+    if(dateStr !== lastDate){ sep = `<div class="msg-date-sep">${dateStr.toUpperCase()}</div>`; lastDate = dateStr; }
+    const cls = m.isBot ? 'bot' : 'user';
+    const name = m.isBot ? agent.toUpperCase() : (m.sender||'Contato');
+    return `${sep}<div class="msg ${cls}">
+      <div class="msg-bubble">${escHtml(m.content||'')}</div>
+      <div class="msg-meta">
+        <span class="msg-sender">${name}</span>
+        <span class="msg-time">${timeStr}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  body.scrollTop = body.scrollHeight;
+}
+
+// ── FILTERS ───────────────────────────────────────
+function setTab(t,el){
+  activeTab=t;
+  document.querySelectorAll('.ntab').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  renderConvList(document.getElementById('searchInput').value);
+}
+function filterConvs(q){ renderConvList(q); }
+
+// ── HELPERS ───────────────────────────────────────
+function formatPhone(p){
+  if(!p) return '—';
+  const d = p.replace(/\D/g,'');
+  if(d.length===13) return `+${d.slice(0,2)} (${d.slice(2,4)}) ${d.slice(4,9)}-${d.slice(9)}`;
+  if(d.length===12) return `+${d.slice(0,2)} (${d.slice(2,4)}) ${d.slice(4,8)}-${d.slice(8)}`;
+  return p;
+}
+function isToday(d){ const n=new Date(); return d.getDate()===n.getDate()&&d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear(); }
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+function toast(m,t){ const e=document.getElementById('toast');e.textContent=m;e.className=`toast show ${t||''}`;setTimeout(()=>e.className='toast',3000); }
+
+// ── INIT ──────────────────────────────────────────
+function init(){
+  loadConversations();
+  setInterval(loadConversations, 60000); // auto-refresh 1 min
+}
+
+if(sessionStorage.getItem('oma_monitor')==='1'){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  init();
+}
+</script>
+</body>
+</html>

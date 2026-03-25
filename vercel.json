@@ -11,6 +11,14 @@
     {
       "source": "/ops",
       "destination": "/ops.html"
+    },
+    {
+      "source": "/hub",
+      "destination": "/hub.html"
+    },
+    {
+      "source": "/monitor",
+      "destination": "/monitor.html"
     }
   ]
 }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:"Barlow",sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(122,34,4,.07),transparent 55%),radial-gradient(ellipse at 70% 20%,rgba(232,112,58,.05),transparent 45%);pointer-events:none;}
+#ls{flex:1;display:flex;align-items:center;justify-content:center;}
+.lb{width:100%;max-width:340px;padding:0 24px;text-align:center;}
+.ll{font-family:"Black Ops One",cursive;font-size:24px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
+.lsub{font-family:"Space Mono",monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:12px 0;color:var(--bone);font-family:"Barlow",sans-serif;font-size:16px;outline:none;margin-bottom:28px;}
+.li:focus{border-bottom-color:var(--fire);}
+.li::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:12px;font-family:"Black Ops One",cursive;font-size:12px;letter-spacing:2px;cursor:pointer;}
+.lbtn:hover{background:var(--ember);}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:"Space Mono",monospace;display:none;}
+#app{display:none;flex-direction:column;flex:1;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.hlogo{font-family:"Black Ops One",cursive;font-size:22px;letter-spacing:3px;}.hlogo span{color:var(--fire);}
+.hsub{font-family:"Space Mono",monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-left:16px;}
+.hck{font-family:"Space Mono",monospace;font-size:12px;color:var(--ash);}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:6px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:6px 14px;font-family:"Barlow",sans-serif;font-size:11px;cursor:pointer;margin-left:16px;}
+.hout:hover{color:var(--bone);}
+.main{flex:1;padding:48px 40px;}
+.wlabel{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:12px;}
+.wtitle{font-family:"Black Ops One",cursive;font-size:clamp(28px,4vw,48px);letter-spacing:3px;color:var(--bone);line-height:1.1;margin-bottom:10px;}
+.wtitle span{color:var(--fire);}
+.wsub{font-size:15px;color:var(--fog);max-width:480px;line-height:1.7;margin-bottom:48px;}
+.slbl{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.slbl::after{content:"";flex:1;height:1px;background:var(--iron);}
+.sbar{background:var(--carbon);border:1px solid var(--iron);padding:16px 24px;display:flex;align-items:center;gap:28px;margin-bottom:48px;flex-wrap:wrap;}
+.si{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fog);}
+.si b{color:var(--bone);}
+.sd{width:1px;height:20px;background:var(--iron);}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;}
+.card{background:var(--carbon);border:1px solid var(--iron);text-decoration:none;display:flex;flex-direction:column;transition:all .2s;position:relative;overflow:hidden;}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;}
+.card.cf::before{background:var(--fire);}
+.card.cg::before{background:var(--gold);}
+.card.cb::before{background:var(--blue);}
+.card.cgr::before{background:var(--green);}
+.card:hover{border-color:var(--steel);transform:translateY(-2px);}
+.ci{padding:28px;}
+.cicon{font-size:28px;margin-bottom:16px;display:block;}
+.ctitle{font-family:"Black Ops One",cursive;font-size:20px;letter-spacing:2px;color:var(--bone);margin-bottom:8px;}
+.cdesc{font-size:13px;color:var(--fog);line-height:1.6;margin-bottom:20px;}
+.cmeta{display:flex;gap:6px;flex-wrap:wrap;}
+.ctag{font-family:"Space Mono",monospace;font-size:9px;padding:3px 7px;letter-spacing:1px;}
+.tf{background:rgba(232,112,58,.12);color:var(--fire);}
+.tg{background:rgba(200,164,86,.12);color:var(--gold);}
+.tb{background:rgba(58,123,213,.12);color:var(--blue);}
+.ta{background:var(--iron);color:var(--ash);}
+.cfoot{padding:14px 28px;border-top:1px solid var(--iron);background:var(--graph);display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.clink{font-family:"Black Ops One",cursive;font-size:11px;letter-spacing:2px;color:var(--ash);transition:color .15s;}
+.card:hover .clink{color:var(--fire);}
+.carr{color:var(--steel);font-size:14px;transition:all .15s;}
+.card:hover .carr{color:var(--fire);transform:translateX(4px);}
+.soon{opacity:.5;cursor:not-allowed;pointer-events:none;}
+.sbadge{position:absolute;top:16px;right:16px;font-family:"Space Mono",monospace;font-size:8px;padding:3px 7px;background:var(--steel);color:var(--ash);letter-spacing:1px;}
+.ftr{padding:20px 40px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;}
+.fbrand{font-family:"Black Ops One",cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
+.fbrand span{color:var(--fire);}
+.fback{font-family:"Space Mono",monospace;font-size:9px;color:var(--ash);text-decoration:none;letter-spacing:1px;}
+.fback:hover{color:var(--fire);}
+@media(max-width:900px){.cards{grid-template-columns:1fr;}.hdr{padding:0 20px;}.main{padding:32px 20px;}}
+</style>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">OMA <span>HUB</span></div>
+  <div class="lsub">🦞 CENTRO DE OPERACOES</div>
+  <input class="li" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+  <div class="lerr" id="le">Senha incorreta</div>
+</div></div>
+<div id="app">
+<header class="hdr">
+  <div style="display:flex;align-items:baseline">
+    <div class="hlogo">OMA <span>HUB</span></div>
+    <div class="hsub">🦞 CENTRO DE OPERACOES</div>
+  </div>
+  <div style="display:flex;align-items:center">
+    <span class="hck"><span class="live"></span><span id="ck">--:--:--</span></span>
+    <button class="hout" onclick="lo()">Sair</button>
+  </div>
+</header>
+<main class="main">
+  <div class="wlabel">Centro de Operacoes</div>
+  <div class="wtitle">ONE MAN <span>ARMY</span></div>
+  <div class="wsub">Seu time de agentes operando em tempo real. Monitore, gerencie e expanda a partir daqui.</div>
+  <div class="slbl">Status do Sistema</div>
+  <div class="sbar">
+    <div class="si"><div class="dot"></div><b>George</b> Telegram</div>
+    <div class="sd"></div>
+    <div class="si"><div class="dot"></div><b>Bia</b> WhatsApp</div>
+    <div class="sd"></div>
+    <div class="si"><div class="dot"></div><b>Amanda</b> WhatsApp</div>
+    <div class="sd"></div>
+    <div class="si"><div class="dot"></div><b>Darwin</b> Monitor</div>
+    <div class="sd"></div>
+    <div class="si"><div class="dot"></div><b>georgejetson</b> Mac Mini M4</div>
+  </div>
+  <div class="slbl">Paineis Operacionais</div>
+  <div class="cards">
+    <a class="card cf" href="/crm">
+      <div class="ci"><span class="cicon">⬛</span><div class="ctitle">CRM</div>
+      <div class="cdesc">Pipeline de leads, workspaces por cliente, import de contatos e acompanhamento do funil.</div>
+      <div class="cmeta"><span class="ctag tf">Pipeline</span><span class="ctag ta">Bia</span><span class="ctag ta">Leads</span></div></div>
+      <div class="cfoot"><span class="clink">ACESSAR CRM</span><span class="carr">→</span></div>
+    </a>
+    <a class="card cg" href="/ops">
+      <div class="ci"><span class="cicon">◉</span><div class="ctitle">OPS</div>
+      <div class="cdesc">Performance dos agentes, custo de tokens, uptime do sistema e atividade em tempo real.</div>
+      <div class="cmeta"><span class="ctag tg">Custo</span><span class="ctag tg">Tokens</span><span class="ctag ta">Darwin</span></div></div>
+      <div class="cfoot"><span class="clink">VER DASHBOARD</span><span class="carr">→</span></div>
+    </a>
+    <a class="card cb" href="/monitor">
+      <div class="ci"><span class="cicon">📱</span><div class="ctitle">MONITOR WA</div>
+      <div class="cdesc">Conversas do WhatsApp de Bia e Amanda em tempo real. Historico completo por contato.</div>
+      <div class="cmeta"><span class="ctag tb">Bia</span><span class="ctag tb">Amanda</span><span class="ctag ta">Real time</span></div></div>
+      <div class="cfoot"><span class="clink">MONITORAR</span><span class="carr">→</span></div>
+    </a>
+  </div>
+  <div class="slbl">Em Breve</div>
+  <div class="cards">
+    <a class="card cgr soon" href="#"><div class="sbadge">EM BREVE</div>
+      <div class="ci"><span class="cicon">📊</span><div class="ctitle">RELATORIOS</div>
+      <div class="cdesc">Relatorios semanais e mensais por cliente, NPS consolidado e ROI por modulo.</div>
+      <div class="cmeta"><span class="ctag ta">NPS</span><span class="ctag ta">ROI</span></div></div>
+      <div class="cfoot"><span class="clink">EM DESENVOLVIMENTO</span><span class="carr">→</span></div>
+    </a>
+    <a class="card cf soon" href="#"><div class="sbadge">EM BREVE</div>
+      <div class="ci"><span class="cicon">🔔</span><div class="ctitle">ALERTAS</div>
+      <div class="cdesc">Central de alertas do Darwin. Incidentes, anomalias e acoes pendentes.</div>
+      <div class="cmeta"><span class="ctag ta">Darwin</span><span class="ctag ta">Alertas</span></div></div>
+      <div class="cfoot"><span class="clink">EM DESENVOLVIMENTO</span><span class="carr">→</span></div>
+    </a>
+    <a class="card cg soon" href="#"><div class="sbadge">EM BREVE</div>
+      <div class="ci"><span class="cicon">👤</span><div class="ctitle">CLIENTES</div>
+      <div class="cdesc">Painel por cliente com status do agente, uso, NPS e historico de suporte.</div>
+      <div class="cmeta"><span class="ctag ta">SAC</span><span class="ctag ta">Onboarding</span></div></div>
+      <div class="cfoot"><span class="clink">EM DESENVOLVIMENTO</span><span class="carr">→</span></div>
+    </a>
+  </div>
+</main>
+<footer class="ftr">
+  <div class="fbrand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
+  <a href="/" class="fback">← VOLTAR AO SITE</a>
+</footer>
+</div>
+<script>
+const P="omaproject2026";
+function dL(){if(document.getElementById("pw").value===P){["oma_hub","oma_auth","oma_monitor","ops"].forEach(k=>sessionStorage.setItem(k,"1"));document.getElementById("ls").style.display="none";document.getElementById("app").style.display="flex";}else{document.getElementById("le").style.display="block";document.getElementById("pw").value="";}}
+function lo(){["oma_hub","oma_auth","oma_monitor","ops"].forEach(k=>sessionStorage.removeItem(k));location.reload();}
+function tick(){document.getElementById("ck").textContent=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});}
+setInterval(tick,1000);tick();
+if(sessionStorage.getItem("oma_hub")==="1"){document.getElementById("ls").style.display="none";document.getElementById("app").style.display="flex";}
+</script>
+</body>
+</html>
