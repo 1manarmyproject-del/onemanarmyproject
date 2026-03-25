@@ -10,7 +10,7 @@
 :root{--char:#080808;--coal:#0f0f0f;--graph:#131313;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;--purple:#8b5cf6;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
-#ls{flex:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 40% 60%,rgba(122,34,4,.1),transparent 55%);}
+#ls{flex:1;display:flex;align-items:center;justify-content:center;}
 .lb{width:320px;padding:0 24px;text-align:center;}
 .ll{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
 .lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
@@ -20,7 +20,6 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 .lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
 #app{display:none;flex-direction:column;flex:1;}
 .hdr{background:var(--coal);border-bottom:1px solid var(--iron);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.hbrand{display:flex;align-items:center;gap:12px;}
 .hlogo{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:3px;}.hlogo span{color:var(--fire);}
 .hck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
 .live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
@@ -30,8 +29,8 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 .inav::-webkit-scrollbar{height:2px;}.inav::-webkit-scrollbar-thumb{background:var(--steel);}
 .itab{padding:14px 18px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--fog);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;flex-shrink:0;}
 .itab:hover{color:var(--bone);}.itab.active{color:var(--fire);border-bottom-color:var(--fire);}
-.page{display:none;flex:1;}.page.active{display:block;}
-.home{padding:32px;}
+.page{display:none;}.page.active{display:block;}
+.home{padding:32px;max-width:1200px;}
 .sbar{background:var(--coal);border:1px solid var(--iron);padding:12px 18px;display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
 .si{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fog);}.si b{color:var(--bone);}
 .sdiv{width:1px;height:16px;background:var(--iron);}
@@ -51,66 +50,62 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 .hc-foot{padding:10px 20px;border-top:1px solid var(--iron);background:var(--graph);display:flex;align-items:center;justify-content:space-between;}
 .hc-lnk{font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;color:var(--ash);transition:color .15s;}
 .hcard:hover .hc-lnk{color:var(--fire);}
-/* MONITOR WA */
 .wa-wrap{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 112px);overflow:hidden;}
-.wa-sidebar{background:var(--coal);border-right:1px solid var(--iron);overflow-y:auto;display:flex;flex-direction:column;}
-.wa-sidebar::-webkit-scrollbar{width:3px;}.wa-sidebar::-webkit-scrollbar-thumb{background:var(--steel);}
+.wa-side{background:var(--coal);border-right:1px solid var(--iron);display:flex;flex-direction:column;overflow:hidden;}
 .wa-search{padding:10px;border-bottom:1px solid var(--iron);}
 .wa-search input{width:100%;background:var(--graph);border:1px solid var(--iron);padding:7px 10px;color:var(--bone);font-size:11px;outline:none;}
 .wa-search input::placeholder{color:var(--ash);}
 .wa-filter{display:flex;border-bottom:1px solid var(--iron);}
-.wf-btn{flex:1;padding:9px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);cursor:pointer;border:none;background:none;}
-.wf-btn.active{color:var(--fire);border-bottom:2px solid var(--fire);background:rgba(232,112,58,.06);}
-.wa-convs{flex:1;overflow-y:auto;}
-.wa-convs::-webkit-scrollbar{width:2px;}.wa-convs::-webkit-scrollbar-thumb{background:var(--steel);}
+.wfb{flex:1;padding:9px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;}
+.wfb.active{color:var(--fire);border-bottom-color:var(--fire);background:rgba(232,112,58,.06);}
+.wa-list{flex:1;overflow-y:auto;}
+.wa-list::-webkit-scrollbar{width:2px;}.wa-list::-webkit-scrollbar-thumb{background:var(--steel);}
 .wconv{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .1s;position:relative;}
-.wconv:hover{background:var(--graph);}.wconv.active{background:var(--graph);border-left:2px solid var(--fire);}
-.wc-agent{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
-.wc-agent.bia{color:var(--fire);}.wc-agent.amanda{color:var(--gold);}
-.wc-phone{font-size:12px;font-weight:600;color:var(--bone);margin-bottom:2px;}
-.wc-meta{font-size:10px;color:var(--ash);}
-.wc-time{position:absolute;top:12px;right:12px;font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);}
-.wa-main{display:flex;flex-direction:column;overflow:hidden;background:var(--char);}
+.wconv:hover{background:var(--graph);}.wconv.sel{background:var(--graph);border-left:2px solid var(--fire);}
+.wca{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.wca.bia{color:var(--fire);}.wca.amanda{color:var(--gold);}
+.wcp{font-size:12px;font-weight:600;color:var(--bone);margin-bottom:2px;}
+.wcm{font-size:10px;color:var(--ash);}
+.wct{position:absolute;top:12px;right:12px;font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);}
+.wa-main{display:flex;flex-direction:column;background:var(--char);overflow:hidden;}
 .wa-empty{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--ash);}
-.wa-empty-logo{font-family:'Black Ops One',cursive;font-size:28px;color:var(--iron);}.wa-empty-logo span{color:var(--fire);}
-.wa-chat-area{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:8px;}
-.wa-chat-area::-webkit-scrollbar{width:3px;}.wa-chat-area::-webkit-scrollbar-thumb{background:var(--steel);}
-.wa-chat-hdr{padding:14px 20px;border-bottom:1px solid var(--iron);background:var(--coal);flex-shrink:0;}
-.wa-chat-name{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:1px;}
-.wa-chat-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px;}
-.wa-updated{padding:6px 20px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);border-top:1px solid var(--iron);flex-shrink:0;background:var(--coal);}
-/* IFRAMES */
+.wa-elog{font-family:'Black Ops One',cursive;font-size:28px;color:var(--iron);}.wa-elog span{color:var(--fire);}
+.wa-detail{flex:1;overflow-y:auto;padding:24px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;}
+.wa-bar{padding:6px 20px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);border-top:1px solid var(--iron);flex-shrink:0;background:var(--coal);}
 .iframe-page{height:calc(100vh - 112px);border:none;width:100%;display:block;}
 </style>
 </head>
 <body>
-<div id="ls"><div class="lb">
-  <div class="ll">OMA <span>HUB</span></div>
-  <div class="lsub">🦞 CENTRO DE OPERACOES</div>
-  <input class="li" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')dL()">
-  <button class="lbtn" onclick="dL()">ENTRAR</button>
-  <div class="lerr" id="le">Senha incorreta</div>
-</div></div>
+
+<div id="ls">
+  <div class="lb">
+    <div class="ll">OMA <span>HUB</span></div>
+    <div class="lsub">CENTRO DE OPERACOES</div>
+    <input class="li" type="password" id="pw" placeholder="senha">
+    <button class="lbtn" id="btnEntrar">ENTRAR</button>
+    <div class="lerr" id="le">Senha incorreta</div>
+  </div>
+</div>
 
 <div id="app">
   <header class="hdr">
-    <div class="hbrand"><div class="hlogo">OMA <span>HUB</span></div></div>
+    <div class="hlogo">OMA <span>HUB</span></div>
     <div style="display:flex;align-items:center;gap:14px">
       <span class="hck"><span class="live"></span><span id="ck">--:--</span></span>
-      <button class="hout" onclick="lo()">Sair</button>
+      <button class="hout" id="btnSair">Sair</button>
     </div>
   </header>
+
   <nav class="inav">
-    <div class="itab active" onclick="gP('home',this)">🏠 Hub</div>
-    <div class="itab" onclick="gP('monitor',this)">📱 Monitor WA</div>
-    <div class="itab" onclick="gP('crm',this)">⬛ CRM</div>
-    <div class="itab" onclick="gP('financeiro',this)">💰 Financeiro</div>
-    <div class="itab" onclick="gP('onboarding',this)">🚀 Onboarding</div>
-    <div class="itab" onclick="gP('traffic',this)">📡 Traffic</div>
-    <div class="itab" onclick="gP('ops',this)">◉ OPS</div>
+    <div class="itab active" id="tab-home">Hub</div>
+    <div class="itab" id="tab-monitor">Monitor WA</div>
+    <div class="itab" id="tab-crm">CRM</div>
+    <div class="itab" id="tab-financeiro">Financeiro</div>
+    <div class="itab" id="tab-onboarding">Onboarding</div>
+    <div class="itab" id="tab-traffic">Traffic</div>
+    <div class="itab" id="tab-ops">OPS</div>
   </nav>
 
-  <!-- HOME -->
   <div class="page active" id="page-home">
     <div class="home">
       <div class="sbar">
@@ -121,63 +116,42 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
         <div class="si"><div class="sdot"></div><b>Amanda</b></div>
         <div class="sdiv"></div>
         <div class="si"><div class="sdot"></div><b>Darwin</b></div>
-        <div style="margin-left:auto;font-family:Space Mono,monospace;font-size:9px;color:var(--ash)">25/03/2026 13:50</div>
+        <div style="margin-left:auto;font-family:Space Mono,monospace;font-size:9px;color:var(--ash)">25/03/2026 13:54</div>
       </div>
-      <div class="slbl">Painéis operacionais</div>
+      <div class="slbl">Paineis operacionais</div>
       <div class="cards">
-        <div class="hcard hc-blue" onclick="gP('monitor',document.querySelectorAll('.itab')[1])">
-          <div class="hci"><span class="hc-icon">📱</span><div class="hc-title">Monitor WA</div><div class="hc-desc">Conversas da Bia e Amanda em tempo real. Histórico por contato.</div></div>
-          <div class="hc-foot"><span class="hc-lnk">ABRIR MONITOR</span><span>→</span></div>
-        </div>
-        <div class="hcard hc-fire" onclick="gP('crm',document.querySelectorAll('.itab')[2])">
-          <div class="hci"><span class="hc-icon">⬛</span><div class="hc-title">CRM</div><div class="hc-desc">Pipeline de leads, workspaces por cliente, funil da Bia.</div></div>
-          <div class="hc-foot"><span class="hc-lnk">ABRIR CRM</span><span>→</span></div>
-        </div>
-        <div class="hcard hc-gold" onclick="gP('financeiro',document.querySelectorAll('.itab')[3])">
-          <div class="hci"><span class="hc-icon">💰</span><div class="hc-title">Financeiro</div><div class="hc-desc">MRR, contratos, vencimentos, setup fees e projeções.</div></div>
-          <div class="hc-foot"><span class="hc-lnk">VER RECEITA</span><span>→</span></div>
-        </div>
-        <div class="hcard hc-purple" onclick="gP('onboarding',document.querySelectorAll('.itab')[4])">
-          <div class="hci"><span class="hc-icon">🚀</span><div class="hc-title">Onboarding</div><div class="hc-desc">Pipeline de clientes. Etapas, gargalos e próximas ações.</div></div>
-          <div class="hc-foot"><span class="hc-lnk">VER PIPELINE</span><span>→</span></div>
-        </div>
-        <div class="hcard hc-fire" onclick="gP('traffic',document.querySelectorAll('.itab')[5])">
-          <div class="hci"><span class="hc-icon">📡</span><div class="hc-title">Traffic</div><div class="hc-desc">Tráfego por canal — site, WhatsApp, Instagram, Telegram.</div></div>
-          <div class="hc-foot"><span class="hc-lnk">VER TRÁFEGO</span><span>→</span></div>
-        </div>
-        <div class="hcard hc-green" onclick="gP('ops',document.querySelectorAll('.itab')[6])">
-          <div class="hci"><span class="hc-icon">◉</span><div class="hc-title">OPS</div><div class="hc-desc">Performance dos agentes, custo de tokens e uptime.</div></div>
-          <div class="hc-foot"><span class="hc-lnk">VER AGENTES</span><span>→</span></div>
-        </div>
+        <div class="hcard hc-blue" data-tab="monitor"><div class="hci"><span class="hc-icon">📱</span><div class="hc-title">Monitor WA</div><div class="hc-desc">Conversas da Bia e Amanda. Histórico por contato.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-fire" data-tab="crm"><div class="hci"><span class="hc-icon">⬛</span><div class="hc-title">CRM</div><div class="hc-desc">Pipeline de leads e funil da Bia.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-gold" data-tab="financeiro"><div class="hci"><span class="hc-icon">💰</span><div class="hc-title">Financeiro</div><div class="hc-desc">MRR, contratos, vencimentos e projeções.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-purple" data-tab="onboarding"><div class="hci"><span class="hc-icon">🚀</span><div class="hc-title">Onboarding</div><div class="hc-desc">Pipeline de clientes e próximas ações.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-fire" data-tab="traffic"><div class="hci"><span class="hc-icon">📡</span><div class="hc-title">Traffic</div><div class="hc-desc">Tráfego por canal — site, WA, Instagram, Telegram.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-green" data-tab="ops"><div class="hci"><span class="hc-icon">◉</span><div class="hc-title">OPS</div><div class="hc-desc">Performance dos agentes e custo de tokens.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
       </div>
     </div>
   </div>
 
-  <!-- MONITOR WA EMBUTIDO — sem auth separada -->
   <div class="page" id="page-monitor">
     <div class="wa-wrap">
-      <div class="wa-sidebar">
-        <div class="wa-search"><input type="text" placeholder="Buscar contato..." oninput="wFilter(this.value)" id="wSearch"></div>
+      <div class="wa-side">
+        <div class="wa-search"><input type="text" id="wSearch" placeholder="Buscar contato..."></div>
         <div class="wa-filter">
-          <button class="wf-btn active" onclick="wTab('all',this)">Todas</button>
-          <button class="wf-btn" onclick="wTab('bia',this)">Bia</button>
-          <button class="wf-btn" onclick="wTab('amanda',this)">Amanda</button>
+          <button class="wfb active" data-wf="all">Todas</button>
+          <button class="wfb" data-wf="bia">Bia</button>
+          <button class="wfb" data-wf="amanda">Amanda</button>
         </div>
-        <div class="wa-convs" id="wList"></div>
+        <div class="wa-list" id="wList"></div>
       </div>
       <div class="wa-main">
         <div class="wa-empty" id="wEmpty">
-          <div class="wa-empty-logo">OMA <span>WA</span></div>
+          <div class="wa-elog">OMA <span>WA</span></div>
           <div style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:1px">Selecione uma conversa</div>
         </div>
-        <div id="wChatHdr" style="display:none;padding:14px 20px;border-bottom:1px solid var(--iron);background:var(--coal);flex-shrink:0"></div>
-        <div class="wa-chat-area" id="wChatArea" style="display:none"></div>
-        <div class="wa-updated">Atualizado: 25/03/2026 13:50 · 11 conversas · Snapshot horário</div>
+        <div class="wa-detail" id="wDetail"></div>
+        <div class="wa-bar">Atualizado: 25/03/2026 13:54 · 11 conversas</div>
       </div>
     </div>
   </div>
 
-  <!-- MÓDULOS VIA IFRAME — carregam sem pedir senha pois são do mesmo domínio -->
   <div class="page" id="page-crm"><iframe class="iframe-page" id="ifr-crm" src="about:blank"></iframe></div>
   <div class="page" id="page-financeiro"><iframe class="iframe-page" id="ifr-financeiro" src="about:blank"></iframe></div>
   <div class="page" id="page-onboarding"><iframe class="iframe-page" id="ifr-onboarding" src="about:blank"></iframe></div>
@@ -186,119 +160,181 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 </div>
 
 <script>
-const PWD='omaproject2026';
-const CONVS=[{"jid": "amanda:5511988064405@s.whatsapp.net", "agent": "amanda", "phone": "5511988064405", "total": 18, "bot": 9, "ts": "2026-03-25T14:23:32.930Z"}, {"jid": "amanda:5511956766085@s.whatsapp.net", "agent": "amanda", "phone": "5511956766085", "total": 14, "bot": 6, "ts": "2026-03-25T13:15:09.813Z"}, {"jid": "amanda:5521994452765@s.whatsapp.net", "agent": "amanda", "phone": "5521994452765", "total": 29, "bot": 13, "ts": "2026-03-24T22:47:21.965Z"}, {"jid": "amanda:554188357571@s.whatsapp.net", "agent": "amanda", "phone": "554188357571", "total": 9, "bot": 4, "ts": "2026-03-20T01:40:16.059Z"}, {"jid": "amanda:5511914051068@s.whatsapp.net", "agent": "amanda", "phone": "5511914051068", "total": 35, "bot": 16, "ts": "2026-03-18T21:08:19.748Z"}, {"jid": "amanda:554199829613@s.whatsapp.net", "agent": "amanda", "phone": "554199829613", "total": 6, "bot": 3, "ts": "2026-03-18T12:48:00.584Z"}, {"jid": "amanda:5511941801017@s.whatsapp.net", "agent": "amanda", "phone": "5511941801017", "total": 2, "bot": 1, "ts": "2026-03-16T17:27:59.672Z"}, {"jid": "amanda:15517868429@s.whatsapp.net", "agent": "amanda", "phone": "15517868429", "total": 2, "bot": 1, "ts": "2026-03-16T01:43:38.345Z"}, {"jid": "amanda:5512997908057@s.whatsapp.net", "agent": "amanda", "phone": "5512997908057", "total": 14, "bot": 7, "ts": "2026-03-14T23:25:31.441Z"}, {"jid": "amanda:5511983268150@s.whatsapp.net", "agent": "amanda", "phone": "5511983268150", "total": 5, "bot": 1, "ts": "2026-03-14T14:09:31.482Z"}, {"jid": "amanda:5511978279725@s.whatsapp.net", "agent": "amanda", "phone": "5511978279725", "total": 26, "bot": 10, "ts": "2026-03-14T03:14:59.986Z"}];
-const IFRAMES={crm:'/crm',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops'};
-const loaded={};
-let wTab_='all', wActive=null;
+var PWD = 'omaproject2026';
+var CONVS = [{"jid": "amanda:5511988064405@s.whatsapp.net", "agent": "amanda", "phone": "5511988064405", "total": 18, "bot": 9, "ts": "2026-03-25T14:23:32.930Z"}, {"jid": "amanda:5511956766085@s.whatsapp.net", "agent": "amanda", "phone": "5511956766085", "total": 14, "bot": 6, "ts": "2026-03-25T13:15:09.813Z"}, {"jid": "amanda:5521994452765@s.whatsapp.net", "agent": "amanda", "phone": "5521994452765", "total": 29, "bot": 13, "ts": "2026-03-24T22:47:21.965Z"}, {"jid": "amanda:554188357571@s.whatsapp.net", "agent": "amanda", "phone": "554188357571", "total": 9, "bot": 4, "ts": "2026-03-20T01:40:16.059Z"}, {"jid": "amanda:5511914051068@s.whatsapp.net", "agent": "amanda", "phone": "5511914051068", "total": 35, "bot": 16, "ts": "2026-03-18T21:08:19.748Z"}, {"jid": "amanda:554199829613@s.whatsapp.net", "agent": "amanda", "phone": "554199829613", "total": 6, "bot": 3, "ts": "2026-03-18T12:48:00.584Z"}, {"jid": "amanda:5511941801017@s.whatsapp.net", "agent": "amanda", "phone": "5511941801017", "total": 2, "bot": 1, "ts": "2026-03-16T17:27:59.672Z"}, {"jid": "amanda:15517868429@s.whatsapp.net", "agent": "amanda", "phone": "15517868429", "total": 2, "bot": 1, "ts": "2026-03-16T01:43:38.345Z"}, {"jid": "amanda:5512997908057@s.whatsapp.net", "agent": "amanda", "phone": "5512997908057", "total": 14, "bot": 7, "ts": "2026-03-14T23:25:31.441Z"}, {"jid": "amanda:5511983268150@s.whatsapp.net", "agent": "amanda", "phone": "5511983268150", "total": 5, "bot": 1, "ts": "2026-03-14T14:09:31.482Z"}, {"jid": "amanda:5511978279725@s.whatsapp.net", "agent": "amanda", "phone": "5511978279725", "total": 26, "bot": 10, "ts": "2026-03-14T03:14:59.986Z"}];
+var SRCS = {crm:'/crm',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops'};
+var loaded = {};
+var wActiveTab = 'all';
+var wActivejid = null;
 
-function dL(){
-  if(document.getElementById('pw').value===PWD){
-    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.setItem(k,'1'));
-    document.getElementById('ls').style.display='none';
-    document.getElementById('app').style.display='flex';
-    init();
-  }else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}
-}
-function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.removeItem(k));location.reload();}
-function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
-setInterval(tick,1000);tick();
-
-function gP(id,el){
-  document.querySelectorAll('.itab').forEach(t=>t.classList.remove('active'));
-  if(el)el.classList.add('active');
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  if(IFRAMES[id]&&!loaded[id]){
-    document.getElementById('ifr-'+id).src=IFRAMES[id];
-    loaded[id]=true;
+function login() {
+  var val = document.getElementById('pw').value;
+  if (val === PWD) {
+    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k) { localStorage.setItem(k, '1'); });
+    document.getElementById('ls').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    startApp();
+  } else {
+    document.getElementById('le').style.display = 'block';
+    document.getElementById('pw').value = '';
   }
 }
 
-function fmtP(p){
-  const d=p.replace('@s.whatsapp.net','').replace('+','');
-  if(d.length===13)return'+'+d.slice(0,2)+' ('+d.slice(2,4)+') '+d.slice(4,9)+'-'+d.slice(9);
-  if(d.length===12)return'+'+d.slice(0,2)+' ('+d.slice(2,4)+') '+d.slice(4,8)+'-'+d.slice(8);
+function logout() {
+  ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k) { localStorage.removeItem(k); });
+  location.reload();
+}
+
+function goTab(id) {
+  document.querySelectorAll('.itab').forEach(function(t) { t.classList.remove('active'); });
+  var tab = document.getElementById('tab-' + id);
+  if (tab) tab.classList.add('active');
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page-' + id).classList.add('active');
+  if (SRCS[id] && !loaded[id]) {
+    document.getElementById('ifr-' + id).src = SRCS[id];
+    loaded[id] = true;
+  }
+}
+
+function fmtPhone(p) {
+  var d = p.replace('@s.whatsapp.net','').replace('+','');
+  if (d.length === 13) return '+' + d.slice(0,2) + ' (' + d.slice(2,4) + ') ' + d.slice(4,9) + '-' + d.slice(9);
+  if (d.length === 12) return '+' + d.slice(0,2) + ' (' + d.slice(2,4) + ') ' + d.slice(4,8) + '-' + d.slice(8);
   return p;
 }
-function fmtT(ts){
-  if(!ts)return'--';
-  const d=new Date(ts);
-  const n=new Date();
-  return d.toDateString()===n.toDateString()?d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+
+function fmtTime(ts) {
+  if (!ts) return '--';
+  var d = new Date(ts);
+  var n = new Date();
+  if (d.toDateString() === n.toDateString()) {
+    return d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+  }
+  return d.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit'});
 }
 
-function wFilter(q){renderW(q);}
-function wTab(t,el){document.querySelectorAll('.wf-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');wTab_=t;renderW(document.getElementById('wSearch').value);}
-
-function renderW(q=''){
-  const f=q.toLowerCase();
-  const data=CONVS.filter(c=>{
-    if(wTab_==='bia'&&c.agent!=='bia')return false;
-    if(wTab_==='amanda'&&c.agent!=='amanda')return false;
-    if(f&&!c.phone.includes(f))return false;
+function renderList() {
+  var q = document.getElementById('wSearch').value.toLowerCase();
+  var filtered = CONVS.filter(function(c) {
+    if (wActiveTab === 'bia' && c.agent !== 'bia') return false;
+    if (wActiveTab === 'amanda' && c.agent !== 'amanda') return false;
+    if (q && c.phone.indexOf(q) < 0) return false;
     return true;
   });
-  const el=document.getElementById('wList');
-  if(!data.length){el.innerHTML='<div style="padding:20px;text-align:center;font-size:11px;color:var(--ash)">Nenhuma conversa</div>';return;}
-  el.innerHTML=data.map(c=>{
-    const ac=c.jid===wActive?' active':'';
-    return '<div class="wconv'+ac+'" onclick="wOpen(''+c.jid+'',''+fmtP(c.phone)+'',''+c.agent+'')">'
-      +'<div class="wc-agent '+c.agent+'">'+c.agent.toUpperCase()+'</div>'
-      +'<div class="wc-phone">'+fmtP(c.phone)+'</div>'
-      +'<div class="wc-meta">'+c.total+' msgs · '+c.bot+' respostas</div>'
-      +'<div class="wc-time">'+fmtT(c.ts)+'</div>'
-      +'</div>';
-  }).join('');
-}
-
-function wOpen(jid,phone,agent){
-  wActive=jid;
-  renderW(document.getElementById('wSearch').value);
-  document.getElementById('wEmpty').style.display='none';
-  const hdr=document.getElementById('wChatHdr');
-  const area=document.getElementById('wChatArea');
-  hdr.style.display='block';
-  area.style.display='flex';
-  const tagColor=agent==='bia'?'var(--fire)':'var(--gold)';
-  hdr.innerHTML='<div class="wa-chat-name">'+phone+'</div><div class="wa-chat-meta"><span style="color:'+tagColor+'">'+agent.toUpperCase()+'</span> · '+jid.replace('@s.whatsapp.net','')+'</div>';
-  const c=CONVS.find(x=>x.jid===jid);
-  area.innerHTML='<div style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--ash);padding:24px;text-align:center">'
-    +'<div style="font-family:Space Mono,monospace;font-size:28px;color:var(--iron)">'+c.total+'</div>'
-    +'<div style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:1px">MENSAGENS REGISTRADAS</div>'
-    +'<div style="font-family:Space Mono,monospace;font-size:10px;color:var(--green)">'+c.bot+' respostas do agente</div>'
-    +'<div style="margin-top:16px;font-size:12px;color:var(--ash);max-width:320px;line-height:1.6">Histórico completo disponível após integração real-time.<br>Clique abaixo para instruir o agente sobre este atendimento.</div>'
-    +'<div style="margin-top:16px;background:var(--graph);border:1px solid var(--iron);padding:12px 16px;width:100%;max-width:440px">'
-    +'<div style="font-family:Space Mono,monospace;font-size:8px;color:var(--blood);letter-spacing:1px;margin-bottom:8px">INSTRUÇÃO DIRETA</div>'
-    +'<input id="wInstrInput" style="width:100%;background:transparent;border:none;color:var(--bone);font-size:13px;outline:none;font-family:Barlow,sans-serif" placeholder="Ex: Ofereça agendar reunião com o Fabio...">'
-    +'<button onclick="wSendInstr(''+jid+'',''+phone+'',''+agent+'')" style="margin-top:10px;background:var(--fire);border:none;color:var(--char);padding:8px 20px;font-family:Black Ops One,cursive;font-size:10px;letter-spacing:1px;cursor:pointer;width:100%">ENVIAR AO GEORGE</button>'
-    +'</div>'
-    +'</div>';
-}
-
-function wSendInstr(jid,phone,agent){
-  const txt=document.getElementById('wInstrInput').value.trim();
-  if(!txt)return;
-  const msg='[INSTRUCAO OPERACIONAL - '+agent.toUpperCase()+']
-Cliente: '+phone+'
-Agente: '+agent+'
-
-Instrucao: '+txt;
-  fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({chat_id:'8392126681',text:msg})
-  }).then(r=>r.json()).then(r=>{
-    if(r.ok){document.getElementById('wInstrInput').value='';alert('Enviado ao George!');}
-    else alert('Erro ao enviar');
+  var list = document.getElementById('wList');
+  if (!filtered.length) {
+    list.innerHTML = '<div style="padding:20px;text-align:center;font-size:11px;color:#4a4a4a">Nenhuma conversa</div>';
+    return;
+  }
+  var html = '';
+  filtered.forEach(function(c) {
+    var sel = c.jid === wActivejid ? ' sel' : '';
+    html += '<div class="wconv' + sel + '" data-jid="' + c.jid + '">';
+    html += '<div class="wca ' + c.agent + '">' + c.agent.toUpperCase() + '</div>';
+    html += '<div class="wcp">' + fmtPhone(c.phone) + '</div>';
+    html += '<div class="wcm">' + c.total + ' msgs &middot; ' + c.bot + ' respostas</div>';
+    html += '<div class="wct">' + fmtTime(c.ts) + '</div>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+  list.querySelectorAll('.wconv').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var jid = this.getAttribute('data-jid');
+      var conv = CONVS.find(function(c) { return c.jid === jid; });
+      if (conv) openConv(conv);
+    });
   });
 }
 
-function init(){renderW();}
+function openConv(conv) {
+  wActivejid = conv.jid;
+  renderList();
+  document.getElementById('wEmpty').style.display = 'none';
+  var det = document.getElementById('wDetail');
+  det.style.display = 'flex';
+  var phone = fmtPhone(conv.phone);
+  var color = conv.agent === 'bia' ? '#e8703a' : '#c8a456';
+  det.innerHTML = '';
+  var title = document.createElement('div');
+  title.style.cssText = 'font-family:Black Ops One,cursive;font-size:22px;letter-spacing:2px';
+  title.textContent = phone;
+  det.appendChild(title);
+  var meta = document.createElement('div');
+  meta.style.cssText = 'font-family:Space Mono,monospace;font-size:9px;color:' + color + ';letter-spacing:1px;margin-top:4px';
+  meta.textContent = conv.agent.toUpperCase() + ' · ' + conv.total + ' msgs';
+  det.appendChild(meta);
+  var nums = document.createElement('div');
+  nums.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px;width:100%;max-width:320px';
+  nums.innerHTML = '<div style="background:#131313;border:1px solid #1e1e1e;padding:14px;text-align:center"><div style="font-family:Black Ops One,cursive;font-size:28px;color:#e8703a">' + conv.total + '</div><div style="font-family:Space Mono,monospace;font-size:8px;color:#4a4a4a;margin-top:4px">MENSAGENS</div></div>'
+    + '<div style="background:#131313;border:1px solid #1e1e1e;padding:14px;text-align:center"><div style="font-family:Black Ops One,cursive;font-size:28px;color:#3d9e60">' + conv.bot + '</div><div style="font-family:Space Mono,monospace;font-size:8px;color:#4a4a4a;margin-top:4px">RESPOSTAS</div></div>';
+  det.appendChild(nums);
+  var instrBox = document.createElement('div');
+  instrBox.style.cssText = 'margin-top:20px;background:#131313;border:1px solid #1e1e1e;padding:14px 16px;width:100%;max-width:400px';
+  instrBox.innerHTML = '<div style="font-family:Space Mono,monospace;font-size:8px;color:#7a2204;letter-spacing:1px;margin-bottom:8px">INSTRUCAO DIRETA</div>';
+  var instrInput = document.createElement('input');
+  instrInput.type = 'text';
+  instrInput.placeholder = 'Ex: Ofereça agendar reunião com o Fabio...';
+  instrInput.style.cssText = 'width:100%;background:transparent;border:none;color:#e0d9cf;font-size:13px;outline:none;font-family:Barlow,sans-serif;padding:4px 0';
+  instrBox.appendChild(instrInput);
+  var instrBtn = document.createElement('button');
+  instrBtn.textContent = 'ENVIAR AO GEORGE';
+  instrBtn.style.cssText = 'margin-top:10px;background:#e8703a;border:none;color:#080808;padding:8px 20px;font-family:Black Ops One,cursive;font-size:10px;letter-spacing:1px;cursor:pointer;width:100%';
+  instrBtn.addEventListener('click', function() {
+    var txt = instrInput.value.trim();
+    if (!txt) return;
+    var msg = '[INSTRUCAO - ' + conv.agent.toUpperCase() + '] Cliente: ' + phone + ' | ' + txt;
+    fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: '8392126681', text: msg})
+    }).then(function(r) { return r.json(); }).then(function(r) {
+      if (r.ok) { instrInput.value = ''; instrBtn.textContent = 'ENVIADO!'; setTimeout(function() { instrBtn.textContent = 'ENVIAR AO GEORGE'; }, 2000); }
+    });
+  });
+  instrBox.appendChild(instrBtn);
+  det.appendChild(instrBox);
+}
 
-if(['oma_monitor','oma_hub','oma_auth','ops'].some(k=>localStorage.getItem(k)==='1')){
-  document.getElementById('ls').style.display='none';
-  document.getElementById('app').style.display='flex';
-  init();
+function startApp() {
+  setInterval(function() {
+    document.getElementById('ck').textContent = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }, 1000);
+  document.getElementById('ck').textContent = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  renderList();
+  document.querySelectorAll('.hcard').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var tab = this.getAttribute('data-tab');
+      if (tab) goTab(tab);
+    });
+  });
+  document.querySelectorAll('.itab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var id = this.id.replace('tab-', '');
+      goTab(id);
+    });
+  });
+  document.querySelectorAll('.wfb').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.wfb').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      wActiveTab = this.getAttribute('data-wf');
+      renderList();
+    });
+  });
+  document.getElementById('wSearch').addEventListener('input', function() { renderList(); });
+}
+
+document.getElementById('btnEntrar').addEventListener('click', login);
+document.getElementById('pw').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') login();
+});
+document.getElementById('btnSair').addEventListener('click', logout);
+
+if (['oma_hub','oma_auth','oma_monitor','ops'].some(function(k) { return localStorage.getItem(k) === '1'; })) {
+  document.getElementById('ls').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  startApp();
 }
 </script>
 </body>
