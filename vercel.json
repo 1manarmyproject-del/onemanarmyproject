@@ -17,10 +17,6 @@
       "destination": "/hub.html"
     },
     {
-      "source": "/monitor",
-      "destination": "/monitor.html"
-    },
-    {
       "source": "/agent/george",
       "destination": "/agent-george.html"
     },
@@ -59,6 +55,13 @@
     {
       "source": "/onboarding",
       "destination": "/onboarding.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/monitor",
+      "destination": "/hub",
+      "permanent": false
     }
   ]
 }
