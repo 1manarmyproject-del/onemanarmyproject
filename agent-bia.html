@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA — Bia</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;--agent:#9070d0;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(122,34,4,.06),transparent 55%);pointer-events:none;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{width:100%;max-width:320px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;color:var(--agent);}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:15px;outline:none;margin-bottom:24px;}
+.li:focus{border-bottom-color:var(--agent);}
+.li::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--agent);border:none;color:var(--char);padding:11px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+#app{display:none;}
+/* HEADER */
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;margin-right:20px;transition:color .15s;}
+.hback:hover{color:var(--agent);}
+.hname{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--agent);}
+.hrole{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-left:12px;}
+.hck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;margin-left:16px;}
+.hout:hover{color:var(--bone);}
+/* HERO */
+.hero{background:var(--carbon);border-bottom:1px solid var(--iron);padding:40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;}
+.hero-id{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;}
+.hero-name{font-family:'Black Ops One',cursive;font-size:48px;letter-spacing:3px;color:var(--agent);line-height:1;margin-bottom:6px;}
+.hero-role{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+.hero-desc{font-size:14px;color:var(--fog);line-height:1.7;max-width:520px;}
+.hero-canal{display:flex;align-items:center;gap:8px;margin-top:20px;}
+.canal-tag{font-family:'Space Mono',monospace;font-size:9px;padding:4px 10px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px;}
+.hero-status{text-align:right;}
+.status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:8px;}
+.status-txt{font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:1px;}
+.updated-txt{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:4px;}
+/* GRID */
+.content{padding:32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.content{grid-template-columns:1fr;padding:24px;}.hdr{padding:0 20px;}}
+/* CARDS */
+.card{background:var(--carbon);border:1px solid var(--iron);}
+.card-hd{padding:16px 20px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;}
+.card-body{padding:20px;}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.stat{background:var(--graph);padding:18px 16px;}
+.stat-val{font-family:'Black Ops One',cursive;font-size:32px;color:var(--agent);line-height:1;margin-bottom:6px;}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;line-height:1.4;}
+.stat-delta{font-family:'Space Mono',monospace;font-size:9px;margin-top:6px;}
+.delta-up{color:var(--fire);}
+.delta-down{color:var(--green);}
+/* TAREFAS */
+.task-list{display:flex;flex-direction:column;gap:0;}
+.task-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--iron);font-size:12px;color:var(--fog);}
+.task-item:last-child{border-bottom:none;}
+.task-dot{width:6px;height:6px;border-radius:50%;background:var(--agent);flex-shrink:0;}
+/* LOGS */
+.log-list{display:flex;flex-direction:column;gap:0;max-height:400px;overflow-y:auto;}
+.log-list::-webkit-scrollbar{width:3px;}.log-list::-webkit-scrollbar-thumb{background:var(--steel);}
+.log-item{padding:10px 0;border-bottom:1px solid var(--iron);display:flex;gap:12px;align-items:baseline;}
+.log-item:last-child{border-bottom:none;}
+.log-time{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);white-space:nowrap;flex-shrink:0;}
+.log-content{font-size:12px;color:var(--fog);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.log-empty{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-align:center;padding:32px 0;}
+/* INSTRUÇÃO */
+.inst-card{grid-column:1/-1;}
+.inst-area{width:100%;background:var(--graph);border:1px solid var(--iron);padding:12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;min-height:80px;resize:vertical;line-height:1.6;}
+.inst-area:focus{border-color:var(--agent);}
+.inst-area::placeholder{color:var(--ash);}
+.inst-btn{margin-top:10px;background:var(--agent);border:none;color:var(--char);padding:10px 24px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;transition:opacity .2s;}
+.inst-btn:hover{opacity:.85;}
+.inst-btn:disabled{opacity:.4;cursor:not-allowed;}
+.inst-ctx-preview{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);line-height:1.6;margin-bottom:12px;padding:10px;background:var(--graph);border-left:2px solid var(--agent);}
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--graph);border:1px solid var(--steel);padding:10px 20px;font-size:11px;color:var(--bone);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Space Mono',monospace;}
+.toast.show{opacity:1;}.toast.ok{border-color:var(--green);color:var(--green);}.toast.err{border-color:#ff6040;color:#ff6040;}
+</style>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">Bia</div>
+  <div class="lsub">COMERCIAL — OMA PROJECT</div>
+  <input class="li" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+  <div class="lerr" id="le">Senha incorreta</div>
+</div></div>
+
+<div id="app">
+  <header class="hdr">
+    <div style="display:flex;align-items:center">
+      <a href="/ops" class="hback">← OPS</a>
+      <span class="hname">Bia</span>
+      <span class="hrole">Comercial — OMA Project</span>
+    </div>
+    <div style="display:flex;align-items:center">
+      <span class="hck"><span class="live"></span><span id="ck">--:--</span></span>
+      <button class="hout" onclick="lo()">Sair</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="hero-id">AGT-002 · WHATSAPP BUSINESS</div>
+      <div class="hero-name">Bia</div>
+      <div class="hero-role">Comercial — OMA Project</div>
+      <div class="hero-desc">Porta de entrada comercial. Qualifica leads via funil de 6 perguntas, agenda reuniões e faz follow-up.</div>
+      <div class="hero-canal">
+        <span class="canal-tag">WhatsApp Business</span>
+        <span class="canal-tag">Haiku</span>
+        <span class="canal-tag">NanoClaw v1</span>
+      </div>
+    </div>
+    <div class="hero-status">
+      <div><span class="status-dot"></span><span class="status-txt">ONLINE</span></div>
+      <div class="updated-txt" style="margin-top:8px">Atualizado: 25/03/2026, 10:23:02</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="card">
+      <div class="card-hd">Indicadores — Hoje</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-val">R$0.00</div>
+          <div class="stat-lbl">Custo hoje</div>
+          <div class="stat-delta delta-up">↑ +R$0.00 vs ontem</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">R$0.00</div>
+          <div class="stat-lbl">Custo semana</div>
+          <div class="stat-delta" style="color:var(--ash)">Últimos 7 dias</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">0</div>
+          <div class="stat-lbl">Execuções hoje</div>
+          <div class="stat-delta" style="color:var(--ash)">Chamadas ao modelo</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">5</div>
+          <div class="stat-lbl">Respostas recentes</div>
+          <div class="stat-delta" style="color:var(--ash)">Últimos registros</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAREFAS RECORRENTES -->
+    <div class="card">
+      <div class="card-hd">Atividades Recorrentes</div>
+      <div class="card-body">
+        <div class="task-list">
+          <div class="task-item"><div class="task-dot"></div>Atender inbound WhatsApp</div><div class="task-item"><div class="task-dot"></div>Funil 6 perguntas obrigatório</div><div class="task-item"><div class="task-dot"></div>Mini-diagnóstico por segmento</div><div class="task-item"><div class="task-dot"></div>Agendar reunião com Fabio</div><div class="task-item"><div class="task-dot"></div>Follow-up D+1, D+3, D+7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOG DE ATIVIDADES -->
+    <div class="card" style="grid-column:1/-1">
+      <div class="card-hd">Log de Atividades — Últimas 20 respostas</div>
+      <div class="card-body" style="padding:0">
+        <div class="log-list">
+          <div class="log-item">
+              <span class="log-time">13/03, 15:37</span>
+              <span class="log-content">Perfeito, anotei como urgente. Ele entra em contato assim que possível. Fico atenta.</span>
+            </div><div class="log-item">
+              <span class="log-time">13/03, 15:37</span>
+              <span class="log-content">Claro! Vou passar o recado para ele. Ele entra em contato assim que possível.</span>
+            </div><div class="log-item">
+              <span class="log-time">13/03, 15:37</span>
+              <span class="log-content">Sim, sou assistente do Fabio. Estou aqui para organizar e acompanhar as pendências operacionais dele. Em que posso te aj</span>
+            </div><div class="log-item">
+              <span class="log-time">13/03, 15:36</span>
+              <span class="log-content">Obrigada! Em que posso ajudar? Estou aqui para organizar o que precisar. 😊</span>
+            </div><div class="log-item">
+              <span class="log-time">13/03, 15:36</span>
+              <span class="log-content">Olá, tudo bem? Aqui é a Amanda, assistente do Fabio. Em que posso ajudar?</span>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUÇÃO DIRETA -->
+    <div class="card inst-card">
+      <div class="card-hd">Instrução Direta — Enviar ao George</div>
+      <div class="card-body">
+        <div class="inst-ctx-preview">[INSTRUÇÃO DIRETA — BIA]
+Agente: Bia · WhatsApp Business
+Função: Comercial — OMA Project</div>
+        <textarea class="inst-area" id="instTa" placeholder="Digite sua instrução para o Bia..."></textarea>
+        <button class="inst-btn" id="instBtn" onclick="sendInst()">ENVIAR AO GEORGE</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="ts"></div>
+
+<script>
+const PWD='omaproject2026';
+function dL(){if(document.getElementById('pw').value===PWD){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>sessionStorage.setItem(k,'1'));document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}}
+function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>sessionStorage.removeItem(k));location.reload();}
+function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
+function toast(m,t){const e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(()=>e.className='toast',3000);}
+async function sendInst(){
+  const txt=document.getElementById('instTa').value.trim();
+  if(!txt){toast('Digite uma instrução');return;}
+  const btn=document.getElementById('instBtn');
+  btn.disabled=true;btn.textContent='ENVIANDO...';
+  const msg='[INSTRUÇÃO DIRETA — BIA]\nAgente: Bia · WhatsApp Business\nFunção: Comercial — OMA Project\n\nInstrução: '+txt;
+  try{
+    const res=await fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'8392126681',text:msg})});
+    const r=await res.json();
+    if(r.ok){toast('✅ Enviado ao George!','ok');document.getElementById('instTa').value='';}
+    else{toast('❌ Erro ao enviar','err');}
+  }catch(e){toast('❌ Erro de conexão','err');}
+  btn.disabled=false;btn.textContent='ENVIAR AO GEORGE';
+}
+const isAuth=()=>['oma_monitor','oma_hub','oma_auth','ops'].some(k=>sessionStorage.getItem(k)==='1');
+if(isAuth()){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}
+</script>
+</body>
+</html>
