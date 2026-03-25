@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
+<style>
+:root{--char:#080808;--coal:#0f0f0f;--graph:#131313;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--purple:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{width:320px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-size:15px;outline:none;margin-bottom:24px;}
+.li:focus{border-bottom-color:var(--fire);}.li::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:11px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+#app{display:none;}
+nav{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.nbrand{display:flex;align-items:center;gap:10px;}
+.nlogo{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;}.nlogo span{color:var(--fire);}
+.nbadge{font-family:'Space Mono',monospace;font-size:9px;background:var(--blue);color:var(--bone);padding:3px 8px;}
+.nright{display:flex;align-items:center;gap:16px;}
+.nback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;transition:color .15s;}.nback:hover{color:var(--fire);}
+.nck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.nout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-size:11px;cursor:pointer;}
+.cnt{padding:28px 32px;max-width:1200px;}
+.krow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:28px;}
+.kpi{background:var(--coal);border:1px solid var(--iron);padding:16px 18px;position:relative;overflow:hidden;}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.kpi:hover::before{transform:scaleX(1);}
+.k1::before{background:var(--blue);}.k2::before{background:var(--green);}.k3::before{background:var(--gold);}.k4::before{background:var(--fire);}.k5::before{background:var(--purple);}
+.klbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.kval{font-family:'Black Ops One',cursive;font-size:28px;line-height:1;margin-bottom:4px;}
+.k1 .kval{color:var(--blue);}.k2 .kval{color:var(--green);}.k3 .kval{color:var(--gold);}.k4 .kval{color:var(--fire);}.k5 .kval{color:var(--purple);}
+.kd{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);}
+.funnel-header{display:grid;grid-template-columns:200px repeat(6,1fr);gap:2px;margin-bottom:2px;}
+.fh-cell{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-align:center;padding:8px 4px;background:var(--graph);border:1px solid var(--iron);text-transform:uppercase;}
+.fh-cell.active-stage{color:var(--fire);border-color:var(--blood);}
+.client-row{display:grid;grid-template-columns:200px repeat(6,1fr);gap:2px;margin-bottom:2px;}
+.cr-name{background:var(--coal);border:1px solid var(--iron);padding:12px 14px;display:flex;flex-direction:column;justify-content:center;}
+.cr-client{font-size:12px;color:var(--bone);font-weight:500;margin-bottom:2px;}
+.cr-seg{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
+.cr-days{font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-top:4px;}
+.stage-cell{background:var(--graph);border:1px solid var(--iron);padding:8px 6px;display:flex;align-items:center;justify-content:center;min-height:56px;position:relative;}
+.stage-done{background:rgba(61,158,96,.12);border-color:rgba(61,158,96,.3);}
+.stage-active{background:rgba(232,112,58,.1);border-color:var(--blood);animation:pulse-border 2s infinite;}
+@keyframes pulse-border{0%,100%{border-color:var(--blood)}50%{border-color:var(--fire)}}
+.stage-pending{background:var(--graph);border-color:var(--iron);}
+.stage-blocked{background:rgba(192,80,32,.08);border-color:rgba(192,80,32,.3);}
+.stage-icon{font-size:14px;}
+.stage-lbl{font-family:'Space Mono',monospace;font-size:7px;color:var(--ash);text-align:center;margin-top:3px;}
+.stage-date{font-family:'Space Mono',monospace;font-size:7px;color:var(--fog);text-align:center;margin-top:2px;}
+.stage-done .stage-icon{filter:none;}
+.stage-done .stage-lbl{color:var(--green);}
+.stage-active .stage-lbl{color:var(--fire);}
+.progress-bar{width:100%;height:3px;background:var(--iron);margin-top:6px;border-radius:0;}
+.progress-fill{height:100%;border-radius:0;transition:width .5s ease;}
+.detail-panel{background:var(--coal);border:1px solid var(--iron);padding:20px;margin-top:12px;display:none;}
+.detail-panel.open{display:block;}
+.dp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.dp-title{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:var(--fire);}
+.dp-close{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);cursor:pointer;padding:4px 10px;border:1px solid var(--steel);}
+.dp-close:hover{color:var(--bone);}
+.dp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.dp-stat{background:var(--graph);border:1px solid var(--iron);padding:12px;}
+.dp-stat-val{font-family:'Black Ops One',cursive;font-size:22px;margin-bottom:4px;}
+.dp-stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;}
+.dp-steps{display:flex;flex-direction:column;gap:6px;}
+.dp-step{display:flex;align-items:center;gap:12px;padding:8px 12px;background:var(--graph);border:1px solid var(--iron);}
+.dp-step.done{border-color:rgba(61,158,96,.3);}
+.dp-step.active-s{border-color:var(--blood);background:rgba(232,112,58,.05);}
+.dp-step-num{font-family:'Black Ops One',cursive;font-size:14px;width:24px;flex-shrink:0;}
+.done .dp-step-num{color:var(--green);}
+.active-s .dp-step-num{color:var(--fire);}
+.dp-step-title{font-size:12px;color:var(--bone);flex:1;}
+.dp-step-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);}
+.dp-step-status{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;}
+.ss-done{background:rgba(61,158,96,.15);color:var(--green);}
+.ss-active{background:rgba(232,112,58,.15);color:var(--fire);}
+.ss-pending{background:rgba(255,255,255,.06);color:var(--ash);}
+.next-action{background:rgba(232,112,58,.08);border:1px solid var(--blood);padding:12px 16px;margin-top:12px;font-size:12px;color:var(--bone);}
+.na-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--blood);letter-spacing:2px;margin-bottom:6px;}
+</style>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">OMA <span>ONBOARDING</span></div>
+  <div class="lsub">PIPELINE DE CLIENTES · ACESSO RESTRITO</div>
+  <input class="li" type="password" id="pw" placeholder="senha" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+  <div class="lerr" id="le">Senha incorreta</div>
+</div></div>
+
+<div id="app">
+<nav>
+  <div class="nbrand"><div class="nlogo">OMA <span>ONBOARDING</span></div><div class="nbadge">PIPELINE</div></div>
+  <div class="nright">
+    <a href="/hub" class="nback">HUB</a>
+    <span class="nck"><span class="live"></span><span id="ck">--:--</span></span>
+    <button class="nout" onclick="lo()">Sair</button>
+  </div>
+</nav>
+
+<div class="cnt">
+  <div class="krow">
+    <div class="kpi k1"><div class="klbl">Em onboarding</div><div class="kval">4</div><div class="kd">clientes ativos no funil</div></div>
+    <div class="kpi k2"><div class="klbl">Concluídos</div><div class="kval">10</div><div class="kd">go live realizado</div></div>
+    <div class="kpi k3"><div class="klbl">Tempo médio</div><div class="kval">4,2d</div><div class="kd">diagnóstico ao go live</div></div>
+    <div class="kpi k4"><div class="klbl">Setup fee médio</div><div class="kval">R$1.170</div><div class="kd">por cliente</div></div>
+    <div class="kpi k5"><div class="klbl">Taxa conversão</div><div class="kval">78%</div><div class="kd">proposta → contrato</div></div>
+  </div>
+
+  <!-- FUNIL VISUAL -->
+  <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase">Pipeline de onboarding — clique para ver detalhes</div>
+
+  <div class="funnel-header">
+    <div class="fh-cell" style="background:transparent;border:none"></div>
+    <div class="fh-cell">01 · Diagnóstico</div>
+    <div class="fh-cell">02 · Proposta</div>
+    <div class="fh-cell">03 · Contrato</div>
+    <div class="fh-cell">04 · Setup</div>
+    <div class="fh-cell">05 · Teste</div>
+    <div class="fh-cell">06 · Go Live</div>
+  </div>
+
+  <!-- CLIENTE 1 — em Setup -->
+  <div class="client-row" onclick="openDetail('c1')" style="cursor:pointer">
+    <div class="cr-name">
+      <div class="cr-client">Dr. Paulo Carvalho</div>
+      <div class="cr-seg">CONSULTÓRIO</div>
+      <div class="cr-days">Dia 3 no funil</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:67%;background:var(--fire)"></div></div>
+    </div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">22/03</div></div></div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">23/03</div></div></div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">24/03</div></div></div>
+    <div class="stage-cell stage-active"><div><div class="stage-icon">⚙️</div><div class="stage-lbl">Em andamento</div><div class="stage-date">hoje</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+  </div>
+
+  <!-- CLIENTE 2 — em Teste -->
+  <div class="client-row" onclick="openDetail('c2')" style="cursor:pointer">
+    <div class="cr-name">
+      <div class="cr-client">Óptica Vision</div>
+      <div class="cr-seg">VAREJO</div>
+      <div class="cr-days">Dia 6 no funil</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:83%;background:var(--gold)"></div></div>
+    </div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">19/03</div></div></div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">20/03</div></div></div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">21/03</div></div></div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">22/03</div></div></div>
+    <div class="stage-cell stage-active"><div><div class="stage-icon">🧪</div><div class="stage-lbl">Testando</div><div class="stage-date">hoje</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Amanhã</div></div></div>
+  </div>
+
+  <!-- CLIENTE 3 — em Proposta -->
+  <div class="client-row" onclick="openDetail('c3')" style="cursor:pointer">
+    <div class="cr-name">
+      <div class="cr-client">Clínica Norte SP</div>
+      <div class="cr-seg">SAÚDE</div>
+      <div class="cr-days">Dia 1 no funil</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:33%;background:var(--blue)"></div></div>
+    </div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">hoje</div></div></div>
+    <div class="stage-cell stage-active"><div><div class="stage-icon">📋</div><div class="stage-lbl">Em preparo</div><div class="stage-date">hoje</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+  </div>
+
+  <!-- CLIENTE 4 — bloqueado em Contrato -->
+  <div class="client-row" onclick="openDetail('c4')" style="cursor:pointer">
+    <div class="cr-name">
+      <div class="cr-client">Rest. Bela Vista</div>
+      <div class="cr-seg">RESTAURANTE</div>
+      <div class="cr-days">Dia 4 · ⚠️ aguardando</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:33%;background:var(--fire)"></div></div>
+    </div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">21/03</div></div></div>
+    <div class="stage-cell stage-done"><div><div class="stage-icon">✅</div><div class="stage-lbl">Concluído</div><div class="stage-date">22/03</div></div></div>
+    <div class="stage-cell stage-blocked"><div><div class="stage-icon">⏳</div><div class="stage-lbl">Aguard. assin.</div><div class="stage-date">3 dias</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+    <div class="stage-cell stage-pending"><div><div class="stage-icon">○</div><div class="stage-lbl">Aguardando</div></div></div>
+  </div>
+
+  <!-- PAINEL DE DETALHE -->
+  <div class="detail-panel" id="detail-panel">
+    <div class="dp-header">
+      <div class="dp-title" id="dp-title">CLIENTE</div>
+      <div class="dp-close" onclick="closeDetail()">FECHAR ✕</div>
+    </div>
+    <div class="dp-grid" id="dp-stats"></div>
+    <div class="dp-steps" id="dp-steps"></div>
+    <div class="next-action" id="dp-action"></div>
+  </div>
+
+  <!-- HISTÓRICO -->
+  <div style="margin-top:24px;background:var(--coal);border:1px solid var(--iron)">
+    <div style="padding:13px 18px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between">
+      <span>Clientes já em operação</span><span style="color:var(--green)">10 GO LIVES</span>
+    </div>
+    <div style="padding:0;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:600px">
+        <thead><tr>
+          <th style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase">Cliente</th>
+          <th style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase">Segmento</th>
+          <th style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase">Go Live</th>
+          <th style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase">Tempo funil</th>
+          <th style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase">NPS D+7</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Adm. Leste Cond.</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Administradora</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">20/03/26</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">5 dias</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04)"><span style="font-family:'Black Ops One',cursive;color:var(--green)">9</span></td></tr>
+          <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Cond. Moema Park</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Condomínio</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">16/03/26</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">4 dias</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04)"><span style="font-family:'Black Ops One',cursive;color:var(--green)">10</span></td></tr>
+          <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Clube Atlético SP</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Clube</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">11/03/26</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">3 dias</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04)"><span style="font-family:'Black Ops One',cursive;color:var(--green)">9</span></td></tr>
+          <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Distrib. Beirith</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Distribuição</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">06/03/26</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">4 dias</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04)"><span style="font-family:'Black Ops One',cursive;color:var(--gold)">8</span></td></tr>
+          <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Mendes Advocacia</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">Advocacia</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">02/03/26</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog)">4 dias</td><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04)"><span style="font-family:'Black Ops One',cursive;color:var(--green)">10</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const PWD='omaproject2026';
+function dL(){const v=document.getElementById('pw').value;if(v===PWD){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.setItem(k,'1'));document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}}
+function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.removeItem(k));location.reload();}
+function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
+
+const clients={
+  c1:{name:'Dr. Paulo Carvalho',seg:'Consultório',dias:3,pct:67,modulos:'Agenda + SAC',mrr:'R$850',setup:'R$600',
+    steps:[{n:'01',t:'Diagnóstico',d:'22/03',s:'done'},{n:'02',t:'Proposta',d:'23/03',s:'done'},{n:'03',t:'Contrato',d:'24/03',s:'done'},{n:'04',t:'Setup agente',d:'hoje',s:'active'},{n:'05',t:'Período de teste',d:'—',s:'pending'},{n:'06',t:'Go Live',d:'—',s:'pending'}],
+    action:'Setup do agente Amanda em andamento. Configurar horários de confirmação e templates de agendamento. ETA: hoje até 18h.'},
+  c2:{name:'Óptica Vision',seg:'Varejo',dias:6,pct:83,modulos:'Vendedor Digital + SAC',mrr:'R$950',setup:'R$600',
+    steps:[{n:'01',t:'Diagnóstico',d:'19/03',s:'done'},{n:'02',t:'Proposta',d:'20/03',s:'done'},{n:'03',t:'Contrato',d:'21/03',s:'done'},{n:'04',t:'Setup agente',d:'22/03',s:'done'},{n:'05',t:'Período de teste',d:'hoje',s:'active'},{n:'06',t:'Go Live',d:'26/03',s:'pending'}],
+    action:'Período de teste em andamento. Acompanhar primeiras 20 conversas. Go Live previsto para amanhã 26/03.'},
+  c3:{name:'Clínica Norte SP',seg:'Saúde',dias:1,pct:33,modulos:'SAC + Agenda',mrr:'R$1.200',setup:'R$900',
+    steps:[{n:'01',t:'Diagnóstico',d:'hoje',s:'done'},{n:'02',t:'Proposta',d:'hoje',s:'active'},{n:'03',t:'Contrato',d:'—',s:'pending'},{n:'04',t:'Setup agente',d:'—',s:'pending'},{n:'05',t:'Período de teste',d:'—',s:'pending'},{n:'06',t:'Go Live',d:'—',s:'pending'}],
+    action:'Tiago está montando a proposta personalizada. Diagnóstico: 5 faltas/semana, 3 médicos, 80 consultas/mês. Enviar proposta até hoje 17h.'},
+  c4:{name:'Rest. Bela Vista',seg:'Restaurante',dias:4,pct:33,modulos:'SAC + Vendedor Digital',mrr:'R$1.100',setup:'R$900',
+    steps:[{n:'01',t:'Diagnóstico',d:'21/03',s:'done'},{n:'02',t:'Proposta',d:'22/03',s:'done'},{n:'03',t:'Contrato',d:'—',s:'active'},{n:'04',t:'Setup agente',d:'—',s:'pending'},{n:'05',t:'Período de teste',d:'—',s:'pending'},{n:'06',t:'Go Live',d:'—',s:'pending'}],
+    action:'BLOQUEADO: Contrato enviado em 22/03 aguarda assinatura há 3 dias. Acionar Fabio para follow-up direto com o responsável.'}
+};
+
+function openDetail(id){
+  const c=clients[id];
+  document.getElementById('dp-title').textContent=c.name.toUpperCase()+' · '+c.seg;
+  document.getElementById('dp-stats').innerHTML=
+    '<div class="dp-stat"><div class="dp-stat-val" style="color:var(--blue)">'+c.dias+'d</div><div class="dp-stat-lbl">No funil</div></div>'+
+    '<div class="dp-stat"><div class="dp-stat-val" style="color:var(--fire)">'+c.pct+'%</div><div class="dp-stat-lbl">Concluído</div></div>'+
+    '<div class="dp-stat"><div class="dp-stat-val" style="color:var(--green)">'+c.mrr+'</div><div class="dp-stat-lbl">MRR mensal</div></div>'+
+    '<div class="dp-stat"><div class="dp-stat-val" style="color:var(--gold)">'+c.setup+'</div><div class="dp-stat-lbl">Setup fee</div></div>';
+  document.getElementById('dp-steps').innerHTML=c.steps.map(s=>
+    '<div class="dp-step '+s.s+'">' +
+    '<div class="dp-step-num">'+(s.s==='done'?'✓':s.n)+'</div>'+
+    '<div class="dp-step-title">'+s.t+'</div>'+
+    '<div class="dp-step-date">'+s.d+'</div>'+
+    '<span class="dp-step-status '+(s.s==='done'?'ss-done':s.s==='active'?'ss-active':'ss-pending')+'">'+(s.s==='done'?'feito':s.s==='active'?'ativo':'pendente')+'</span>'+
+    '</div>'
+  ).join('');
+  document.getElementById('dp-action').innerHTML='<div class="na-lbl">PRÓXIMA AÇÃO</div>'+c.action;
+  document.getElementById('detail-panel').classList.add('open');
+  document.getElementById('detail-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closeDetail(){document.getElementById('detail-panel').classList.remove('open');}
+if(['oma_monitor','oma_hub','oma_auth','ops'].some(k=>localStorage.getItem(k)==='1')){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}
+</script>
+</body>
+</html>

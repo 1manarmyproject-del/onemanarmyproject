@@ -51,6 +51,14 @@
     {
       "source": "/demo",
       "destination": "/demo.html"
+    },
+    {
+      "source": "/financeiro",
+      "destination": "/financeiro.html"
+    },
+    {
+      "source": "/onboarding",
+      "destination": "/onboarding.html"
     }
   ]
 }
