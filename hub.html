@@ -278,7 +278,7 @@ function openConv(conv) {
   instrInput.style.cssText = 'width:100%;background:transparent;border:none;color:#e0d9cf;font-size:13px;outline:none;font-family:Barlow,sans-serif;padding:4px 0';
   instrBox.appendChild(instrInput);
   var instrBtn = document.createElement('button');
-  instrBtn.textContent = 'ENVIAR AO GEORGE';
+  instrBtn.textContent = 'ENVIAR À ' + conv.agent.toUpperCase();
   instrBtn.style.cssText = 'margin-top:10px;background:#e8703a;border:none;color:#080808;padding:8px 20px;font-family:Black Ops One,cursive;font-size:10px;letter-spacing:1px;cursor:pointer;width:100%';
   instrBtn.addEventListener('click', function() {
     var txt = instrInput.value.trim();
@@ -289,7 +289,7 @@ function openConv(conv) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({chat_id: '8392126681', text: msg})
     }).then(function(r) { return r.json(); }).then(function(r) {
-      if (r.ok) { instrInput.value = ''; instrBtn.textContent = 'ENVIADO!'; setTimeout(function() { instrBtn.textContent = 'ENVIAR AO GEORGE'; }, 2000); }
+      if (r.ok) { instrInput.value = ''; instrBtn.textContent = 'ENVIADO!'; setTimeout(function() { instrBtn.textContent = 'ENVIAR À ' + conv.agent.toUpperCase(); }, 2000); }
     });
   });
   instrBox.appendChild(instrBtn);
