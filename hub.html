@@ -195,6 +195,9 @@ function goTab(id) {
     document.getElementById('ifr-' + id).src = SRCS[id];
     loaded[id] = true;
   }
+  if (id === 'monitor') {
+    renderList();
+  }
 }
 
 function fmtPhone(p) {
