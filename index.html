@@ -119,44 +119,6 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   gtag('js', new Date());
   gtag('config', 'G-OMA2026PROJ');
 </script>
-<style>
-#oma-widget *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,sans-serif;}
-#oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9998;transition:transform .2s;}
-#oma-bubble:hover{transform:scale(1.08);}
-#oma-bubble svg{width:26px;height:26px;fill:white;}
-#oma-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#dc2626;color:white;font-size:10px;font-weight:600;display:none;align-items:center;justify-content:center;}
-#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9999;display:none;flex-direction:column;overflow:hidden;}
-#oma-window.open{display:flex;}
-#oma-header{background:#111;border-bottom:1px solid #1e1e1e;padding:14px 16px;display:flex;align-items:center;gap:10px;}
-#oma-avatar{width:36px;height:36px;border-radius:50%;background:#e8703a;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:600;flex-shrink:0;}
-#oma-hname{font-size:13px;font-weight:500;color:#e0d9cf;}
-#oma-hstatus{font-size:10px;color:#3d9e60;display:flex;align-items:center;gap:4px;margin-top:2px;}
-.wsdot{width:6px;height:6px;border-radius:50%;background:#3d9e60;animation:wbl 2s infinite;}
-@keyframes wbl{0%,100%{opacity:1}50%{opacity:.4}}
-#oma-close{width:28px;height:28px;border:none;background:transparent;color:#6a6a6a;cursor:pointer;font-size:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;}
-#oma-close:hover{background:#1e1e1e;color:#e0d9cf;}
-#oma-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;}
-.omsg{max-width:82%;display:flex;flex-direction:column;gap:2px;}
-.omsg.agent{align-self:flex-start;}.omsg.user{align-self:flex-end;}
-.obbl{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;word-break:break-word;}
-.omsg.agent .obbl{background:#1e1e1e;color:#e0d9cf;border-radius:4px 12px 12px 12px;}
-.omsg.user .obbl{background:#e8703a;color:white;border-radius:12px 4px 12px 12px;}
-.otime{font-size:9px;color:#4a4a4a;padding:0 4px;}
-.omsg.user .otime{text-align:right;}
-.otyping .obbl{display:flex;gap:4px;align-items:center;padding:12px 16px;}
-.tdot{width:6px;height:6px;border-radius:50%;background:#6a6a6a;animation:wtp .8s infinite;}
-.tdot:nth-child(2){animation-delay:.15s;}.tdot:nth-child(3){animation-delay:.3s;}
-@keyframes wtp{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
-#oma-input-area{border-top:1px solid #1e1e1e;padding:12px;display:flex;gap:8px;align-items:flex-end;background:#111;}
-#oma-input{flex:1;background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:9px 14px;color:#e0d9cf;font-size:13px;resize:none;max-height:80px;outline:none;line-height:1.4;}
-#oma-input::placeholder{color:#4a4a4a;}
-#oma-input:focus{border-color:#e8703a;}
-#oma-send{width:36px;height:36px;border-radius:50%;background:#e8703a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-#oma-send:hover{background:#c05020;}
-#oma-send svg{width:16px;height:16px;fill:white;}
-#oma-powered{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;}
-@media(max-width:480px){#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
-</style>
 </head>
 <body>
 <nav id="nav">
@@ -411,12 +373,6 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
 </script>
-
-<!-- WEBCHAT WIDGET -->
-<div id="oma-widget">
-  <div id="oma-bubble" onclick="oT()">
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-    <div id="oma-badge"></div>
   </div>
   <div id="oma-window">
     <div id="oma-header">
@@ -436,49 +392,117 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
   </div>
 </div>
 
+
+<!-- WEBCHAT WIDGET OMA -->
+<style>
+#oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#oma-bubble:hover{transform:scale(1.08);}
+#oma-bubble svg{width:26px;height:26px;fill:white;}
+#oma-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#dc2626;color:white;font-size:10px;font-weight:600;display:none;align-items:center;justify-content:center;}
+#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9001;display:none;flex-direction:column;overflow:hidden;}
+#oma-window.wopen{display:flex;}
+#oma-hdr{background:#111;border-bottom:1px solid #1e1e1e;padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#oma-av{width:36px;height:36px;border-radius:50%;background:#e8703a;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:600;flex-shrink:0;}
+#oma-hn{font-size:13px;font-weight:500;color:#e0d9cf;font-family:-apple-system,sans-serif;}
+#oma-hs{font-size:10px;color:#3d9e60;display:flex;align-items:center;gap:4px;margin-top:2px;font-family:-apple-system,sans-serif;}
+#oma-sd{width:6px;height:6px;border-radius:50%;background:#3d9e60;animation:wbl 2s infinite;}
+@keyframes wbl{0%,100%{opacity:1}50%{opacity:.4}}
+#oma-x{width:28px;height:28px;border:none;background:transparent;color:#6a6a6a;cursor:pointer;font-size:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;line-height:1;}
+#oma-x:hover{background:#1e1e1e;color:#e0d9cf;}
+#oma-ml{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;}
+.wm{max-width:82%;display:flex;flex-direction:column;gap:2px;}
+.wm.wa{align-self:flex-start;}
+.wm.wu{align-self:flex-end;}
+.wb{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;word-break:break-word;font-family:-apple-system,sans-serif;}
+.wm.wa .wb{background:#1e1e1e;color:#e0d9cf;border-radius:4px 12px 12px 12px;}
+.wm.wu .wb{background:#e8703a;color:white;border-radius:12px 4px 12px 12px;}
+.wt{font-size:9px;color:#4a4a4a;padding:0 4px;font-family:-apple-system,sans-serif;}
+.wm.wu .wt{text-align:right;}
+.wtyp .wb{display:flex;gap:4px;align-items:center;padding:12px 16px;}
+.wd{width:6px;height:6px;border-radius:50%;background:#6a6a6a;animation:wtp .8s infinite;}
+.wd:nth-child(2){animation-delay:.15s;}.wd:nth-child(3){animation-delay:.3s;}
+@keyframes wtp{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+#oma-ia{border-top:1px solid #1e1e1e;padding:12px;display:flex;gap:8px;align-items:flex-end;background:#111;flex-shrink:0;}
+#oma-inp{flex:1;background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:9px 14px;color:#e0d9cf;font-size:13px;resize:none;max-height:80px;outline:none;line-height:1.4;font-family:-apple-system,sans-serif;}
+#oma-inp::placeholder{color:#4a4a4a;}
+#oma-inp:focus{border-color:#e8703a;}
+#oma-btn{width:36px;height:36px;border-radius:50%;background:#e8703a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#oma-btn:hover{background:#c05020;}
+#oma-btn:disabled{background:#2a2a2a;cursor:not-allowed;}
+#oma-btn svg{width:16px;height:16px;fill:white;}
+#oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
+@media(max-width:480px){#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
+</style>
+
+<div id="oma-bubble" onclick="oT()">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <div id="oma-badge"></div>
+</div>
+<div id="oma-window">
+  <div id="oma-hdr">
+    <div id="oma-av">B</div>
+    <div style="flex:1">
+      <div id="oma-hn">Bia · One Man Army</div>
+      <div id="oma-hs"><div id="oma-sd"></div>Online agora</div>
+    </div>
+    <button id="oma-x" onclick="oT()">&#x2715;</button>
+  </div>
+  <div id="oma-ml"></div>
+  <div id="oma-ia">
+    <textarea id="oma-inp" placeholder="Digite sua mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oS();}"></textarea>
+    <button id="oma-btn" onclick="oS()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+  </div>
+  <div id="oma-pw">ONE MAN ARMY PROJECT</div>
+</div>
+
 <script>
-const WAPI='http://204.168.168.61:3000';
-let wsid=null,wlast=0,wpoll=null,wopen=false,wunread=0;
-function wft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
-function waM(role,content,ts,id){
-  const m=document.getElementById('oma-msgs');
-  const d=document.createElement('div');d.className='omsg '+role;
-  d.innerHTML='<div class="obbl">'+content.replace(/\n/g,'<br>')+'</div><div class="otime">'+wft(ts)+'</div>';
-  m.appendChild(d);m.scrollTop=m.scrollHeight;
-  if(id)wlast=Math.max(wlast,id);
-  if(role==='agent'&&!wopen){wunread++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=wunread>9?'9+':wunread;}
+(function(){
+const API='http://204.168.168.61:3000';
+let sid=null,lid=0,pi=null,op=false,un=0;
+function ft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
+function aM(r,c,ts,id){
+  const ml=document.getElementById('oma-ml');
+  const d=document.createElement('div');d.className='wm '+r;
+  d.innerHTML='<div class="wb">'+c.replace(/\n/g,'<br>')+'</div><div class="wt">'+ft(ts)+'</div>';
+  ml.appendChild(d);ml.scrollTop=ml.scrollHeight;
+  if(id)lid=Math.max(lid,id);
+  if(r==='wa'&&!op){un++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=un>9?'9+':un;}
 }
-function wsT(){const m=document.getElementById('oma-msgs');const d=document.createElement('div');d.className='omsg agent otyping';d.id='otyp';d.innerHTML='<div class="obbl"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
-function whT(){const t=document.getElementById('otyp');if(t)t.remove();}
+function sT(){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm wa wtyp';d.id='wtyp';d.innerHTML='<div class="wb"><div class="wd"></div><div class="wd"></div><div class="wd"></div></div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;}
+function hT(){const t=document.getElementById('wtyp');if(t)t.remove();}
 async function wI(){
   try{
-    const r=await fetch(WAPI+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});
-    const d=await r.json();wsid=d.session_id;
-    const h=await fetch(WAPI+'/webchat/history/'+wsid);
+    const r=await fetch(API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});
+    const d=await r.json();sid=d.session_id;
+    const h=await fetch(API+'/webchat/history/'+sid);
     const hd=await h.json();
-    hd.messages.forEach(m=>waM(m.role,m.content,m.ts,m.id));
-    wpoll=setInterval(wP,3000);
-  }catch(e){waM('agent','Olá! Sou a Bia. Como posso ajudar?',new Date().toISOString(),0);}
+    hd.messages.forEach(m=>aM(m.role==='agent'?'wa':'wu',m.content,m.ts,m.id));
+    pi=setInterval(wP,3000);
+  }catch(e){aM('wa','Olá! Sou a Bia, do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}
 }
 async function wP(){
-  if(!wsid)return;
-  try{const r=await fetch(WAPI+'/webchat/poll/'+wsid+'?since='+wlast);const d=await r.json();if(d.messages&&d.messages.length>0){whT();d.messages.forEach(m=>waM('agent',m.content,m.ts,m.id));}}catch(e){}
+  if(!sid)return;
+  try{const r=await fetch(API+'/webchat/poll/'+sid+'?since='+lid);const d=await r.json();if(d.messages&&d.messages.length>0){hT();d.messages.forEach(m=>aM('wa',m.content,m.ts,m.id));}}catch{}
 }
 async function oS(){
-  const inp=document.getElementById('oma-input');
+  const inp=document.getElementById('oma-inp');
   const c=inp.value.trim();if(!c)return;
-  if(!wsid){await wI();}
+  if(!sid){await wI();}
   inp.value='';inp.style.height='auto';
-  waM('user',c,new Date().toISOString(),null);wsT();
-  try{await fetch(WAPI+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:wsid,content:c})});}
-  catch(e){whT();}
+  aM('wu',c,new Date().toISOString(),null);sT();
+  try{
+    document.getElementById('oma-btn').disabled=true;
+    await fetch(API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid,content:c})});
+  }catch{}finally{document.getElementById('oma-btn').disabled=false;}
 }
 function oT(){
-  wopen=!wopen;const w=document.getElementById('oma-window');
-  if(wopen){w.classList.add('open');wunread=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-msgs').scrollTop=999999;document.getElementById('oma-input').focus();if(!wsid)wI();}
-  else{w.classList.remove('open');}
+  op=!op;const w=document.getElementById('oma-window');
+  if(op){w.classList.add('wopen');un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();}
+  else{w.classList.remove('wopen');}
 }
-document.getElementById('oma-input').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
+document.getElementById('oma-inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
+})();
 </script>
+
 </body>
 </html>
