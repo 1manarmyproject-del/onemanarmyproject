@@ -59,6 +59,10 @@
     {
       "source": "/war-room",
       "destination": "/war-room.html"
+    },
+    {
+      "source": "/webchat",
+      "destination": "/webchat-widget.html"
     }
   ],
   "redirects": [

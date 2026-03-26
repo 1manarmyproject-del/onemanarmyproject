@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>OMA Webchat</title>
+<style>
+#oma-widget *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,sans-serif;}
+#oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9998;transition:transform .2s;}
+#oma-bubble:hover{transform:scale(1.08);}
+#oma-bubble svg{width:26px;height:26px;fill:white;}
+#oma-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#dc2626;color:white;font-size:10px;font-weight:600;display:none;align-items:center;justify-content:center;}
+#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9999;display:none;flex-direction:column;overflow:hidden;}
+#oma-window.open{display:flex;}
+#oma-header{background:#111;border-bottom:1px solid #1e1e1e;padding:14px 16px;display:flex;align-items:center;gap:10px;}
+#oma-avatar{width:36px;height:36px;border-radius:50%;background:#e8703a;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:600;flex-shrink:0;}
+#oma-hname{font-size:13px;font-weight:500;color:#e0d9cf;}
+#oma-hstatus{font-size:10px;color:#3d9e60;display:flex;align-items:center;gap:4px;margin-top:2px;}
+.sdot{width:6px;height:6px;border-radius:50%;background:#3d9e60;animation:bl 2s infinite;}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
+#oma-close{width:28px;height:28px;border:none;background:transparent;color:#6a6a6a;cursor:pointer;font-size:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;}
+#oma-close:hover{background:#1e1e1e;color:#e0d9cf;}
+#oma-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;}
+.omsg{max-width:82%;display:flex;flex-direction:column;gap:2px;}
+.omsg.agent{align-self:flex-start;}
+.omsg.user{align-self:flex-end;}
+.obbl{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;word-break:break-word;}
+.omsg.agent .obbl{background:#1e1e1e;color:#e0d9cf;border-radius:4px 12px 12px 12px;}
+.omsg.user .obbl{background:#e8703a;color:white;border-radius:12px 4px 12px 12px;}
+.otime{font-size:9px;color:#4a4a4a;padding:0 4px;}
+.omsg.user .otime{text-align:right;}
+.otyping .obbl{display:flex;gap:4px;align-items:center;padding:12px 16px;}
+.tdot{width:6px;height:6px;border-radius:50%;background:#6a6a6a;animation:tp .8s infinite;}
+.tdot:nth-child(2){animation-delay:.15s;}
+.tdot:nth-child(3){animation-delay:.3s;}
+@keyframes tp{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+#oma-input-area{border-top:1px solid #1e1e1e;padding:12px;display:flex;gap:8px;align-items:flex-end;background:#111;}
+#oma-input{flex:1;background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:9px 14px;color:#e0d9cf;font-size:13px;resize:none;max-height:80px;outline:none;line-height:1.4;}
+#oma-input::placeholder{color:#4a4a4a;}
+#oma-input:focus{border-color:#e8703a;}
+#oma-send{width:36px;height:36px;border-radius:50%;background:#e8703a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+#oma-send:hover{background:#c05020;}
+#oma-send svg{width:16px;height:16px;fill:white;}
+#oma-powered{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;}
+</style>
+</head>
+<body style="background:#f5f4f1;min-height:100vh;display:flex;align-items:center;justify-content:center;">
+<div style="text-align:center;color:#888;font-family:sans-serif;"><div style="font-size:24px;font-weight:500;color:#111;margin-bottom:8px;">OMA Webchat</div><div>Clique na bolha no canto inferior direito</div></div>
+<div id="oma-widget">
+  <div id="oma-bubble" onclick="oT()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <div id="oma-badge"></div>
+  </div>
+  <div id="oma-window">
+    <div id="oma-header">
+      <div id="oma-avatar">B</div>
+      <div style="flex:1">
+        <div id="oma-hname">Bia · One Man Army</div>
+        <div id="oma-hstatus"><div class="sdot"></div>Online agora</div>
+      </div>
+      <button id="oma-close" onclick="oT()">x</button>
+    </div>
+    <div id="oma-msgs"></div>
+    <div id="oma-input-area">
+      <textarea id="oma-input" placeholder="Digite sua mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oS();}"></textarea>
+      <button id="oma-send" onclick="oS()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+    <div id="oma-powered">ONE MAN ARMY PROJECT</div>
+  </div>
+</div>
+<script>
+const API='http://204.168.168.61:3000';
+let sid=null,lastId=0,poll=null,isOpen=false,unread=0;
+function ft(ts){if(!ts)return'';const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}
+function aM(role,content,ts,id){
+  const m=document.getElementById('oma-msgs');
+  const d=document.createElement('div');
+  d.className='omsg '+role;
+  d.innerHTML='<div class="obbl">'+content.replace(/\n/g,'<br>')+'</div><div class="otime">'+ft(ts)+'</div>';
+  m.appendChild(d);m.scrollTop=m.scrollHeight;
+  if(id)lastId=Math.max(lastId,id);
+  if(role==='agent'&&!isOpen){unread++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=unread>9?'9+':unread;}
+}
+function sT(){const m=document.getElementById('oma-msgs');const d=document.createElement('div');d.className='omsg agent otyping';d.id='otyp';d.innerHTML='<div class="obbl"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function hT(){const t=document.getElementById('otyp');if(t)t.remove();}
+async function oI(){
+  try{
+    const r=await fetch(API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});
+    const d=await r.json();sid=d.session_id;
+    const h=await fetch(API+'/webchat/history/'+sid);
+    const hd=await h.json();
+    hd.messages.forEach(m=>aM(m.role,m.content,m.ts,m.id));
+    poll=setInterval(oP,2000);
+  }catch(e){aM('agent','Olá! Sou a Bia do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}
+}
+async function oP(){
+  if(!sid)return;
+  try{
+    const r=await fetch(API+'/webchat/poll/'+sid+'?since='+lastId);
+    const d=await r.json();
+    if(d.messages&&d.messages.length>0){hT();d.messages.forEach(m=>aM('agent',m.content,m.ts,m.id));}
+  }catch(e){}
+}
+async function oS(){
+  const inp=document.getElementById('oma-input');
+  const c=inp.value.trim();if(!c||!sid)return;
+  inp.value='';inp.style.height='auto';
+  aM('user',c,new Date().toISOString(),null);sT();
+  try{await fetch(API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid,content:c})});}
+  catch(e){hT();}
+}
+function oT(){
+  isOpen=!isOpen;
+  const w=document.getElementById('oma-window');
+  if(isOpen){w.classList.add('open');unread=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-msgs').scrollTop=999999;document.getElementById('oma-input').focus();if(!sid)oI();}
+  else{w.classList.remove('open');}
+}
+document.getElementById('oma-input').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
+</script>
+</body>
+</html>
