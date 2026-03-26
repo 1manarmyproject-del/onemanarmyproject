@@ -204,8 +204,8 @@ const PW='omaproject2026',SK='oma-crm-v2',API='http://204.168.168.61:3000';
 const STS=[{id:'novo',l:'Novo',c:'sn'},{id:'qualificado',l:'Qualificado',c:'sq'},{id:'conversa',l:'Em Conversa',c:'sc'},{id:'agendado',l:'Agendado',c:'sa'},{id:'proposta',l:'Proposta',c:'sp2'},{id:'cliente',l:'Cliente',c:'sk'},{id:'perdido',l:'Perdido',c:'sx'}];
 const SCC={'Sócio / Dono':80,'CEO / Presidente':80,'Diretor':60,'Gerente':40,'Outro':25};
 let S={workspaces:[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}],currentWS:'oma',leads:[]},F=[],aid=null;
-async function apiGet(p){try{const r=await fetch(API+p);return await r.json();}catch(e){return null;}}
-async function apiPost(p,b){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
+async function apiGet(p){try{const r=await fetch(API+p,{headers:{'x-api-key':API_KEY}});return await r.json();}catch(e){return null;}}
+async function apiPost(p,b){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
 async function apiPatch(p,b){try{const r=await fetch(API+p,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
 function mapL(l){return{id:l.id,ws:'oma',nome:l.nome,empresa:l.empresa,wa:l.whatsapp,email:l.email,seg:l.segmento,porte:l.faturamento&&l.faturamento.includes('M')?'Enterprise':'PME',canal:'WhatsApp',cargo:l.cargo,dor:l.dor,diag:'',stage:l.status||'novo',score:SCC[l.cargo]||40,time:new Date(l.created_at).toLocaleDateString('pt-BR'),ticket:'',setup:'',modulos:'',origem:l.origem||'bia'};}
 function ld(){try{return JSON.parse(localStorage.getItem(SK));}catch{return null;}}
