@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA — War Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
+<style>
+:root{--char:#080808;--coal:#0f0f0f;--graph:#111;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--purple:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+
+/* HEADER */
+.hdr{background:var(--coal);border-bottom:1px solid var(--iron);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hbrand{display:flex;align-items:center;gap:12px;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:3px;}.hlogo span{color:var(--fire);}
+.hbadge{font-family:'Space Mono',monospace;font-size:9px;background:var(--blood);color:var(--bone);padding:3px 10px;letter-spacing:2px;}
+.hright{display:flex;align-items:center;gap:16px;}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;}.hback:hover{color:var(--fire);}
+
+/* COUNTDOWN */
+.cd-bar{background:var(--coal);border-bottom:2px solid var(--blood);padding:20px 32px;display:flex;align-items:center;gap:32px;}
+.cd-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:3px;text-transform:uppercase;}
+.cd-nums{display:flex;align-items:baseline;gap:6px;}
+.cd-block{text-align:center;min-width:52px;}
+.cd-n{font-family:'Black Ops One',cursive;font-size:44px;color:var(--fire);line-height:1;}
+.cd-u{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;display:block;margin-top:2px;}
+.cd-sep{font-family:'Black Ops One',cursive;font-size:32px;color:var(--steel);padding-bottom:6px;}
+.cd-progress-wrap{flex:1;max-width:360px;}
+.cd-prog-top{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:8px;}
+.cd-prog-pct{color:var(--fire);}
+.cd-prog-track{height:6px;background:var(--iron);}
+.cd-prog-fill{height:100%;background:linear-gradient(90deg,var(--blood),var(--fire));}
+.cd-meta{margin-left:auto;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:right;line-height:1.8;}
+
+/* CONTENT */
+.page{padding:28px 32px;max-width:1400px;margin:0 auto;}
+.slbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.slbl::after{content:'';flex:1;height:1px;background:var(--iron);}
+
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:24px;}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(4,1fr);}}
+.kpi{background:var(--coal);border:1px solid var(--iron);padding:14px;position:relative;overflow:hidden;}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.k-fire::before{background:var(--fire);}.k-gold::before{background:var(--gold);}
+.k-green::before{background:var(--green);}.k-blue::before{background:var(--blue);}
+.k-purple::before{background:var(--purple);}.k-ash::before{background:var(--ash);}
+.k-blood::before{background:var(--blood);}
+.klbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.kval{font-family:'Black Ops One',cursive;font-size:26px;line-height:1;margin-bottom:3px;}
+.k-fire .kval{color:var(--fire);}.k-gold .kval{color:var(--gold);}
+.k-green .kval{color:var(--green);}.k-blue .kval{color:var(--blue);}
+.k-purple .kval{color:var(--purple);}.k-ash .kval{color:var(--ash);}
+.k-blood .kval{color:var(--fire);}
+.ksub{font-family:'Space Mono',monospace;font-size:8px;color:var(--fog);}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+.g2e{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+@media(max-width:900px){.g2,.g3,.g2e{grid-template-columns:1fr;}}
+
+/* CARD */
+.card{background:var(--coal);border:1px solid var(--iron);}
+.chd{padding:12px 16px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;}
+.cbd{padding:14px 16px;}
+.cw{position:relative;height:180px;}
+
+/* TIMELINE — história do projeto */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);position:relative;}
+.tl-item:last-child{border-bottom:none;}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.tl-dot.done{background:var(--green);}
+.tl-dot.fire{background:var(--fire);animation:blink 2s infinite;}
+.tl-dot.pending{background:var(--steel);}
+.tl-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);width:50px;flex-shrink:0;margin-top:2px;}
+.tl-content{flex:1;}
+.tl-title{font-size:12px;color:var(--bone);margin-bottom:2px;}
+.tl-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);}
+.tl-badge{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;border-radius:2px;margin-left:8px;vertical-align:middle;}
+.b-done{background:rgba(61,158,96,.15);color:var(--green);}
+.b-fire{background:rgba(232,112,58,.15);color:var(--fire);}
+.b-pen{background:rgba(255,255,255,.06);color:var(--ash);}
+
+/* BLOCOS DE INICIATIVA */
+.initiatives{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+@media(max-width:800px){.initiatives{grid-template-columns:1fr;}}
+.init-card{background:var(--coal);border:1px solid var(--iron);overflow:hidden;}
+.init-hdr{padding:12px 16px;border-bottom:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;}
+.init-name{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:1px;}
+.init-status{font-family:'Space Mono',monospace;font-size:8px;padding:2px 8px;letter-spacing:1px;}
+.s-operational{background:rgba(61,158,96,.15);color:var(--green);}
+.s-progress{background:rgba(232,112,58,.15);color:var(--fire);}
+.s-building{background:rgba(58,123,213,.15);color:var(--blue);}
+.s-pending{background:rgba(255,255,255,.06);color:var(--ash);}
+.init-body{padding:12px 16px;}
+.init-pct-wrap{margin-bottom:10px;}
+.init-pct-top{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:5px;}
+.init-pct-val{color:var(--fire);}
+.init-track{height:5px;background:var(--iron);}
+.init-fill{height:100%;transition:width .6s ease;}
+.init-steps{display:flex;flex-direction:column;gap:4px;}
+.step{display:flex;align-items:center;gap:8px;font-size:11px;}
+.step-icon{width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;}
+.si-done{background:var(--green);color:var(--char);}
+.si-fire{background:var(--fire);color:var(--char);}
+.si-pen{background:var(--iron);color:var(--ash);}
+.step-txt{color:var(--fog);}
+.step.done .step-txt{color:var(--bone);}
+
+/* FINANCIALS */
+.fin-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+@media(max-width:800px){.fin-row{grid-template-columns:1fr 1fr;}}
+.fin-block{background:var(--graph);border:1px solid var(--iron);padding:14px;}
+.fin-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.fin-val{font-family:'Black Ops One',cursive;font-size:22px;}
+.fin-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-top:3px;}
+
+/* CHART ACTIVITY */
+.activity-wrap{position:relative;height:160px;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">
+    <div class="hlogo">OMA <span>WAR ROOM</span></div>
+    <div class="hbadge">🦞 PAINEL DO PROJETO</div>
+  </div>
+  <div class="hright">
+    <a href="/hub" class="hback">← HUB</a>
+    <span class="hck"><span class="live"></span><span id="ck">--:--</span></span>
+  </div>
+</header>
+
+<!-- COUNTDOWN -->
+<div class="cd-bar">
+  <div>
+    <div class="cd-lbl">Lançamento</div>
+    <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);margin-top:2px">01 ABR 2026</div>
+  </div>
+  <div class="cd-nums">
+    <div class="cd-block"><div class="cd-n" id="cd-d">7</div><span class="cd-u">DIAS</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block"><div class="cd-n" id="cd-h">00</div><span class="cd-u">HORAS</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block"><div class="cd-n" id="cd-m">00</div><span class="cd-u">MIN</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block"><div class="cd-n" id="cd-s">00</div><span class="cd-u">SEG</span></div>
+  </div>
+  <div class="cd-progress-wrap">
+    <div class="cd-prog-top">
+      <span>Dia 1 — 04/03/2026</span>
+      <span class="cd-prog-pct" id="cd-pct">75%</span>
+      <span>01/04/2026</span>
+    </div>
+    <div class="cd-prog-track"><div class="cd-prog-fill" id="cd-bar" style="width:75%"></div></div>
+  </div>
+  <div class="cd-meta">
+    <div>21 dias de projeto</div>
+    <div style="color:var(--fire)">7 dias restantes</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- KPIs -->
+  <div class="slbl">Indicadores do projeto</div>
+  <div class="kpis">
+    <div class="kpi k-fire"><div class="klbl">Dias de projeto</div><div class="kval">21</div><div class="ksub">Desde 04/03/2026</div></div>
+    <div class="kpi k-gold"><div class="klbl">Mensagens totais</div><div class="kval">2.416</div><div class="ksub">779 respostas de agentes</div></div>
+    <div class="kpi k-green"><div class="klbl">Commits no site</div><div class="kval">44</div><div class="ksub">23 no NanoClaw</div></div>
+    <div class="kpi k-blue"><div class="klbl">Cards criados</div><div class="kval">34</div><div class="ksub">12+7+9+6 por categoria</div></div>
+    <div class="kpi k-purple"><div class="klbl">Agentes ativos</div><div class="kval">7</div><div class="ksub">George·Bia·Amanda+4</div></div>
+    <div class="kpi k-fire"><div class="klbl">Custo API est.</div><div class="kval">~R$180</div><div class="ksub">21 dias · Haiku</div></div>
+    <div class="kpi k-ash"><div class="klbl">Horas Fabio est.</div><div class="kval">~120h</div><div class="ksub">~6h/dia desde 04/03</div></div>
+  </div>
+
+  <!-- ATIVIDADE + TIMELINE -->
+  <div class="g2">
+    <div class="card">
+      <div class="chd"><span>Atividade diária — mensagens</span><span style="color:var(--green)">21 DIAS</span></div>
+      <div class="cbd"><div class="activity-wrap"><canvas id="actChart"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="chd"><span>Marcos do projeto</span><span style="color:var(--fire)">CRONOLOGIA</span></div>
+      <div class="cbd" style="padding:8px 16px;overflow-y:auto;max-height:220px;">
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">04/03</div><div class="tl-content"><div class="tl-title">Dia 1 — George acorda<span class="tl-badge b-done">✓</span></div><div class="tl-meta">Primeiro "Oi" enviado. Primeiros bugs.</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">05/03</div><div class="tl-content"><div class="tl-title">Gmail do George configurado<span class="tl-badge b-done">✓</span></div><div class="tl-meta">Primeiro e-mail enviado. "Espetacular!"</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">12/03</div><div class="tl-content"><div class="tl-title">Amanda ativa no WhatsApp<span class="tl-badge b-done">✓</span></div><div class="tl-meta">Primeiras 32 respostas automáticas</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">17/03</div><div class="tl-content"><div class="tl-title">POST 1 publicado no Instagram<span class="tl-badge b-done">✓</span></div><div class="tl-meta">11 versões. Arte v11 aprovada.</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">23/03</div><div class="tl-content"><div class="tl-title">OMA Project nasce<span class="tl-badge b-done">✓</span></div><div class="tl-meta">Logo·Brand book·Landing page·GitHub</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">24/03</div><div class="tl-content"><div class="tl-title">Site no ar — onemanarmyproject.com.br<span class="tl-badge b-done">✓</span></div><div class="tl-meta">Vercel + domínio + CRM + OPS + Monitor</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-date">25/03</div><div class="tl-content"><div class="tl-title">Flávia operacional — 1º post end-to-end<span class="tl-badge b-done">✓</span></div><div class="tl-meta">34 cards·Hub SPA·Financeiro·Onboarding</div></div></div>
+          <div class="tl-item"><div class="tl-dot fire"></div><div class="tl-date">25/03</div><div class="tl-content"><div class="tl-title">Bia v4.1 — funil comercial<span class="tl-badge b-fire">agora</span></div><div class="tl-meta">Sessão noturna 21h</div></div></div>
+          <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-date">26/03</div><div class="tl-content"><div class="tl-title">Hetzner CX22 — infra real<span class="tl-badge b-pen">pendente</span></div><div class="tl-meta">CRM backend·Bia→SQLite</div></div></div>
+          <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-date">01/04</div><div class="tl-content"><div class="tl-title">LANÇAMENTO @1manarmy_project<span class="tl-badge b-pen">7 dias</span></div><div class="tl-meta">Instagram·Bia inbound·Site comercial</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCOS DE INICIATIVA -->
+  <div class="slbl">Status por iniciativa</div>
+  <div class="initiatives">
+
+    <div class="init-card">
+      <div class="init-hdr">
+        <div><div class="init-name" style="color:var(--green)">Flávia</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px">Marketing · Instagram</div></div>
+        <span class="init-status s-operational">OPERACIONAL</span>
+      </div>
+      <div class="init-body">
+        <div class="init-pct-wrap">
+          <div class="init-pct-top"><span>Progresso</span><span class="init-pct-val">100%</span></div>
+          <div class="init-track"><div class="init-fill" style="width:100%;background:var(--green)"></div></div>
+        </div>
+        <div class="init-steps">
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">KV e padrão visual v11 definido</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">POST 1 publicado (manual)</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Bug pipeline corrigido — todos os estágios</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Primeiro post end-to-end autônomo 25/03</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">34 cards OMA prontos para aprovação</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="init-card">
+      <div class="init-hdr">
+        <div><div class="init-name" style="color:var(--fire)">Bia — Inbound</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px">Comercial · PME · WhatsApp</div></div>
+        <span class="init-status s-progress">EM CALIBRAÇÃO</span>
+      </div>
+      <div class="init-body">
+        <div class="init-pct-wrap">
+          <div class="init-pct-top"><span>Progresso</span><span class="init-pct-val">65%</span></div>
+          <div class="init-track"><div class="init-fill" style="width:65%;background:var(--fire)"></div></div>
+        </div>
+        <div class="init-steps">
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Funil v3 com script fixo P1→P6</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Reset de contexto 2h entre atendimentos</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">P4 com menu de 6 opções guiadas</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Espírito OMA + benchmark Viver de IA (v4.1)</span></div>
+          <div class="step"><div class="step-icon si-fire">→</div><span class="step-txt">Teste funil completo até agendamento</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Integração automática Bia → CRM</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Outbound — cadência ativa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="init-card">
+      <div class="init-hdr">
+        <div><div class="init-name" style="color:var(--blue)">Site OMA</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px">onemanarmyproject.com.br</div></div>
+        <span class="init-status s-operational">NO AR</span>
+      </div>
+      <div class="init-body">
+        <div class="init-pct-wrap">
+          <div class="init-pct-top"><span>Progresso</span><span class="init-pct-val">85%</span></div>
+          <div class="init-track"><div class="init-fill" style="width:85%;background:var(--blue)"></div></div>
+        </div>
+        <div class="init-steps">
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Site comercial — 9 segmentos + 9 módulos</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Hub SPA — Monitor·CRM·Financeiro·OPS</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Demo interativo com painel de agentes</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Traffic · Onboarding · GA4</span></div>
+          <div class="step"><div class="step-icon si-fire">→</div><span class="step-txt">Depoimento do fundador (texto pendente)</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">GA4 real (substituir ID placeholder)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="init-card">
+      <div class="init-hdr">
+        <div><div class="init-name" style="color:var(--gold)">Infraestrutura</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px">Hetzner · NanoClaw · Dados</div></div>
+        <span class="init-status s-building">EM CONSTRUÇÃO</span>
+      </div>
+      <div class="init-body">
+        <div class="init-pct-wrap">
+          <div class="init-pct-top"><span>Progresso</span><span class="init-pct-val">40%</span></div>
+          <div class="init-track"><div class="init-fill" style="width:40%;background:var(--gold)"></div></div>
+        </div>
+        <div class="init-steps">
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Mac Mini M4 + NanoClaw rodando 24/7</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Cloudflare Tunnel ativo (acesso mobile)</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Evolution API · WhatsApp Business</span></div>
+          <div class="step"><div class="step-icon si-fire">→</div><span class="step-txt">Hetzner CX22 — criar servidor</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">CRM migrar localStorage → backend real</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Hub protegido — George só escreve JSON</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">WATI API oficial WhatsApp (3º cliente)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="init-card">
+      <div class="init-hdr">
+        <div><div class="init-name" style="color:var(--purple)">Instagram @1manarmy</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px">Lançamento 01/04/2026</div></div>
+        <span class="init-status s-building">PREPARANDO</span>
+      </div>
+      <div class="init-body">
+        <div class="init-pct-wrap">
+          <div class="init-pct-top"><span>Progresso</span><span class="init-pct-val">55%</span></div>
+          <div class="init-track"><div class="init-fill" style="width:55%;background:var(--purple)"></div></div>
+        </div>
+        <div class="init-steps">
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Perfil criado @1manarmy_project</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">KV definido — Playfair + grain + lagosta</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">34 cards prontos (missão·manifesto·módulos)</span></div>
+          <div class="step done"><div class="step-icon si-done">✓</div><span class="step-txt">Flávia autônoma para publicar</span></div>
+          <div class="step"><div class="step-icon si-fire">→</div><span class="step-txt">Feedback dos 34 cards (Fabio)</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Estratégia Meta Ads lançamento</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Publicação dos 30+ cards antes de 01/04</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="init-card">
+      <div class="init-hdr">
+        <div><div class="init-name" style="color:var(--ash)">Bia — Outbound</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px">Cadência ativa · PME</div></div>
+        <span class="init-status s-pending">NÃO INICIADO</span>
+      </div>
+      <div class="init-body">
+        <div class="init-pct-wrap">
+          <div class="init-pct-top"><span>Progresso</span><span class="init-pct-val">0%</span></div>
+          <div class="init-track"><div class="init-fill" style="width:0%;background:var(--ash)"></div></div>
+        </div>
+        <div class="init-steps">
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Inbound operacional primeiro (pré-requisito)</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Lista de leads por vertical (advocacia, ótica...)</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Script outbound — diferente do inbound</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Cadência D0·D3·D7·D14</span></div>
+          <div class="step"><div class="step-icon si-pen">○</div><span class="step-txt">Tiago ativado para prospecção</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FINANCIALS -->
+  <div class="slbl">Financeiro do projeto — estimativas reais</div>
+  <div class="fin-row">
+    <div class="fin-block">
+      <div class="fin-lbl">Custo API (21 dias)</div>
+      <div class="fin-val" style="color:var(--fire)">~R$180</div>
+      <div class="fin-sub">Haiku · ~2.5M tokens/dia médio</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Infra mensal estimada</div>
+      <div class="fin-val" style="color:var(--gold)">~R$140</div>
+      <div class="fin-sub">API R$100 + Vercel R$40</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Horas Fabio investidas</div>
+      <div class="fin-val" style="color:var(--blue)">~120h</div>
+      <div class="fin-sub">~6h/dia × 21 dias</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Break-even (1 cliente)</div>
+      <div class="fin-val" style="color:var(--green)">1 cliente</div>
+      <div class="fin-sub">R$1.500/mês cobre toda infra</div>
+    </div>
+  </div>
+  <div class="fin-row">
+    <div class="fin-block">
+      <div class="fin-lbl">Meta MRR — Abr/26</div>
+      <div class="fin-val" style="color:var(--green)">R$2.500</div>
+      <div class="fin-sub">1 cliente PME médio</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Meta MRR — Set/26</div>
+      <div class="fin-val" style="color:var(--green)">R$37.500</div>
+      <div class="fin-sub">15 clientes · Fase 1</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Meta MRR — Mar/27</div>
+      <div class="fin-val" style="color:var(--gold)">R$150.000</div>
+      <div class="fin-sub">50 clientes · ~R$1.8M ARR</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Margem bruta estimada</div>
+      <div class="fin-val" style="color:var(--fire)">94–98%</div>
+      <div class="fin-sub">Custo marginal → R$0</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// CLOCK
+function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
+
+// COUNTDOWN
+function countdown(){
+  const target=new Date('2026-04-01T00:00:00-0300');
+  const now=new Date();
+  const diff=Math.max(0,target-now);
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  const start=new Date('2026-03-04T00:00:00-0300');
+  const total=target-start;
+  const elapsed=now-start;
+  const pct=Math.min(100,Math.round(elapsed/total*100));
+  document.getElementById('cd-pct').textContent=pct+'%';
+  document.getElementById('cd-bar').style.width=pct+'%';
+}
+setInterval(countdown,1000);countdown();
+
+// ACTIVITY CHART
+const dias=['04/03','05/03','06/03','07/03','08/03','09/03','10/03','11/03','12/03','13/03','14/03','15/03','16/03','17/03','18/03','19/03','20/03','21/03','22/03','23/03','24/03','25/03'];
+const total=[35,76,105,16,54,83,41,48,116,276,206,106,168,259,169,87,101,31,15,95,192,137];
+const bots=[0,0,0,0,0,0,0,0,32,104,77,43,62,118,81,41,48,13,5,41,53,61];
+
+new Chart(document.getElementById('actChart'),{
+  type:'bar',
+  data:{
+    labels:dias,
+    datasets:[
+      {label:'Total',data:total,backgroundColor:'rgba(232,112,58,.2)',borderColor:'#e8703a',borderWidth:1},
+      {label:'Respostas agentes',data:bots,backgroundColor:'rgba(61,158,96,.3)',borderColor:'#3d9e60',borderWidth:1}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:8}},grid:{color:'rgba(255,255,255,.03)'}},
+      y:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:8}},grid:{color:'rgba(255,255,255,.03)'}}
+    }
+  }
+});
+</script>
+</body>
+</html>

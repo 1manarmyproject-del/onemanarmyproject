@@ -55,6 +55,10 @@
     {
       "source": "/onboarding",
       "destination": "/onboarding.html"
+    },
+    {
+      "source": "/war-room",
+      "destination": "/war-room.html"
     }
   ],
   "redirects": [
