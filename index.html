@@ -373,5 +373,74 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
 </script>
+
+<!-- WEBCHAT WIDGET -->
+<div id="oma-widget">
+  <div id="oma-bubble" onclick="oT()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <div id="oma-badge"></div>
+  </div>
+  <div id="oma-window">
+    <div id="oma-header">
+      <div id="oma-avatar">B</div>
+      <div style="flex:1">
+        <div id="oma-hname">Bia · One Man Army</div>
+        <div id="oma-hstatus"><div class="wsdot"></div>Online agora</div>
+      </div>
+      <button id="oma-close" onclick="oT()">x</button>
+    </div>
+    <div id="oma-msgs"></div>
+    <div id="oma-input-area">
+      <textarea id="oma-input" placeholder="Digite sua mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oS();}"></textarea>
+      <button id="oma-send" onclick="oS()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+    <div id="oma-powered">ONE MAN ARMY PROJECT</div>
+  </div>
+</div>
+
+<script>
+const WAPI='http://204.168.168.61:3000';
+let wsid=null,wlast=0,wpoll=null,wopen=false,wunread=0;
+function wft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
+function waM(role,content,ts,id){
+  const m=document.getElementById('oma-msgs');
+  const d=document.createElement('div');d.className='omsg '+role;
+  d.innerHTML='<div class="obbl">'+content.replace(/\n/g,'<br>')+'</div><div class="otime">'+wft(ts)+'</div>';
+  m.appendChild(d);m.scrollTop=m.scrollHeight;
+  if(id)wlast=Math.max(wlast,id);
+  if(role==='agent'&&!wopen){wunread++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=wunread>9?'9+':wunread;}
+}
+function wsT(){const m=document.getElementById('oma-msgs');const d=document.createElement('div');d.className='omsg agent otyping';d.id='otyp';d.innerHTML='<div class="obbl"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function whT(){const t=document.getElementById('otyp');if(t)t.remove();}
+async function wI(){
+  try{
+    const r=await fetch(WAPI+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});
+    const d=await r.json();wsid=d.session_id;
+    const h=await fetch(WAPI+'/webchat/history/'+wsid);
+    const hd=await h.json();
+    hd.messages.forEach(m=>waM(m.role,m.content,m.ts,m.id));
+    wpoll=setInterval(wP,3000);
+  }catch(e){waM('agent','Olá! Sou a Bia. Como posso ajudar?',new Date().toISOString(),0);}
+}
+async function wP(){
+  if(!wsid)return;
+  try{const r=await fetch(WAPI+'/webchat/poll/'+wsid+'?since='+wlast);const d=await r.json();if(d.messages&&d.messages.length>0){whT();d.messages.forEach(m=>waM('agent',m.content,m.ts,m.id));}}catch(e){}
+}
+async function oS(){
+  const inp=document.getElementById('oma-input');
+  const c=inp.value.trim();if(!c)return;
+  if(!wsid){await wI();}
+  inp.value='';inp.style.height='auto';
+  waM('user',c,new Date().toISOString(),null);wsT();
+  try{await fetch(WAPI+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:wsid,content:c})});}
+  catch(e){whT();}
+}
+function oT(){
+  wopen=!wopen;const w=document.getElementById('oma-window');
+  if(wopen){w.classList.add('open');wunread=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-msgs').scrollTop=999999;document.getElementById('oma-input').focus();if(!wsid)wI();}
+  else{w.classList.remove('open');}
+}
+document.getElementById('oma-input').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
+</script>
 </body>
 </html>
