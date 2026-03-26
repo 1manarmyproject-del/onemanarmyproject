@@ -373,24 +373,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
 </script>
-  </div>
-  <div id="oma-window">
-    <div id="oma-header">
-      <div id="oma-avatar">B</div>
-      <div style="flex:1">
-        <div id="oma-hname">Bia · One Man Army</div>
-        <div id="oma-hstatus"><div class="wsdot"></div>Online agora</div>
-      </div>
-      <button id="oma-close" onclick="oT()">x</button>
-    </div>
-    <div id="oma-msgs"></div>
-    <div id="oma-input-area">
-      <textarea id="oma-input" placeholder="Digite sua mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oS();}"></textarea>
-      <button id="oma-send" onclick="oS()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
-    </div>
-    <div id="oma-powered">ONE MAN ARMY PROJECT</div>
-  </div>
-</div>
+
 
 
 <!-- WEBCHAT WIDGET OMA -->
