@@ -46,7 +46,7 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
 
 /* KPIS */
 .kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:24px;}
-@media(max-width:1100px){.kpis{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(5,1fr);}}
 .kpi{background:var(--coal);border:1px solid var(--iron);padding:14px;position:relative;overflow:hidden;}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
 .k-fire::before{background:var(--fire);}.k-gold::before{background:var(--gold);}
@@ -361,6 +361,11 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
       <div class="fin-sub">~6h/dia × 21 dias</div>
     </div>
     <div class="fin-block">
+      <div class="fin-lbl">Mac Mini M4 (infra)</div>
+      <div class="fin-val" style="color:var(--purple)">R$4.700</div>
+      <div class="fin-sub">10x · Servidor principal 24/7</div>
+    </div>
+    <div class="fin-block">
       <div class="fin-lbl">Break-even (1 cliente)</div>
       <div class="fin-val" style="color:var(--green)">1 cliente</div>
       <div class="fin-sub">R$1.500/mês cobre toda infra</div>
@@ -381,6 +386,11 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
       <div class="fin-lbl">Meta MRR — Mar/27</div>
       <div class="fin-val" style="color:var(--gold)">R$150.000</div>
       <div class="fin-sub">50 clientes · ~R$1.8M ARR</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Total investido</div>
+      <div class="fin-val" style="color:var(--fire)">~R$5.020</div>
+      <div class="fin-sub">Mac R$4.7k + API R$180 + infra R$140</div>
     </div>
     <div class="fin-block">
       <div class="fin-lbl">Margem bruta estimada</div>
