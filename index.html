@@ -460,7 +460,7 @@ async function wI(){
     const h=await fetch(API+'/webchat/history/'+sid);
     const hd=await h.json();
     hd.messages.forEach(m=>aM(m.role==='agent'?'wa':'wu',m.content,m.ts,m.id));
-    pi=setInterval(wP,3000);
+    pi=setInterval(wP,1500);
   }catch(e){aM('wa','Olá! Sou a Bia, do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}
 }
 async function wP(){
