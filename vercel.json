@@ -63,6 +63,10 @@
     {
       "source": "/webchat",
       "destination": "/webchat-widget.html"
+    },
+    {
+      "source": "/preview",
+      "destination": "/index-v2.html"
     }
   ],
   "redirects": [
