@@ -397,6 +397,46 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </footer>
 
 <script>
+
+// Backup status — carrega do Hetzner
+async function loadBackupStatus() {
+  try {
+    const r = await fetch('http://204.168.168.61:3000/backup-status');
+    const d = await r.json();
+    if (d.layers) {
+      const hd = d.layers.hd_externo;
+      const gh = d.layers.github;
+      const gd = d.layers.google_drive;
+
+      // HD Externo
+      const hdDot = document.getElementById('hd-dot');
+      if (hdDot) {
+        hdDot.style.background = hd.connected ? '#3d9e60' : '#dc2626';
+        document.getElementById('hd-status').textContent = hd.connected ? 'FX_BACKUP_S' : 'OFFLINE';
+        document.getElementById('hd-time').textContent = 'último: ' + (hd.last_backup || '—');
+      }
+
+      // GitHub
+      const ghTime = document.getElementById('gh-time');
+      if (ghTime) ghTime.textContent = 'último: ' + (gh.last_backup || '—');
+
+      // Google Drive
+      const gdDot = document.getElementById('gd-dot');
+      if (gdDot) {
+        gdDot.style.background = gd.status === 'ok' ? '#3d9e60' : '#dc2626';
+        document.getElementById('gd-time').textContent = 'último: ' + (gd.last_backup || '—');
+      }
+
+      // Alerta se HD offline
+      const alert = document.getElementById('backupAlert');
+      if (alert) alert.style.display = !hd.connected ? 'block' : 'none';
+    }
+  } catch(e) {
+    console.warn('backup-status indisponível', e);
+  }
+}
+loadBackupStatus();
+
 // Clock
 function updateClock(){
   const now = new Date();
