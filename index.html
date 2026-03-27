@@ -419,6 +419,47 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 #oma-btn svg{width:16px;height:16px;fill:white;}
 #oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
 @media(max-width:480px){#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
+
+/* ══════════════════════ MOBILE ══════════════════════ */
+@media(max-width:480px){
+  nav{padding:12px 16px;}
+  .nav-name{font-size:10px;letter-spacing:2px;}
+  .nav-cta{font-size:9px;padding:8px 14px;letter-spacing:1px;}
+  .hero{padding:100px 20px 60px;}
+  .hero-h1{font-size:clamp(32px,9vw,52px);line-height:.95;}
+  .hero-h2{font-size:12px;letter-spacing:2px;}
+  .hero-sub{font-size:13px;max-width:100%;}
+  .hero-cta{flex-direction:column;gap:10px;width:100%;}
+  .hero-cta a{width:100%;text-align:center;box-sizing:border-box;}
+  .btn-fire,.btn-ghost{padding:15px 20px;font-size:11px;width:100%;box-sizing:border-box;}
+  .segs-inner,.proof-inner,.agents-inner{padding:48px 20px;}
+  .sec{padding:48px 20px !important;}
+  .manifesto{padding:48px 20px;}
+  .sec-title{font-size:clamp(22px,6vw,32px);line-height:1.1;}
+  .segs-grid{grid-template-columns:1fr !important;gap:2px;}
+  .seg-card{padding:18px 16px;}
+  .steps{grid-template-columns:1fr !important;gap:10px;}
+  .step-num{font-size:44px;}
+  .proof-grid{grid-template-columns:1fr !important;}
+  .proof-card{padding:22px 18px;}
+  .proof-num{font-size:34px;}
+  .agents-grid{grid-template-columns:1fr !important;}
+  .manifesto-q{font-size:clamp(18px,5vw,26px);}
+  .manifesto-p{font-size:13px;}
+  .cta-band{padding:48px 20px;}
+  .cta-band-title{font-size:clamp(18px,5vw,28px);}
+  .cta-band a{padding:16px 24px;font-size:11px;}
+  footer{padding:28px 20px;}
+  .footer-links{flex-direction:column;gap:10px;align-items:center;}
+  #oma-window{width:calc(100vw - 16px);right:8px;bottom:72px;height:85vh;}
+  #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
+}
+@media(max-width:768px) and (min-width:481px){
+  .segs-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .steps{grid-template-columns:1fr !important;}
+  .proof-grid{grid-template-columns:1fr !important;}
+  .agents-grid{grid-template-columns:repeat(2,1fr) !important;}
+}
 </style>
 
 <div id="oma-bubble" onclick="oT()">
