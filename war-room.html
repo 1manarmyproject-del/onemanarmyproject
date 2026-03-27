@@ -399,9 +399,127 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
     </div>
   </div>
 
+  <!-- GEORGE — COORDENAÇÃO -->
+  <div class="slbl" style="margin-top:48px">George — Coordenação da plataforma</div>
+  <div id="george-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:2px;">
+    <div class="fin-block">
+      <div class="fin-lbl">Tasks ativas</div>
+      <div class="fin-val" id="g-tasks-total" style="color:var(--green)">—</div>
+      <div class="fin-sub">scheduled_tasks</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Executadas hoje</div>
+      <div class="fin-val" id="g-tasks-hoje" style="color:var(--gold)">—</div>
+      <div class="fin-sub" id="g-tasks-taxa">carregando...</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Tempo médio</div>
+      <div class="fin-val" id="g-tempo-medio" style="color:var(--blue)">—</div>
+      <div class="fin-sub">por execução hoje</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl">Última varredura</div>
+      <div class="fin-val" id="g-last-coord" style="color:var(--purple);font-size:14px">—</div>
+      <div class="fin-sub" id="g-next-coord">próxima: —</div>
+    </div>
+  </div>
+
+  <!-- Heartbeat dos agentes -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:2px;">
+    <div class="fin-block">
+      <div class="fin-lbl" style="display:flex;align-items:center;gap:6px;"><span id="dot-george" style="width:8px;height:8px;border-radius:50%;background:#555;display:inline-block;flex-shrink:0"></span>George</div>
+      <div class="fin-val" id="hb-george" style="font-size:13px;color:var(--bone)">—</div>
+      <div class="fin-sub" id="msgs-george">— msgs 24h</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl" style="display:flex;align-items:center;gap:6px;"><span id="dot-bia" style="width:8px;height:8px;border-radius:50%;background:#555;display:inline-block;flex-shrink:0"></span>Bia</div>
+      <div class="fin-val" id="hb-bia" style="font-size:13px;color:var(--bone)">—</div>
+      <div class="fin-sub" id="msgs-bia">— msgs 24h</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl" style="display:flex;align-items:center;gap:6px;"><span id="dot-amanda" style="width:8px;height:8px;border-radius:50%;background:#555;display:inline-block;flex-shrink:0"></span>Amanda</div>
+      <div class="fin-val" id="hb-amanda" style="font-size:13px;color:var(--bone)">—</div>
+      <div class="fin-sub" id="msgs-amanda">— msgs 24h</div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-lbl" style="display:flex;align-items:center;gap:6px;"><span id="dot-flavia" style="width:8px;height:8px;border-radius:50%;background:#555;display:inline-block;flex-shrink:0"></span>Flávia</div>
+      <div class="fin-val" id="hb-flavia" style="font-size:13px;color:var(--bone)">—</div>
+      <div class="fin-sub" id="msgs-flavia">— msgs 24h</div>
+    </div>
+  </div>
+
+  <!-- Diário de bordo -->
+  <div class="fin-block" style="margin-bottom:0" id="george-diario-block">
+    <div class="fin-lbl">📓 Diário de bordo — última entrada</div>
+    <div id="george-diario" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:8px;line-height:1.7;white-space:pre-wrap">carregando...</div>
+  </div>
+
+
 </div>
 
 <script>
+
+// ── GEORGE — COORDENAÇÃO ─────────────────────────────────────────────
+async function loadGeorgeKPIs() {
+  const API = 'https://api.onemanarmyproject.com.br';
+  const KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+
+  try {
+    const r = await fetch(API + '/george/stats', { headers: { 'x-api-key': KEY } });
+    const d = await r.json();
+
+    // Tasks
+    if (d.tasks) {
+      document.getElementById('g-tasks-total').textContent = d.tasks.total_ativas || '—';
+      const ok = d.tasks.hoje_success || 0;
+      const fail = d.tasks.hoje_fail || 0;
+      const taxa = ok + fail > 0 ? Math.round(ok / (ok + fail) * 100) : 100;
+      document.getElementById('g-tasks-hoje').textContent = ok + ' ✓ / ' + fail + ' ✗';
+      document.getElementById('g-tasks-taxa').textContent = 'taxa de sucesso: ' + taxa + '%';
+      const ms = d.tasks.tempo_medio_ms;
+      document.getElementById('g-tempo-medio').textContent = ms ? (ms / 1000).toFixed(1) + 's' : '—';
+    }
+
+    // Coordenação
+    if (d.coord) {
+      const last = d.coord.ultima_run ? new Date(d.coord.ultima_run).toLocaleString('pt-BR', {
+        timeZone: 'America/Sao_Paulo', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'
+      }) : '—';
+      document.getElementById('g-last-coord').textContent = last + ' · ' + (d.coord.ultimo_status || '—');
+      const next = d.coord.proxima_run ? new Date(d.coord.proxima_run).toLocaleString('pt-BR', {
+        timeZone: 'America/Sao_Paulo', hour:'2-digit', minute:'2-digit'
+      }) : '—';
+      document.getElementById('g-next-coord').textContent = 'próxima: ' + next;
+    }
+
+    // Heartbeat agentes
+    const agentes = ['george', 'bia', 'amanda', 'flavia'];
+    agentes.forEach(ag => {
+      const info = d.agentes && d.agentes[ag];
+      if (!info) return;
+      const hb = info.ultimo ? new Date(info.ultimo) : null;
+      const mins = hb ? Math.floor((Date.now() - hb) / 60000) : null;
+      const label = mins === null ? '—' : mins < 60 ? mins + 'min atrás' : Math.floor(mins/60) + 'h atrás';
+      const dot = document.getElementById('dot-' + ag);
+      if (dot) dot.style.background = mins !== null && mins < 60 ? '#3d9e60' : mins !== null && mins < 360 ? '#e8703a' : '#555';
+      const el = document.getElementById('hb-' + ag);
+      if (el) el.textContent = label;
+      const msgs = document.getElementById('msgs-' + ag);
+      if (msgs) msgs.textContent = (info.msgs_24h || 0) + ' msgs 24h';
+    });
+
+    // Diário
+    if (d.diario) {
+      document.getElementById('george-diario').textContent = d.diario;
+    }
+
+  } catch(e) {
+    console.warn('George KPIs indisponível:', e.message);
+  }
+}
+loadGeorgeKPIs();
+setInterval(loadGeorgeKPIs, 60000);
+
 // CLOCK
 function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 setInterval(tick,1000);tick();
