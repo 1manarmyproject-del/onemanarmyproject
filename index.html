@@ -117,6 +117,8 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);back
 footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .footer-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
 .footer-brand span{color:var(--fire);}
+.footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
+.footer-link:hover{color:var(--fire)}
 .footer-links{display:flex;gap:20px;}
 .footer-links a{font-family:'Space Mono',monospace;font-size:9px;color:#2a2a2a;text-decoration:none;letter-spacing:1px;transition:color .15s;}
 .footer-links a:hover{color:var(--fire);}
@@ -396,6 +398,8 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <footer>
   <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
   <div class="footer-links">
+      <a href="/privacidade.html" class="footer-link">Privacidade</a>
+      <a href="/termos.html" class="footer-link">Termos de Uso</a>
     <a href="https://instagram.com/1manarmy_project" target="_blank">@1manarmy_project</a>
     <a href="#" onclick="oT();return false;">💬 Webchat</a>
     <a href="/status">◉ Status</a>
@@ -481,7 +485,9 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
   .cta-band-title{font-size:clamp(18px,5vw,28px);}
   .cta-band a{padding:16px 24px;font-size:11px;}
   footer{padding:28px 20px;}
-  .footer-links{flex-direction:column;gap:10px;align-items:center;}
+  .footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
+.footer-link:hover{color:var(--fire)}
+.footer-links{flex-direction:column;gap:10px;align-items:center;}
   #oma-window{width:calc(100vw - 16px);right:8px;bottom:72px;height:85vh;}
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
