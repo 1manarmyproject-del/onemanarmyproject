@@ -152,6 +152,33 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <a href="#" onclick="oT();return false;" class="nav-cta">Falar com a Bia</a>
 </nav>
 
+<!-- NEWSLETTER BAR -->
+<div id="newsletter-bar" style="background:var(--fire);padding:12px 32px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:99;margin-top:0;">
+  <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#000;white-space:nowrap">📬 BASTIDORES DO OMA — TODA SEMANA</span>
+  <form id="newsletter-form" style="display:flex;gap:8px;align-items:center;" onsubmit="submitNewsletter(event)">
+    <input type="email" id="nl-email" placeholder="seu@email.com" required
+      style="background:#000;border:none;padding:8px 14px;font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);border-radius:4px;outline:none;width:220px;letter-spacing:1px;">
+    <button type="submit"
+      style="background:#000;color:var(--fire);border:none;padding:8px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:opacity .2s">
+      QUERO RECEBER →
+    </button>
+  </form>
+  <span id="nl-success" style="display:none;font-family:'Space Mono',monospace;font-size:10px;color:#000;letter-spacing:1px">✓ Inscrito! Te vejo na caixa de entrada.</span>
+  <button onclick="document.getElementById('newsletter-bar').style.display='none'" style="position:absolute;right:16px;background:none;border:none;color:#000;font-size:16px;cursor:pointer;opacity:.5;line-height:1">×</button>
+</div>
+<script>
+function submitNewsletter(e){
+  e.preventDefault();
+  const email = document.getElementById('nl-email').value;
+  fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})})
+    .catch(()=>{});
+  document.getElementById('newsletter-form').style.display='none';
+  document.getElementById('nl-success').style.display='block';
+  setTimeout(()=>document.getElementById('newsletter-bar').style.display='none',3000);
+}
+</script>
+
+
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
@@ -268,7 +295,16 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;grid-column:1/-1">
       <div style="font-family:Black Ops One,cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px">P5</div>
       <div style="font-family:Black Ops One,cursive;font-size:14px;letter-spacing:2px;color:var(--bone);margin-bottom:10px">Escala sem headcount</div>
-      <div style="font-size:12px;color:var(--ash);line-height:1.7;max-width:560px">Um negócio pode crescer sem contratar. Essa é a premissa de tudo que fazemos. Crescer não deveria significar mais trabalho operacional. Deveria significar mais tempo para o que só você faz. Mais resultado. Mesmo time.</div>
+      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--steel)">
+        <p style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--blood);margin-bottom:12px">FALE COM O FUNDADOR</p>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+          <a href="mailto:fabio@onemanarmy.com.br" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);text-decoration:none;letter-spacing:1px;transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">fabio@onemanarmy.com.br</a>
+          <a href="https://instagram.com/fabioxavier3" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">@fabioxavier3</a>
+          <a href="https://linkedin.com/in/fabio-xavier" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">LinkedIn</a>
+        </div>
+      </div>
+      </div>
+        <div style="font-size:12px;color:var(--ash);line-height:1.7;max-width:560px">Um negócio pode crescer sem contratar. Essa é a premissa de tudo que fazemos. Crescer não deveria significar mais trabalho operacional. Deveria significar mais tempo para o que só você faz. Mais resultado. Mesmo time.</div>
     </div>
   </div>
 </section>
