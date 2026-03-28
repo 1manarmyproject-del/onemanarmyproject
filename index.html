@@ -418,7 +418,8 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 #oma-btn:disabled{background:#2a2a2a;cursor:not-allowed;}
 #oma-btn svg{width:16px;height:16px;fill:white;}
 #oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
-@media(max-width:480px){#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
+@media(max-width:480px){
+  #seguranca div[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr !important;}#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
 
 /* ══════════════════════ MOBILE ══════════════════════ */
 @media(max-width:480px){
