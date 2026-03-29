@@ -374,6 +374,63 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 </section>
 
 
+<!-- FAQ -->
+<section style="background:var(--light-bg);padding:80px 32px;" id="faq">
+  <div style="max-width:760px;margin:0 auto;">
+    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:20px;text-align:center">PERGUNTAS FREQUENTES</p>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,38px);color:var(--dark-text);text-align:center;line-height:1.1;margin-bottom:48px">As perguntas que você já tem.<br><span style="color:var(--fire)">Respondidas antes de precisar perguntar.</span></h2>
+
+    <div id="faq-list">
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">O WhatsApp Business já tem agente de IA da Meta. Por que pagar pelo OMA? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">O agente da Meta responde FAQ — horário, catálogo, perguntas básicas. O OMA faz outra coisa: qualifica lead, agenda consulta, cobra cliente e gera relatório toda segunda. Treinado com o contexto do seu negócio, não com um template genérico. É a diferença entre um atendente que lê um script e um assistente que conhece a sua operação.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">E os meus dados? Estão seguros? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Seus dados ficam em servidor dedicado — isolado dos demais clientes, criptografado e com backup automático diário. Cada permissão do agente é registrada, você vê tudo que foi feito e pode revogar em segundos. Nenhum colaborador humano entrega esse nível de rastreabilidade.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Preciso saber de tecnologia para contratar? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Não. O OMA foi construído por um executivo sem background técnico — para empresários como você. Você passa o briefing, a gente configura tudo. O agente opera no seu WhatsApp ou Telegram. Você recebe um relatório semanal. Sem painel técnico, sem configuração, sem dor de cabeça.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">O agente pode errar e prejudicar meu cliente? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">O agente executa — não decide sozinho. Tudo que está fora do escopo configurado chega para você com contexto completo. Você valida e aprova o agente antes de ele ir ao ar. Os 80% operacionais ele resolve; os 20% que precisam de você chegam com todo o histórico da conversa.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Quanto tempo leva para o agente entrar em operação? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Do contrato ao agente funcionando em até 7 dias. D+0 contrato assinado, D+1 briefing de 1h, D+2 configuração, D+5 testes, D+7 operação. Sempre mais rápido do que contratar e treinar um colaborador.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">E se eu quiser cancelar? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Contrato mínimo de 6 meses. Após esse período, aviso de 30 dias por escrito. Seus dados ficam disponíveis por 90 dias após o cancelamento — você pode solicitar exportação completa antes da exclusão.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+.faq-item{border-bottom:1px solid var(--mid-text);padding:20px 0;cursor:pointer;transition:padding .2s}
+.faq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--dark-text);display:flex;justify-content:space-between;align-items:center;gap:16px;line-height:1.3}
+.faq-arrow{color:var(--fire);font-size:16px;transition:transform .2s;flex-shrink:0}
+.faq-a{font-size:14px;color:var(--mid-text);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s;padding-top:0}
+.faq-item.open .faq-a{max-height:200px;padding-top:14px}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-item.open .faq-q{color:var(--fire)}
+</style>
+<script>
+function toggleFaq(el){
+  document.querySelectorAll('.faq-item').forEach(i=>{ if(i!==el) i.classList.remove('open'); });
+  el.classList.toggle('open');
+}
+</script>
+
 <section style="background:var(--char);padding:80px 32px;" id="seguranca">
   <div style="max-width:900px;margin:0 auto;">
     <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:24px;text-align:center">SEGURANÇA</p>
