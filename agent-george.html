@@ -198,6 +198,7 @@ const PWD='omaproject2026';
 function dL(){
   if(document.getElementById('pw').value===PWD){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
+    sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
   }else{
@@ -269,6 +270,17 @@ function uTom(el){
   if(v) v.textContent=labels[el.value];
 }
 var SK='oma-setup-george';
+
+function syncSetupToAPI(slug, data){
+  var key = sessionStorage.getItem('oma_api_key') || '';
+  if(!key) return;
+  fetch('https://api.onemanarmyproject.com.br/agentes', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key},
+    body:JSON.stringify({slug:slug, nome:data.nome||slug, funcao:data.funcao||'', descricao:data.desc||'', setup:data})
+  }).catch(function(){});
+}
+
 function doSave(){
   var d={
     nome:(document.getElementById('s-nome')||{}).value,
