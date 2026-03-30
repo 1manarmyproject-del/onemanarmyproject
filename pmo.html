@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMO · One Man Army Project</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0a;--card:#141414;--iron:#1e1e1e;--border:#2a2a2a;--fire:#e8703a;--bone:#e4ddd3;--ash:#666;--white:#f5f0e8;--green:#3d9e60;--yellow:#f5a623;--blood:#7a2204}
+body{background:var(--bg);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;min-height:100vh}
+header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;color:var(--bone)}
+.logo span{color:var(--fire)}
+.header-right{display:flex;align-items:center;gap:12px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.stats{display:flex;gap:8px;padding:16px 24px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-family:'Space Mono',monospace;font-size:11px;color:var(--ash)}
+.stat strong{color:var(--bone);font-size:16px;display:block;margin-bottom:2px}
+.toolbar{padding:12px 24px;border-bottom:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filter{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
+.filter.active{background:var(--fire);border-color:var(--fire);color:#000}
+.filter:hover:not(.active){border-color:var(--fire);color:var(--fire)}
+.toolbar-right{margin-left:auto;display:flex;gap:8px}
+.btn{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:11px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
+.btn:hover{border-color:var(--fire);color:var(--fire)}
+.btn.primary{background:var(--fire);border-color:var(--fire);color:#000}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 24px;align-items:start}
+.col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;min-height:300px;transition:outline .15s}
+.col.drag-over{outline:2px dashed var(--fire)}
+.col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.col-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:20px;font-weight:700}
+.col-label.done{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,96,.3)}
+.col-label.prog{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3)}
+.col-label.todo{background:rgba(245,166,35,.15);color:var(--yellow);border:1px solid rgba(245,166,35,.3)}
+.col-label.back{background:rgba(102,102,102,.15);color:var(--ash);border:1px solid rgba(102,102,102,.3)}
+.col-count{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)}
+.card{background:var(--iron);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:grab;transition:border-color .15s,transform .1s}
+.card:hover{border-color:var(--ash)}
+.card:active{cursor:grabbing}
+.card.dragging{opacity:.3;transform:scale(.97)}
+.card-area{font-family:'Space Mono',monospace;font-size:9px;color:var(--blood);letter-spacing:1px;margin-bottom:5px;text-transform:uppercase}
+.card-text{font-size:13px;color:var(--bone);line-height:1.4}
+.card-actions{display:flex;gap:4px;margin-top:8px}
+.card-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:10px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;transition:all .15s}
+.card-btn:hover{border-color:var(--fire);color:var(--fire)}
+.card-btn.done-btn:hover{border-color:var(--green);color:var(--green)}
+.add-area{margin-top:4px}
+.add-btn{width:100%;background:none;border:1px dashed var(--border);border-radius:8px;padding:8px;font-size:11px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
+.add-btn:hover{border-color:var(--fire);color:var(--fire)}
+.add-form{display:none;margin-top:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px}
+.add-form textarea{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:12px;color:var(--bone);font-family:'Barlow',sans-serif;resize:none;margin-bottom:8px;outline:none}
+.add-form textarea:focus{border-color:var(--fire)}
+.add-form select{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:12px;color:var(--bone);margin-bottom:8px;outline:none}
+.add-form-btns{display:flex;gap:6px}
+.add-form-btns button{flex:1;padding:6px;font-size:11px;font-family:'Space Mono',monospace;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--ash);letter-spacing:1px;transition:all .15s}
+.add-form-btns button.save{background:var(--fire);border-color:var(--fire);color:#000}
+.empty{text-align:center;color:var(--ash);font-size:12px;padding:24px 0;font-family:'Space Mono',monospace}
+@media(max-width:768px){.board{grid-template-columns:1fr 1fr}.col-head .col-label{font-size:8px}}
+@media(max-width:480px){.board{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ONE MAN <span>ARMY</span> · PMO</div>
+  <div class="header-right">
+    <div class="live-dot"></div>
+    <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px">LANÇAMENTO 01/04/2026</span>
+    <button class="btn" onclick="resetBoard()">RESET</button>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><strong id="s-done">0</strong>FEITO</div>
+  <div class="stat"><strong id="s-prog">0</strong>EM ANDAMENTO</div>
+  <div class="stat"><strong id="s-todo">0</strong>A FAZER</div>
+  <div class="stat"><strong id="s-back">0</strong>BACKLOG</div>
+  <div class="stat"><strong id="s-total">0</strong>TOTAL</div>
+  <div class="stat"><strong id="s-pct">0%</strong>COMPLETO</div>
+</div>
+
+<div class="toolbar">
+  <button class="filter active" onclick="setFilter('all',this)">TODOS</button>
+  <button class="filter" onclick="setFilter('site',this)">SITE</button>
+  <button class="filter" onclick="setFilter('bia',this)">BIA</button>
+  <button class="filter" onclick="setFilter('infra',this)">INFRA</button>
+  <button class="filter" onclick="setFilter('conteudo',this)">CONTEÚDO</button>
+  <button class="filter" onclick="setFilter('legal',this)">LEGAL</button>
+  <button class="filter" onclick="setFilter('produto',this)">PRODUTO</button>
+  <div class="toolbar-right">
+    <button class="btn primary" onclick="showAdd('todo')">+ NOVO ITEM</button>
+  </div>
+</div>
+
+<div class="board" id="board">
+  <div class="col" id="col-done" ondragover="onDragOver(event)" ondrop="onDrop(event,'done')">
+    <div class="col-head">
+      <span class="col-label done">FEITO</span>
+      <span class="col-count" id="cnt-done">0</span>
+    </div>
+    <div id="cards-done"></div>
+    <div class="empty" id="empty-done" style="display:none">Nenhum item</div>
+  </div>
+  <div class="col" id="col-prog" ondragover="onDragOver(event)" ondrop="onDrop(event,'prog')">
+    <div class="col-head">
+      <span class="col-label prog">EM ANDAMENTO</span>
+      <span class="col-count" id="cnt-prog">0</span>
+    </div>
+    <div id="cards-prog"></div>
+    <div class="empty" id="empty-prog" style="display:none">Nenhum item</div>
+  </div>
+  <div class="col" id="col-todo" ondragover="onDragOver(event)" ondrop="onDrop(event,'todo')">
+    <div class="col-head">
+      <span class="col-label todo">A FAZER</span>
+      <span class="col-count" id="cnt-todo">0</span>
+    </div>
+    <div id="cards-todo"></div>
+    <div class="empty" id="empty-todo" style="display:none">Nenhum item</div>
+    <div class="add-area">
+      <button class="add-btn" id="add-btn-todo" onclick="showAdd('todo')">+ adicionar</button>
+      <div class="add-form" id="add-form-todo">
+        <textarea id="add-text-todo" rows="2" placeholder="Descreva o item..."></textarea>
+        <select id="add-area-todo">
+          <option value="site">Site</option>
+          <option value="bia">Bia</option>
+          <option value="infra">Infra</option>
+          <option value="conteudo">Conteúdo</option>
+          <option value="legal">Legal</option>
+          <option value="produto">Produto</option>
+        </select>
+        <div class="add-form-btns">
+          <button onclick="cancelAdd('todo')">CANCELAR</button>
+          <button class="save" onclick="addCard('todo')">SALVAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" id="col-back" ondragover="onDragOver(event)" ondrop="onDrop(event,'back')">
+    <div class="col-head">
+      <span class="col-label back">BACKLOG</span>
+      <span class="col-count" id="cnt-back">0</span>
+    </div>
+    <div id="cards-back"></div>
+    <div class="empty" id="empty-back" style="display:none">Nenhum item</div>
+  </div>
+</div>
+
+<script>
+const DEFAULTS=[
+  {id:'1',col:'done',text:'Site v2 no ar — onemanarmyproject.com.br',area:'site'},
+  {id:'2',col:'done',text:'Hero copy — posicionamento real',area:'site'},
+  {id:'3',col:'done',text:'Seção segurança (criptografia, controle, rastreabilidade)',area:'site'},
+  {id:'4',col:'done',text:'FAQ com objeção Meta/Manus',area:'site'},
+  {id:'5',col:'done',text:'Páginas /privacidade e /termos no ar',area:'legal'},
+  {id:'6',col:'done',text:'Newsletter antes do footer',area:'site'},
+  {id:'7',col:'done',text:'Contatos fundador na assinatura',area:'site'},
+  {id:'8',col:'done',text:'Favicon lagosta + title da página',area:'site'},
+  {id:'9',col:'done',text:'Mobile responsive',area:'site'},
+  {id:'10',col:'done',text:'Diagrama de fluxos interativo (5 fluxos)',area:'site'},
+  {id:'11',col:'done',text:'Bia modo lista de interesse ativo',area:'bia'},
+  {id:'12',col:'done',text:'Objeção Meta/Manus treinada na Bia',area:'bia'},
+  {id:'13',col:'done',text:'Objeção segurança/dados treinada na Bia',area:'bia'},
+  {id:'14',col:'done',text:'Memória semântica Amanda (1.542 entradas)',area:'infra'},
+  {id:'15',col:'done',text:'Memória semântica George (550 entradas)',area:'infra'},
+  {id:'16',col:'done',text:'Billing Google habilitado + budget alert',area:'infra'},
+  {id:'17',col:'done',text:'Brand voice OMA atualizado (PME vs sênior)',area:'conteudo'},
+  {id:'18',col:'done',text:'Briefing série segurança (5 cards)',area:'conteudo'},
+  {id:'19',col:'done',text:'Briefing lista de interesse / lançamento',area:'conteudo'},
+  {id:'20',col:'done',text:'Apresentação comercial PPT (13 slides)',area:'produto'},
+  {id:'21',col:'done',text:'PMO Kanban no hub do site',area:'produto'},
+  {id:'22',col:'todo',text:'Stress test funil Bia — casos reais',area:'bia'},
+  {id:'23',col:'todo',text:'Bug Bia/Amanda contexto separado',area:'bia'},
+  {id:'24',col:'todo',text:'Memória semântica Bia (filtros corretos)',area:'bia'},
+  {id:'25',col:'todo',text:'Contrato de prestação de serviços (Tiago)',area:'legal'},
+  {id:'26',col:'todo',text:'NDA — acordo de confidencialidade',area:'legal'},
+  {id:'27',col:'todo',text:'Agente Onboarder criado',area:'infra'},
+  {id:'28',col:'todo',text:'CLAUDE.md George — protocolos OMA',area:'infra'},
+  {id:'29',col:'todo',text:'Templates CLAUDE.md advocacia + óticas',area:'infra'},
+  {id:'30',col:'todo',text:'Post aquecimento 29/03',area:'conteudo'},
+  {id:'31',col:'todo',text:'Post revelar lista de interesse 30/03',area:'conteudo'},
+  {id:'32',col:'todo',text:'Post bastidores ao vivo 31/03',area:'conteudo'},
+  {id:'33',col:'todo',text:'POST PRINCIPAL LANÇAMENTO 01/04',area:'conteudo'},
+  {id:'34',col:'todo',text:'Cards Flávia — série segurança',area:'conteudo'},
+  {id:'35',col:'todo',text:'Bio Instagram atualizada + link OMA',area:'conteudo'},
+  {id:'36',col:'todo',text:'Pricing definido (setup + mensalidade)',area:'produto'},
+  {id:'37',col:'todo',text:'Plataforma newsletter (Mailchimp ou Brevo)',area:'produto'},
+  {id:'38',col:'back',text:'Script Hetzner automatizado por cliente',area:'infra'},
+  {id:'39',col:'back',text:'Isolamento banco por cliente no servidor',area:'infra'},
+  {id:'40',col:'back',text:'Protocolo Bia → Onboarder → George',area:'infra'},
+  {id:'41',col:'back',text:'CRM backend Hetzner (sair do localStorage)',area:'infra'},
+  {id:'42',col:'back',text:'Dashboard de custos consolidado no hub',area:'produto'},
+  {id:'43',col:'back',text:'Módulo financeiro clientes (Asaas)',area:'produto'},
+  {id:'44',col:'back',text:'Integração Canva API',area:'conteudo'},
+  {id:'45',col:'back',text:'Webchat handoff → WhatsApp (contexto)',area:'produto'},
+  {id:'46',col:'back',text:'Flávia autonomia + protocolo de bloqueio',area:'conteudo'},
+  {id:'47',col:'back',text:'Sessão dedicada @fabioxavier3 aquisição',area:'conteudo'},
+  {id:'48',col:'back',text:'Política retenção de dados por cliente',area:'legal'},
+  {id:'49',col:'back',text:'Primeira contratação Ops Jr (MRR > R$20k)',area:'produto'},
+];
+
+const KEY='oma-pmo-v1';
+let cards=[], dragging=null, activeFilter='all';
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cards))}catch{}}
+function load(){
+  try{const d=localStorage.getItem(KEY);cards=d?JSON.parse(d):[...DEFAULTS]}
+  catch{cards=[...DEFAULTS]}
+  render();
+}
+
+function render(){
+  const cols=['done','prog','todo','back'];
+  cols.forEach(col=>{
+    const filtered=cards.filter(c=>c.col===col&&(activeFilter==='all'||c.area===activeFilter));
+    const total=cards.filter(c=>c.col===col).length;
+    document.getElementById('cnt-'+col).textContent=total;
+    const el=document.getElementById('cards-'+col);
+    const empty=document.getElementById('empty-'+col);
+    el.innerHTML=filtered.map(c=>`
+      <div class="card" draggable="true" data-id="${c.id}"
+        ondragstart="dragStart(event,'${c.id}')"
+        ondragend="dragEnd(event)">
+        <div class="card-area">${c.area}</div>
+        <div class="card-text">${c.text}</div>
+        <div class="card-actions">
+          ${col!=='done'?`<button class="card-btn done-btn" onclick="moveTo('${c.id}','done')">✓ feito</button>`:''}
+          ${col==='done'?`<button class="card-btn" onclick="moveTo('${c.id}','todo')">↩ reabrir</button>`:''}
+          ${col==='back'?`<button class="card-btn" onclick="moveTo('${c.id}','todo')">→ sprint</button>`:''}
+          <button class="card-btn" onclick="removeCard('${c.id}')" style="margin-left:auto">✕</button>
+        </div>
+      </div>
+    `).join('');
+    empty.style.display=filtered.length===0?'block':'none';
+  });
+  const done=cards.filter(c=>c.col==='done').length;
+  const total=cards.length;
+  document.getElementById('s-done').textContent=cards.filter(c=>c.col==='done').length;
+  document.getElementById('s-prog').textContent=cards.filter(c=>c.col==='prog').length;
+  document.getElementById('s-todo').textContent=cards.filter(c=>c.col==='todo').length;
+  document.getElementById('s-back').textContent=cards.filter(c=>c.col==='back').length;
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-pct').textContent=total?Math.round(done/total*100)+'%':'0%';
+}
+
+function dragStart(e,id){dragging=id;setTimeout(()=>document.querySelector(`[data-id="${id}"]`)?.classList.add('dragging'),0)}
+function dragEnd(e){document.querySelectorAll('.card').forEach(c=>c.classList.remove('dragging'));document.querySelectorAll('.col').forEach(c=>c.classList.remove('drag-over'))}
+function onDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function onDrop(e,col){
+  e.preventDefault();
+  document.querySelectorAll('.col').forEach(c=>c.classList.remove('drag-over'));
+  if(!dragging)return;
+  const c=cards.find(x=>x.id===dragging);
+  if(c){c.col=col;save();render()}
+  dragging=null;
+}
+function moveTo(id,col){const c=cards.find(x=>x.id===id);if(c){c.col=col;save();render()}}
+function removeCard(id){if(confirm('Remover este item?')){cards=cards.filter(x=>x.id!==id);save();render()}}
+function setFilter(area,btn){
+  activeFilter=area;
+  document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function showAdd(col){
+  document.getElementById('add-form-'+col).style.display='block';
+  document.getElementById('add-btn-'+col).style.display='none';
+  document.getElementById('add-text-'+col).focus();
+}
+function cancelAdd(col){
+  document.getElementById('add-form-'+col).style.display='none';
+  document.getElementById('add-btn-'+col).style.display='block';
+  document.getElementById('add-text-'+col).value='';
+}
+function addCard(col){
+  const text=document.getElementById('add-text-'+col).value.trim();
+  const area=document.getElementById('add-area-'+col).value;
+  if(!text)return;
+  cards.push({id:Date.now().toString(),col,text,area});
+  save();render();cancelAdd(col);
+}
+function resetBoard(){
+  if(!confirm('Resetar para os dados originais do roadmap?'))return;
+  cards=[...DEFAULTS];save();render();
+}
+load();
+</script>
+</body>
+</html>
