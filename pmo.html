@@ -224,10 +224,13 @@ const D=[
   {id:'55',col:'back',text:'Hub do cliente — PMO + CRM + Relatórios + Configuração',area:'produto',resp:'fabio',prio:''},
   {id:'56',col:'back',text:'Darwin monitora cards travados há +3 dias e alerta Fabio',area:'infra',resp:'darwin',prio:''},
   {id:'57',col:'back',text:'Flávia lê cards de conteúdo com resp:flavia e executa autonomamente',area:'conteudo',resp:'flavia',prio:''},
+  {id:'58',col:'back',text:'PMO como contexto de sessão — prompt padrão para abrir qualquer sessão Claude lendo o board',area:'produto',resp:'fabio',prio:'media'},
+  {id:'59',col:'back',text:'PMO como memória compartilhada — George lê estado do board 8h e reporta prioridades',area:'infra',resp:'george',prio:'media'},
+  {id:'60',col:'back',text:'PMO por agente — cada agente lê só as tarefas dele (resp:george, resp:flavia etc)',area:'infra',resp:'george',prio:''},
 ];
 const RL={fabio:'Fabio',george:'George',flavia:'Flávia',bia:'Bia',tiago:'Tiago',darwin:'Darwin',''};
 const PI={alta:'🔴',media:'🟡',baixa:'⚪',''};
-const KEY='oma-pmo-v2';
+const KEY='oma-pmo-v3';
 let cards=[],dragging=null,filt='all',editId=null;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cards))}catch{}}
 function load(){try{const d=localStorage.getItem(KEY);cards=d?JSON.parse(d):D.map(c=>({...c}))}catch{cards=D.map(c=>({...c}))}render()}
