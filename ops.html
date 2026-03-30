@@ -169,22 +169,43 @@ async function criarAgente(){
   fb.style.display='block';
   fb.textContent='Criando agente...';
 
+  // Salva JSON do agente localmente via API do Mac Mini
+  var agentData = {
+    slug: slug,
+    nome: nome,
+    funcao: funcao,
+    canal: canal,
+    modelo: modelo,
+    filename: filename,
+    criado_em: new Date().toISOString(),
+    status: 'configurando'
+  };
+
+  // Salva no localStorage como fonte de verdade local
+  var existentes = JSON.parse(localStorage.getItem('oma-agentes-criados') || '[]');
+  existentes = existentes.filter(function(a){ return a.slug !== slug; });
+  existentes.push(agentData);
+  localStorage.setItem('oma-agentes-criados', JSON.stringify(existentes));
+  localStorage.setItem('oma-setup-'+slug, JSON.stringify(agentData));
+
+  // Tenta salvar no Mac Mini via MCP (quando disponível)
   try{
-    var res = await fetch('https://api.onemanarmyproject.com.br/criar-agente', {
+    await fetch('https://mcp.pipeeyewear.com.br/save-agent', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({filename, html: agentHtml, nome, funcao, canal, modelo})
+      body:JSON.stringify(agentData)
     });
-    if(res.ok){
-      fb.textContent='Agente criado! Abrindo...';
-      setTimeout(function(){window.location.href='/'+filename;},1200);
-    } else {
-      // Fallback: download do HTML
-      downloadAgente(filename, agentHtml, nome, fb);
-    }
-  }catch(e){
+  }catch(e){ /* silencioso — localStorage é a fonte de verdade por enquanto */ }
+
+  // Gera e baixa o HTML
+  fb.textContent='Agente "'+nome+'" criado! Baixando HTML...';
+  setTimeout(function(){
     downloadAgente(filename, agentHtml, nome, fb);
-  }
+    fb.textContent='HTML gerado! Acesse: onemanarmyproject.com.br/'+filename+' depois de subir o arquivo.';
+    fb.style.color='var(--yellow)';
+    // Atualiza lista de agentes na página
+    if(typeof atualizarListaAgentes === 'function') atualizarListaAgentes();
+  }, 800);
 }
 
 function downloadAgente(filename, html, nome, fb){
