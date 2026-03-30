@@ -82,9 +82,178 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 /* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--graph);border:1px solid var(--steel);padding:10px 20px;font-size:11px;color:var(--bone);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Space Mono',monospace;}
 .toast.show{opacity:1;}.toast.ok{border-color:var(--green);color:var(--green);}.toast.err{border-color:#ff6040;color:#ff6040;}
+
+/* ABAS */
+.tabs-nav{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;display:flex;gap:0;}
+.tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:14px 20px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);cursor:pointer;transition:all .15s;text-transform:uppercase;}
+.tab-btn.active{color:var(--agent);border-bottom-color:var(--agent);}
+.tab-btn:hover:not(.active){color:var(--bone);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+/* SETUP */
+.setup-wrap{padding:32px 40px;max-width:860px;}
+.setup-section{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;margin-bottom:16px;overflow:hidden;}
+.setup-section-hd{padding:14px 20px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.setup-section-hd:hover{color:var(--bone);}
+.setup-section-hd .chevron{font-size:10px;transition:transform .2s;}
+.setup-section-hd.open .chevron{transform:rotate(180deg);}
+.setup-section-body{padding:20px;display:none;}
+.setup-section-body.open{display:block;}
+.setup-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.setup-row.full{grid-template-columns:1fr;}
+.setup-field{display:flex;flex-direction:column;gap:6px;}
+.setup-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.setup-input{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;transition:border-color .15s;border-radius:2px;}
+.setup-input:focus{border-color:var(--agent);}
+.setup-select{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;border-radius:2px;cursor:pointer;}
+.setup-select:focus{border-color:var(--agent);}
+.setup-textarea{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:72px;border-radius:2px;line-height:1.6;}
+.setup-textarea:focus{border-color:var(--agent);}
+/* TOGGLES */
+.toggle-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.toggle-item{display:flex;align-items:center;gap:8px;background:var(--graph);border:1px solid var(--steel);padding:8px 14px;border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.toggle-item.on{border-color:var(--agent);}
+.toggle-item .tog-dot{width:8px;height:8px;border-radius:50%;background:var(--steel);transition:background .15s;}
+.toggle-item.on .tog-dot{background:var(--agent);}
+.toggle-item .tog-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);transition:color .15s;}
+.toggle-item.on .tog-label{color:var(--bone);}
+/* CANAL FIELDS */
+.canal-detail{margin-top:12px;padding:14px;background:var(--iron);border-left:2px solid var(--agent);display:none;}
+.canal-detail.open{display:block;}
+/* LISTA EDITAVEL */
+.editable-list{display:flex;flex-direction:column;gap:6px;}
+.editable-item{display:flex;align-items:center;gap:8px;}
+.editable-item input{flex:1;background:var(--graph);border:1px solid var(--steel);padding:7px 10px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;border-radius:2px;}
+.editable-item input:focus{border-color:var(--agent);}
+.editable-item .rm-btn{background:none;border:1px solid var(--steel);color:var(--ash);padding:4px 8px;font-size:10px;cursor:pointer;border-radius:2px;}
+.editable-item .rm-btn:hover{border-color:var(--red,#e24b4a);color:var(--red,#e24b4a);}
+.add-item-btn{background:none;border:1px dashed var(--steel);color:var(--ash);padding:7px 14px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:2px;margin-top:6px;transition:all .15s;}
+.add-item-btn:hover{border-color:var(--agent);color:var(--agent);}
+/* SLIDER TOM */
+.tom-slider{width:100%;accent-color:var(--agent);}
+.tom-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);margin-top:4px;}
+/* SAVE BTN */
+.setup-footer{padding:20px 40px;border-top:1px solid var(--iron);display:flex;align-items:center;gap:16px;}
+.setup-save-btn{background:var(--agent);border:none;color:var(--char);padding:10px 28px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;transition:opacity .2s;}
+.setup-save-btn:hover{opacity:.85;}
+.setup-saved-msg{font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1px;display:none;}
+@media(max-width:600px){.setup-wrap{padding:20px 16px;}.setup-row{grid-template-columns:1fr;}.tabs-nav{padding:0 16px;}.tab-btn{padding:12px 12px;font-size:8px;}}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+// ABAS
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pane-' + tab).classList.add('active');
+  btn.classList.add('active');
+  if (tab === 'setup') initSetup();
+  if (tab === 'logs') document.getElementById('pane-logs').appendChild(document.getElementById('pane-overview').querySelector('.log-list') ? document.createElement('div') : document.createElement('div'));
+}
+
+// SEÇÕES COLAPSÁVEIS
+function toggleSection(hd) {
+  hd.classList.toggle('open');
+  hd.nextElementSibling.classList.toggle('open');
+}
+
+// CANAIS
+function toggleCanal(el, canal) {
+  el.classList.toggle('on');
+  var detail = document.getElementById('detail-' + canal);
+  if (detail) detail.classList.toggle('open', el.classList.contains('on'));
+}
+
+// LISTAS EDITÁVEIS
+function addItem(listId, value) {
+  var list = document.getElementById(listId);
+  var div = document.createElement('div');
+  div.className = 'editable-item';
+  div.innerHTML = '<input type="text" placeholder="Descreva a atividade..." value="' + (value||'') + '"><button class="rm-btn" onclick="this.parentElement.remove()">✕</button>';
+  list.appendChild(div);
+}
+
+// TOM
+var tomLabels = ['Formal', 'Semiformal', 'Informal'];
+function updateTom(el) {
+  document.getElementById('tom-val').textContent = tomLabels[el.value];
+}
+
+// SALVAR
+var SETUP_KEY = 'oma-setup-tiago';
+function saveSetup() {
+  var data = {
+    nome: document.getElementById('s-nome').value,
+    funcao: document.getElementById('s-funcao').value,
+    descricao: document.getElementById('s-descricao').value,
+    status: document.getElementById('s-status').value,
+    modelo: document.getElementById('s-modelo').value,
+    canais: Array.from(document.querySelectorAll('#canais-toggle .toggle-item.on')).map(el => el.querySelector('.tog-label').textContent),
+    wa_numero: document.getElementById('c-wa-numero').value,
+    wa_instancia: document.getElementById('c-wa-instancia').value,
+    tg_bot: document.getElementById('c-tg-bot').value,
+    tg_chatid: document.getElementById('c-tg-chatid').value,
+    tom: document.getElementById('s-tom').value,
+    idioma: document.getElementById('s-idioma').value,
+    tamanho: document.getElementById('s-tamanho').value,
+    emoji: document.getElementById('tog-emoji').classList.contains('on'),
+    recorrentes: Array.from(document.querySelectorAll('#lista-recorrentes input')).map(i => i.value).filter(Boolean),
+    demanda: Array.from(document.querySelectorAll('#lista-demanda input')).map(i => i.value).filter(Boolean),
+    nunca: Array.from(document.querySelectorAll('#lista-nunca input')).map(i => i.value).filter(Boolean),
+    triggers: Array.from(document.querySelectorAll('#lista-triggers input')).map(i => i.value).filter(Boolean),
+    esc_nome: document.getElementById('s-esc-nome').value,
+    esc_contato: document.getElementById('s-esc-contato').value,
+    esc_canal: document.getElementById('s-esc-canal').value,
+    esc_prazo: document.getElementById('s-esc-prazo').value,
+    knowledge: document.getElementById('s-knowledge').value,
+  };
+  try { localStorage.setItem(SETUP_KEY, JSON.stringify(data)); } catch(e) {}
+  var msg = document.getElementById('saved-msg');
+  msg.style.display = 'block';
+  setTimeout(function() { msg.style.display = 'none'; }, 2500);
+}
+
+// CARREGAR SETUP SALVO
+function initSetup() {
+  try {
+    var saved = localStorage.getItem(SETUP_KEY);
+    if (!saved) return seedSetup();
+    var d = JSON.parse(saved);
+    if (d.nome) document.getElementById('s-nome').value = d.nome;
+    if (d.funcao) document.getElementById('s-funcao').value = d.funcao;
+    if (d.descricao) document.getElementById('s-descricao').value = d.descricao;
+    if (d.status) document.getElementById('s-status').value = d.status;
+    if (d.modelo) document.getElementById('s-modelo').value = d.modelo;
+    if (d.wa_numero) document.getElementById('c-wa-numero').value = d.wa_numero;
+    if (d.wa_instancia) document.getElementById('c-wa-instancia').value = d.wa_instancia;
+    if (d.tg_bot) document.getElementById('c-tg-bot').value = d.tg_bot;
+    if (d.tg_chatid) document.getElementById('c-tg-chatid').value = d.tg_chatid;
+    if (d.tom) { document.getElementById('s-tom').value = d.tom; updateTom(document.getElementById('s-tom')); }
+    if (d.idioma) document.getElementById('s-idioma').value = d.idioma;
+    if (d.tamanho) document.getElementById('s-tamanho').value = d.tamanho;
+    if (d.recorrentes) d.recorrentes.forEach(v => addItem('lista-recorrentes', v));
+    if (d.demanda) d.demanda.forEach(v => addItem('lista-demanda', v));
+    if (d.nunca) d.nunca.forEach(v => addItem('lista-nunca', v));
+    if (d.triggers) d.triggers.forEach(v => addItem('lista-triggers', v));
+    if (d.esc_nome) document.getElementById('s-esc-nome').value = d.esc_nome;
+    if (d.esc_contato) document.getElementById('s-esc-contato').value = d.esc_contato;
+    if (d.esc_canal) document.getElementById('s-esc-canal').value = d.esc_canal;
+    if (d.esc_prazo) document.getElementById('s-esc-prazo').value = d.esc_prazo;
+    if (d.knowledge) document.getElementById('s-knowledge').value = d.knowledge;
+  } catch(e) { seedSetup(); }
+}
+
+// SEED COM DADOS PADRÃO DO AGENTE
+function seedSetup() {
+  document.getElementById('s-nome').value = 'Tiago';
+  document.getElementById('s-descricao').value = '';
+  addItem('lista-recorrentes', '');
+  addItem('lista-demanda', '');
+  addItem('lista-nunca', '');
+  addItem('lista-triggers', '');
+}
+
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -132,6 +301,16 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     </div>
   </div>
 
+
+  <!-- ABAS NAV -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('overview',this)">OVERVIEW</button>
+    <button class="tab-btn" onclick="switchTab('setup',this)">SETUP</button>
+    <button class="tab-btn" onclick="switchTab('logs',this)">LOGS</button>
+  </div>
+
+  <!-- PANE: OVERVIEW -->
+  <div class="tab-pane active" id="pane-overview">
   <div class="content">
 
     <!-- STATS -->
@@ -223,4 +402,263 @@ const isAuth=()=>['oma_monitor','oma_hub','oma_auth','ops'].some(k=>sessionStora
 if(isAuth()){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}
 </script>
 </body>
-</html>
+</html
+  </div><!-- /content -->
+
+  </div><!-- /pane-overview -->
+
+  <!-- PANE: SETUP -->
+  <div class="tab-pane" id="pane-setup">
+    <div class="setup-wrap">
+
+      <!-- IDENTIDADE -->
+      <div class="setup-section">
+        <div class="setup-section-hd open" onclick="toggleSection(this)">
+          <span>Identidade e Função</span><span class="chevron">▾</span>
+        </div>
+        <div class="setup-section-body open">
+          <div class="setup-row">
+            <div class="setup-field">
+              <span class="setup-label">Nome do Agente</span>
+              <input class="setup-input" id="s-nome" type="text" value="Tiago" placeholder="Ex: Amanda">
+            </div>
+            <div class="setup-field">
+              <span class="setup-label">Função</span>
+              <select class="setup-select" id="s-funcao">
+                <option value="assistente">Assistente Pessoal</option>
+                <option value="comercial">Comercial / Vendas</option>
+                <option value="operacional">Operacional</option>
+                <option value="marketing">Marketing / Conteúdo</option>
+                <option value="monitoramento">Monitoramento / Relatórios</option>
+                <option value="onboarding">Onboarding</option>
+                <option value="financeiro">Financeiro / Cobrança</option>
+              </select>
+            </div>
+          </div>
+          <div class="setup-row full">
+            <div class="setup-field">
+              <span class="setup-label">Descrição do Papel</span>
+              <textarea class="setup-textarea" id="s-descricao" placeholder="O que esse agente faz? Qual é a responsabilidade principal?"></textarea>
+            </div>
+          </div>
+          <div class="setup-row">
+            <div class="setup-field">
+              <span class="setup-label">Status</span>
+              <select class="setup-select" id="s-status">
+                <option value="ativo">Ativo</option>
+                <option value="pausado">Pausado</option>
+                <option value="configurando">Em configuração</option>
+              </select>
+            </div>
+            <div class="setup-field">
+              <span class="setup-label">Modelo de IA</span>
+              <select class="setup-select" id="s-modelo">
+                <option value="haiku">Claude Haiku (rápido · econômico)</option>
+                <option value="sonnet">Claude Sonnet (balanceado)</option>
+                <option value="opus">Claude Opus (máxima qualidade)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CANAIS -->
+      <div class="setup-section">
+        <div class="setup-section-hd" onclick="toggleSection(this)">
+          <span>Canais de Comunicação</span><span class="chevron">▾</span>
+        </div>
+        <div class="setup-section-body">
+          <div class="setup-label" style="margin-bottom:10px">Canais ativos</div>
+          <div class="toggle-grid" id="canais-toggle">
+            <div class="toggle-item on" onclick="toggleCanal(this,'whatsapp')"><span class="tog-dot"></span><span class="tog-label">WhatsApp</span></div>
+            <div class="toggle-item on" onclick="toggleCanal(this,'telegram')"><span class="tog-dot"></span><span class="tog-label">Telegram</span></div>
+            <div class="toggle-item" onclick="toggleCanal(this,'email')"><span class="tog-dot"></span><span class="tog-label">E-mail</span></div>
+            <div class="toggle-item" onclick="toggleCanal(this,'webchat')"><span class="tog-dot"></span><span class="tog-label">Webchat</span></div>
+            <div class="toggle-item" onclick="toggleCanal(this,'instagram')"><span class="tog-dot"></span><span class="tog-label">Instagram</span></div>
+          </div>
+          <div class="canal-detail open" id="detail-whatsapp">
+            <div class="setup-row">
+              <div class="setup-field">
+                <span class="setup-label">Número WhatsApp</span>
+                <input class="setup-input" id="c-wa-numero" type="text" placeholder="+55 11 99999-9999">
+              </div>
+              <div class="setup-field">
+                <span class="setup-label">Instância Evolution</span>
+                <input class="setup-input" id="c-wa-instancia" type="text" placeholder="Ex: amanda-wa">
+              </div>
+            </div>
+          </div>
+          <div class="canal-detail open" id="detail-telegram">
+            <div class="setup-row">
+              <div class="setup-field">
+                <span class="setup-label">Bot Username</span>
+                <input class="setup-input" id="c-tg-bot" type="text" placeholder="@Amanda_Bot">
+              </div>
+              <div class="setup-field">
+                <span class="setup-label">Chat ID padrão</span>
+                <input class="setup-input" id="c-tg-chatid" type="text" placeholder="Ex: 8392126681">
+              </div>
+            </div>
+          </div>
+          <div class="canal-detail" id="detail-email">
+            <div class="setup-field">
+              <span class="setup-label">Endereço de E-mail</span>
+              <input class="setup-input" id="c-email" type="email" placeholder="agente@seudominio.com">
+            </div>
+          </div>
+          <div class="canal-detail" id="detail-webchat">
+            <div class="setup-field">
+              <span class="setup-label">URL do Webchat</span>
+              <input class="setup-input" id="c-webchat" type="text" placeholder="https://seu-dominio.com/chat">
+            </div>
+          </div>
+          <div class="canal-detail" id="detail-instagram">
+            <div class="setup-field">
+              <span class="setup-label">Instagram Username</span>
+              <input class="setup-input" id="c-ig" type="text" placeholder="@seu_perfil">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATIVIDADES -->
+      <div class="setup-section">
+        <div class="setup-section-hd" onclick="toggleSection(this)">
+          <span>O que o Agente Faz</span><span class="chevron">▾</span>
+        </div>
+        <div class="setup-section-body">
+          <div class="setup-field" style="margin-bottom:16px">
+            <span class="setup-label">Atividades Recorrentes</span>
+            <div class="editable-list" id="lista-recorrentes"></div>
+            <button class="add-item-btn" onclick="addItem('lista-recorrentes')">+ adicionar atividade</button>
+          </div>
+          <div class="setup-field" style="margin-bottom:16px">
+            <span class="setup-label">Atividades Sob Demanda</span>
+            <div class="editable-list" id="lista-demanda"></div>
+            <button class="add-item-btn" onclick="addItem('lista-demanda')">+ adicionar atividade</button>
+          </div>
+          <div class="setup-field">
+            <span class="setup-label">O que o Agente NUNCA Faz (limites)</span>
+            <div class="editable-list" id="lista-nunca"></div>
+            <button class="add-item-btn" onclick="addItem('lista-nunca')">+ adicionar limite</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMUNICAÇÃO -->
+      <div class="setup-section">
+        <div class="setup-section-hd" onclick="toggleSection(this)">
+          <span>Tom e Comunicação</span><span class="chevron">▾</span>
+        </div>
+        <div class="setup-section-body">
+          <div class="setup-row">
+            <div class="setup-field">
+              <span class="setup-label">Tom de voz</span>
+              <input type="range" class="tom-slider" id="s-tom" min="0" max="2" value="1" step="1" oninput="updateTom(this)">
+              <div class="tom-labels"><span>Formal</span><span id="tom-val" style="color:var(--agent)">Semiformal</span><span>Informal</span></div>
+            </div>
+            <div class="setup-field">
+              <span class="setup-label">Idioma Principal</span>
+              <select class="setup-select" id="s-idioma">
+                <option value="ptbr">Português BR</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+              </select>
+            </div>
+          </div>
+          <div class="setup-row">
+            <div class="setup-field">
+              <span class="setup-label">Tamanho das respostas</span>
+              <select class="setup-select" id="s-tamanho">
+                <option value="curto">Curto e direto</option>
+                <option value="medio" selected>Médio</option>
+                <option value="detalhado">Detalhado</option>
+              </select>
+            </div>
+            <div class="setup-field">
+              <span class="setup-label">Recursos de comunicação</span>
+              <div class="toggle-grid" style="margin-top:6px">
+                <div class="toggle-item on" onclick="this.classList.toggle('on')" id="tog-emoji"><span class="tog-dot"></span><span class="tog-label">Emoji</span></div>
+                <div class="toggle-item" onclick="this.classList.toggle('on')" id="tog-bold"><span class="tog-dot"></span><span class="tog-label">Negrito</span></div>
+                <div class="toggle-item" onclick="this.classList.toggle('on')" id="tog-listas"><span class="tog-dot"></span><span class="tog-label">Listas</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESCALAÇÃO -->
+      <div class="setup-section">
+        <div class="setup-section-hd" onclick="toggleSection(this)">
+          <span>Escalação e Limites</span><span class="chevron">▾</span>
+        </div>
+        <div class="setup-section-body">
+          <div class="setup-row full" style="margin-bottom:16px">
+            <div class="setup-field">
+              <span class="setup-label">Quando escalar (triggers)</span>
+              <div class="editable-list" id="lista-triggers"></div>
+              <button class="add-item-btn" onclick="addItem('lista-triggers')">+ adicionar trigger</button>
+            </div>
+          </div>
+          <div class="setup-row">
+            <div class="setup-field">
+              <span class="setup-label">Escalar para (nome)</span>
+              <input class="setup-input" id="s-esc-nome" type="text" placeholder="Ex: Fabio">
+            </div>
+            <div class="setup-field">
+              <span class="setup-label">Contato de escalação</span>
+              <input class="setup-input" id="s-esc-contato" type="text" placeholder="Telegram ID ou telefone">
+            </div>
+          </div>
+          <div class="setup-row">
+            <div class="setup-field">
+              <span class="setup-label">Canal de escalação</span>
+              <select class="setup-select" id="s-esc-canal">
+                <option value="telegram">Telegram</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="email">E-mail</option>
+              </select>
+            </div>
+            <div class="setup-field">
+              <span class="setup-label">Prazo máximo sem escalação</span>
+              <select class="setup-select" id="s-esc-prazo">
+                <option value="imediato">Imediato</option>
+                <option value="1h">1 hora</option>
+                <option value="4h">4 horas</option>
+                <option value="24h">24 horas</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEMÓRIA -->
+      <div class="setup-section">
+        <div class="setup-section-hd" onclick="toggleSection(this)">
+          <span>Memória e Conhecimento</span><span class="chevron">▾</span>
+        </div>
+        <div class="setup-section-body">
+          <div class="toggle-grid" style="margin-bottom:16px">
+            <div class="toggle-item on" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Memória semântica</span></div>
+            <div class="toggle-item" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Lê arquivos</span></div>
+            <div class="toggle-item on" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Base de conhecimento</span></div>
+            <div class="toggle-item" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Histórico de conversas</span></div>
+          </div>
+          <div class="setup-field">
+            <span class="setup-label">Caminho da base de conhecimento</span>
+            <input class="setup-input" id="s-knowledge" type="text" placeholder="Ex: store/knowledge/amanda/knowledge.json">
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /setup-wrap -->
+
+    <div class="setup-footer">
+      <button class="setup-save-btn" onclick="saveSetup()">SALVAR CONFIGURAÇÃO</button>
+      <span class="setup-saved-msg" id="saved-msg">✓ Salvo com sucesso</span>
+    </div>
+  </div><!-- /pane-setup -->
+
+  <!-- PANE: LOGS -->
+  <div class="tab-pane" id="pane-logs">
+>
