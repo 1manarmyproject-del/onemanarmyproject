@@ -3,42 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMO · One Man Army Project</title>
+<title>PMO - One Man Army Project</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0a0a0a;--card:#141414;--iron:#1e1e1e;--border:#2a2a2a;--fire:#e8703a;--bone:#e4ddd3;--ash:#666;--white:#f5f0e8;--green:#3d9e60;--yellow:#f5a623;--red:#e24b4a;--blood:#7a2204;--blue:#378add}
-body{background:var(--bg);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;min-height:100vh}
+body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;font-size:14px;min-height:100vh}
 header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;color:var(--bone)}
+.logo{font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;color:var(--bone)}
 .logo span{color:var(--fire)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;display:inline-block;margin-right:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;display:inline-block;margin-right:6px;vertical-align:middle}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .stats{display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:1px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-family:Space Mono,monospace;font-size:10px;color:var(--ash);letter-spacing:1px}
 .stat strong{color:var(--bone);font-size:15px;display:block;margin-bottom:1px}
 .pct-bar{flex:1;min-width:100px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
 .pct-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s}
-.pct-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:1px;white-space:nowrap}
+.pct-label{font-family:Space Mono,monospace;font-size:10px;color:var(--green);letter-spacing:1px;white-space:nowrap}
 .toolbar{padding:10px 20px;border-bottom:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.filter{background:none;border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:10px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
-.filter.active,.filter.active-resp{background:var(--fire);border-color:var(--fire);color:#000}
+.filter{background:none;border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:10px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
+.filter.active{background:var(--fire);border-color:var(--fire);color:#000}
 .filter:hover:not(.active){border-color:var(--fire);color:var(--fire)}
 .tbr{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
-.btn{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:10px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
+.btn{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:10px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
 .btn:hover{border-color:var(--fire);color:var(--fire)}
 .btn.primary{background:var(--fire);border-color:var(--fire);color:#000}
 .board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:14px 20px;align-items:start}
 .col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;min-height:280px;transition:outline .1s}
 .col.drag-over{outline:2px dashed var(--fire);outline-offset:-2px}
 .col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.col-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;padding:3px 9px;border-radius:20px;font-weight:700}
+.col-label{font-family:Space Mono,monospace;font-size:8px;letter-spacing:2px;padding:3px 9px;border-radius:20px;font-weight:700}
 .lbl-back{background:rgba(102,102,102,.15);color:var(--ash);border:1px solid rgba(102,102,102,.3)}
 .lbl-todo{background:rgba(245,166,35,.15);color:var(--yellow);border:1px solid rgba(245,166,35,.3)}
 .lbl-prog{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3)}
 .lbl-done{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,96,.3)}
-.col-count{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)}
+.col-count{font-family:Space Mono,monospace;font-size:10px;color:var(--ash)}
 .card{background:var(--iron);border:1px solid var(--border);border-radius:8px;padding:9px 10px;margin-bottom:7px;cursor:grab;transition:border-color .15s}
 .card:hover{border-color:var(--ash)}
 .card.dragging{opacity:.25;cursor:grabbing}
@@ -47,7 +47,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .card.prio-baixa{border-left:3px solid var(--ash)}
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:5px}
 .card-badges{display:flex;gap:4px;flex-wrap:wrap}
-.badge{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;border-radius:10px;letter-spacing:.5px;border:1px solid}
+.badge{font-family:Space Mono,monospace;font-size:8px;padding:2px 6px;border-radius:10px;letter-spacing:.5px;border:1px solid}
 .badge-area{background:rgba(122,34,4,.15);color:#c86060;border-color:rgba(122,34,4,.3)}
 .resp-fabio{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3)}
 .resp-george{background:rgba(55,138,221,.15);color:var(--blue);border:1px solid rgba(55,138,221,.3)}
@@ -55,50 +55,48 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .resp-bia{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,96,.3)}
 .resp-tiago{background:rgba(175,169,236,.15);color:#afa9ec;border:1px solid rgba(175,169,236,.3)}
 .resp-darwin{background:rgba(245,166,35,.15);color:var(--yellow);border:1px solid rgba(245,166,35,.3)}
-.card-prio-btn{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:4px;border:1px solid var(--border);color:var(--ash);cursor:pointer;background:none;transition:all .15s;white-space:nowrap}
-.card-prio-btn:hover{border-color:var(--fire)}
-.card-prio-btn.alta{color:var(--red);border-color:rgba(226,75,74,.3)}
-.card-prio-btn.media{color:var(--yellow);border-color:rgba(245,166,35,.3)}
+.prio-btn{font-family:Space Mono,monospace;font-size:8px;padding:2px 7px;border-radius:4px;border:1px solid var(--border);color:var(--ash);cursor:pointer;background:none;white-space:nowrap}
+.prio-btn.alta{color:var(--red);border-color:rgba(226,75,74,.3)}
+.prio-btn.media{color:var(--yellow);border-color:rgba(245,166,35,.3)}
 .card-text{font-size:12px;color:var(--bone);line-height:1.4;margin-bottom:6px}
 .card-actions{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
-.ca{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:9px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:.5px;transition:all .15s}
+.ca{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:9px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:.5px;transition:all .15s}
 .ca:hover{border-color:var(--fire);color:var(--fire)}
 .ca.g:hover{border-color:var(--green);color:var(--green)}
 .ca.r:hover{border-color:var(--red);color:var(--red)}
-.mv{background:none;border:none;padding:2px 5px;font-size:12px;color:var(--ash);cursor:pointer;transition:color .15s;line-height:1}
+.mv{background:none;border:none;padding:2px 5px;font-size:12px;color:var(--ash);cursor:pointer}
 .mv:hover{color:var(--fire)}
 .mv-grp{display:flex;margin-left:auto}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
 .modal{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;width:420px;max-width:94vw}
-.modal h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--white);margin-bottom:14px}
-.modal label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:4px;margin-top:10px}
-.modal textarea,.modal select{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:'Barlow',sans-serif;outline:none}
+.modal h3{font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px;color:var(--white);margin-bottom:14px}
+.modal label{display:block;font-family:Space Mono,monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:4px;margin-top:10px}
+.modal textarea,.modal select{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;outline:none}
 .modal textarea:focus,.modal select:focus{border-color:var(--fire)}
 .modal textarea{resize:vertical;min-height:64px}
 .modal-btns{display:flex;gap:8px;margin-top:14px}
-.modal-btns button{flex:1;padding:7px;font-size:10px;font-family:'Space Mono',monospace;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--ash);letter-spacing:1px;transition:all .15s}
+.modal-btns button{flex:1;padding:7px;font-size:10px;font-family:Space Mono,monospace;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--ash);letter-spacing:1px}
 .modal-btns button.save{background:var(--fire);border-color:var(--fire);color:#000}
 .add-area{margin-top:4px}
-.add-btn-col{width:100%;background:none;border:1px dashed var(--border);border-radius:8px;padding:7px;font-size:10px;font-family:'Space Mono',monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
+.add-btn-col{width:100%;background:none;border:1px dashed var(--border);border-radius:8px;padding:7px;font-size:10px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:1px}
 .add-btn-col:hover{border-color:var(--fire);color:var(--fire)}
 .add-form{display:none;margin-top:7px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px}
-.add-form textarea{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:12px;color:var(--bone);font-family:'Barlow',sans-serif;resize:none;margin-bottom:6px;outline:none}
-.add-form textarea:focus{border-color:var(--fire)}
+.add-form textarea{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;resize:none;margin-bottom:6px;outline:none}
 .add-form select{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:6px;font-size:11px;color:var(--bone);margin-bottom:6px;outline:none}
 .add-form-btns{display:flex;gap:6px}
-.add-form-btns button{flex:1;padding:5px;font-size:10px;font-family:'Space Mono',monospace;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--ash);letter-spacing:1px;transition:all .15s}
+.add-form-btns button{flex:1;padding:5px;font-size:10px;font-family:Space Mono,monospace;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--ash);letter-spacing:1px}
 .add-form-btns button.save{background:var(--fire);border-color:var(--fire);color:#000}
-.empty{text-align:center;color:var(--ash);font-size:10px;padding:20px 0;font-family:'Space Mono',monospace;letter-spacing:1px}
+.empty{text-align:center;color:var(--ash);font-size:10px;padding:20px 0;font-family:Space Mono,monospace;letter-spacing:1px}
 @media(max-width:900px){.board{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.board{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">ONE MAN <span>ARMY</span> · PMO</div>
+  <div class="logo">ONE MAN <span>ARMY</span> - PMO</div>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-    <span><span class="dot"></span><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px">LANÇAMENTO 01/04/2026</span></span>
+    <span><span class="dot"></span><span style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:1px">LANCAMENTO 01/04/2026</span></span>
     <button class="btn" onclick="resetBoard()">RESET</button>
   </div>
 </header>
@@ -111,18 +109,18 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   <div class="pct-label" id="pct-label">0%</div>
 </div>
 <div class="toolbar">
-  <button class="filter active" onclick="setF('all',this)">TODOS</button>
-  <button class="filter" onclick="setF('site',this)">SITE</button>
-  <button class="filter" onclick="setF('bia',this)">BIA</button>
-  <button class="filter" onclick="setF('infra',this)">INFRA</button>
-  <button class="filter" onclick="setF('conteudo',this)">CONTEÚDO</button>
-  <button class="filter" onclick="setF('legal',this)">LEGAL</button>
-  <button class="filter" onclick="setF('produto',this)">PRODUTO</button>
+  <button class="filter active" onclick="setF(this,'all')">TODOS</button>
+  <button class="filter" onclick="setF(this,'site')">SITE</button>
+  <button class="filter" onclick="setF(this,'bia')">BIA</button>
+  <button class="filter" onclick="setF(this,'infra')">INFRA</button>
+  <button class="filter" onclick="setF(this,'conteudo')">CONTEUDO</button>
+  <button class="filter" onclick="setF(this,'legal')">LEGAL</button>
+  <button class="filter" onclick="setF(this,'produto')">PRODUTO</button>
   <div class="tbr">
-    <button class="filter" onclick="setF('fabio',this)">FABIO</button>
-    <button class="filter" onclick="setF('george',this)">GEORGE</button>
-    <button class="filter" onclick="setF('flavia',this)">FLÁVIA</button>
-    <button class="filter" onclick="setF('tiago',this)">TIAGO</button>
+    <button class="filter" onclick="setF(this,'fabio')">FABIO</button>
+    <button class="filter" onclick="setF(this,'george')">GEORGE</button>
+    <button class="filter" onclick="setF(this,'flavia')">FLAVIA</button>
+    <button class="filter" onclick="setF(this,'tiago')">TIAGO</button>
     <button class="btn primary" onclick="openAdd('todo')">+ NOVO</button>
   </div>
 </div>
@@ -138,7 +136,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
       <button class="add-btn-col" id="addbtn-todo" onclick="openAdd('todo')">+ adicionar</button>
       <div class="add-form" id="addf-todo">
         <textarea id="addtxt-todo" rows="2" placeholder="Descreva o item..."></textarea>
-        <select id="addarea-todo"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteúdo</option><option value="legal">Legal</option><option value="produto">Produto</option></select>
+        <select id="addarea-todo"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteudo</option><option value="legal">Legal</option><option value="produto">Produto</option></select>
         <div class="add-form-btns"><button onclick="cancelAdd('todo')">CANCELAR</button><button class="save" onclick="addCard('todo')">SALVAR</button></div>
       </div>
     </div>
@@ -153,149 +151,101 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   </div>
 </div>
 <div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <h3>Editar item</h3>
-    <label>DESCRIÇÃO</label><textarea id="edit-text" rows="3"></textarea>
-    <label>ÁREA</label>
-    <select id="edit-area"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteúdo</option><option value="legal">Legal</option><option value="produto">Produto</option></select>
-    <label>RESPONSÁVEL</label>
-    <select id="edit-resp"><option value="">— sem responsável —</option><option value="fabio">Fabio</option><option value="george">George</option><option value="flavia">Flávia</option><option value="bia">Bia</option><option value="tiago">Tiago</option><option value="darwin">Darwin</option></select>
+    <label>DESCRICAO</label><textarea id="edit-text" rows="3"></textarea>
+    <label>AREA</label>
+    <select id="edit-area"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteudo</option><option value="legal">Legal</option><option value="produto">Produto</option></select>
+    <label>RESPONSAVEL</label>
+    <select id="edit-resp"><option value="">sem responsavel</option><option value="fabio">Fabio</option><option value="george">George</option><option value="flavia">Flavia</option><option value="bia">Bia</option><option value="tiago">Tiago</option><option value="darwin">Darwin</option></select>
     <label>PRIORIDADE</label>
-    <select id="edit-prio"><option value="">— sem prioridade —</option><option value="alta">Alta</option><option value="media">Média</option><option value="baixa">Baixa</option></select>
+    <select id="edit-prio"><option value="">sem prioridade</option><option value="alta">Alta</option><option value="media">Media</option><option value="baixa">Baixa</option></select>
     <div class="modal-btns"><button onclick="closeModal()">CANCELAR</button><button class="save" onclick="saveEdit()">SALVAR</button></div>
   </div>
 </div>
 <script>
-const D=[
-  {id:'1',col:'done',text:'Site v2 no ar — onemanarmyproject.com.br',area:'site',resp:'george',prio:''},
-  {id:'2',col:'done',text:'Hero copy — posicionamento real',area:'site',resp:'fabio',prio:''},
-  {id:'3',col:'done',text:'Seção segurança (criptografia, controle, rastreabilidade)',area:'site',resp:'george',prio:''},
-  {id:'4',col:'done',text:'FAQ com objeção Meta/Manus',area:'site',resp:'george',prio:''},
-  {id:'5',col:'done',text:'Páginas /privacidade e /termos no ar',area:'legal',resp:'george',prio:''},
-  {id:'6',col:'done',text:'Newsletter antes do footer',area:'site',resp:'george',prio:''},
-  {id:'7',col:'done',text:'Contatos fundador na assinatura',area:'site',resp:'george',prio:''},
-  {id:'8',col:'done',text:'Favicon lagosta + title',area:'site',resp:'george',prio:''},
-  {id:'9',col:'done',text:'Mobile responsive',area:'site',resp:'george',prio:''},
-  {id:'10',col:'done',text:'Diagrama fluxos interativo (5 fluxos)',area:'site',resp:'george',prio:''},
-  {id:'11',col:'done',text:'Bia modo lista de interesse ativo',area:'bia',resp:'bia',prio:''},
-  {id:'12',col:'done',text:'Objeção Meta/Manus treinada na Bia',area:'bia',resp:'bia',prio:''},
-  {id:'13',col:'done',text:'Objeção segurança/dados treinada na Bia',area:'bia',resp:'bia',prio:''},
-  {id:'14',col:'done',text:'Memória semântica Amanda (1.542 entradas)',area:'infra',resp:'george',prio:''},
-  {id:'15',col:'done',text:'Memória semântica George (550 entradas)',area:'infra',resp:'george',prio:''},
-  {id:'16',col:'done',text:'Billing Google habilitado + budget alert',area:'infra',resp:'fabio',prio:''},
-  {id:'17',col:'done',text:'Brand voice OMA documentado',area:'conteudo',resp:'fabio',prio:''},
-  {id:'18',col:'done',text:'Briefing série segurança (5 cards)',area:'conteudo',resp:'flavia',prio:''},
-  {id:'19',col:'done',text:'Briefing lista de interesse / lançamento',area:'conteudo',resp:'flavia',prio:''},
-  {id:'20',col:'done',text:'PPT comercial 13 slides atualizado',area:'produto',resp:'george',prio:''},
-  {id:'21',col:'done',text:'PMO Kanban no hub do site',area:'produto',resp:'george',prio:''},
-  {id:'22',col:'todo',text:'Stress test funil Bia — casos reais',area:'bia',resp:'fabio',prio:'alta'},
-  {id:'23',col:'todo',text:'Bug Bia/Amanda contexto separado',area:'bia',resp:'george',prio:'alta'},
-  {id:'24',col:'todo',text:'Memória semântica Bia (filtros corretos)',area:'bia',resp:'george',prio:'media'},
-  {id:'25',col:'todo',text:'Contrato de prestação de serviços',area:'legal',resp:'tiago',prio:'alta'},
-  {id:'26',col:'todo',text:'NDA — acordo de confidencialidade',area:'legal',resp:'tiago',prio:'alta'},
-  {id:'27',col:'todo',text:'Agente Onboarder criado',area:'infra',resp:'george',prio:'alta'},
-  {id:'28',col:'todo',text:'CLAUDE.md George — protocolos OMA',area:'infra',resp:'fabio',prio:'media'},
-  {id:'29',col:'todo',text:'Templates CLAUDE.md advocacia + óticas',area:'infra',resp:'george',prio:'media'},
-  {id:'30',col:'todo',text:'Post aquecimento 29/03',area:'conteudo',resp:'flavia',prio:'alta'},
-  {id:'31',col:'todo',text:'Post revelar lista de interesse 30/03',area:'conteudo',resp:'flavia',prio:'alta'},
-  {id:'32',col:'todo',text:'Post bastidores ao vivo 31/03',area:'conteudo',resp:'flavia',prio:'alta'},
-  {id:'33',col:'todo',text:'POST PRINCIPAL LANÇAMENTO 01/04',area:'conteudo',resp:'flavia',prio:'alta'},
-  {id:'34',col:'todo',text:'Cards série segurança (5 cards)',area:'conteudo',resp:'flavia',prio:'media'},
-  {id:'35',col:'todo',text:'Bio Instagram atualizada + link OMA',area:'conteudo',resp:'fabio',prio:'media'},
-  {id:'36',col:'todo',text:'Pricing definido (setup + mensalidade)',area:'produto',resp:'fabio',prio:'alta'},
-  {id:'37',col:'todo',text:'Plataforma newsletter (Mailchimp ou Brevo)',area:'produto',resp:'fabio',prio:'baixa'},
-  {id:'38',col:'back',text:'Script Hetzner automatizado por cliente',area:'infra',resp:'george',prio:''},
-  {id:'39',col:'back',text:'Isolamento banco por cliente no servidor',area:'infra',resp:'george',prio:''},
-  {id:'40',col:'back',text:'Protocolo Bia → Onboarder → George',area:'infra',resp:'george',prio:''},
-  {id:'41',col:'back',text:'CRM backend Hetzner (sair do localStorage)',area:'infra',resp:'george',prio:''},
-  {id:'42',col:'back',text:'Dashboard de custos no hub',area:'produto',resp:'darwin',prio:''},
-  {id:'43',col:'back',text:'Módulo financeiro clientes (Asaas)',area:'produto',resp:'fabio',prio:''},
-  {id:'44',col:'back',text:'Integração Canva API',area:'conteudo',resp:'flavia',prio:''},
-  {id:'45',col:'back',text:'Webchat handoff → WhatsApp com contexto',area:'produto',resp:'george',prio:''},
-  {id:'46',col:'back',text:'Flávia autonomia + protocolo proativo',area:'conteudo',resp:'flavia',prio:''},
-  {id:'47',col:'back',text:'Sessão dedicada @fabioxavier3',area:'conteudo',resp:'fabio',prio:''},
-  {id:'48',col:'back',text:'Política retenção de dados por cliente',area:'legal',resp:'tiago',prio:''},
-  {id:'49',col:'back',text:'Primeira contratação Ops Jr (MRR>R$20k)',area:'produto',resp:'fabio',prio:''},,
-  {id:'50',col:'back',text:'API PMO no Hetzner — GET/PUT cards em JSON (substitui localStorage)',area:'infra',resp:'george',prio:'alta'},
-  {id:'51',col:'back',text:'Tool getMyTasks() no George — lê cards do PMO e reporta no Telegram 8h',area:'infra',resp:'george',prio:'media'},
-  {id:'52',col:'back',text:'Tool updateTask(id, col) no George — move card para Feito ao concluir',area:'infra',resp:'george',prio:'media'},
-  {id:'53',col:'back',text:'Rotina diária George 8h — tarefas abertas + prioridades para Fabio',area:'infra',resp:'george',prio:'media'},
-  {id:'54',col:'back',text:'PMO por cliente — board próprio no hub de cada cliente',area:'produto',resp:'fabio',prio:''},
-  {id:'55',col:'back',text:'Hub do cliente — PMO + CRM + Relatórios + Configuração',area:'produto',resp:'fabio',prio:''},
-  {id:'56',col:'back',text:'Darwin monitora cards travados há +3 dias e alerta Fabio',area:'infra',resp:'darwin',prio:''},
-  {id:'57',col:'back',text:'Flávia lê cards de conteúdo com resp:flavia e executa autonomamente',area:'conteudo',resp:'flavia',prio:''},
-  {id:'58',col:'back',text:'PMO como contexto de sessão — prompt padrão para abrir qualquer sessão Claude lendo o board',area:'produto',resp:'fabio',prio:'media'},
-  {id:'59',col:'back',text:'PMO como memória compartilhada — George lê estado do board 8h e reporta prioridades',area:'infra',resp:'george',prio:'media'},
-  {id:'60',col:'back',text:'PMO por agente — cada agente lê só as tarefas dele (resp:george, resp:flavia etc)',area:'infra',resp:'george',prio:''},
-];
-const RL={fabio:'Fabio',george:'George',flavia:'Flávia',bia:'Bia',tiago:'Tiago',darwin:'Darwin',''};
-const PI={alta:'🔴',media:'🟡',baixa:'⚪',''};
-const KEY='oma-pmo-v3';
-let cards=[],dragging=null,filt='all',editId=null;
-function save(){try{localStorage.setItem(KEY,JSON.stringify(cards))}catch{}}
-function load(){try{const d=localStorage.getItem(KEY);cards=d?JSON.parse(d):D.map(c=>({...c}))}catch{cards=D.map(c=>({...c}))}render()}
+var DEFAULTS = [{"id": "1", "col": "done", "text": "Site v2 no ar", "area": "site", "resp": "george", "prio": ""}, {"id": "2", "col": "done", "text": "Hero copy alinhado ao posicionamento", "area": "site", "resp": "fabio", "prio": ""}, {"id": "3", "col": "done", "text": "Secao seguranca com criptografia e rastreabilidade", "area": "site", "resp": "george", "prio": ""}, {"id": "4", "col": "done", "text": "FAQ com objecao Meta/Manus", "area": "site", "resp": "george", "prio": ""}, {"id": "5", "col": "done", "text": "Paginas /privacidade e /termos no ar", "area": "legal", "resp": "george", "prio": ""}, {"id": "6", "col": "done", "text": "Newsletter antes do footer", "area": "site", "resp": "george", "prio": ""}, {"id": "7", "col": "done", "text": "Contatos fundador na assinatura", "area": "site", "resp": "george", "prio": ""}, {"id": "8", "col": "done", "text": "Favicon lagosta + title", "area": "site", "resp": "george", "prio": ""}, {"id": "9", "col": "done", "text": "Mobile responsive", "area": "site", "resp": "george", "prio": ""}, {"id": "10", "col": "done", "text": "Diagrama fluxos interativo (5 fluxos)", "area": "site", "resp": "george", "prio": ""}, {"id": "11", "col": "done", "text": "Bia modo lista de interesse ativo", "area": "bia", "resp": "bia", "prio": ""}, {"id": "12", "col": "done", "text": "Objecao Meta/Manus treinada na Bia", "area": "bia", "resp": "bia", "prio": ""}, {"id": "13", "col": "done", "text": "Objecao seguranca/dados treinada na Bia", "area": "bia", "resp": "bia", "prio": ""}, {"id": "14", "col": "done", "text": "Memoria semantica Amanda (1.542 entradas)", "area": "infra", "resp": "george", "prio": ""}, {"id": "15", "col": "done", "text": "Memoria semantica George (550 entradas)", "area": "infra", "resp": "george", "prio": ""}, {"id": "16", "col": "done", "text": "Billing Google habilitado + budget alert", "area": "infra", "resp": "fabio", "prio": ""}, {"id": "17", "col": "done", "text": "Brand voice OMA documentado", "area": "conteudo", "resp": "fabio", "prio": ""}, {"id": "18", "col": "done", "text": "Briefing serie seguranca (5 cards)", "area": "conteudo", "resp": "flavia", "prio": ""}, {"id": "19", "col": "done", "text": "Briefing lista de interesse / lancamento", "area": "conteudo", "resp": "flavia", "prio": ""}, {"id": "20", "col": "done", "text": "PPT comercial 13 slides atualizado", "area": "produto", "resp": "george", "prio": ""}, {"id": "21", "col": "done", "text": "PMO Kanban no hub do site", "area": "produto", "resp": "george", "prio": ""}, {"id": "22", "col": "todo", "text": "Stress test funil Bia - casos reais", "area": "bia", "resp": "fabio", "prio": "alta"}, {"id": "23", "col": "todo", "text": "Bug Bia/Amanda contexto separado", "area": "bia", "resp": "george", "prio": "alta"}, {"id": "24", "col": "todo", "text": "Memoria semantica Bia (filtros corretos)", "area": "bia", "resp": "george", "prio": "media"}, {"id": "25", "col": "todo", "text": "Contrato de prestacao de servicos", "area": "legal", "resp": "tiago", "prio": "alta"}, {"id": "26", "col": "todo", "text": "NDA - acordo de confidencialidade", "area": "legal", "resp": "tiago", "prio": "alta"}, {"id": "27", "col": "todo", "text": "Agente Onboarder criado", "area": "infra", "resp": "george", "prio": "alta"}, {"id": "28", "col": "todo", "text": "CLAUDE.md George - protocolos OMA", "area": "infra", "resp": "fabio", "prio": "media"}, {"id": "29", "col": "todo", "text": "Templates CLAUDE.md advocacia + oticas", "area": "infra", "resp": "george", "prio": "media"}, {"id": "30", "col": "todo", "text": "Post aquecimento 29/03", "area": "conteudo", "resp": "flavia", "prio": "alta"}, {"id": "31", "col": "todo", "text": "Post revelar lista de interesse 30/03", "area": "conteudo", "resp": "flavia", "prio": "alta"}, {"id": "32", "col": "todo", "text": "Post bastidores ao vivo 31/03", "area": "conteudo", "resp": "flavia", "prio": "alta"}, {"id": "33", "col": "todo", "text": "POST PRINCIPAL LANCAMENTO 01/04", "area": "conteudo", "resp": "flavia", "prio": "alta"}, {"id": "34", "col": "todo", "text": "Cards serie seguranca (5 cards)", "area": "conteudo", "resp": "flavia", "prio": "media"}, {"id": "35", "col": "todo", "text": "Bio Instagram atualizada + link OMA", "area": "conteudo", "resp": "fabio", "prio": "media"}, {"id": "36", "col": "todo", "text": "Pricing definido (setup + mensalidade)", "area": "produto", "resp": "fabio", "prio": "alta"}, {"id": "37", "col": "todo", "text": "Plataforma newsletter (Mailchimp ou Brevo)", "area": "produto", "resp": "fabio", "prio": "baixa"}, {"id": "38", "col": "back", "text": "Script Hetzner automatizado por cliente", "area": "infra", "resp": "george", "prio": ""}, {"id": "39", "col": "back", "text": "Isolamento banco por cliente no servidor", "area": "infra", "resp": "george", "prio": ""}, {"id": "40", "col": "back", "text": "Protocolo Bia - Onboarder - George", "area": "infra", "resp": "george", "prio": ""}, {"id": "41", "col": "back", "text": "CRM backend Hetzner (sair do localStorage)", "area": "infra", "resp": "george", "prio": ""}, {"id": "42", "col": "back", "text": "Dashboard de custos no hub", "area": "produto", "resp": "darwin", "prio": ""}, {"id": "43", "col": "back", "text": "Modulo financeiro clientes (Asaas)", "area": "produto", "resp": "fabio", "prio": ""}, {"id": "44", "col": "back", "text": "Integracao Canva API", "area": "conteudo", "resp": "flavia", "prio": ""}, {"id": "45", "col": "back", "text": "Webchat handoff para WhatsApp com contexto", "area": "produto", "resp": "george", "prio": ""}, {"id": "46", "col": "back", "text": "Flavia autonomia + protocolo proativo", "area": "conteudo", "resp": "flavia", "prio": ""}, {"id": "47", "col": "back", "text": "Sessao dedicada @fabioxavier3", "area": "conteudo", "resp": "fabio", "prio": ""}, {"id": "48", "col": "back", "text": "Politica retencao de dados por cliente", "area": "legal", "resp": "tiago", "prio": ""}, {"id": "49", "col": "back", "text": "Primeira contratacao Ops Jr (MRR>R$20k)", "area": "produto", "resp": "fabio", "prio": ""}, {"id": "50", "col": "back", "text": "API PMO no Hetzner - GET/PUT cards em JSON", "area": "infra", "resp": "george", "prio": "alta"}, {"id": "51", "col": "back", "text": "Tool getMyTasks() no George - le cards do PMO e reporta no Telegram 8h", "area": "infra", "resp": "george", "prio": "media"}, {"id": "52", "col": "back", "text": "Tool updateTask(id,col) no George - move card para Feito ao concluir", "area": "infra", "resp": "george", "prio": "media"}, {"id": "53", "col": "back", "text": "Rotina diaria George 8h - tarefas abertas e prioridades para Fabio", "area": "infra", "resp": "george", "prio": "media"}, {"id": "54", "col": "back", "text": "PMO por cliente - board proprio no hub de cada cliente", "area": "produto", "resp": "fabio", "prio": ""}, {"id": "55", "col": "back", "text": "Hub do cliente - PMO + CRM + Relatorios + Configuracao", "area": "produto", "resp": "fabio", "prio": ""}, {"id": "56", "col": "back", "text": "Darwin monitora cards travados ha +3 dias e alerta Fabio", "area": "infra", "resp": "darwin", "prio": ""}, {"id": "57", "col": "back", "text": "Flavia le cards de conteudo com resp:flavia e executa autonomamente", "area": "conteudo", "resp": "flavia", "prio": ""}, {"id": "58", "col": "back", "text": "PMO como contexto de sessao - prompt padrao para abrir qualquer sessao Claude", "area": "produto", "resp": "fabio", "prio": "media"}, {"id": "59", "col": "back", "text": "PMO como memoria compartilhada - George le board 8h e reporta prioridades", "area": "infra", "resp": "george", "prio": "media"}, {"id": "60", "col": "back", "text": "PMO por agente - cada agente le so as tarefas dele", "area": "infra", "resp": "george", "prio": ""}];
+var KEY = 'oma-pmo-v4';
+var cards = [];
+var dragging = null;
+var filt = 'all';
+var editId = null;
+var RLABELS = {fabio:'Fabio',george:'George',flavia:'Flavia',bia:'Bia',tiago:'Tiago',darwin:'Darwin'};
+var PICONS = {alta:'! ',media:'~ ',baixa:'- '};
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cards));}catch(e){}}
+function load(){
+  try{
+    var d = localStorage.getItem(KEY);
+    cards = d ? JSON.parse(d) : DEFAULTS.slice();
+  }catch(e){
+    cards = DEFAULTS.slice();
+  }
+  render();
+}
 function mf(c){
-  if(filt==='all')return true;
-  if(['site','bia','infra','conteudo','legal','produto'].includes(filt))return c.area===filt;
+  if(filt==='all') return true;
+  var areas = ['site','bia','infra','conteudo','legal','produto'];
+  if(areas.indexOf(filt)>=0) return c.area===filt;
   return c.resp===filt;
 }
 function render(){
-  ['back','todo','prog','done'].forEach(col=>{
-    const all=cards.filter(c=>c.col===col);
-    const vis=all.filter(mf);
-    document.getElementById('cnt-'+col).textContent=all.length;
-    document.getElementById('cards-'+col).innerHTML=vis.map(c=>`
-      <div class="card prio-${c.prio}" draggable="true" data-id="${c.id}" ondragstart="ds(event,'${c.id}')" ondragend="de()">
-        <div class="card-top">
-          <div class="card-badges">
-            <span class="badge badge-area">${c.area}</span>
-            ${c.resp?`<span class="badge ${rClass(c.resp)}">${RL[c.resp]||c.resp}</span>`:''}
-          </div>
-          <button class="card-prio-btn ${c.prio}" onclick="cp('${c.id}',event)">${c.prio?PI[c.prio]+' '+c.prio.toUpperCase():'PRIO'}</button>
-        </div>
-        <div class="card-text">${c.text}</div>
-        <div class="card-actions">
-          ${col!=='done'?`<button class="ca g" onclick="mv('${c.id}','done')">✓ feito</button>`:''}
-          ${col==='done'?`<button class="ca" onclick="mv('${c.id}','todo')">↩ reabrir</button>`:''}
-          ${col==='back'?`<button class="ca" onclick="mv('${c.id}','todo')">→ sprint</button>`:''}
-          ${col==='todo'?`<button class="ca" onclick="mv('${c.id}','prog')">▶ iniciar</button>`:''}
-          <button class="ca" onclick="oe('${c.id}')">✎</button>
-          <button class="ca r" onclick="rm('${c.id}')">✕</button>
-          <div class="mv-grp">
-            <button class="mv" onclick="mup('${c.id}','${col}')">↑</button>
-            <button class="mv" onclick="mdn('${c.id}','${col}')">↓</button>
-          </div>
-        </div>
-      </div>`).join('');
-    document.getElementById('emp-'+col).style.display=vis.length?'none':'block';
-  });
-  const done=cards.filter(c=>c.col==='done').length,tot=cards.length;
-  const pct=tot?Math.round(done/tot*100):0;
-  document.getElementById('s-back').textContent=cards.filter(c=>c.col==='back').length;
-  document.getElementById('s-todo').textContent=cards.filter(c=>c.col==='todo').length;
-  document.getElementById('s-prog').textContent=cards.filter(c=>c.col==='prog').length;
-  document.getElementById('s-done').textContent=done;
-  document.getElementById('pct-fill').style.width=pct+'%';
-  document.getElementById('pct-label').textContent=pct+'% completo';
+  var cols = ['back','todo','prog','done'];
+  for(var ci=0;ci<cols.length;ci++){
+    var col = cols[ci];
+    var all = cards.filter(function(c){return c.col===col;});
+    var vis = all.filter(mf);
+    document.getElementById('cnt-'+col).textContent = all.length;
+    var html = '';
+    for(var i=0;i<vis.length;i++){
+      var c = vis[i];
+      var pClass = c.prio ? 'prio-'+c.prio : '';
+      var respBadge = c.resp ? '<span class="badge resp-'+c.resp+'">'+(RLABELS[c.resp]||c.resp)+'</span>' : '';
+      var prioBtn = '<button class="prio-btn '+(c.prio||'')+'" onclick="cp(''+c.id+'',event)">'+(c.prio?(PICONS[c.prio]||'')+c.prio.toUpperCase():'PRIO')+'</button>';
+      var btns = '';
+      if(col!=='done') btns += '<button class="ca g" onclick="mv(''+c.id+'','done')">feito</button>';
+      if(col==='done') btns += '<button class="ca" onclick="mv(''+c.id+'','todo')">reabrir</button>';
+      if(col==='back') btns += '<button class="ca" onclick="mv(''+c.id+'','todo')">sprint</button>';
+      if(col==='todo') btns += '<button class="ca" onclick="mv(''+c.id+'','prog')">iniciar</button>';
+      btns += '<button class="ca" onclick="oe(''+c.id+'')">editar</button>';
+      btns += '<button class="ca r" onclick="rm(''+c.id+'')">x</button>';
+      btns += '<div class="mv-grp"><button class="mv" onclick="mup(''+c.id+'',''+col+'')">^</button><button class="mv" onclick="mdn(''+c.id+'',''+col+'')">v</button></div>';
+      html += '<div class="card '+pClass+'" draggable="true" data-id="'+c.id+'" ondragstart="ds(event,''+c.id+'')" ondragend="de()">';
+      html += '<div class="card-top"><div class="card-badges"><span class="badge badge-area">'+c.area+'</span>'+respBadge+'</div>'+prioBtn+'</div>';
+      html += '<div class="card-text">'+c.text+'</div>';
+      html += '<div class="card-actions">'+btns+'</div>';
+      html += '</div>';
+    }
+    document.getElementById('cards-'+col).innerHTML = html;
+    document.getElementById('emp-'+col).style.display = vis.length ? 'none' : 'block';
+  }
+  var done = cards.filter(function(c){return c.col==='done';}).length;
+  var tot = cards.length;
+  var pct = tot ? Math.round(done/tot*100) : 0;
+  document.getElementById('s-back').textContent = cards.filter(function(c){return c.col==='back';}).length;
+  document.getElementById('s-todo').textContent = cards.filter(function(c){return c.col==='todo';}).length;
+  document.getElementById('s-prog').textContent = cards.filter(function(c){return c.col==='prog';}).length;
+  document.getElementById('s-done').textContent = done;
+  document.getElementById('pct-fill').style.width = pct+'%';
+  document.getElementById('pct-label').textContent = pct+'% completo';
 }
-function rClass(r){return'badge resp-'+r}
-function cp(id,e){e.stopPropagation();const c=cards.find(x=>x.id===id);if(!c)return;const cy=['','alta','media','baixa'];c.prio=cy[(cy.indexOf(c.prio||'')+1)%cy.length];save();render()}
-function ds(e,id){dragging=id;setTimeout(()=>document.querySelector('[data-id="'+id+'"]')?.classList.add('dragging'),0)}
-function de(){document.querySelectorAll('.card').forEach(c=>c.classList.remove('dragging'));document.querySelectorAll('.col').forEach(c=>c.classList.remove('drag-over'))}
-function ov(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
-function dp(e,col){e.preventDefault();document.querySelectorAll('.col').forEach(c=>c.classList.remove('drag-over'));if(!dragging)return;const c=cards.find(x=>x.id===dragging);if(c){c.col=col;save();render()}dragging=null}
-function mv(id,col){const c=cards.find(x=>x.id===id);if(c){c.col=col;save();render()}}
-function mup(id,col){const g=cards.filter(c=>c.col===col),gi=g.findIndex(c=>c.id===id);if(gi<=0)return;const a=cards.findIndex(c=>c.id===id),b=cards.findIndex(c=>c.id===g[gi-1].id);[cards[a],cards[b]]=[cards[b],cards[a]];save();render()}
-function mdn(id,col){const g=cards.filter(c=>c.col===col),gi=g.findIndex(c=>c.id===id);if(gi>=g.length-1)return;const a=cards.findIndex(c=>c.id===id),b=cards.findIndex(c=>c.id===g[gi+1].id);[cards[a],cards[b]]=[cards[b],cards[a]];save();render()}
-function rm(id){if(!confirm('Remover?')){return}cards=cards.filter(x=>x.id!==id);save();render()}
-function setF(area,btn){filt=area;document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render()}
-function openAdd(col){document.getElementById('addf-'+col).style.display='block';document.getElementById('addbtn-'+col).style.display='none';document.getElementById('addtxt-'+col).focus()}
-function cancelAdd(col){document.getElementById('addf-'+col).style.display='none';document.getElementById('addbtn-'+col).style.display='block';document.getElementById('addtxt-'+col).value=''}
-function addCard(col){const t=document.getElementById('addtxt-'+col).value.trim();const a=document.getElementById('addarea-'+col).value;if(!t)return;cards.push({id:Date.now().toString(),col,text:t,area:a,resp:'',prio:''});save();render();cancelAdd(col)}
-function oe(id){const c=cards.find(x=>x.id===id);if(!c)return;editId=id;document.getElementById('edit-text').value=c.text;document.getElementById('edit-area').value=c.area;document.getElementById('edit-resp').value=c.resp||'';document.getElementById('edit-prio').value=c.prio||'';document.getElementById('modal-bg').classList.add('open')}
-function closeModal(e){if(!e||e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open')}
-function saveEdit(){const c=cards.find(x=>x.id===editId);if(!c)return;c.text=document.getElementById('edit-text').value.trim()||c.text;c.area=document.getElementById('edit-area').value;c.resp=document.getElementById('edit-resp').value;c.prio=document.getElementById('edit-prio').value;save();render();document.getElementById('modal-bg').classList.remove('open')}
-function resetBoard(){if(!confirm('Resetar?'))return;cards=D.map(c=>({...c}));save();render()}
+function cp(id,e){e.stopPropagation();var c=cards.find(function(x){return x.id===id;});if(!c)return;var cy=['','alta','media','baixa'];c.prio=cy[(cy.indexOf(c.prio||'')+1)%cy.length];save();render();}
+function ds(e,id){dragging=id;var el=document.querySelector('[data-id="'+id+'"]');if(el)setTimeout(function(){el.classList.add('dragging');},0);}
+function de(){document.querySelectorAll('.card').forEach(function(c){c.classList.remove('dragging');});document.querySelectorAll('.col').forEach(function(c){c.classList.remove('drag-over');});}
+function ov(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
+function dp(e,col){e.preventDefault();document.querySelectorAll('.col').forEach(function(c){c.classList.remove('drag-over');});if(!dragging)return;var c=cards.find(function(x){return x.id===dragging;});if(c){c.col=col;save();render();}dragging=null;}
+function mv(id,col){var c=cards.find(function(x){return x.id===id;});if(c){c.col=col;save();render();}}
+function mup(id,col){var g=cards.filter(function(c){return c.col===col;});var gi=g.findIndex(function(c){return c.id===id;});if(gi<=0)return;var a=cards.findIndex(function(c){return c.id===id;});var b=cards.findIndex(function(c){return c.id===g[gi-1].id;});var t=cards[a];cards[a]=cards[b];cards[b]=t;save();render();}
+function mdn(id,col){var g=cards.filter(function(c){return c.col===col;});var gi=g.findIndex(function(c){return c.id===id;});if(gi>=g.length-1)return;var a=cards.findIndex(function(c){return c.id===id;});var b=cards.findIndex(function(c){return c.id===g[gi+1].id;});var t=cards[a];cards[a]=cards[b];cards[b]=t;save();render();}
+function rm(id){if(!confirm('Remover?'))return;cards=cards.filter(function(x){return x.id!==id;});save();render();}
+function setF(btn,area){filt=area;document.querySelectorAll('.filter').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');render();}
+function openAdd(col){document.getElementById('addf-'+col).style.display='block';document.getElementById('addbtn-'+col).style.display='none';document.getElementById('addtxt-'+col).focus();}
+function cancelAdd(col){document.getElementById('addf-'+col).style.display='none';document.getElementById('addbtn-'+col).style.display='block';document.getElementById('addtxt-'+col).value='';}
+function addCard(col){var t=document.getElementById('addtxt-'+col).value.trim();var a=document.getElementById('addarea-'+col).value;if(!t)return;cards.push({id:Date.now().toString(),col:col,text:t,area:a,resp:'',prio:''});save();render();cancelAdd(col);}
+function oe(id){var c=cards.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('edit-text').value=c.text;document.getElementById('edit-area').value=c.area;document.getElementById('edit-resp').value=c.resp||'';document.getElementById('edit-prio').value=c.prio||'';document.getElementById('modal-bg').classList.add('open');}
+function closeModal(e){document.getElementById('modal-bg').classList.remove('open');}
+function saveEdit(){var c=cards.find(function(x){return x.id===editId;});if(!c)return;c.text=document.getElementById('edit-text').value.trim()||c.text;c.area=document.getElementById('edit-area').value;c.resp=document.getElementById('edit-resp').value;c.prio=document.getElementById('edit-prio').value;save();render();document.getElementById('modal-bg').classList.remove('open');}
+function resetBoard(){if(!confirm('Resetar?'))return;cards=DEFAULTS.slice();save();render();}
 load();
 </script>
 </body>
