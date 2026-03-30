@@ -288,8 +288,8 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <!-- MÓDULOS NOVOS -->
 <section class="segs">
   <div cla<p class="sec-lbl">Módulos</p>
-    <h2 class="sec-title" style="color:var(--dark-text);text-align:center">8 produtos que<br><span style="color:var(--fire)">empresas grandes já têm.</span></h2>
-    <p class="sec-body" style="max-width:560px;color:var(--mid-text);text-align:center;margin-left:auto;margin-right:auto">Agora qualquer negócio pode ter — sem o custo, sem a complexidade, sem o headcount.</p>
+    <h2 class="sec-title" style="color:var(--dark-text);text-align:center;font-size:clamp(20px,3.5vw,46px)">8 produtos que<br><span style="color:var(--fire)">empresas grandes já têm.</span></h2>
+    <p class="sec-body" style="max-width:560px;color:var(--mid-text);text-align:center;margin-left:auto;margin-right:auto;padding:0 16px">Agora qualquer negócio pode ter — sem o custo, sem a complexidade, sem o headcount.</p>
     <div class="segs-grid" style="margin-top:48px;grid-template-columns:repeat(3,1fr);max-width:960px;margin-left:auto;margin-right:auto">
       <div class="seg-card"><div class="seg-ico">🎧</div><div class="seg-name">SAC 24h</div><div class="seg-dor">"Sou eu que respondo às 23h"</div><div class="seg-res">80% dos casos resolvidos. Os 20% chegam com contexto completo.</div></div>
       <div class="seg-card"><div class="seg-ico">📋</div><div class="seg-name">Consultor de Processos</div><div class="seg-dor">"Ninguém lê o manual"</div><div class="seg-res">Qualquer pessoa consulta pelo WhatsApp e recebe resposta na hora.</div></div>
@@ -301,7 +301,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
       <div class="seg-card"><div class="seg-ico">🔢</div><div class="seg-name">Conciliador de Dados</div><div class="seg-dor">"Todo mês passo dias conciliando — e ainda erro"</div><div class="seg-res">Recebe leituras, calcula rateios, gera cobranças e envia relatório. Água, gás, DRE.</div></div>
       <div class="seg-card"><div class="seg-ico">📱</div><div class="seg-name">Social Mídia Express</div><div class="seg-dor">"Não tenho tempo — nem equipe — para postar"</div><div class="seg-res">Briefing, copy, curadoria de imagens e publicação — tudo automático. Agente produz e posta no seu perfil enquanto você foca no negócio.</div></div>
     </div>
-    <div style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--iron)">
+    <div style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--iron)" class="modulos-bottom-grid">
       <div style="padding:44px;background:var(--coal);border-left:3px solid var(--blood)">
         <p style="font-family:'Black Ops One',cursive;font-size:clamp(18px,2.5vw,26px);letter-spacing:2px;color:var(--white);margin-bottom:20px;line-height:1.2">Não é só fazer.<br><span style="color:var(--fire)">É aprender com o que faz.</span></p>
         <p style="font-size:15px;line-height:1.9;color:rgba(255,255,255,.8);margin-bottom:16px">Atividades operacionais automatizadas — com uma diferença fundamental: <strong style="color:var(--white);font-weight:600">inteligência</strong>. Cada agente observa padrões, identifica anomalias e devolve insights de melhoria contínua.</p>
@@ -551,6 +551,10 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 #oma-btn:disabled{background:#2a2a2a;cursor:not-allowed;}
 #oma-btn svg{width:16px;height:16px;fill:white;}
 #oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
+@media(max-width:600px){
+  .modulos-bottom-grid{grid-template-columns:1fr !important;}
+  .modulos-bottom-grid > div{padding:28px 20px !important;}
+}
 @media(max-width:480px){
   #seguranca div[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr !important;}#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
 
