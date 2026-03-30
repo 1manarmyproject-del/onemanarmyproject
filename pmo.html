@@ -160,6 +160,10 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
     <select id="edit-resp"><option value="">sem responsavel</option><option value="fabio">Fabio</option><option value="george">George</option><option value="flavia">Flavia</option><option value="bia">Bia</option><option value="tiago">Tiago</option><option value="darwin">Darwin</option></select>
     <label>PRIORIDADE</label>
     <select id="edit-prio"><option value="">sem prioridade</option><option value="alta">Alta</option><option value="media">Media</option><option value="baixa">Baixa</option></select>
+    <label>PRAZO</label>
+    <input type="date" id="edit-prazo" style="width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;outline:none">
+    <label>ENTREGAVEL</label>
+    <input type="text" id="edit-entregavel" placeholder="Ex: CLAUDE.md revisado + deploy" style="width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;outline:none">
     <div class="modal-btns"><button onclick="closeModal()">CANCELAR</button><button class="save" onclick="saveEdit()">SALVAR</button></div>
   </div>
 </div>
@@ -235,6 +239,17 @@ function render(){
       html += '<div class="card '+pClass+'" draggable="true" data-id="'+c.id+'" ondragstart="ds(event,\''+c.id+'\')" ondragend="de()">';
       html += '<div class="card-top"><div class="card-badges"><span class="badge badge-area">'+c.area+"</span>"+respBadge+'</div><button class="'+prioClass+'" onclick="cp(\''+c.id+'\',event)">'+prioTxt+"</button></div>";
       html += '<div class="card-text">'+c.text+"</div>";
+      if(c.prazo||c.entregavel){
+        html += '<div style="margin-bottom:6px;display:flex;flex-direction:column;gap:3px">';
+        if(c.prazo){
+          var hoje = new Date().toISOString().split("T")[0];
+          var atrasado = c.prazo < hoje && c.col !== "done";
+          var corPrazo = atrasado ? "var(--red)" : "var(--yellow)";
+          html += '<div style="font-family:Space Mono,monospace;font-size:9px;color:'+corPrazo+'">📅 '+c.prazo+"</div>";
+        }
+        if(c.entregavel) html += '<div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);font-style:italic">⬡ '+c.entregavel+"</div>";
+        html += "</div>";
+      }
       html += '<div class="card-actions">'+btns+"</div></div>";
     }
     document.getElementById("cards-"+col).innerHTML = html;
@@ -335,6 +350,8 @@ function oe(id){
   document.getElementById("edit-area").value = c.area;
   document.getElementById("edit-resp").value = c.resp||"";
   document.getElementById("edit-prio").value = c.prio||"";
+  document.getElementById("edit-prazo").value = c.prazo||"";
+  document.getElementById("edit-entregavel").value = c.entregavel||"";
   document.getElementById("modal-bg").classList.add("open");
 }
 function closeModal(){ document.getElementById("modal-bg").classList.remove("open"); }
@@ -345,6 +362,8 @@ function saveEdit(){
   c.area = document.getElementById("edit-area").value;
   c.resp = document.getElementById("edit-resp").value;
   c.prio = document.getElementById("edit-prio").value;
+  c.prazo = document.getElementById("edit-prazo").value;
+  c.entregavel = document.getElementById("edit-entregavel").value;
   save(); render();
   document.getElementById("modal-bg").classList.remove("open");
 }
