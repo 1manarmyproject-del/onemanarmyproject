@@ -165,88 +165,179 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 </div>
 <script>
 var DEFAULTS = [];
-fetch('/pmo-data.json?v=1').then(function(r){return r.json();}).then(function(data){DEFAULTS=data;load();}).catch(function(e){console.error(e);});
-var KEY = 'oma-pmo-v4';
+var KEY = "oma-pmo-v4";
 var cards = [];
 var dragging = null;
-var filt = 'all';
+var filt = "all";
 var editId = null;
-var RLABELS = {fabio:'Fabio',george:'George',flavia:'Flavia',bia:'Bia',tiago:'Tiago',darwin:'Darwin'};
-var PICONS = {alta:'! ',media:'~ ',baixa:'- '};
+var RLABELS = {fabio:"Fabio",george:"George",flavia:"Flavia",bia:"Bia",tiago:"Tiago",darwin:"Darwin"};
+var PICONS = {alta:"! ",media:"~ ",baixa:"- "};
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cards));}catch(e){}}
+
 function load(){
   try{
     var d = localStorage.getItem(KEY);
-    cards = d ? JSON.parse(d) : DEFAULTS.slice();
-  }catch(e){
-    cards = DEFAULTS.slice();
-  }
-  render();
+    if(d){ cards = JSON.parse(d); render(); return; }
+  }catch(e){}
+  fetch("/pmo-data.json")
+    .then(function(r){return r.json();})
+    .then(function(data){ DEFAULTS = data; cards = data.slice(); save(); render(); })
+    .catch(function(e){ console.error("Erro pmo-data.json",e); });
 }
+
 function mf(c){
-  if(filt==='all') return true;
-  var areas = ['site','bia','infra','conteudo','legal','produto'];
+  if(filt==="all") return true;
+  var areas = ["site","bia","infra","conteudo","legal","produto"];
   if(areas.indexOf(filt)>=0) return c.area===filt;
   return c.resp===filt;
 }
+
 function render(){
-  var cols = ['back','todo','prog','done'];
+  var cols = ["back","todo","prog","done"];
   for(var ci=0;ci<cols.length;ci++){
     var col = cols[ci];
     var all = cards.filter(function(c){return c.col===col;});
     var vis = all.filter(mf);
-    document.getElementById('cnt-'+col).textContent = all.length;
-    var html = '';
+    document.getElementById("cnt-"+col).textContent = all.length;
+    var html = "";
     for(var i=0;i<vis.length;i++){
       var c = vis[i];
-      var pClass = c.prio ? 'prio-'+c.prio : '';
-      var respBadge = c.resp ? '<span class="badge resp-'+c.resp+'">'+(RLABELS[c.resp]||c.resp)+'</span>' : '';
-      var prioBtn = '<button class="prio-btn '+(c.prio||'')+'" onclick="cp(''+c.id+'',event)">'+(c.prio?(PICONS[c.prio]||'')+c.prio.toUpperCase():'PRIO')+'</button>';
-      var btns = '';
-      if(col!=='done') btns += '<button class="ca g" onclick="mv(''+c.id+'','done')">feito</button>';
-      if(col==='done') btns += '<button class="ca" onclick="mv(''+c.id+'','todo')">reabrir</button>';
-      if(col==='back') btns += '<button class="ca" onclick="mv(''+c.id+'','todo')">sprint</button>';
-      if(col==='todo') btns += '<button class="ca" onclick="mv(''+c.id+'','prog')">iniciar</button>';
-      btns += '<button class="ca" onclick="oe(''+c.id+'')">editar</button>';
-      btns += '<button class="ca r" onclick="rm(''+c.id+'')">x</button>';
-      btns += '<div class="mv-grp"><button class="mv" onclick="mup(''+c.id+'',''+col+'')">^</button><button class="mv" onclick="mdn(''+c.id+'',''+col+'')">v</button></div>';
-      html += '<div class="card '+pClass+'" draggable="true" data-id="'+c.id+'" ondragstart="ds(event,''+c.id+'')" ondragend="de()">';
-      html += '<div class="card-top"><div class="card-badges"><span class="badge badge-area">'+c.area+'</span>'+respBadge+'</div>'+prioBtn+'</div>';
-      html += '<div class="card-text">'+c.text+'</div>';
-      html += '<div class="card-actions">'+btns+'</div>';
-      html += '</div>';
+      var pClass = c.prio ? "prio-"+c.prio : "";
+      var respBadge = c.resp ? '<span class="badge resp-'+c.resp+'">'+(RLABELS[c.resp]||c.resp)+"</span>" : "";
+      var prioTxt = c.prio ? (PICONS[c.prio]||"")+c.prio.toUpperCase() : "PRIO";
+      var prioClass = "prio-btn"+(c.prio?" "+c.prio:"");
+      var btns = "";
+      if(col!=="done") btns += '<button class="ca g" onclick="mv(\''+c.id+'\',\'done\')">feito</button>';
+      if(col==="done") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">reabrir</button>';
+      if(col==="back") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">sprint</button>';
+      if(col==="todo") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'prog\')">iniciar</button>';
+      btns += '<button class="ca" onclick="oe(\''+c.id+'\')">editar</button>';
+      btns += '<button class="ca r" onclick="rm(\''+c.id+'\')">x</button>';
+      btns += '<div class="mv-grp"><button class="mv" onclick="mup(\''+c.id+'\',\''+col+'\')">^</button><button class="mv" onclick="mdn(\''+c.id+'\',\''+col+'\')">v</button></div>';
+      html += '<div class="card '+pClass+'" draggable="true" data-id="'+c.id+'" ondragstart="ds(event,\''+c.id+'\')" ondragend="de()">';
+      html += '<div class="card-top"><div class="card-badges"><span class="badge badge-area">'+c.area+"</span>"+respBadge+'</div><button class="'+prioClass+'" onclick="cp(\''+c.id+'\',event)">'+prioTxt+"</button></div>";
+      html += '<div class="card-text">'+c.text+"</div>";
+      html += '<div class="card-actions">'+btns+"</div></div>";
     }
-    document.getElementById('cards-'+col).innerHTML = html;
-    document.getElementById('emp-'+col).style.display = vis.length ? 'none' : 'block';
+    document.getElementById("cards-"+col).innerHTML = html;
+    document.getElementById("emp-"+col).style.display = vis.length ? "none" : "block";
   }
-  var done = cards.filter(function(c){return c.col==='done';}).length;
+  var done = cards.filter(function(c){return c.col==="done";}).length;
   var tot = cards.length;
   var pct = tot ? Math.round(done/tot*100) : 0;
-  document.getElementById('s-back').textContent = cards.filter(function(c){return c.col==='back';}).length;
-  document.getElementById('s-todo').textContent = cards.filter(function(c){return c.col==='todo';}).length;
-  document.getElementById('s-prog').textContent = cards.filter(function(c){return c.col==='prog';}).length;
-  document.getElementById('s-done').textContent = done;
-  document.getElementById('pct-fill').style.width = pct+'%';
-  document.getElementById('pct-label').textContent = pct+'% completo';
+  document.getElementById("s-back").textContent = cards.filter(function(c){return c.col==="back";}).length;
+  document.getElementById("s-todo").textContent = cards.filter(function(c){return c.col==="todo";}).length;
+  document.getElementById("s-prog").textContent = cards.filter(function(c){return c.col==="prog";}).length;
+  document.getElementById("s-done").textContent = done;
+  document.getElementById("pct-fill").style.width = pct+"%";
+  document.getElementById("pct-label").textContent = pct+"% completo";
 }
-function cp(id,e){e.stopPropagation();var c=cards.find(function(x){return x.id===id;});if(!c)return;var cy=['','alta','media','baixa'];c.prio=cy[(cy.indexOf(c.prio||'')+1)%cy.length];save();render();}
-function ds(e,id){dragging=id;var el=document.querySelector('[data-id="'+id+'"]');if(el)setTimeout(function(){el.classList.add('dragging');},0);}
-function de(){document.querySelectorAll('.card').forEach(function(c){c.classList.remove('dragging');});document.querySelectorAll('.col').forEach(function(c){c.classList.remove('drag-over');});}
-function ov(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
-function dp(e,col){e.preventDefault();document.querySelectorAll('.col').forEach(function(c){c.classList.remove('drag-over');});if(!dragging)return;var c=cards.find(function(x){return x.id===dragging;});if(c){c.col=col;save();render();}dragging=null;}
-function mv(id,col){var c=cards.find(function(x){return x.id===id;});if(c){c.col=col;save();render();}}
-function mup(id,col){var g=cards.filter(function(c){return c.col===col;});var gi=g.findIndex(function(c){return c.id===id;});if(gi<=0)return;var a=cards.findIndex(function(c){return c.id===id;});var b=cards.findIndex(function(c){return c.id===g[gi-1].id;});var t=cards[a];cards[a]=cards[b];cards[b]=t;save();render();}
-function mdn(id,col){var g=cards.filter(function(c){return c.col===col;});var gi=g.findIndex(function(c){return c.id===id;});if(gi>=g.length-1)return;var a=cards.findIndex(function(c){return c.id===id;});var b=cards.findIndex(function(c){return c.id===g[gi+1].id;});var t=cards[a];cards[a]=cards[b];cards[b]=t;save();render();}
-function rm(id){if(!confirm('Remover?'))return;cards=cards.filter(function(x){return x.id!==id;});save();render();}
-function setF(btn,area){filt=area;document.querySelectorAll('.filter').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');render();}
-function openAdd(col){document.getElementById('addf-'+col).style.display='block';document.getElementById('addbtn-'+col).style.display='none';document.getElementById('addtxt-'+col).focus();}
-function cancelAdd(col){document.getElementById('addf-'+col).style.display='none';document.getElementById('addbtn-'+col).style.display='block';document.getElementById('addtxt-'+col).value='';}
-function addCard(col){var t=document.getElementById('addtxt-'+col).value.trim();var a=document.getElementById('addarea-'+col).value;if(!t)return;cards.push({id:Date.now().toString(),col:col,text:t,area:a,resp:'',prio:''});save();render();cancelAdd(col);}
-function oe(id){var c=cards.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('edit-text').value=c.text;document.getElementById('edit-area').value=c.area;document.getElementById('edit-resp').value=c.resp||'';document.getElementById('edit-prio').value=c.prio||'';document.getElementById('modal-bg').classList.add('open');}
-function closeModal(e){document.getElementById('modal-bg').classList.remove('open');}
-function saveEdit(){var c=cards.find(function(x){return x.id===editId;});if(!c)return;c.text=document.getElementById('edit-text').value.trim()||c.text;c.area=document.getElementById('edit-area').value;c.resp=document.getElementById('edit-resp').value;c.prio=document.getElementById('edit-prio').value;save();render();document.getElementById('modal-bg').classList.remove('open');}
-function resetBoard(){if(!confirm('Resetar?'))return;cards=DEFAULTS.slice();save();render();}
+
+function cp(id,e){
+  e.stopPropagation();
+  var c = cards.find(function(x){return x.id===id;});
+  if(!c) return;
+  var cy = ["","alta","media","baixa"];
+  c.prio = cy[(cy.indexOf(c.prio||"")+1)%cy.length];
+  save(); render();
+}
+function ds(e,id){
+  dragging = id;
+  var el = document.querySelector("[data-id=\""+id+"\"]");
+  if(el) setTimeout(function(){el.classList.add("dragging");},0);
+}
+function de(){
+  document.querySelectorAll(".card").forEach(function(c){c.classList.remove("dragging");});
+  document.querySelectorAll(".col").forEach(function(c){c.classList.remove("drag-over");});
+}
+function ov(e){ e.preventDefault(); e.currentTarget.classList.add("drag-over"); }
+function dp(e,col){
+  e.preventDefault();
+  document.querySelectorAll(".col").forEach(function(c){c.classList.remove("drag-over");});
+  if(!dragging) return;
+  var c = cards.find(function(x){return x.id===dragging;});
+  if(c){ c.col = col; save(); render(); }
+  dragging = null;
+}
+function mv(id,col){
+  var c = cards.find(function(x){return x.id===id;});
+  if(c){ c.col = col; save(); render(); }
+}
+function mup(id,col){
+  var g = cards.filter(function(c){return c.col===col;});
+  var gi = g.findIndex(function(c){return c.id===id;});
+  if(gi<=0) return;
+  var a = cards.findIndex(function(c){return c.id===id;});
+  var b = cards.findIndex(function(c){return c.id===g[gi-1].id;});
+  var t = cards[a]; cards[a] = cards[b]; cards[b] = t;
+  save(); render();
+}
+function mdn(id,col){
+  var g = cards.filter(function(c){return c.col===col;});
+  var gi = g.findIndex(function(c){return c.id===id;});
+  if(gi>=g.length-1) return;
+  var a = cards.findIndex(function(c){return c.id===id;});
+  var b = cards.findIndex(function(c){return c.id===g[gi+1].id;});
+  var t = cards[a]; cards[a] = cards[b]; cards[b] = t;
+  save(); render();
+}
+function rm(id){
+  if(!confirm("Remover?")) return;
+  cards = cards.filter(function(x){return x.id!==id;});
+  save(); render();
+}
+function setF(btn,area){
+  filt = area;
+  document.querySelectorAll(".filter").forEach(function(b){b.classList.remove("active");});
+  btn.classList.add("active");
+  render();
+}
+function openAdd(col){
+  document.getElementById("addf-"+col).style.display = "block";
+  document.getElementById("addbtn-"+col).style.display = "none";
+  document.getElementById("addtxt-"+col).focus();
+}
+function cancelAdd(col){
+  document.getElementById("addf-"+col).style.display = "none";
+  document.getElementById("addbtn-"+col).style.display = "block";
+  document.getElementById("addtxt-"+col).value = "";
+}
+function addCard(col){
+  var t = document.getElementById("addtxt-"+col).value.trim();
+  var a = document.getElementById("addarea-"+col).value;
+  if(!t) return;
+  cards.push({id:Date.now().toString(),col:col,text:t,area:a,resp:"",prio:""});
+  save(); render(); cancelAdd(col);
+}
+function oe(id){
+  var c = cards.find(function(x){return x.id===id;});
+  if(!c) return;
+  editId = id;
+  document.getElementById("edit-text").value = c.text;
+  document.getElementById("edit-area").value = c.area;
+  document.getElementById("edit-resp").value = c.resp||"";
+  document.getElementById("edit-prio").value = c.prio||"";
+  document.getElementById("modal-bg").classList.add("open");
+}
+function closeModal(){ document.getElementById("modal-bg").classList.remove("open"); }
+function saveEdit(){
+  var c = cards.find(function(x){return x.id===editId;});
+  if(!c) return;
+  c.text = document.getElementById("edit-text").value.trim()||c.text;
+  c.area = document.getElementById("edit-area").value;
+  c.resp = document.getElementById("edit-resp").value;
+  c.prio = document.getElementById("edit-prio").value;
+  save(); render();
+  document.getElementById("modal-bg").classList.remove("open");
+}
+function resetBoard(){
+  if(!confirm("Resetar para os dados originais?")) return;
+  localStorage.removeItem(KEY);
+  cards = [];
+  load();
+}
+
 load();
 </script>
 </body>
