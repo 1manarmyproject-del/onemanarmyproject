@@ -92,168 +92,50 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .tab-pane.active{display:block;}
 /* SETUP */
 .setup-wrap{padding:32px 40px;max-width:860px;}
-.setup-section{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;margin-bottom:16px;overflow:hidden;}
-.setup-section-hd{padding:14px 20px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
-.setup-section-hd:hover{color:var(--bone);}
-.setup-section-hd .chevron{font-size:10px;transition:transform .2s;}
-.setup-section-hd.open .chevron{transform:rotate(180deg);}
-.setup-section-body{padding:20px;display:none;}
-.setup-section-body.open{display:block;}
-.setup-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.setup-row.full{grid-template-columns:1fr;}
-.setup-field{display:flex;flex-direction:column;gap:6px;}
-.setup-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
-.setup-input{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;transition:border-color .15s;border-radius:2px;}
-.setup-input:focus{border-color:var(--agent);}
-.setup-select{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;border-radius:2px;cursor:pointer;}
-.setup-select:focus{border-color:var(--agent);}
-.setup-textarea{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:72px;border-radius:2px;line-height:1.6;}
-.setup-textarea:focus{border-color:var(--agent);}
-/* TOGGLES */
-.toggle-grid{display:flex;flex-wrap:wrap;gap:10px;}
-.toggle-item{display:flex;align-items:center;gap:8px;background:var(--graph);border:1px solid var(--steel);padding:8px 14px;border-radius:2px;cursor:pointer;transition:border-color .15s;}
-.toggle-item.on{border-color:var(--agent);}
-.toggle-item .tog-dot{width:8px;height:8px;border-radius:50%;background:var(--steel);transition:background .15s;}
-.toggle-item.on .tog-dot{background:var(--agent);}
-.toggle-item .tog-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);transition:color .15s;}
-.toggle-item.on .tog-label{color:var(--bone);}
-/* CANAL FIELDS */
-.canal-detail{margin-top:12px;padding:14px;background:var(--iron);border-left:2px solid var(--agent);display:none;}
+@media(max-width:600px){.setup-wrap{padding:20px 16px;}.tabs-nav{padding:0 16px;}.tab-btn{padding:12px 10px;font-size:8px;}}
+.setup-sec{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;margin-bottom:14px;overflow:hidden;}
+.setup-sec-hd{padding:13px 20px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.setup-sec-hd:hover{color:var(--bone);}
+.setup-sec-hd .chv{transition:transform .2s;}
+.setup-sec-hd.open .chv{transform:rotate(180deg);}
+.setup-sec-bd{padding:18px 20px;display:none;}
+.setup-sec-bd.open{display:block;}
+.srow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.srow.full{grid-template-columns:1fr;}
+@media(max-width:600px){.srow{grid-template-columns:1fr;}}
+.sfield{display:flex;flex-direction:column;gap:5px;}
+.slbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.sinput,.sselect,.stextarea{background:var(--graph);border:1px solid var(--steel);padding:8px 11px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;border-radius:2px;width:100%;}
+.sinput:focus,.sselect:focus,.stextarea:focus{border-color:var(--agent);}
+.stextarea{resize:vertical;min-height:68px;line-height:1.6;}
+.sselect{cursor:pointer;}
+.tog-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.tog{display:flex;align-items:center;gap:7px;background:var(--graph);border:1px solid var(--steel);padding:7px 12px;border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.tog.on{border-color:var(--agent);}
+.tog .td{width:7px;height:7px;border-radius:50%;background:var(--steel);transition:background .15s;flex-shrink:0;}
+.tog.on .td{background:var(--agent);}
+.tog .tl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);transition:color .15s;}
+.tog.on .tl{color:var(--bone);}
+.canal-detail{margin-top:10px;padding:12px 14px;background:var(--iron);border-left:2px solid var(--agent);display:none;}
 .canal-detail.open{display:block;}
-/* LISTA EDITAVEL */
-.editable-list{display:flex;flex-direction:column;gap:6px;}
-.editable-item{display:flex;align-items:center;gap:8px;}
-.editable-item input{flex:1;background:var(--graph);border:1px solid var(--steel);padding:7px 10px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;border-radius:2px;}
-.editable-item input:focus{border-color:var(--agent);}
-.editable-item .rm-btn{background:none;border:1px solid var(--steel);color:var(--ash);padding:4px 8px;font-size:10px;cursor:pointer;border-radius:2px;}
-.editable-item .rm-btn:hover{border-color:var(--red,#e24b4a);color:var(--red,#e24b4a);}
-.add-item-btn{background:none;border:1px dashed var(--steel);color:var(--ash);padding:7px 14px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:2px;margin-top:6px;transition:all .15s;}
-.add-item-btn:hover{border-color:var(--agent);color:var(--agent);}
-/* SLIDER TOM */
-.tom-slider{width:100%;accent-color:var(--agent);}
-.tom-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);margin-top:4px;}
-/* SAVE BTN */
-.setup-footer{padding:20px 40px;border-top:1px solid var(--iron);display:flex;align-items:center;gap:16px;}
-.setup-save-btn{background:var(--agent);border:none;color:var(--char);padding:10px 28px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;transition:opacity .2s;}
-.setup-save-btn:hover{opacity:.85;}
-.setup-saved-msg{font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1px;display:none;}
-@media(max-width:600px){.setup-wrap{padding:20px 16px;}.setup-row{grid-template-columns:1fr;}.tabs-nav{padding:0 16px;}.tab-btn{padding:12px 12px;font-size:8px;}}
+.elist{display:flex;flex-direction:column;gap:5px;margin-bottom:6px;}
+.eitem{display:flex;align-items:center;gap:7px;}
+.eitem input{flex:1;background:var(--graph);border:1px solid var(--steel);padding:6px 10px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;border-radius:2px;}
+.eitem input:focus{border-color:var(--agent);}
+.eitem .erb{background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-size:10px;cursor:pointer;border-radius:2px;}
+.eitem .erb:hover{border-color:#e24b4a;color:#e24b4a;}
+.eadd{background:none;border:1px dashed var(--steel);color:var(--ash);padding:6px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:2px;transition:all .15s;}
+.eadd:hover{border-color:var(--agent);color:var(--agent);}
+.tom-slider{width:100%;accent-color:var(--agent);margin-bottom:3px;}
+.tom-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);}
+.setup-footer{padding:18px 40px;border-top:1px solid var(--iron);display:flex;align-items:center;gap:14px;}
+@media(max-width:600px){.setup-footer{padding:16px;}}
+.ssave{background:var(--agent);border:none;color:var(--char);padding:9px 24px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.ssave:hover{opacity:.85;}
+.smsg{font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1px;display:none;}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
-// ABAS
-function switchTab(tab, btn) {
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('pane-' + tab).classList.add('active');
-  btn.classList.add('active');
-  if (tab === 'setup') initSetup();
-  if (tab === 'logs') document.getElementById('pane-logs').appendChild(document.getElementById('pane-overview').querySelector('.log-list') ? document.createElement('div') : document.createElement('div'));
-}
-
-// SEÇÕES COLAPSÁVEIS
-function toggleSection(hd) {
-  hd.classList.toggle('open');
-  hd.nextElementSibling.classList.toggle('open');
-}
-
-// CANAIS
-function toggleCanal(el, canal) {
-  el.classList.toggle('on');
-  var detail = document.getElementById('detail-' + canal);
-  if (detail) detail.classList.toggle('open', el.classList.contains('on'));
-}
-
-// LISTAS EDITÁVEIS
-function addItem(listId, value) {
-  var list = document.getElementById(listId);
-  var div = document.createElement('div');
-  div.className = 'editable-item';
-  div.innerHTML = '<input type="text" placeholder="Descreva a atividade..." value="' + (value||'') + '"><button class="rm-btn" onclick="this.parentElement.remove()">✕</button>';
-  list.appendChild(div);
-}
-
-// TOM
-var tomLabels = ['Formal', 'Semiformal', 'Informal'];
-function updateTom(el) {
-  document.getElementById('tom-val').textContent = tomLabels[el.value];
-}
-
-// SALVAR
-var SETUP_KEY = 'oma-setup-bia';
-function saveSetup() {
-  var data = {
-    nome: document.getElementById('s-nome').value,
-    funcao: document.getElementById('s-funcao').value,
-    descricao: document.getElementById('s-descricao').value,
-    status: document.getElementById('s-status').value,
-    modelo: document.getElementById('s-modelo').value,
-    canais: Array.from(document.querySelectorAll('#canais-toggle .toggle-item.on')).map(el => el.querySelector('.tog-label').textContent),
-    wa_numero: document.getElementById('c-wa-numero').value,
-    wa_instancia: document.getElementById('c-wa-instancia').value,
-    tg_bot: document.getElementById('c-tg-bot').value,
-    tg_chatid: document.getElementById('c-tg-chatid').value,
-    tom: document.getElementById('s-tom').value,
-    idioma: document.getElementById('s-idioma').value,
-    tamanho: document.getElementById('s-tamanho').value,
-    emoji: document.getElementById('tog-emoji').classList.contains('on'),
-    recorrentes: Array.from(document.querySelectorAll('#lista-recorrentes input')).map(i => i.value).filter(Boolean),
-    demanda: Array.from(document.querySelectorAll('#lista-demanda input')).map(i => i.value).filter(Boolean),
-    nunca: Array.from(document.querySelectorAll('#lista-nunca input')).map(i => i.value).filter(Boolean),
-    triggers: Array.from(document.querySelectorAll('#lista-triggers input')).map(i => i.value).filter(Boolean),
-    esc_nome: document.getElementById('s-esc-nome').value,
-    esc_contato: document.getElementById('s-esc-contato').value,
-    esc_canal: document.getElementById('s-esc-canal').value,
-    esc_prazo: document.getElementById('s-esc-prazo').value,
-    knowledge: document.getElementById('s-knowledge').value,
-  };
-  try { localStorage.setItem(SETUP_KEY, JSON.stringify(data)); } catch(e) {}
-  var msg = document.getElementById('saved-msg');
-  msg.style.display = 'block';
-  setTimeout(function() { msg.style.display = 'none'; }, 2500);
-}
-
-// CARREGAR SETUP SALVO
-function initSetup() {
-  try {
-    var saved = localStorage.getItem(SETUP_KEY);
-    if (!saved) return seedSetup();
-    var d = JSON.parse(saved);
-    if (d.nome) document.getElementById('s-nome').value = d.nome;
-    if (d.funcao) document.getElementById('s-funcao').value = d.funcao;
-    if (d.descricao) document.getElementById('s-descricao').value = d.descricao;
-    if (d.status) document.getElementById('s-status').value = d.status;
-    if (d.modelo) document.getElementById('s-modelo').value = d.modelo;
-    if (d.wa_numero) document.getElementById('c-wa-numero').value = d.wa_numero;
-    if (d.wa_instancia) document.getElementById('c-wa-instancia').value = d.wa_instancia;
-    if (d.tg_bot) document.getElementById('c-tg-bot').value = d.tg_bot;
-    if (d.tg_chatid) document.getElementById('c-tg-chatid').value = d.tg_chatid;
-    if (d.tom) { document.getElementById('s-tom').value = d.tom; updateTom(document.getElementById('s-tom')); }
-    if (d.idioma) document.getElementById('s-idioma').value = d.idioma;
-    if (d.tamanho) document.getElementById('s-tamanho').value = d.tamanho;
-    if (d.recorrentes) d.recorrentes.forEach(v => addItem('lista-recorrentes', v));
-    if (d.demanda) d.demanda.forEach(v => addItem('lista-demanda', v));
-    if (d.nunca) d.nunca.forEach(v => addItem('lista-nunca', v));
-    if (d.triggers) d.triggers.forEach(v => addItem('lista-triggers', v));
-    if (d.esc_nome) document.getElementById('s-esc-nome').value = d.esc_nome;
-    if (d.esc_contato) document.getElementById('s-esc-contato').value = d.esc_contato;
-    if (d.esc_canal) document.getElementById('s-esc-canal').value = d.esc_canal;
-    if (d.esc_prazo) document.getElementById('s-esc-prazo').value = d.esc_prazo;
-    if (d.knowledge) document.getElementById('s-knowledge').value = d.knowledge;
-  } catch(e) { seedSetup(); }
-}
-
-// SEED COM DADOS PADRÃO DO AGENTE
-function seedSetup() {
-  document.getElementById('s-nome').value = 'Bia';
-  document.getElementById('s-descricao').value = '';
-  addItem('lista-recorrentes', '');
-  addItem('lista-demanda', '');
-  addItem('lista-nunca', '');
-  addItem('lista-triggers', '');
-}
-
-</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -304,13 +186,12 @@ function seedSetup() {
 
   <!-- ABAS NAV -->
   <div class="tabs-nav">
-    <button class="tab-btn active" onclick="switchTab('overview',this)">OVERVIEW</button>
-    <button class="tab-btn" onclick="switchTab('setup',this)">SETUP</button>
-    <button class="tab-btn" onclick="switchTab('logs',this)">LOGS</button>
+    <button class="tab-btn active" onclick="sTab('overview',this)">OVERVIEW</button>
+    <button class="tab-btn" onclick="sTab('setup',this)">SETUP</button>
   </div>
-
-  <!-- PANE: OVERVIEW -->
-  <div class="tab-pane active" id="pane-overview">
+  <!-- PANE OVERVIEW (wraps existing content) -->
+  <div class="tab-pane active" id="pane-overview-wrap">
+  <!-- EXISTING_CONTENT_START -->
   <div class="content">
 
     <!-- STATS -->
@@ -387,293 +268,168 @@ Função: Comercial — OMA Project</div>
       </div>
     </div>
 
-  </div>
-</div>
+  
+  </div><!-- /close-pane-overview-wrap -->
 
-<div class="toast" id="ts"></div>
+  <!-- EXISTING_CONTENT_END -->
+  </div><!-- /pane-overview-wrap -->
 
-<script>
-const PWD='omaproject2026';
-function dL(){if(document.getElementById('pw').value===PWD){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>sessionStorage.setItem(k,'1'));document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}}
-function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>sessionStorage.removeItem(k));location.reload();}
-function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
-setInterval(tick,1000);tick();
-function toast(m,t){const e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(()=>e.className='toast',3000);}
-async function sendInst(){
-  const txt=document.getElementById('instTa').value.trim();
-  if(!txt){toast('Digite uma instrução');return;}
-  const btn=document.getElementById('instBtn');
-  btn.disabled=true;btn.textContent='ENVIANDO...';
-  const msg='[INSTRUÇÃO DIRETA — BIA]\nAgente: Bia · WhatsApp Business\nFunção: Comercial — OMA Project\n\nInstrução: '+txt;
-  try{
-    const res=await fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'8392126681',text:msg})});
-    const r=await res.json();
-    if(r.ok){toast('✅ Enviado ao George!','ok');document.getElementById('instTa').value='';}
-    else{toast('❌ Erro ao enviar','err');}
-  }catch(e){toast('❌ Erro de conexão','err');}
-  btn.disabled=false;btn.textContent='ENVIAR AO GEORGE';
-}
-const isAuth=()=>['oma_monitor','oma_hub','oma_auth','ops'].some(k=>sessionStorage.getItem(k)==='1');
-if(isAuth()){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}
-</script>
-</body>
-</html
-  </div><!-- /content -->
+  <!-- PANE SETUP -->
+  <div class="tab-pane" id="pane-setup-wrap">
+  <div class="setup-wrap">
 
-  </div><!-- /pane-overview -->
-
-  <!-- PANE: SETUP -->
-  <div class="tab-pane" id="pane-setup">
-    <div class="setup-wrap">
-
-      <!-- IDENTIDADE -->
-      <div class="setup-section">
-        <div class="setup-section-hd open" onclick="toggleSection(this)">
-          <span>Identidade e Função</span><span class="chevron">▾</span>
+    <div class="setup-sec">
+      <div class="setup-sec-hd open" onclick="tSec(this)"><span>Identidade e Funcao</span><span class="chv">▾</span></div>
+      <div class="setup-sec-bd open">
+        <div class="srow">
+          <div class="sfield"><span class="slbl">Nome</span><input class="sinput" id="s-nome" type="text" value="Bia"></div>
+          <div class="sfield"><span class="slbl">Funcao</span>
+            <select class="sselect" id="s-funcao">
+              <option value="assistente">Assistente Pessoal</option>
+              <option value="comercial">Comercial / Vendas</option>
+              <option value="operacional">Operacional</option>
+              <option value="marketing">Marketing / Conteudo</option>
+              <option value="monitoramento">Monitoramento</option>
+              <option value="onboarding">Onboarding</option>
+              <option value="financeiro">Financeiro / Cobranca</option>
+            </select>
+          </div>
         </div>
-        <div class="setup-section-body open">
-          <div class="setup-row">
-            <div class="setup-field">
-              <span class="setup-label">Nome do Agente</span>
-              <input class="setup-input" id="s-nome" type="text" value="Bia" placeholder="Ex: Amanda">
-            </div>
-            <div class="setup-field">
-              <span class="setup-label">Função</span>
-              <select class="setup-select" id="s-funcao">
-                <option value="assistente">Assistente Pessoal</option>
-                <option value="comercial">Comercial / Vendas</option>
-                <option value="operacional">Operacional</option>
-                <option value="marketing">Marketing / Conteúdo</option>
-                <option value="monitoramento">Monitoramento / Relatórios</option>
-                <option value="onboarding">Onboarding</option>
-                <option value="financeiro">Financeiro / Cobrança</option>
-              </select>
-            </div>
+        <div class="srow full">
+          <div class="sfield"><span class="slbl">Descricao do Papel</span><textarea class="stextarea" id="s-desc" placeholder="O que esse agente faz?"></textarea></div>
+        </div>
+        <div class="srow">
+          <div class="sfield"><span class="slbl">Status</span>
+            <select class="sselect" id="s-status">
+              <option value="ativo">Ativo</option>
+              <option value="pausado">Pausado</option>
+              <option value="config">Em configuracao</option>
+            </select>
           </div>
-          <div class="setup-row full">
-            <div class="setup-field">
-              <span class="setup-label">Descrição do Papel</span>
-              <textarea class="setup-textarea" id="s-descricao" placeholder="O que esse agente faz? Qual é a responsabilidade principal?"></textarea>
-            </div>
-          </div>
-          <div class="setup-row">
-            <div class="setup-field">
-              <span class="setup-label">Status</span>
-              <select class="setup-select" id="s-status">
-                <option value="ativo">Ativo</option>
-                <option value="pausado">Pausado</option>
-                <option value="configurando">Em configuração</option>
-              </select>
-            </div>
-            <div class="setup-field">
-              <span class="setup-label">Modelo de IA</span>
-              <select class="setup-select" id="s-modelo">
-                <option value="haiku">Claude Haiku (rápido · econômico)</option>
-                <option value="sonnet">Claude Sonnet (balanceado)</option>
-                <option value="opus">Claude Opus (máxima qualidade)</option>
-              </select>
-            </div>
+          <div class="sfield"><span class="slbl">Modelo de IA</span>
+            <select class="sselect" id="s-modelo">
+              <option value="haiku">Claude Haiku (rapido)</option>
+              <option value="sonnet">Claude Sonnet (balanceado)</option>
+              <option value="opus">Claude Opus (qualidade maxima)</option>
+            </select>
           </div>
         </div>
       </div>
-
-      <!-- CANAIS -->
-      <div class="setup-section">
-        <div class="setup-section-hd" onclick="toggleSection(this)">
-          <span>Canais de Comunicação</span><span class="chevron">▾</span>
-        </div>
-        <div class="setup-section-body">
-          <div class="setup-label" style="margin-bottom:10px">Canais ativos</div>
-          <div class="toggle-grid" id="canais-toggle">
-            <div class="toggle-item on" onclick="toggleCanal(this,'whatsapp')"><span class="tog-dot"></span><span class="tog-label">WhatsApp</span></div>
-            <div class="toggle-item on" onclick="toggleCanal(this,'telegram')"><span class="tog-dot"></span><span class="tog-label">Telegram</span></div>
-            <div class="toggle-item" onclick="toggleCanal(this,'email')"><span class="tog-dot"></span><span class="tog-label">E-mail</span></div>
-            <div class="toggle-item" onclick="toggleCanal(this,'webchat')"><span class="tog-dot"></span><span class="tog-label">Webchat</span></div>
-            <div class="toggle-item" onclick="toggleCanal(this,'instagram')"><span class="tog-dot"></span><span class="tog-label">Instagram</span></div>
-          </div>
-          <div class="canal-detail open" id="detail-whatsapp">
-            <div class="setup-row">
-              <div class="setup-field">
-                <span class="setup-label">Número WhatsApp</span>
-                <input class="setup-input" id="c-wa-numero" type="text" placeholder="+55 11 99999-9999">
-              </div>
-              <div class="setup-field">
-                <span class="setup-label">Instância Evolution</span>
-                <input class="setup-input" id="c-wa-instancia" type="text" placeholder="Ex: amanda-wa">
-              </div>
-            </div>
-          </div>
-          <div class="canal-detail open" id="detail-telegram">
-            <div class="setup-row">
-              <div class="setup-field">
-                <span class="setup-label">Bot Username</span>
-                <input class="setup-input" id="c-tg-bot" type="text" placeholder="@Amanda_Bot">
-              </div>
-              <div class="setup-field">
-                <span class="setup-label">Chat ID padrão</span>
-                <input class="setup-input" id="c-tg-chatid" type="text" placeholder="Ex: 8392126681">
-              </div>
-            </div>
-          </div>
-          <div class="canal-detail" id="detail-email">
-            <div class="setup-field">
-              <span class="setup-label">Endereço de E-mail</span>
-              <input class="setup-input" id="c-email" type="email" placeholder="agente@seudominio.com">
-            </div>
-          </div>
-          <div class="canal-detail" id="detail-webchat">
-            <div class="setup-field">
-              <span class="setup-label">URL do Webchat</span>
-              <input class="setup-input" id="c-webchat" type="text" placeholder="https://seu-dominio.com/chat">
-            </div>
-          </div>
-          <div class="canal-detail" id="detail-instagram">
-            <div class="setup-field">
-              <span class="setup-label">Instagram Username</span>
-              <input class="setup-input" id="c-ig" type="text" placeholder="@seu_perfil">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ATIVIDADES -->
-      <div class="setup-section">
-        <div class="setup-section-hd" onclick="toggleSection(this)">
-          <span>O que o Agente Faz</span><span class="chevron">▾</span>
-        </div>
-        <div class="setup-section-body">
-          <div class="setup-field" style="margin-bottom:16px">
-            <span class="setup-label">Atividades Recorrentes</span>
-            <div class="editable-list" id="lista-recorrentes"></div>
-            <button class="add-item-btn" onclick="addItem('lista-recorrentes')">+ adicionar atividade</button>
-          </div>
-          <div class="setup-field" style="margin-bottom:16px">
-            <span class="setup-label">Atividades Sob Demanda</span>
-            <div class="editable-list" id="lista-demanda"></div>
-            <button class="add-item-btn" onclick="addItem('lista-demanda')">+ adicionar atividade</button>
-          </div>
-          <div class="setup-field">
-            <span class="setup-label">O que o Agente NUNCA Faz (limites)</span>
-            <div class="editable-list" id="lista-nunca"></div>
-            <button class="add-item-btn" onclick="addItem('lista-nunca')">+ adicionar limite</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMUNICAÇÃO -->
-      <div class="setup-section">
-        <div class="setup-section-hd" onclick="toggleSection(this)">
-          <span>Tom e Comunicação</span><span class="chevron">▾</span>
-        </div>
-        <div class="setup-section-body">
-          <div class="setup-row">
-            <div class="setup-field">
-              <span class="setup-label">Tom de voz</span>
-              <input type="range" class="tom-slider" id="s-tom" min="0" max="2" value="1" step="1" oninput="updateTom(this)">
-              <div class="tom-labels"><span>Formal</span><span id="tom-val" style="color:var(--agent)">Semiformal</span><span>Informal</span></div>
-            </div>
-            <div class="setup-field">
-              <span class="setup-label">Idioma Principal</span>
-              <select class="setup-select" id="s-idioma">
-                <option value="ptbr">Português BR</option>
-                <option value="en">English</option>
-                <option value="es">Español</option>
-              </select>
-            </div>
-          </div>
-          <div class="setup-row">
-            <div class="setup-field">
-              <span class="setup-label">Tamanho das respostas</span>
-              <select class="setup-select" id="s-tamanho">
-                <option value="curto">Curto e direto</option>
-                <option value="medio" selected>Médio</option>
-                <option value="detalhado">Detalhado</option>
-              </select>
-            </div>
-            <div class="setup-field">
-              <span class="setup-label">Recursos de comunicação</span>
-              <div class="toggle-grid" style="margin-top:6px">
-                <div class="toggle-item on" onclick="this.classList.toggle('on')" id="tog-emoji"><span class="tog-dot"></span><span class="tog-label">Emoji</span></div>
-                <div class="toggle-item" onclick="this.classList.toggle('on')" id="tog-bold"><span class="tog-dot"></span><span class="tog-label">Negrito</span></div>
-                <div class="toggle-item" onclick="this.classList.toggle('on')" id="tog-listas"><span class="tog-dot"></span><span class="tog-label">Listas</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ESCALAÇÃO -->
-      <div class="setup-section">
-        <div class="setup-section-hd" onclick="toggleSection(this)">
-          <span>Escalação e Limites</span><span class="chevron">▾</span>
-        </div>
-        <div class="setup-section-body">
-          <div class="setup-row full" style="margin-bottom:16px">
-            <div class="setup-field">
-              <span class="setup-label">Quando escalar (triggers)</span>
-              <div class="editable-list" id="lista-triggers"></div>
-              <button class="add-item-btn" onclick="addItem('lista-triggers')">+ adicionar trigger</button>
-            </div>
-          </div>
-          <div class="setup-row">
-            <div class="setup-field">
-              <span class="setup-label">Escalar para (nome)</span>
-              <input class="setup-input" id="s-esc-nome" type="text" placeholder="Ex: Fabio">
-            </div>
-            <div class="setup-field">
-              <span class="setup-label">Contato de escalação</span>
-              <input class="setup-input" id="s-esc-contato" type="text" placeholder="Telegram ID ou telefone">
-            </div>
-          </div>
-          <div class="setup-row">
-            <div class="setup-field">
-              <span class="setup-label">Canal de escalação</span>
-              <select class="setup-select" id="s-esc-canal">
-                <option value="telegram">Telegram</option>
-                <option value="whatsapp">WhatsApp</option>
-                <option value="email">E-mail</option>
-              </select>
-            </div>
-            <div class="setup-field">
-              <span class="setup-label">Prazo máximo sem escalação</span>
-              <select class="setup-select" id="s-esc-prazo">
-                <option value="imediato">Imediato</option>
-                <option value="1h">1 hora</option>
-                <option value="4h">4 horas</option>
-                <option value="24h">24 horas</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MEMÓRIA -->
-      <div class="setup-section">
-        <div class="setup-section-hd" onclick="toggleSection(this)">
-          <span>Memória e Conhecimento</span><span class="chevron">▾</span>
-        </div>
-        <div class="setup-section-body">
-          <div class="toggle-grid" style="margin-bottom:16px">
-            <div class="toggle-item on" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Memória semântica</span></div>
-            <div class="toggle-item" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Lê arquivos</span></div>
-            <div class="toggle-item on" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Base de conhecimento</span></div>
-            <div class="toggle-item" onclick="this.classList.toggle('on')"><span class="tog-dot"></span><span class="tog-label">Histórico de conversas</span></div>
-          </div>
-          <div class="setup-field">
-            <span class="setup-label">Caminho da base de conhecimento</span>
-            <input class="setup-input" id="s-knowledge" type="text" placeholder="Ex: store/knowledge/amanda/knowledge.json">
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /setup-wrap -->
-
-    <div class="setup-footer">
-      <button class="setup-save-btn" onclick="saveSetup()">SALVAR CONFIGURAÇÃO</button>
-      <span class="setup-saved-msg" id="saved-msg">✓ Salvo com sucesso</span>
     </div>
-  </div><!-- /pane-setup -->
 
-  <!-- PANE: LOGS -->
-  <div class="tab-pane" id="pane-logs">
->
+    <div class="setup-sec">
+      <div class="setup-sec-hd" onclick="tSec(this)"><span>Canais de Comunicacao</span><span class="chv">▾</span></div>
+      <div class="setup-sec-bd">
+        <div class="slbl" style="margin-bottom:8px">Canais ativos</div>
+        <div class="tog-grid">
+          <div class="tog on" onclick="tCanal(this,'wa')"><span class="td"></span><span class="tl">WhatsApp</span></div>
+          <div class="tog on" onclick="tCanal(this,'tg')"><span class="td"></span><span class="tl">Telegram</span></div>
+          <div class="tog" onclick="tCanal(this,'em')"><span class="td"></span><span class="tl">E-mail</span></div>
+          <div class="tog" onclick="tCanal(this,'wc')"><span class="td"></span><span class="tl">Webchat</span></div>
+          <div class="tog" onclick="tCanal(this,'ig')"><span class="td"></span><span class="tl">Instagram</span></div>
+        </div>
+        <div class="canal-detail open" id="cd-wa">
+          <div class="srow">
+            <div class="sfield"><span class="slbl">Numero WhatsApp</span><input class="sinput" id="c-wa-num" type="text" placeholder="+55 11 99999-9999"></div>
+            <div class="sfield"><span class="slbl">Instancia Evolution</span><input class="sinput" id="c-wa-inst" type="text" placeholder="nome-instancia"></div>
+          </div>
+        </div>
+        <div class="canal-detail open" id="cd-tg">
+          <div class="srow">
+            <div class="sfield"><span class="slbl">Bot Username</span><input class="sinput" id="c-tg-bot" type="text" placeholder="@Nome_Bot"></div>
+            <div class="sfield"><span class="slbl">Chat ID padrao</span><input class="sinput" id="c-tg-id" type="text" placeholder="Ex: 8392126681"></div>
+          </div>
+        </div>
+        <div class="canal-detail" id="cd-em">
+          <div class="sfield"><span class="slbl">E-mail</span><input class="sinput" id="c-email" type="email" placeholder="agente@dominio.com"></div>
+        </div>
+        <div class="canal-detail" id="cd-wc">
+          <div class="sfield"><span class="slbl">URL Webchat</span><input class="sinput" id="c-wc" type="text" placeholder="https://seu-dominio.com/chat"></div>
+        </div>
+        <div class="canal-detail" id="cd-ig">
+          <div class="sfield"><span class="slbl">Instagram</span><input class="sinput" id="c-ig" type="text" placeholder="@perfil"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-sec">
+      <div class="setup-sec-hd" onclick="tSec(this)"><span>O que o Agente Faz</span><span class="chv">▾</span></div>
+      <div class="setup-sec-bd">
+        <div class="sfield" style="margin-bottom:14px"><span class="slbl">Atividades Recorrentes</span><div class="elist" id="el-rec"></div><button class="eadd" onclick="eAdd('el-rec')">+ adicionar</button></div>
+        <div class="sfield" style="margin-bottom:14px"><span class="slbl">Atividades Sob Demanda</span><div class="elist" id="el-dem"></div><button class="eadd" onclick="eAdd('el-dem')">+ adicionar</button></div>
+        <div class="sfield"><span class="slbl">O que NUNCA faz (limites)</span><div class="elist" id="el-nao"></div><button class="eadd" onclick="eAdd('el-nao')">+ adicionar limite</button></div>
+      </div>
+    </div>
+
+    <div class="setup-sec">
+      <div class="setup-sec-hd" onclick="tSec(this)"><span>Tom e Comunicacao</span><span class="chv">▾</span></div>
+      <div class="setup-sec-bd">
+        <div class="srow">
+          <div class="sfield">
+            <span class="slbl">Tom de Voz</span>
+            <input type="range" class="tom-slider" id="s-tom" min="0" max="2" value="1" step="1" oninput="uTom(this)">
+            <div class="tom-labels"><span>Formal</span><span id="tom-v" style="color:var(--agent)">Semiformal</span><span>Informal</span></div>
+          </div>
+          <div class="sfield"><span class="slbl">Tamanho das Respostas</span>
+            <select class="sselect" id="s-tam">
+              <option value="curto">Curto e direto</option>
+              <option value="medio" selected>Medio</option>
+              <option value="longo">Detalhado</option>
+            </select>
+          </div>
+        </div>
+        <div class="sfield"><span class="slbl" style="margin-bottom:8px">Recursos</span>
+          <div class="tog-grid">
+            <div class="tog on" id="tog-emoji" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Emoji</span></div>
+            <div class="tog" id="tog-bold" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Negrito</span></div>
+            <div class="tog" id="tog-lista" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Listas</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-sec">
+      <div class="setup-sec-hd" onclick="tSec(this)"><span>Escalacao</span><span class="chv">▾</span></div>
+      <div class="setup-sec-bd">
+        <div class="sfield" style="margin-bottom:14px"><span class="slbl">Quando Escalar</span><div class="elist" id="el-trig"></div><button class="eadd" onclick="eAdd('el-trig')">+ adicionar trigger</button></div>
+        <div class="srow">
+          <div class="sfield"><span class="slbl">Escalar para</span><input class="sinput" id="s-esc-nome" type="text" placeholder="Nome do responsavel"></div>
+          <div class="sfield"><span class="slbl">Contato</span><input class="sinput" id="s-esc-ct" type="text" placeholder="Telegram ID ou telefone"></div>
+        </div>
+        <div class="srow">
+          <div class="sfield"><span class="slbl">Canal de Escalacao</span>
+            <select class="sselect" id="s-esc-canal">
+              <option>Telegram</option><option>WhatsApp</option><option>E-mail</option>
+            </select>
+          </div>
+          <div class="sfield"><span class="slbl">Prazo Maximo</span>
+            <select class="sselect" id="s-esc-prazo">
+              <option>Imediato</option><option>1 hora</option><option>4 horas</option><option>24 horas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-sec">
+      <div class="setup-sec-hd" onclick="tSec(this)"><span>Memoria e Conhecimento</span><span class="chv">▾</span></div>
+      <div class="setup-sec-bd">
+        <div class="tog-grid" style="margin-bottom:14px">
+          <div class="tog on" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Memoria semantica</span></div>
+          <div class="tog" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Le arquivos</span></div>
+          <div class="tog on" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Base de conhecimento</span></div>
+          <div class="tog" onclick="this.classList.toggle('on')"><span class="td"></span><span class="tl">Historico de conversas</span></div>
+        </div>
+        <div class="sfield"><span class="slbl">Caminho da Base de Conhecimento</span><input class="sinput" id="s-know" type="text" placeholder="store/knowledge/bia/knowledge.json"></div>
+      </div>
+    </div>
+
+  </div><!-- /setup-wrap -->
+  <div class="setup-footer">
+    <button class="ssave" onclick="doSave()">SALVAR</button>
+    <span class="smsg" id="smsg">Salvo</span>
+  </div>
+  </div><!-- /pane-setup-wrap -->
+
+</div><!-- /app -->
+</div>
