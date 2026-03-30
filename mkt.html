@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MKT Approval — OMA Project</title>
+<script>
+  // Se acessado diretamente, redirecionar para o board completo
+  // Se dentro do hub (iframe), o board está embarcado
+  if (window.self === window.top) {
+    // acesso direto — mostrar board completo
+    document.documentElement.innerHTML = '<script>window.location="mkt-board.html"<\/script>';
+  }
+</script>
+<style>body{margin:0;padding:0;}</style>
+</head>
+<body>
+<iframe src="/mkt-board.html" style="width:100%;height:100vh;border:none;display:block;"></iframe>
+</body>
+</html>
