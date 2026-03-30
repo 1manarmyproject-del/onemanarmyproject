@@ -71,6 +71,10 @@
     {
       "source": "/preview",
       "destination": "/index-v2.html"
+    },
+    {
+      "source": "/mkt",
+      "destination": "/mkt-board.html"
     }
   ],
   "redirects": [
