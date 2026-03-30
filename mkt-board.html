@@ -199,16 +199,17 @@ function mkCard(c){
     +'<div class="ltx">'+leg+'</div>'
     +'</div>'
     +'<div style="font-size:9px;font-weight:600;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">Arte</div>'
+    +'<button class="ap-post'+(sa==='approved'&&sl==='approved'?' active':'')+'" onclick="approvePost(\''+c.id+'\')">✓ Aprovar post completo</button>'
     +'<div class="ca">'
-    +'<button class="ab ap'+(sa==='approved'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'a\',\'approved\')">✓ OK</button>'
-    +'<button class="ab fx'+(sa==='fix'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'a\',\'fix\')">⚑ Fix</button>'
-    +'<button class="ab re'+(sa==='rejected'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'a\',\'rejected\')">✗ Não</button>'
+    +'<button class="ab ap'+(sa==='approved'?' active':'')+'" data-id="'+c.id+'" data-reg="a" data-st="approved" onclick="setSt(\''+c.id+'\',\'a\',\'approved\')">✓ OK</button>'
+    +'<button class="ab fx'+(sa==='fix'?' active':'')+'" data-id="'+c.id+'" data-reg="a" data-st="fix" onclick="setSt(\''+c.id+'\',\'a\',\'fix\')">⚑ Fix</button>'
+    +'<button class="ab re'+(sa==='rejected'?' active':'')+'" data-id="'+c.id+'" data-reg="a" data-st="rejected" onclick="setSt(\''+c.id+'\',\'a\',\'rejected\')">✗ Não</button>'
     +'</div>'
     +'<div style="font-size:9px;font-weight:600;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin:5px 0 3px;">Legenda</div>'
     +'<div class="ca" style="margin-bottom:7px;">'
-    +'<button class="ab ap'+(sl==='approved'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'l\',\'approved\')">✓ OK</button>'
-    +'<button class="ab fx'+(sl==='fix'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'l\',\'fix\')">⚑ Fix</button>'
-    +'<button class="ab re'+(sl==='rejected'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'l\',\'rejected\')">✗ Não</button>'
+    +'<button class="ab ap'+(sl==='approved'?' active':'')+'" data-id="'+c.id+'" data-reg="l" data-st="approved" onclick="setSt(\''+c.id+'\',\'l\',\'approved\')">✓ OK</button>'
+    +'<button class="ab fx'+(sl==='fix'?' active':'')+'" data-id="'+c.id+'" data-reg="l" data-st="fix" onclick="setSt(\''+c.id+'\',\'l\',\'fix\')">⚑ Fix</button>'
+    +'<button class="ab re'+(sl==='rejected'?' active':'')+'" data-id="'+c.id+'" data-reg="l" data-st="rejected" onclick="setSt(\''+c.id+'\',\'l\',\'rejected\')">✗ Não</button>'
     +'</div>'
     +'<div class="cw">'
     +'<div class="cf"><span class="clb">Arte</span><textarea class="ci2" onchange="setCom(\''+c.id+'\',\'a\',this.value)">'+ca+'</textarea></div>'
@@ -235,6 +236,44 @@ function setSt(id,type,st){
   el.querySelectorAll('.ab').forEach(function(b){
     b.classList.remove('active');
     if((b.classList.contains('ap')&&local[id].status==='approved')||(b.classList.contains('re')&&local[id].status==='rejected')||(b.classList.contains('fx')&&local[id].status==='fix'))b.classList.add('active');
+  });
+}
+
+function approvePost(id){
+  if(!local[id]) local[id]={status:'pending',sa:'pending',sl:'pending',ca:'',cl:''};
+  var already=local[id].sa==='approved'&&local[id].sl==='approved';
+  local[id].sa=already?'pending':'approved';
+  local[id].sl=already?'pending':'approved';
+  local[id].status=calcStatus(local[id].sa,local[id].sl);
+  pending.add(id);
+  updateCard(id);
+  stats();prog();
+}
+
+function calcStatus(sa,sl){
+  if(sa==='approved'&&sl==='approved') return 'approved';
+  if(sa==='rejected'||sl==='rejected') return 'rejected';
+  if(sa==='fix'||sl==='fix') return 'fix';
+  return 'pending';
+}
+
+function updateCard(id){
+  var el=document.getElementById('c-'+id);
+  if(!el) return;
+  var L=local[id];
+  var scm={approved:'sa',rejected:'sr',fix:'sf',pending:''};
+  var bm={approved:'✓',rejected:'✗',fix:'⚑',pending:''};
+  el.className='card '+(scm[L.status]||'');
+  var strip=el.querySelector('.cs');
+  if(strip) strip.style.background={approved:'var(--gr)',rejected:'var(--re)',fix:'var(--ye)',pending:'var(--s2)'}[L.status];
+  var badge=el.querySelector('.csb');
+  if(badge) badge.textContent=bm[L.status];
+  var apBtn=el.querySelector('.ap-post');
+  if(apBtn) apBtn.classList.toggle('active',L.sa==='approved'&&L.sl==='approved');
+  el.querySelectorAll('.ab[data-reg]').forEach(function(b){
+    var breg=b.dataset.reg, bst=b.dataset.st;
+    var cur=breg==='a'?L.sa:L.sl;
+    b.classList.toggle('active',bst===cur);
   });
 }
 
