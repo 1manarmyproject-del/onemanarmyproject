@@ -97,7 +97,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   <div class="logo">ONE MAN <span>ARMY</span> - PMO</div>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <span><span class="dot"></span><span style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:1px">LANCAMENTO 01/04/2026</span></span>
-    <button class="btn" onclick="resetBoard()">RESET</button>
+    <button class="btn" onclick="syncCards()">SYNC</button> <button class="btn" onclick="resetBoard()">RESET</button>
   </div>
 </header>
 <div class="stats">
@@ -174,6 +174,23 @@ var RLABELS = {fabio:"Fabio",george:"George",flavia:"Flavia",bia:"Bia",tiago:"Ti
 var PICONS = {alta:"! ",media:"~ ",baixa:"- "};
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cards));}catch(e){}}
+
+
+function syncCards(){
+  fetch("/pmo-data.json?v="+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(fresh){
+      var existingIds = {};
+      cards.forEach(function(c){ existingIds[c.id] = true; });
+      var added = 0;
+      fresh.forEach(function(fc){
+        if(!existingIds[fc.id]){ cards.push(fc); added++; }
+      });
+      save(); render();
+      alert("Sync OK — " + added + " card(s) novo(s) adicionado(s).");
+    })
+    .catch(function(e){ alert("Erro no sync: " + e.message); });
+}
 
 function load(){
   try{
