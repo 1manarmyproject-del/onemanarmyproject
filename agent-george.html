@@ -137,10 +137,127 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-OMA2026PROJ');
+
+const PWD='omaproject2026';
+function dL(){
+  if(document.getElementById('pw').value===PWD){
+    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+  }else{
+    document.getElementById('le').style.display='block';
+    document.getElementById('pw').value='';
+  }
+}
+function lo(){
+  ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});
+  location.reload();
+}
+function tick(){
+  var el=document.getElementById('ck');
+  if(el) el.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+setInterval(tick,1000);tick();
+function toast(m,t){
+  var e=document.getElementById('ts');
+  if(!e) return;
+  e.textContent=m;e.className='toast show'+(t?' '+t:'');
+  setTimeout(function(){e.className='toast';},3000);
+}
+async function sendInst(){
+  var txt=document.getElementById('instTa').value.trim();
+  if(!txt){toast('Digite uma instrucao');return;}
+  var btn=document.getElementById('instBtn');
+  if(btn){btn.disabled=true;btn.textContent='ENVIANDO...';}
+  var msg='[INSTRUCAO DIRETA - George]\nAgente: George · Telegram\nFuncao: Orquestrador\n\nInstrucao: '+txt;
+  try{
+    var res=await fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:'8392126681',text:msg})
+    });
+    var r=await res.json();
+    if(r.ok){toast('Enviado ao George!','ok');document.getElementById('instTa').value='';}
+    else{toast('Erro ao enviar','err');}
+  }catch(e){toast('Erro de conexao','err');}
+  if(btn){btn.disabled=false;btn.textContent='ENVIAR AO GEORGE';}
+}
+// ABAS
+function sTab(t,btn){
+  document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  var pane=document.getElementById('pane-'+t+'-wrap');
+  if(pane) pane.classList.add('active');
+  btn.classList.add('active');
+  if(t==='setup') loadSetup();
+}
+function tSec(hd){
+  hd.classList.toggle('open');
+  hd.nextElementSibling.classList.toggle('open');
+}
+function tCanal(el,id){
+  el.classList.toggle('on');
+  var d=document.getElementById('cd-'+id);
+  if(d) d.classList.toggle('open',el.classList.contains('on'));
+}
+function eAdd(listId,val){
+  var l=document.getElementById(listId);
+  if(!l) return;
+  var d=document.createElement('div');
+  d.className='eitem';
+  d.innerHTML='<input type="text" placeholder="Descreva..." value="'+(val||'')+'"><button class="erb" onclick="this.parentElement.remove()">x</button>';
+  l.appendChild(d);
+}
+function uTom(el){
+  var labels=['Formal','Semiformal','Informal'];
+  var v=document.getElementById('tom-v');
+  if(v) v.textContent=labels[el.value];
+}
+var SK='oma-setup-george';
+function doSave(){
+  var d={
+    nome:(document.getElementById('s-nome')||{}).value,
+    funcao:(document.getElementById('s-funcao')||{}).value,
+    desc:(document.getElementById('s-desc')||{}).value,
+    status:(document.getElementById('s-status')||{}).value,
+    modelo:(document.getElementById('s-modelo')||{}).value,
+    wa_num:(document.getElementById('c-wa-num')||{}).value,
+    wa_inst:(document.getElementById('c-wa-inst')||{}).value,
+    tg_bot:(document.getElementById('c-tg-bot')||{}).value,
+    tg_id:(document.getElementById('c-tg-id')||{}).value,
+    tom:(document.getElementById('s-tom')||{}).value,
+    tam:(document.getElementById('s-tam')||{}).value,
+    know:(document.getElementById('s-know')||{}).value,
+    esc_nome:(document.getElementById('s-esc-nome')||{}).value,
+    esc_ct:(document.getElementById('s-esc-ct')||{}).value,
+    rec:Array.from(document.querySelectorAll('#el-rec input')).map(function(i){return i.value;}).filter(Boolean),
+    dem:Array.from(document.querySelectorAll('#el-dem input')).map(function(i){return i.value;}).filter(Boolean),
+    nao:Array.from(document.querySelectorAll('#el-nao input')).map(function(i){return i.value;}).filter(Boolean),
+    trig:Array.from(document.querySelectorAll('#el-trig input')).map(function(i){return i.value;}).filter(Boolean),
+  };
+  try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}
+  var m=document.getElementById('smsg');
+  if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}
+}
+function loadSetup(){
+  try{
+    var saved=localStorage.getItem(SK);
+    if(!saved) return;
+    var d=JSON.parse(saved);
+    var set=function(id,v){var el=document.getElementById(id);if(el&&v!==undefined)el.value=v;};
+    set('s-nome',d.nome);set('s-funcao',d.funcao);set('s-desc',d.desc);
+    set('s-status',d.status);set('s-modelo',d.modelo);
+    set('c-wa-num',d.wa_num);set('c-wa-inst',d.wa_inst);
+    set('c-tg-bot',d.tg_bot);set('c-tg-id',d.tg_id);
+    set('s-tom',d.tom);set('s-tam',d.tam);
+    set('s-know',d.know);set('s-esc-nome',d.esc_nome);set('s-esc-ct',d.esc_ct);
+    if(d.tom) uTom(document.getElementById('s-tom'));
+    if(d.rec) d.rec.forEach(function(v){eAdd('el-rec',v);});
+    if(d.dem) d.dem.forEach(function(v){eAdd('el-dem',v);});
+    if(d.nao) d.nao.forEach(function(v){eAdd('el-nao',v);});
+    if(d.trig) d.trig.forEach(function(v){eAdd('el-trig',v);});
+  }catch(e){}
+}
+
 </script>
 </head>
 <body>
