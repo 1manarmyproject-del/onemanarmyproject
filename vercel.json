@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/pmo",
+      "destination": "/pmo.html"
+    },
+    {
       "source": "/crm",
       "destination": "/crm.html"
     },
