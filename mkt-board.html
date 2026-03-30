@@ -136,7 +136,13 @@ async function load(){
   try{
     var r=await fetch(API+'/mkt/cards',{headers:{'x-api-key':KEY}});
     cards=await r.json();
-    cards.forEach(function(c){local[c.id]={status:c.status||'pending',ca:c.comentario_arte||'',cl:c.comentario_legenda||''};});
+    cards.forEach(function(c){local[c.id]={
+      status:c.status||'pending',
+      sa:c.status_arte||'pending',
+      sl:c.status_legenda||'pending',
+      ca:c.comentario_arte||'',
+      cl:c.comentario_legenda||''
+    };});
     stats();render();
   }catch(e){
     document.getElementById('mc').innerHTML='<div class="empty"><p>Erro ao carregar. Verifique conexão.</p></div>';
@@ -172,6 +178,8 @@ function render(){
 
 function mkCard(c){
   var st=local[c.id]?.status||'pending';
+  var sa=local[c.id]?.sa||'pending';
+  var sl=local[c.id]?.sl||'pending';
   var ca=(local[c.id]?.ca||'').replace(/"/g,'&quot;');
   var cl=(local[c.id]?.cl||'').replace(/"/g,'&quot;');
   var bm={approved:'✓',rejected:'✗',fix:'⚑',pending:''};
@@ -190,10 +198,17 @@ function mkCard(c){
     +'<button class="lt2" onclick="togLeg(this)">Legenda <span class="la">▼</span></button>'
     +'<div class="ltx">'+leg+'</div>'
     +'</div>'
+    +'<div style="font-size:9px;font-weight:600;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">Arte</div>'
     +'<div class="ca">'
-    +'<button class="ab ap'+(st==='approved'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'approved\')">✓ OK</button>'
-    +'<button class="ab fx'+(st==='fix'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'fix\')">⚑ Fix</button>'
-    +'<button class="ab re'+(st==='rejected'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'rejected\')">✗ Não</button>'
+    +'<button class="ab ap'+(sa==='approved'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'a\',\'approved\')">✓ OK</button>'
+    +'<button class="ab fx'+(sa==='fix'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'a\',\'fix\')">⚑ Fix</button>'
+    +'<button class="ab re'+(sa==='rejected'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'a\',\'rejected\')">✗ Não</button>'
+    +'</div>'
+    +'<div style="font-size:9px;font-weight:600;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin:5px 0 3px;">Legenda</div>'
+    +'<div class="ca" style="margin-bottom:7px;">'
+    +'<button class="ab ap'+(sl==='approved'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'l\',\'approved\')">✓ OK</button>'
+    +'<button class="ab fx'+(sl==='fix'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'l\',\'fix\')">⚑ Fix</button>'
+    +'<button class="ab re'+(sl==='rejected'?' active':'')+'" onclick="setSt(\''+c.id+'\',\'l\',\'rejected\')">✗ Não</button>'
     +'</div>'
     +'<div class="cw">'
     +'<div class="cf"><span class="clb">Arte</span><textarea class="ci2" onchange="setCom(\''+c.id+'\',\'a\',this.value)">'+ca+'</textarea></div>'
@@ -201,9 +216,15 @@ function mkCard(c){
     +'</div></div></div>';
 }
 
-function setSt(id,st){
-  if(!local[id])local[id]={status:'pending',ca:'',cl:''};
-  local[id].status=local[id].status===st?'pending':st;
+function setSt(id,type,st){
+  if(!local[id])local[id]={status:'pending',sa:'pending',sl:'pending',ca:'',cl:''};
+  var key=type==='a'?'sa':'sl';
+  local[id][key]=local[id][key]===st?'pending':st;
+  // status geral = pior dos dois
+  var sa=local[id].sa,sl=local[id].sl;
+  local[id].status=sa==='rejected'||sl==='rejected'?'rejected':
+    sa==='fix'||sl==='fix'?'fix':
+    sa==='approved'&&sl==='approved'?'approved':'pending';
   pending.add(id);stats();prog();
   var el=document.getElementById('c-'+id);
   if(!el)return;
@@ -239,7 +260,7 @@ async function saveAll(){
   var ok=0;
   for(var id of pending){
     try{
-      var r=await fetch(API+'/mkt/cards/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify({status:local[id].status,comentario_arte:local[id].ca,comentario_legenda:local[id].cl})});
+      var r=await fetch(API+'/mkt/cards/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify({status:local[id].status,status_arte:local[id].sa,status_legenda:local[id].sl,comentario_arte:local[id].ca,comentario_legenda:local[id].cl})});
       if(r.ok)ok++;
     }catch(e){}
   }
@@ -259,7 +280,15 @@ function toast(m){var el=document.getElementById('toast');el.textContent=m;el.cl
 
 function stats(){
   var cnt={pending:0,approved:0,rejected:0,fix:0};
-  cards.forEach(function(c){var s=local[c.id]?.status||'pending';cnt[s]=(cnt[s]||0)+1;});
+  cards.forEach(function(c){
+    var sa=local[c.id]?.sa||'pending';
+    var sl=local[c.id]?.sl||'pending';
+    // card totalmente aprovado = arte OK + legenda OK
+    var both = sa==='approved'&&sl==='approved'?'approved':
+               sa==='rejected'||sl==='rejected'?'rejected':
+               sa==='fix'||sl==='fix'?'fix':'pending';
+    cnt[both]=(cnt[both]||0)+1;
+  });
   document.getElementById('cp').textContent=cnt.pending;
   document.getElementById('ca').textContent=cnt.approved;
   document.getElementById('cr2').textContent=cnt.rejected;
