@@ -305,6 +305,7 @@ function loadSetup(){
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="sTab('overview',this)">OVERVIEW</button>
     <button class="tab-btn" onclick="sTab('setup',this)">SETUP</button>
+    <button class="tab-btn" onclick="sTab('fluxos',this)">FLUXOS</button>
   </div>
   <!-- PANE OVERVIEW (wraps existing content) -->
   <div class="tab-pane active" id="pane-overview-wrap">
@@ -533,5 +534,107 @@ Função: Coord. de Marketing</div>
   </div>
   </div><!-- /pane-setup-wrap -->
 
+
+
+  <div class="tab-pane" id="pane-fluxos-wrap">
+  <div class="jobs-wrap">
+    <div class="jobs-header">
+      <span class="jobs-title">FLUXOS DE TRABALHO</span>
+      <button class="jadd-btn" onclick="addJob()">+ NOVO FLUXO</button>
+    </div>
+    <div id="jobs-list">
+    <div class="jcard" id="jc-0">
+      <div class="jcard-head" onclick="toggleJob(0)">
+        <span class="jcard-num">01</span>
+        <div class="jcard-info">
+          <div class="jcard-name" id="jname-0">Producao de card Instagram</div>
+          <div class="jcard-type-lbl" id="jtype-0">Reativo</div>
+        </div>
+        <button class="jcard-del" onclick="delJob(0,event)">x</button>
+        <span class="jcard-chv">v</span>
+      </div>
+      <div class="jcard-body">
+        <div class="jrow">
+          <div class="jfield"><span class="jlbl">Nome</span><input class="jinput" id="jn-0" type="text" value="Producao de card Instagram" oninput="document.getElementById('jname-0').textContent=this.value"></div>
+          <div class="jfield"><span class="jlbl">Tipo</span><select class="jselect" id="jt-0" onchange="document.getElementById('jtype-0').textContent=this.options[this.selectedIndex].text"><option >Recorrente</option><option >Sob demanda</option><option >Gatilho</option><option selected>Reativo</option></select></div>
+        </div>
+        <div class="jrow full"><div class="jfield"><span class="jlbl">Gatilho</span>
+          <div class="gtypes">
+            <span class="gbadge " onclick="selG(this)">Horario fixo</span>
+            <span class="gbadge " onclick="selG(this)">Mensagem recebida</span>
+            <span class="gbadge " onclick="selG(this)">Evento externo</span>
+            <span class="gbadge sel" onclick="selG(this)">Outro agente</span>
+            <span class="gbadge " onclick="selG(this)">Manual</span>
+          </div>
+          <input class="jinput" id="jgat-0" type="text" value="Briefing enviado por Fabio ou George" placeholder="Descreva o gatilho...">
+        </div></div>
+        <div class="jrow full"><div class="jfield"><span class="jlbl">Processamento</span>
+          <textarea class="jtextarea" id="jproc-0" rows="3" placeholder="Passo a passo...">Recebe briefing, gera copy, produz arte, envia para aprovacao dupla (arte + legenda), aguarda OK, publica</textarea>
+        </div></div>
+        <div class="jrow">
+          <div class="jfield"><span class="jlbl">Destinatario</span><input class="jinput" id="jdest-0" type="text" value="@1manarmy_project no Instagram" placeholder="Quem recebe"></div>
+          <div class="jfield"><span class="jlbl">SLA</span><select class="jselect" id="jsla-0"><option>Imediato</option><option>Rapido</option><option selected>Normal</option><option>Batch</option><option>Diario</option></select></div>
+        </div>
+        <div class="jrow full"><div class="jfield"><span class="jlbl">Escalacao</span>
+          <input class="jinput" id="jesc-0" type="text" value="Sem aprovacao em 24h notifica Fabio" placeholder="Quando e para quem escalar">
+        </div></div>
+      </div>
+    </div>
+    <div class="jcard" id="jc-1">
+      <div class="jcard-head" onclick="toggleJob(1)">
+        <span class="jcard-num">02</span>
+        <div class="jcard-info">
+          <div class="jcard-name" id="jname-1">Serie de conteudo semanal</div>
+          <div class="jcard-type-lbl" id="jtype-1">Recorrente</div>
+        </div>
+        <button class="jcard-del" onclick="delJob(1,event)">x</button>
+        <span class="jcard-chv">v</span>
+      </div>
+      <div class="jcard-body">
+        <div class="jrow">
+          <div class="jfield"><span class="jlbl">Nome</span><input class="jinput" id="jn-1" type="text" value="Serie de conteudo semanal" oninput="document.getElementById('jname-1').textContent=this.value"></div>
+          <div class="jfield"><span class="jlbl">Tipo</span><select class="jselect" id="jt-1" onchange="document.getElementById('jtype-1').textContent=this.options[this.selectedIndex].text"><option selected>Recorrente</option><option >Sob demanda</option><option >Gatilho</option><option >Reativo</option></select></div>
+        </div>
+        <div class="jrow full"><div class="jfield"><span class="jlbl">Gatilho</span>
+          <div class="gtypes">
+            <span class="gbadge sel" onclick="selG(this)">Horario fixo</span>
+            <span class="gbadge " onclick="selG(this)">Mensagem recebida</span>
+            <span class="gbadge " onclick="selG(this)">Evento externo</span>
+            <span class="gbadge " onclick="selG(this)">Outro agente</span>
+            <span class="gbadge " onclick="selG(this)">Manual</span>
+          </div>
+          <input class="jinput" id="jgat-1" type="text" value="Toda segunda as 9h" placeholder="Descreva o gatilho...">
+        </div></div>
+        <div class="jrow full"><div class="jfield"><span class="jlbl">Processamento</span>
+          <textarea class="jtextarea" id="jproc-1" rows="3" placeholder="Passo a passo...">Le briefing da semana, planeja 3 posts, produz e envia para aprovacao em lote</textarea>
+        </div></div>
+        <div class="jrow">
+          <div class="jfield"><span class="jlbl">Destinatario</span><input class="jinput" id="jdest-1" type="text" value="Fabio via Telegram para aprovacao" placeholder="Quem recebe"></div>
+          <div class="jfield"><span class="jlbl">SLA</span><select class="jselect" id="jsla-1"><option>Imediato</option><option>Rapido</option><option selected>Normal</option><option>Batch</option><option>Diario</option></select></div>
+        </div>
+        <div class="jrow full"><div class="jfield"><span class="jlbl">Escalacao</span>
+          <input class="jinput" id="jesc-1" type="text" value="Sem briefing disponivel solicita para Fabio" placeholder="Quando e para quem escalar">
+        </div></div>
+      </div>
+    </div></div>
+    <div style="height:1px;background:var(--iron);margin:22px 0"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:10px">INTEGRACOES ATIVAS</div>
+    <div class="int-grid">
+      <div class="int-item on" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">WhatsApp (Evolution)</span></div>
+      <div class="int-item on" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">Telegram</span></div>
+      <div class="int-item on" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">SQLite</span></div>
+      <div class="int-item" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">Google Calendar</span></div>
+      <div class="int-item" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">Gmail</span></div>
+      <div class="int-item" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">Hetzner API</span></div>
+      <div class="int-item" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">CRM OMA</span></div>
+      <div class="int-item" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">Instagram API</span></div>
+      <div class="int-item" onclick="this.classList.toggle('on')"><span class="id2"></span><span class="il">Anthropic API</span></div>
+    </div>
+  </div>
+  <div class="setup-footer">
+    <button class="ssave" onclick="saveFluxos()">SALVAR FLUXOS</button>
+    <span class="smsg" id="smsg2">Salvo</span>
+  </div>
+  </div>
 </div><!-- /app -->
 </div>
