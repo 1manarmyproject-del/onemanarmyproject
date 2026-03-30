@@ -133,9 +133,65 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .ssave{background:var(--agent);border:none;color:var(--char);padding:9px 24px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
 .ssave:hover{opacity:.85;}
 .smsg{font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1px;display:none;}
+
+.export-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;align-items:center;justify-content:center;}
+.export-modal-bg.open{display:flex;}
+.export-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:24px;width:560px;max-width:94vw;}
+.export-box h4{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--fire);margin-bottom:6px;}
+.export-box p{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;margin-bottom:14px;line-height:1.8;}
+.export-textarea{width:100%;background:var(--graph);border:1px solid var(--steel);padding:10px;color:var(--green);font-family:'Space Mono',monospace;font-size:10px;resize:none;height:200px;outline:none;border-radius:2px;line-height:1.6;}
+.export-btns{display:flex;gap:8px;margin-top:12px;}
+.export-btns button{flex:1;padding:8px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);transition:all .15s;}
+.export-btns button.copy-btn{background:var(--fire);border-color:var(--fire);color:#000;}
+.export-btns button.copy-btn:hover{opacity:.85;}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+function openExport(){
+  var data = {
+    nome: (document.getElementById('s-nome')||{}).value || '',
+    funcao: (document.getElementById('s-funcao')||{}).value || '',
+    desc: (document.getElementById('s-desc')||{}).value || '',
+    status: (document.getElementById('s-status')||{}).value || '',
+    modelo: (document.getElementById('s-modelo')||{}).value || '',
+    wa_num: (document.getElementById('c-wa-num')||{}).value || '',
+    wa_inst: (document.getElementById('c-wa-inst')||{}).value || '',
+    tg_bot: (document.getElementById('c-tg-bot')||{}).value || '',
+    tg_id: (document.getElementById('c-tg-id')||{}).value || '',
+    tom: (document.getElementById('s-tom')||{}).value || '',
+    tam: (document.getElementById('s-tam')||{}).value || '',
+    esc_nome: (document.getElementById('s-esc-nome')||{}).value || '',
+    esc_ct: (document.getElementById('s-esc-ct')||{}).value || '',
+    know: (document.getElementById('s-know')||{}).value || '',
+    rec: Array.from(document.querySelectorAll('#el-rec input')).map(function(i){return i.value;}).filter(Boolean),
+    dem: Array.from(document.querySelectorAll('#el-dem input')).map(function(i){return i.value;}).filter(Boolean),
+    nao: Array.from(document.querySelectorAll('#el-nao input')).map(function(i){return i.value;}).filter(Boolean),
+    trig: Array.from(document.querySelectorAll('#el-trig input')).map(function(i){return i.value;}).filter(Boolean),
+    fluxos: Array.from(document.querySelectorAll('#jobs-list .jcard')).map(function(card,i){
+      return {
+        nome: (card.querySelector('[id^="jn-"]')||{}).value || '',
+        tipo: (card.querySelector('[id^="jt-"] option:checked')||{}).textContent || '',
+        gatilho: (card.querySelector('[id^="jgat-"]')||{}).value || '',
+        proc: (card.querySelector('[id^="jproc-"]')||{}).value || '',
+        dest: (card.querySelector('[id^="jdest-"]')||{}).value || '',
+        esc: (card.querySelector('[id^="jesc-"]')||{}).value || ''
+      };
+    })
+  };
+  var prompt = 'Aqui estao os dados do agente preenchidos no Setup. Gere o CLAUDE.md completo para este agente:\n\n' + JSON.stringify(data, null, 2);
+  document.getElementById('export-json').value = prompt;
+  document.getElementById('export-modal').classList.add('open');
+}
+function closeExport(){document.getElementById('export-modal').classList.remove('open');}
+function copyExport(){
+  var ta = document.getElementById('export-json');
+  ta.select();
+  document.execCommand('copy');
+  toast('Copiado! Cole no Claude.','ok');
+  closeExport();
+}
+
+</script>
 <script>
 
 const PWD='omaproject2026';
