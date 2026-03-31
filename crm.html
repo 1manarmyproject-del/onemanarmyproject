@@ -201,6 +201,7 @@ td{padding:10px 14px;vertical-align:middle;}
 <div class="tst" id="ts"></div>
 <script>
 const PW='omaproject2026',SK='oma-crm-v2',API='https://api.onemanarmyproject.com.br';
+const API_KEY=sessionStorage.getItem('oma_api_key')||'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
 const STS=[{id:'novo',l:'Novo',c:'sn'},{id:'qualificado',l:'Qualificado',c:'sq'},{id:'conversa',l:'Em Conversa',c:'sc'},{id:'agendado',l:'Agendado',c:'sa'},{id:'proposta',l:'Proposta',c:'sp2'},{id:'cliente',l:'Cliente',c:'sk'},{id:'perdido',l:'Perdido',c:'sx'}];
 const SCC={'Sócio / Dono':80,'CEO / Presidente':80,'Diretor':60,'Gerente':40,'Outro':25};
 let S={workspaces:[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}],currentWS:'oma',leads:[]},F=[],aid=null;
