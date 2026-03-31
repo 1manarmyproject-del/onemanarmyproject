@@ -297,7 +297,7 @@ function setTab(t){
   var b='';
   if(t==='ov'){
     b='<div class="frow">'
-      +'<div class="field"><label class="flabel">Status</label><select class="fsel" id="e-st" onchange="cur.status=this.value;document.getElementById('dacc').style.background=SC[this.value]||'var(--mu)'">'
+      +'<div class="field"><label class="flabel">Status</label><select class="fsel" id="e-st" onchange="stChange(this.value)">'
       +['briefing','producao','revisao','publicado','pausado'].map(s=>'<option value="'+s+'"'+(j.status===s?' selected':'')+'>'+SL[s]+'</option>').join('')
       +'</select></div>'
       +'<div class="field"><label class="flabel">Responsável</label><select class="fsel" id="e-re" onchange="cur.responsavel=this.value">'
@@ -384,6 +384,12 @@ function setV(v){view=v;document.getElementById('vg').classList.toggle('active',
 var _tt;
 function toast(m){var el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),3000);}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDr();document.getElementById('mov').classList.remove('open');}});
+
+function stChange(val){
+  if(cur) cur.status=val;
+  var el=document.getElementById('dacc');
+  if(el) el.style.background=SC[val]||'var(--mu)';
+}
 
 load();</script>
 </body>
