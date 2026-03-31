@@ -91,6 +91,10 @@
     {
       "source": "/clientes",
       "destination": "/clientes.html"
+    },
+    {
+      "source": "/onboarding/:slug",
+      "destination": "https://api.onemanarmyproject.com.br/onboarding/:slug"
     }
   ],
   "redirects": [
