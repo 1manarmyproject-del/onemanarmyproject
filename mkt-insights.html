@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA — Insights Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--fire);}
+.htitle{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);}
+.wrap{padding:32px 40px;max-width:1100px;}
+@media(max-width:600px){.wrap{padding:16px;}}
+.section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--iron);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px;}
+@media(max-width:800px){.stats-grid{grid-template-columns:1fr 1fr;}}
+.stat-card{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:20px;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.stat-card.fire::before{background:var(--fire);}
+.stat-card.green::before{background:var(--green);}
+.stat-card.gold::before{background:var(--gold);}
+.stat-card.blue::before{background:var(--blue);}
+.stat-val{font-family:'Black Ops One',cursive;font-size:36px;line-height:1;margin-bottom:6px;}
+.stat-card.fire .stat-val{color:var(--fire);}
+.stat-card.green .stat-val{color:var(--green);}
+.stat-card.gold .stat-val{color:var(--gold);}
+.stat-card.blue .stat-val{color:var(--blue);}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+@media(max-width:700px){.charts-grid{grid-template-columns:1fr;}}
+.chart-card{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:20px;}
+.chart-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-bottom:16px;}
+.bar-item{margin-bottom:10px;}
+.bar-label{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-bottom:4px;}
+.bar-track{background:var(--iron);border-radius:2px;height:6px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;background:var(--fire);transition:width .6s ease;}
+.bar-fill.green{background:var(--green);}
+.bar-fill.gold{background:var(--gold);}
+.bar-fill.blue{background:var(--blue);}
+.loading{text-align:center;padding:60px;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a href="/hub" class="hback">HUB</a>
+  <span class="htitle">INSIGHTS — MARKETING</span>
+  <button onclick="loadInsights()" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-family:'Space Mono',monospace;font-size:9px;cursor:pointer;">↻ REFRESH</button>
+</header>
+<div class="wrap">
+  <div id="content"><div class="loading">Carregando insights...</div></div>
+</div>
+<script>
+var API = 'https://api.onemanarmyproject.com.br';
+var KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+
+async function loadInsights(){
+  try{
+    var r = await fetch(API+'/mkt/insights', {headers:{'x-api-key':KEY}});
+    var d = await r.json();
+    render(d);
+  }catch(e){
+    document.getElementById('content').innerHTML = '<div class="loading">Erro ao carregar: '+e.message+'</div>';
+  }
+}
+
+function bar(label, val, max, color){
+  var pct = max > 0 ? Math.round((val/max)*100) : 0;
+  return '<div class="bar-item">' +
+    '<div class="bar-label"><span>'+label+'</span><span>'+val+'</span></div>' +
+    '<div class="bar-track"><div class="bar-fill '+color+'" style="width:'+pct+'%"></div></div>' +
+    '</div>';
+}
+
+function render(d){
+  var cards = d.cards || {};
+  var jobs = d.jobs || {};
+  var totalCards = cards.total || 0;
+  var aprovados = (cards.por_status||[]).find(s=>s.status==='approved')?.n || 0;
+  var pendentes = (cards.por_status||[]).find(s=>s.status==='pending')?.n || 0;
+  var totalJobs = jobs.total || 0;
+  var pubJobs = (jobs.por_status||[]).find(s=>s.status==='publicado')?.n || 0;
+
+  var maxCanal = Math.max(...(cards.por_canal||[]).map(c=>c.n), 1);
+  var maxObj = Math.max(...(jobs.por_objetivo||[]).map(o=>o.n), 1);
+  var maxJStatus = Math.max(...(jobs.por_status||[]).map(s=>s.n), 1);
+
+  var html = '';
+  html += '<div class="section-title">CARDS</div>';
+  html += '<div class="stats-grid">';
+  html += '<div class="stat-card fire"><div class="stat-val">'+totalCards+'</div><div class="stat-lbl">Total de Cards</div></div>';
+  html += '<div class="stat-card green"><div class="stat-val">'+aprovados+'</div><div class="stat-lbl">Aprovados</div></div>';
+  html += '<div class="stat-card gold"><div class="stat-val">'+pendentes+'</div><div class="stat-lbl">Pendentes</div></div>';
+  html += '<div class="stat-card blue"><div class="stat-val">'+(cards.aprovados_mes||0)+'</div><div class="stat-lbl">Aprovados (30d)</div></div>';
+  html += '</div>';
+
+  html += '<div class="charts-grid">';
+  html += '<div class="chart-card"><div class="chart-title">Cards por Canal</div>';
+  (cards.por_canal||[]).forEach(function(c){
+    var colors = {'1manarmy':'fire','fabio':'gold'};
+    html += bar(c.canal||'sem canal', c.n, maxCanal, colors[c.canal]||'');
+  });
+  html += '</div>';
+
+  html += '<div class="chart-card"><div class="chart-title">Cards por Status</div>';
+  var statusColors = {approved:'green',pending:'gold',rejected:'',null:''};
+  (cards.por_status||[]).forEach(function(s){
+    html += bar(s.status||'sem status', s.n, totalCards, statusColors[s.status]||'');
+  });
+  html += '</div></div>';
+
+  html += '<div class="section-title" style="margin-top:8px">JOBS</div>';
+  html += '<div class="stats-grid">';
+  html += '<div class="stat-card fire"><div class="stat-val">'+totalJobs+'</div><div class="stat-lbl">Total de Jobs</div></div>';
+  html += '<div class="stat-card green"><div class="stat-val">'+pubJobs+'</div><div class="stat-lbl">Publicados</div></div>';
+  html += '<div class="stat-card gold"><div class="stat-val">'+(jobs.publicados_mes||0)+'</div><div class="stat-lbl">Publicados (30d)</div></div>';
+  html += '<div class="stat-card blue"><div class="stat-val">'+(jobs.por_objetivo||[]).length+'</div><div class="stat-lbl">Objetivos Usados</div></div>';
+  html += '</div>';
+
+  if((jobs.por_objetivo||[]).length > 0){
+    html += '<div class="charts-grid">';
+    html += '<div class="chart-card"><div class="chart-title">Jobs por Objetivo</div>';
+    (jobs.por_objetivo||[]).forEach(function(o){
+      html += bar(o.objetivo||'sem objetivo', o.n, maxObj, 'fire');
+    });
+    html += '</div>';
+    html += '<div class="chart-card"><div class="chart-title">Jobs por Status</div>';
+    (jobs.por_status||[]).forEach(function(s){
+      html += bar(s.status||'sem status', s.n, maxJStatus, s.status==='publicado'?'green':'gold');
+    });
+    html += '</div></div>';
+  }
+
+  document.getElementById('content').innerHTML = html;
+}
+
+loadInsights();
+setInterval(loadInsights, 60000);
+</script>
+</body>
+</html>

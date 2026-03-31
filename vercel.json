@@ -83,6 +83,14 @@
     {
       "source": "/mkt",
       "destination": "/mkt-board.html"
+    },
+    {
+      "source": "/mkt-insights",
+      "destination": "/mkt-insights.html"
+    },
+    {
+      "source": "/clientes",
+      "destination": "/clientes.html"
     }
   ],
   "redirects": [

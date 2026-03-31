@@ -1,265 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OMA Financeiro</title>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA — FINANCEIRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--char:#080808;--coal:#0f0f0f;--graph:#131313;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--purple:#8b5cf6;}
+:root{--char:#080808;--carbon:#0f0f0f;--iron:#1e1e1e;--ash:#555;--bone:#e0d9cf;--fire:#e8703a;--gold:#c8a456;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
-#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
-.lb{width:320px;padding:0 24px;text-align:center;}
-.ll{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
-.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}
-.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-size:15px;outline:none;margin-bottom:24px;}
-.li:focus{border-bottom-color:var(--fire);}.li::placeholder{color:var(--ash);}
-.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:11px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
-.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
-#app{display:none;}
-nav{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
-.nbrand{display:flex;align-items:center;gap:10px;}
-.nlogo{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;}.nlogo span{color:var(--fire);}
-.nbadge{font-family:'Space Mono',monospace;font-size:9px;background:var(--gold);color:var(--char);padding:3px 8px;letter-spacing:1px;}
-.nright{display:flex;align-items:center;gap:16px;}
-.nback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;transition:color .15s;}.nback:hover{color:var(--fire);}
-.nck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
-.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.nout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-size:11px;cursor:pointer;}
-.tabs{background:var(--coal);border-bottom:1px solid var(--iron);padding:0 32px;display:flex;}
-.tab{padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--fog);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
-.tab:hover{color:var(--bone);}.tab.active{color:var(--fire);border-bottom-color:var(--fire);}
-.cnt{padding:28px 32px;max-width:1200px;}
-.krow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px;}
-.kpi{background:var(--coal);border:1px solid var(--iron);padding:18px 20px;position:relative;overflow:hidden;}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
-.kpi:hover::before{transform:scaleX(1);}
-.k-mrr::before{background:var(--gold);}.k-rec::before{background:var(--green);}
-.k-churn::before{background:var(--fire);}.k-ltv::before{background:var(--blue);}
-.k-tick::before{background:var(--purple);}
-.klbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-.kval{font-family:'Black Ops One',cursive;font-size:28px;line-height:1;margin-bottom:4px;}
-.k-mrr .kval{color:var(--gold);}.k-rec .kval{color:var(--green);}
-.k-churn .kval{color:var(--fire);}.k-ltv .kval{color:var(--blue);}.k-tick .kval{color:var(--purple);}
-.kd{font-family:'Space Mono',monospace;font-size:9px;}
-.dup{color:var(--green);}.ddn{color:var(--fire);}
-.g2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;}
-.g2e{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-.card{background:var(--coal);border:1px solid var(--iron);}
-.chd{padding:13px 18px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;}
-.cbd{padding:16px 18px;}
-.cw{position:relative;height:200px;}
-.tbl{width:100%;border-collapse:collapse;font-size:11px;}
-.tbl th{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;padding:8px 12px;border-bottom:1px solid var(--iron);text-transform:uppercase;}
-.tbl td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--fog);}
-.tbl tr:hover td{background:var(--graph);}
-.pill{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;border-radius:2px;}
-.pg{background:rgba(61,158,96,.15);color:var(--green);}
-.pf{background:rgba(232,112,58,.15);color:var(--fire);}
-.py{background:rgba(200,164,86,.15);color:var(--gold);}
-.pr{background:rgba(192,80,32,.2);color:#ff8060;}
-.pp{background:rgba(139,92,246,.15);color:var(--purple);}
-.venc-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);}
-.venc-item:last-child{border-bottom:none;}
-.venc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.d-green{background:var(--green);}.d-yellow{background:var(--gold);}.d-red{background:var(--fire);}
-.page{display:none;}.page.active{display:block;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--fire);}
+.htitle{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);}
+.zero-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:40px;text-align:center;}
+.zero-icon{font-size:64px;margin-bottom:24px;opacity:.4;}
+.zero-title{font-family:'Black Ops One',cursive;font-size:28px;letter-spacing:3px;color:var(--ash);margin-bottom:12px;}
+.zero-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;line-height:2;margin-bottom:32px;}
+.zero-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);border:1px solid var(--gold);padding:6px 16px;border-radius:2px;}
+.zero-items{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin-top:48px;}
+@media(max-width:600px){.zero-items{grid-template-columns:1fr;}}
+.zero-item{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:24px;}
+.zero-item-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-bottom:10px;}
+.zero-item-val{font-family:'Black Ops One',cursive;font-size:32px;color:var(--iron);}
 </style>
 </head>
 <body>
-<div id="ls"><div class="lb">
-  <div class="ll">OMA <span>FINANCEIRO</span></div>
-  <div class="lsub">MÓDULO FINANCEIRO · ACESSO RESTRITO</div>
-  <input class="li" type="password" id="pw" placeholder="senha" onkeydown="if(event.key==='Enter')dL()">
-  <button class="lbtn" onclick="dL()">ENTRAR</button>
-  <div class="lerr" id="le">Senha incorreta</div>
-</div></div>
-
-<div id="app">
-<nav>
-  <div class="nbrand"><div class="nlogo">OMA <span>FINANCEIRO</span></div><div class="nbadge">RECEITA</div></div>
-  <div class="nright">
-    <a href="/hub" class="nback">HUB</a>
-    <span class="nck"><span class="live"></span><span id="ck">--:--</span></span>
-    <button class="nout" onclick="lo()">Sair</button>
-  </div>
-</nav>
-<div class="tabs">
-  <div class="tab active" onclick="sTab('visao',this)">Visão Geral</div>
-  <div class="tab" onclick="sTab('clientes',this)">Clientes</div>
-  <div class="tab" onclick="sTab('vencimentos',this)">Vencimentos</div>
-  <div class="tab" onclick="sTab('setup',this)">Setup Fees</div>
+<header class="hdr">
+  <a href="/hub" class="hback">HUB</a>
+  <span class="htitle">FINANCEIRO</span>
+  <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">AGUARDANDO DADOS</span>
+</header>
+<div class="zero-wrap">
+  <div class="zero-icon">💰</div>
+  <div class="zero-title">ZERADO</div>
+  <div class="zero-sub">Painel financeiro aguardando primeiros clientes.<br>Os dados serao alimentados automaticamente<br>a partir do primeiro contrato ativo.</div>
+  <span class="zero-badge">PRONTO PARA COMECAR A MEDIR</span>
+  <div class="zero-items"><div class="zero-item"><div class="zero-item-lbl">MRR</div><div class="zero-item-val">R$0</div></div><div class="zero-item"><div class="zero-item-lbl">Clientes Ativos</div><div class="zero-item-val">0</div></div><div class="zero-item"><div class="zero-item-lbl">Custo Total</div><div class="zero-item-val">R$0</div></div></div>
 </div>
-<div class="cnt">
-  <div class="krow">
-    <div class="kpi k-mrr"><div class="klbl">MRR</div><div class="kval">R$14,2k</div><div class="kd dup">+18% vs mar/25</div></div>
-    <div class="kpi k-rec"><div class="klbl">Receita mar/26</div><div class="kval">R$21,4k</div><div class="kd dup">MRR + setup fees</div></div>
-    <div class="kpi k-churn"><div class="klbl">Churn mensal</div><div class="kval">0%</div><div class="kd" style="color:var(--green)">Nenhum cancelamento</div></div>
-    <div class="kpi k-ltv"><div class="klbl">LTV médio</div><div class="kval">R$51k</div><div class="kd" style="color:var(--ash)">Contrato 6m</div></div>
-    <div class="kpi k-tick"><div class="klbl">Ticket médio</div><div class="kval">R$1.420</div><div class="kd dup">+12% vs mês ant.</div></div>
-  </div>
-
-  <div class="page active" id="page-visao">
-    <div class="g2">
-      <div class="card">
-        <div class="chd"><span>Evolução MRR 2026</span><span style="color:var(--gold)">ACUMULADO</span></div>
-        <div class="cbd"><div class="cw"><canvas id="mrrChart"></canvas></div></div>
-      </div>
-      <div class="card">
-        <div class="chd"><span>Receita por tipo</span></div>
-        <div class="cbd">
-          <div class="cw" style="height:140px"><canvas id="tipoChart"></canvas></div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
-            <div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--fog)"><div style="width:8px;height:8px;background:var(--gold)"></div>Mensalidade</span><span style="font-family:'Black Ops One',cursive;color:var(--gold)">R$14.200</span></div>
-            <div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--fog)"><div style="width:8px;height:8px;background:var(--green)"></div>Setup fees</span><span style="font-family:'Black Ops One',cursive;color:var(--green)">R$7.200</span></div>
-            <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--iron)"><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">TOTAL MAR/26</span><span style="font-family:'Black Ops One',cursive;font-size:18px">R$21.400</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="g2e">
-      <div class="card">
-        <div class="chd"><span>Projeção 12 meses</span></div>
-        <div class="cbd"><div class="cw"><canvas id="projChart"></canvas></div></div>
-      </div>
-      <div class="card">
-        <div class="chd"><span>Próximos vencimentos</span><span style="color:var(--fire)">7 DIAS</span></div>
-        <div class="cbd">
-          <div class="venc-item"><div class="venc-dot d-red"></div><span style="flex:1;font-size:11px;color:var(--bone)">Mendes Advocacia</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">R$1.800</span><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-left:8px">26/03</span></div>
-          <div class="venc-item"><div class="venc-dot d-red"></div><span style="flex:1;font-size:11px;color:var(--bone)">Clínica Saúde+</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">R$1.200</span><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-left:8px">27/03</span></div>
-          <div class="venc-item"><div class="venc-dot d-yellow"></div><span style="flex:1;font-size:11px;color:var(--bone)">Distrib. Beirith</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">R$1.600</span><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-left:8px">29/03</span></div>
-          <div class="venc-item"><div class="venc-dot d-yellow"></div><span style="flex:1;font-size:11px;color:var(--bone)">Cond. Moema Park</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">R$2.200</span><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-left:8px">01/04</span></div>
-          <div class="venc-item"><div class="venc-dot d-green"></div><span style="flex:1;font-size:11px;color:var(--bone)">Escritório Faria</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">R$900</span><span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);margin-left:8px">02/04</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="page" id="page-clientes">
-    <div class="card">
-      <div class="chd"><span>Contratos ativos</span><span style="color:var(--green)">10 CLIENTES</span></div>
-      <div class="cbd" style="padding:0;overflow-x:auto">
-        <table class="tbl" style="min-width:700px">
-          <thead><tr><th>Cliente</th><th>Segmento</th><th>Módulos</th><th>Mensalidade</th><th>Contrato até</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Mendes Advocacia</td><td>Advocacia</td><td>SAC + Agenda + Cobrança + Processos</td><td>R$1.800</td><td>set/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Clínica Saúde+ SP</td><td>Saúde</td><td>SAC + Agenda</td><td>R$1.200</td><td>ago/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Distrib. Beirith</td><td>Distribuição</td><td>Vendedor + SAC + Processos</td><td>R$1.600</td><td>out/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Cond. Moema Park</td><td>Condomínio</td><td>SAC + Conciliador + Cobrança</td><td>R$2.200</td><td>set/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Escritório Faria L.</td><td>Contabilidade</td><td>Assistente Ops + Relatórios</td><td>R$900</td><td>jul/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Restaurante Varanda</td><td>Restaurante</td><td>SAC + Vendedor Digital</td><td>R$1.100</td><td>ago/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Clube Atlético SP</td><td>Clube</td><td>SAC + Cobrança + Relatórios</td><td>R$1.500</td><td>set/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Óptica Vision</td><td>Varejo</td><td>Vendedor Digital + SAC</td><td>R$950</td><td>ago/26</td><td><span class="pill pg">Ativo</span></td></tr>
-            <tr><td>Dr. Paulo Carvalho</td><td>Consultório</td><td>Agenda + SAC</td><td>R$850</td><td>jul/26</td><td><span class="pill py">Trial</span></td></tr>
-            <tr><td>Adm. Leste Cond.</td><td>Administradora</td><td>SAC + Conciliador + Processos</td><td>R$2.100</td><td>out/26</td><td><span class="pill pp">Expansão</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="page" id="page-vencimentos">
-    <div class="g2e">
-      <div class="card">
-        <div class="chd"><span>Calendário de recebíveis — abril/26</span></div>
-        <div class="cbd" style="padding:0">
-          <table class="tbl">
-            <thead><tr><th>Vencimento</th><th>Cliente</th><th>Valor</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>26/03</td><td>Mendes Advocacia</td><td>R$1.800</td><td><span class="pill pr">Hoje</span></td></tr>
-              <tr><td>27/03</td><td>Clínica Saúde+</td><td>R$1.200</td><td><span class="pill pf">Amanhã</span></td></tr>
-              <tr><td>29/03</td><td>Distrib. Beirith</td><td>R$1.600</td><td><span class="pill py">4 dias</span></td></tr>
-              <tr><td>01/04</td><td>Cond. Moema Park</td><td>R$2.200</td><td><span class="pill py">7 dias</span></td></tr>
-              <tr><td>02/04</td><td>Escritório Faria</td><td>R$900</td><td><span class="pill pg">8 dias</span></td></tr>
-              <tr><td>05/04</td><td>Rest. Varanda</td><td>R$1.100</td><td><span class="pill pg">11 dias</span></td></tr>
-              <tr><td>07/04</td><td>Clube Atlético</td><td>R$1.500</td><td><span class="pill pg">13 dias</span></td></tr>
-              <tr><td>10/04</td><td>Óptica Vision</td><td>R$950</td><td><span class="pill pg">16 dias</span></td></tr>
-              <tr><td>12/04</td><td>Dr. Paulo C.</td><td>R$850</td><td><span class="pill pg">18 dias</span></td></tr>
-              <tr><td>15/04</td><td>Adm. Leste</td><td>R$2.100</td><td><span class="pill pg">21 dias</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div>
-        <div style="background:var(--graph);border:1px solid var(--iron);padding:16px 18px;margin-bottom:8px">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:6px">TOTAL ABRIL PREVISTO</div>
-          <div style="font-family:'Black Ops One',cursive;font-size:36px;color:var(--gold)">R$14.200</div>
-          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:4px">10 cobranças · Churn 0%</div>
-        </div>
-        <div class="card">
-          <div class="chd"><span>Histórico de inadimplência</span></div>
-          <div class="cbd">
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--fog)">Fev/26</span><span style="color:var(--green)">0 atrasos</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--fog)">Mar/26</span><span style="color:var(--green)">0 atrasos</span></div>
-              <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--iron)">
-                <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">Taxa inadimplência</span>
-                <span style="font-family:'Black Ops One',cursive;color:var(--green)">0%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="page" id="page-setup">
-    <div class="g2e">
-      <div class="card">
-        <div class="chd"><span>Setup fees recebidos</span></div>
-        <div class="cbd" style="padding:0">
-          <table class="tbl">
-            <thead><tr><th>Cliente</th><th>Setup fee</th><th>Data</th><th>Porte</th></tr></thead>
-            <tbody>
-              <tr><td>Adm. Leste Cond.</td><td>R$2.400</td><td>20/03/26</td><td><span class="pill pp">Enterprise</span></td></tr>
-              <tr><td>Cond. Moema Park</td><td>R$1.800</td><td>15/03/26</td><td><span class="pill py">Médio</span></td></tr>
-              <tr><td>Clube Atlético SP</td><td>R$1.500</td><td>10/03/26</td><td><span class="pill py">Médio</span></td></tr>
-              <tr><td>Distrib. Beirith</td><td>R$1.200</td><td>05/03/26</td><td><span class="pill pg">PME</span></td></tr>
-              <tr><td>Mendes Advocacia</td><td>R$1.200</td><td>01/03/26</td><td><span class="pill pg">PME</span></td></tr>
-              <tr><td>Outros 5 clientes</td><td>R$3.600</td><td>fev/26</td><td><span class="pill pg">PME</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div>
-        <div style="background:var(--graph);border:1px solid var(--iron);padding:16px 18px;margin-bottom:8px">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;margin-bottom:6px">TOTAL SETUP FEES</div>
-          <div style="font-family:'Black Ops One',cursive;font-size:36px;color:var(--green)">R$11.700</div>
-          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:4px">10 clientes onboardados</div>
-        </div>
-        <div class="card">
-          <div class="chd"><span>Ticket médio por porte</span></div>
-          <div class="cbd">
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--fog)">PME</span><span style="font-family:'Black Ops One',cursive;color:var(--green)">R$780</span></div>
-              <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--fog)">Médio</span><span style="font-family:'Black Ops One',cursive;color:var(--gold)">R$1.650</span></div>
-              <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--fog)">Enterprise</span><span style="font-family:'Black Ops One',cursive;color:var(--purple)">R$2.400</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
-<script>
-const PWD='omaproject2026';
-function dL(){const v=document.getElementById('pw').value;if(v===PWD){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.setItem(k,'1'));document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}}
-function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(k=>localStorage.removeItem(k));location.reload();}
-function tick(){document.getElementById('ck').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
-setInterval(tick,1000);tick();
-function sTab(id,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');}
-function init(){
-  new Chart(document.getElementById('mrrChart'),{type:'bar',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],datasets:[{label:'MRR',data:[0,2400,4800,8400,11200,14200,17800,21600,26000,31200,37000,43800],backgroundColor:'rgba(200,164,86,.25)',borderColor:'#c8a456',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:9}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:9},callback:v=>'R$'+v.toLocaleString('pt-BR')},grid:{color:'rgba(255,255,255,.04)'}}}}});
-  new Chart(document.getElementById('tipoChart'),{type:'doughnut',data:{labels:['MRR','Setup'],datasets:[{data:[14200,7200],backgroundColor:['#c8a456','#3d9e60'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false}}}});
-  new Chart(document.getElementById('projChart'),{type:'line',data:{labels:['Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'],datasets:[{label:'Otimista',data:[21400,26000,31200,37800,44200,52000,61000,71400],borderColor:'#3d9e60',tension:.4,pointRadius:3,borderWidth:2,fill:false},{label:'Conservador',data:[21400,24000,28000,33000,38000,44000,51000,59000],borderColor:'#c8a456',tension:.4,pointRadius:3,borderWidth:2,borderDash:[4,4],fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:9}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#4a4a4a',font:{family:'Space Mono',size:9},callback:v=>'R$'+v.toLocaleString('pt-BR')},grid:{color:'rgba(255,255,255,.04)'}}}}});
-}
-if(['oma_monitor','oma_hub','oma_auth','ops'].some(k=>localStorage.getItem(k)==='1')){document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}
-</script>
 </body>
 </html>

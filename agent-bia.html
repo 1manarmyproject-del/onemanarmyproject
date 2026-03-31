@@ -230,7 +230,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fila-exec-btn:hover{background:var(--agent);color:var(--char);}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>
 // RÉGUA DE CRM
 var REGUA_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
 var reguaConfig = [];
@@ -275,7 +276,7 @@ function renderRegua(config){
         '</div>' +
         '<div class="etapa-toggle">' +
           '<span>'+(e.ativo?'ATIVO':'INATIVO')+'</span>' +
-          '<div class="tog2'+(e.ativo?' on':'')+'" onclick="toggleEtapa(this,''+e.etapa+'')"></div>' +
+          '<div class="tog2'+(e.ativo?' on':'')+'" data-etapa="'+ e.etapa +'"></div>' +
         '</div>' +
       '</div>' +
       '<div class="etapa-body">' +
@@ -360,8 +361,11 @@ document.addEventListener('DOMContentLoaded', function(){
     return b.textContent.trim() === 'RÉGUA';
   });
   if(reguaBtn) reguaBtn.addEventListener('click', function(){ setTimeout(loadRegua, 100); });
+  document.addEventListener('click', function(e){
+    var tog = e.target.closest('[data-etapa]');
+    if(tog) toggleEtapa(tog, tog.dataset.etapa);
+  });
 });
-
 </script>
 <script>
 function openExport(){

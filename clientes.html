@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA — Clientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--red:#e24b4a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{width:100%;max-width:320px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;color:var(--fire);}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:15px;outline:none;margin-bottom:24px;}
+.li:focus{border-bottom-color:var(--fire);}
+.lbtn{width:100%;background:var(--fire);border:none;color:#000;padding:11px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+#app{display:none;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--fire);}
+.htitle{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;}
+.wrap{padding:32px 40px;max-width:1200px;}
+@media(max-width:600px){.wrap{padding:16px;}}
+/* STATS TOPO */
+.top-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px;}
+@media(max-width:800px){.top-stats{grid-template-columns:1fr 1fr;}}
+.stat{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:20px;position:relative;overflow:hidden;}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.stat.s-green::before{background:var(--green);} .stat.s-fire::before{background:var(--fire);}
+.stat.s-gold::before{background:var(--gold);} .stat.s-blue::before{background:var(--blue);}
+.stat-val{font-family:'Black Ops One',cursive;font-size:32px;line-height:1;margin-bottom:5px;}
+.stat.s-green .stat-val{color:var(--green);} .stat.s-fire .stat-val{color:var(--fire);}
+.stat.s-gold .stat-val{color:var(--gold);} .stat.s-blue .stat-val{color:var(--blue);}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+/* TABELA CLIENTES */
+.section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--iron);margin-left:16px;}
+.add-btn{background:none;border:1px solid var(--fire);color:var(--fire);padding:5px 14px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;cursor:pointer;transition:all .15s;flex-shrink:0;}
+.add-btn:hover{background:var(--fire);color:#000;}
+.table-wrap{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;overflow:hidden;margin-bottom:32px;}
+table{width:100%;border-collapse:collapse;}
+th{padding:10px 16px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);text-align:left;border-bottom:1px solid var(--iron);text-transform:uppercase;background:var(--graph);}
+td{padding:13px 16px;font-family:'Barlow',sans-serif;font-size:13px;border-bottom:1px solid var(--iron);color:var(--bone);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
+.badge-ativo{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,96,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
+.badge-pause{background:rgba(200,164,86,.15);color:var(--gold);border:1px solid rgba(200,164,86,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
+.badge-enc{background:rgba(226,75,74,.15);color:var(--red);border:1px solid rgba(226,75,74,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
+.war-link{color:var(--fire);text-decoration:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;}
+.war-link:hover{text-decoration:underline;}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:28px;width:520px;max-width:94vw;max-height:90vh;overflow-y:auto;}
+.modal-box h3{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:var(--fire);margin-bottom:20px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.frow.full{grid-template-columns:1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.flabel{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.finput,.fselect,.ftarea{background:var(--graph);border:1px solid var(--steel);padding:8px 11px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;border-radius:2px;}
+.finput:focus,.fselect:focus,.ftarea:focus{border-color:var(--fire);}
+.ftarea{resize:vertical;min-height:60px;line-height:1.6;}
+.modal-btns{display:flex;gap:8px;margin-top:20px;}
+.modal-btns button{flex:1;padding:9px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);}
+.modal-btns button.btn-save{background:var(--fire);border-color:var(--fire);color:#000;}
+/* DETALHE CLIENTE */
+.cliente-detalhe{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:24px;margin-bottom:24px;display:none;}
+.cliente-detalhe.open{display:block;}
+.cd-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.cd-nome{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:2px;color:var(--fire);}
+.cd-seg{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-top:4px;}
+.cd-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px;}
+@media(max-width:600px){.cd-stats{grid-template-columns:1fr 1fr;}}
+.cd-stat{background:var(--graph);border-radius:3px;padding:12px;}
+.cd-stat-val{font-family:'Space Mono',monospace;font-size:15px;color:var(--bone);margin-bottom:4px;}
+.cd-stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
+.close-btn{background:none;border:none;color:var(--ash);cursor:pointer;font-size:18px;}
+.close-btn:hover{color:var(--bone);}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--iron);border:1px solid var(--steel);padding:12px 20px;font-family:'Space Mono',monospace;font-size:11px;color:var(--bone);opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;}
+.toast.show{opacity:1;} .toast.ok{border-color:var(--green);color:var(--green);}
+</style>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">CLIENTES</div>
+  <div class="lsub">ONE MAN ARMY PROJECT</div>
+  <input class="li" type="password" id="pw" placeholder="senha" onkeydown="if(event.key==='Enter')dL()">
+  <p class="lerr" id="le">Senha incorreta</p>
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+</div></div>
+
+<div id="app">
+<header class="hdr">
+  <a href="/hub" class="hback">HUB</a>
+  <span class="htitle">CLIENTES</span>
+  <button class="hout" onclick="lo()">Sair</button>
+</header>
+
+<div class="wrap">
+
+  <!-- STATS TOPO -->
+  <div class="top-stats" id="top-stats">
+    <div class="stat s-green"><div class="stat-val" id="s-ativos">0</div><div class="stat-lbl">Clientes Ativos</div></div>
+    <div class="stat s-fire"><div class="stat-val" id="s-mrr">R$0</div><div class="stat-lbl">MRR Total</div></div>
+    <div class="stat s-gold"><div class="stat-val" id="s-custo">R$0</div><div class="stat-lbl">Custo Total/mês</div></div>
+    <div class="stat s-blue"><div class="stat-val" id="s-margem">0%</div><div class="stat-lbl">Margem Média</div></div>
+  </div>
+
+  <!-- DETALHE CLIENTE -->
+  <div class="cliente-detalhe" id="detalhe">
+    <div class="cd-header">
+      <div>
+        <div class="cd-nome" id="d-nome">—</div>
+        <div class="cd-seg" id="d-seg">—</div>
+      </div>
+      <button class="close-btn" onclick="fecharDetalhe()">✕</button>
+    </div>
+    <div class="cd-stats">
+      <div class="cd-stat"><div class="cd-stat-val" id="d-mrr">—</div><div class="cd-stat-lbl">MRR</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="d-setup">—</div><div class="cd-stat-lbl">Setup Fee</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="d-custo">—</div><div class="cd-stat-lbl">Custo/mês</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="d-margem">—</div><div class="cd-stat-lbl">Margem</div></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <div id="d-modulos" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;flex:1;"></div>
+      <a id="d-warroom" href="/war-room" class="war-link">Ver no War Room →</a>
+    </div>
+    <div id="d-notas" style="margin-top:12px;font-family:'Barlow',sans-serif;font-size:12px;color:var(--fog);line-height:1.7;"></div>
+  </div>
+
+  <!-- TABELA -->
+  <div class="section-title">
+    <span>Carteira de Clientes</span>
+    <button class="add-btn" onclick="abrirModal()">+ NOVO CLIENTE</button>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Cliente</th><th>Segmento</th><th>Módulos</th>
+        <th>MRR</th><th>Setup</th><th>Custo</th><th>Margem</th>
+        <th>Status</th><th>Desde</th><th></th>
+      </tr></thead>
+      <tbody id="tbody">
+        <tr><td colspan="10" style="text-align:center;padding:48px;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;">
+          Nenhum cliente ativo ainda.<br>
+          <span style="color:var(--fire)">Clique em + NOVO CLIENTE para cadastrar.</span>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /wrap -->
+</div><!-- /app -->
+
+<!-- MODAL NOVO/EDITAR CLIENTE -->
+<div class="modal-bg" id="modal" onclick="if(event.target===this)fecharModal()">
+  <div class="modal-box">
+    <h3 id="modal-title">NOVO CLIENTE</h3>
+    <input type="hidden" id="edit-id">
+    <div class="frow">
+      <div class="field"><span class="flabel">Nome / Empresa</span><input class="finput" id="f-nome" type="text" placeholder="Ex: Cervus Consultoria"></div>
+      <div class="field"><span class="flabel">Segmento</span>
+        <select class="fselect" id="f-seg">
+          <option>Advocacia</option><option>Consultoria</option><option>Saude</option>
+          <option>Otica</option><option>Condominio</option><option>Distribuidor</option>
+          <option>Varejo</option><option>Servicos</option><option>Outro</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">MRR (R$)</span><input class="finput" id="f-mrr" type="number" placeholder="3500"></div>
+      <div class="field"><span class="flabel">Setup Fee (R$)</span><input class="finput" id="f-setup" type="number" placeholder="2500"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Custo API/mês (R$)</span><input class="finput" id="f-custo" type="number" placeholder="200"></div>
+      <div class="field"><span class="flabel">Status</span>
+        <select class="fselect" id="f-status">
+          <option value="ativo">Ativo</option>
+          <option value="pausado">Pausado</option>
+          <option value="encerrado">Encerrado</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow full">
+      <div class="field"><span class="flabel">Modulos Contratados</span><input class="finput" id="f-modulos" type="text" placeholder="Ex: Atendimento, Agendamento, Cobranca"></div>
+    </div>
+    <div class="frow full">
+      <div class="field"><span class="flabel">Contato Principal</span><input class="finput" id="f-contato" type="text" placeholder="Nome · WhatsApp · Email"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Inicio do Contrato</span><input class="finput" id="f-inicio" type="date"></div>
+      <div class="field"><span class="flabel">Link War Room</span><input class="finput" id="f-warroom" type="text" placeholder="/war-room?cliente=slug"></div>
+    </div>
+    <div class="frow full">
+      <div class="field"><span class="flabel">Notas</span><textarea class="ftarea" id="f-notas" rows="3" placeholder="Observacoes, particularidades, proximos passos..."></textarea></div>
+    </div>
+    <div class="modal-btns">
+      <button onclick="fecharModal()">CANCELAR</button>
+      <button class="btn-save" onclick="salvarCliente()">SALVAR</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="ts"></div>
+
+<script>
+const PW='omaproject2026';
+var clientes = [];
+var SK = 'oma-clientes-v1';
+
+function dL(){
+  if(document.getElementById('pw').value===PW){
+    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
+    sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+    init();
+  }else{
+    document.getElementById('le').style.display='block';
+    document.getElementById('pw').value='';
+  }
+}
+function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});location.reload();}
+
+// Auto-login
+(function(){
+  if(sessionStorage.getItem('oma_auth')==='1'){
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+    init();
+  }
+})();
+
+function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
+
+function init(){
+  try{
+    var saved = localStorage.getItem(SK);
+    if(saved) clientes = JSON.parse(saved);
+  }catch(e){clientes=[];}
+  render();
+}
+
+function render(){
+  var ativos = clientes.filter(function(c){return c.status==='ativo';});
+  var mrr = ativos.reduce(function(s,c){return s+(parseFloat(c.mrr)||0);},0);
+  var custo = ativos.reduce(function(s,c){return s+(parseFloat(c.custo)||0);},0);
+  var margem = mrr>0 ? Math.round(((mrr-custo)/mrr)*100) : 0;
+
+  document.getElementById('s-ativos').textContent = ativos.length;
+  document.getElementById('s-mrr').textContent = 'R$'+mrr.toLocaleString('pt-BR');
+  document.getElementById('s-custo').textContent = 'R$'+custo.toLocaleString('pt-BR');
+  document.getElementById('s-margem').textContent = margem+'%';
+
+  if(clientes.length===0){
+    document.getElementById('tbody').innerHTML = '<tr><td colspan="10" style="text-align:center;padding:48px;color:var(--ash);font-family:Space Mono,monospace;font-size:10px;letter-spacing:2px;">Nenhum cliente ainda.<br><span style="color:var(--fire)">Clique em + NOVO CLIENTE.</span></td></tr>';
+    return;
+  }
+
+  document.getElementById('tbody').innerHTML = clientes.map(function(c,i){
+    var mrr = parseFloat(c.mrr)||0;
+    var cst = parseFloat(c.custo)||0;
+    var mg = mrr>0 ? Math.round(((mrr-cst)/mrr)*100) : 0;
+    var mgColor = mg>=70?'var(--green)':mg>=50?'var(--gold)':'var(--red)';
+    var badge = c.status==='ativo'?'<span class="badge-ativo">ATIVO</span>':
+                c.status==='pausado'?'<span class="badge-pause">PAUSADO</span>':
+                '<span class="badge-enc">ENCERRADO</span>';
+    return '<tr onclick="verDetalhe('+i+')">'
+      +'<td><b>'+esc(c.nome)+'</b></td>'
+      +'<td style="color:var(--ash)">'+esc(c.seg||'—')+'</td>'
+      +'<td style="font-size:11px;color:var(--fog)">'+esc(c.modulos||'—')+'</td>'
+      +'<td style="color:var(--green)">R$'+(parseFloat(c.mrr)||0).toLocaleString('pt-BR')+'</td>'
+      +'<td style="color:var(--ash)">R$'+(parseFloat(c.setup)||0).toLocaleString('pt-BR')+'</td>'
+      +'<td style="color:var(--fog)">R$'+(parseFloat(c.custo)||0).toLocaleString('pt-BR')+'</td>'
+      +'<td style="color:'+mgColor+'">'+mg+'%</td>'
+      +'<td>'+badge+'</td>'
+      +'<td style="color:var(--ash);font-size:11px">'+esc(c.inicio||'—')+'</td>'
+      +'<td><button onclick="editarCliente('+i+',event)" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 8px;font-family:Space Mono,monospace;font-size:8px;cursor:pointer;">✎</button></td>'
+    +'</tr>';
+  }).join('');
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function verDetalhe(i){
+  var c = clientes[i];
+  if(!c) return;
+  var mrr = parseFloat(c.mrr)||0;
+  var cst = parseFloat(c.custo)||0;
+  var mg = mrr>0?Math.round(((mrr-cst)/mrr)*100):0;
+  document.getElementById('d-nome').textContent = c.nome;
+  document.getElementById('d-seg').textContent = (c.seg||'—') + (c.contato?' · '+c.contato:'');
+  document.getElementById('d-mrr').textContent = 'R$'+mrr.toLocaleString('pt-BR')+'/mês';
+  document.getElementById('d-setup').textContent = 'R$'+(parseFloat(c.setup)||0).toLocaleString('pt-BR');
+  document.getElementById('d-custo').textContent = 'R$'+cst.toLocaleString('pt-BR')+'/mês';
+  document.getElementById('d-margem').textContent = mg+'%';
+  document.getElementById('d-modulos').textContent = c.modulos ? 'Módulos: '+c.modulos : '';
+  document.getElementById('d-notas').textContent = c.notas || '';
+  document.getElementById('d-warroom').href = c.warroom || '/war-room';
+  var det = document.getElementById('detalhe');
+  det.classList.add('open');
+  det.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function fecharDetalhe(){document.getElementById('detalhe').classList.remove('open');}
+
+function abrirModal(){
+  document.getElementById('modal-title').textContent='NOVO CLIENTE';
+  document.getElementById('edit-id').value='';
+  ['f-nome','f-mrr','f-setup','f-custo','f-modulos','f-contato','f-warroom','f-notas'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('modal').classList.add('open');
+}
+
+function editarCliente(i, e){
+  e.stopPropagation();
+  var c=clientes[i];
+  document.getElementById('modal-title').textContent='EDITAR CLIENTE';
+  document.getElementById('edit-id').value=i;
+  document.getElementById('f-nome').value=c.nome||'';
+  document.getElementById('f-seg').value=c.seg||'Consultoria';
+  document.getElementById('f-mrr').value=c.mrr||'';
+  document.getElementById('f-setup').value=c.setup||'';
+  document.getElementById('f-custo').value=c.custo||'';
+  document.getElementById('f-status').value=c.status||'ativo';
+  document.getElementById('f-modulos').value=c.modulos||'';
+  document.getElementById('f-contato').value=c.contato||'';
+  document.getElementById('f-inicio').value=c.inicio||'';
+  document.getElementById('f-warroom').value=c.warroom||'';
+  document.getElementById('f-notas').value=c.notas||'';
+  document.getElementById('modal').classList.add('open');
+}
+
+function fecharModal(){document.getElementById('modal').classList.remove('open');}
+
+function salvarCliente(){
+  var nome=document.getElementById('f-nome').value.trim();
+  if(!nome){alert('Digite o nome do cliente.');return;}
+  var cliente={
+    nome:nome,
+    seg:document.getElementById('f-seg').value,
+    mrr:document.getElementById('f-mrr').value,
+    setup:document.getElementById('f-setup').value,
+    custo:document.getElementById('f-custo').value,
+    status:document.getElementById('f-status').value,
+    modulos:document.getElementById('f-modulos').value,
+    contato:document.getElementById('f-contato').value,
+    inicio:document.getElementById('f-inicio').value,
+    warroom:document.getElementById('f-warroom').value,
+    notas:document.getElementById('f-notas').value,
+    criado_em:new Date().toISOString()
+  };
+  var editIdx=document.getElementById('edit-id').value;
+  if(editIdx!==''){
+    clientes[parseInt(editIdx)]=cliente;
+  }else{
+    clientes.push(cliente);
+  }
+  try{localStorage.setItem(SK,JSON.stringify(clientes));}catch(e){}
+  fecharModal();
+  render();
+  toast('Cliente salvo!','ok');
+}
+</script>
+</body>
+</html>

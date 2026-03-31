@@ -186,7 +186,7 @@ main{padding:24px 28px 60px;}
       <div class="field"><label class="flabel">Status</label><select class="fsel" id="nst"><option value="briefing">Briefing</option><option value="producao">Produção</option><option value="revisao">Revisão</option><option value="publicado">Publicado</option></select></div>
       <div class="field"><label class="flabel">Responsável</label><select class="fsel" id="nr"><option value="fabio">Fabio</option><option value="flavia">Flávia</option><option value="critico">Crítico</option><option value="claude">Claude</option></select></div>
     </div>
-    <div class="field"><label class="flabel">Briefing</label><textarea class="ftarea" id="nb" placeholder="Contexto, tom, objetivo..."></textarea></div>
+    <div class="frow"><div class="field"><label class="flabel">Objetivo</label><select class="fsel" id="nobj"><option value="">Sem objetivo</option><option value="Captacao de leads">Captacao de leads</option><option value="Venda direta">Venda direta</option><option value="Conversao site">Conversao site</option><option value="Visita no site">Visita no site</option><option value="Visita no perfil">Visita no perfil</option><option value="Engajamento">Engajamento</option><option value="Awareness">Awareness</option><option value="Reativacao">Reativacao</option><option value="Educacao">Educacao</option><option value="Lancamento">Lancamento</option><option value="Outro">Outro</option></select></div><div class="field"><label class="flabel">Responsavel</label><select class="fsel" id="nr"><option value="fabio">Fabio</option><option value="flavia">Flavia</option><option value="critico">Critico</option><option value="claude">Claude</option></select></div></div><div class="field"><label class="flabel">Briefing</label><textarea class="ftarea" id="nb" placeholder="Contexto, tom, objetivo..."></textarea></div>
     <div style="display:flex;gap:10px;margin-top:8px;">
       <button class="btn btn-p" onclick="createJob()">Criar Job</button>
       <button class="btn btn-g" onclick="document.getElementById('mov').classList.remove('open')">Cancelar</button>
@@ -248,7 +248,7 @@ function mkCard(j){
     +'<div class="jcard-body">'
     +'<div class="jmeta"><span class="jnum">JOB #'+j.id+'</span>'
     +'<span class="sbadge b-'+j.status+'">'+(SL[j.status]||j.status)+'</span>'
-    +'<span class="jcanal">'+(CL[j.canal]||j.canal)+'</span></div>'
+    +'<span class="jcanal">'+(j.objetivo?'['+ j.objetivo.slice(0,12)+'] ':'')+(CL[j.canal]||j.canal)+'</span></div>'
     +'<div class="jtitle">'+j.titulo+'</div>'
     +'<div class="jbrief">'+(j.briefing||'Sem briefing ainda.')+'</div>'
     +'</div>'
@@ -363,7 +363,7 @@ function closeMov(e){if(e.target===document.getElementById('mov'))document.getEl
 async function createJob(){
   var titulo=document.getElementById('nt').value.trim();
   if(!titulo){alert('Título obrigatório');return;}
-  var body={titulo,canal:document.getElementById('nc').value,tipo:document.getElementById('ntp').value,status:document.getElementById('nst').value,responsavel:document.getElementById('nr').value,num_slides:parseInt(document.getElementById('nsl').value)||0,briefing:document.getElementById('nb').value};
+  var body={titulo,canal:document.getElementById('nc').value,tipo:document.getElementById('ntp').value,status:document.getElementById('nst').value,responsavel:document.getElementById('nr')?.value||'fabio',num_slides:parseInt(document.getElementById('nsl')?.value)||0,briefing:document.getElementById('nb').value,objetivo:document.getElementById('nobj')?.value||null};
   try{
     var r=await fetch(API+'/mkt/jobs',{method:'POST',headers:HDR,body:JSON.stringify(body)});
     var d=await r.json();
