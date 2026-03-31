@@ -338,7 +338,21 @@ var autosaveTimer = setInterval(async function(){
     btn.textContent='✓ Autosalvo ('+saved+')';
     setTimeout(function(){btn.textContent='Salvar tudo';},2000);
   }
-}, 30000);
+}, 15000); // a cada 15s
+
+// Save imediato quando sai de um campo de comentário
+document.addEventListener('change', function(e){
+  if(e.target.classList.contains('ci2')){
+    var id = e.target.closest('[id^="c-"]')?.id?.replace('c-','');
+    if(id && local[id]){
+      fetch(API+'/mkt/cards/'+id,{
+        method:'PATCH',
+        headers:{'Content-Type':'application/json','x-api-key':KEY},
+        body:JSON.stringify({status:local[id].status,status_arte:local[id].sa,status_legenda:local[id].sl,comentario_arte:local[id].ca,comentario_legenda:local[id].cl})
+      }).then(r=>{if(r.ok)pending.delete(id);}).catch(()=>{});
+    }
+  }
+});
 
 function setCanal(c){canal=c;document.querySelectorAll('.ctb').forEach(function(b){b.classList.toggle('active',b.dataset.c===c);});render();}
 function setFilter(f){filter=f;document.querySelectorAll('.ftb').forEach(function(b){b.classList.toggle('active',b.dataset.f===f);});render();}
