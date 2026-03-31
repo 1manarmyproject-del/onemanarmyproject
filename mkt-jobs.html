@@ -205,10 +205,14 @@ var CL={fabio:'@fabio_xavier_br','1manarmy':'@1manarmy_project'};
 async function load(){
   try{
     var r=await fetch(API+'/mkt/jobs',{headers:{'x-api-key':KEY}});
-    jobs=await r.json();
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var data=await r.json();
+    if(!Array.isArray(data)) throw new Error('resposta invalida');
+    jobs=data;
     stats();render();
   }catch(e){
-    document.getElementById('jc').innerHTML='<div class="empty"><p>Erro ao carregar.</p></div>';
+    console.error('Jobs load error:',e);
+    document.getElementById('jc').innerHTML='<div class="empty"><p>Erro ao carregar: '+e.message+'</p><p style="font-size:11px;margin-top:8px;color:var(--mu2)">Verifique conexão com a API</p></div>';
   }
 }
 
