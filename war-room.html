@@ -4,7 +4,66 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OMA — War Room</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
+// WAR ROOM — ABAS
+function wrTab(tab, btn){
+  document.querySelectorAll('.wr-tab').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.wr-pane').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('wr-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if(tab==='clientes') renderClientes(CLIENTES_DEMO, 'all');
+}
+
+// DADOS DEMO
+var CLIENTES_DEMO = [{"nome": "Cervus Consultoria", "seg": "Consultoria", "agentes": 2, "msgs": 1240, "escalacoes": 3, "uptime": 99.2, "status": "ok", "alerta": ""}, {"nome": "Cl\u00ednica Vida", "seg": "Sa\u00fade", "agentes": 1, "msgs": 890, "escalacoes": 1, "uptime": 97.8, "status": "ok", "alerta": ""}, {"nome": "Advocacia Silva", "seg": "Advocacia", "agentes": 3, "msgs": 2100, "escalacoes": 8, "uptime": 98.5, "status": "warn", "alerta": "Taxa de escala\u00e7\u00e3o alta"}, {"nome": "\u00d3tica Vis\u00e3o", "seg": "\u00d3tica", "agentes": 1, "msgs": 340, "escalacoes": 0, "uptime": 100, "status": "ok", "alerta": ""}, {"nome": "Cond. Paulista", "seg": "Condom\u00ednio", "agentes": 4, "msgs": 5200, "escalacoes": 2, "uptime": 99.8, "status": "ok", "alerta": ""}, {"nome": "Dist. Bebidas JN", "seg": "Distribuidor", "agentes": 2, "msgs": 780, "escalacoes": 12, "uptime": 95.1, "status": "alert", "alerta": "Uptime abaixo de 96%"}];
+var filtroAtivo = 'all';
+
+function filtrarClientes(f, btn){
+  filtroAtivo = f;
+  document.querySelectorAll('.filtro-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderClientes(CLIENTES_DEMO, f);
+}
+
+function renderClientes(data, filtro){
+  var filtered = filtro==='all' ? data : data.filter(function(c){return c.status===filtro;});
+  var tbody = document.getElementById('clientes-tbody');
+  tbody.innerHTML = filtered.map(function(c){
+    var statusDot = c.status==='alert' ? '<span class="status-dot-off"></span>' :
+                   c.status==='warn'  ? '<span class="status-dot-warn"></span>' :
+                                        '<span class="status-dot-on"></span>';
+    var badge = c.status==='alert' ? '<span class="alert-badge">ALERTA</span>' :
+               c.status==='warn'  ? '<span class="warn-badge">ATENÇÃO</span>' :
+                                    '<span class="ok-badge">OK</span>';
+    var alerta = c.alerta ? '<div style="font-size:10px;color:#e24b4a;margin-top:2px">'+c.alerta+'</div>' : '';
+    return '<tr style="cursor:pointer" onclick="showCliente(\'' + c.nome + '\')">' +
+      '<td><b>'+c.nome+'</b>'+alerta+'</td>' +
+      '<td style="color:#777">'+c.seg+'</td>' +
+      '<td>'+c.agentes+'</td>' +
+      '<td>'+c.msgs.toLocaleString('pt-BR')+'</td>' +
+      '<td style="color:'+(c.escalacoes>10?'#e24b4a':c.escalacoes>5?'#c8a456':'#3d9e60')+'">'+c.escalacoes+'</td>' +
+      '<td style="color:'+(c.uptime<96?'#e24b4a':c.uptime<98?'#c8a456':'#3d9e60')+'">'+c.uptime+'%</td>' +
+      '<td>'+badge+'</td>' +
+      '<td style="color:#555;font-size:11px">→</td>' +
+    '</tr>';
+  }).join('') || '<tr><td colspan="8" style="text-align:center;padding:32px;color:#555">Nenhum cliente neste filtro</td></tr>';
+}
+
+function showCliente(nome){
+  var c = CLIENTES_DEMO.find(function(x){return x.nome===nome;});
+  if(!c) return;
+  document.getElementById('cd-nome').textContent = c.nome;
+  document.getElementById('cd-seg').textContent = c.seg + ' · ' + c.agentes + ' agente' + (c.agentes>1?'s':'');
+  document.getElementById('cd-msgs').textContent = c.msgs.toLocaleString('pt-BR');
+  document.getElementById('cd-esc').textContent = c.escalacoes;
+  document.getElementById('cd-up').textContent = c.uptime+'%';
+  document.getElementById('cd-ag').textContent = c.agentes;
+  var detail = document.getElementById('cliente-detail');
+  detail.classList.add('open');
+  detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
 <style>
@@ -126,6 +185,64 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
 
 /* CHART ACTIVITY */
 .activity-wrap{position:relative;height:160px;}
+
+/* ABAS WAR ROOM */
+.wr-tabs{background:var(--carbon,#0f0f0f);border-bottom:1px solid #1e1e1e;padding:0 32px;display:flex;gap:0;position:sticky;top:60px;z-index:40;}
+.wr-tab{background:none;border:none;border-bottom:2px solid transparent;padding:13px 18px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#555;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+.wr-tab.active{color:#e8703a;border-bottom-color:#e8703a;}
+.wr-tab:hover:not(.active){color:#e0d9cf;}
+.wr-pane{display:none;}
+.wr-pane.active{display:block;}
+/* CLIENTES */
+.clientes-wrap{padding:28px 32px;max-width:1200px;}
+@media(max-width:600px){.clientes-wrap{padding:16px;}}
+.clientes-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.clientes-title{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:#e8703a;}
+.demo-badge{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#c8a456;border:1px solid #c8a456;padding:3px 10px;border-radius:2px;}
+/* FILTROS */
+.clientes-filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.filtro-btn{background:none;border:1px solid #2a2a2a;color:#555;padding:5px 12px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;cursor:pointer;border-radius:2px;transition:all .15s;}
+.filtro-btn:hover,.filtro-btn.active{border-color:#e8703a;color:#e8703a;}
+.filtro-btn.all.active{background:#e8703a;color:#000;}
+/* CONSOLIDADO */
+.consol-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+@media(max-width:800px){.consol-grid{grid-template-columns:1fr 1fr;}}
+.consol-card{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:4px;padding:18px;position:relative;overflow:hidden;}
+.consol-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.consol-card.c-green::before{background:#3d9e60;}
+.consol-card.c-fire::before{background:#e8703a;}
+.consol-card.c-gold::before{background:#c8a456;}
+.consol-card.c-red::before{background:#e24b4a;}
+.consol-val{font-family:'Black Ops One',cursive;font-size:32px;line-height:1;margin-bottom:6px;}
+.consol-card.c-green .consol-val{color:#3d9e60;}
+.consol-card.c-fire .consol-val{color:#e8703a;}
+.consol-card.c-gold .consol-val{color:#c8a456;}
+.consol-card.c-red .consol-val{color:#e24b4a;}
+.consol-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#555;text-transform:uppercase;}
+/* TABELA DE AGENTES */
+.agentes-table-wrap{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:4px;overflow:hidden;margin-bottom:24px;}
+.agentes-table-head{padding:12px 20px;border-bottom:1px solid #1e1e1e;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#555;text-transform:uppercase;}
+.agentes-table{width:100%;border-collapse:collapse;}
+.agentes-table th{padding:10px 16px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:#555;text-align:left;border-bottom:1px solid #1e1e1e;text-transform:uppercase;}
+.agentes-table td{padding:12px 16px;font-family:'Barlow',sans-serif;font-size:13px;color:#e0d9cf;border-bottom:1px solid #161616;}
+.agentes-table tr:last-child td{border-bottom:none;}
+.agentes-table tr:hover td{background:rgba(255,255,255,.02);}
+.status-dot-on{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3d9e60;margin-right:5px;animation:blink 2s infinite;}
+.status-dot-warn{display:inline-block;width:7px;height:7px;border-radius:50%;background:#c8a456;margin-right:5px;}
+.status-dot-off{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e24b4a;margin-right:5px;}
+.alert-badge{background:rgba(226,75,74,.15);color:#e24b4a;border:1px solid rgba(226,75,74,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
+.warn-badge{background:rgba(200,164,86,.15);color:#c8a456;border:1px solid rgba(200,164,86,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
+.ok-badge{background:rgba(61,158,96,.15);color:#3d9e60;border:1px solid rgba(61,158,96,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
+/* DETAIL CLIENTE */
+.cliente-detail{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:4px;padding:20px;margin-bottom:20px;display:none;}
+.cliente-detail.open{display:block;}
+.cd-nome{font-family:'Black Ops One',cursive;font-size:20px;color:#e8703a;margin-bottom:4px;}
+.cd-seg{font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:1px;margin-bottom:16px;}
+.cd-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+@media(max-width:600px){.cd-stats{grid-template-columns:1fr 1fr;}}
+.cd-stat{background:#161616;border-radius:3px;padding:10px 14px;}
+.cd-stat-val{font-family:'Space Mono',monospace;font-size:16px;color:#e0d9cf;margin-bottom:3px;}
+.cd-stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:#555;letter-spacing:1px;}
 </style>
 </head>
 <body>
@@ -140,6 +257,16 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
     <span class="hck"><span class="live"></span><span id="ck">--:--</span></span>
   </div>
 </header>
+
+<!-- ABAS DO WAR ROOM -->
+<div class="wr-tabs">
+  <button class="wr-tab active" onclick="wrTab('operacao',this)">OPERAÇÃO OMA</button>
+  <button class="wr-tab" onclick="wrTab('clientes',this)">CLIENTES</button>
+</div>
+
+<!-- PANE OPERAÇÃO (conteúdo original) -->
+<div class="wr-pane active" id="wr-operacao">
+
 
 <!-- COUNTDOWN -->
 <div class="cd-bar">
@@ -454,6 +581,86 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
     <div id="george-diario" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:8px;line-height:1.7;white-space:pre-wrap">carregando...</div>
   </div>
 
+
+
+</div><!-- /wr-operacao -->
+
+<!-- PANE CLIENTES -->
+<div class="wr-pane" id="wr-clientes">
+<div class="clientes-wrap">
+
+  <div class="clientes-header">
+    <span class="clientes-title">OPERAÇÃO DOS CLIENTES</span>
+    <span class="demo-badge">DEMO — dados simulados</span>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="clientes-filtros">
+    <button class="filtro-btn all active" onclick="filtrarClientes('all',this)">TODOS</button>
+    <button class="filtro-btn" onclick="filtrarClientes('alert',this)">⚠ COM ALERTA</button>
+    <button class="filtro-btn" onclick="filtrarClientes('warn',this)">ATENÇÃO</button>
+    <button class="filtro-btn" onclick="filtrarClientes('ok',this)">✓ SAUDÁVEIS</button>
+  </div>
+
+  <!-- CONSOLIDADO -->
+  <div class="consol-grid">
+    <div class="consol-card c-green">
+      <div class="consol-val" id="cl-total">6</div>
+      <div class="consol-lbl">Clientes Ativos</div>
+    </div>
+    <div class="consol-card c-fire">
+      <div class="consol-val" id="cl-agentes">13</div>
+      <div class="consol-lbl">Agentes Online</div>
+    </div>
+    <div class="consol-card c-gold">
+      <div class="consol-val" id="cl-msgs">10.5k</div>
+      <div class="consol-lbl">Msgs/mês</div>
+    </div>
+    <div class="consol-card c-red">
+      <div class="consol-val" id="cl-alertas">2</div>
+      <div class="consol-lbl">Com Alerta</div>
+    </div>
+  </div>
+
+  <!-- TABELA DE AGENTES DOS CLIENTES -->
+  <div class="agentes-table-wrap">
+    <div class="agentes-table-head">Agentes por cliente — performance consolidada</div>
+    <table class="agentes-table" id="clientes-table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Segmento</th>
+          <th>Agentes</th>
+          <th>Msgs/mês</th>
+          <th>Escalações</th>
+          <th>Uptime</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="clientes-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- DETAIL CLIENTE -->
+  <div class="cliente-detail" id="cliente-detail">
+    <div class="cd-nome" id="cd-nome">—</div>
+    <div class="cd-seg" id="cd-seg">—</div>
+    <div class="cd-stats">
+      <div class="cd-stat"><div class="cd-stat-val" id="cd-msgs">—</div><div class="cd-stat-lbl">Mensagens</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="cd-esc">—</div><div class="cd-stat-lbl">Escalações</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="cd-up">—</div><div class="cd-stat-lbl">Uptime</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="cd-ag">—</div><div class="cd-stat-lbl">Agentes</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:1px;line-height:1.8">
+    Quando os primeiros clientes estiverem online, esta página passará a mostrar dados reais em tempo real.<br>
+    Alertas automáticos para: uptime &lt; 96%, escalações &gt; 10%, tempo de resposta &gt; 5min.
+  </div>
+
+</div>
+</div>
 
 </div>
 

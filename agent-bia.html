@@ -192,9 +192,177 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .slot-btns{display:flex;gap:8px;margin-top:16px;}
 .slot-btns button{flex:1;padding:8px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);}
 .slot-btns button.sadd{background:var(--agent);border-color:var(--agent);color:var(--char);}
+
+/* RÉGUA DE CRM */
+.regua-wrap{padding:28px 40px;max-width:960px;}
+@media(max-width:600px){.regua-wrap{padding:16px;}}
+.regua-etapas{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.etapa-card{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;overflow:hidden;}
+.etapa-head{padding:14px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--iron);}
+.etapa-num{font-family:'Black Ops One',cursive;font-size:20px;color:var(--agent);min-width:28px;}
+.etapa-info{flex:1;}
+.etapa-nome{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--bone);margin-bottom:3px;}
+.etapa-desc{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);}
+.etapa-toggle{display:flex;align-items:center;gap:8px;}
+.etapa-toggle span{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
+.tog2{width:36px;height:20px;background:var(--steel);border-radius:10px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;}
+.tog2.on{background:var(--agent);}
+.tog2::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s;}
+.tog2.on::after{left:18px;}
+.etapa-body{padding:16px 20px;}
+.etapa-row{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;align-items:center;margin-bottom:10px;}
+.etapa-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;white-space:nowrap;}
+.etapa-input,.etapa-select{background:var(--graph);border:1px solid var(--steel);padding:6px 10px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:12px;outline:none;border-radius:2px;width:100%;}
+.etapa-input:focus,.etapa-select:focus{border-color:var(--agent);}
+.etapa-textarea{background:var(--graph);border:1px solid var(--steel);padding:8px 10px;color:var(--bone);font-family:'Space Mono',monospace;font-size:10px;outline:none;border-radius:2px;width:100%;resize:vertical;min-height:80px;line-height:1.6;}
+.etapa-textarea:focus{border-color:var(--agent);}
+/* FILA DE AÇÕES */
+.regua-fila{margin-top:8px;}
+.fila-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:12px;text-transform:uppercase;}
+.fila-item{background:var(--carbon);border:1px solid var(--iron);border-radius:3px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:14px;}
+.fila-etapa{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--agent);text-transform:uppercase;min-width:120px;}
+.fila-lead{flex:1;}
+.fila-lead-nome{font-family:'Barlow',sans-serif;font-size:13px;color:var(--bone);margin-bottom:2px;}
+.fila-lead-empresa{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);}
+.fila-quando{font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);}
+.fila-empty{padding:32px;text-align:center;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;}
+.fila-exec-btn{background:none;border:1px solid var(--agent);color:var(--agent);padding:4px 10px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;cursor:pointer;transition:all .15s;border-radius:2px;}
+.fila-exec-btn:hover{background:var(--agent);color:var(--char);}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+// RÉGUA DE CRM
+var REGUA_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var reguaConfig = [];
+
+var ETAPA_LABELS = {
+  diagnostico_inicial: '01 — Diagnóstico Inicial',
+  diagnostico_email: '02 — Diagnóstico por Email',
+  followup_diagnostico: '03 — Follow-up (sem resposta)',
+  lembrete_reuniao: '04 — Lembrete D-1 da Reunião',
+  reengajamento_perdido: '05 — Reengajamento'
+};
+
+async function loadRegua(){
+  var key = sessionStorage.getItem('oma_api_key') || REGUA_KEY;
+  try{
+    var [cfgRes, filaRes] = await Promise.all([
+      fetch('https://api.onemanarmyproject.com.br/regua/config', {headers:{'x-api-key':key}}),
+      fetch('https://api.onemanarmyproject.com.br/regua/fila', {headers:{'x-api-key':key}})
+    ]);
+    reguaConfig = await cfgRes.json();
+    var fila = await filaRes.json();
+    renderRegua(reguaConfig);
+    renderFila(fila);
+  }catch(e){
+    document.getElementById('regua-etapas').innerHTML='<div class="fila-empty">Erro ao carregar régua</div>';
+  }
+}
+
+function renderRegua(config){
+  var container = document.getElementById('regua-etapas');
+  container.innerHTML = config.map(function(e,i){
+    var label = ETAPA_LABELS[e.etapa] || e.etapa;
+    var delayLabel = e.delay_horas === 0 ? 'Imediato' : 
+                     e.delay_horas < 0 ? Math.abs(e.delay_horas)+'h antes' : 
+                     e.delay_horas+'h depois';
+    return '<div class="etapa-card" id="etapa-'+e.etapa+'">' +
+      '<div class="etapa-head">' +
+        '<span class="etapa-num">'+(i+1).toString().padStart(2,'0')+'</span>' +
+        '<div class="etapa-info">' +
+          '<div class="etapa-nome">'+label+'</div>' +
+          '<div class="etapa-desc">'+e.descricao+'</div>' +
+        '</div>' +
+        '<div class="etapa-toggle">' +
+          '<span>'+(e.ativo?'ATIVO':'INATIVO')+'</span>' +
+          '<div class="tog2'+(e.ativo?' on':'')+'" onclick="toggleEtapa(this,''+e.etapa+'')"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="etapa-body">' +
+        '<div class="etapa-row">' +
+          '<span class="etapa-lbl">Timing</span>' +
+          '<input class="etapa-input" id="delay-'+e.etapa+'" type="number" value="'+e.delay_horas+'" placeholder="horas">' +
+        '</div>' +
+        '<div class="etapa-row">' +
+          '<span class="etapa-lbl">Canal</span>' +
+          '<select class="etapa-select" id="canal-'+e.etapa+'">' +
+            '<option'+(e.canal==='whatsapp'?' selected':'')+'>whatsapp</option>' +
+            '<option'+(e.canal==='email'?' selected':'')+'>email</option>' +
+            '<option'+(e.canal==='ambos'?' selected':'')+'>ambos</option>' +
+          '</select>' +
+        '</div>' +
+        '<div style="margin-top:10px"><span class="etapa-lbl" style="display:block;margin-bottom:6px">Template da mensagem</span>' +
+          '<textarea class="etapa-textarea" id="tmpl-'+e.etapa+'" rows="4">'+e.template+'</textarea>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleEtapa(el, etapa){
+  el.classList.toggle('on');
+  var ativo = el.classList.contains('on') ? 1 : 0;
+  el.previousElementSibling.textContent = ativo ? 'ATIVO' : 'INATIVO';
+}
+
+function renderFila(fila){
+  var container = document.getElementById('regua-fila');
+  if(!fila || fila.length === 0){
+    container.innerHTML = '<div class="fila-empty">Nenhuma ação pendente na fila</div>';
+    return;
+  }
+  container.innerHTML = fila.map(function(item){
+    var label = ETAPA_LABELS[item.etapa] || item.etapa;
+    var quando = item.agendado_para ? new Date(item.agendado_para).toLocaleString('pt-BR') : 'Imediato';
+    return '<div class="fila-item">' +
+      '<span class="fila-etapa">'+label+'</span>' +
+      '<div class="fila-lead">' +
+        '<div class="fila-lead-nome">'+item.nome+'</div>' +
+        '<div class="fila-lead-empresa">'+item.empresa+'</div>' +
+      '</div>' +
+      '<span class="fila-quando">'+quando+'</span>' +
+      '<button class="fila-exec-btn" onclick="executarAcao('+item.id+')">EXECUTAR</button>' +
+    '</div>';
+  }).join('');
+}
+
+async function salvarRegua(){
+  var key = sessionStorage.getItem('oma_api_key') || REGUA_KEY;
+  var updates = reguaConfig.map(async function(e){
+    var ativo = document.getElementById('etapa-'+e.etapa)?.querySelector('.tog2')?.classList.contains('on') ? 1 : 0;
+    var delay_horas = parseInt(document.getElementById('delay-'+e.etapa)?.value || e.delay_horas);
+    var canal = document.getElementById('canal-'+e.etapa)?.value || e.canal;
+    var template = document.getElementById('tmpl-'+e.etapa)?.value || e.template;
+    return fetch('https://api.onemanarmyproject.com.br/regua/config/'+e.etapa, {
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','x-api-key':key},
+      body:JSON.stringify({ativo,delay_horas,canal,template})
+    });
+  });
+  await Promise.all(updates);
+  toast('Régua salva!','ok');
+}
+
+async function executarAcao(id){
+  var key = sessionStorage.getItem('oma_api_key') || REGUA_KEY;
+  await fetch('https://api.onemanarmyproject.com.br/regua/'+id,{
+    method:'PATCH',
+    headers:{'Content-Type':'application/json','x-api-key':key},
+    body:JSON.stringify({status:'executado',resultado:'manual'})
+  });
+  toast('Ação marcada como executada','ok');
+  loadRegua();
+}
+
+// Trigger ao abrir a aba
+document.addEventListener('DOMContentLoaded', function(){
+  var reguaBtn = Array.from(document.querySelectorAll('.tab-btn')).find(function(b){
+    return b.textContent.trim() === 'RÉGUA';
+  });
+  if(reguaBtn) reguaBtn.addEventListener('click', function(){ setTimeout(loadRegua, 100); });
+});
+
+</script>
 <script>
 function openExport(){
   var data = {
@@ -600,6 +768,7 @@ function loadSetup(){
     <button class="tab-btn" onclick="sTab('setup',this)">SETUP</button>
     <button class="tab-btn" onclick="sTab('fluxos',this)">FLUXOS</button>
     <button class="tab-btn" onclick="sTab('agenda',this)">AGENDA</button>
+    <button class="tab-btn" onclick="sTab('regua',this)">RÉGUA</button>
   </div>
   <!-- PANE OVERVIEW (wraps existing content) -->
   <div class="tab-pane active" id="pane-overview-wrap">
@@ -1027,6 +1196,33 @@ Função: Comercial — OMA Project</div>
     </div>
   </div>
 </div>
+
+
+
+  <!-- PANE RÉGUA DE CRM -->
+  <div class="tab-pane" id="pane-regua-wrap">
+  <div class="regua-wrap">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <span style="font-family:'Black Ops One',cursive;font-size:17px;letter-spacing:2px;color:var(--agent)">RÉGUA DE CRM</span>
+      <button onclick="salvarRegua()" style="background:var(--agent);border:none;color:var(--char);padding:7px 18px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;cursor:pointer">SALVAR</button>
+    </div>
+
+    <div class="regua-etapas" id="regua-etapas">
+      <div style="text-align:center;padding:40px;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px">Carregando...</div>
+    </div>
+
+    <div style="height:1px;background:var(--iron);margin:24px 0"></div>
+
+    <div class="regua-fila">
+      <div class="fila-title">FILA DE AÇÕES — PRÓXIMAS EXECUÇÕES</div>
+      <div id="regua-fila">
+        <div class="fila-empty">Carregando fila...</div>
+      </div>
+    </div>
+
+  </div>
+  </div>
 
 </div><!-- /app -->
 </div>
