@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/mkt/jobs",
+      "destination": "/mkt-jobs.html"
+    },
+    {
       "source": "/pmo",
       "destination": "/pmo.html"
     },
@@ -73,16 +77,12 @@
       "destination": "/index-v2.html"
     },
     {
-      "source": "/mkt",
-      "destination": "/mkt-board.html"
-    },
-    {
       "source": "/agent/:slug",
       "destination": "https://api.onemanarmyproject.com.br/agent/:slug"
     },
     {
-      "source": "/mkt/jobs",
-      "destination": "/mkt-jobs.html"
+      "source": "/mkt",
+      "destination": "/mkt-board.html"
     }
   ],
   "redirects": [
