@@ -194,7 +194,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .slot-btns button.sadd{background:var(--agent);border-color:var(--agent);color:var(--char);}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>
 function openExport(){
   var data = {
     nome: (document.getElementById('s-nome')||{}).value || '',
@@ -399,7 +400,6 @@ function sTab(t,btn){
   _origSTab(t,btn);
   if(t==='agenda') loadAgenda();
 }
-
 </script>
 <script>
 

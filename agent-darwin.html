@@ -162,7 +162,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .gerar-btns button.salvar-btn:disabled{opacity:.4;cursor:not-allowed;}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>
 function openExport(){
   var data = {
     nome: (document.getElementById('s-nome')||{}).value || '',
@@ -284,7 +285,6 @@ function setGerarStatus(msg, type){
   el.textContent = msg;
   el.className = 'gerar-status '+(type||'');
 }
-
 </script>
 <script>
 
