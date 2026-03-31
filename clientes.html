@@ -141,7 +141,7 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
       <thead><tr>
         <th>Cliente</th><th>Segmento</th><th>Módulos</th>
         <th>MRR</th><th>Setup</th><th>Custo</th><th>Margem</th>
-        <th>Status</th><th>Desde</th><th></th>
+        <th>Complexidade</th><th>Setup</th><th>Status</th><th>Desde</th><th></th>
       </tr></thead>
       <tbody id="tbody">
         <tr><td colspan="10" style="text-align:center;padding:48px;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;">
@@ -269,6 +269,14 @@ function render(){
     var cst = parseFloat(c.custo)||0;
     var mg = mrr>0 ? Math.round(((mrr-cst)/mrr)*100) : 0;
     var mgColor = mg>=70?'var(--green)':mg>=50?'var(--gold)':'var(--red)';
+    var complexIcons = {alta:'⚡',media:'◈',baixa:'○'};
+    var complexColors = {alta:'var(--red,#e24b4a)',media:'var(--gold)',baixa:'var(--green)'};
+    var setupLabels = {exclusivo:'EXCLUSIVO',assistido:'ASSISTIDO',self_service:'AUTO'};
+    var setupColors = {exclusivo:'var(--red,#e24b4a)',assistido:'var(--gold)',self_service:'var(--green)'};
+    var comp = c.complexidade||'';
+    var setup = c.tipo_setup||'';
+    var complexBadge = comp ? '<span style="color:'+complexColors[comp]+';font-family:Space Mono,monospace;font-size:9px">'+(complexIcons[comp]||'?')+' '+comp.toUpperCase()+'</span>' : '<span style="color:var(--ash);font-size:10px">—</span>';
+    var setupBadge = setup ? '<span style="color:'+setupColors[setup]+';font-family:Space Mono,monospace;font-size:9px">'+setupLabels[setup]+'</span>' : '<span style="color:var(--ash);font-size:10px">—</span>';
     var badge = c.status==='ativo'?'<span class="badge-ativo">ATIVO</span>':
                 c.status==='pausado'?'<span class="badge-pause">PAUSADO</span>':
                 '<span class="badge-enc">ENCERRADO</span>';
@@ -280,6 +288,8 @@ function render(){
       +'<td style="color:var(--ash)">R$'+(parseFloat(c.setup)||0).toLocaleString('pt-BR')+'</td>'
       +'<td style="color:var(--fog)">R$'+(parseFloat(c.custo)||0).toLocaleString('pt-BR')+'</td>'
       +'<td style="color:'+mgColor+'">'+mg+'%</td>'
+      +'<td>'+complexBadge+'</td>'
+      +'<td>'+setupBadge+'</td>'
       +'<td>'+badge+'</td>'
       +'<td style="color:var(--ash);font-size:11px">'+esc(c.inicio||'—')+'</td>'
       +'<td><button onclick="editarCliente('+i+',event)" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 8px;font-family:Space Mono,monospace;font-size:8px;cursor:pointer;">✎</button></td>'
