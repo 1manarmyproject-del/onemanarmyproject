@@ -160,6 +160,38 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .gerar-btns button.gerar-btn{background:var(--fire);border-color:var(--fire);color:#000;}
 .gerar-btns button.salvar-btn{background:var(--green);border-color:var(--green);color:#000;}
 .gerar-btns button.salvar-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* AGENDA */
+.agenda-wrap{padding:28px 40px;max-width:860px;}
+@media(max-width:600px){.agenda-wrap{padding:16px;}}
+.agenda-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.agenda-title{font-family:'Black Ops One',cursive;font-size:17px;letter-spacing:2px;color:var(--agent);}
+.slot-add-btn{background:none;border:1px solid var(--agent);color:var(--agent);padding:6px 14px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;transition:all .15s;}
+.slot-add-btn:hover{background:var(--agent);color:var(--char);}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+@media(max-width:700px){.slots-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:400px){.slots-grid{grid-template-columns:1fr;}}
+.slot-card{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:14px;position:relative;}
+.slot-card.ocupado{border-color:var(--green);background:rgba(61,158,96,.05);}
+.slot-card.ocupado .slot-status{color:var(--green);}
+.slot-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--bone);margin-bottom:6px;}
+.slot-status{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.slot-lead{font-family:'Barlow',sans-serif;font-size:11px;color:var(--fog);margin-top:6px;line-height:1.4;}
+.slot-del{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--ash);cursor:pointer;font-size:11px;transition:color .15s;}
+.slot-del:hover{color:#e24b4a;}
+.slot-empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;}
+/* MODAL ADD SLOT */
+.slot-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:300;align-items:center;justify-content:center;}
+.slot-modal-bg.open{display:flex;}
+.slot-modal-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:24px;width:380px;max-width:94vw;}
+.slot-modal-box h4{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--agent);margin-bottom:16px;}
+.sfield2{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+.sfield2 .slbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.sfield2 input,.sfield2 select{background:var(--graph);border:1px solid var(--steel);padding:8px 11px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;border-radius:2px;width:100%;}
+.sfield2 input:focus,.sfield2 select:focus{border-color:var(--agent);}
+.slot-btns{display:flex;gap:8px;margin-top:16px;}
+.slot-btns button{flex:1;padding:8px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);}
+.slot-btns button.sadd{background:var(--agent);border-color:var(--agent);color:var(--char);}
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
@@ -283,6 +315,89 @@ function setGerarStatus(msg, type){
   var el = document.getElementById('gerar-status');
   el.textContent = msg;
   el.className = 'gerar-status '+(type||'');
+}
+
+
+// AGENDA
+var AGENDA_API = 'https://api.onemanarmyproject.com.br';
+var AGENDA_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+
+function openSlotModal(){
+  var today = new Date();
+  today.setDate(today.getDate()+1);
+  document.getElementById('slot-data').min = today.toISOString().split('T')[0];
+  document.getElementById('slot-data').value = today.toISOString().split('T')[0];
+  document.getElementById('slot-modal').classList.add('open');
+}
+function closeSlotModal(){document.getElementById('slot-modal').classList.remove('open');}
+
+async function loadAgenda(){
+  var key=sessionStorage.getItem('oma_api_key')||AGENDA_KEY;
+  try{
+    var r=await fetch(AGENDA_API+'/agenda/all',{headers:{'x-api-key':key}});
+    var slots=await r.json();
+    renderSlots(slots);
+  }catch(e){
+    document.getElementById('slots-grid').innerHTML='<div class="slot-empty">Erro ao carregar agenda</div>';
+  }
+}
+
+function renderSlots(slots){
+  var grid=document.getElementById('slots-grid');
+  if(!slots||slots.length===0){
+    grid.innerHTML='<div class="slot-empty">Nenhum horário cadastrado.<br><span style="color:var(--agent)">Clique em + NOVO HORÁRIO para adicionar.</span></div>';
+    return;
+  }
+  grid.innerHTML=slots.map(function(s){
+    var ocupado=s.status==='ocupado';
+    var lead=ocupado?'<div class="slot-lead">'+s.lead_nome+(s.lead_empresa?' · '+s.lead_empresa:'')+'</div>':'';
+    return '<div class="slot-card'+(ocupado?' ocupado':'')+'">'+
+      '<button class="slot-del" onclick="delSlot('+s.id+')">✕</button>'+
+      '<div class="slot-label">'+s.label+'</div>'+
+      '<div class="slot-status">'+(ocupado?'OCUPADO':'LIVRE')+'</div>'+
+      lead+'</div>';
+  }).join('');
+}
+
+async function addSlot(){
+  var data=document.getElementById('slot-data').value;
+  var hora=document.getElementById('slot-hora').value;
+  var label=document.getElementById('slot-label').value.trim();
+  if(!data||!hora){alert('Preencha data e hora');return;}
+  if(!label){
+    var d=new Date(data+'T12:00:00');
+    var dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+    var meses=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    label=dias[d.getDay()]+' '+d.getDate()+'/'+d.toISOString().split('T')[0].split('-')[1]+' às '+hora;
+  }
+  var key=sessionStorage.getItem('oma_api_key')||AGENDA_KEY;
+  try{
+    var r=await fetch(AGENDA_API+'/agenda',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key},
+      body:JSON.stringify({data:data,hora:hora,label:label})
+    });
+    var d=await r.json();
+    if(d.ok){closeSlotModal();loadAgenda();toast('Horário adicionado!','ok');}
+    else{alert('Erro: '+d.error);}
+  }catch(e){alert('Erro de conexão');}
+}
+
+async function delSlot(id){
+  if(!confirm('Remover este horário?'))return;
+  var key=sessionStorage.getItem('oma_api_key')||AGENDA_KEY;
+  try{
+    await fetch(AGENDA_API+'/agenda/'+id,{method:'DELETE',headers:{'x-api-key':key}});
+    loadAgenda();
+    toast('Horário removido','ok');
+  }catch(e){alert('Erro');}
+}
+
+// Carrega agenda quando aba é aberta
+var _origSTab=sTab;
+function sTab(t,btn){
+  _origSTab(t,btn);
+  if(t==='agenda') loadAgenda();
 }
 
 </script>
@@ -479,6 +594,7 @@ function loadSetup(){
     <button class="tab-btn active" onclick="sTab('overview',this)">OVERVIEW</button>
     <button class="tab-btn" onclick="sTab('setup',this)">SETUP</button>
     <button class="tab-btn" onclick="sTab('fluxos',this)">FLUXOS</button>
+    <button class="tab-btn" onclick="sTab('agenda',this)">AGENDA</button>
   </div>
   <!-- PANE OVERVIEW (wraps existing content) -->
   <div class="tab-pane active" id="pane-overview-wrap">
@@ -861,5 +977,51 @@ Função: Comercial — OMA Project</div>
     <span class="smsg" id="smsg2">Salvo</span>
   </div>
   </div>
+
+
+  <!-- PANE AGENDA -->
+  <div class="tab-pane" id="pane-agenda-wrap">
+  <div class="agenda-wrap">
+    <div class="agenda-header">
+      <span class="agenda-title">AGENDA — SLOTS DISPONÍVEIS</span>
+      <button class="slot-add-btn" onclick="openSlotModal()">+ NOVO HORÁRIO</button>
+    </div>
+    <div id="slots-grid" class="slots-grid">
+      <div class="slot-empty">Carregando agenda...</div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;line-height:1.8">
+      <span style="color:var(--bone)">Como funciona:</span> Slots em verde = reunião agendada. A Bia consulta automaticamente esta lista e oferece os horários livres para os leads.
+    </div>
+  </div>
+  </div>
+
+
+<!-- MODAL ADD SLOT -->
+<div class="slot-modal-bg" id="slot-modal" onclick="if(event.target===this)closeSlotModal()">
+  <div class="slot-modal-box">
+    <h4>NOVO HORÁRIO</h4>
+    <div class="sfield2">
+      <span class="slbl">Data</span>
+      <input type="date" id="slot-data" min="2026-04-01">
+    </div>
+    <div class="sfield2">
+      <span class="slbl">Hora</span>
+      <select id="slot-hora">
+        <option>08:00</option><option>09:00</option><option>10:00</option>
+        <option>11:00</option><option>13:00</option><option>14:00</option>
+        <option>15:00</option><option>16:00</option><option>17:00</option>
+      </select>
+    </div>
+    <div class="sfield2">
+      <span class="slbl">Label (opcional)</span>
+      <input type="text" id="slot-label" placeholder="Ex: Quinta 02/04 às 14h">
+    </div>
+    <div class="slot-btns">
+      <button onclick="closeSlotModal()">CANCELAR</button>
+      <button class="sadd" onclick="addSlot()">ADICIONAR</button>
+    </div>
+  </div>
+</div>
+
 </div><!-- /app -->
 </div>
