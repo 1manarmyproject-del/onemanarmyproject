@@ -225,14 +225,14 @@ function dL(){
 }
 function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});location.reload();}
 
-// Auto-login
-(function(){
+// Auto-login — executado após todas as declarações
+document.addEventListener('DOMContentLoaded', function(){
   if(sessionStorage.getItem('oma_auth')==='1'){
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
     init();
   }
-})();
+});
 
 function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
 
