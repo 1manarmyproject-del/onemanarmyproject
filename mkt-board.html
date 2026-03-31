@@ -315,6 +315,31 @@ async function saveAll(){
   toast(ok+' cards salvos ✓');
 }
 
+// ── AUTOSAVE — salva a cada 30s se houver alterações ─────────────────────
+var autosaveTimer = setInterval(async function(){
+  if(!pending.size) return;
+  var n = pending.size;
+  for(var id of [...pending]){
+    try{
+      var L=local[id];
+      var r=await fetch(API+'/mkt/cards/'+id,{
+        method:'PATCH',
+        headers:{'Content-Type':'application/json','x-api-key':KEY},
+        body:JSON.stringify({status:L.status,status_arte:L.sa,status_legenda:L.sl,comentario_arte:L.ca,comentario_legenda:L.cl})
+      });
+      if(r.ok) pending.delete(id);
+    }catch(e){}
+  }
+  if(pending.size < n){
+    var saved = n - pending.size;
+    // Atualizar indicador no botão
+    var btn=document.getElementById('bts');
+    var orig=btn.textContent;
+    btn.textContent='✓ Autosalvo ('+saved+')';
+    setTimeout(function(){btn.textContent='Salvar tudo';},2000);
+  }
+}, 30000);
+
 function setCanal(c){canal=c;document.querySelectorAll('.ctb').forEach(function(b){b.classList.toggle('active',b.dataset.c===c);});render();}
 function setFilter(f){filter=f;document.querySelectorAll('.ftb').forEach(function(b){b.classList.toggle('active',b.dataset.f===f);});render();}
 function togLeg(btn){btn.classList.toggle('open');var t=btn.nextElementSibling;t.style.display=t.style.display==='block'?'none':'block';}
