@@ -482,37 +482,200 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 <div class="toast" id="ts"></div>
 <script>
 const PWD='omaproject2026';
-function dL(){if(document.getElementById('pw').value===PWD){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('le').style.display='block';document.getElementById('pw').value='';}}
+function dL(){
+  if(document.getElementById('pw').value===PWD){
+    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
+    sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+  }else{
+    document.getElementById('le').style.display='block';
+    document.getElementById('pw').value='';
+  }
+}
 function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});location.reload();}
 function tick(){var el=document.getElementById('ck');if(el)el.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 setInterval(tick,1000);tick();
 function toast(m,t){var e=document.getElementById('ts');if(!e)return;e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
-function sTab(t,btn){document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});var pane=document.getElementById('pane-'+t+'-wrap');if(pane)pane.classList.add('active');btn.classList.add('active');if(t==='setup')loadSetup();}
-function tSec(hd){hd.classList.toggle('open');hd.nextElementSibling.classList.toggle('open');}
-function tCanal(el,id){el.classList.toggle('on');var d=document.getElementById('cd-'+id);if(d)d.classList.toggle('open',el.classList.contains('on'));}
-function uTom(el){var labels=['Formal','Semiformal','Informal'];var v=document.getElementById('tom-v');if(v)v.textContent=labels[el.value];}
-var SK='oma-setup-${slug}';
-function doSave(){var d={nome:(document.getElementById('s-nome')||{}).value,funcao:(document.getElementById('s-funcao')||{}).value,desc:(document.getElementById('s-desc')||{}).value};try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}var m=document.getElementById('smsg');if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}}
-function loadSetup(){try{var saved=localStorage.getItem(SK);if(!saved)return;var d=JSON.parse(saved);var set=function(id,v){var el=document.getElementById(id);if(el&&v!==undefined)el.value=v;};set('s-nome',d.nome);set('s-funcao',d.funcao);set('s-desc',d.desc);}catch(e){}}
-var jobCount=0;
-function toggleJob(i){var c=document.getElementById('jc-'+i);if(c)c.classList.toggle('open');}
-function delJob(i,e){e.stopPropagation();if(!confirm('Remover?'))return;var c=document.getElementById('jc-'+i);if(c)c.remove();}
-function selG(el){el.closest('.gtypes').querySelectorAll('.gbadge').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
-function addJob(){
-  var i=jobCount++;
-  var list=document.getElementById('jobs-list');
-  if(i===0)list.innerHTML='';
-  var d=document.createElement('div');
-  d.id='jc-'+i;d.className='jcard open';
-  d.innerHTML='<div class="jcard-head" onclick="toggleJob('+i+')"><span class="jcard-num">'+String(i+1).padStart(2,'0')+'</span><div class="jcard-info"><div class="jcard-name" id="jname-'+i+'">Novo Fluxo</div><div class="jcard-type-lbl" id="jtype-'+i+'">Sob demanda</div></div><button class="jcard-del" onclick="delJob('+i+',event)">x</button><span class="jcard-chv" style="transform:rotate(180deg)">v</span></div><div class="jcard-body" style="display:block"><div class="jrow"><div class="jfield"><span class="jlbl">Nome</span><input class="jinput" type="text" value="Novo Fluxo" oninput="document.getElementById('jname-'+i+'').textContent=this.value"></div><div class="jfield"><span class="jlbl">Tipo</span><select class="jselect" onchange="document.getElementById('jtype-'+i+'').textContent=this.options[this.selectedIndex].text"><option>Recorrente</option><option selected>Sob demanda</option><option>Gatilho</option><option>Reativo</option></select></div></div><div class="jrow full"><div class="jfield"><span class="jlbl">Gatilho</span><div class="gtypes"><span class="gbadge" onclick="selG(this)">Horario fixo</span><span class="gbadge" onclick="selG(this)">Mensagem recebida</span><span class="gbadge" onclick="selG(this)">Evento externo</span><span class="gbadge sel" onclick="selG(this)">Manual</span></div><input class="jinput" style="margin-top:6px" type="text" placeholder="Descreva o gatilho..."></div></div><div class="jrow full"><div class="jfield"><span class="jlbl">Processamento</span><textarea class="jtextarea" rows="3" placeholder="Passo a passo do que o agente executa..."></textarea></div></div><div class="jrow"><div class="jfield"><span class="jlbl">Destinatario</span><input class="jinput" type="text" placeholder="Quem recebe a saida"></div><div class="jfield"><span class="jlbl">SLA</span><select class="jselect"><option>Imediato</option><option selected>Normal</option><option>Batch</option><option>Diario</option></select></div></div><div class="jrow full"><div class="jfield"><span class="jlbl">Escalacao</span><input class="jinput" type="text" placeholder="Quando e para quem escalar"></div></div></div>';
-  list.appendChild(d);
+function abrirModalNovoAgente(){
+  document.getElementById('modal-novo').classList.add('open');
+  document.getElementById('m-nome').focus();
 }
-var FK2='oma-fluxos-${slug}';
-function saveFluxos(){try{localStorage.setItem(FK2,JSON.stringify({ts:Date.now()}));}catch(e){}var m=document.getElementById('smsg2');if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}}
+function fecharModal(){
+  document.getElementById('modal-novo').classList.remove('open');
+  var fb=document.getElementById('m-feedback');
+  if(fb)fb.style.display='none';
+}
+function selCanal(el){
+  el.closest('.mbadges').querySelectorAll('.mbadge').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+}
+async function criarAgente(){
+  var nome=document.getElementById('m-nome').value.trim();
+  if(!nome){alert('Digite o nome do agente.');return;}
+  var funcaoEl=document.getElementById('m-funcao');
+  var funcao=funcaoEl.options[funcaoEl.selectedIndex].text;
+  var canalEl=document.querySelector('#m-canais .mbadge.sel');
+  var canal=canalEl?canalEl.textContent:'WhatsApp';
+  var modeloEl=document.getElementById('m-modelo');
+  var modelo=modeloEl.options[modeloEl.selectedIndex].text;
+  var slug=nome.toLowerCase().replace(/[^a-z0-9]/g,'');
+  var filename='agent-'+slug+'.html';
+  var fb=document.getElementById('m-feedback');
+  fb.style.display='block';
+  fb.textContent='Criando agente...';
+  fb.style.color='var(--green)';
+  var agentData={slug:slug,nome:nome,funcao:funcao,canal:canal,modelo:modelo,
+    filename:filename,criado_em:new Date().toISOString(),status:'configurando'};
+  var existentes=[];
+  try{existentes=JSON.parse(localStorage.getItem('oma-agentes-criados')||'[]');}catch(e){}
+  existentes=existentes.filter(function(a){return a.slug!==slug;});
+  existentes.push(agentData);
+  try{localStorage.setItem('oma-agentes-criados',JSON.stringify(existentes));}catch(e){}
+  try{localStorage.setItem('oma-setup-'+slug,JSON.stringify(agentData));}catch(e){}
+  var key=sessionStorage.getItem('oma_api_key')||'';
+  if(key){
+    try{
+      await fetch('https://api.onemanarmyproject.com.br/agentes',{
+        method:'POST',headers:{'Content-Type':'application/json','x-api-key':key},
+        body:JSON.stringify(agentData)
+      });
+    }catch(e){}
+  }
+  var html=gerarHTMLAgente(nome,funcao,canal,modelo,slug);
+  var blob=new Blob([html],{type:'text/html'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=filename;a.click();
+  URL.revokeObjectURL(url);
+  fb.textContent='Agente "'+nome+'" criado! HTML baixado.';
+  fb.style.color='var(--yellow)';
+}
 </script>
-</body>
-</html>`;
+
+<script>
+function gerarHTMLAgente(nome, funcao, canal, modelo, slug){
+  var h = [];
+  h.push('<!DOCTYPE html><html lang="pt-BR"><head>');
+  h.push('<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">');
+  h.push('<title>OMA - ' + nome + '<' + '/title>');
+  h.push('<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">');
+  h.push('<style>');
+  h.push(':root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;--agent:var(--fire);}');
+  h.push('*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--char);color:var(--bone);font-family:Barlow,sans-serif;min-height:100vh;}');
+  h.push('#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}.lb{width:100%;max-width:320px;padding:0 24px;text-align:center;}');
+  h.push('.ll{font-family:"Black Ops One",cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;color:var(--agent);}');
+  h.push('.lsub{font-family:"Space Mono",monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}');
+  h.push('.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-family:Barlow,sans-serif;font-size:15px;outline:none;margin-bottom:24px;}');
+  h.push('.lbtn{width:100%;background:var(--agent);border:none;color:#000;padding:11px;font-family:"Black Ops One",cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}');
+  h.push('.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:"Space Mono",monospace;display:none;}');
+  h.push('#app{display:none;}.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}');
+  h.push('.hback{font-family:"Space Mono",monospace;font-size:10px;color:var(--ash);text-decoration:none;margin-right:20px;}');
+  h.push('.hname{font-family:"Black Ops One",cursive;font-size:18px;letter-spacing:2px;color:var(--agent);}');
+  h.push('.hrole{font-family:"Space Mono",monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-left:12px;}');
+  h.push('.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-size:11px;cursor:pointer;margin-left:16px;}');
+  h.push('.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px;}');
+  h.push('.hero{background:var(--carbon);border-bottom:1px solid var(--iron);padding:40px;}');
+  h.push('.hero-name{font-family:"Black Ops One",cursive;font-size:48px;letter-spacing:3px;color:var(--agent);line-height:1;margin-bottom:6px;}');
+  h.push('.hero-role{font-family:"Space Mono",monospace;font-size:11px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}');
+  h.push('.canal-tag{font-family:"Space Mono",monospace;font-size:9px;padding:4px 10px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px;margin-right:6px;}');
+  h.push('.tabs-nav{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;display:flex;}');
+  h.push('.tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:14px 20px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--ash);cursor:pointer;transition:all .15s;text-transform:uppercase;}');
+  h.push('.tab-btn.active{color:var(--agent);border-bottom-color:var(--agent);}');
+  h.push('.tab-pane{display:none;}.tab-pane.active{display:block;}');
+  h.push('.setup-wrap{padding:32px 40px;max-width:860px;}');
+  h.push('.setup-sec{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;margin-bottom:14px;}');
+  h.push('.setup-sec-hd{padding:13px 20px;border-bottom:1px solid var(--iron);font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}');
+  h.push('.setup-sec-bd{padding:18px 20px;display:none;}.setup-sec-bd.open{display:block;}');
+  h.push('.srow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}.srow.full{grid-template-columns:1fr;}');
+  h.push('.sfield{display:flex;flex-direction:column;gap:5px;}');
+  h.push('.slbl{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}');
+  h.push('.sinput,.sselect,.stextarea{background:var(--graph);border:1px solid var(--steel);padding:8px 11px;color:var(--bone);font-family:Barlow,sans-serif;font-size:13px;outline:none;border-radius:2px;width:100%;}');
+  h.push('.sinput:focus,.sselect:focus,.stextarea:focus{border-color:var(--agent);}.stextarea{resize:vertical;min-height:68px;line-height:1.6;}');
+  h.push('.setup-footer{padding:18px 40px;border-top:1px solid var(--iron);display:flex;align-items:center;gap:14px;}');
+  h.push('.ssave{background:var(--agent);border:none;color:#000;padding:9px 24px;font-family:"Black Ops One",cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}');
+  h.push('.smsg{font-family:"Space Mono",monospace;font-size:9px;color:var(--green);letter-spacing:1px;display:none;}');
+  h.push('.jobs-wrap{padding:24px 40px;max-width:960px;}');
+  h.push('.jobs-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}');
+  h.push('.jobs-title{font-family:"Black Ops One",cursive;font-size:17px;letter-spacing:2px;color:var(--agent);}');
+  h.push('.jadd-btn{background:none;border:1px solid var(--agent);color:var(--agent);padding:6px 14px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;cursor:pointer;}');
+  h.push('</style></head><body>');
+  h.push('<div id="ls"><div class="lb">');
+  h.push('<div class="ll">' + nome.toUpperCase() + '</div>');
+  h.push('<div class="lsub">' + funcao.toUpperCase() + '</div>');
+  h.push('<input class="li" type="password" id="pw" placeholder="senha">');
+  h.push('<p class="lerr" id="le">Senha incorreta</p>');
+  h.push('<button class="lbtn" id="lbtn">ENTRAR</button>');
+  h.push('</div></div>');
+  h.push('<div id="app">');
+  h.push('<header class="hdr">');
+  h.push('<div style="display:flex;align-items:center"><a href="/ops" class="hback">ops</a>');
+  h.push('<span class="hname">' + nome.toUpperCase() + '</span><span class="hrole">' + funcao + '</span></div>');
+  h.push('<div style="display:flex;align-items:center"><span style="font-family:Space Mono,monospace;font-size:11px;color:var(--ash)"><span class="live"></span><span id="ck">--:--</span></span>');
+  h.push('<button class="hout" id="lout">Sair</button></div></header>');
+  h.push('<div class="hero">');
+  h.push('<div class="hero-name">' + nome.toUpperCase() + '</div>');
+  h.push('<div class="hero-role">' + funcao + '</div>');
+  h.push('<div style="font-size:14px;color:#777;line-height:1.7;margin-bottom:16px">Criado em ' + new Date().toLocaleDateString('pt-BR') + '. Configure nas abas abaixo.</div>');
+  h.push('<span class="canal-tag">' + canal + '</span><span class="canal-tag">' + modelo + '</span></div>');
+  h.push('<div class="tabs-nav">');
+  h.push('<button class="tab-btn active" id="tb-ov">OVERVIEW</button>');
+  h.push('<button class="tab-btn" id="tb-st">SETUP</button>');
+  h.push('<button class="tab-btn" id="tb-fl">FLUXOS</button>');
+  h.push('</div>');
+  h.push('<div class="tab-pane active" id="pane-overview">');
+  h.push('<div style="padding:60px;text-align:center;color:var(--ash);font-family:Space Mono,monospace;font-size:11px;letter-spacing:2px;line-height:2.5">');
+  h.push('<div style="font-size:48px;margin-bottom:20px">&#x1F916;</div>');
+  h.push('CONFIGURE NAS ABAS SETUP E FLUXOS<br>');
+  h.push('<span style="color:var(--agent)">Depois gere o CLAUDE.md para ativar no Mac Mini</span></div></div>');
+  h.push('<div class="tab-pane" id="pane-setup">');
+  h.push('<div class="setup-wrap"><div class="setup-sec">');
+  h.push('<div class="setup-sec-hd" id="sec-id"><span>Identidade</span><span>v</span></div>');
+  h.push('<div class="setup-sec-bd open">');
+  h.push('<div class="srow"><div class="sfield"><span class="slbl">Nome</span><input class="sinput" id="s-nome" type="text" value="' + nome + '"></div>');
+  h.push('<div class="sfield"><span class="slbl">Funcao</span><select class="sselect" id="s-funcao">');
+  h.push('<option>Assistente Pessoal</option><option>Comercial</option><option selected>Operacional</option>');
+  h.push('<option>Onboarding</option><option>Marketing</option><option>Monitoramento</option>');
+  h.push('<option>Financeiro</option><option>Suporte</option></select></div></div>');
+  h.push('<div class="srow full"><div class="sfield"><span class="slbl">Descricao</span>');
+  h.push('<textarea class="stextarea" id="s-desc" placeholder="O que esse agente faz?"></textarea></div></div>');
+  h.push('<div class="srow">');
+  h.push('<div class="sfield"><span class="slbl">Modelo</span><select class="sselect" id="s-modelo">');
+  h.push('<option>Claude Haiku</option><option selected>Claude Sonnet</option><option>Claude Opus</option></select></div>');
+  h.push('<div class="sfield"><span class="slbl">Status</span><select class="sselect" id="s-status">');
+  h.push('<option selected>Em configuracao</option><option>Ativo</option><option>Pausado</option></select></div></div>');
+  h.push('</div></div></div>');
+  h.push('<div class="setup-footer"><button class="ssave" id="btn-save">SALVAR</button><span class="smsg" id="smsg">Salvo</span></div>');
+  h.push('</div>');
+  h.push('<div class="tab-pane" id="pane-fluxos">');
+  h.push('<div class="jobs-wrap"><div class="jobs-header">');
+  h.push('<span class="jobs-title">FLUXOS</span><button class="jadd-btn" id="btn-add-job">+ NOVO FLUXO</button></div>');
+  h.push('<div id="jobs-list"><div style="padding:40px;text-align:center;color:var(--ash);font-family:Space Mono,monospace;font-size:10px;letter-spacing:2px">');
+  h.push('NENHUM FLUXO — clique em + NOVO FLUXO</div></div></div>');
+  h.push('<div class="setup-footer"><button class="ssave" id="btn-save-fl">SALVAR FLUXOS</button><span class="smsg" id="smsg2">Salvo</span></div>');
+  h.push('</div></div>');
+  // Script interno usando addEventListener — sem inline handlers e sem template literals
+  var s = [];
+  s.push('var PWD="omaproject2026",slug="' + slug + '",jc=0;');
+  s.push('function dL(){if(document.getElementById("pw").value===PWD){["oma_hub","oma_auth","oma_monitor","ops"].forEach(function(k){sessionStorage.setItem(k,"1");});document.getElementById("ls").style.display="none";document.getElementById("app").style.display="block";}else{document.getElementById("le").style.display="block";document.getElementById("pw").value="";}}');
+  s.push('document.getElementById("lbtn").onclick=dL;');
+  s.push('document.getElementById("pw").onkeydown=function(e){if(e.key==="Enter")dL();};');
+  s.push('document.getElementById("lout").onclick=function(){["oma_hub","oma_auth","oma_monitor","ops"].forEach(function(k){sessionStorage.removeItem(k);});location.reload();};');
+  s.push('function tick(){var e=document.getElementById("ck");if(e)e.textContent=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});}setInterval(tick,1000);tick();');
+  s.push('function sTab(pane){["overview","setup","fluxos"].forEach(function(t){document.getElementById("pane-"+t).classList.remove("active");document.getElementById("tb-"+t.substring(0,2)).classList.remove("active");});document.getElementById("pane-"+pane).classList.add("active");document.getElementById("tb-"+pane.substring(0,2)).classList.add("active");}');
+  s.push('document.getElementById("tb-ov").onclick=function(){sTab("overview");};');
+  s.push('document.getElementById("tb-st").onclick=function(){sTab("setup");};');
+  s.push('document.getElementById("tb-fl").onclick=function(){sTab("fluxos");};');
+  s.push('document.getElementById("sec-id").onclick=function(){this.classList.toggle("open");this.nextElementSibling.classList.toggle("open");};');
+  s.push('document.getElementById("btn-save").onclick=function(){var d={nome:(document.getElementById("s-nome")||{}).value,funcao:(document.getElementById("s-funcao")||{}).value,desc:(document.getElementById("s-desc")||{}).value};try{localStorage.setItem("oma-setup-"+slug,JSON.stringify(d));}catch(e){}var m=document.getElementById("smsg");if(m){m.style.display="block";setTimeout(function(){m.style.display="none";},2000);}};');
+  s.push('document.getElementById("btn-save-fl").onclick=function(){var m=document.getElementById("smsg2");if(m){m.style.display="block";setTimeout(function(){m.style.display="none";},2000);}};');
+  s.push('document.getElementById("btn-add-job").onclick=function(){var i=jc++;var l=document.getElementById("jobs-list");if(i===0)l.innerHTML="";var d=document.createElement("div");d.style.cssText="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:4px;margin-bottom:8px;padding:12px";var lbl=document.createElement("div");lbl.style.cssText="font-family:Space Mono,monospace;font-size:10px;color:#e8703a;margin-bottom:8px";lbl.textContent="FLUXO "+String(i+1).padStart(2,"0");var inp=document.createElement("input");inp.type="text";inp.placeholder="Nome do fluxo...";inp.style.cssText="width:100%;background:#161616;border:1px solid #2a2a2a;padding:7px;color:#e0d9cf;font-size:12px;outline:none;border-radius:2px";d.appendChild(lbl);d.appendChild(inp);l.appendChild(d);};');
+  h.push('<scr' + 'ipt>' + s.join('') + '</' + 'script>');
+  h.push('</body></html>');
+  return h.join('\n');
 }
+</script>
+
 
 </script>
 <script>
