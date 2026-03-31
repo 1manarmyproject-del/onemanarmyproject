@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT Jobs — OMA Project</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+:root{--bg:#0a0a0a;--s:#111;--s2:#181818;--s3:#222;--b:rgba(255,255,255,.06);--b2:rgba(255,255,255,.1);--or:#f07838;--or2:rgba(240,120,56,.12);--cr:#e8e0d0;--mu:#5a534d;--mu2:#7a7068;--gr:#4ade80;--re:#f87171;--ye:#fbbf24;--bl:#60a5fa;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--cr);font-family:'Barlow',sans-serif;min-height:100vh;}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.logo{display:flex;align-items:center;gap:12px;}
+.lm{width:30px;height:30px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:15px;color:#0a0a0a;}
+.lt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;}
+.ls{font-size:9px;color:var(--mu2);letter-spacing:.1em;text-transform:uppercase;}
+.hstats{display:flex;align-items:center;gap:16px;}
+.hstat{text-align:center;}
+.hstat-n{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;line-height:1;}
+.hstat-l{font-size:9px;color:var(--mu2);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.hdiv{width:1px;height:32px;background:var(--b2);}
+.btn-new{height:32px;padding:0 16px;background:var(--or);color:#0a0a0a;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;}
+.btn-new:hover{opacity:.85;}
+.toolbar{padding:12px 28px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b);flex-wrap:wrap;}
+.fbtn{padding:5px 12px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--b);color:var(--mu2);cursor:pointer;transition:all .15s;}
+.fbtn.active{border-color:var(--or);color:var(--or);background:var(--or2);}
+.fbtn.fc.active{border-color:var(--bl);color:var(--bl);background:rgba(96,165,250,.1);}
+.vbtns{display:flex;gap:2px;margin-left:auto;}
+.vbtn{width:30px;height:30px;background:transparent;border:1px solid var(--b);color:var(--mu2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.vbtn.active{border-color:var(--b2);color:var(--cr);}
+.pbg{position:fixed;top:56px;left:0;right:0;height:1px;background:var(--s);z-index:99;}
+.pbf{height:100%;background:linear-gradient(90deg,var(--or),#fbbf24);transition:width .8s;}
+main{padding:24px 28px 60px;}
+.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+.jobs-list{display:flex;flex-direction:column;gap:2px;}
+.jcard{background:var(--s);border:1px solid var(--b);cursor:pointer;transition:border-color .2s,transform .15s;}
+.jcard:hover{border-color:var(--b2);transform:translateY(-1px);}
+.jcard.open{border-color:var(--or);}
+.jcard-accent{height:2px;}
+.s-publicado .jcard-accent{background:var(--gr);}
+.s-producao .jcard-accent{background:var(--or);}
+.s-revisao .jcard-accent{background:var(--ye);}
+.s-briefing .jcard-accent{background:var(--bl);}
+.s-pausado .jcard-accent{background:var(--mu);}
+.jcard-body{padding:16px;}
+.jmeta{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.jnum{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;color:var(--mu2);text-transform:uppercase;}
+.jcanal{font-size:10px;font-weight:600;color:var(--mu2);letter-spacing:.08em;text-transform:uppercase;margin-left:auto;}
+.sbadge{padding:2px 8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:9px;letter-spacing:.1em;text-transform:uppercase;}
+.b-publicado{background:rgba(74,222,128,.12);color:var(--gr);}
+.b-producao{background:rgba(240,120,56,.12);color:var(--or);}
+.b-revisao{background:rgba(251,191,36,.12);color:var(--ye);}
+.b-briefing{background:rgba(96,165,250,.12);color:var(--bl);}
+.b-pausado{background:rgba(90,83,77,.3);color:var(--mu2);}
+.jtitle{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cr);line-height:1.2;margin-bottom:8px;}
+.jbrief{font-size:12px;font-weight:300;color:var(--mu2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.jfoot{display:flex;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid var(--b);background:var(--s2);}
+.jslides{font-size:10px;color:var(--mu2);}
+.jresp{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2);}
+.jdate{font-size:10px;color:var(--mu2);margin-left:auto;}
+.jli{background:var(--s);border:1px solid var(--b);padding:14px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:border-color .15s;}
+.jli:hover{border-color:var(--b2);}
+.jli.open{border-color:var(--or);}
+.jli-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;color:var(--mu2);width:32px;flex-shrink:0;}
+.jli-acc{width:3px;height:36px;flex-shrink:0;border-radius:1px;}
+.jli-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;flex:1;}
+.jli-canal{font-size:10px;color:var(--mu2);width:110px;text-align:right;flex-shrink:0;}
+.jli-badge{flex-shrink:0;}
+.jli-slides{font-size:10px;color:var(--mu2);width:60px;text-align:right;flex-shrink:0;}
+.jli-date{font-size:10px;color:var(--mu2);width:90px;text-align:right;flex-shrink:0;}
+.ov{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);}
+.ov.open{display:block;}
+.drawer{position:fixed;top:0;right:-660px;bottom:0;width:660px;max-width:100vw;background:var(--s);border-left:1px solid var(--b2);z-index:201;display:flex;flex-direction:column;transition:right .3s cubic-bezier(.4,0,.2,1);}
+.drawer.open{right:0;}
+.dh{padding:20px 24px;border-bottom:1px solid var(--b);display:flex;align-items:flex-start;gap:12px;flex-shrink:0;}
+.dacc{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0;}
+.dtitles{flex:1;}
+.dnum{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;color:var(--mu2);text-transform:uppercase;margin-bottom:4px;}
+.dtitle{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cr);line-height:1.2;}
+.dclose{width:32px;height:32px;flex-shrink:0;background:transparent;border:1px solid var(--b);color:var(--mu2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.dtabs{display:flex;border-bottom:1px solid var(--b);flex-shrink:0;}
+.dtab{padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.dtab.active{color:var(--or);border-bottom-color:var(--or);}
+.dbody{flex:1;overflow-y:auto;padding:24px;}
+.dbody::-webkit-scrollbar{width:3px;}
+.dbody::-webkit-scrollbar-thumb{background:var(--b2);}
+.dfoot{padding:14px 24px;border-top:1px solid var(--b);display:flex;gap:8px;flex-shrink:0;}
+.field{margin-bottom:18px;}
+.flabel{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mu2);margin-bottom:7px;display:block;}
+.finput{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--b);color:var(--cr);font-family:'Barlow',sans-serif;font-size:13px;outline:none;transition:border-color .15s;}
+.finput:focus{border-color:var(--or);}
+.ftarea{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--b);color:var(--cr);font-family:'Barlow',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:120px;line-height:1.6;transition:border-color .15s;}
+.ftarea:focus{border-color:var(--or);}
+.fsel{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--b);color:var(--cr);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;outline:none;cursor:pointer;}
+.frow{display:flex;gap:12px;}
+.frow .field{flex:1;}
+.btn{height:34px;padding:0 16px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:all .15s;}
+.btn-p{background:var(--or);color:#0a0a0a;}
+.btn-p:hover{opacity:.85;}
+.btn-g{background:transparent;border:1px solid var(--b);color:var(--mu2);}
+.btn-g:hover{border-color:var(--b2);color:var(--cr);}
+.btn-d{background:transparent;border:1px solid rgba(248,113,113,.3);color:var(--re);}
+.btn-d:hover{background:rgba(248,113,113,.1);}
+.mov{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;}
+.mov.open{display:flex;}
+.modal{background:var(--s);border:1px solid var(--b2);width:540px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:28px;}
+.mtitle{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:24px;}
+.empty{text-align:center;padding:80px 24px;color:var(--mu2);}
+.loading{display:flex;align-items:center;justify-content:center;height:200px;flex-direction:column;gap:14px;color:var(--mu2);}
+.spin{width:24px;height:24px;border:2px solid var(--b);border-top-color:var(--or);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--s);border:1px solid var(--b);border-left:3px solid var(--or);padding:10px 16px;font-size:12px;transform:translateX(120%);transition:transform .3s;z-index:999;}
+.toast.show{transform:translateX(0);}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-thumb{background:var(--b2);}</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <div class="lm">J</div>
+    <div><div class="lt">MKT Jobs</div><div class="ls">One Man Army Project</div></div>
+  </div>
+  <div class="hstats">
+    <div class="hstat"><div class="hstat-n" id="s-total">—</div><div class="hstat-l">Total</div></div>
+    <div class="hdiv"></div>
+    <div class="hstat"><div class="hstat-n" id="s-pub" style="color:var(--gr)">—</div><div class="hstat-l">Publicados</div></div>
+    <div class="hdiv"></div>
+    <div class="hstat"><div class="hstat-n" id="s-wip" style="color:var(--or)">—</div><div class="hstat-l">Em andamento</div></div>
+    <div class="hdiv"></div>
+    <div class="hstat"><div class="hstat-n" id="s-sl" style="color:var(--mu2)">—</div><div class="hstat-l">Slides</div></div>
+    <button class="btn-new" onclick="openNew()">+ Novo Job</button>
+  </div>
+</header>
+<div class="pbg"><div class="pbf" id="pf" style="width:0%"></div></div>
+<div class="toolbar">
+  <div style="display:flex;gap:3px;">
+    <button class="fbtn active" data-f="all" onclick="setF('all')">Todos</button>
+    <button class="fbtn" data-f="publicado" onclick="setF('publicado')">✓ Publicado</button>
+    <button class="fbtn" data-f="producao" onclick="setF('producao')">⚙ Produção</button>
+    <button class="fbtn" data-f="revisao" onclick="setF('revisao')">◎ Revisão</button>
+    <button class="fbtn" data-f="briefing" onclick="setF('briefing')">✦ Briefing</button>
+  </div>
+  <div style="display:flex;gap:3px;margin-left:12px;">
+    <button class="fbtn fc active" data-c="all" onclick="setC('all')">Todos canais</button>
+    <button class="fbtn fc" data-c="fabio" onclick="setC('fabio')">@fabio_xavier</button>
+    <button class="fbtn fc" data-c="1manarmy" onclick="setC('1manarmy')">@1manarmy</button>
+  </div>
+  <div class="vbtns">
+    <button class="vbtn active" id="vg" onclick="setV('grid')" title="Grid">⊞</button>
+    <button class="vbtn" id="vl" onclick="setV('list')" title="Lista">☰</button>
+  </div>
+</div>
+<main><div id="jc"><div class="loading"><div class="spin"></div><span>Carregando jobs...</span></div></div></main>
+<div class="ov" id="ov" onclick="closeDr()"></div>
+<div class="drawer" id="dr">
+  <div class="dh">
+    <div class="dacc" id="dacc"></div>
+    <div class="dtitles">
+      <div class="dnum" id="dnum"></div>
+      <div class="dtitle" id="dtitle"></div>
+    </div>
+    <button class="dclose" onclick="closeDr()">✕</button>
+  </div>
+  <div class="dtabs">
+    <div class="dtab active" data-t="ov" onclick="setTab('ov')">Overview</div>
+    <div class="dtab" data-t="br" onclick="setTab('br')">Briefing</div>
+    <div class="dtab" data-t="cp" onclick="setTab('cp')">Copy</div>
+    <div class="dtab" data-t="lg" onclick="setTab('lg')">Legenda</div>
+    <div class="dtab" data-t="nt" onclick="setTab('nt')">Notas</div>
+  </div>
+  <div class="dbody" id="dbody"></div>
+  <div class="dfoot">
+    <button class="btn btn-p" onclick="saveJob()">Salvar</button>
+    <button class="btn btn-g" onclick="closeDr()">Fechar</button>
+    <button class="btn btn-d" style="margin-left:auto" onclick="delJob()">Excluir</button>
+  </div>
+</div>
+<div class="mov" id="mov" onclick="closeMov(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="mtitle">Novo Job</div>
+    <div class="field"><label class="flabel">Título *</label><input class="finput" id="nt" placeholder="Ex: Post 10 — O Próximo Passo"></div>
+    <div class="frow">
+      <div class="field"><label class="flabel">Canal</label><select class="fsel" id="nc"><option value="fabio">@fabio_xavier_br</option><option value="1manarmy">@1manarmy_project</option></select></div>
+      <div class="field"><label class="flabel">Tipo</label><select class="fsel" id="ntp"><option value="post">Post / Carrossel</option><option value="reels">Reels</option><option value="stories">Stories</option><option value="serie">Série de Cards</option></select></div>
+      <div class="field"><label class="flabel">Slides</label><input class="finput" id="nsl" type="number" placeholder="0" min="0"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><label class="flabel">Status</label><select class="fsel" id="nst"><option value="briefing">Briefing</option><option value="producao">Produção</option><option value="revisao">Revisão</option><option value="publicado">Publicado</option></select></div>
+      <div class="field"><label class="flabel">Responsável</label><select class="fsel" id="nr"><option value="fabio">Fabio</option><option value="flavia">Flávia</option><option value="critico">Crítico</option><option value="claude">Claude</option></select></div>
+    </div>
+    <div class="field"><label class="flabel">Briefing</label><textarea class="ftarea" id="nb" placeholder="Contexto, tom, objetivo..."></textarea></div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-p" onclick="createJob()">Criar Job</button>
+      <button class="btn btn-g" onclick="document.getElementById('mov').classList.remove('open')">Cancelar</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var API='https://oma-api.pipeeyewear.com.br',KEY='354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var HDR={'Content-Type':'application/json','x-api-key':KEY};
+var jobs=[],fS='all',fC='all',view='grid',cur=null,ctab='ov';
+var SC={publicado:'var(--gr)',producao:'var(--or)',revisao:'var(--ye)',briefing:'var(--bl)',pausado:'var(--mu)'};
+var SL={publicado:'Publicado',producao:'Produção',revisao:'Revisão',briefing:'Briefing',pausado:'Pausado'};
+var CL={fabio:'@fabio_xavier_br','1manarmy':'@1manarmy_project'};
+
+async function load(){
+  try{
+    var r=await fetch(API+'/mkt/jobs',{headers:{'x-api-key':KEY}});
+    jobs=await r.json();
+    stats();render();
+  }catch(e){
+    document.getElementById('jc').innerHTML='<div class="empty"><p>Erro ao carregar.</p></div>';
+  }
+}
+
+function stats(){
+  var tot=jobs.length,pub=jobs.filter(j=>j.status==='publicado').length;
+  var wip=jobs.filter(j=>['producao','revisao','briefing'].includes(j.status)).length;
+  var sl=jobs.reduce((a,j)=>a+(j.num_slides||0),0);
+  document.getElementById('s-total').textContent=tot;
+  document.getElementById('s-pub').textContent=pub;
+  document.getElementById('s-wip').textContent=wip;
+  document.getElementById('s-sl').textContent=sl;
+  document.getElementById('pf').style.width=(tot?Math.round(pub/tot*100):0)+'%';
+}
+
+function render(){
+  var fl=jobs.filter(j=>{
+    if(fS!=='all'&&j.status!==fS)return false;
+    if(fC!=='all'&&j.canal!==fC)return false;
+    return true;
+  }).slice().reverse();
+  if(!fl.length){document.getElementById('jc').innerHTML='<div class="empty"><p>Nenhum job.</p></div>';return;}
+  if(view==='grid'){
+    document.getElementById('jc').innerHTML='<div class="jobs-grid">'+fl.map(mkCard).join('')+'</div>';
+  } else {
+    document.getElementById('jc').innerHTML='<div class="jobs-list">'+fl.map(mkLi).join('')+'</div>';
+  }
+}
+
+function mkCard(j){
+  var isOpen=cur&&cur.id===j.id;
+  return '<div class="jcard s-'+j.status+(isOpen?' open':'')+'" onclick="openDr('+j.id+')">'
+    +'<div class="jcard-accent"></div>'
+    +'<div class="jcard-body">'
+    +'<div class="jmeta"><span class="jnum">JOB #'+j.id+'</span>'
+    +'<span class="sbadge b-'+j.status+'">'+(SL[j.status]||j.status)+'</span>'
+    +'<span class="jcanal">'+(CL[j.canal]||j.canal)+'</span></div>'
+    +'<div class="jtitle">'+j.titulo+'</div>'
+    +'<div class="jbrief">'+(j.briefing||'Sem briefing ainda.')+'</div>'
+    +'</div>'
+    +'<div class="jfoot"><span class="jslides">▣ '+(j.num_slides||0)+' slides</span>'
+    +'<span class="jresp">'+j.responsavel+'</span>'
+    +'<span class="jdate">'+(j.publicado_em||j.created_at||'').substring(0,10)+'</span>'
+    +'</div></div>';
+}
+
+function mkLi(j){
+  var isOpen=cur&&cur.id===j.id;
+  var col=SC[j.status]||'var(--mu)';
+  return '<div class="jli'+(isOpen?' open':'')+'" onclick="openDr('+j.id+')">'
+    +'<span class="jli-num">#'+j.id+'</span>'
+    +'<div class="jli-acc" style="background:'+col+'"></div>'
+    +'<span class="jli-title">'+j.titulo+'</span>'
+    +'<span class="jli-badge sbadge b-'+j.status+'">'+(SL[j.status]||j.status)+'</span>'
+    +'<span class="jli-slides">'+(j.num_slides||0)+' slides</span>'
+    +'<span class="jli-canal">'+(CL[j.canal]||j.canal)+'</span>'
+    +'<span class="jli-date">'+(j.publicado_em||j.created_at||'').substring(0,10)+'</span>'
+    +'</div>';
+}
+
+function openDr(id){
+  cur=jobs.find(j=>j.id===id);
+  if(!cur)return;
+  document.getElementById('dacc').style.background=SC[cur.status]||'var(--mu)';
+  document.getElementById('dnum').textContent='JOB #'+cur.id+' · '+(CL[cur.canal]||cur.canal);
+  document.getElementById('dtitle').textContent=cur.titulo;
+  document.getElementById('ov').classList.add('open');
+  document.getElementById('dr').classList.add('open');
+  setTab('ov');render();
+}
+
+function closeDr(){
+  cur=null;
+  document.getElementById('ov').classList.remove('open');
+  document.getElementById('dr').classList.remove('open');
+  render();
+}
+
+function setTab(t){
+  ctab=t;
+  document.querySelectorAll('.dtab').forEach(b=>b.classList.toggle('active',b.dataset.t===t));
+  var j=cur;if(!j)return;
+  var b='';
+  if(t==='ov'){
+    b='<div class="frow">'
+      +'<div class="field"><label class="flabel">Status</label><select class="fsel" id="e-st" onchange="cur.status=this.value;document.getElementById('dacc').style.background=SC[this.value]||'var(--mu)'">'
+      +['briefing','producao','revisao','publicado','pausado'].map(s=>'<option value="'+s+'"'+(j.status===s?' selected':'')+'>'+SL[s]+'</option>').join('')
+      +'</select></div>'
+      +'<div class="field"><label class="flabel">Responsável</label><select class="fsel" id="e-re" onchange="cur.responsavel=this.value">'
+      +['fabio','flavia','critico','claude'].map(r=>'<option value="'+r+'"'+(j.responsavel===r?' selected':'')+'>'+r.charAt(0).toUpperCase()+r.slice(1)+'</option>').join('')
+      +'</select></div>'
+      +'</div>'
+      +'<div class="frow">'
+      +'<div class="field"><label class="flabel">Canal</label><select class="fsel" id="e-ca" onchange="cur.canal=this.value">'
+      +'<option value="fabio"'+(j.canal==='fabio'?' selected':'')+'>@fabio_xavier_br</option>'
+      +'<option value="1manarmy"'+(j.canal==='1manarmy'?' selected':'')+'>@1manarmy_project</option>'
+      +'</select></div>'
+      +'<div class="field"><label class="flabel">Nº Slides</label><input class="finput" id="e-sl" type="number" value="'+(j.num_slides||0)+'" onchange="cur.num_slides=parseInt(this.value)||0" min="0"></div>'
+      +'<div class="field"><label class="flabel">Publicado em</label><input class="finput" id="e-pub" type="date" value="'+(j.publicado_em||'')+'" onchange="cur.publicado_em=this.value"></div>'
+      +'</div>';
+  } else if(t==='br'){
+    b='<div class="field"><label class="flabel">Briefing</label><textarea class="ftarea" id="e-br" style="min-height:300px" onchange="cur.briefing=this.value">'+(j.briefing||'')+'</textarea></div>';
+  } else if(t==='cp'){
+    b='<div class="field"><label class="flabel">Copy dos Slides</label><textarea class="ftarea" id="e-cp" style="min-height:360px" onchange="cur.copy=this.value">'+(j.copy||'')+'</textarea></div>';
+  } else if(t==='lg'){
+    b='<div class="field"><label class="flabel">Legenda Instagram</label><textarea class="ftarea" id="e-lg" style="min-height:200px" onchange="cur.legenda=this.value">'+(j.legenda||'')+'</textarea></div>';
+  } else if(t==='nt'){
+    b='<div class="field"><label class="flabel">Notas & Observações</label><textarea class="ftarea" id="e-nt" style="min-height:200px" onchange="cur.notas=this.value">'+(j.notas||'')+'</textarea></div>';
+  }
+  document.getElementById('dbody').innerHTML=b;
+}
+
+async function saveJob(){
+  if(!cur)return;
+  var fields={
+    status:document.getElementById('e-st')?.value||cur.status,
+    responsavel:document.getElementById('e-re')?.value||cur.responsavel,
+    canal:document.getElementById('e-ca')?.value||cur.canal,
+    num_slides:parseInt(document.getElementById('e-sl')?.value)||cur.num_slides||0,
+    publicado_em:document.getElementById('e-pub')?.value||cur.publicado_em||'',
+    briefing:document.getElementById('e-br')?.value??cur.briefing,
+    copy:document.getElementById('e-cp')?.value??cur.copy,
+    legenda:document.getElementById('e-lg')?.value??cur.legenda,
+    notas:document.getElementById('e-nt')?.value??cur.notas,
+  };
+  try{
+    var r=await fetch(API+'/mkt/jobs/'+cur.id,{method:'PATCH',headers:HDR,body:JSON.stringify(fields)});
+    if(r.ok){
+      var idx=jobs.findIndex(j=>j.id===cur.id);
+      if(idx>=0)jobs[idx]={...jobs[idx],...fields};
+      Object.assign(cur,fields);
+      stats();render();toast('Salvo ✓');
+    }
+  }catch(e){toast('Erro ao salvar');}
+}
+
+async function delJob(){
+  if(!cur||!confirm('Excluir este job?'))return;
+  try{
+    await fetch(API+'/mkt/jobs/'+cur.id,{method:'DELETE',headers:{'x-api-key':KEY}});
+    jobs=jobs.filter(j=>j.id!==cur.id);
+    closeDr();stats();render();toast('Excluído');
+  }catch(e){toast('Erro ao excluir');}
+}
+
+function openNew(){document.getElementById('mov').classList.add('open');}
+function closeMov(e){if(e.target===document.getElementById('mov'))document.getElementById('mov').classList.remove('open');}
+
+async function createJob(){
+  var titulo=document.getElementById('nt').value.trim();
+  if(!titulo){alert('Título obrigatório');return;}
+  var body={titulo,canal:document.getElementById('nc').value,tipo:document.getElementById('ntp').value,status:document.getElementById('nst').value,responsavel:document.getElementById('nr').value,num_slides:parseInt(document.getElementById('nsl').value)||0,briefing:document.getElementById('nb').value};
+  try{
+    var r=await fetch(API+'/mkt/jobs',{method:'POST',headers:HDR,body:JSON.stringify(body)});
+    var d=await r.json();
+    if(d.ok){
+      body.id=d.id;body.created_at=new Date().toISOString();
+      jobs.unshift(body);
+      document.getElementById('mov').classList.remove('open');
+      document.getElementById('nt').value='';document.getElementById('nb').value='';document.getElementById('nsl').value='';
+      stats();render();toast('Job criado ✓');
+    }
+  }catch(e){toast('Erro ao criar');}
+}
+
+function setF(f){fS=f;document.querySelectorAll('[data-f]').forEach(b=>b.classList.toggle('active',b.dataset.f===f));render();}
+function setC(c){fC=c;document.querySelectorAll('[data-c]').forEach(b=>b.classList.toggle('active',b.dataset.c===c));render();}
+function setV(v){view=v;document.getElementById('vg').classList.toggle('active',v==='grid');document.getElementById('vl').classList.toggle('active',v==='list');render();}
+
+var _tt;
+function toast(m){var el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),3000);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDr();document.getElementById('mov').classList.remove('open');}});
+
+load();</script>
+</body>
+</html>

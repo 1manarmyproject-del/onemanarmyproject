@@ -79,6 +79,10 @@
     {
       "source": "/agent/:slug",
       "destination": "https://api.onemanarmyproject.com.br/agent/:slug"
+    },
+    {
+      "source": "/mkt/jobs",
+      "destination": "/mkt-jobs.html"
     }
   ],
   "redirects": [
