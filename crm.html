@@ -225,7 +225,7 @@ function mapL(l){
     id:l.id,ws:'oma',nome:l.nome,empresa:l.empresa,wa:l.whatsapp,email:l.email,
     seg:l.segmento,porte:porte,canal:canal,cargo:cargo,dor:l.dor,
     diag:l.notas||'',stage:l.status||'novo',score:score,
-    time:new Date(l.created_at).toLocaleDateString('pt-BR'),
+    time:(l.time || (l.created_at ? new Date(l.created_at.replace(' ','T')).toLocaleDateString('pt-BR') : '--')),
     ticket:'',setup:'',modulos:'',origem:l.origem||'bia'
   };
 }
