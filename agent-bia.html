@@ -394,12 +394,17 @@ async function delSlot(id){
   }catch(e){alert('Erro');}
 }
 
-// Carrega agenda quando aba é aberta
-var _origSTab=sTab;
-function sTab(t,btn){
-  _origSTab(t,btn);
-  if(t==='agenda') loadAgenda();
-}
+// Carrega agenda quando aba AGENDA é clicada
+document.addEventListener('DOMContentLoaded', function(){
+  var agendaBtn = Array.from(document.querySelectorAll('.tab-btn')).find(function(b){
+    return b.textContent.trim() === 'AGENDA';
+  });
+  if(agendaBtn){
+    agendaBtn.addEventListener('click', function(){ 
+      setTimeout(loadAgenda, 100); 
+    });
+  }
+});
 </script>
 <script>
 
