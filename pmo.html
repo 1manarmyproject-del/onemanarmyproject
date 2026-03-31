@@ -168,43 +168,29 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   </div>
 </div>
 <script>
-var DEFAULTS = [];
-var KEY = "oma-pmo-v4";
 var cards = [];
+var PMO_API = "https://api.onemanarmyproject.com.br";
+var PMO_KEY = "354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273";
+var PMO_HDR = {"Content-Type":"application/json","x-api-key":"354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273"};
 var dragging = null;
 var filt = "all";
 var editId = null;
 var RLABELS = {fabio:"Fabio",george:"George",flavia:"Flavia",bia:"Bia",tiago:"Tiago",darwin:"Darwin"};
 var PICONS = {alta:"! ",media:"~ ",baixa:"- "};
 
-function save(){try{localStorage.setItem(KEY,JSON.stringify(cards));}catch(e){}}
+function save(){} // migrado para API Hetzner
 
 
-function syncCards(){
-  fetch("/pmo-data.json?v="+Date.now())
-    .then(function(r){return r.json();})
-    .then(function(fresh){
-      var existingIds = {};
-      cards.forEach(function(c){ existingIds[c.id] = true; });
-      var added = 0;
-      fresh.forEach(function(fc){
-        if(!existingIds[fc.id]){ cards.push(fc); added++; }
-      });
-      save(); render();
-      alert("Sync OK — " + added + " card(s) novo(s) adicionado(s).");
-    })
-    .catch(function(e){ alert("Erro no sync: " + e.message); });
-}
+function syncCards(){ load(); }
 
 function load(){
-  try{
-    var d = localStorage.getItem(KEY);
-    if(d){ cards = JSON.parse(d); render(); return; }
-  }catch(e){}
-  fetch("/pmo-data.json")
+  fetch(PMO_API+"/pmo",{headers:{"x-api-key":PMO_KEY}})
     .then(function(r){return r.json();})
-    .then(function(data){ DEFAULTS = data; cards = data.slice(); save(); render(); })
-    .catch(function(e){ console.error("Erro pmo-data.json",e); });
+    .then(function(data){ cards=Array.isArray(data)?data:[]; render(); })
+    .catch(function(e){
+      console.error("PMO API erro",e);
+      fetch("/pmo-data.json").then(function(r){return r.json();}).then(function(d){cards=d.slice();render();});
+    });
 }
 
 function mf(c){
@@ -272,7 +258,7 @@ function cp(id,e){
   if(!c) return;
   var cy = ["","alta","media","baixa"];
   c.prio = cy[(cy.indexOf(c.prio||"")+1)%cy.length];
-  save(); render();
+  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
 }
 function ds(e,id){
   dragging = id;
@@ -289,12 +275,12 @@ function dp(e,col){
   document.querySelectorAll(".col").forEach(function(c){c.classList.remove("drag-over");});
   if(!dragging) return;
   var c = cards.find(function(x){return x.id===dragging;});
-  if(c){ c.col = col; save(); render(); }
+  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render(); }
   dragging = null;
 }
 function mv(id,col){
   var c = cards.find(function(x){return x.id===id;});
-  if(c){ c.col = col; save(); render(); }
+  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render(); }
 }
 function mup(id,col){
   var g = cards.filter(function(c){return c.col===col;});
@@ -317,7 +303,7 @@ function mdn(id,col){
 function rm(id){
   if(!confirm("Remover?")) return;
   cards = cards.filter(function(x){return x.id!==id;});
-  save(); render();
+  fetch(PMO_API+"/pmo/"+id,{method:"DELETE",headers:PMO_HDR}); render();
 }
 function setF(btn,area){
   filt = area;
@@ -339,8 +325,9 @@ function addCard(col){
   var t = document.getElementById("addtxt-"+col).value.trim();
   var a = document.getElementById("addarea-"+col).value;
   if(!t) return;
-  cards.push({id:Date.now().toString(),col:col,text:t,area:a,resp:"",prio:""});
-  save(); render(); cancelAdd(col);
+  var nc={id:Date.now().toString(),col:col,text:t,area:a,resp:"",prio:"",prazo:"",entregavel:""};
+  cards.push(nc);
+  fetch(PMO_API+"/pmo",{method:"POST",headers:PMO_HDR,body:JSON.stringify(nc)}); render(); cancelAdd(col);
 }
 function oe(id){
   var c = cards.find(function(x){return x.id===id;});
@@ -364,13 +351,11 @@ function saveEdit(){
   c.prio = document.getElementById("edit-prio").value;
   c.prazo = document.getElementById("edit-prazo").value;
   c.entregavel = document.getElementById("edit-entregavel").value;
-  save(); render();
+  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
   document.getElementById("modal-bg").classList.remove("open");
 }
 function resetBoard(){
   if(!confirm("Resetar para os dados originais?")) return;
-  localStorage.removeItem(KEY);
-  cards = [];
   load();
 }
 
