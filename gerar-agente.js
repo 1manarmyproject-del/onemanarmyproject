@@ -52,6 +52,21 @@ function gerarHTMLAgente(nome, funcao, canal, modelo, slug) {
 
   // Status inicial: CONFIGURANDO (dourado) em vez de ONLINE (verde)
   result = result.split('<span class="status-txt">ONLINE</span>').join('<span class="status-txt" style="color:var(--gold)">CONFIGURANDO</span>');
+  // Abre direto no SETUP ao carregar
+  result = result.split('setInterval(tick,1000);tick();').join(
+    'setInterval(tick,1000);tick();\n' +
+    '// Abre SETUP automaticamente\n' +
+    '(function(){\n' +
+    '  var setupBtn = document.querySelectorAll(".tab-btn")[1];\n' +
+    '  if(setupBtn) setTimeout(function(){ setupBtn.click(); }, 300);\n' +
+    '  // Expande todas as secoes do setup\n' +
+    '  setTimeout(function(){\n' +
+    '    document.querySelectorAll(".setup-sec-hd").forEach(function(hd){\n' +
+    '      if(!hd.classList.contains("open")){ hd.click(); }\n' +
+    '    });\n' +
+    '  }, 400);\n' +
+    '})();'
+  );
   result = result.split('background:var(--green)').join('background:var(--gold)');
 
   return result;

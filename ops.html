@@ -417,51 +417,94 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
 </footer>
 
-<!-- MODAL NOVO AGENTE -->
+<!-- MODAL NOVO AGENTE — 2 ETAPAS -->
 <div class="modal-novo" id="modal-novo" onclick="if(event.target===this)fecharModal()">
   <div class="modal-novo-box">
-    <h3>NOVO AGENTE</h3>
-    <p>Preencha os dados basicos. O agente nascera com as 3 abas prontas para configurar.</p>
-    <div class="mfield">
-      <span class="mlbl">Nome do Agente</span>
-      <input class="minput" id="m-nome" type="text" placeholder="Ex: Onboarder, Suporte, Financeiro...">
-    </div>
-    <div class="mfield">
-      <span class="mlbl">Funcao Principal</span>
-      <select class="mselect" id="m-funcao">
-        <option value="assistente">Assistente Pessoal</option>
-        <option value="comercial">Comercial / Vendas</option>
-        <option value="operacional" selected>Operacional</option>
-        <option value="onboarding">Onboarding</option>
-        <option value="marketing">Marketing / Conteudo</option>
-        <option value="monitoramento">Monitoramento</option>
-        <option value="financeiro">Financeiro / Cobranca</option>
-        <option value="suporte">Suporte / SAC</option>
-      </select>
-    </div>
-    <div class="mfield">
-      <span class="mlbl">Canal Principal</span>
-      <div class="mbadges" id="m-canais">
-        <span class="mbadge sel" onclick="selCanal(this)">WhatsApp</span>
-        <span class="mbadge" onclick="selCanal(this)">Telegram</span>
-        <span class="mbadge" onclick="selCanal(this)">E-mail</span>
-        <span class="mbadge" onclick="selCanal(this)">Webchat</span>
-        <span class="mbadge" onclick="selCanal(this)">Instagram</span>
+
+    <!-- ETAPA 1 — dados basicos -->
+    <div id="m-etapa1">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h3 style="margin:0">NOVO AGENTE</h3>
+        <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash)">ETAPA 1 / 2</span>
+      </div>
+      <p>Dados basicos — voce configura o restante na pagina do agente.</p>
+      <div class="mfield">
+        <span class="mlbl">Nome do Agente</span>
+        <input class="minput" id="m-nome" type="text" placeholder="Ex: Onboarder, Suporte, Financeiro..." onkeydown="if(event.key==='Enter')irEtapa2()">
+      </div>
+      <div class="mfield">
+        <span class="mlbl">Funcao Principal</span>
+        <select class="mselect" id="m-funcao">
+          <option value="assistente">Assistente Pessoal</option>
+          <option value="comercial">Comercial / Vendas</option>
+          <option value="operacional" selected>Operacional</option>
+          <option value="onboarding">Onboarding</option>
+          <option value="marketing">Marketing / Conteudo</option>
+          <option value="monitoramento">Monitoramento</option>
+          <option value="financeiro">Financeiro / Cobranca</option>
+          <option value="suporte">Suporte / SAC</option>
+        </select>
+      </div>
+      <div class="mfield">
+        <span class="mlbl">Canal Principal</span>
+        <div class="mbadges" id="m-canais">
+          <span class="mbadge sel" onclick="selCanal(this)">WhatsApp</span>
+          <span class="mbadge" onclick="selCanal(this)">Telegram</span>
+          <span class="mbadge" onclick="selCanal(this)">E-mail</span>
+          <span class="mbadge" onclick="selCanal(this)">Webchat</span>
+          <span class="mbadge" onclick="selCanal(this)">Instagram</span>
+        </div>
+      </div>
+      <div class="mfield">
+        <span class="mlbl">Modelo de IA</span>
+        <select class="mselect" id="m-modelo">
+          <option value="haiku">Claude Haiku — rapido e economico</option>
+          <option value="sonnet" selected>Claude Sonnet — balanceado</option>
+          <option value="opus">Claude Opus — maxima qualidade</option>
+        </select>
+      </div>
+      <div class="mbtns">
+        <button onclick="fecharModal()">CANCELAR</button>
+        <button class="mcreate" onclick="irEtapa2()">PROXIMO →</button>
       </div>
     </div>
-    <div class="mfield">
-      <span class="mlbl">Modelo de IA</span>
-      <select class="mselect" id="m-modelo">
-        <option value="haiku">Claude Haiku (rapido e economico)</option>
-        <option value="sonnet" selected>Claude Sonnet (balanceado)</option>
-        <option value="opus">Claude Opus (maxima qualidade)</option>
-      </select>
+
+    <!-- ETAPA 2 — confirmacao + preview -->
+    <div id="m-etapa2" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h3 style="margin:0">CONFIRMAR</h3>
+        <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash)">ETAPA 2 / 2</span>
+      </div>
+      <p>Revise e confirme. Voce vai configurar Setup e Fluxos na pagina do agente.</p>
+
+      <!-- Preview do agente -->
+      <div id="m-preview" style="background:var(--graph);border:1px solid var(--iron);border-radius:4px;padding:16px;margin-bottom:16px">
+        <div style="font-family:'Black Ops One',cursive;font-size:22px;letter-spacing:2px;color:var(--fire);margin-bottom:4px" id="prev-nome">—</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px" id="prev-funcao">—</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span id="prev-canal" style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 9px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px">—</span>
+          <span id="prev-modelo" style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 9px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px">—</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 9px;border:1px solid var(--steel);color:var(--gold);letter-spacing:1px">CONFIGURANDO</span>
+        </div>
+      </div>
+
+      <!-- O que vem pre-configurado -->
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);margin-bottom:8px">O QUE VIRA PRONTO:</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Overview com stats e instrucao direta ao George</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Setup completo — canais, tom, atividades, escalacao, memoria</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Fluxos — jobs, gatilhos, entrada, processamento, saida, SLA</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Botao GERAR CLAUDE.MD — ativa o agente no Mac Mini</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--fire)">→</span> Abre direto na aba SETUP para voce configurar</div>
+      </div>
+
+      <div id="m-feedback" style="display:none;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:1px;text-align:center"></div>
+      <div class="mbtns">
+        <button onclick="voltarEtapa1()">← VOLTAR</button>
+        <button class="mcreate" onclick="criarAgente()">CRIAR E CONFIGURAR →</button>
+      </div>
     </div>
-    <div class="mbtns">
-      <button onclick="fecharModal()">CANCELAR</button>
-      <button class="mcreate" onclick="criarAgente()">CRIAR AGENTE →</button>
-    </div>
-    <div id="m-feedback" style="display:none;margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:1px;text-align:center"></div>
+
   </div>
 </div>
 
@@ -492,9 +535,42 @@ function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){ses
 function tick(){var el=document.getElementById('ck');if(el)el.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 setInterval(tick,1000);tick();
 function toast(m,t){var e=document.getElementById('ts');if(!e)return;e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
-function abrirModalNovoAgente(){document.getElementById('modal-novo').classList.add('open');document.getElementById('m-nome').focus();}
-function fecharModal(){document.getElementById('modal-novo').classList.remove('open');var fb=document.getElementById('m-feedback');if(fb)fb.style.display='none';}
-function selCanal(el){el.closest('.mbadges').querySelectorAll('.mbadge').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function abrirModalNovoAgente(){
+  document.getElementById('m-etapa1').style.display='block';
+  document.getElementById('m-etapa2').style.display='none';
+  document.getElementById('modal-novo').classList.add('open');
+  document.getElementById('m-nome').focus();
+}
+function fecharModal(){
+  document.getElementById('modal-novo').classList.remove('open');
+  var fb=document.getElementById('m-feedback');if(fb)fb.style.display='none';
+}
+function selCanal(el){
+  el.closest('.mbadges').querySelectorAll('.mbadge').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+}
+function irEtapa2(){
+  var nome=document.getElementById('m-nome').value.trim();
+  if(!nome){document.getElementById('m-nome').focus();document.getElementById('m-nome').style.borderColor='var(--fire)';return;}
+  document.getElementById('m-nome').style.borderColor='';
+  var funcaoEl=document.getElementById('m-funcao');
+  var funcao=funcaoEl.options[funcaoEl.selectedIndex].text;
+  var canalEl=document.querySelector('#m-canais .mbadge.sel');
+  var canal=canalEl?canalEl.textContent.trim():'WhatsApp';
+  var modeloEl=document.getElementById('m-modelo');
+  var modelo=modeloEl.options[modeloEl.selectedIndex].text;
+  document.getElementById('prev-nome').textContent=nome.toUpperCase();
+  document.getElementById('prev-funcao').textContent=funcao.toUpperCase();
+  document.getElementById('prev-canal').textContent=canal;
+  document.getElementById('prev-modelo').textContent=modelo;
+  document.getElementById('m-etapa1').style.display='none';
+  document.getElementById('m-etapa2').style.display='block';
+}
+function voltarEtapa1(){
+  document.getElementById('m-etapa2').style.display='none';
+  document.getElementById('m-etapa1').style.display='block';
+  document.getElementById('m-nome').focus();
+}
 async function criarAgente(){
   var nome=document.getElementById('m-nome').value.trim();
   if(!nome){alert('Digite o nome do agente.');return;}
@@ -525,8 +601,33 @@ async function criarAgente(){
   var a=document.createElement('a');
   a.href=url;a.download=filename;a.click();
   URL.revokeObjectURL(url);
-  fb.textContent='Agente "'+nome+'" criado! HTML baixado.';
-  fb.style.color='var(--yellow)';
+  // Abre o HTML gerado em nova aba para configurar
+  fb.style.display='block';
+  fb.textContent='Abrindo pagina do agente...';
+  fb.style.color='var(--green)';
+  // Pequeno delay para mostrar o feedback antes de abrir
+  setTimeout(function(){
+    var win=window.open('','_blank');
+    if(win){
+      win.document.write(html);
+      win.document.close();
+      // Vai para aba SETUP depois que carregar
+      win.addEventListener('load',function(){
+        var setupBtn=win.document.querySelector('.tab-btn[onclick*="setup"]') ||
+                     win.document.querySelectorAll('.tab-btn')[1];
+        if(setupBtn) setupBtn.click();
+      });
+    } else {
+      // Popup bloqueado — faz download
+      var blob=new Blob([html],{type:'text/html'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');
+      a.href=url;a.download=filename;a.click();
+      URL.revokeObjectURL(url);
+      fb.textContent='HTML baixado — abra o arquivo e configure o agente.';
+      fb.style.color='var(--yellow)';
+    }
+  }, 600);
 }
 </script>
 <script src="/gerar-agente.js"></script>
