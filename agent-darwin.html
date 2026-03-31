@@ -144,6 +144,22 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .export-btns button{flex:1;padding:8px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);transition:all .15s;}
 .export-btns button.copy-btn{background:var(--fire);border-color:var(--fire);color:#000;}
 .export-btns button.copy-btn:hover{opacity:.85;}
+
+.gerar-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:400;align-items:flex-start;justify-content:center;padding-top:40px;overflow-y:auto;}
+.gerar-modal-bg.open{display:flex;}
+.gerar-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:24px;width:680px;max-width:94vw;margin-bottom:40px;}
+.gerar-box h4{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--fire);margin-bottom:6px;}
+.gerar-box .gsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;margin-bottom:16px;line-height:1.8;}
+.gerar-textarea{width:100%;background:var(--graph);border:1px solid var(--steel);padding:12px;color:var(--bone);font-family:'Space Mono',monospace;font-size:10px;resize:none;height:360px;outline:none;border-radius:2px;line-height:1.6;}
+.gerar-status{font-family:'Space Mono',monospace;font-size:9px;margin-top:10px;min-height:16px;letter-spacing:1px;}
+.gerar-status.ok{color:var(--green);}
+.gerar-status.err{color:#e24b4a;}
+.gerar-status.loading{color:var(--yellow);}
+.gerar-btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.gerar-btns button{flex:1;min-width:120px;padding:8px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);transition:all .15s;}
+.gerar-btns button.gerar-btn{background:var(--fire);border-color:var(--fire);color:#000;}
+.gerar-btns button.salvar-btn{background:var(--green);border-color:var(--green);color:#000;}
+.gerar-btns button.salvar-btn:disabled{opacity:.4;cursor:not-allowed;}
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
@@ -191,6 +207,84 @@ function copyExport(){
   closeExport();
 }
 
+
+var gerarSlug = '';
+var claudeMdGerado = '';
+
+function openGerar(slug){
+  gerarSlug = slug;
+  claudeMdGerado = '';
+  document.getElementById('gerar-output').value = '';
+  document.getElementById('gerar-status').textContent = '';
+  document.getElementById('gerar-status').className = 'gerar-status';
+  document.getElementById('salvar-btn').disabled = true;
+  document.getElementById('gerar-modal').classList.add('open');
+}
+function closeGerar(){document.getElementById('gerar-modal').classList.remove('open');}
+
+async function gerarClaudeMd(){
+  var key = sessionStorage.getItem('oma_api_key') || '';
+  if(!key){ setGerarStatus('Faca login primeiro.','err'); return; }
+  setGerarStatus('Salvando Setup e gerando CLAUDE.md...','loading');
+
+  // Primeiro salva o setup atual
+  await doSave();
+
+  // Depois gera o CLAUDE.md via API
+  try{
+    var res = await fetch('https://api.onemanarmyproject.com.br/agentes/'+gerarSlug+'/gerar-claude-md',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key}
+    });
+    var d = await res.json();
+    if(d.ok && d.claude_md){
+      claudeMdGerado = d.claude_md;
+      document.getElementById('gerar-output').value = claudeMdGerado;
+      document.getElementById('salvar-btn').disabled = false;
+      setGerarStatus('CLAUDE.md gerado. Revise e clique em SALVAR NO MAC MINI.','ok');
+    } else {
+      setGerarStatus('Erro ao gerar: '+(d.error||'tente novamente'),'err');
+    }
+  }catch(e){
+    setGerarStatus('Erro de conexao: '+e.message,'err');
+  }
+}
+
+async function salvarNoMacMini(){
+  if(!claudeMdGerado){ setGerarStatus('Gere o CLAUDE.md primeiro.','err'); return; }
+  setGerarStatus('Salvando no Mac Mini...','loading');
+  try{
+    var res = await fetch('https://mcp.pipeeyewear.com.br/save-claude-md',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({slug: gerarSlug, content: claudeMdGerado})
+    });
+    if(res.ok){
+      setGerarStatus('Salvo em /nanoclaw/groups/'+gerarSlug+'/CLAUDE.md','ok');
+      toast('CLAUDE.md salvo no Mac Mini!','ok');
+    } else {
+      // Fallback: copia para clipboard
+      navigator.clipboard.writeText(claudeMdGerado).then(function(){
+        setGerarStatus('API Mac Mini indisponivel. CLAUDE.md copiado para o clipboard — cole no arquivo manualmente.','err');
+      });
+    }
+  }catch(e){
+    // Fallback: copia para clipboard
+    try{
+      navigator.clipboard.writeText(claudeMdGerado);
+      setGerarStatus('Sem acesso ao Mac Mini. CLAUDE.md copiado! Cole em /nanoclaw/groups/'+gerarSlug+'/CLAUDE.md','err');
+    }catch(e2){
+      setGerarStatus('Copie o conteudo manualmente e salve em /nanoclaw/groups/'+gerarSlug+'/CLAUDE.md','err');
+    }
+  }
+}
+
+function setGerarStatus(msg, type){
+  var el = document.getElementById('gerar-status');
+  el.textContent = msg;
+  el.className = 'gerar-status '+(type||'');
+}
+
 </script>
 <script>
 
@@ -215,6 +309,17 @@ function tick(){
   if(el) el.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 setInterval(tick,1000);tick();
+
+// Auto-login se sessão ativa
+(function(){
+  if(sessionStorage.getItem('oma_auth')==='1'){
+    var ls=document.getElementById('ls');
+    var app=document.getElementById('app');
+    if(ls) ls.style.display='none';
+    if(app) app.style.display='block';
+  }
+})();
+
 function toast(m,t){
   var e=document.getElementById('ts');
   if(!e) return;
