@@ -228,9 +228,152 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fila-empty{padding:32px;text-align:center;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;}
 .fila-exec-btn{background:none;border:1px solid var(--agent);color:var(--agent);padding:4px 10px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;cursor:pointer;transition:all .15s;border-radius:2px;}
 .fila-exec-btn:hover{background:var(--agent);color:var(--char);}
+
+/* INTEGRACOES */
+.integ-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.integ-item{background:var(--graph);border:1px solid var(--steel);border-radius:3px;padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.integ-item.inativo{opacity:.5;}
+.integ-icon{font-size:20px;flex-shrink:0;}
+.integ-info{flex:1;}
+.integ-nome{font-family:'Barlow',sans-serif;font-size:13px;color:var(--bone);margin-bottom:2px;}
+.integ-meta{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
+.integ-perm{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;}
+.integ-perm.leitura{color:var(--blue,#3a7bd5);border:1px solid rgba(58,123,213,.3);}
+.integ-perm.escrita{color:var(--gold);border:1px solid rgba(200,164,86,.3);}
+.integ-perm.envio{color:var(--green);border:1px solid rgba(61,158,96,.3);}
+.integ-del{background:none;border:none;color:var(--ash);cursor:pointer;font-size:14px;}
+.integ-del:hover{color:var(--red,#e24b4a);}
+.integ-add-btn{background:none;border:1px solid var(--agent);color:var(--agent);padding:7px 16px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;transition:all .15s;border-radius:2px;}
+.integ-add-btn:hover{background:var(--agent);color:var(--char);}
+/* Modal Integracao */
+.integ-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:300;align-items:center;justify-content:center;}
+.integ-modal-bg.open{display:flex;}
+.integ-modal-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:24px;width:420px;max-width:94vw;}
+.integ-modal-box h4{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--agent);margin-bottom:16px;}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
+// INTEGRAÇÕES
+var INTEG_API = 'https://api.onemanarmyproject.com.br';
+var INTEG_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var INTEG_AGENTE_SLUG = 'bia'; // ajustado dinamicamente
+
+var INTEG_TIPO_LABELS = {
+  api_key: {icon:'🔑', label:'API Key', placeholder:'Cole a API key aqui'},
+  user_pass: {icon:'👤', label:'Usuário + Senha', placeholder:'usuario:senha'},
+  url: {icon:'🔗', label:'URL / Endpoint', placeholder:'https://api.exemplo.com'},
+  google_sheets: {icon:'📊', label:'Google Sheets ID', placeholder:'ID da planilha (na URL)'},
+  whatsapp: {icon:'📱', label:'Número WhatsApp', placeholder:'5511999999999'},
+  email: {icon:'📧', label:'Email', placeholder:'contato@empresa.com'},
+  webhook: {icon:'🤖', label:'Webhook URL', placeholder:'https://...'}
+};
+
+async function loadIntegracoes(){
+  try{
+    var r = await fetch(INTEG_API+'/agentes/'+INTEG_AGENTE_SLUG+'/integracoes',{headers:{'x-api-key':INTEG_KEY}});
+    var integs = await r.json();
+    renderIntegracoes(integs);
+  }catch(e){
+    document.getElementById('integ-list').innerHTML='<div style="text-align:center;padding:40px;color:var(--ash);font-family:Space Mono,monospace;font-size:10px">Erro ao carregar</div>';
+  }
+}
+
+function renderIntegracoes(integs){
+  var el = document.getElementById('integ-list');
+  if(!integs||integs.length===0){
+    el.innerHTML='<div style="text-align:center;padding:40px;color:var(--ash);font-family:Space Mono,monospace;font-size:10px;letter-spacing:2px">Nenhuma integração cadastrada.<br><span style="color:var(--agent)">Clique em + NOVA INTEGRAÇÃO.</span></div>';
+    return;
+  }
+  el.innerHTML = integs.map(function(i){
+    var info = INTEG_TIPO_LABELS[i.tipo]||{icon:'🔧',label:i.tipo};
+    var valorMask = i.valor ? i.valor.slice(0,4)+'*'.repeat(Math.max(0,i.valor.length-4)) : '(sem valor)';
+    return '<div class="integ-item'+(i.ativo?'':' inativo')+'">'
+      +'<span class="integ-icon">'+info.icon+'</span>'
+      +'<div class="integ-info">'
+        +'<div class="integ-nome">'+i.nome+'</div>'
+        +'<div class="integ-meta">'+info.label+' · '+valorMask+'</div>'
+      +'</div>'
+      +'<span class="integ-perm '+i.permissao+'">'+i.permissao.toUpperCase()+'</span>'
+      +'<button class="integ-del" onclick="delInteg('+i.id+')" title="Remover">✕</button>'
+    +'</div>';
+  }).join('');
+}
+
+function openIntegModal(){document.getElementById('integ-modal').classList.add('open');}
+function closeIntegModal(){document.getElementById('integ-modal').classList.remove('open');}
+
+function onIntegTipo(sel){
+  var info = INTEG_TIPO_LABELS[sel.value];
+  if(info){
+    document.getElementById('integ-valor-lbl').textContent = info.label;
+    document.getElementById('integ-valor').placeholder = info.placeholder||'';
+  }
+}
+
+async function addInteg(){
+  var tipo = document.getElementById('integ-tipo').value;
+  var nome = document.getElementById('integ-nome').value.trim();
+  var valor = document.getElementById('integ-valor').value.trim();
+  var permissao = document.getElementById('integ-permissao').value;
+  if(!nome){alert('Digite um nome para esta integração');return;}
+  try{
+    var r = await fetch(INTEG_API+'/agentes/'+INTEG_AGENTE_SLUG+'/integracoes',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':INTEG_KEY},
+      body:JSON.stringify({nome,tipo,valor,permissao})
+    });
+    var d = await r.json();
+    if(d.ok){closeIntegModal();loadIntegracoes();toast('Integração salva!','ok');}
+  }catch(e){alert('Erro ao salvar');}
+}
+
+async function delInteg(id){
+  if(!confirm('Remover esta integração?'))return;
+  await fetch(INTEG_API+'/agentes/'+INTEG_AGENTE_SLUG+'/integracoes/'+id,{
+    method:'DELETE',headers:{'x-api-key':INTEG_KEY}
+  });
+  loadIntegracoes();
+  toast('Integração removida','ok');
+}
+
+// Carrega clientes no dropdown do Setup
+async function loadClientesDropdown(){
+  try{
+    var r = await fetch(INTEG_API+'/clientes',{headers:{'x-api-key':INTEG_KEY}});
+    var clientes = await r.json();
+    var sel = document.getElementById('s-client-id');
+    if(!sel) return;
+    // Mantém opção "Interno"
+    sel.innerHTML = '<option value="interno">Interno — OMA Project</option>'
+      + clientes.map(function(c){
+          return '<option value="'+c.id+'">'+c.nome+(c.segmento?' · '+c.segmento:'')+'</option>';
+        }).join('');
+  }catch(e){ console.log('erro clientes dropdown',e); }
+}
+
+function onClientChange(sel){
+  // Quando mudar o cliente, atualiza slug do agente para integrações
+  console.log('Cliente selecionado:', sel.value);
+}
+
+// Trigger ao abrir aba INTEGRAÇÕES
+document.addEventListener('DOMContentLoaded', function(){
+  var integBtn = Array.from(document.querySelectorAll('.tab-btn')).find(function(b){
+    return b.textContent.trim() === 'INTEGRAÇÕES';
+  });
+  if(integBtn) integBtn.addEventListener('click', function(){ setTimeout(loadIntegracoes, 100); });
+
+  // Carrega dropdown de clientes ao abrir aba SETUP
+  var setupBtn = Array.from(document.querySelectorAll('.tab-btn')).find(function(b){
+    return b.textContent.trim() === 'SETUP';
+  });
+  if(setupBtn) setupBtn.addEventListener('click', function(){ setTimeout(loadClientesDropdown, 100); });
+
+  // Carrega imediatamente se já está na aba setup
+  setTimeout(loadClientesDropdown, 500);
+});
+
+</script>
 <script>
 // RÉGUA DE CRM
 var REGUA_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
@@ -773,6 +916,7 @@ function loadSetup(){
     <button class="tab-btn" onclick="sTab('fluxos',this)">FLUXOS</button>
     <button class="tab-btn" onclick="sTab('agenda',this)">AGENDA</button>
     <button class="tab-btn" onclick="sTab('regua',this)">RÉGUA</button>
+    <button class="tab-btn" onclick="sTab('integracoes',this)">INTEGRAÇÕES</button>
   </div>
   <!-- PANE OVERVIEW (wraps existing content) -->
   <div class="tab-pane active" id="pane-overview-wrap">
@@ -866,6 +1010,15 @@ Função: Comercial — OMA Project</div>
     <div class="setup-sec">
       <div class="setup-sec-hd open" onclick="tSec(this)"><span>Identidade e Funcao</span><span class="chv">▾</span></div>
       <div class="setup-sec-bd open">
+        <div class="srow full" style="margin-bottom:14px">
+          <div class="sfield">
+            <span class="slbl">Vinculado a</span>
+            <select class="sselect" id="s-client-id" onchange="onClientChange(this)">
+              <option value="interno">Interno — OMA Project</option>
+              <option value="__loading__" disabled>Carregando clientes...</option>
+            </select>
+          </div>
+        </div>
         <div class="srow">
           <div class="sfield"><span class="slbl">Nome</span><input class="sinput" id="s-nome" type="text" value="Bia"></div>
           <div class="sfield"><span class="slbl">Funcao</span>
@@ -1226,6 +1379,62 @@ Função: Comercial — OMA Project</div>
     </div>
 
   </div>
+  </div>
+
+
+
+  <!-- PANE INTEGRAÇÕES -->
+  <div class="tab-pane" id="pane-integracoes-wrap">
+  <div class="regua-wrap">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <span style="font-family:'Black Ops One',cursive;font-size:17px;letter-spacing:2px;color:var(--agent)">INTEGRAÇÕES</span>
+      <button class="integ-add-btn" onclick="openIntegModal()">+ NOVA INTEGRAÇÃO</button>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;margin-bottom:20px;line-height:1.8">
+      Configure os acessos que este agente precisa para operar.<br>
+      Credenciais ficam no banco do servidor — nunca no browser.
+    </div>
+    <div class="integ-list" id="integ-list">
+      <div style="text-align:center;padding:40px;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;">
+        Nenhuma integração cadastrada.<br>
+        <span style="color:var(--agent)">Clique em + NOVA INTEGRAÇÃO para adicionar.</span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- MODAL INTEGRAÇÃO -->
+  <div class="integ-modal-bg" id="integ-modal" onclick="if(event.target===this)closeIntegModal()">
+    <div class="integ-modal-box">
+      <h4>NOVA INTEGRAÇÃO</h4>
+      <div class="sfield2">
+        <span class="slbl">Tipo</span>
+        <select class="sselect" id="integ-tipo" style="width:100%" onchange="onIntegTipo(this)">
+          <option value="api_key">🔑 API Key</option><option value="user_pass">👤 Usuário + Senha</option><option value="url">🔗 URL / Endpoint</option><option value="google_sheets">📊 Google Sheets</option><option value="whatsapp">📱 WhatsApp</option><option value="email">📧 Email</option><option value="webhook">🤖 Webhook</option>
+        </select>
+      </div>
+      <div class="sfield2">
+        <span class="slbl">Nome / Label</span>
+        <input type="text" id="integ-nome" class="sinput" placeholder="Ex: JusBrasil API, TJSP, Google Sheets Processos">
+      </div>
+      <div class="sfield2" id="integ-valor-wrap">
+        <span class="slbl" id="integ-valor-lbl">Valor / Credencial</span>
+        <input type="text" id="integ-valor" class="sinput" placeholder="">
+      </div>
+      <div class="sfield2">
+        <span class="slbl">Permissão</span>
+        <select id="integ-permissao" class="sselect" style="width:100%">
+          <option value="leitura">👁 Leitura apenas</option>
+          <option value="escrita">✏️ Leitura + Escrita</option>
+          <option value="envio">📤 Envio (notificações)</option>
+          <option value="total">⚡ Acesso total</option>
+        </select>
+      </div>
+      <div class="slot-btns">
+        <button onclick="closeIntegModal()">CANCELAR</button>
+        <button class="sadd" onclick="addInteg()">SALVAR</button>
+      </div>
+    </div>
   </div>
 
 </div><!-- /app -->

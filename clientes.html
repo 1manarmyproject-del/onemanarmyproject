@@ -236,11 +236,15 @@ function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){ses
 
 function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
 
-function init(){
+var CLIENTES_API = 'https://api.onemanarmyproject.com.br';
+var CLIENTES_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+
+async function init(){
   try{
-    var saved = localStorage.getItem(SK);
-    if(saved) clientes = JSON.parse(saved);
-  }catch(e){clientes=[];}
+    var r = await fetch(CLIENTES_API+'/clientes', {headers:{'x-api-key':CLIENTES_KEY}});
+    clientes = await r.json();
+    if(!Array.isArray(clientes)) clientes = [];
+  }catch(e){ clientes = []; }
   render();
 }
 
@@ -337,7 +341,7 @@ function editarCliente(i, e){
 
 function fecharModal(){document.getElementById('modal').classList.remove('open');}
 
-function salvarCliente(){
+async async function salvarCliente(){
   var nome=document.getElementById('f-nome').value.trim();
   if(!nome){alert('Digite o nome do cliente.');return;}
   var cliente={
@@ -360,10 +364,21 @@ function salvarCliente(){
   }else{
     clientes.push(cliente);
   }
-  try{localStorage.setItem(SK,JSON.stringify(clientes));}catch(e){}
-  fecharModal();
-  render();
-  toast('Cliente salvo!','ok');
+  // Salva na API Hetzner
+  var isEdit = editIdx!=='';
+  var cId = isEdit ? clientes[parseInt(editIdx)].id : null;
+  var url = 'https://api.onemanarmyproject.com.br/clientes'+(cId?'/'+cId:'');
+  try{
+    var r = await fetch(url, {
+      method: cId?'PATCH':'POST',
+      headers: {'Content-Type':'application/json','x-api-key':'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'},
+      body: JSON.stringify(cliente)
+    });
+    var res = await r.json();
+    await init();
+    fecharModal();
+    toast('Cliente salvo!','ok');
+  }catch(e){ toast('Erro de conexão',''); }
 }
 </script>
 </body>
