@@ -469,18 +469,26 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </div>
 <script>
 const PWD='omaproject2026';
-function dL(){
+function doLogin(){
   if(document.getElementById('pw').value===PWD){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
     sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
-    document.getElementById('ls').style.display='none';
-    document.getElementById('app').style.display='block';
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('appContent').style.display='block';
   }else{
-    document.getElementById('le').style.display='block';
+    document.getElementById('lerr').style.display='block';
     document.getElementById('pw').value='';
   }
 }
+function dL(){doLogin();}
 function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});location.reload();}
+// Auto-login se sessao ativa
+(function(){
+  if(sessionStorage.getItem('oma_auth')==='1'){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('appContent').style.display='block';
+  }
+})();
 function tick(){var el=document.getElementById('ck');if(el)el.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 setInterval(tick,1000);tick();
 function toast(m,t){var e=document.getElementById('ts');if(!e)return;e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
