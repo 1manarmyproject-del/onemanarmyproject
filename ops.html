@@ -596,38 +596,32 @@ async function criarAgente(){
   var key=sessionStorage.getItem('oma_api_key')||'';
   if(key){try{await fetch('https://api.onemanarmyproject.com.br/agentes',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key},body:JSON.stringify(agentData)});}catch(e){}}
   var html=gerarHTMLAgente(nome,funcao,canal,modelo,slug);
-  var blob=new Blob([html],{type:'text/html'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=url;a.download=filename;a.click();
-  URL.revokeObjectURL(url);
-  // Abre o HTML gerado em nova aba para configurar
   fb.style.display='block';
-  fb.textContent='Abrindo pagina do agente...';
+  fb.textContent='Subindo agente para o servidor...';
   fb.style.color='var(--green)';
-  // Pequeno delay para mostrar o feedback antes de abrir
-  setTimeout(function(){
-    var win=window.open('','_blank');
-    if(win){
-      win.document.write(html);
-      win.document.close();
-      // Vai para aba SETUP depois que carregar
-      win.addEventListener('load',function(){
-        var setupBtn=win.document.querySelector('.tab-btn[onclick*="setup"]') ||
-                     win.document.querySelectorAll('.tab-btn')[1];
-        if(setupBtn) setupBtn.click();
-      });
+
+  // Envia para o servidor Hetzner
+  try{
+    var res2 = await fetch('https://api.onemanarmyproject.com.br/criar-agente',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'},
+      body:JSON.stringify({filename:filename,html:html,nome:nome,funcao:funcao,canal:canal,modelo:modelo,slug:slug})
+    });
+    var data = await res2.json();
+    if(data.ok && data.url){
+      fb.textContent='Agente criado! Abrindo...';
+      setTimeout(function(){
+        fecharModal();
+        window.open('https://api.onemanarmyproject.com.br'+data.url, '_blank');
+      }, 800);
     } else {
-      // Popup bloqueado — faz download
-      var blob=new Blob([html],{type:'text/html'});
-      var url=URL.createObjectURL(blob);
-      var a=document.createElement('a');
-      a.href=url;a.download=filename;a.click();
-      URL.revokeObjectURL(url);
-      fb.textContent='HTML baixado — abra o arquivo e configure o agente.';
-      fb.style.color='var(--yellow)';
+      fb.textContent='Erro: '+(data.error||'tente novamente');
+      fb.style.color='var(--red)';
     }
-  }, 600);
+  }catch(e){
+    fb.textContent='Erro de conexao: '+e.message;
+    fb.style.color='var(--red)';
+  }
 }
 </script>
 <script src="/gerar-agente.js"></script>
