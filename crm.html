@@ -207,7 +207,27 @@ let S={workspaces:[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}],cur
 async function apiGet(p){try{const r=await fetch(API+p,{headers:{'x-api-key':API_KEY}});return await r.json();}catch(e){return null;}}
 async function apiPost(p,b){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
 async function apiPatch(p,b){try{const r=await fetch(API+p,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
-function mapL(l){return{id:l.id,ws:'oma',nome:l.nome,empresa:l.empresa,wa:l.whatsapp,email:l.email,seg:l.segmento,porte:l.faturamento&&l.faturamento.includes('M')?'Enterprise':'PME',canal:'WhatsApp',cargo:l.cargo,dor:l.dor,diag:'',stage:l.status||'novo',score:SCC[l.cargo]||40,time:new Date(l.created_at).toLocaleDateString('pt-BR'),ticket:'',setup:'',modulos:'',origem:l.origem||'bia'};}
+function mapL(l){
+  // Score por cargo — aceita variantes
+  var cargo=l.cargo||'';
+  var score=40;
+  if(cargo.match(/s.cio|dono|fundador|proprietário/i))score=80;
+  else if(cargo.match(/ceo|presidente|director/i))score=80;
+  else if(cargo.match(/diretor|vp|gerente geral/i))score=60;
+  else if(cargo.match(/gerente|coordenador/i))score=40;
+  // Canal por origem
+  var canal = l.origem==='webchat'?'Webchat':l.origem==='whatsapp'?'WhatsApp':l.origem==='instagram'?'Instagram':'WhatsApp';
+  // Porte por faturamento
+  var fat=l.faturamento||'';
+  var porte=fat.match(/5\s*milh|20\s*milh|acima/i)?'Enterprise':'PME';
+  return{
+    id:l.id,ws:'oma',nome:l.nome,empresa:l.empresa,wa:l.whatsapp,email:l.email,
+    seg:l.segmento,porte:porte,canal:canal,cargo:cargo,dor:l.dor,
+    diag:l.notas||'',stage:l.status||'novo',score:score,
+    time:new Date(l.created_at).toLocaleDateString('pt-BR'),
+    ticket:'',setup:'',modulos:'',origem:l.origem||'bia'
+  };
+}
 function ld(){try{return JSON.parse(localStorage.getItem(SK));}catch{return null;}}
 function sv(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
 function wl(){return(S.leads||[]).filter(l=>l.ws===S.currentWS);}
@@ -220,9 +240,9 @@ async function init(){
     S.leads=apiLeads.map(mapL);
     toast(apiLeads.length+' leads carregados do servidor','ok');
   } else {
-    const d=ld();
-    if(d){S={...S,...d};if(!S.workspaces?.length)S.workspaces=[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}];}
-    else{S.leads=demo();}
+    // Sem leads — CRM começa limpo
+    S.leads=[];
+    toast('CRM pronto. Leads chegam automaticamente via Bia.','ok');
   }
   F=wl();
   document.getElementById('pd').textContent=new Date().toLocaleDateString('pt-BR');
