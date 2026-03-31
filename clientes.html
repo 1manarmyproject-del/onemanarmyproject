@@ -213,8 +213,8 @@ var SK = 'oma-clientes-v1';
 
 function dL(){
   if(document.getElementById('pw').value===PW){
-    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
-    sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){localStorage.setItem(k,'1');});
+    localStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
     init();
@@ -223,10 +223,10 @@ function dL(){
     document.getElementById('pw').value='';
   }
 }
-function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});location.reload();}
+function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){localStorage.removeItem(k);});location.reload();}
 
 // Auto-login — executa direto (script está no final do body, DOM já existe)
-if(sessionStorage.getItem('oma_auth')==='1'){
+if(localStorage.getItem('oma_auth')==='1'){
   document.getElementById('ls').style.display='none';
   document.getElementById('app').style.display='block';
   init();
