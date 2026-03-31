@@ -350,7 +350,7 @@ function editarCliente(i, e){
 
 function fecharModal(){document.getElementById('modal').classList.remove('open');}
 
-async async function salvarCliente(){
+async function salvarCliente(){
   var nome=document.getElementById('f-nome').value.trim();
   if(!nome){alert('Digite o nome do cliente.');return;}
   var cliente={
