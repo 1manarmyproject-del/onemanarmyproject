@@ -236,10 +236,15 @@ function setSt(id,type,st){
   el.className='card '+(scm[local[id].status]||'');
   el.querySelector('.cs').style.background={approved:'var(--gr)',rejected:'var(--re)',fix:'var(--ye)',pending:'var(--s2)'}[local[id].status];
   el.querySelector('.csb').textContent={approved:'✓',rejected:'✗',fix:'⚑',pending:''}[local[id].status];
-  el.querySelectorAll('.ab').forEach(function(b){
-    b.classList.remove('active');
-    if((b.classList.contains('ap')&&local[id].status==='approved')||(b.classList.contains('re')&&local[id].status==='rejected')||(b.classList.contains('fx')&&local[id].status==='fix'))b.classList.add('active');
+  // Atualizar cada botão pelo data-reg e data-st — INDEPENDENTEMENTE
+  el.querySelectorAll('.ab[data-reg]').forEach(function(b){
+    var breg=b.dataset.reg, bst=b.dataset.st;
+    var cur = breg==='a' ? local[id].sa : local[id].sl;
+    b.classList.toggle('active', bst===cur);
   });
+  // Botão aprovar post
+  var apBtn=el.querySelector('.ap-post');
+  if(apBtn) apBtn.classList.toggle('active', local[id].sa==='approved'&&local[id].sl==='approved');
 }
 
 function approvePost(id){
