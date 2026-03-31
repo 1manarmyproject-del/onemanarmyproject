@@ -612,7 +612,7 @@ async function criarAgente(){
       fb.textContent='Agente criado! Abrindo...';
       setTimeout(function(){
         fecharModal();
-        window.open('https://api.onemanarmyproject.com.br'+data.url, '_blank');
+        window.open('https://www.onemanarmyproject.com.br'+data.url+'?setup=1&t='+sessionStorage.getItem('oma_api_key'), '_blank');
       }, 800);
     } else {
       fb.textContent='Erro: '+(data.error||'tente novamente');

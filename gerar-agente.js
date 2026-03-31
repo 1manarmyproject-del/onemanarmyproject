@@ -53,20 +53,42 @@ function gerarHTMLAgente(nome, funcao, canal, modelo, slug) {
   // Status inicial: CONFIGURANDO (dourado) em vez de ONLINE (verde)
   result = result.split('<span class="status-txt">ONLINE</span>').join('<span class="status-txt" style="color:var(--gold)">CONFIGURANDO</span>');
   // Abre direto no SETUP ao carregar
+  // Ponto 2+3: auto-login + abre SETUP se vier do OPS (?setup=1&t=TOKEN)
   result = result.split('setInterval(tick,1000);tick();').join(
     'setInterval(tick,1000);tick();\n' +
-    '// Abre SETUP automaticamente\n' +
     '(function(){\n' +
-    '  var setupBtn = document.querySelectorAll(".tab-btn")[1];\n' +
-    '  if(setupBtn) setTimeout(function(){ setupBtn.click(); }, 300);\n' +
-    '  // Expande todas as secoes do setup\n' +
-    '  setTimeout(function(){\n' +
-    '    document.querySelectorAll(".setup-sec-hd").forEach(function(hd){\n' +
-    '      if(!hd.classList.contains("open")){ hd.click(); }\n' +
-    '    });\n' +
-    '  }, 400);\n' +
+    '  var params = new URLSearchParams(window.location.search);\n' +
+    '  var token = params.get("t") || "";\n' +
+    '  var goSetup = params.get("setup") === "1";\n' +
+    '  // Auto-login: se tem token ou sessao ativa\n' +
+    '  var authed = sessionStorage.getItem("oma_auth") === "1" ||\n' +
+    '               token === "TOKEN_PLACEHOLDER";\n' +
+    '  if(authed) {\n' +
+    '    if(token) {\n' +
+    '      ["oma_hub","oma_auth","oma_monitor","ops"].forEach(function(k){ sessionStorage.setItem(k,"1"); });\n' +
+    '      sessionStorage.setItem("oma_api_key", token);\n' +
+    '    }\n' +
+    '    var ls = document.getElementById("ls");\n' +
+    '    var app = document.getElementById("app");\n' +
+    '    if(ls) ls.style.display="none";\n' +
+    '    if(app) app.style.display="block";\n' +
+    '    // Abre aba SETUP\n' +
+    '    if(goSetup) {\n' +
+    '      setTimeout(function(){\n' +
+    '        var tabs = document.querySelectorAll(".tab-btn");\n' +
+    '        if(tabs[1]) tabs[1].click();\n' +
+    '        // Expande todas as secoes\n' +
+    '        setTimeout(function(){\n' +
+    '          document.querySelectorAll(".setup-sec-hd").forEach(function(hd){\n' +
+    '            if(!hd.classList.contains("open")) hd.click();\n' +
+    '          });\n' +
+    '        }, 200);\n' +
+    '      }, 300);\n' +
+    '    }\n' +
+    '  }\n' +
     '})();'
   );
+  result = result.split('TOKEN_PLACEHOLDER').join('354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
   result = result.split('background:var(--green)').join('background:var(--gold)');
 
   return result;

@@ -75,6 +75,10 @@
     {
       "source": "/mkt",
       "destination": "/mkt-board.html"
+    },
+    {
+      "source": "/agent/:slug",
+      "destination": "https://api.onemanarmyproject.com.br/agent/:slug"
     }
   ],
   "redirects": [
