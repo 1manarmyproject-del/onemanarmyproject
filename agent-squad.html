@@ -36,7 +36,9 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .col-label{font-family:Space Mono,monospace;font-size:8px;letter-spacing:2px;padding:3px 9px;border-radius:20px;font-weight:700}
 .lbl-back{background:rgba(102,102,102,.15);color:var(--ash);border:1px solid rgba(102,102,102,.3)}
 .lbl-todo{background:rgba(245,166,35,.15);color:var(--yellow);border:1px solid rgba(245,166,35,.3)}
-.lbl-prog{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3)}
+.lbl-doing{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3)}
+.lbl-review{background:rgba(175,169,236,.15);color:#afa9ec;border:1px solid rgba(175,169,236,.3)}
+.lbl-approved{background:rgba(55,138,221,.15);color:var(--blue);border:1px solid rgba(55,138,221,.3)}
 .lbl-done{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,96,.3)}
 .col-count{font-family:Space Mono,monospace;font-size:10px;color:var(--ash)}
 .card{background:var(--iron);border:1px solid var(--border);border-radius:8px;padding:9px 10px;margin-bottom:7px;cursor:grab;transition:border-color .15s}
@@ -103,7 +105,9 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 <div class="stats">
   <div class="stat"><strong id="s-back">0</strong>BACKLOG</div>
   <div class="stat"><strong id="s-todo">0</strong>A FAZER</div>
-  <div class="stat"><strong id="s-prog">0</strong>EM ANDAMENTO</div>
+  <div class="stat"><strong id="s-doing">0</strong>EXECUTANDO</div>
+  <div class="stat"><strong id="s-review">0</strong>REVIEW</div>
+  <div class="stat"><strong id="s-approved">0</strong>APROVADO</div>
   <div class="stat"><strong id="s-done">0</strong>FEITO</div>
   <div class="pct-bar"><div class="pct-fill" id="pct-fill" style="width:0%"></div></div>
   <div class="pct-label" id="pct-label">0%</div>
@@ -141,9 +145,9 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
       </div>
     </div>
   </div>
-  <div class="col" id="col-prog" ondragover="ov(event)" ondrop="dp(event,'prog')">
-    <div class="col-head"><span class="col-label lbl-prog">EM ANDAMENTO</span><span class="col-count" id="cnt-prog">0</span></div>
-    <div id="cards-prog"></div><div class="empty" id="emp-prog" style="display:none">Vazio</div>
+  <div class="col" id="col-doing" ondragover="ov(event)" ondrop="dp(event,'prog')">
+    <div class="col-head"><span class="col-label lbl-doing">EXECUTANDO</span><span class="col-count" id="cnt-doing">0</span></div>
+    <div id="cards-doing"></div><div class="empty" id="emp-prog" style="display:none">Vazio</div>
   </div>
   <div class="col" id="col-done" ondragover="ov(event)" ondrop="dp(event,'done')">
     <div class="col-head"><span class="col-label lbl-done">FEITO</span><span class="col-count" id="cnt-done">0</span></div>
@@ -201,7 +205,7 @@ function mf(c){
 }
 
 function render(){
-  var cols = ["back","todo","prog","done"];
+  var cols = ["back","todo","doing","review","approved","done"];
   for(var ci=0;ci<cols.length;ci++){
     var col = cols[ci];
     var all = cards.filter(function(c){return c.col===col;});
@@ -246,7 +250,7 @@ function render(){
   var pct = tot ? Math.round(done/tot*100) : 0;
   document.getElementById("s-back").textContent = cards.filter(function(c){return c.col==="back";}).length;
   document.getElementById("s-todo").textContent = cards.filter(function(c){return c.col==="todo";}).length;
-  document.getElementById("s-prog").textContent = cards.filter(function(c){return c.col==="prog";}).length;
+  document.getElementById("s-doing").textContent = cards.filter(function(c){return c.col==="doing";}).length;
   document.getElementById("s-done").textContent = done;
   document.getElementById("pct-fill").style.width = pct+"%";
   document.getElementById("pct-label").textContent = pct+"% completo";
