@@ -70,7 +70,7 @@
 <script>
 const API='https://api.onemanarmyproject.com.br';
 let sid=null,lastId=0,poll=null,isOpen=false,unread=0;
-function ft(ts){if(!ts)return'';const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}
+function ft(ts){if(!ts)return'';var s=String(ts);if(s.includes('T'))var d=new Date(s);else var d=new Date(s.replace(' ','T')+'Z');if(isNaN(d.getTime()))return'';return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}
 function aM(role,content,ts,id){
   const m=document.getElementById('oma-msgs');
   const d=document.createElement('div');
