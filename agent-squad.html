@@ -236,7 +236,7 @@ function render(){
       if(col!=="done") btns += '<button class="ca g" onclick="mv(\''+c.id+'\',\'done\')">feito</button>';
       if(col==="done") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">reabrir</button>';
       if(col==="back") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">sprint</button>';
-      if(col==="todo") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'prog\')">iniciar</button>';
+      if(col==="todo") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'doing\')">iniciar</button>';
       btns += '<button class="ca" onclick="oe(\''+c.id+'\')">editar</button>';
       btns += '<button class="ca r" onclick="rm(\''+c.id+'\')">x</button>';
       btns += '<div class="mv-grp"><button class="mv" onclick="mup(\''+c.id+'\',\''+col+'\')">^</button><button class="mv" onclick="mdn(\''+c.id+'\',\''+col+'\')">v</button></div>';
