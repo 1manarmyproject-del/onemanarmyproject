@@ -140,14 +140,22 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
       <button class="add-btn-col" id="addbtn-todo" onclick="openAdd('todo')">+ adicionar</button>
       <div class="add-form" id="addf-todo">
         <textarea id="addtxt-todo" rows="2" placeholder="Descreva o item..."></textarea>
-        <select id="addarea-todo"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteudo</option><option value="legal">Legal</option><option value="produto">Produto</option></select>
+        <select id="addarea-todo"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteudo</option><option value="legal">Legal</option><option value="produto">Produto</option><option value="operacao">Operação</option></select>
         <div class="add-form-btns"><button onclick="cancelAdd('todo')">CANCELAR</button><button class="save" onclick="addCard('todo')">SALVAR</button></div>
       </div>
     </div>
   </div>
-  <div class="col" id="col-doing" ondragover="ov(event)" ondrop="dp(event,'prog')">
+  <div class="col" id="col-doing" ondragover="ov(event)" ondrop="dp(event,'doing')">
     <div class="col-head"><span class="col-label lbl-doing">EXECUTANDO</span><span class="col-count" id="cnt-doing">0</span></div>
-    <div id="cards-doing"></div><div class="empty" id="emp-prog" style="display:none">Vazio</div>
+    <div id="cards-doing"></div><div class="empty" id="emp-doing" style="display:none">Vazio</div>
+  </div>
+  <div class="col" id="col-review" ondragover="ov(event)" ondrop="dp(event,'review')">
+    <div class="col-head"><span class="col-label lbl-review">REVIEW</span><span class="col-count" id="cnt-review">0</span></div>
+    <div id="cards-review"></div><div class="empty" id="emp-review" style="display:none">Vazio</div>
+  </div>
+  <div class="col" id="col-approved" ondragover="ov(event)" ondrop="dp(event,'approved')">
+    <div class="col-head"><span class="col-label lbl-approved">APROVADO</span><span class="col-count" id="cnt-approved">0</span></div>
+    <div id="cards-approved"></div><div class="empty" id="emp-approved" style="display:none">Vazio</div>
   </div>
   <div class="col" id="col-done" ondragover="ov(event)" ondrop="dp(event,'done')">
     <div class="col-head"><span class="col-label lbl-done">FEITO</span><span class="col-count" id="cnt-done">0</span></div>
@@ -158,12 +166,18 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   <div class="modal" onclick="event.stopPropagation()">
     <h3>Editar item</h3>
     <label>DESCRICAO</label><textarea id="edit-text" rows="3"></textarea>
+    <label>ENTREGÁVEL</label><textarea id="edit-entregavel" rows="2" placeholder="O que precisa ser entregue?"></textarea>
+    <label>CRITÉRIO DE PRONTO</label><textarea id="edit-done-criteria" rows="2" placeholder="Como saber que está feito?"></textarea>
+    <label>CONTEXTO MÍNIMO</label><textarea id="edit-context-min" rows="2" placeholder="Contexto necessário para execução"></textarea>
+    <label>URL / REFERÊNCIA</label><input id="edit-url-ref" type="text" placeholder="Link de contexto" style="width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;margin-bottom:8px">
+    <label>AUTONOMIA</label><select id="edit-autonomy"><option value="full">Full — agente faz tudo</option><option value="supervised">Supervised — precisa review</option><option value="manual">Manual — só com trigger humano</option></select>
+    <div style="margin:8px 0"><label style="cursor:pointer"><input type="checkbox" id="edit-permanent"> Tarefa permanente (vira regra fixa do agente)</label></div>
     <label>AREA</label>
-    <select id="edit-area"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteudo</option><option value="legal">Legal</option><option value="produto">Produto</option></select>
+    <select id="edit-area"><option value="site">Site</option><option value="bia">Bia</option><option value="infra">Infra</option><option value="conteudo">Conteudo</option><option value="legal">Legal</option><option value="produto">Produto</option><option value="operacao">Operação</option></select>
     <label>RESPONSAVEL</label>
     <select id="edit-resp"><option value="">sem responsavel</option><option value="fabio">Fabio</option><option value="george">George</option><option value="flavia">Flavia</option><option value="bia">Bia</option><option value="tiago">Tiago</option><option value="darwin">Darwin</option></select>
     <label>PRIORIDADE</label>
-    <select id="edit-prio"><option value="">sem prioridade</option><option value="alta">Alta</option><option value="media">Media</option><option value="baixa">Baixa</option></select>
+    <select id="edit-prio"><option value="">sem prioridade</option><option value="critica">Crítica</option><option value="alta">Alta</option><option value="media">Media</option><option value="baixa">Baixa</option></select>
     <label>PRAZO</label>
     <input type="date" id="edit-prazo" style="width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;outline:none">
     <label>ENTREGAVEL</label>
@@ -343,6 +357,11 @@ function oe(id){
   document.getElementById("edit-prio").value = c.prio||"";
   document.getElementById("edit-prazo").value = c.prazo||"";
   document.getElementById("edit-entregavel").value = c.entregavel||"";
+  document.getElementById("edit-done-criteria").value = c.done_criteria||"";
+  document.getElementById("edit-context-min").value = c.context_min||"";
+  document.getElementById("edit-url-ref").value = c.url_ref||"";
+  document.getElementById("edit-autonomy").value = c.autonomy_level||"full";
+  document.getElementById("edit-permanent").checked = c.permanent==1;
   document.getElementById("modal-bg").classList.add("open");
 }
 function closeModal(){ document.getElementById("modal-bg").classList.remove("open"); }
@@ -355,6 +374,11 @@ function saveEdit(){
   c.prio = document.getElementById("edit-prio").value;
   c.prazo = document.getElementById("edit-prazo").value;
   c.entregavel = document.getElementById("edit-entregavel").value;
+  c.done_criteria = document.getElementById("edit-done-criteria").value;
+  c.context_min = document.getElementById("edit-context-min").value;
+  c.url_ref = document.getElementById("edit-url-ref").value;
+  c.autonomy_level = document.getElementById("edit-autonomy").value;
+  c.permanent = document.getElementById("edit-permanent").checked ? 1 : 0;
   fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
   document.getElementById("modal-bg").classList.remove("open");
 }
