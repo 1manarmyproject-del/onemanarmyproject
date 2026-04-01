@@ -269,7 +269,7 @@ function openBiaTrigger(){
   document.getElementById('biaLeadInfo').innerHTML='<strong>'+x(l.nome)+'</strong>'+(l.empresa?' — '+x(l.empresa):'')+'<br>📱 '+(l.wa||'sem WhatsApp')+'<br>📊 Status: '+x(l.stage||'novo')+(l.seg?' · '+x(l.seg):'');
   document.getElementById('biaCustom').style.display='none';
   document.getElementById('biaStatus').textContent='';
-  document.getElementById('obia').classList.add('on');
+  document.getElementById('obia').classList.add('op');
 }
 function triggerBia(action){
   if(action==='custom'){document.getElementById('biaCustom').style.display='block';return;}
