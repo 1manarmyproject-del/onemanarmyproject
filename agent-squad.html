@@ -329,24 +329,29 @@ function setF(btn,area){
   btn.classList.add("active");
   render();
 }
+var newCardCol = 'todo';
 function openAdd(col){
-  document.getElementById("addf-"+col).style.display = "block";
-  document.getElementById("addbtn-"+col).style.display = "none";
-  document.getElementById("addtxt-"+col).focus();
+  newCardCol = col;
+  editId = '__new__';
+  document.getElementById("edit-text").value = "";
+  document.getElementById("edit-area").value = "operacao";
+  document.getElementById("edit-resp").value = "";
+  document.getElementById("edit-prio").value = "media";
+  document.getElementById("edit-prazo").value = "";
+  document.getElementById("edit-entregavel").value = "";
+  document.getElementById("edit-done-criteria").value = "";
+  document.getElementById("edit-context-min").value = "";
+  document.getElementById("edit-url-ref").value = "";
+  document.getElementById("edit-autonomy").value = "supervised";
+  document.getElementById("edit-permanent").checked = false;
+  document.getElementById("modal-bg").classList.add("open");
+  setTimeout(function(){ document.getElementById("edit-text").focus(); }, 100);
 }
 function cancelAdd(col){
   document.getElementById("addf-"+col).style.display = "none";
   document.getElementById("addbtn-"+col).style.display = "block";
-  document.getElementById("addtxt-"+col).value = "";
 }
-function addCard(col){
-  var t = document.getElementById("addtxt-"+col).value.trim();
-  var a = document.getElementById("addarea-"+col).value;
-  if(!t) return;
-  var nc={id:Date.now().toString(),col:col,text:t,area:a,resp:"",prio:"",prazo:"",entregavel:""};
-  cards.push(nc);
-  fetch(PMO_API+"/pmo",{method:"POST",headers:PMO_HDR,body:JSON.stringify(nc)}); render(); cancelAdd(col);
-}
+function addCard(col){}
 function oe(id){
   var c = cards.find(function(x){return x.id===id;});
   if(!c) return;
@@ -366,6 +371,30 @@ function oe(id){
 }
 function closeModal(){ document.getElementById("modal-bg").classList.remove("open"); }
 function saveEdit(){
+  if (editId === '__new__') {
+    var t = document.getElementById("edit-text").value.trim();
+    if (!t) return;
+    var nc = {
+      id: Date.now().toString(),
+      col: newCardCol,
+      text: t,
+      area: document.getElementById("edit-area").value,
+      resp: document.getElementById("edit-resp").value,
+      prio: document.getElementById("edit-prio").value,
+      prazo: document.getElementById("edit-prazo").value,
+      entregavel: document.getElementById("edit-entregavel").value,
+      done_criteria: document.getElementById("edit-done-criteria").value,
+      context_min: document.getElementById("edit-context-min").value,
+      url_ref: document.getElementById("edit-url-ref").value,
+      autonomy_level: document.getElementById("edit-autonomy").value,
+      permanent: document.getElementById("edit-permanent").checked ? 1 : 0
+    };
+    cards.push(nc);
+    fetch(PMO_API+"/pmo",{method:"POST",headers:PMO_HDR,body:JSON.stringify(nc)});
+    render();
+    document.getElementById("modal-bg").classList.remove("open");
+    return;
+  }
   var c = cards.find(function(x){return x.id===editId;});
   if(!c) return;
   c.text = document.getElementById("edit-text").value.trim()||c.text;
