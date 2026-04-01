@@ -233,10 +233,12 @@ function render(){
       var prioTxt = c.prio ? (PICONS[c.prio]||"")+c.prio.toUpperCase() : "PRIO";
       var prioClass = "prio-btn"+(c.prio?" "+c.prio:"");
       var btns = "";
-      if(col!=="done") btns += '<button class="ca g" onclick="mv(\''+c.id+'\',\'done\')">feito</button>';
-      if(col==="done") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">reabrir</button>';
       if(col==="back") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">sprint</button>';
       if(col==="todo") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'doing\')">iniciar</button>';
+      if(col==="doing") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'review\')">review</button>';
+      if(col==="review") btns += '<button class="ca g" onclick="mv(\''+c.id+'\',\'approved\')">aprovar</button>';
+      if(col==="approved") btns += '<button class="ca g" onclick="mv(\''+c.id+'\',\'done\')">feito</button>';
+      if(col==="done") btns += '<button class="ca" onclick="mv(\''+c.id+'\',\'todo\')">reabrir</button>';
       btns += '<button class="ca" onclick="oe(\''+c.id+'\')">editar</button>';
       btns += '<button class="ca r" onclick="rm(\''+c.id+'\')">x</button>';
       btns += '<div class="mv-grp"><button class="mv" onclick="mup(\''+c.id+'\',\''+col+'\')">^</button><button class="mv" onclick="mdn(\''+c.id+'\',\''+col+'\')">v</button></div>';
