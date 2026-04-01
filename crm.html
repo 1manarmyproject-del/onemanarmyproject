@@ -296,7 +296,18 @@ function triggerBia(action){
     else{st.textContent='⚠️ Erro: '+(d.error||'tente novamente');}
   }).catch(e=>{st.textContent='⚠️ Falha na conexão';});
 }
-function dL2(){if(!confirm('Excluir?'))return;S.leads=(S.leads||[]).filter(l=>l.id!==aid);sv();F=wl();render();cM('od');toast('Excluído');}
+function dL2(){
+  if(!confirm('Excluir este cliente? Esta ação não pode ser desfeita.'))return;
+  // Remove do localStorage imediatamente
+  S.leads=(S.leads||[]).filter(l=>l.id!==aid);
+  sv();F=wl();render();cM('od');toast('Excluído');
+  // Remove do banco via API
+  const cid = aid;
+  fetch(API+'/clientes/'+cid,{method:'DELETE',headers:{'Content-Type':'application/json','x-admin-key':'omaproject2026'}})
+    .then(r=>r.json())
+    .then(d=>{ if(!d.ok) console.warn('Erro ao excluir do banco:',d.error); })
+    .catch(e=>console.warn('Erro DELETE cliente:',e));
+}
 function eL(){const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;cM('od');oAdd(l.stage,l);}
 function oAdd(st,lead){document.getElementById('ft').textContent=lead?'EDITAR LEAD':'NOVO LEAD';document.getElementById('fId').value=lead?.id||'';document.getElementById('fN').value=lead?.nome||'';document.getElementById('fE').value=lead?.empresa||'';document.getElementById('fW').value=lead?.wa||'';document.getElementById('fM').value=lead?.email||'';document.getElementById('fSg2').value=lead?.seg||'';document.getElementById('fPo2').value=lead?.porte||'PME';document.getElementById('fCn').value=lead?.canal||'WhatsApp';document.getElementById('fCg').value=lead?.cargo||'Sócio / Dono';document.getElementById('fT').value=lead?.ticket||'';document.getElementById('fSp').value=lead?.setup||'';document.getElementById('fMd').value=lead?.modulos||'';document.getElementById('fDr').value=lead?.dor||'';document.getElementById('fDg').value=lead?.diag||'';document.getElementById('fSt2').value=lead?.stage||st||'novo';cSc();document.getElementById('of').classList.add('op');}
 function cSc(){document.getElementById('fSc').value=SCC[document.getElementById('fCg').value]||40;}
