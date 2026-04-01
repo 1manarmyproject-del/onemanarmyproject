@@ -29,7 +29,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .btn{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:10px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
 .btn:hover{border-color:var(--fire);color:var(--fire)}
 .btn.primary{background:var(--fire);border-color:var(--fire);color:#000}
-.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:14px 20px;align-items:start}
+.board{display:grid;grid-template-columns:repeat(6,minmax(180px,1fr));gap:10px;padding:14px 20px;align-items:start;overflow-x:auto}
 .col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;min-height:280px;transition:outline .1s}
 .col.drag-over{outline:2px dashed var(--fire);outline-offset:-2px}
 .col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
@@ -71,7 +71,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .mv-grp{display:flex;margin-left:auto}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;width:420px;max-width:94vw}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;width:420px;max-width:94vw;max-height:85vh;overflow-y:auto}
 .modal h3{font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px;color:var(--white);margin-bottom:14px}
 .modal label{display:block;font-family:Space Mono,monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:4px;margin-top:10px}
 .modal textarea,.modal select{width:100%;background:var(--iron);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--bone);font-family:Barlow,sans-serif;outline:none}
@@ -90,7 +90,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .add-form-btns button{flex:1;padding:5px;font-size:10px;font-family:Space Mono,monospace;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--ash);letter-spacing:1px}
 .add-form-btns button.save{background:var(--fire);border-color:var(--fire);color:#000}
 .empty{text-align:center;color:var(--ash);font-size:10px;padding:20px 0;font-family:Space Mono,monospace;letter-spacing:1px}
-@media(max-width:900px){.board{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.board{grid-template-columns:repeat(6,minmax(160px,1fr))}}
 @media(max-width:520px){.board{grid-template-columns:1fr}}
 </style>
 </head>
