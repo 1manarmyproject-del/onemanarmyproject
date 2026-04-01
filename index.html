@@ -590,7 +590,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
   .footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
 .footer-link:hover{color:var(--fire)}
 .footer-links{flex-direction:column;gap:10px;align-items:center;}
-  #oma-window{position:fixed !important;width:calc(100vw - 24px) !important;max-width:100% !important;right:12px !important;left:12px !important;bottom:76px !important;height:calc(100svh - 110px) !important;max-height:580px !important;box-sizing:border-box !important;}
+  #oma-window{position:fixed !important;width:calc(100vw - 24px) !important;max-width:100% !important;right:12px !important;left:12px !important;bottom:76px !important;height:480px !important;max-height:calc(100vh - 130px) !important;box-sizing:border-box !important;}
   .sec-body{font-size:13px !important;line-height:1.75 !important;}
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
@@ -672,8 +672,19 @@ async function oS(){
 }
 function oT(){
   op=!op;const w=document.getElementById('oma-window');
-  if(op){w.classList.add('wopen');un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();}
-  else{w.classList.remove('wopen');}
+  if(op){
+    w.classList.add('wopen');
+    // Safari iOS fix: calcula altura real disponível
+    if(window.innerWidth <= 480){
+      var safeH = window.innerHeight - 110;
+      if(safeH < 300) safeH = 300;
+      if(safeH > 580) safeH = 580;
+      w.style.height = safeH + 'px';
+      w.style.bottom = '72px';
+    }
+    un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();
+  }
+  else{w.classList.remove('wopen');w.style.height='';}
 }
 document.getElementById('oma-inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
 window.oT=oT;window.oS=oS;
