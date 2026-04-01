@@ -60,7 +60,7 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);back
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .sec{max-width:1020px;margin:0 auto;padding:96px 32px;}
 .sec-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:14px;}
-.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,4vw,46px);letter-spacing:0px;color:var(--white);line-height:1.15;margin-bottom:22px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,4vw,46px);letter-spacing:0px;color:var(--white);line-height:1.15;margin-bottom:22px;text-transform:none;}
 .sec-title span{color:var(--fire);font-style:italic;}
 .sec-body{font-size:16px;line-height:1.9;color:var(--mid-text);}
 .sec-body strong{color:var(--bone);font-weight:600;}
@@ -299,7 +299,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <!-- MÓDULOS NOVOS -->
 <section class="segs">
   <div cla<p class="sec-lbl">Módulos</p>
-    <h2 class="sec-title" style="color:var(--dark-text);text-align:center;font-size:clamp(20px,3.5vw,46px)">8 frentes operacionais que<br><span style="color:var(--fire)">empresas grandes já tratam como sistema.</span></h2>
+    <h2 class="sec-title" style="color:var(--dark-text);text-align:center;font-size:clamp(20px,3.5vw,46px);text-transform:none">8 frentes operacionais que<br><span style="color:var(--fire)">empresas grandes já tratam como sistema.</span></h2>
     <p class="sec-body" style="max-width:580px;color:var(--mid-text);text-align:center;margin-left:auto;margin-right:auto;padding:0 16px">Agora qualquer negócio pode operar assim — sem a complexidade, o custo e o headcount. Cada módulo resolve uma dor operacional específica. Sozinho, já gera ganho. Combinado, vira uma camada operacional completa.</p>
     <div class="segs-grid" style="margin-top:48px;grid-template-columns:repeat(3,1fr);max-width:960px;margin-left:auto;margin-right:auto">
       <div class="seg-card"><div class="seg-ico">🎧</div><div class="seg-name">SAC 24h</div><div class="seg-dor">"Sou eu que respondo às 23h"</div><div class="seg-res">Resolve a maior parte dos atendimentos sozinho e entrega as exceções com contexto completo.</div></div>
@@ -314,7 +314,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     </div>
     <div style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--iron)" class="modulos-bottom-grid">
       <div style="padding:44px;background:var(--coal);border-left:3px solid var(--blood)">
-        <p style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(20px,3vw,32px);letter-spacing:0px;color:var(--white);margin-bottom:20px;line-height:1.15">Não é só executar.<br><span style="color:var(--fire);font-style:italic">É aprender operando.</span></p>
+        <p style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(20px,3vw,32px);letter-spacing:0px;color:var(--white);margin-bottom:20px;line-height:1.15;text-transform:none">Não é só executar.<br><span style="color:var(--fire);font-style:italic">É aprender operando.</span></p>
         <p style="font-size:15px;line-height:1.9;color:rgba(255,255,255,.8);margin-bottom:16px">Cada agente não apenas executa tarefas. Ele observa padrões, identifica anomalias e ajuda a melhorar a rotina com base no que acontece na operação real.</p>
         <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,.65)">Perceber que certos clientes atrasam sempre na mesma janela. Que segunda-feira concentra mais faltas. Sinalizar exceções antes que virem prejuízo.</p>
       </div>
@@ -555,7 +555,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
   .modulos-bottom-grid > div{padding:28px 20px !important;}
 }
 @media(max-width:480px){
-  #seguranca div[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr !important;}#oma-window{width:calc(100vw - 32px);right:16px;bottom:80px;}}
+  #seguranca div[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr !important;}}
 
 /* ══════════════════════ MOBILE ══════════════════════ */
 @media(max-width:480px){
@@ -590,7 +590,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
   .footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
 .footer-link:hover{color:var(--fire)}
 .footer-links{flex-direction:column;gap:10px;align-items:center;}
-  #oma-window{width:calc(100vw - 16px);right:8px;bottom:72px;height:85vh;}
+  #oma-window{width:calc(100vw - 16px) !important;right:8px !important;left:8px !important;bottom:72px !important;height:calc(100dvh - 120px) !important;max-height:600px;}
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
 @media(max-width:768px) and (min-width:481px){
