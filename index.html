@@ -518,7 +518,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 #oma-bubble:hover{transform:scale(1.08);}
 #oma-bubble svg{width:26px;height:26px;fill:white;}
 #oma-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#dc2626;color:white;font-size:10px;font-weight:600;display:none;align-items:center;justify-content:center;}
-#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9001;display:none;flex-direction:column;overflow:hidden;}
+#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9001;display:none;flex-direction:column;overflow:hidden;box-sizing:border-box;}
 #oma-window.wopen{display:flex;}
 #oma-hdr{background:#111;border-bottom:1px solid #1e1e1e;padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
 #oma-av{width:36px;height:36px;border-radius:50%;background:#e8703a;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:600;flex-shrink:0;}
@@ -590,7 +590,8 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
   .footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
 .footer-link:hover{color:var(--fire)}
 .footer-links{flex-direction:column;gap:10px;align-items:center;}
-  #oma-window{width:calc(100vw - 16px) !important;right:8px !important;left:8px !important;bottom:72px !important;height:calc(100dvh - 120px) !important;max-height:600px;}
+  #oma-window{position:fixed !important;width:calc(100vw - 24px) !important;max-width:100% !important;right:12px !important;left:12px !important;bottom:76px !important;height:calc(100svh - 110px) !important;max-height:580px !important;box-sizing:border-box !important;}
+  .sec-body{font-size:13px !important;line-height:1.75 !important;}
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
 @media(max-width:768px) and (min-width:481px){
