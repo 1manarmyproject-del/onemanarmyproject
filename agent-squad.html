@@ -94,7 +94,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 </head>
 <body>
 <header>
-  <a href="/hub" style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:1px;text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;transition:all .15s" onmouseover="this.style.borderColor='var(--fire)';this.style.color='var(--fire)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ash)'">← HUB</a><div class="logo">ONE MAN <span>ARMY</span> - Agent Squad</div>
+  <a href="/hub" style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:1px;text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;transition:all .15s" onmouseover="this.style.borderColor='var(--fire)';this.style.color='var(--fire)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ash)'">← HUB</a><div class="logo">ONE MAN <span>ARMY</span> - PMO</div>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <span><span class="dot"></span><span style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:1px">LANCAMENTO 02/04/2026</span></span>
     <button class="btn" onclick="syncCards()">SYNC</button> <button class="btn" onclick="resetBoard()">RESET</button>
@@ -169,9 +169,9 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 </div>
 <script>
 var cards = [];
-var Agent Squad_API = "https://api.onemanarmyproject.com.br";
-var Agent Squad_KEY = "354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273";
-var Agent Squad_HDR = {"Content-Type":"application/json","x-api-key":"354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273"};
+var PMO_API = "https://api.onemanarmyproject.com.br";
+var PMO_KEY = "354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273";
+var PMO_HDR = {"Content-Type":"application/json","x-api-key":"354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273"};
 var dragging = null;
 var filt = "all";
 var editId = null;
@@ -184,12 +184,12 @@ function save(){} // migrado para API Hetzner
 function syncCards(){ load(); }
 
 function load(){
-  fetch(Agent Squad_API+"/agent-squad",{headers:{"x-api-key":Agent Squad_KEY}})
+  fetch(PMO_API+"/pmo",{headers:{"x-api-key":PMO_KEY}})
     .then(function(r){return r.json();})
     .then(function(data){ cards=Array.isArray(data)?data:[]; render(); })
     .catch(function(e){
-      console.error("Agent Squad API erro",e);
-      fetch("/agent-squad-data.json").then(function(r){return r.json();}).then(function(d){cards=d.slice();render();});
+      console.error("PMO API erro",e);
+      fetch("/pmo-data.json").then(function(r){return r.json();}).then(function(d){cards=d.slice();render();});
     });
 }
 
@@ -258,7 +258,7 @@ function cp(id,e){
   if(!c) return;
   var cy = ["","alta","media","baixa"];
   c.prio = cy[(cy.indexOf(c.prio||"")+1)%cy.length];
-  fetch(Agent Squad_API+"/agent-squad/"+c.id,{method:"PATCH",headers:Agent Squad_HDR,body:JSON.stringify(c)}); render();
+  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
 }
 function ds(e,id){
   dragging = id;
@@ -275,12 +275,12 @@ function dp(e,col){
   document.querySelectorAll(".col").forEach(function(c){c.classList.remove("drag-over");});
   if(!dragging) return;
   var c = cards.find(function(x){return x.id===dragging;});
-  if(c){ c.col=col; fetch(Agent Squad_API+"/agent-squad/"+id,{method:"PATCH",headers:Agent Squad_HDR,body:JSON.stringify(c)}); render(); }
+  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render(); }
   dragging = null;
 }
 function mv(id,col){
   var c = cards.find(function(x){return x.id===id;});
-  if(c){ c.col=col; fetch(Agent Squad_API+"/agent-squad/"+id,{method:"PATCH",headers:Agent Squad_HDR,body:JSON.stringify(c)}); render(); }
+  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render(); }
 }
 function mup(id,col){
   var g = cards.filter(function(c){return c.col===col;});
@@ -303,7 +303,7 @@ function mdn(id,col){
 function rm(id){
   if(!confirm("Remover?")) return;
   cards = cards.filter(function(x){return x.id!==id;});
-  fetch(Agent Squad_API+"/agent-squad/"+id,{method:"DELETE",headers:Agent Squad_HDR}); render();
+  fetch(PMO_API+"/pmo/"+id,{method:"DELETE",headers:PMO_HDR}); render();
 }
 function setF(btn,area){
   filt = area;
@@ -327,7 +327,7 @@ function addCard(col){
   if(!t) return;
   var nc={id:Date.now().toString(),col:col,text:t,area:a,resp:"",prio:"",prazo:"",entregavel:""};
   cards.push(nc);
-  fetch(Agent Squad_API+"/agent-squad",{method:"POST",headers:Agent Squad_HDR,body:JSON.stringify(nc)}); render(); cancelAdd(col);
+  fetch(PMO_API+"/pmo",{method:"POST",headers:PMO_HDR,body:JSON.stringify(nc)}); render(); cancelAdd(col);
 }
 function oe(id){
   var c = cards.find(function(x){return x.id===id;});
@@ -351,7 +351,7 @@ function saveEdit(){
   c.prio = document.getElementById("edit-prio").value;
   c.prazo = document.getElementById("edit-prazo").value;
   c.entregavel = document.getElementById("edit-entregavel").value;
-  fetch(Agent Squad_API+"/agent-squad/"+c.id,{method:"PATCH",headers:Agent Squad_HDR,body:JSON.stringify(c)}); render();
+  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
   document.getElementById("modal-bg").classList.remove("open");
 }
 function resetBoard(){
