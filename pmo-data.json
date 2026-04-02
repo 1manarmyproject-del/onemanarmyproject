@@ -1036,5 +1036,15 @@
     "prio": "alta",
     "prazo": "2026-04-10",
     "entregavel": "Escopo: conciliar extrato bancário vs sistema de caixa das lojas. Rede de lojas, processamento DIÁRIO.\n\nVISÃO: George como fábrica de agentes. Fluxo de construção:\n1. Marcos manda mapeamento do processo (regras, arquivos exemplo, frequência)\n2. Fabio abre sessão com George: \"novo agente conciliação bancária pro Armazém\"\n3. George (via Claude) coda o agente: parser, matching, relatório, scheduler\n4. George testa, valida, deploya no NanoClaw como serviço agendado\n5. Agente roda sozinho diariamente — George/Darwin monitora\n\nARQUITETURA: agente autônomo Node/Python (NÃO Claude no loop diário). Código determinístico via scheduler. Zero custo API por execução. Claude só no setup e casos excepcionais.\n\nFLUXO DIÁRIO DO AGENTE:\n1. Armazém faz upload (WhatsApp ou portal): extrato banco + relatório caixa\n2. Agente processa: parser OFX/CSV, cruza transações, identifica divergências\n3. Relatório automático: WhatsApp + email com matches, divergências, totais\n\nFASES:\n1 (MVP): arquivos exportados (OFX/CSV + planilha). Começar com arquivo do banco já exportado.\n2: Open Finance / Pluggy / Belvo para conexão direta com banco.\n3: API do sistema de caixa/PDV.\n\nCONCEITO OMA: George é a fábrica. Cliente traz processo → George constrói agente sob medida → agente roda autônomo. Não é SaaS genérico — é agente feito pro processo do cliente. Margem excelente: custo de execução zero (código puro), cobra mensal pelo serviço."
+  },
+  {
+    "id": "1775163908880",
+    "col": "todo",
+    "text": "Estratégia: ZipTalk como motor de mídia espontânea e aquisição viral",
+    "area": "conteudo",
+    "resp": "tiago",
+    "prio": "alta",
+    "prazo": "2026-04-06",
+    "entregavel": "Cada transcrição ZipTalk inclui tagline 'Transcrição by OMA Project — instagram.com/onemanarmy.ai'. Cada áudio transcrito é um ponto de contato da marca com NÃO-clientes.\n\nMATH: 1 cliente recebe 20 áudios/dia = 20 impressões OMA/dia. 10 clientes = 200/dia. 100 clientes = 2.000/dia. Tudo orgânico, zero custo.\n\nDIFERENCIAL: impressão no contexto de utilidade (não é ad, é algo útil acontecendo). Conversão muito maior que paid media.\n\nIMPLICAÇÕES ESTRATÉGICAS:\n1. Planos baratos (Starter R$19,99) são máquinas de aquisição — cada cliente barato é canal de distribuição\n2. Considerar subsidiar planos iniciais pensando em viral loop\n3. Tagline é o asset mais valioso do ZipTalk — otimizar copy e CTA\n4. Métricas: rastrear cliques no link da tagline (UTM), conversões vindas de viral\n5. Possível: oferecer plano gratuito limitado (10 áudios/mês) só pela exposição da marca\n\nAÇÕES:\n- Tiago: modelar projeção de impressões por base de clientes\n- Tiago: propor estratégia de pricing que maximize viral (planos baratos = volume = exposição)\n- Flávia: criar conteúdo sobre o efeito viral pra redes sociais"
   }
 ]
