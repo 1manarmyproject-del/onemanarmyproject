@@ -1016,5 +1016,15 @@
     "prio": "media",
     "prazo": "2026-04-04",
     "entregavel": "Auto-detect: se Amanda ficar sozinha na sala (0 outros participantes) por 2 min, sair automaticamente. Evita ficar gravando silencio apos reuniao"
+  },
+  {
+    "id": "1775161467729",
+    "col": "todo",
+    "text": "ARMAZÉM DA CERVEJA — teste piloto OMA (primeiro cliente!)",
+    "area": "produto",
+    "resp": "fabio",
+    "prio": "alta",
+    "prazo": "2026-04-10",
+    "entregavel": "Reuniao com Marcos Carabolante confirmou interesse. Proximo passo: diagnostico do Armazem (6 perguntas), definir quais agentes fazem sentido (SAC WhatsApp, processos, marketing), proposta comercial personalizada. Primeiro cliente real do OMA Project — milestone historico"
   }
 ]
