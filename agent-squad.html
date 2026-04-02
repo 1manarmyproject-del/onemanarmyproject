@@ -29,7 +29,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .btn{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:10px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:1px;transition:all .15s}
 .btn:hover{border-color:var(--fire);color:var(--fire)}
 .btn.primary{background:var(--fire);border-color:var(--fire);color:#000}
-.board{display:grid;grid-template-columns:repeat(6,minmax(180px,1fr));gap:10px;padding:14px 20px;align-items:start;overflow-x:auto}
+.board{display:grid;grid-template-columns:repeat(7,minmax(165px,1fr));gap:10px;padding:14px 20px;align-items:start;overflow-x:auto}
 .col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;min-height:280px;transition:outline .1s}
 .col.drag-over{outline:2px dashed var(--fire);outline-offset:-2px}
 .col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
@@ -109,6 +109,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   <div class="stat"><strong id="s-review">0</strong>REVIEW</div>
   <div class="stat"><strong id="s-approved">0</strong>APROVADO</div>
   <div class="stat"><strong id="s-done">0</strong>FEITO</div>
+      <div class="stat"><strong id="s-recorrente" style="color:#e8703a">0</strong>RECORRENTE</div>
   <div class="pct-bar"><div class="pct-fill" id="pct-fill" style="width:0%"></div></div>
   <div class="pct-label" id="pct-label">0%</div>
 </div>
@@ -160,6 +161,10 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   <div class="col" id="col-done" ondragover="ov(event)" ondrop="dp(event,'done')">
     <div class="col-head"><span class="col-label lbl-done">FEITO</span><span class="col-count" id="cnt-done">0</span></div>
     <div id="cards-done"></div><div class="empty" id="emp-done" style="display:none">Vazio</div>
+  </div>
+  <div class="col" id="col-recorrente" style="border-left:2px solid #e8703a">
+    <div class="col-head"><span class="col-label" style="color:#e8703a">🔄 RECORRENTE</span><span class="col-count" id="cnt-recorrente">0</span></div>
+    <div id="cards-recorrente"></div><div class="empty" id="emp-recorrente" style="display:none">Vazio</div>
   </div>
 </div>
 <div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
@@ -219,7 +224,7 @@ function mf(c){
 }
 
 function render(){
-  var cols = ["back","todo","doing","review","approved","done"];
+  var cols = ["back","todo","doing","review","approved","done","recorrente"];
   for(var ci=0;ci<cols.length;ci++){
     var col = cols[ci];
     var all = cards.filter(function(c){return c.col===col;});
