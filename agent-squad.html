@@ -124,7 +124,10 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   <div class="tbr">
     <button class="filter" onclick="setF(this,'fabio')">FABIO</button>
     <button class="filter" onclick="setF(this,'george')">GEORGE</button>
-    <button class="filter" onclick="setF(this,'flavia')">FLAVIA</button>
+    <button class="filter" onclick="setF(this,'claude')">CLAUDE</button>
+    <button class="filter" onclick="setF(this,'flavia')">FLÁVIA</button>
+    <button class="filter" onclick="setF(this,'bia')">BIA</button>
+    <button class="filter" onclick="setF(this,'amanda')">AMANDA</button>
     <button class="filter" onclick="setF(this,'tiago')">TIAGO</button>
     <button class="btn primary" onclick="openAdd('todo')">+ NOVO</button>
   </div>
@@ -218,7 +221,7 @@ function load(){
 
 function mf(c){
   if(filt==="all") return true;
-  var areas = ["site","bia","infra","conteudo","legal","produto"];
+  var areas = ["site","infra","conteudo","legal","produto","operacao","comercial"];
   if(areas.indexOf(filt)>=0) return c.area===filt;
   return c.resp===filt;
 }
