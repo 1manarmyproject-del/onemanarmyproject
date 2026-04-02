@@ -976,5 +976,15 @@
     "prio": "alta",
     "prazo": "2026-04-02",
     "entregavel": "Driver instalado, ffmpeg capturando, SwitchAudioSource alternando output"
+  },
+  {
+    "id": "1775147904096",
+    "col": "todo",
+    "text": "Migrar agentes WhatsApp (Bia, Amanda) para WhatsApp Cloud API oficial da Meta",
+    "area": "infra",
+    "resp": "fabio",
+    "prio": "alta",
+    "prazo": "2026-04-15",
+    "entregavel": "Meta Business Account verificada, WABA criado, numero dedicado OMA, templates aprovados (ata, welcome, transcricao). Evolution API mantida apenas para ZipTalk (WhatsApp pessoal). OMA vira camada tecnica direto na API — sem BSP intermediario (Blip, Zenvia etc)"
   }
 ]
