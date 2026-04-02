@@ -986,5 +986,15 @@
     "prio": "alta",
     "prazo": "2026-04-15",
     "entregavel": "Meta Business Account verificada, WABA criado, numero dedicado OMA, templates aprovados (ata, welcome, transcricao). Evolution API mantida apenas para ZipTalk (WhatsApp pessoal). OMA vira camada tecnica direto na API — sem BSP intermediario (Blip, Zenvia etc)"
+  },
+  {
+    "id": "1775149560536",
+    "col": "todo",
+    "text": "ZipTalk produto separado — pricing competitivo + combo Smart Noter",
+    "area": "produto",
+    "resp": "fabio",
+    "prio": "alta",
+    "prazo": "2026-04-05",
+    "entregavel": "Dois modelos de venda:\n\nMODELO 1 — ZipTalk separado (competir no preco):\nStarter R$19,99/mes (120 min) — margem 79%\nLight R$29,99/mes (240 min) — margem 73%\nBasic R$44,99/mes (480 min) — margem 63%\nPro R$69,99/mes (960 min) — margem 53%\nAdvanced R$119,99/mes (1.920 min) — margem 45%\nBusiness R$199,99/mes (3.840 min) — margem 34%\n\nMODELO 2 — Assistente OMA completo (ZipTalk + Smart Noter + Prateleira):\nEssencial R$49,90/mes (300 min + atas + prateleira)\nPlus R$79,90/mes (600 min + atas + prateleira)\nPro R$99,90/mes (1.500 min + atas ilimitadas + prateleira)\n\nCusto base Whisper: $0.006/min USD (~R$0,034/min). Concorrente referencia: ziptalk.com"
   }
 ]
