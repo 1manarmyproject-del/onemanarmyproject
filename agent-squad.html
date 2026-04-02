@@ -227,7 +227,11 @@ function render(){
   var cols = ["back","todo","doing","review","approved","done","recorrente"];
   for(var ci=0;ci<cols.length;ci++){
     var col = cols[ci];
-    var all = cards.filter(function(c){return c.col===col;});
+    var all = cards.filter(function(c){
+      if(col==='recorrente') return c.permanent && c.col!=='done';
+      if(c.permanent && c.col!=='done') return false;
+      return c.col===col;
+    });
     var vis = all.filter(mf);
     document.getElementById("cnt-"+col).textContent = all.length;
     var html = "";
