@@ -1026,5 +1026,15 @@
     "prio": "alta",
     "prazo": "2026-04-10",
     "entregavel": "Reuniao com Marcos Carabolante confirmou interesse. Proximo passo: diagnostico do Armazem (6 perguntas), definir quais agentes fazem sentido (SAC WhatsApp, processos, marketing), proposta comercial personalizada. Primeiro cliente real do OMA Project — milestone historico"
+  },
+  {
+    "id": "1775161580093",
+    "col": "todo",
+    "text": "ARMAZÉM — Agente de Conciliação Bancária (primeiro módulo piloto)",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "alta",
+    "prazo": "2026-04-10",
+    "entregavel": "Escopo: conciliar extrato bancário vs sistema de caixa das lojas. Hoje é manual + planilha.\n\nFASE 1 (MVP): Armazem exporta OFX/CSV do banco + planilha/export do sistema de caixa. Agente lê ambos, cruza, identifica divergências, gera relatório.\n\nFASE 2: Conexão direta com banco via Open Finance/API bancária (Belvo, Pluggy, ou APIs diretas dos bancos).\n\nFASE 3: Integração com sistema de caixa via API (depende do ERP/PDV que usam).\n\nDESAFIOS:\n1. Formatos de extrato variam por banco (OFX, CSV, PDF) — agente precisa parser universal\n2. Sistema de caixa: qual ERP/PDV usam? Tem API? Ou exporta planilha?\n3. Regras de conciliação: match por valor, data, CNPJ? Tolerância de centavos?\n4. Volume: quantas lojas? Quantas transações/dia?\n\nDECISÃO: começar com arquivos exportados (OFX/CSV + planilha). Conexão direta com banco é fase 2."
   }
 ]
