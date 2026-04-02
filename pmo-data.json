@@ -996,5 +996,25 @@
     "prio": "alta",
     "prazo": "2026-04-05",
     "entregavel": "Dois modelos de venda:\n\nMODELO 1 — ZipTalk separado (competir no preco):\nStarter R$19,99/mes (120 min) — margem 79%\nLight R$29,99/mes (240 min) — margem 73%\nBasic R$44,99/mes (480 min) — margem 63%\nPro R$69,99/mes (960 min) — margem 53%\nAdvanced R$119,99/mes (1.920 min) — margem 45%\nBusiness R$199,99/mes (3.840 min) — margem 34%\n\nMODELO 2 — Assistente OMA completo (ZipTalk + Smart Noter + Prateleira):\nEssencial R$49,90/mes (300 min + atas + prateleira)\nPlus R$79,90/mes (600 min + atas + prateleira)\nPro R$99,90/mes (1.500 min + atas ilimitadas + prateleira)\n\nCusto base Whisper: $0.006/min USD (~R$0,034/min). Concorrente referencia: ziptalk.com"
+  },
+  {
+    "id": "1775161335306",
+    "col": "todo",
+    "text": "Smart Noter — corrigir captura de audio do Meet (Chrome nao redireciona WebRTC pro sistema)",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "alta",
+    "prazo": "2026-04-04",
+    "entregavel": "Chrome Playwright nao envia audio WebRTC pro BlackHole. Root cause: WebRTC fica interno ao Chrome. Opcoes: (1) Chrome Extension tab audio capture, (2) CDP MediaStream intercept, (3) Puppeteer screencast com audio. Workaround atual: gravar audio no celular e mandar pra Amanda no WhatsApp"
+  },
+  {
+    "id": "1775161335307",
+    "col": "todo",
+    "text": "Smart Noter — Amanda deve sair do Meet quando ficar sozinha por 2+ minutos",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "media",
+    "prazo": "2026-04-04",
+    "entregavel": "Auto-detect: se Amanda ficar sozinha na sala (0 outros participantes) por 2 min, sair automaticamente. Evita ficar gravando silencio apos reuniao"
   }
 ]
