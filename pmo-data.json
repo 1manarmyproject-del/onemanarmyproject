@@ -1056,5 +1056,15 @@
     "prio": "alta",
     "prazo": "2026-04-08",
     "entregavel": "Documento profissional cobrindo:\n\nINFRAESTRUTURA:\n- Servidores em nuvem (Hetzner Cloud EU + Cloudflare CDN global)\n- Monitoramento 24/7 automatizado (George/Darwin health checks 3x/dia)\n- Backups diários automáticos (Google Drive + HD externo)\n- Redundância: failover automático Anthropic → OpenRouter\n- Uptime target 99.5%\n\nSEGURANÇA:\n- HTTPS/TLS em todas as comunicações (Cloudflare Tunnel)\n- Dados criptografados em trânsito e em repouso\n- Acesso remoto via Tailscale (VPN mesh, zero trust)\n- Sem armazenamento de senhas de clientes\n- Agente com acesso revogável em 1 clique\n\nCOMPLIANCE:\n- LGPD: dados processados no Brasil, política de privacidade\n- Termos de uso com escopo de acesso definido por agente\n- Logs auditáveis de todas as ações dos agentes\n\nROADMAP INFRA:\n- Fase 1 (atual): Hetzner + Mac Mini + Cloudflare\n- Fase 2 (20+ clientes): serviços críticos em infra gerenciada (Railway/Render)\n- Fase 3 (100+): AWS/GCP com SLA formal + certificações\n\nLINGUAGEM COMERCIAL: 'Infraestrutura em nuvem com monitoramento 24/7, backups automáticos, criptografia ponta a ponta.' Não mencionar Hetzner/Mac Mini — falar em termos de capability, não de fornecedor."
+  },
+  {
+    "id": "1775213809336",
+    "col": "todo",
+    "text": "Dashboard OMA — KPIs de performance, custo e margem por produto",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "alta",
+    "prazo": "2026-04-08",
+    "entregavel": "Tela no sistema OMA (/dashboard ou /ops) com visão em tempo real:\n\nZIPTALK:\n- Subscribers ativos / por plano\n- Áudios transcritos hoje / mês\n- Minutos consumidos vs limite por cliente\n- Custo Whisper (Groq vs OpenAI) real-time\n- Receita mensal vs custo = margem líquida\n- Provider usado (% Groq free vs OpenAI fallback)\n\nSMART NOTER:\n- Reuniões processadas hoje / mês\n- Minutos gravados / transcritos\n- Atas geradas\n- Custo (Whisper + Haiku) por reunião\n- Receita vs custo = margem\n\nAGENTES B2B (Bia, custom):\n- Clientes ativos\n- Mensagens processadas / dia\n- Tokens consumidos por agente\n- Custo API (Haiku) por cliente/mês\n- Receita mensal vs custo = margem\n\nVISÃO CONSOLIDADA:\n- MRR total (Monthly Recurring Revenue)\n- Custo total de infra + APIs\n- Margem bruta %\n- Churn rate\n- CAC (custo aquisição) vs LTV\n- Projeção 3/6/12 meses\n\nFonte de dados: Hetzner API (oma_usage_log, oma_subscribers) + logs NanoClaw + Anthropic/OpenAI billing"
   }
 ]
