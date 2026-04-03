@@ -1136,5 +1136,15 @@
     "prio": "alta",
     "prazo": "2026-04-05",
     "entregavel": "Mensagem de boas-vindas profissional para enviar ao Marcos após assinatura do contrato. Email com: agradecimento, próximos passos, contatos, link do dashboard. WhatsApp com mensagem curta + link. Tom: parceiro estratégico, não fornecedor."
+  },
+  {
+    "id": "1775226667908",
+    "col": "todo",
+    "text": "OMA Auditoria — Checklist estrutural de saúde do sistema com faróis e ações",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "alta",
+    "prazo": "2026-04-04",
+    "entregavel": "Página /audit no Hub. Diferente do Status (operacional em tempo real), a Auditoria é um checklist estrutural com nota, risco e plano de ação.\n\nCATEGORIAS:\n1. INFRA & REDUNDÂNCIA\n2. SEGURANÇA & COMPLIANCE\n3. AGENTES & OPERAÇÃO\n4. FINANCEIRO & CUSTOS\n5. JURÍDICO & CONTRATOS\n\nCada item tem: critério, estado atual, farol (verde/amarelo/vermelho), nota (0-10), risco, ação prevista, prazo, responsável.\n\nVisão: gestão interna diária + credibilidade pra mostrar a clientes/especialistas.\nAlimentação: manual + automática (checks que o sistema faz sozinho)."
   }
 ]
