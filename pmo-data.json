@@ -1066,5 +1066,15 @@
     "prio": "alta",
     "prazo": "2026-04-08",
     "entregavel": "Tela no sistema OMA (/dashboard ou /ops) com visão em tempo real:\n\nZIPTALK:\n- Subscribers ativos / por plano\n- Áudios transcritos hoje / mês\n- Minutos consumidos vs limite por cliente\n- Custo Whisper (Groq vs OpenAI) real-time\n- Receita mensal vs custo = margem líquida\n- Provider usado (% Groq free vs OpenAI fallback)\n\nSMART NOTER:\n- Reuniões processadas hoje / mês\n- Minutos gravados / transcritos\n- Atas geradas\n- Custo (Whisper + Haiku) por reunião\n- Receita vs custo = margem\n\nAGENTES B2B (Bia, custom):\n- Clientes ativos\n- Mensagens processadas / dia\n- Tokens consumidos por agente\n- Custo API (Haiku) por cliente/mês\n- Receita mensal vs custo = margem\n\nVISÃO CONSOLIDADA:\n- MRR total (Monthly Recurring Revenue)\n- Custo total de infra + APIs\n- Margem bruta %\n- Churn rate\n- CAC (custo aquisição) vs LTV\n- Projeção 3/6/12 meses\n\nFonte de dados: Hetzner API (oma_usage_log, oma_subscribers) + logs NanoClaw + Anthropic/OpenAI billing"
+  },
+  {
+    "id": "1775214479188",
+    "col": "todo",
+    "text": "Hub v3 — Menu lateral + Status como tela principal + Indicadores Agent Squad",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "alta",
+    "prazo": "2026-04-04",
+    "entregavel": "Redesign completo do Hub:\n\nLAYOUT:\n- Menu lateral colapsável (substituir tabs horizontais)\n- Status page como tela principal ao entrar\n- Toggle OMA Systems / Customers no topo do status\n- Todas as seções existentes acessíveis pelo menu lateral\n\nMENU LATERAL:\n- Status (tela principal)\n- Agent Squad\n- Monitor WA\n- CRM\n- MKT Board / MKT Jobs / Insights MKT\n- Onboarding / Clientes / Financeiro\n- War Room / OPS / Traffic\n\nSTATUS PAGE (OMA):\n- Banner operacional (verde/amarelo/vermelho)\n- Infra: NanoClaw, Evolution, Hetzner, Cloudflare, Anthropic, OpenAI, Groq\n- Produtos: George, Bia, Flávia, Amanda, ZipTalk, Smart Noter, Ekhoa\n- Métricas do dia (agentes ativos, msgs, transcrições, custo API)\n- Uptime bars 30 dias por serviço\n- Incidentes recentes\n\nSTATUS PAGE (CUSTOMERS — futuro):\n- Dashboard individual por cliente\n- Status dos agentes contratados\n- Uso mensal vs limites do plano\n\nINDICADORES AGENT SQUAD (nova tela ou section no status):\n- Cards por status (TODO/DOING/DONE) por agente — barras empilhadas\n- Velocity: cards completados por semana (trend line)\n- Aging: cards parados há mais de 3/7/14 dias (alerta)\n- Workload: distribuição de cards por agente (donut chart)\n- Completion rate: % conclusão por agente\n- Backlog growth: tendência acúmulo vs conclusão\n- Tags de atividade recente: últimas ações dos agentes com timestamp\n\nFonte: API Hetzner /pmo/agent/* + execution_log dos cards"
   }
 ]
