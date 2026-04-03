@@ -666,6 +666,76 @@ textarea.ch-input::placeholder{color:var(--text4);}
 }
 @media(max-width:600px){.topnav-name{display:none!important;}}
 
+
+/* ── PROFILE DROPDOWN ───────────────────────────────────── */
+.profile-wrap{position:relative;}
+.profile-dropdown{
+  position:absolute;top:calc(100% + 10px);right:0;
+  width:260px;
+  background:#fff;border:1px solid var(--border);border-radius:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,.10),0 2px 6px rgba(0,0,0,.06);
+  z-index:500;
+  opacity:0;pointer-events:none;transform:translateY(-6px);
+  transition:opacity .18s ease,transform .18s ease;
+}
+.profile-dropdown.open{opacity:1;pointer-events:all;transform:none;}
+
+.pd-header{
+  padding:16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.pd-avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:var(--fire-light);border:2px solid var(--fire-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:var(--fire);
+  overflow:hidden;
+}
+.pd-info{}
+.pd-name{font-weight:700;font-size:14px;color:var(--text);line-height:1.2;}
+.pd-email{font-size:11px;color:var(--text3);margin-top:2px;word-break:break-all;}
+
+.pd-stats{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;
+}
+.pd-stat{text-align:center;}
+.pd-stat-val{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:22px;line-height:1;margin-bottom:2px;
+}
+.pd-stat.s1 .pd-stat-val{color:var(--fire);}
+.pd-stat.s2 .pd-stat-val{color:var(--green);}
+.pd-stat.s3 .pd-stat-val{color:var(--blue);}
+.pd-stat-lbl{
+  font-family:'Space Mono',monospace;font-size:7px;
+  letter-spacing:1px;text-transform:uppercase;color:var(--text4);
+}
+
+.pd-level{
+  margin:0 16px 12px;padding:10px 12px;
+  background:var(--fire-light);border-radius:6px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;
+}
+.pd-level-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:var(--fire);}
+.pd-level-xp{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
+.pd-level-bar{height:4px;background:var(--border2);border-radius:2px;margin-top:6px;}
+.pd-level-fill{height:100%;background:var(--fire);border-radius:2px;}
+
+.pd-menu{padding:8px 0;}
+.pd-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 16px;cursor:pointer;
+  font-size:13px;color:var(--text2);
+  transition:background .12s;
+}
+.pd-item:hover{background:var(--bg3);}
+.pd-item-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+.pd-item.danger{color:var(--red);}
+.pd-item.danger:hover{background:var(--red-light);}
+.pd-divider{height:1px;background:var(--border);margin:4px 0;}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -724,7 +794,62 @@ textarea.ch-input::placeholder{color:var(--text4);}
       <div class="topnav-right">
         <a href="/" title="Site OMA" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;padding:6px 8px;border-radius:4px;transition:color .15s;" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--text4)'">OMA ↗</a>
         <div class="streak-badge" title="Sequência de dias">&#x1F525; <span id="streakVal">0</span>d</div>
-        <div class="user-avatar" id="userAvatar" onclick="doLogout()" title="Clique para sair">F</div>
+        <div class="profile-wrap" id="profileWrap">
+          <div class="user-avatar" id="userAvatar" onclick="toggleProfileDropdown()" title="Minha conta">F</div>
+          <div class="profile-dropdown" id="profileDropdown">
+            <!-- header -->
+            <div class="pd-header">
+              <div class="pd-avatar" id="pdAvatar">F</div>
+              <div class="pd-info">
+                <div class="pd-name" id="pdName">—</div>
+                <div class="pd-email" id="pdEmail">—</div>
+              </div>
+            </div>
+            <!-- stats -->
+            <div class="pd-stats">
+              <div class="pd-stat s1">
+                <div class="pd-stat-val" id="pdXp">0</div>
+                <div class="pd-stat-lbl">XP</div>
+              </div>
+              <div class="pd-stat s2">
+                <div class="pd-stat-val" id="pdMods">0</div>
+                <div class="pd-stat-lbl">Módulos</div>
+              </div>
+              <div class="pd-stat s3">
+                <div class="pd-stat-val" id="pdStreak">0</div>
+                <div class="pd-stat-lbl">Streak</div>
+              </div>
+            </div>
+            <!-- nível -->
+            <div style="padding:0 16px 4px">
+              <div class="pd-level">
+                <div>
+                  <div class="pd-level-name" id="pdLevelName">Iniciante</div>
+                  <div class="pd-level-xp" id="pdLevelXp">0 / 300 XP</div>
+                </div>
+                <div style="font-size:18px" id="pdLevelIcon">🌱</div>
+              </div>
+              <div class="pd-level-bar"><div class="pd-level-fill" id="pdLevelFill" style="width:0%"></div></div>
+            </div>
+            <!-- menu -->
+            <div class="pd-menu">
+              <div class="pd-item" onclick="goScreen('dash');closeProfileDropdown()">
+                <span class="pd-item-icon">🏠</span>Dashboard
+              </div>
+              <div class="pd-item" onclick="goScreen('cert');renderCertificate();closeProfileDropdown()">
+                <span class="pd-item-icon">🏆</span>Meu certificado
+              </div>
+              <div class="pd-divider"></div>
+              <div class="pd-item" onclick="window.open('/','_blank');closeProfileDropdown()">
+                <span class="pd-item-icon">↗</span>Site OMA
+              </div>
+              <div class="pd-divider"></div>
+              <div class="pd-item danger" onclick="doLogout()">
+                <span class="pd-item-icon">🚪</span>Sair
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1634,6 +1759,10 @@ function updateTopBar(){
   const firstName=(ST.user?.nome||'').split(' ')[0];
   const nameEl=document.getElementById('topName');
   if(nameEl && firstName){nameEl.textContent='Olá, '+firstName+' 👋';nameEl.style.display='block';}
+  // Sincronizar avatar principal
+  const av=document.getElementById('userAvatar');
+  if(av && ST.user?.avatar_url){av.innerHTML='<img src="'+ST.user.avatar_url+'" style="width:100%;height:100%;object-fit:cover;">';}
+  else if(av && ST.user?.nome){av.textContent=(ST.user.nome||'')[0].toUpperCase();}
   document.getElementById('sideLevel').textContent=lv.name;
   document.getElementById('sideXp').textContent=xp+' XP';
   document.getElementById('sideXpFill').style.width=pct+'%';
@@ -2155,6 +2284,67 @@ async function joinProWaitlist(){
     btn.disabled = false;
     btn.textContent = 'Quero entrar na lista de espera →';
   }
+}
+
+
+// ════════════════════════════════════════════════════════
+//  PROFILE DROPDOWN
+// ════════════════════════════════════════════════════════
+const LEVEL_ICONS=['🌱','🔍','🔨','🏗️','⚡','🚀'];
+
+function toggleProfileDropdown(){
+  const dd=document.getElementById('profileDropdown');
+  if(dd.classList.contains('open')){
+    closeProfileDropdown();
+  } else {
+    updateProfileDropdown();
+    dd.classList.add('open');
+  }
+}
+
+function closeProfileDropdown(){
+  document.getElementById('profileDropdown')?.classList.remove('open');
+}
+
+// Fechar ao clicar fora
+document.addEventListener('click', function(e){
+  const wrap=document.getElementById('profileWrap');
+  if(wrap && !wrap.contains(e.target)) closeProfileDropdown();
+});
+
+function updateProfileDropdown(){
+  const u=ST.user;
+  const xp=ST.stats?.xp||0;
+  const streak=(typeof ST.stats?.streak==='object'?(ST.stats?.streak?.current||0):(ST.stats?.streak||0));
+  const done=Object.keys(ST.progress).length;
+  const lv=getLevelInfo(xp);
+  const pct=getXpPct(xp);
+
+  // Header
+  const name=u?.nome||'—';
+  const email=u?.email||'—';
+  document.getElementById('pdName').textContent=name;
+  document.getElementById('pdEmail').textContent=email;
+
+  // Avatar
+  const pdAv=document.getElementById('pdAvatar');
+  if(u?.avatar_url){
+    pdAv.innerHTML='<img src="'+u.avatar_url+'" style="width:100%;height:100%;object-fit:cover;">';
+  } else {
+    pdAv.textContent=name[0]?.toUpperCase()||'?';
+  }
+
+  // Stats
+  document.getElementById('pdXp').textContent=xp;
+  document.getElementById('pdMods').textContent=done+'/30';
+  document.getElementById('pdStreak').textContent=streak+'d';
+
+  // Level
+  const lvIdx=LEVELS.findIndex(l=>l.name===lv.name);
+  document.getElementById('pdLevelName').textContent=lv.name;
+  document.getElementById('pdLevelXp').textContent=xp+' / '+(lv.max===9999?'∞':lv.max)+' XP';
+  document.getElementById('pdLevelFill').style.width=pct+'%';
+  document.getElementById('pdLevelIcon').textContent=LEVEL_ICONS[lvIdx]||'🚀';
 }
 
 // ════════════════════════════════════════════════════════
