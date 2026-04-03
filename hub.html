@@ -592,9 +592,9 @@ function renderSquadIndicators(data){
 // ─── BACKUP STATUS ───
 function renderBackup(){
   var items=[
-    {n:'Google Drive (rclone)',freq:'Diário 03:00 BRT',last:'Automático via launchd',s:'g'},
-    {n:'HD Externo (FX_BACKUP_S)',freq:'Diário 03:00 BRT',last:'ExFAT, automático',s:'g'},
-    {n:'GitHub (nanoclaw repo)',freq:'Manual + auto-commits',last:'Código versionado',s:'g'},
+    {n:'HD Externo (FX_BACKUP_S)',freq:'4x/dia (03h, 09h, 15h, 21h)',last:'ExFAT, automático',s:'g'},
+    {n:'GitHub (nanoclaw repo)',freq:'4x/dia (03h, 09h, 15h, 21h)',last:'Código versionado',s:'g'},
+    {n:'Google Drive (rclone)',freq:'4x/dia (03h, 09h, 15h, 21h)',last:'Automático via launchd',s:'g'},
     {n:'Hetzner Snapshots',freq:'Semanal',last:'Servidor CRM/API',s:'g'},
   ];
   document.getElementById('backup-status').innerHTML=items.map(function(b){
