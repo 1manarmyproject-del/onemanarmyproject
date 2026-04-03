@@ -266,6 +266,11 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
               <div class="sec-title">INCIDENTES RECENTES</div>
               <div id="incidents"></div>
             </div>
+
+            <div class="sec">
+              <div class="sec-title">BACKUP & SEGURANÇA</div>
+              <div id="backup-status"></div>
+            </div>
           </div>
 
           <!-- Customers View -->
@@ -369,8 +374,9 @@ function showStatusView(view,btn){
 function initStatus(){
   checkInfra();
   loadSquadIndicators();
-  setInterval(checkInfra,300000);
-  setInterval(loadSquadIndicators,300000);
+  renderBackup();
+  setInterval(checkInfra,300000); // Infra every 5 min
+  setInterval(loadSquadIndicators,60000); // Squad every 1 min
 }
 
 function checkInfra(){
@@ -387,6 +393,7 @@ function checkInfra(){
     {n:'George',d:'Orquestrador (Telegram)',s:'g'},
     {n:'Bia',d:'Comercial (WhatsApp)',s:'g'},
     {n:'Flávia',d:'Marketing (Telegram)',s:'g'},
+    {n:'Tiago',d:'Estratégia (Telegram)',s:'g'},
     {n:'Amanda',d:'Assistente (WhatsApp)',s:'g'},
     {n:'ZipTalk',d:'Transcrição áudios',s:'g'},
     {n:'Smart Noter',d:'Ata de reuniões',s:'g'},
@@ -428,7 +435,7 @@ function updateBanner(all){
 
 function renderMetrics(){
   var items=[
-    {l:'Agentes ativos',v:'7',c:'g'},
+    {l:'Agentes ativos',v:'8',c:'g'},
     {l:'Uptime 30d',v:'99.5%',c:'g'},
     {l:'API Anthropic',v:'$14.14',c:'y'},
     {l:'API OpenRouter',v:'$4.86',c:'y'},
@@ -576,6 +583,19 @@ function renderSquadIndicators(data){
     });
   }
   document.getElementById('squad-feed').innerHTML=feedHtml;
+}
+
+// ─── BACKUP STATUS ───
+function renderBackup(){
+  var items=[
+    {n:'Google Drive (rclone)',freq:'Diário 03:00 BRT',last:'Automático via launchd',s:'g'},
+    {n:'HD Externo (FX_BACKUP_S)',freq:'Diário 03:00 BRT',last:'ExFAT, automático',s:'g'},
+    {n:'GitHub (nanoclaw repo)',freq:'Manual + auto-commits',last:'Código versionado',s:'g'},
+    {n:'Hetzner Snapshots',freq:'Semanal',last:'Servidor CRM/API',s:'g'},
+  ];
+  document.getElementById('backup-status').innerHTML=items.map(function(b){
+    return '<div class="svc"><div class="svc-d '+b.s+'"></div><div class="svc-n">'+b.n+'<small>'+b.freq+'</small></div><div class="svc-u">'+b.last+'</div></div>';
+  }).join('')+'<div style="margin-top:12px;font-size:11px;color:var(--ash)">Regra 3-2-1: 3 cópias, 2 mídias, 1 offsite. ✅ HTTPS/TLS em todas comunicações. ✅ Tailscale VPN mesh. ✅ Cloudflare Tunnel.</div>';
 }
 </script>
 </body>
