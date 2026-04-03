@@ -598,7 +598,7 @@ function renderSquadIndicators(data){
 // ─── BACKUP STATUS ───
 function renderBackup(){
   // Try to fetch real backup status from Hetzner
-  fetch(PMO_API+'/backup-status').then(function(r){return r.json();}).then(function(d){
+  fetch('/backup-status.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
     renderBackupData(d);
   }).catch(function(){
     renderBackupData(null);
