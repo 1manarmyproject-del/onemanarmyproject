@@ -829,6 +829,80 @@ textarea.ch-input::placeholder{color:var(--text4);}
   display:inline-block;
 }
 
+
+/* ── SIDEBAR FASES COLAPSÁVEIS ───────────────────────────── */
+.s-phase-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px 6px;
+  cursor:pointer;
+  user-select:none;
+  transition:background .12s;
+  border-radius:4px;
+  margin:2px 4px 0;
+}
+.s-phase-header:hover{background:var(--bg3);}
+.s-phase-header-left{
+  display:flex;align-items:center;gap:8px;
+}
+.s-phase-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.s-phase-text{}
+.s-phase-name{
+  font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--text3);
+  font-weight:700;
+}
+.s-phase-prog{
+  font-family:'Space Mono',monospace;font-size:7px;
+  color:var(--text4);margin-top:1px;
+}
+.s-phase-chevron{
+  font-size:10px;color:var(--text4);
+  transition:transform .2s ease;
+  flex-shrink:0;
+}
+.s-phase-header.open .s-phase-chevron{transform:rotate(180deg);}
+
+.s-phase-modules{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .25s ease;
+}
+.s-phase-modules.open{
+  max-height:600px;
+}
+
+/* Trilha header no topo do sidebar */
+.s-trail-header{
+  padding:14px 16px 10px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:4px;
+}
+.s-trail-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--fire-light);border:1px solid var(--fire-mid);
+  padding:4px 10px;border-radius:20px;margin-bottom:4px;
+}
+.s-trail-badge-icon{font-size:12px;}
+.s-trail-badge-name{
+  font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--fire);font-weight:700;
+}
+.s-trail-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:15px;color:var(--text);line-height:1.2;
+}
+.s-trail-sub{font-size:10px;color:var(--text3);margin-top:2px;}
+.s-trail-progress{
+  margin-top:8px;display:flex;align-items:center;gap:8px;
+}
+.s-trail-bar{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;}
+.s-trail-bar-fill{height:100%;background:var(--fire);border-radius:2px;transition:width .5s;}
+.s-trail-pct{
+  font-family:'Space Mono',monospace;font-size:8px;
+  color:var(--text3);white-space:nowrap;
+}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1901,6 +1975,63 @@ function renderSidebar(){
     });
   });
 
+function renderSidebar(){
+  const navEl=document.getElementById('sideNav');
+  const drawerEl=document.getElementById('drawerNav');
+  const totalDone=doneCount();
+  const totalMods=ALL_MODULE_IDS.length;
+  const totalPct=Math.round(totalDone/totalMods*100);
+
+  // Header da trilha atual
+  let html=`
+    <div class="s-trail-header">
+      <div class="s-trail-badge">
+        <span class="s-trail-badge-icon">🦞</span>
+        <span class="s-trail-badge-name">Trilha Explorador</span>
+      </div>
+      <div class="s-trail-title">Tech Fluency para Founders</div>
+      <div class="s-trail-sub">30 módulos · 5 fases</div>
+      <div class="s-trail-progress">
+        <div class="s-trail-bar"><div class="s-trail-bar-fill" style="width:${totalPct}%"></div></div>
+        <span class="s-trail-pct">${totalDone}/${totalMods}</span>
+      </div>
+    </div>
+  `;
+
+  PHASES.forEach(ph=>{
+    const pp=phaseProgress(ph.id);
+    const storageKey='phase_open_'+ph.id;
+    // Fase com módulo atual aberta por padrão, resto fechado
+    const hasActive=ph.modules.includes(ST.currentModule);
+    const hasCurrent=ph.modules.some(id=>!isDone(id)&&!isModuleLocked(id)&&ph.modules.indexOf(id)===ph.modules.findIndex(id=>!isDone(id)));
+    const isOpen=hasActive; // Só abre a fase que tem o módulo atual
+
+    html+=`<div class="s-phase-header${isOpen?' open':''}" onclick="togglePhase(${ph.id},this)" id="phaseHeader${ph.id}">
+      <div class="s-phase-header-left">
+        <span class="s-phase-dot" style="background:${ph.color}"></span>
+        <div class="s-phase-text">
+          <div class="s-phase-name">Fase ${ph.id} · ${ph.name}</div>
+          <div class="s-phase-prog">${pp.done}/${pp.total} módulos</div>
+        </div>
+      </div>
+      <span class="s-phase-chevron">▼</span>
+    </div>
+    <div class="s-phase-modules${isOpen?' open':''}" id="phaseModules${ph.id}">`;
+
+    ph.modules.forEach((mid,i)=>{
+      const m=MODS[mid];
+      const done=isDone(mid);
+      const locked=isModuleLocked(mid);
+      const active=ST.currentModule===mid;
+      const num=String((ph.id-1)*6+i+1).padStart(2,'0');
+      html+=`<div class="s-module${done?' done':''}${active?' active':''}${locked?' mr-locked':''}" onclick="${locked?'showLocked()':'openModule(''+mid+'')'}">
+        <div class="s-mod-icon">${done?'✓':num}</div>
+        <div class="s-mod-label">${m.title}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+
   const soonHtml = `
     <div class="s-coming-soon">
       <div class="s-cs-label">Em breve</div>
@@ -1929,6 +2060,21 @@ function renderSidebar(){
   `;
   navEl.innerHTML=html+soonHtml;
   drawerEl.innerHTML=html+soonHtml;
+}
+
+function togglePhase(phId, headerEl){
+  const modules=document.getElementById('phaseModules'+phId);
+  const allHeaders=document.querySelectorAll('.s-phase-header');
+  const allModules=document.querySelectorAll('.s-phase-modules');
+  const isOpen=headerEl.classList.contains('open');
+  // Toggle: se já está aberto, fecha; se fechado, abre
+  if(isOpen){
+    headerEl.classList.remove('open');
+    modules.classList.remove('open');
+  } else {
+    headerEl.classList.add('open');
+    modules.classList.add('open');
+  }
 }
 
 function renderDashboard(){
