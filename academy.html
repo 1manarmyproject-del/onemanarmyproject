@@ -915,7 +915,7 @@ textarea.ch-input::placeholder{color:var(--text4);}
 <div class="drawer" id="drawer">
   <div class="drawer-close" onclick="closeDrawer()">&#x2715;</div>
   <div class="sidebar-head" style="padding:16px 16px 14px">
-    <div class="s-logo">
+    <div class="s-logo" onclick="goScreen('dash');closeDrawer();" style="cursor:pointer;" title="Voltar ao início">
       <img src="/lobster-logo.png" class="mascot-logo-sm" alt="OMA">
       <div class="s-logo-name">OMA <span>Academy</span></div>
     </div>
@@ -934,7 +934,7 @@ textarea.ch-input::placeholder{color:var(--text4);}
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-head">
-      <div class="s-logo">
+      <div class="s-logo" onclick="goScreen('dash')" style="cursor:pointer;" title="Voltar ao início">
         <img src="/lobster-logo.png" class="mascot-logo-sm" alt="OMA">
         <div class="s-logo-name">OMA <span>Academy</span></div>
       </div>
