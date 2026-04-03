@@ -119,6 +119,17 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.onemanarmyproject.com.br"
+        }
+      ],
+      "destination": "https://onemanarmyproject.com.br",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
