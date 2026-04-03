@@ -736,6 +736,64 @@ textarea.ch-input::placeholder{color:var(--text4);}
 .pd-item.danger:hover{background:var(--red-light);}
 .pd-divider{height:1px;background:var(--border);margin:4px 0;}
 
+
+/* ── MASCOTE LAGOSTA ────────────────────────────────────── */
+.mascot-logo{
+  width:48px;height:48px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--fire-mid);
+  flex-shrink:0;
+}
+.mascot-logo-sm{
+  width:32px;height:32px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--fire-mid);
+  flex-shrink:0;
+}
+
+/* Mascote celebração — aparece ao completar módulo */
+.mascot-celebrate{
+  position:fixed;bottom:80px;right:24px;z-index:999;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.mascot-celebrate.show{opacity:1;}
+.mascot-celebrate img{
+  width:80px;height:80px;border-radius:50%;
+  border:3px solid var(--fire);
+  box-shadow:0 4px 20px rgba(232,112,58,.4);
+  animation:mascotBounce .5s ease infinite alternate;
+}
+.mascot-celebrate .mascot-msg{
+  background:var(--fire);color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:1px;
+  padding:5px 12px;border-radius:20px;
+  white-space:nowrap;
+  box-shadow:0 2px 8px rgba(232,112,58,.3);
+}
+@keyframes mascotBounce{
+  from{transform:translateY(0) rotate(-5deg) scale(1);}
+  to{transform:translateY(-12px) rotate(5deg) scale(1.05);}
+}
+@keyframes mascotShake{
+  0%{transform:rotate(0deg);}
+  20%{transform:rotate(-15deg) scale(1.1);}
+  40%{transform:rotate(15deg) scale(1.1);}
+  60%{transform:rotate(-10deg);}
+  80%{transform:rotate(10deg);}
+  100%{transform:rotate(0deg);}
+}
+
+/* Logo no intro */
+.intro-mascot{
+  display:flex;justify-content:center;margin-bottom:20px;
+}
+.intro-mascot img{
+  width:100px;height:100px;border-radius:50%;
+  border:3px solid var(--fire-mid);
+  box-shadow:0 4px 24px rgba(232,112,58,.25);
+}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -749,7 +807,7 @@ textarea.ch-input::placeholder{color:var(--text4);}
   <div class="drawer-close" onclick="closeDrawer()">&#x2715;</div>
   <div class="sidebar-head" style="padding:16px 16px 14px">
     <div class="s-logo">
-      <div class="s-logo-icon">&#x1F9E0;</div>
+      <img src="/lobster-logo.png" class="mascot-logo-sm" alt="OMA">
       <div class="s-logo-name">OMA <span>Academy</span></div>
     </div>
     <div class="xp-strip">
@@ -768,7 +826,7 @@ textarea.ch-input::placeholder{color:var(--text4);}
   <aside class="sidebar">
     <div class="sidebar-head">
       <div class="s-logo">
-        <div class="s-logo-icon">&#x1F9E0;</div>
+        <img src="/lobster-logo.png" class="mascot-logo-sm" alt="OMA">
         <div class="s-logo-name">OMA <span>Academy</span></div>
       </div>
       <div class="xp-strip">
@@ -860,12 +918,13 @@ textarea.ch-input::placeholder{color:var(--text4);}
         <div class="intro-card fadein">
           <div class="intro-logo" style="justify-content:space-between;align-items:center;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <div class="intro-logo-icon">🧠</div>
+              <img src="/lobster-logo.png" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);" alt="OMA">
               <div class="intro-logo-name">OMA <span>Academy</span></div>
             </div>
             <button onclick="startAcademy()" style="background:var(--fire);color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:9px 18px;cursor:pointer;border-radius:5px;white-space:nowrap;box-shadow:0 2px 8px rgba(232,112,58,.3);transition:background .15s;" onmouseover="this.style.background='var(--ember)'" onmouseout="this.style.background='var(--fire)'">Começar →</button>
           </div>
 
+          <div class="intro-mascot"><img src="/lobster-logo.png" alt="OMA Academy"></div>
           <div class="intro-eyebrow">Bem-vindo à trilha</div>
           <h1 class="intro-headline">
             O mundo mudou.<br>
@@ -1127,6 +1186,13 @@ textarea.ch-input::placeholder{color:var(--text4);}
     </div>
 
   </div>
+</div>
+
+
+<!-- Mascote celebração -->
+<div class="mascot-celebrate" id="mascotCelebrate">
+  <img src="/lobster-logo.png" alt="OMA mascote" id="mascotImg">
+  <div class="mascot-msg" id="mascotMsg">Módulo completo! 🔥</div>
 </div>
 
 <!-- Toasts -->
@@ -2156,6 +2222,7 @@ async function completeModule(){
       d.new_badges.forEach(bid=>showBadgeToast(bid));
     }
     showXpToast('+'+MODS[ST.currentModule].xp+' XP');
+    showMascot(MODS[ST.currentModule].xp);
     launchConfetti();
     updateTopBar();
     renderSidebar();
@@ -2289,6 +2356,35 @@ async function joinProWaitlist(){
   }
 }
 
+
+
+// ════════════════════════════════════════════════════════
+//  MASCOTE LAGOSTA
+// ════════════════════════════════════════════════════════
+const MASCOT_MSGS = [
+  'Arrasou! 🔥', 'Módulo completo!', 'Isso aí! 💪',
+  'Conhecimento +60 XP!', 'Você tá voando! 🚀',
+  'Mais um na trilha! ⚡', 'Founder técnico chegando!'
+];
+
+function showMascot(xp){
+  const el = document.getElementById('mascotCelebrate');
+  const msg = document.getElementById('mascotMsg');
+  const img = document.getElementById('mascotImg');
+  if(!el) return;
+  msg.textContent = MASCOT_MSGS[Math.floor(Math.random()*MASCOT_MSGS.length)];
+  img.style.animation = 'none';
+  setTimeout(()=>{ img.style.animation = 'mascotBounce .5s ease infinite alternate'; }, 50);
+  el.classList.add('show');
+  setTimeout(()=>{ el.classList.remove('show'); }, 3200);
+}
+
+function mascotShake(){
+  const img = document.getElementById('mascotImg');
+  if(!img) return;
+  img.style.animation = 'mascotShake .6s ease';
+  setTimeout(()=>{ img.style.animation = 'mascotBounce .5s ease infinite alternate'; }, 700);
+}
 
 // ════════════════════════════════════════════════════════
 //  PROFILE DROPDOWN
