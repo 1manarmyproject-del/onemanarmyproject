@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/academy",
+      "destination": "/academy.html"
+    },
+    {
+      "source": "/academy/login",
+      "destination": "/academy-login.html"
+    },
+    {
       "source": "/links",
       "destination": "/links.html"
     },
