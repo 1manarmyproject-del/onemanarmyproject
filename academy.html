@@ -470,6 +470,188 @@ textarea.ch-input::placeholder{color:var(--text4);}
 .confetti-piece{position:fixed;top:-20px;border-radius:2px;animation:cffall linear forwards;pointer-events:none;z-index:10000;}
 @keyframes cffall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
 
+
+/* ── INTRO SCREEN ───────────────────────────────────────── */
+.intro-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:32px 16px;background:var(--bg);
+}
+.intro-card{
+  max-width:680px;width:100%;
+}
+.intro-logo{
+  display:flex;align-items:center;gap:10px;margin-bottom:36px;
+}
+.intro-logo-icon{
+  width:40px;height:40px;background:var(--fire);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.intro-logo-name{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:18px;letter-spacing:2px;text-transform:uppercase;
+}
+.intro-logo-name span{color:var(--fire);}
+.intro-eyebrow{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--fire);margin-bottom:12px;
+}
+.intro-headline{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(30px,5vw,52px);line-height:1.05;
+  color:var(--text);margin-bottom:20px;
+}
+.intro-headline em{
+  color:var(--fire);font-style:normal;
+}
+.intro-divider{
+  width:48px;height:4px;background:var(--fire);
+  margin-bottom:24px;
+}
+.intro-body{
+  font-size:15px;color:var(--text2);line-height:1.85;
+  margin-bottom:20px;
+}
+.intro-body strong{color:var(--text);font-weight:600;}
+.intro-story{
+  background:var(--fire-light);border-left:4px solid var(--fire);
+  border-radius:0 8px 8px 0;padding:18px 20px;
+  margin:24px 0;font-size:14px;color:var(--text2);
+  line-height:1.8;font-style:italic;
+}
+.intro-story cite{
+  display:block;margin-top:10px;
+  font-style:normal;font-weight:700;font-size:12px;
+  color:var(--fire);font-family:'Space Mono',monospace;
+  letter-spacing:1px;
+}
+.intro-pillars{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin:24px 0;
+}
+@media(max-width:560px){.intro-pillars{grid-template-columns:1fr;}}
+.intro-pillar{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:16px;text-align:center;box-shadow:var(--shadow);
+}
+.intro-pillar-icon{font-size:24px;margin-bottom:8px;}
+.intro-pillar-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:15px;color:var(--text);margin-bottom:4px;
+}
+.intro-pillar-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.intro-what{
+  background:var(--bg3);border-radius:8px;padding:20px;
+  margin:24px 0;
+}
+.intro-what-title{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--text3);text-transform:uppercase;margin-bottom:12px;
+}
+.intro-what-list{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+@media(max-width:480px){.intro-what-list{grid-template-columns:1fr;}}
+.intro-what-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13px;color:var(--text2);line-height:1.5;
+}
+.intro-what-item::before{
+  content:'→';color:var(--fire);font-weight:700;
+  flex-shrink:0;margin-top:1px;
+}
+.intro-cta-area{margin-top:32px;text-align:center;}
+.intro-cta-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--text4);text-transform:uppercase;margin-bottom:12px;
+}
+.btn-intro-start{
+  background:var(--fire);color:#fff;border:none;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:18px;letter-spacing:2px;text-transform:uppercase;
+  padding:18px 48px;cursor:pointer;border-radius:6px;
+  transition:background .15s,transform .15s;
+  box-shadow:0 4px 16px rgba(232,112,58,.35);
+  display:inline-block;
+}
+.btn-intro-start:hover{background:var(--ember);transform:translateY(-2px);}
+.intro-note{
+  margin-top:14px;font-size:12px;color:var(--text4);
+}
+
+/* ── UPSELL (Pro) na tela de certificado ─────────────────── */
+.pro-upsell{
+  margin-top:32px;
+  background:#fff;border:2px solid var(--fire-mid);border-radius:12px;
+  overflow:hidden;box-shadow:0 8px 32px rgba(232,112,58,.12);
+}
+.pro-upsell-header{
+  background:linear-gradient(135deg,var(--fire),var(--ember));
+  padding:24px 28px;text-align:center;
+}
+.pro-upsell-eyebrow{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;
+  color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;
+}
+.pro-upsell-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(22px,4vw,32px);color:#fff;margin-bottom:6px;
+}
+.pro-upsell-sub{font-size:14px;color:rgba(255,255,255,.85);}
+.pro-upsell-body{padding:28px;}
+.pro-upsell-desc{
+  font-size:15px;color:var(--text2);line-height:1.75;
+  text-align:center;margin-bottom:24px;
+}
+.pro-trails{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  margin-bottom:24px;
+}
+@media(max-width:540px){.pro-trails{grid-template-columns:1fr;}}
+.pro-trail{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;padding:14px;display:flex;gap:10px;
+  align-items:flex-start;
+}
+.pro-trail-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.pro-trail-info{}
+.pro-trail-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:15px;color:var(--text);margin-bottom:2px;
+}
+.pro-trail-desc{font-size:11px;color:var(--text3);line-height:1.4;}
+.pro-price-block{
+  text-align:center;margin-bottom:20px;
+  padding:20px;background:var(--fire-light);
+  border:1px solid var(--fire-mid);border-radius:8px;
+}
+.pro-price-old{
+  font-family:'Space Mono',monospace;font-size:12px;
+  color:var(--text4);text-decoration:line-through;margin-bottom:4px;
+}
+.pro-price-new{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:42px;color:var(--fire);line-height:1;margin-bottom:6px;
+}
+.pro-price-note{font-size:12px;color:var(--text3);}
+.btn-pro-cta{
+  width:100%;background:var(--fire);color:#fff;border:none;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:17px;letter-spacing:1px;text-transform:uppercase;
+  padding:16px;cursor:pointer;border-radius:6px;
+  box-shadow:0 4px 12px rgba(232,112,58,.3);
+  transition:background .15s,transform .1s;
+}
+.btn-pro-cta:hover{background:var(--ember);transform:translateY(-1px);}
+.pro-guarantee{
+  text-align:center;margin-top:12px;
+  font-size:11px;color:var(--text4);
+}
+.pro-waitlist-done{
+  background:var(--green-light);border:1px solid #bbf7d0;
+  border-radius:8px;padding:16px;text-align:center;
+  font-size:14px;color:var(--green);font-weight:600;display:none;
+}
+
 /* ── UTILS ──────────────────────────────────────────────── */
 .spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -534,6 +716,96 @@ textarea.ch-input::placeholder{color:var(--text4);}
       <div class="topnav-right">
         <div class="streak-badge">&#x1F525; <span id="streakVal">0</span></div>
         <div class="user-avatar" id="userAvatar" onclick="doLogout()" title="Sair">F</div>
+      </div>
+    </div>
+
+
+    <!-- SCREEN: Intro (mostrada uma vez após auth) -->
+    <div class="screen" id="screenIntro">
+      <div class="intro-screen">
+        <div class="intro-card fadein">
+          <div class="intro-logo">
+            <div class="intro-logo-icon">🧠</div>
+            <div class="intro-logo-name">OMA <span>Academy</span></div>
+          </div>
+
+          <div class="intro-eyebrow">Bem-vindo à trilha</div>
+          <h1 class="intro-headline">
+            O mundo mudou.<br>
+            <em>Quem entende lidera.</em>
+          </h1>
+          <div class="intro-divider"></div>
+
+          <p class="intro-body">
+            Em 2023, eu não sabia programar. Nunca tinha escrito uma linha de código.
+            Mas sabia de negócios — e percebi que estava acontecendo algo que mudaria
+            tudo: a IA estava tornando o conhecimento técnico <strong>acessível a qualquer pessoa
+            disposta a aprender.</strong>
+          </p>
+
+          <div class="intro-story">
+            Em 30 dias, construí do meu celular uma plataforma completa de agentes de IA
+            rodando 24h por dia — sem equipe, sem CTO, sem background técnico.
+            Não porque sou exceção. Mas porque entendi o vocabulário certo
+            e fiz as perguntas certas.
+            <cite>— Fabio Xavier, fundador do OMA Project</cite>
+          </div>
+
+          <p class="intro-body">
+            A OMA Academy nasceu dessa experiência. Não é um curso de programação —
+            é um curso de <strong>fluência técnica para quem lidera negócios.</strong>
+            Para que você entenda o que está acontecendo, tome decisões melhores,
+            converse com times técnicos como igual, e use IA como vantagem competitiva
+            real — não como moda.
+          </p>
+
+          <div class="intro-pillars">
+            <div class="intro-pillar">
+              <div class="intro-pillar-icon">⚡</div>
+              <div class="intro-pillar-title">Eficiência</div>
+              <div class="intro-pillar-desc">Processos que antes levavam horas, em minutos</div>
+            </div>
+            <div class="intro-pillar">
+              <div class="intro-pillar-icon">🧭</div>
+              <div class="intro-pillar-title">Decisão</div>
+              <div class="intro-pillar-desc">Vocabulário técnico para liderar com clareza</div>
+            </div>
+            <div class="intro-pillar">
+              <div class="intro-pillar-icon">🌱</div>
+              <div class="intro-pillar-title">Digitalização</div>
+              <div class="intro-pillar-desc">PMEs prontas para a nova economia digital</div>
+            </div>
+          </div>
+
+          <div class="intro-what">
+            <div class="intro-what-title">O que você vai aprender</div>
+            <div class="intro-what-list">
+              <div class="intro-what-item">Como a internet e a nuvem funcionam de verdade</div>
+              <div class="intro-what-item">O que são LLMs, tokens e janela de contexto</div>
+              <div class="intro-what-item">Como construir e avaliar agentes de IA</div>
+              <div class="intro-what-item">Prompt engineering que funciona na prática</div>
+              <div class="intro-what-item">RAG, fine-tuning e quando usar cada um</div>
+              <div class="intro-what-item">Arquitetura, deploy e CI/CD sem mistério</div>
+              <div class="intro-what-item">Métricas, precificação e escala de produto</div>
+              <div class="intro-what-item">Como liderar times técnicos sem programar</div>
+            </div>
+          </div>
+
+          <p class="intro-body">
+            São <strong>30 módulos</strong> organizados em 5 fases — do básico de infraestrutura
+            ao founder técnico completo. Cada módulo leva 10 minutos.
+            Cada conceito técnico vem com uma analogia do mundo real.
+            Ao final, você recebe um certificado postável no LinkedIn.
+          </p>
+
+          <div class="intro-cta-area">
+            <div class="intro-cta-label">Pronto para começar?</div>
+            <button class="btn-intro-start" onclick="startAcademy()">
+              Começar a trilha →
+            </button>
+            <div class="intro-note">Gratuito · 30 módulos · Certificado ao final</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -647,6 +919,73 @@ textarea.ch-input::placeholder{color:var(--text4);}
           </div>
           <div class="cert-share-url" id="certUrl"></div>
         </div>
+
+          <!-- Upsell Pro -->
+          <div class="pro-upsell" id="proUpsell">
+            <div class="pro-upsell-header">
+              <div class="pro-upsell-eyebrow">Próximo nível</div>
+              <div class="pro-upsell-title">OMA Academy Pro</div>
+              <div class="pro-upsell-sub">Da teoria à prática — construa produtos reais de IA</div>
+            </div>
+            <div class="pro-upsell-body">
+              <p class="pro-upsell-desc">
+                Você aprendeu o vocabulário. Agora é hora de aplicar.
+                O Pro é para quem quer <strong>sair com algo construído</strong> — não apenas com conhecimento.
+              </p>
+              <div class="pro-trails">
+                <div class="pro-trail">
+                  <div class="pro-trail-icon">🤖</div>
+                  <div class="pro-trail-info">
+                    <div class="pro-trail-title">Seu Primeiro Agente</div>
+                    <div class="pro-trail-desc">Agente de atendimento rodando em produção no seu WhatsApp</div>
+                  </div>
+                </div>
+                <div class="pro-trail">
+                  <div class="pro-trail-icon">🧠</div>
+                  <div class="pro-trail-info">
+                    <div class="pro-trail-title">RAG na Prática</div>
+                    <div class="pro-trail-desc">Base de conhecimento da sua empresa conectada a um agente</div>
+                  </div>
+                </div>
+                <div class="pro-trail">
+                  <div class="pro-trail-icon">⚙️</div>
+                  <div class="pro-trail-info">
+                    <div class="pro-trail-title">Automação de Processos</div>
+                    <div class="pro-trail-desc">3 processos repetitivos automatizados com n8n + IA</div>
+                  </div>
+                </div>
+                <div class="pro-trail">
+                  <div class="pro-trail-icon">🚀</div>
+                  <div class="pro-trail-info">
+                    <div class="pro-trail-title">MVP de Produto de IA</div>
+                    <div class="pro-trail-desc">Do conceito ao produto publicado e precificado em 30 dias</div>
+                  </div>
+                </div>
+                <div class="pro-trail" style="grid-column:span 2">
+                  <div class="pro-trail-icon">🏆</div>
+                  <div class="pro-trail-info">
+                    <div class="pro-trail-title">IA como Vantagem Competitiva</div>
+                    <div class="pro-trail-desc">Como apresentar, liderar e escalar IA no seu negócio — plano de 90 dias</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pro-price-block">
+                <div class="pro-price-old">De R$ 597</div>
+                <div class="pro-price-new">R$ 297</div>
+                <div class="pro-price-note">Acesso vitalício · Lançamento · Vagas limitadas</div>
+              </div>
+              <div id="proWaitlistDone" class="pro-waitlist-done">
+                ✅ Você está na lista! Vamos te avisar quando o Pro abrir.
+              </div>
+              <button class="btn-pro-cta" id="proCtaBtn" onclick="joinProWaitlist()">
+                Quero entrar na lista de espera →
+              </button>
+              <div class="pro-guarantee">
+                Sem compromisso agora · Você recebe o aviso quando abrir · Cancele quando quiser
+              </div>
+            </div>
+          </div>
+
       </div>
     </div>
 
@@ -1269,7 +1608,11 @@ function initUI(){
   renderSidebar();
   renderDashboard();
   updateTopBar();
-  goScreen('dash');
+  if(shouldShowIntro()){
+    goScreen('intro');
+  } else {
+    goScreen('dash');
+  }
 }
 
 function updateTopBar(){
@@ -1374,7 +1717,7 @@ function renderDashboard(){
 function goScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
-  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado'};
+  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado',intro:'Bem-vindo'};
   document.getElementById('topTitle').textContent=titles[name]||name;
   window.scrollTo(0,0);
 }
@@ -1747,6 +2090,50 @@ function openDrawer(){
 function closeDrawer(){
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('drawerOverlay').classList.remove('open');
+}
+
+
+// ════════════════════════════════════════════════════════
+//  INTRO — mostrar uma vez após auth
+// ════════════════════════════════════════════════════════
+function shouldShowIntro(){
+  return !localStorage.getItem('oma_intro_seen_' + (ST.user?.id || 'x'));
+}
+function markIntroSeen(){
+  localStorage.setItem('oma_intro_seen_' + (ST.user?.id || 'x'), '1');
+}
+function startAcademy(){
+  markIntroSeen();
+  goScreen('dash');
+}
+
+// ════════════════════════════════════════════════════════
+//  PRO WAITLIST
+// ════════════════════════════════════════════════════════
+async function joinProWaitlist(){
+  const btn = document.getElementById('proCtaBtn');
+  btn.disabled = true;
+  btn.textContent = 'Registrando...';
+  try {
+    // Salva interesse via API (graceful fallback se endpoint não existir)
+    await apiFetch('/academy/pro-waitlist', {
+      method: 'POST',
+      body: JSON.stringify({ email: ST.user?.email, nome: ST.user?.nome })
+    }).catch(() => {});
+    document.getElementById('proCtaBtn').style.display = 'none';
+    document.getElementById('proWaitlistDone').style.display = 'block';
+    // Abre WhatsApp do OMA com mensagem pré-preenchida
+    const msg = encodeURIComponent(
+      'Oi! Acabei de concluir a OMA Academy e quero saber mais sobre o Pro. ' +
+      'Meu nome é ' + (ST.user?.nome || '') + '.'
+    );
+    setTimeout(() => {
+      window.open('https://wa.me/5511966621506?text=' + msg, '_blank');
+    }, 800);
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Quero entrar na lista de espera →';
+  }
 }
 
 // ════════════════════════════════════════════════════════
