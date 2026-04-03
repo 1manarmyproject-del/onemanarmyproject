@@ -794,6 +794,41 @@ textarea.ch-input::placeholder{color:var(--text4);}
   box-shadow:0 4px 24px rgba(232,112,58,.25);
 }
 
+
+/* ── SIDEBAR — novas trilhas ─────────────────────────────── */
+.s-coming-soon{
+  margin:16px 12px 8px;
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
+.s-cs-label{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text4);
+  padding:0 8px;margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.s-cs-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.s-trail-soon{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 8px;border-radius:6px;
+  opacity:.5;cursor:default;
+}
+.s-trail-soon-icon{
+  width:28px;height:28px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
+  background:var(--bg3);
+}
+.s-trail-soon-info{}
+.s-trail-soon-name{font-size:12px;font-weight:600;color:var(--text3);}
+.s-trail-soon-badge{
+  font-family:'Space Mono',monospace;font-size:7px;
+  letter-spacing:1px;text-transform:uppercase;
+  background:var(--bg4);color:var(--text4);
+  padding:2px 6px;border-radius:3px;margin-top:2px;
+  display:inline-block;
+}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1865,8 +1900,35 @@ function renderSidebar(){
       </div>`;
     });
   });
-  navEl.innerHTML=html;
-  drawerEl.innerHTML=html;
+
+  const soonHtml = `
+    <div class="s-coming-soon">
+      <div class="s-cs-label">Em breve</div>
+      <div class="s-trail-soon">
+        <div class="s-trail-soon-icon">💼</div>
+        <div class="s-trail-soon-info">
+          <div class="s-trail-soon-name">Trilha de Negócios</div>
+          <div class="s-trail-soon-badge">em breve</div>
+        </div>
+      </div>
+      <div class="s-trail-soon">
+        <div class="s-trail-soon-icon">📊</div>
+        <div class="s-trail-soon-info">
+          <div class="s-trail-soon-name">Trilha de Dados</div>
+          <div class="s-trail-soon-badge">em breve</div>
+        </div>
+      </div>
+      <div class="s-trail-soon">
+        <div class="s-trail-soon-icon">🔐</div>
+        <div class="s-trail-soon-info">
+          <div class="s-trail-soon-name">Trilha de Segurança</div>
+          <div class="s-trail-soon-badge">em breve</div>
+        </div>
+      </div>
+    </div>
+  `;
+  navEl.innerHTML=html+soonHtml;
+  drawerEl.innerHTML=html+soonHtml;
 }
 
 function renderDashboard(){
