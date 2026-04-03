@@ -218,7 +218,22 @@ function syncCards(){ load(); }
 function load(){
   fetch(PMO_API+"/pmo",{headers:{"x-api-key":PMO_KEY}})
     .then(function(r){return r.json();})
-    .then(function(data){ cards=Array.isArray(data)?data:[]; render(); })
+    .then(function(data){
+      cards=Array.isArray(data)?data:[];
+      render();
+      // Enrich cards that have activity (started_at or completed_at) with execution_log
+      var active=cards.filter(function(c){return c.started_at||c.completed_at;});
+      active.forEach(function(card){
+        fetch(PMO_API+"/pmo/"+card.id+"/detail",{headers:{"x-api-key":PMO_KEY}})
+          .then(function(r){return r.json();})
+          .then(function(detail){
+            if(detail.execution_log){
+              var idx=cards.findIndex(function(c){return c.id===card.id;});
+              if(idx>=0){cards[idx].execution_log=detail.execution_log;render();}
+            }
+          }).catch(function(){});
+      });
+    })
     .catch(function(e){
       console.error("PMO API erro",e);
       fetch("/pmo-data.json").then(function(r){return r.json();}).then(function(d){cards=d.slice();render();});
