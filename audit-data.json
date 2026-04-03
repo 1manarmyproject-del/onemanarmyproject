@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-03T20:45:44Z",
-  "updated_at_brt": "17:45 BRT · 03/04/2026",
+  "updated_at": "2026-04-03T20:52:31Z",
+  "updated_at_brt": "17:52 BRT · 03/04/2026",
   "categories": [
     {
       "cat": "INFRAESTRUTURA & REDUNDÂNCIA",
@@ -32,13 +32,13 @@
         {
           "id": "hetzner",
           "title": "Hetzner API (CRM/Backend)",
-          "current": "Operacional — Helsinki",
+          "current": "Operacional — Helsinki + Oracle SP (Brasil)",
           "nota": 8,
           "farol": "g",
-          "risk": "Sem redundância geográfica",
-          "action": "Oracle SP ou Hetzner Ashburn como réplica",
-          "tag": "planned",
-          "prazo": "Abr/26",
+          "risk": "Redundância: Oracle SP (163.176.167.148) como backup",
+          "action": "Oracle SP ativo como réplica de backup",
+          "tag": "done",
+          "prazo": "—",
           "auto": true
         },
         {
@@ -68,7 +68,7 @@
         {
           "id": "backup",
           "title": "Backup multi-camada",
-          "current": "4x/dia. Último: 17:45 BRT · 03/04/2026",
+          "current": "4x/dia. Último: 17:52 BRT · 03/04/2026",
           "nota": 10,
           "farol": "g",
           "risk": "Perda de dados",
