@@ -1,0 +1,331 @@
+{
+  "updated_at": "2026-04-03T14:59:46Z",
+  "updated_at_brt": "11:59 BRT · 03/04/2026",
+  "categories": [
+    {
+      "cat": "INFRAESTRUTURA & REDUNDÂNCIA",
+      "items": [
+        {
+          "id": "nanoclaw",
+          "title": "NanoClaw Core",
+          "current": "Operacional",
+          "nota": 10,
+          "farol": "g",
+          "risk": "Downtime total se Mac Mini falhar",
+          "action": "Hetzner/Oracle como failover",
+          "tag": "planned",
+          "prazo": "Abr/26",
+          "auto": true
+        },
+        {
+          "id": "evolution",
+          "title": "Evolution API (WhatsApp)",
+          "current": "OFFLINE",
+          "nota": 0,
+          "farol": "r",
+          "risk": "Ban de número. API não-oficial da Meta",
+          "action": "Migrar para WhatsApp Cloud API Meta",
+          "tag": "planned",
+          "prazo": "Mai/26",
+          "auto": true
+        },
+        {
+          "id": "hetzner",
+          "title": "Hetzner API (CRM/Backend)",
+          "current": "Operacional — Helsinki",
+          "nota": 8,
+          "farol": "g",
+          "risk": "Sem redundância geográfica",
+          "action": "Oracle SP ou Hetzner Ashburn como réplica",
+          "tag": "planned",
+          "prazo": "Abr/26",
+          "auto": true
+        },
+        {
+          "id": "cloudflare",
+          "title": "Cloudflare Tunnel",
+          "current": "OFFLINE",
+          "nota": 0,
+          "farol": "r",
+          "risk": "Acesso remoto comprometido",
+          "action": "Manter",
+          "tag": "done",
+          "prazo": "—",
+          "auto": true
+        },
+        {
+          "id": "anthropic",
+          "title": "Anthropic API (Claude)",
+          "current": "OFFLINE",
+          "nota": 0,
+          "farol": "r",
+          "risk": "Agentes param. Failover OpenRouter protege",
+          "action": "Manter failover",
+          "tag": "done",
+          "prazo": "—",
+          "auto": true
+        },
+        {
+          "id": "backup",
+          "title": "Backup multi-camada",
+          "current": "4x/dia. Último: 11:59 BRT · 03/04/2026",
+          "nota": 10,
+          "farol": "g",
+          "risk": "Perda de dados",
+          "action": "Monitorar execução",
+          "tag": "done",
+          "prazo": "—",
+          "auto": true
+        },
+        {
+          "id": "hd_externo",
+          "title": "HD Externo conectado",
+          "current": "FX_BACKUP_S conectado",
+          "nota": 9,
+          "farol": "g",
+          "risk": "Backup local não executa",
+          "action": "Manter conectado",
+          "tag": "done",
+          "prazo": "—",
+          "auto": true
+        }
+      ]
+    },
+    {
+      "cat": "SEGURANÇA & COMPLIANCE",
+      "items": [
+        {
+          "id": "https",
+          "title": "Comunicações criptografadas",
+          "current": "HTTPS + Cloudflare + Tailscale",
+          "nota": 9,
+          "farol": "g",
+          "risk": "Baixo",
+          "action": "Manter",
+          "tag": "done",
+          "prazo": "—",
+          "auto": false
+        },
+        {
+          "id": "lgpd",
+          "title": "Política LGPD formalizada",
+          "current": "Não existe documento formal",
+          "nota": 2,
+          "farol": "r",
+          "risk": "Risco jurídico com clientes B2B",
+          "action": "Criar política de privacidade + DPA",
+          "tag": "urgent",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "chips",
+          "title": "Chips WhatsApp no CNPJ",
+          "current": "Chips pessoais (CPF Fabio)",
+          "nota": 2,
+          "farol": "r",
+          "risk": "Mistura PF/PJ. Sem portabilidade",
+          "action": "Migrar para chips corporativos Riva Labs",
+          "tag": "urgent",
+          "prazo": "Mai/26",
+          "auto": false
+        },
+        {
+          "id": "whatsapp_api",
+          "title": "WhatsApp via API oficial",
+          "current": "Evolution/Baileys (não-oficial)",
+          "nota": 4,
+          "farol": "r",
+          "risk": "Meta pode bloquear a qualquer momento",
+          "action": "Migrar Bia/Amanda para Cloud API Meta",
+          "tag": "planned",
+          "prazo": "Mai/26",
+          "auto": false
+        },
+        {
+          "id": "2fa",
+          "title": "2FA em serviços críticos",
+          "current": "GitHub OK. Hetzner, Anthropic sem 2FA",
+          "nota": 5,
+          "farol": "y",
+          "risk": "Acesso não autorizado",
+          "action": "Ativar 2FA em todos os serviços",
+          "tag": "planned",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "key_rotation",
+          "title": "Rotação de API keys",
+          "current": "Keys fixas desde criação",
+          "nota": 5,
+          "farol": "y",
+          "risk": "Se key vazar, acesso irrestrito",
+          "action": "Rotação trimestral",
+          "tag": "planned",
+          "prazo": "Jun/26",
+          "auto": false
+        }
+      ]
+    },
+    {
+      "cat": "AGENTES & OPERAÇÃO",
+      "items": [
+        {
+          "id": "context_sep",
+          "title": "Separação contexto Bia/Amanda",
+          "current": "Bug conhecido, não corrigido",
+          "nota": 3,
+          "farol": "r",
+          "risk": "Agente responde contexto errado",
+          "action": "Corrigir isolamento JID/contexto",
+          "tag": "urgent",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "smart_noter",
+          "title": "Smart Noter — captura áudio",
+          "current": "Scheduler ativo, áudio WebRTC não captura",
+          "nota": 4,
+          "farol": "r",
+          "risk": "Amanda entra mas não grava conteúdo",
+          "action": "Chrome Extension tab capture",
+          "tag": "planned",
+          "prazo": "Abr/26",
+          "auto": true
+        },
+        {
+          "id": "squad",
+          "title": "Agent Squad — execução autônoma",
+          "current": "IPC OK. Flávia timeout 10s. Prompt corrigido",
+          "nota": 6,
+          "farol": "y",
+          "risk": "Agentes consultam mas não completam",
+          "action": "Ajustar timeout container",
+          "tag": "progress",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "ziptalk",
+          "title": "ZipTalk server",
+          "current": "Operacional — Groq free tier",
+          "nota": 9,
+          "farol": "g",
+          "risk": "Transcrição parada",
+          "action": "Manter",
+          "tag": "done",
+          "prazo": "—",
+          "auto": true
+        },
+        {
+          "id": "instagram",
+          "title": "Token Instagram",
+          "current": "Long-lived + App Secret. Nunca expira",
+          "nota": 10,
+          "farol": "g",
+          "risk": "Flávia não publica",
+          "action": "Manter auto-refresh",
+          "tag": "done",
+          "prazo": "—",
+          "auto": true
+        },
+        {
+          "id": "ekhoa",
+          "title": "Ekhoa Clipping v2",
+          "current": "35 RSS, 58 outlets, 3x/dia",
+          "nota": 8,
+          "farol": "g",
+          "risk": "Baixo",
+          "action": "Auditar feeds mensalmente",
+          "tag": "done",
+          "prazo": "—",
+          "auto": false
+        }
+      ]
+    },
+    {
+      "cat": "FINANCEIRO & CUSTOS",
+      "items": [
+        {
+          "id": "or_balance",
+          "title": "OpenRouter saldo",
+          "current": "US$ 4.86 disponível",
+          "nota": 5,
+          "farol": "y",
+          "risk": "Agentes param se zerar",
+          "action": "Monitorar e recarregar",
+          "tag": "progress",
+          "prazo": "—",
+          "auto": true
+        },
+        {
+          "id": "pricing",
+          "title": "Precificação definida",
+          "current": "Framework existe, não finalizado",
+          "nota": 5,
+          "farol": "y",
+          "risk": "Sem preço pro Armazém",
+          "action": "Tiago finalizar tabela",
+          "tag": "progress",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "cost_per_agent",
+          "title": "Custo variável por agente",
+          "current": "Haiku + agentes determinísticos (custo zero)",
+          "nota": 8,
+          "farol": "g",
+          "risk": "Baixo",
+          "action": "Manter Haiku, priorizar determinísticos",
+          "tag": "done",
+          "prazo": "—",
+          "auto": false
+        }
+      ]
+    },
+    {
+      "cat": "JURÍDICO & CONTRATOS",
+      "items": [
+        {
+          "id": "contrato",
+          "title": "Contrato padrão de serviços",
+          "current": "Em construção (Tiago doing)",
+          "nota": 4,
+          "farol": "r",
+          "risk": "Sem proteção legal",
+          "action": "Tiago finalizar + revisão advogado",
+          "tag": "progress",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "nda",
+          "title": "NDA / Confidencialidade",
+          "current": "Não iniciado",
+          "nota": 3,
+          "farol": "r",
+          "risk": "Dados do Armazém sem proteção",
+          "action": "Necessário antes de receber dados",
+          "tag": "urgent",
+          "prazo": "Abr/26",
+          "auto": false
+        },
+        {
+          "id": "marca",
+          "title": "Registro de marca OMA",
+          "current": "Não iniciado",
+          "nota": 4,
+          "farol": "r",
+          "risk": "Alguém pode registrar antes",
+          "action": "Verificar INPI + iniciar registro",
+          "tag": "planned",
+          "prazo": "Mai/26",
+          "auto": false
+        }
+      ]
+    }
+  ]
+}
