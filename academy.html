@@ -1959,25 +1959,6 @@ function updateTopBar(){
 function renderSidebar(){
   const navEl=document.getElementById('sideNav');
   const drawerEl=document.getElementById('drawerNav');
-  let html='';
-  PHASES.forEach(ph=>{
-    html+=`<div class="s-phase-label"><span class="s-phase-dot" style="background:${ph.color}"></span>Fase ${ph.id} · ${ph.name}</div>`;
-    ph.modules.forEach((mid,i)=>{
-      const m=MODS[mid];
-      const done=isDone(mid);
-      const locked=isModuleLocked(mid);
-      const active=ST.currentModule===mid;
-      const num=String((ph.id-1)*6+i+1).padStart(2,'0');
-      html+=`<div class="s-module${done?' done':''}${active?' active':''}${locked?' mr-locked':''}" onclick="${locked?'':'openModule(\''+mid+'\')'}">
-        <div class="s-mod-icon">${done?'✓':num}</div>
-        <div class="s-mod-label">${m.title}</div>
-      </div>`;
-    });
-  });
-
-function renderSidebar(){
-  const navEl=document.getElementById('sideNav');
-  const drawerEl=document.getElementById('drawerNav');
   const totalDone=doneCount();
   const totalMods=ALL_MODULE_IDS.length;
   const totalPct=Math.round(totalDone/totalMods*100);
@@ -2024,7 +2005,8 @@ function renderSidebar(){
       const locked=isModuleLocked(mid);
       const active=ST.currentModule===mid;
       const num=String((ph.id-1)*6+i+1).padStart(2,'0');
-      html+=`<div class="s-module${done?' done':''}${active?' active':''}${locked?' mr-locked':''}" onclick="${locked?'showLocked()':'openModule(''+mid+'')'}">
+      const clickFn=locked?'showLocked()':'openModule(\''+mid+'\')';
+      html+=`<div class="s-module${done?' done':''}${active?' active':''}${locked?' mr-locked':''}" onclick="${clickFn}">
         <div class="s-mod-icon">${done?'✓':num}</div>
         <div class="s-mod-label">${m.title}</div>
       </div>`;
@@ -2635,10 +2617,10 @@ function updateProfileDropdown(){
 
   // Avatar
   const pdAv=document.getElementById('pdAvatar');
-  if(u?.avatar_url){
+  if(u && u.avatar_url){
     pdAv.innerHTML='<img src="'+u.avatar_url+'" style="width:100%;height:100%;object-fit:cover;">';
   } else {
-    pdAv.textContent=name[0]?.toUpperCase()||'?';
+    pdAv.textContent=(name&&name[0])?name[0].toUpperCase():'?';
   }
 
   // Stats
