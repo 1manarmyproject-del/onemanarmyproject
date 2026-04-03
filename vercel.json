@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/termos",
+      "destination": "/termos.html"
+    },
+    {
+      "source": "/privacidade",
+      "destination": "/privacidade.html"
+    },
+    {
       "source": "/academy",
       "destination": "/academy.html"
     },

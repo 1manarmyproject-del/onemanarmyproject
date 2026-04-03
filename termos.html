@@ -3,137 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Termos de Uso — One Man Army Project</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<title>Termos de Uso — OMA Academy</title>
+<link rel="icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--char:#080808;--iron:#1a1a1a;--bone:#e4ddd3;--fire:#e8703a;--blood:#7a2204;--fog:#888;--ash:#555;--white:#f5f0e8}
-body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.8}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.95);border-bottom:1px solid #1a1a1a}
-.nav-brand{text-decoration:none;display:flex;flex-direction:column;gap:2px}
-.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;letter-spacing:3px;color:var(--bone)}
-.nav-name span{color:var(--fire)}
-.nav-back{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fog);text-decoration:none;transition:color .2s}
-.nav-back:hover{color:var(--fire)}
-.wrap{max-width:760px;margin:0 auto;padding:120px 32px 80px}
-.label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:24px}
-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,52px);color:var(--white);line-height:1.05;margin-bottom:12px}
-.subtitle{font-size:14px;color:var(--fog);margin-bottom:8px;font-family:'Space Mono',monospace}
-.updated{font-size:12px;color:var(--ash);font-family:'Space Mono',monospace;margin-bottom:56px}
-.divider{height:1px;background:var(--iron);margin:40px 0}
-h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--fire);letter-spacing:1px;margin-bottom:16px;margin-top:40px}
-p{font-size:15px;color:rgba(228,221,211,.8);line-height:1.85;margin-bottom:16px}
-ul{margin:0 0 16px 20px}
-li{font-size:15px;color:rgba(228,221,211,.8);line-height:1.85;margin-bottom:6px}
-strong{color:var(--bone);font-weight:600}
-.highlight{background:var(--iron);border-left:3px solid var(--fire);padding:20px 24px;margin:24px 0}
-.highlight p{margin:0;font-size:14px}
-footer{background:var(--iron);padding:32px 48px;margin-top:80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.footer-brand{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--ash)}
-.footer-links{display:flex;gap:24px}
-.footer-links a{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--fire)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--border:#e5e5e5;--text:#111;--text2:#444;--text3:#888;--bg:#fff;}
+body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);line-height:1.7;}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo-icon{width:30px;height:30px;background:var(--fire);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-back{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:1px;}
+.topbar-back:hover{color:var(--fire);}
+.wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px;}
+.eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:10px;}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;margin-bottom:8px;}
+.updated{font-size:12px;color:var(--text3);margin-bottom:40px;font-family:'Space Mono',monospace;}
+h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;margin:36px 0 12px;color:var(--text);}
+p{font-size:15px;color:var(--text2);margin-bottom:14px;}
+ul{padding-left:20px;margin-bottom:14px;}
+li{font-size:15px;color:var(--text2);margin-bottom:6px;}
+a{color:var(--fire);}
+.highlight-box{background:#fef3ec;border-left:4px solid var(--fire);border-radius:0 8px 8px 0;padding:16px 18px;margin:24px 0;}
+.highlight-box p{margin:0;font-size:14px;}
+hr{border:none;border-top:1px solid var(--border);margin:36px 0;}
 </style>
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-brand">
-    <span class="nav-name">ONE MAN <span>ARMY</span></span>
+<div class="topbar">
+  <a class="topbar-logo" href="/">
+    <div class="topbar-logo-icon">🧠</div>
+    <div class="topbar-logo-name">OMA <span>Academy</span></div>
   </a>
-  <a href="/" class="nav-back">voltar ao site</a>
-</nav>
-
-<div class="wrap">
-  <p class="label">TERMOS DE USO</p>
-  <h1>As regras do jogo.<br>Direto ao ponto.</h1>
-  <p class="subtitle">One Man Army Project — Riva Labs Ltda</p>
-  <p class="updated">Última atualização: 02 de abril de 2026 · CNPJ 65.452.151/0001-26</p>
-
-  <div class="highlight">
-    <p>Ao contratar o OMA, você concorda com estes termos. Se tiver dúvidas antes de assinar, entre em contato. Revisão jurídica formal do contrato completo é feita individualmente a cada cliente.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>1. O serviço</h2>
-  <p>O One Man Army Project fornece agentes de IA configurados para operar nos canais do cliente (WhatsApp, Telegram). O serviço é prestado pela <strong>Riva Labs Ltda</strong>, CNPJ 65.452.151/0001-26.</p>
-  <p>O agente executa tarefas operacionais definidas no briefing. Decisões estratégicas, financeiras ou jurídicas permanecem sob responsabilidade do cliente.</p>
-
-  <h2>2. Contratação</h2>
-  <ul>
-    <li>Prazo mínimo de contrato: <strong>6 meses</strong></li>
-    <li>Pagamento: mensal, antecipado, com emissão de NF</li>
-    <li>Início da operação: até 7 dias após assinatura e briefing</li>
-    <li>Reajuste anual: IPCA ou índice acordado em contrato</li>
-  </ul>
-
-  <h2>3. Responsabilidades do OMA</h2>
-  <ul>
-    <li>Configurar e operar o agente conforme briefing acordado</li>
-    <li>Manter disponibilidade mínima de 99% ao mês</li>
-    <li>Enviar relatório semanal de desempenho</li>
-    <li>Notificar o cliente em caso de falha ou indisponibilidade</li>
-    <li>Garantir isolamento e segurança dos dados do cliente</li>
-  </ul>
-
-  <h2>4. Responsabilidades do cliente</h2>
-  <ul>
-    <li>Fornecer informações corretas no briefing</li>
-    <li>Revisar e aprovar o agente antes de ir ao ar</li>
-    <li>Manter os canais contratados ativos e funcionais</li>
-    <li>Não usar o agente para finalidades ilegais ou antiéticas</li>
-    <li>Comunicar imediatamente qualquer uso indevido identificado</li>
-  </ul>
-
-  <h2>5. O que o agente não faz</h2>
-  <p>O agente não substitui decisões humanas em contextos que exigem responsabilidade legal, médica, jurídica ou financeira. Situações fora do escopo configurado são escaladas automaticamente para o responsável indicado pelo cliente.</p>
-
-  <h2>6. Limitação de responsabilidade</h2>
-  <p>O OMA não se responsabiliza por perdas decorrentes de:</p>
-  <ul>
-    <li>Informações incorretas fornecidas pelo cliente no briefing</li>
-    <li>Indisponibilidade dos canais de terceiros (WhatsApp, Telegram)</li>
-    <li>Decisões tomadas pelo cliente com base nas respostas do agente</li>
-    <li>Falhas de infraestrutura fora do controle do OMA (força maior)</li>
-  </ul>
-
-  <h2>7. Confidencialidade</h2>
-  <p>Ambas as partes comprometem-se a manter confidencialidade sobre informações trocadas durante o contrato. Um NDA específico é assinado antes do briefing inicial.</p>
-  <p>O OMA não divulga dados do cliente, processos internos ou informações comerciais a terceiros sem autorização expressa.</p>
-
-  <h2>8. Cancelamento</h2>
-  <ul>
-    <li>Após o prazo mínimo: aviso de 30 dias por escrito</li>
-    <li>Cancelamento antecipado: sujeito a multa proporcional ao contrato</li>
-    <li>Após cancelamento: dados retidos por 90 dias, depois excluídos</li>
-    <li>Portabilidade: o cliente pode solicitar exportação dos dados antes da exclusão</li>
-  </ul>
-
-  <h2>9. Propriedade intelectual</h2>
-  <p>Os dados, históricos de conversas e configurações do agente gerados durante o contrato pertencem ao cliente. A metodologia, os sistemas e a infraestrutura do OMA pertencem à Riva Labs Ltda.</p>
-
-  <h2>10. Alterações nos termos</h2>
-  <p>Mudanças relevantes nestes termos serão comunicadas por e-mail com antecedência mínima de 30 dias.</p>
-
-  <h2>11. Foro</h2>
-  <p>Fica eleito o foro da Comarca de São Paulo, SP, para dirimir quaisquer controvérsias, com renúncia expressa a qualquer outro.</p>
-
-  <h2>12. Contato</h2>
-  <p><strong>atendimento@onemanarmy.com.br</strong><br>Riva Labs Ltda — CNPJ 65.452.151/0001-26 — São Paulo, SP</p>
-
-  <div class="divider"></div>
-  <p style="font-size:13px;color:var(--ash)">Este documento é um resumo dos termos gerais. O contrato completo é elaborado individualmente para cada cliente com revisão jurídica. Versão formal em elaboração pelo departamento jurídico.</p>
+  <a class="topbar-back" href="/academy">← Voltar à Academy</a>
 </div>
 
-<footer>
-  <span class="footer-brand">ONE MAN ARMY PROJECT · RIVA LABS LTDA · 2026</span>
-  <div class="footer-links">
-    <a href="/privacidade.html">Privacidade</a>
-    <a href="/termos.html">Termos de Uso</a>
-    <a href="/">Home</a>
+<div class="wrap">
+  <div class="eyebrow">Documento legal</div>
+  <h1>Termos de Uso</h1>
+  <div class="updated">Última atualização: abril de 2026</div>
+
+  <div class="highlight-box">
+    <p>Ao acessar ou usar a OMA Academy, você concorda com estes Termos de Uso. Leia com atenção antes de criar sua conta.</p>
   </div>
-</footer>
+
+  <h2>1. Sobre a plataforma</h2>
+  <p>A OMA Academy é uma plataforma de aprendizado online sobre tecnologia, inteligência artificial e transformação digital para founders e executivos de PMEs, operada pela <strong>Riva Labs Ltda</strong> (CNPJ: 65.452.151/0001-26), com sede em São Paulo, SP, Brasil.</p>
+  <p>Acesso em: <a href="https://onemanarmyproject.com.br/academy">onemanarmyproject.com.br/academy</a></p>
+
+  <h2>2. Elegibilidade</h2>
+  <p>Para usar a OMA Academy você deve:</p>
+  <ul>
+    <li>Ter 18 anos ou mais</li>
+    <li>Criar uma conta com informações verdadeiras e atualizadas</li>
+    <li>Não usar a plataforma em nome de terceiros sem autorização</li>
+  </ul>
+
+  <h2>3. Conta de usuário</h2>
+  <p>Você é responsável por manter a confidencialidade das credenciais da sua conta. Notifique-nos imediatamente em caso de uso não autorizado em <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a>.</p>
+  <p>Reservamo-nos o direito de suspender ou encerrar contas que violem estes termos.</p>
+
+  <h2>4. Conteúdo e propriedade intelectual</h2>
+  <p>Todo o conteúdo da OMA Academy — textos, módulos, quizzes, desafios, design e código — é de propriedade da Riva Labs Ltda e protegido por direitos autorais.</p>
+  <p>Você pode usar o conteúdo para seu aprendizado pessoal. É proibido:</p>
+  <ul>
+    <li>Reproduzir, distribuir ou revender o conteúdo sem autorização prévia por escrito</li>
+    <li>Criar produtos derivados baseados no conteúdo da plataforma</li>
+    <li>Compartilhar credenciais de acesso com terceiros</li>
+    <li>Usar o conteúdo para fins comerciais sem licença</li>
+  </ul>
+
+  <h2>5. Certificado de conclusão</h2>
+  <p>O certificado emitido ao final da trilha atesta a conclusão dos 30 módulos da OMA Academy. É pessoal e intransferível. A OMA Academy não garante resultados profissionais específicos decorrentes da conclusão do curso.</p>
+
+  <h2>6. Plano gratuito e planos pagos</h2>
+  <p>A trilha de 30 módulos é oferecida gratuitamente. Módulos avançados, trilhas práticas e conteúdos adicionais poderão ser oferecidos mediante pagamento, com condições específicas informadas no momento da oferta.</p>
+  <p>Pagamentos são processados por plataformas terceiras. Política de reembolso: solicite em até 7 dias corridos após a compra pelo e-mail <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a>.</p>
+
+  <h2>7. Conduta do usuário</h2>
+  <p>Ao usar a plataforma, você concorda em não:</p>
+  <ul>
+    <li>Violar qualquer lei aplicável</li>
+    <li>Tentar acessar áreas restritas da plataforma sem autorização</li>
+    <li>Interferir no funcionamento da plataforma ou de outros usuários</li>
+    <li>Publicar conteúdo ofensivo, discriminatório ou ilegal</li>
+    <li>Usar a plataforma para envio de spam ou comunicações não solicitadas</li>
+  </ul>
+
+  <h2>8. Disponibilidade e modificações</h2>
+  <p>Nos esforçamos para manter a plataforma disponível continuamente, mas não garantimos disponibilidade ininterrupta. Podemos modificar, suspender ou encerrar funcionalidades com aviso prévio razoável.</p>
+  <p>Reservamo-nos o direito de atualizar o conteúdo dos módulos para mantê-los precisos e relevantes.</p>
+
+  <h2>9. Limitação de responsabilidade</h2>
+  <p>A OMA Academy é fornecida "como está". Não nos responsabilizamos por:</p>
+  <ul>
+    <li>Decisões de negócio tomadas com base no conteúdo da plataforma</li>
+    <li>Perdas ou danos indiretos decorrentes do uso ou impossibilidade de uso</li>
+    <li>Conteúdo de sites ou serviços de terceiros linkados na plataforma</li>
+  </ul>
+
+  <h2>10. Privacidade</h2>
+  <p>O uso dos seus dados pessoais é regido pela nossa <a href="/privacidade">Política de Privacidade</a>, incorporada a estes termos por referência.</p>
+
+  <h2>11. Lei aplicável e foro</h2>
+  <p>Estes termos são regidos pela legislação brasileira. Fica eleito o foro da Comarca de São Paulo, SP, para dirimir quaisquer controvérsias, com renúncia a qualquer outro por mais privilegiado que seja.</p>
+
+  <h2>12. Contato</h2>
+  <p>Para dúvidas sobre estes termos:</p>
+  <ul>
+    <li><strong>E-mail:</strong> <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a></li>
+    <li><strong>Empresa:</strong> Riva Labs Ltda — CNPJ 65.452.151/0001-26 — São Paulo, SP</li>
+  </ul>
+
+  <hr>
+  <p style="font-size:12px;color:var(--text3);text-align:center;">
+    OMA Academy · Riva Labs Ltda · São Paulo, SP · 
+    <a href="/privacidade">Política de Privacidade</a>
+  </p>
+</div>
 </body>
 </html>

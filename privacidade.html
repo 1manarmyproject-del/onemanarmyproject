@@ -3,120 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Política de Privacidade — One Man Army Project</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<title>Política de Privacidade — OMA Academy</title>
+<link rel="icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--char:#080808;--iron:#1a1a1a;--bone:#e4ddd3;--fire:#e8703a;--blood:#7a2204;--fog:#888;--ash:#555;--white:#f5f0e8}
-body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.8}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.95);border-bottom:1px solid #1a1a1a}
-.nav-brand{text-decoration:none;display:flex;flex-direction:column;gap:2px}
-.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;letter-spacing:3px;color:var(--bone)}
-.nav-name span{color:var(--fire)}
-.nav-back{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fog);text-decoration:none;transition:color .2s}
-.nav-back:hover{color:var(--fire)}
-.wrap{max-width:760px;margin:0 auto;padding:120px 32px 80px}
-.label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:24px}
-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,52px);color:var(--white);line-height:1.05;margin-bottom:12px}
-.subtitle{font-size:14px;color:var(--fog);margin-bottom:8px;font-family:'Space Mono',monospace}
-.updated{font-size:12px;color:var(--ash);font-family:'Space Mono',monospace;margin-bottom:56px}
-.divider{height:1px;background:var(--iron);margin:40px 0}
-h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--fire);letter-spacing:1px;margin-bottom:16px;margin-top:40px}
-p{font-size:15px;color:rgba(228,221,211,.8);line-height:1.85;margin-bottom:16px}
-ul{margin:0 0 16px 20px}
-li{font-size:15px;color:rgba(228,221,211,.8);line-height:1.85;margin-bottom:6px}
-strong{color:var(--bone);font-weight:600}
-.highlight{background:var(--iron);border-left:3px solid var(--blood);padding:20px 24px;margin:24px 0}
-.highlight p{margin:0;font-size:14px}
-footer{background:var(--iron);padding:32px 48px;margin-top:80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.footer-brand{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--ash)}
-.footer-links{display:flex;gap:24px}
-.footer-links a{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--fire)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--border:#e5e5e5;--text:#111;--text2:#444;--text3:#888;--bg:#fff;--bg2:#fafafa;}
+body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);line-height:1.7;}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo-icon{width:30px;height:30px;background:var(--fire);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-back{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:1px;}
+.topbar-back:hover{color:var(--fire);}
+.wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px;}
+.eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:10px;}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;margin-bottom:8px;}
+.updated{font-size:12px;color:var(--text3);margin-bottom:40px;font-family:'Space Mono',monospace;}
+h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;margin:36px 0 12px;color:var(--text);}
+p{font-size:15px;color:var(--text2);margin-bottom:14px;}
+ul{padding-left:20px;margin-bottom:14px;}
+li{font-size:15px;color:var(--text2);margin-bottom:6px;}
+a{color:var(--fire);}
+.highlight-box{background:#fef3ec;border-left:4px solid var(--fire);border-radius:0 8px 8px 0;padding:16px 18px;margin:24px 0;}
+.highlight-box p{margin:0;font-size:14px;}
+hr{border:none;border-top:1px solid var(--border);margin:36px 0;}
 </style>
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-brand">
-    <span class="nav-name">ONE MAN <span>ARMY</span></span>
+<div class="topbar">
+  <a class="topbar-logo" href="/">
+    <div class="topbar-logo-icon">🧠</div>
+    <div class="topbar-logo-name">OMA <span>Academy</span></div>
   </a>
-  <a href="/" class="nav-back">voltar ao site</a>
-</nav>
-
-<div class="wrap">
-  <p class="label">POLÍTICA DE PRIVACIDADE</p>
-  <h1>Como tratamos<br>os seus dados.</h1>
-  <p class="subtitle">One Man Army Project — Riva Labs Ltda</p>
-  <p class="updated">Última atualização: 02 de abril de 2026 · CNPJ 65.452.151/0001-26</p>
-
-  <div class="highlight">
-    <p>Resumo direto: coletamos apenas o necessário para operar o serviço. Não vendemos, não compartilhamos e não usamos seus dados para nenhuma finalidade além de fazer o agente funcionar no seu negócio.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>1. Quem somos</h2>
-  <p>O One Man Army Project é operado pela <strong>Riva Labs Ltda</strong>, CNPJ 65.452.151/0001-26, São Paulo, SP. Contato: <strong>atendimento@onemanarmy.com.br</strong></p>
-
-  <h2>2. Quais dados coletamos</h2>
-  <ul>
-    <li><strong>Identificação:</strong> nome, CNPJ, e-mail e telefone fornecidos no cadastro</li>
-    <li><strong>Operacionais:</strong> mensagens trocadas pelo canal contratado (WhatsApp ou Telegram) entre o agente e os usuários do seu negócio</li>
-    <li><strong>Configuração:</strong> informações do seu negócio fornecidas no briefing — produtos, processos, tom de voz</li>
-    <li><strong>Uso:</strong> logs de atividade do agente — o que respondeu, quando e para quem</li>
-  </ul>
-  <p>Não coletamos dados sensíveis (saúde, biometria, dados financeiros pessoais).</p>
-
-  <h2>3. Como usamos os dados</h2>
-  <ul>
-    <li>Configurar e operar o agente no seu canal</li>
-    <li>Gerar relatórios semanais de desempenho</li>
-    <li>Melhorar o desempenho do agente ao longo do contrato</li>
-    <li>Cumprir obrigações legais e contratuais</li>
-  </ul>
-  <p>Não usamos seus dados para treinar modelos de IA de terceiros. Não vendemos dados para ninguém.</p>
-
-  <h2>4. Onde os dados ficam</h2>
-  <p>Seus dados são armazenados em <strong>servidor dedicado na nuvem (Hetzner)</strong> — isolado dos demais clientes. Cada cliente tem seu próprio ambiente. Backup automático diário. Retenção de 90 dias após o encerramento do contrato.</p>
-
-  <h2>5. Segurança</h2>
-  <ul>
-    <li>Comunicação criptografada entre o agente e os canais do cliente</li>
-    <li>Acesso ao ambiente restrito por permissão</li>
-    <li>Log completo de todas as ações do agente — auditável a qualquer momento</li>
-    <li>Servidor dedicado — sem compartilhamento de infraestrutura entre clientes</li>
-  </ul>
-
-  <h2>6. Compartilhamento de dados</h2>
-  <p>Não compartilhamos seus dados com terceiros, exceto:</p>
-  <ul>
-    <li><strong>Infraestrutura:</strong> Hetzner (hospedagem), Cloudflare (rede) — apenas para operar o serviço</li>
-    <li><strong>IA:</strong> Anthropic (processamento das respostas) — sob contrato de confidencialidade</li>
-    <li><strong>Obrigação legal:</strong> quando exigido por lei ou autoridade competente</li>
-  </ul>
-
-  <h2>7. Seus direitos (LGPD)</h2>
-  <p>Conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018), você tem direito a confirmar, acessar, corrigir, excluir e solicitar portabilidade dos seus dados. Contato: <strong>atendimento@onemanarmy.com.br</strong></p>
-
-  <h2>8. Cookies</h2>
-  <p>Usamos apenas cookies técnicos essenciais. Sem rastreamento, sem publicidade.</p>
-
-  <h2>9. Contato</h2>
-  <p><strong>atendimento@onemanarmy.com.br</strong><br>Riva Labs Ltda — CNPJ 65.452.151/0001-26 — São Paulo, SP</p>
-
-  <div class="divider"></div>
-  <p style="font-size:13px;color:var(--ash)">Elaborado com base na LGPD — Lei 13.709/2018. Revisão jurídica formal em andamento.</p>
+  <a class="topbar-back" href="/academy">← Voltar à Academy</a>
 </div>
 
-<footer>
-  <span class="footer-brand">ONE MAN ARMY PROJECT · RIVA LABS LTDA · 2026</span>
-  <div class="footer-links">
-    <a href="/privacidade.html">Privacidade</a>
-    <a href="/termos.html">Termos de Uso</a>
-    <a href="/">Home</a>
+<div class="wrap">
+  <div class="eyebrow">Documento legal</div>
+  <h1>Política de Privacidade</h1>
+  <div class="updated">Última atualização: abril de 2026</div>
+
+  <div class="highlight-box">
+    <p>Sua privacidade é importante para nós. Esta política explica de forma clara quais dados coletamos, como usamos e como protegemos suas informações ao usar a OMA Academy.</p>
   </div>
-</footer>
+
+  <h2>1. Quem somos</h2>
+  <p>A OMA Academy é uma plataforma de aprendizado online operada pela <strong>Riva Labs Ltda</strong> (CNPJ: 65.452.151/0001-26), com sede em São Paulo, SP, Brasil. Nossa plataforma está disponível em <a href="https://onemanarmyproject.com.br/academy">onemanarmyproject.com.br/academy</a>.</p>
+  <p>Para dúvidas sobre privacidade, entre em contato: <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a></p>
+
+  <h2>2. Dados que coletamos</h2>
+  <p>Ao criar uma conta ou usar a OMA Academy, podemos coletar:</p>
+  <ul>
+    <li><strong>Dados de identificação:</strong> nome completo e endereço de e-mail</li>
+    <li><strong>Dados profissionais (opcionais):</strong> nome da empresa e cargo</li>
+    <li><strong>Dados de autenticação social:</strong> quando você faz login com Google ou Facebook, recebemos seu nome, e-mail e foto de perfil públicos — conforme autorizado por você</li>
+    <li><strong>Dados de progresso:</strong> quais módulos você completou, pontuação XP, badges conquistadas e streak de acesso</li>
+    <li><strong>Dados de uso:</strong> data e hora de acesso, módulos visualizados e respostas de quiz</li>
+  </ul>
+  <p>Não coletamos dados de pagamento diretamente — transações são processadas por plataformas terceiras com suas próprias políticas de privacidade.</p>
+
+  <h2>3. Como usamos seus dados</h2>
+  <p>Utilizamos seus dados para:</p>
+  <ul>
+    <li>Criar e gerenciar sua conta na plataforma</li>
+    <li>Salvar e exibir seu progresso na trilha de aprendizado</li>
+    <li>Emitir seu certificado de conclusão</li>
+    <li>Enviar comunicações sobre a plataforma e novos conteúdos (você pode cancelar a qualquer momento)</li>
+    <li>Melhorar a experiência da plataforma com base no uso agregado</li>
+    <li>Cumprir obrigações legais</li>
+  </ul>
+
+  <h2>4. Base legal para tratamento (LGPD)</h2>
+  <p>Tratamos seus dados com base nas seguintes hipóteses previstas na Lei Geral de Proteção de Dados (Lei nº 13.709/2018):</p>
+  <ul>
+    <li><strong>Execução de contrato:</strong> para fornecer o acesso à plataforma e os serviços contratados</li>
+    <li><strong>Consentimento:</strong> para comunicações de marketing e uso de dados opcionais</li>
+    <li><strong>Legítimo interesse:</strong> para melhorias da plataforma e segurança</li>
+    <li><strong>Cumprimento de obrigação legal:</strong> quando exigido por lei</li>
+  </ul>
+
+  <h2>5. Compartilhamento de dados</h2>
+  <p>Não vendemos seus dados pessoais. Podemos compartilhar com:</p>
+  <ul>
+    <li><strong>Provedores de infraestrutura:</strong> Hetzner (hospedagem do banco de dados) e Vercel (hospedagem do frontend) — sujeitos a acordos de confidencialidade</li>
+    <li><strong>Google e Meta:</strong> apenas para autenticação OAuth, conforme suas políticas de privacidade</li>
+    <li><strong>Autoridades competentes:</strong> quando exigido por lei ou ordem judicial</li>
+  </ul>
+
+  <h2>6. Seus direitos (LGPD)</h2>
+  <p>Você tem os seguintes direitos sobre seus dados pessoais:</p>
+  <ul>
+    <li><strong>Acesso:</strong> solicitar uma cópia dos dados que temos sobre você</li>
+    <li><strong>Correção:</strong> corrigir dados incompletos, inexatos ou desatualizados</li>
+    <li><strong>Exclusão:</strong> solicitar a exclusão dos seus dados pessoais</li>
+    <li><strong>Portabilidade:</strong> receber seus dados em formato estruturado</li>
+    <li><strong>Revogação do consentimento:</strong> cancelar comunicações de marketing a qualquer momento</li>
+    <li><strong>Oposição:</strong> opor-se ao tratamento baseado em legítimo interesse</li>
+  </ul>
+  <p>Para exercer qualquer um desses direitos, envie um e-mail para <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a> com o assunto "Direitos LGPD". Respondemos em até 15 dias úteis.</p>
+
+  <h2>7. Segurança dos dados</h2>
+  <p>Adotamos medidas técnicas e organizacionais para proteger seus dados:</p>
+  <ul>
+    <li>Transmissão criptografada via HTTPS/TLS</li>
+    <li>Senhas armazenadas com hash bcrypt</li>
+    <li>Banco de dados em servidor privado com acesso restrito</li>
+    <li>Tokens JWT com expiração de 30 dias</li>
+    <li>Acesso aos dados limitado ao pessoal autorizado</li>
+  </ul>
+
+  <h2>8. Retenção de dados</h2>
+  <p>Mantemos seus dados enquanto sua conta estiver ativa. Se você solicitar a exclusão da conta, removeremos seus dados pessoais em até 30 dias, exceto quando a retenção for exigida por obrigação legal.</p>
+  <p>Dados de progresso anonimizados podem ser mantidos para fins estatísticos.</p>
+
+  <h2>9. Cookies e armazenamento local</h2>
+  <p>A OMA Academy utiliza <strong>localStorage</strong> do navegador para armazenar seu token de autenticação e preferências de sessão. Não utilizamos cookies de rastreamento de terceiros para publicidade.</p>
+
+  <h2>10. Menores de idade</h2>
+  <p>A OMA Academy é destinada a pessoas com 18 anos ou mais. Não coletamos intencionalmente dados de menores de idade. Se identificarmos dados de menores, procederemos com a exclusão imediata.</p>
+
+  <h2>11. Alterações nesta política</h2>
+  <p>Podemos atualizar esta política periodicamente. Quando houver alterações relevantes, notificaremos por e-mail ou por aviso na plataforma. A data de "última atualização" no topo desta página sempre reflete a versão mais recente.</p>
+
+  <h2>12. Contato</h2>
+  <p>Para qualquer dúvida, solicitação ou reclamação sobre privacidade:</p>
+  <ul>
+    <li><strong>E-mail:</strong> <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a></li>
+    <li><strong>Responsável:</strong> Fabio Xavier — Encarregado de Dados (DPO)</li>
+    <li><strong>Empresa:</strong> Riva Labs Ltda — CNPJ 65.452.151/0001-26</li>
+  </ul>
+
+  <hr>
+  <p style="font-size:12px;color:var(--text3);text-align:center;">
+    OMA Academy · Riva Labs Ltda · São Paulo, SP · 
+    <a href="/termos">Termos de Uso</a>
+  </p>
+</div>
 </body>
 </html>
