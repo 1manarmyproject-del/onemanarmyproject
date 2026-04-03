@@ -1987,7 +1987,7 @@ function renderSidebar(){
     const hasCurrent=ph.modules.some(id=>!isDone(id)&&!isModuleLocked(id)&&ph.modules.indexOf(id)===ph.modules.findIndex(id=>!isDone(id)));
     const isOpen=hasActive; // Só abre a fase que tem o módulo atual
 
-    html+=`<div class="s-phase-header${isOpen?' open':''}" onclick="togglePhase(${ph.id},this)" id="phaseHeader${ph.id}">
+    html+=`<div class="s-phase-header${isOpen?' open':''}" onclick="togglePhase(${ph.id},this)" >
       <div class="s-phase-header-left">
         <span class="s-phase-dot" style="background:${ph.color}"></span>
         <div class="s-phase-text">
@@ -2045,17 +2045,16 @@ function renderSidebar(){
 }
 
 function togglePhase(phId, headerEl){
-  const modules=document.getElementById('phaseModules'+phId);
-  const allHeaders=document.querySelectorAll('.s-phase-header');
-  const allModules=document.querySelectorAll('.s-phase-modules');
-  const isOpen=headerEl.classList.contains('open');
-  // Toggle: se já está aberto, fecha; se fechado, abre
+  // Usar nextElementSibling para encontrar o painel correto
+  // independente de estar no sidebar ou no drawer (IDs duplicados)
+  const modules = headerEl.nextElementSibling;
+  const isOpen = headerEl.classList.contains('open');
   if(isOpen){
     headerEl.classList.remove('open');
-    modules.classList.remove('open');
+    if(modules) modules.classList.remove('open');
   } else {
     headerEl.classList.add('open');
-    modules.classList.add('open');
+    if(modules) modules.classList.add('open');
   }
 }
 
