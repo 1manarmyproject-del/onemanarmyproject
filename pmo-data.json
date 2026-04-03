@@ -1076,5 +1076,15 @@
     "prio": "alta",
     "prazo": "2026-04-04",
     "entregavel": "Redesign completo do Hub:\n\nLAYOUT:\n- Menu lateral colapsável (substituir tabs horizontais)\n- Status page como tela principal ao entrar\n- Toggle OMA Systems / Customers no topo do status\n- Todas as seções existentes acessíveis pelo menu lateral\n\nMENU LATERAL:\n- Status (tela principal)\n- Agent Squad\n- Monitor WA\n- CRM\n- MKT Board / MKT Jobs / Insights MKT\n- Onboarding / Clientes / Financeiro\n- War Room / OPS / Traffic\n\nSTATUS PAGE (OMA):\n- Banner operacional (verde/amarelo/vermelho)\n- Infra: NanoClaw, Evolution, Hetzner, Cloudflare, Anthropic, OpenAI, Groq\n- Produtos: George, Bia, Flávia, Amanda, ZipTalk, Smart Noter, Ekhoa\n- Métricas do dia (agentes ativos, msgs, transcrições, custo API)\n- Uptime bars 30 dias por serviço\n- Incidentes recentes\n\nSTATUS PAGE (CUSTOMERS — futuro):\n- Dashboard individual por cliente\n- Status dos agentes contratados\n- Uso mensal vs limites do plano\n\nINDICADORES AGENT SQUAD (nova tela ou section no status):\n- Cards por status (TODO/DOING/DONE) por agente — barras empilhadas\n- Velocity: cards completados por semana (trend line)\n- Aging: cards parados há mais de 3/7/14 dias (alerta)\n- Workload: distribuição de cards por agente (donut chart)\n- Completion rate: % conclusão por agente\n- Backlog growth: tendência acúmulo vs conclusão\n- Tags de atividade recente: últimas ações dos agentes com timestamp\n\nFonte: API Hetzner /pmo/agent/* + execution_log dos cards"
+  },
+  {
+    "id": "1775216552502",
+    "col": "todo",
+    "text": "Hetzner backup Americas — redundância geográfica (contexto guerra Irã)",
+    "area": "produto",
+    "resp": "claude",
+    "prio": "alta",
+    "prazo": "2026-04-06",
+    "entregavel": "CONTEXTO: Irã atacou datacenters AWS em UAE/Bahrain (março 2026). IRGC declarou empresas tech como alvos legítimos. Escalada pode afetar infra europeia indiretamente.\n\nAÇÃO: Criar Hetzner CX22 em Ashburn (Virginia, EUA) como backup do servidor Helsinki.\n\nESCOPO:\n1. Criar instância CX22 Ashburn no projeto oma-clients\n2. Configurar réplica diária do PostgreSQL/SQLite via rsync ou pg_dump\n3. Manter cópia do backup-status.json e pmo-data\n4. Script de failover: se Helsinki não responde, DNS aponta pra Ashburn\n5. Teste mensal de failover\n\nCUSTO: ~€4/mês (~R$25). Seguro barato pra continuidade do negócio.\n\nPRIORIDADE: Alta — contexto geopolítico justifica ação imediata."
   }
 ]
