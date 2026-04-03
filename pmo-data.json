@@ -1156,5 +1156,15 @@
     "prio": "alta",
     "prazo": "2026-05-01",
     "entregavel": "Produto SaaS: cliente assina, acessa interface web, lança informações (seed material), OMA roda simulação multi-agente baseada em MiroFish e entrega relatório de cenários/previsões.\n\nTESE: DeepSeek V3 via OpenRouter custa ~$0.50/simulação. Se cobrar R$99-299/mês com X simulações incluídas, margem >90%.\n\nCASOS DE USO:\n1. POLÍTICO: candidato testa narrativa antes de lançar campanha (Ekhoa já tem clientes)\n2. NEGÓCIO: empreendedor simula reação do mercado a novo produto/preço\n3. COMUNICAÇÃO: agência testa release antes de publicar\n4. FINANCEIRO: simula reação do mercado a decisão corporativa\n\nSTACK:\n- MiroFish (open-source, fork amadad com suporte Claude/OpenRouter)\n- DeepSeek V3 via OpenRouter (custo mínimo)\n- KuzuDB embedded (graph database, sem servidor extra)\n- Interface: /predictions no site OMA ou subdomínio dedicado\n\nPRICING POSSÍVEL:\n- Starter R$99/mês: 3 simulações/mês, até 100 agentes\n- Pro R$299/mês: 10 simulações, até 500 agentes, relatório aprofundado\n- Enterprise R$999/mês: ilimitado, 1000+ agentes, suporte dedicado\n\nCUSTOS POR SIMULAÇÃO (~$0.50 DeepSeek):\n- Starter: 3 x R$2.85 = R$8.55 custo → R$99 receita = margem 91%\n- Pro: 10 x R$2.85 = R$28.50 → R$299 = margem 90%\n\nDIFERENCIAL: ninguém no Brasil oferece simulação de cenários com IA multi-agente acessível pra PME. Produtos similares são acadêmicos ou enterprise (>$50k).\n\nCANAL DE DISTRIBUIÇÃO: Ekhoa (RP, clientes políticos), OMA Academy (leads educados), Instagram @1manarmy_project\n\nFASE: Produto planejado. Validar primeiro com simulação interna do OMA neste feriadão. Se output for poderoso, priorizar construção da interface em Abril/26.\n\nNOTA DO FABIO: fruta madura — custo baixíssimo, output poderoso, margem absurda. Considerar lançamento junto com plataforma OMA."
+  },
+  {
+    "id": "1775234405518",
+    "col": "todo",
+    "text": "Migrar Bia e Amanda para WhatsApp Cloud API Meta (número virtual)",
+    "area": "produto",
+    "resp": "fabio",
+    "prio": "critica",
+    "prazo": "2026-04-06",
+    "entregavel": "RESOLVE 3 ITENS CRÍTICOS DA AUDITORIA:\n1. Chips pessoais (CPF) → número virtual no CNPJ Riva Labs\n2. Evolution/Baileys (não-oficial) → WhatsApp Cloud API (oficial)\n3. Risco de ban → zero (API oficial Meta)\n\nPASSO A PASSO:\n1. Meta Business Suite → criar App de negócio\n2. Adicionar produto WhatsApp\n3. Registrar número virtual (grátis, sem chip)\n4. Configurar webhook pra receber mensagens no NanoClaw\n5. Adaptar src/whatsapp/ pra usar Cloud API em vez de Evolution\n6. Testar Bia + Amanda no número novo\n7. Comunicar contatos sobre mudança de número (se mudar)\n\nCUSTO: R$0/mês até 1.000 conversas. Acima: ~R$0,40/conversa.\n\nIMPACTO: Evolution API continua APENAS pro ZipTalk (WhatsApp pessoal, que Cloud API não suporta).\n\nREF: @ninja.automacoes — curso R$67 com passo a passo (40 min). Avaliar se vale comprar."
   }
 ]
