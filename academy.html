@@ -955,8 +955,12 @@ textarea.ch-input::placeholder{color:var(--text4);}
     <div class="topnav">
       <div class="topnav-left">
         <div class="hamburger" onclick="openDrawer()"><span></span><span></span><span></span></div>
-        <div class="topnav-title" id="topTitle">Dashboard</div>
-      <div class="topnav-name" id="topName" style="font-size:13px;color:var(--text3);display:none;"></div>
+        <div onclick="goScreen('dash')" style="cursor:pointer;display:flex;align-items:center;gap:8px;" title="Voltar ao início">
+          <img src="/lobster-logo.png" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);flex-shrink:0;" alt="OMA">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;text-transform:uppercase;">OMA <span style="color:var(--fire);">ACADEMY</span></span>
+        </div>
+        <div class="topnav-name" id="topName" style="font-size:13px;color:var(--text3);display:none;"></div>
+        <div id="topTitle" style="display:none;"></div>
       </div>
       <div class="topnav-right">
         <a href="/" title="Site OMA" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;padding:6px 8px;border-radius:4px;transition:color .15s;" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--text4)'">OMA ↗</a>
