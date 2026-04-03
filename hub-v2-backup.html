@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
+<style>
+:root{--char:#080808;--coal:#0f0f0f;--graph:#131313;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;--purple:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+#ls{flex:1;display:flex;align-items:center;justify-content:center;}
+.lb{width:320px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:4px;margin-bottom:4px;}.ll span{color:var(--fire);}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:12px 0;color:var(--bone);font-size:16px;outline:none;margin-bottom:28px;}
+.li:focus{border-bottom-color:var(--fire);}.li::placeholder{color:var(--ash);}
+.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:12px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;}
+.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+#app{display:none;flex-direction:column;flex:1;}
+.hdr{background:var(--coal);border-bottom:1px solid var(--iron);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:3px;}.hlogo span{color:var(--fire);}
+.hck{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-size:11px;cursor:pointer;}
+.inav{background:var(--coal);border-bottom:1px solid var(--iron);padding:0 32px;display:flex;overflow-x:auto;flex-shrink:0;}
+.inav::-webkit-scrollbar{height:2px;}.inav::-webkit-scrollbar-thumb{background:var(--steel);}
+.itab{padding:14px 18px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--fog);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.itab:hover{color:var(--bone);}.itab.active{color:var(--fire);border-bottom-color:var(--fire);}
+.page{display:none;}.page.active{display:block;}
+.home{padding:32px;max-width:1200px;}
+.sbar{background:var(--coal);border:1px solid var(--iron);padding:12px 18px;display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+.si{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fog);}.si b{color:var(--bone);}
+.sdiv{width:1px;height:16px;background:var(--iron);}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+.slbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.slbl::after{content:'';flex:1;height:1px;background:var(--iron);}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;}
+@media(max-width:800px){.cards{grid-template-columns:1fr;}}
+.hcard{background:var(--coal);border:1px solid var(--iron);cursor:pointer;transition:all .18s;position:relative;overflow:hidden;}
+.hcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.hcard:hover{border-color:var(--steel);transform:translateY(-1px);}.hcard:hover::before{transform:scaleX(1);}
+.hc-fire::before{background:var(--fire);}.hc-gold::before{background:var(--gold);}.hc-blue::before{background:var(--blue);}.hc-green::before{background:var(--green);}.hc-purple::before{background:var(--purple);}
+.hci{padding:20px;}
+.hc-icon{font-size:24px;margin-bottom:12px;display:block;}
+.hc-title{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:var(--bone);margin-bottom:5px;}
+.hc-desc{font-size:11px;color:var(--fog);line-height:1.55;}
+.hc-foot{padding:10px 20px;border-top:1px solid var(--iron);background:var(--graph);display:flex;align-items:center;justify-content:space-between;}
+.hc-lnk{font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;color:var(--ash);transition:color .15s;}
+.hcard:hover .hc-lnk{color:var(--fire);}
+.wa-wrap{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 112px);overflow:hidden;}
+.wa-side{background:var(--coal);border-right:1px solid var(--iron);display:flex;flex-direction:column;overflow:hidden;}
+.wa-search{padding:10px;border-bottom:1px solid var(--iron);}
+.wa-search input{width:100%;background:var(--graph);border:1px solid var(--iron);padding:7px 10px;color:var(--bone);font-size:11px;outline:none;}
+.wa-search input::placeholder{color:var(--ash);}
+.wa-filter{display:flex;border-bottom:1px solid var(--iron);}
+.wfb{flex:1;padding:9px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;}
+.wfb.active{color:var(--fire);border-bottom-color:var(--fire);background:rgba(232,112,58,.06);}
+.wa-list{flex:1;overflow-y:auto;}
+.wa-list::-webkit-scrollbar{width:2px;}.wa-list::-webkit-scrollbar-thumb{background:var(--steel);}
+.wconv{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .1s;position:relative;}
+.wconv:hover{background:var(--graph);}.wconv.sel{background:var(--graph);border-left:2px solid var(--fire);}
+.wca{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.wca.bia{color:var(--fire);}.wca.amanda{color:var(--gold);}
+.wcp{font-size:12px;font-weight:600;color:var(--bone);margin-bottom:2px;}
+.wcm{font-size:10px;color:var(--ash);}
+.wct{position:absolute;top:12px;right:12px;font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);}
+.wa-main{display:flex;flex-direction:column;background:var(--char);overflow:hidden;min-height:0;}
+.wa-empty{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--ash);}
+.wa-elog{font-family:'Black Ops One',cursive;font-size:28px;color:var(--iron);}.wa-elog span{color:var(--fire);}
+.wa-detail{flex:1;overflow-y:auto;padding:24px;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;}
+.wa-bar{padding:6px 20px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);border-top:1px solid var(--iron);flex-shrink:0;background:var(--coal);}
+.iframe-page{height:calc(100vh - 112px);border:none;width:100%;display:block;}
+</style>
+</head>
+<body>
+
+<div id="ls">
+  <div class="lb">
+    <div class="ll">OMA <span>HUB</span></div>
+    <div class="lsub">CENTRO DE OPERACOES</div>
+    <input class="li" type="password" id="pw" placeholder="senha">
+    <button class="lbtn" id="btnEntrar">ENTRAR</button>
+    <div class="lerr" id="le">Senha incorreta</div>
+  </div>
+</div>
+
+<div id="app">
+  <header class="hdr">
+    <div class="hlogo">OMA <span>HUB</span></div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span class="hck"><span class="live"></span><span id="ck">--:--</span></span>
+      <button class="hout" id="btnSair">Sair</button>
+    </div>
+  </header>
+
+  <nav class="inav">
+    <div class="itab active" id="tab-home">Hub</div>
+    <div class="itab" id="tab-monitor">Monitor WA</div>
+    <div class="itab" id="tab-squad">Agent Squad</div>
+    <div class="itab" id="tab-crm">CRM</div>
+    <div class="itab" id="tab-financeiro">Financeiro</div>
+    <div class="itab" id="tab-onboarding">Onboarding</div>
+    <div class="itab" id="tab-traffic">Traffic</div>
+    <div class="itab" id="tab-clientes">Clientes</div>
+    <div class="itab" id="tab-mktinsights">Insights MKT</div>
+    <div class="itab" id="tab-mkt">🎨 MKT</div>
+    <div class="itab" id="tab-mktjobs">📋 Jobs</div>
+    <div class="itab" id="tab-ops">OPS</div>
+    <div class="itab" id="tab-warroom">🗺️ War Room</div>
+  </nav>
+
+  <div class="page active" id="page-home">
+    <div class="home">
+      <div class="sbar">
+        <div class="si"><div class="sdot"></div><b>George</b></div>
+        <div class="sdiv"></div>
+        <div class="si"><div class="sdot"></div><b>Bia</b></div>
+        <div class="sdiv"></div>
+        <div class="si"><div class="sdot"></div><b>Amanda</b></div>
+        <div class="sdiv"></div>
+        <div class="si"><div class="sdot"></div><b>Darwin</b></div>
+        <div style="margin-left:auto;font-family:Space Mono,monospace;font-size:9px;color:var(--ash)">01/04/2026 11:20</div>
+      </div>
+      <div class="slbl">Paineis operacionais</div>
+      <div class="cards">
+        <div class="hcard hc-blue" data-tab="monitor"><div class="hci"><span class="hc-icon">📱</span><div class="hc-title">Monitor WA</div><div class="hc-desc">Conversas da Bia e Amanda. Histórico por contato.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-fire" data-tab="squad"><div class="hci"><span class="hc-icon">⬛</span><div class="hc-title">Agent Squad · Kanban</div><div class="hc-desc">Roadmap, sprints e controle de evolução.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-fire" data-tab="crm"><div class="hci"><span class="hc-icon">⬛</span><div class="hc-title">CRM</div><div class="hc-desc">Pipeline de leads e funil da Bia.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-gold" data-tab="financeiro"><div class="hci"><span class="hc-icon">💰</span><div class="hc-title">Financeiro</div><div class="hc-desc">MRR, contratos, vencimentos e projeções.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-purple" data-tab="onboarding"><div class="hci"><span class="hc-icon">🚀</span><div class="hc-title">Onboarding</div><div class="hc-desc">Pipeline de clientes e próximas ações.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-green" data-tab="clientes"><div class="hci"><span class="hc-icon">🏢</span><div class="hc-title">Clientes</div><div class="hc-desc">Carteira de clientes, MRR, módulos e margem.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-gold" data-tab="mktinsights"><div class="hci"><span class="hc-icon">📊</span><div class="hc-title">Insights MKT</div><div class="hc-desc">Performance de cards e jobs por canal e objetivo.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-fire" data-tab="traffic"><div class="hci"><span class="hc-icon">📡</span><div class="hc-title">Traffic</div><div class="hc-desc">Tráfego por canal — site, WA, Instagram, Telegram.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-orange" data-tab="mkt"><div class="hci"><span class="hc-icon">🎨</span><div class="hc-title">MKT Approval</div><div class="hc-desc">Aprovar artes e legendas do @1manarmy e @fabio_xavier_br.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-orange" data-tab="mktjobs"><div class="hci"><span class="hc-icon">📋</span><div class="hc-title">MKT Jobs</div><div class="hc-desc">Histórico de posts, briefings, copy e tracker de produção.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+        <div class="hcard hc-green" data-tab="ops"><div class="hci"><span class="hc-icon">◉</span><div class="hc-title">OPS</div><div class="hc-desc">Performance dos agentes e custo de tokens.</div></div><div class="hc-foot"><span class="hc-lnk">ABRIR</span><span>→</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-monitor">
+    <div class="wa-wrap">
+      <div class="wa-side">
+        <div class="wa-search"><input type="text" id="wSearch" placeholder="Buscar contato..."></div>
+        <div class="wa-filter">
+          <button class="wfb active" data-wf="all">Todas</button>
+          <button class="wfb" data-wf="bia">Bia</button>
+          <button class="wfb" data-wf="amanda">Amanda</button>
+        </div>
+        <div class="wa-list" id="wList"></div>
+      </div>
+      <div class="wa-main">
+        <div class="wa-empty" id="wEmpty">
+          <div class="wa-elog">OMA <span>WA</span></div>
+          <div style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:1px">Selecione uma conversa</div>
+        </div>
+        <div class="wa-detail" id="wDetail"></div>
+        <div class="wa-bar">Atualizado: 01/04/2026 11:20 · 11 conversas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-squad"><iframe class="iframe-page" id="ifr-squad" src="about:blank"></iframe></div>
+  <div class="page" id="page-crm"><iframe class="iframe-page" id="ifr-crm" src="about:blank"></iframe></div>
+  <div class="page" id="page-financeiro"><iframe class="iframe-page" id="ifr-financeiro" src="about:blank"></iframe></div>
+  <div class="page" id="page-onboarding"><iframe class="iframe-page" id="ifr-onboarding" src="about:blank"></iframe></div>
+  <div class="page" id="page-clientes"><iframe class="iframe-page" id="ifr-clientes" src="about:blank"></iframe></div>
+  <div class="page" id="page-mktinsights"><iframe class="iframe-page" id="ifr-mktinsights" src="about:blank"></iframe></div>
+  <div class="page" id="page-traffic"><iframe class="iframe-page" id="ifr-traffic" src="about:blank"></iframe></div>
+  <div class="page" id="page-ops"><iframe class="iframe-page" id="ifr-ops" src="about:blank"></iframe></div>
+  <div class="page" id="page-mktjobs"><iframe class="iframe-page" id="ifr-mktjobs" src="about:blank"></iframe></div>
+  <div class="page" id="page-mkt"><iframe class="iframe-page" id="ifr-mkt" src="about:blank"></iframe></div>
+  <div class="page" id="page-warroom"><iframe class="iframe-page" id="ifr-warroom" src="about:blank"></iframe></div>
+</div>
+
+<script>
+var PWD = 'omaproject2026';
+var CONVS = [{"jid":"amanda:554198962000@s.whatsapp.net","agent":"amanda","phone":"554198962000","total":4,"bot":2,"ts":"2026-03-31T16:50:56.875Z"},{"jid":"amanda:5511956766085@s.whatsapp.net","agent":"amanda","phone":"5511956766085","total":18,"bot":8,"ts":"2026-03-31T15:16:09.810Z"},{"jid":"amanda:5511988064405@s.whatsapp.net","agent":"amanda","phone":"5511988064405","total":48,"bot":23,"ts":"2026-03-31T15:10:21.925Z"},{"jid":"amanda:5511966621506@s.whatsapp.net","agent":"amanda","phone":"5511966621506","total":36,"bot":18,"ts":"2026-03-29T14:23:43.736Z"},{"jid":"amanda:5521994452765@s.whatsapp.net","agent":"amanda","phone":"5521994452765","total":31,"bot":14,"ts":"2026-03-27T15:00:21.335Z"},{"jid":"amanda:554188357571@s.whatsapp.net","agent":"amanda","phone":"554188357571","total":9,"bot":4,"ts":"2026-03-20T01:40:16.059Z"},{"jid":"amanda:5511914051068@s.whatsapp.net","agent":"amanda","phone":"5511914051068","total":35,"bot":16,"ts":"2026-03-18T21:08:19.748Z"},{"jid":"amanda:554199829613@s.whatsapp.net","agent":"amanda","phone":"554199829613","total":6,"bot":3,"ts":"2026-03-18T12:48:00.584Z"},{"jid":"amanda:5511941801017@s.whatsapp.net","agent":"amanda","phone":"5511941801017","total":2,"bot":1,"ts":"2026-03-16T17:27:59.672Z"},{"jid":"amanda:15517868429@s.whatsapp.net","agent":"amanda","phone":"15517868429","total":2,"bot":1,"ts":"2026-03-16T01:43:38.345Z"},{"jid":"amanda:5512997908057@s.whatsapp.net","agent":"amanda","phone":"5512997908057","total":14,"bot":7,"ts":"2026-03-14T23:25:31.441Z"},{"jid":"amanda:5511983268150@s.whatsapp.net","agent":"amanda","phone":"5511983268150","total":5,"bot":1,"ts":"2026-03-14T14:09:31.482Z"},{"jid":"amanda:5511978279725@s.whatsapp.net","agent":"amanda","phone":"5511978279725","total":26,"bot":10,"ts":"2026-03-14T03:14:59.986Z"}];
+var MSGS = {"amanda:5511978279725@s.whatsapp.net": [{"role": "user", "content": "Opa... teste passou. Obrigado", "ts": "2026-03-13T23:30:34.591Z"}, {"role": "user", "content": "Que você tenha um final de semana abençoado", "ts": "2026-03-13T23:32:00.500Z"}, {"role": "user", "content": "manda um abraço pro Fábio", "ts": "2026-03-13T23:32:05.276Z"}, {"role": "user", "content": "Amanda", "ts": "2026-03-14T03:01:57.811Z"}, {"role": "user", "content": "está por aí?", "ts": "2026-03-14T03:02:03.739Z"}, {"role": "user", "content": "Amanda", "ts": "2026-03-14T03:14:43.548Z"}], "amanda:554188357571@s.whatsapp.net": [{"role": "user", "content": "Muito obrigada, Amanda", "ts": "2026-03-14T03:16:02.564Z"}, {"role": "user", "content": "O bairro Brooklin eh seguro?", "ts": "2026-03-14T03:16:12.873Z"}, {"role": "bot", "content": "De nada, Cecília! Fico no aguardo de qualquer coisa que você precise. Abraço! 🙏", "ts": "2026-03-14T03:16:16.584Z"}, {"role": "user", "content": "Obrigada diva", "ts": "2026-03-20T01:39:09.133Z"}, {"role": "user", "content": "Vc reservaria um voo caso eu precise?", "ts": "2026-03-20T01:40:05.748Z"}, {"role": "bot", "content": "Oi Cecília! Na verdade, estou aqui para organizar questões do Fabio, não para fazer reservas de voos em geral. Mas se você tiver dúvidas sobre sites o", "ts": "2026-03-20T01:40:16.059Z"}], "amanda:5511983268150@s.whatsapp.net": [{"role": "user", "content": "Muito obrigado Amanda pela mensagem! Muito gentil!", "ts": "2026-03-14T14:08:02.796Z"}, {"role": "user", "content": "Gostei bastante do presente sim!", "ts": "2026-03-14T14:08:11.797Z"}, {"role": "bot", "content": "De nada! Fico feliz em ajudar. Se precisar de mais alguma coisa, é só me chamar. 😊", "ts": "2026-03-14T14:08:21.750Z"}, {"role": "user", "content": "Você fala para o Fábio que gostei e que estou muito grato?", "ts": "2026-03-14T14:08:29.370Z"}, {"role": "user", "content": "Boas sugestões! Eu gosto mais dos mais secos mesmo! Rose eu gosto bastante", "ts": "2026-03-14T14:09:31.482Z"}], "amanda:5512997908057@s.whatsapp.net": [{"role": "user", "content": "O que vc acha?", "ts": "2026-03-14T23:14:12.055Z"}, {"role": "user", "content": "O que vc do jogo de tênis?", "ts": "2026-03-14T23:15:31.664Z"}, {"role": "user", "content": "Quero organizar um jogo com o Fábio", "ts": "2026-03-14T23:16:51.225Z"}, {"role": "user", "content": "3a. Feira, 15:00 h", "ts": "2026-03-14T23:18:46.005Z"}, {"role": "user", "content": "No Palmeiras, apenas nós dois", "ts": "2026-03-14T23:20:12.001Z"}, {"role": "user", "content": "luizcelsomariano@gmail.com", "ts": "2026-03-14T23:25:16.196Z"}], "amanda:15517868429@s.whatsapp.net": [{"role": "user", "content": "Gracias por comunicarte con Soporte de WhatsApp. Si tienes más preguntas, puedes hacerlas directamente en este chat.", "ts": "2026-03-16T01:43:23.082Z"}], "amanda:5511941801017@s.whatsapp.net": [{"role": "user", "content": "Boa 👍", "ts": "2026-03-16T17:27:45.865Z"}], "amanda:5511914051068@s.whatsapp.net": [{"role": "user", "content": "Achei 🥰", "ts": "2026-03-18T20:33:45.663Z"}, {"role": "user", "content": "23/01", "ts": "2026-03-18T20:33:49.780Z"}, {"role": "user", "content": "Já te confirmo o valor ja 🙏🏻", "ts": "2026-03-18T20:35:06.452Z"}, {"role": "user", "content": "Pronto", "ts": "2026-03-18T21:06:30.312Z"}, {"role": "user", "content": "Retorno isento 🙏🏻🥰", "ts": "2026-03-18T21:06:43.161Z"}, {"role": "user", "content": "O retorno será isento 🥰", "ts": "2026-03-18T21:08:03.250Z"}], "amanda:554199829613@s.whatsapp.net": [{"role": "user", "content": "Bom dia, Amanda. Posso marcar com você mesma. Hoje, 17h, Fabio teria agenda?", "ts": "2026-03-18T12:28:00.165Z"}, {"role": "user", "content": "Vou ver minha agenda e volto com você", "ts": "2026-03-18T12:29:26.885Z"}, {"role": "bot", "content": "Perfeito, Gustavo! Fico no aguardo. Assim que você confirmar, já organizo com o Fabio. 👍", "ts": "2026-03-18T12:29:40.319Z"}, {"role": "user", "content": "Show. Funciona sim", "ts": "2026-03-18T12:47:43.973Z"}], "amanda:5521994452765@s.whatsapp.net": [{"role": "bot", "content": "De nada, Janaina! 😊 Fico feliz em ajudar. Qualquer coisa é só chamar. Um beijo! 💕", "ts": "2026-03-18T22:46:17.081Z"}, {"role": "user", "content": "Outro beijo", "ts": "2026-03-18T22:46:36.861Z"}, {"role": "bot", "content": "Um beijo! 😊 💕", "ts": "2026-03-18T22:46:49.921Z"}, {"role": "user", "content": "Oi! Sim! Confirmado!!!", "ts": "2026-03-24T13:56:30.596Z"}, {"role": "user", "content": "E veja com ele se podemos remarcar pra terça ou quarta feira da próxima semana, por gentileza?", "ts": "2026-03-24T22:46:54.398Z"}, {"role": "user", "content": "Obrigada ❤️", "ts": "2026-03-24T22:46:58.565Z"}], "amanda:5511956766085@s.whatsapp.net": [{"role": "user", "content": "tbm", "ts": "2026-03-23T16:26:17.962Z"}, {"role": "bot", "content": "Perfeito! 👍 Já estou coletando essas informações com o Fabio agora. Retorno com nome completo, telefone e a foto da carterinha em breve para a gente f", "ts": "2026-03-23T16:26:28.987Z"}, {"role": "user", "content": "Confirmado 07/04 ás 17:00", "ts": "2026-03-24T13:35:05.240Z"}, {"role": "bot", "content": "Perfeito! 👍 Confirmado então: *07/04 às 17h*. Já estou coletando os dados com o Fabio agora (nome completo, telefone e foto da carterinha). Retorno co", "ts": "2026-03-24T13:35:14.784Z"}, {"role": "user", "content": "sim está tudo certo", "ts": "2026-03-25T13:15:01.072Z"}, {"role": "bot", "content": "Perfeito! 👍 Ótimo, deixa eu repassar com o Fabio agora e retorno com os dados (nome, telefone e foto da carterinha) para a gente finalizar o agendamen", "ts": "2026-03-25T13:15:09.813Z"}], "amanda:5511988064405@s.whatsapp.net": [{"role": "user", "content": "Tenho horário na terça feira às 11:00 horas", "ts": "2026-03-25T14:17:37.703Z"}, {"role": "user", "content": "Ok", "ts": "2026-03-25T14:18:24.152Z"}, {"role": "user", "content": "Terça feira dia 31/03", "ts": "2026-03-25T14:19:18.850Z"}, {"role": "user", "content": "Na verdade as 11:30", "ts": "2026-03-25T14:21:24.098Z"}, {"role": "user", "content": "11 horas o doutor não estará aqui ainda", "ts": "2026-03-25T14:21:40.344Z"}, {"role": "user", "content": "11:30", "ts": "2026-03-25T14:23:23.492Z"}]};
+var SRCS = {squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',mktinsights:'/mkt-insights'};
+var loaded = {};
+var wActiveTab = 'all';
+var wActivejid = null;
+
+function login() {
+  var val = document.getElementById('pw').value;
+  if (val === PWD) {
+    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k) { localStorage.setItem(k, '1'); });
+    document.getElementById('ls').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    startApp();
+  } else {
+    document.getElementById('le').style.display = 'block';
+    document.getElementById('pw').value = '';
+  }
+}
+
+function logout() {
+  ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k) { localStorage.removeItem(k); });
+  location.reload();
+}
+
+function goTab(id) {
+  document.querySelectorAll('.itab').forEach(function(t) { t.classList.remove('active'); });
+  var tab = document.getElementById('tab-' + id);
+  if (tab) tab.classList.add('active');
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page-' + id).classList.add('active');
+  if (SRCS[id] && !loaded[id]) {
+    document.getElementById('ifr-' + id).src = SRCS[id];
+    loaded[id] = true;
+  }
+  if (id === 'monitor') {
+    renderList();
+  }
+}
+
+function fmtPhone(p) {
+  var d = p.replace('@s.whatsapp.net','').replace('+','');
+  if (d.length === 13) return '+' + d.slice(0,2) + ' (' + d.slice(2,4) + ') ' + d.slice(4,9) + '-' + d.slice(9);
+  if (d.length === 12) return '+' + d.slice(0,2) + ' (' + d.slice(2,4) + ') ' + d.slice(4,8) + '-' + d.slice(8);
+  return p;
+}
+
+function fmtTime(ts) {
+  if (!ts) return '--';
+  var d = new Date(ts);
+  var n = new Date();
+  if (d.toDateString() === n.toDateString()) {
+    return d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+  }
+  return d.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit'});
+}
+
+function renderList() {
+  var q = document.getElementById('wSearch').value.toLowerCase();
+  var filtered = CONVS.filter(function(c) {
+    if (wActiveTab === 'bia' && c.agent !== 'bia') return false;
+    if (wActiveTab === 'amanda' && c.agent !== 'amanda') return false;
+    if (q && c.phone.indexOf(q) < 0) return false;
+    return true;
+  });
+  var list = document.getElementById('wList');
+  if (!filtered.length) {
+    list.innerHTML = '<div style="padding:20px;text-align:center;font-size:11px;color:#4a4a4a">Nenhuma conversa</div>';
+    return;
+  }
+  var html = '';
+  filtered.forEach(function(c) {
+    var sel = c.jid === wActivejid ? ' sel' : '';
+    html += '<div class="wconv' + sel + '" data-jid="' + c.jid + '">';
+    html += '<div class="wca ' + c.agent + '">' + c.agent.toUpperCase() + '</div>';
+    html += '<div class="wcp">' + fmtPhone(c.phone) + '</div>';
+    html += '<div class="wcm">' + c.total + ' msgs &middot; ' + c.bot + ' respostas</div>';
+    html += '<div class="wct">' + fmtTime(c.ts) + '</div>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+  list.querySelectorAll('.wconv').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var jid = this.getAttribute('data-jid');
+      var conv = CONVS.find(function(c) { return c.jid === jid; });
+      if (conv) openConv(conv);
+    });
+  });
+}
+
+function openConv(conv) {
+  wActivejid = conv.jid;
+  renderList();
+  document.getElementById('wEmpty').style.display = 'none';
+  var det = document.getElementById('wDetail');
+  det.style.cssText = 'display:flex;flex:1;overflow-y:auto;padding:0;flex-direction:column;';
+  var phone = fmtPhone(conv.phone);
+  var color = conv.agent === 'bia' ? '#e8703a' : '#c8a456';
+
+  // Header
+  var hdr = '<div style="padding:14px 20px;border-bottom:1px solid #1e1e1e;background:#0f0f0f;flex-shrink:0">';
+  hdr += '<div style="font-family:Black Ops One,cursive;font-size:18px;letter-spacing:1px">' + phone + '</div>';
+  hdr += '<div style="font-family:Space Mono,monospace;font-size:9px;color:' + color + ';margin-top:2px">' + conv.agent.toUpperCase() + ' · ' + conv.total + ' msgs</div>';
+  hdr += '</div>';
+
+  // Mensagens
+  var convMsgs = MSGS[conv.jid] || [];
+  var msgsHtml = '<div style="flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:8px;">';
+  if (convMsgs.length === 0) {
+    msgsHtml += '<div style="color:#4a4a4a;font-size:11px;text-align:center;margin-top:40px">Sem mensagens recentes</div>';
+  } else {
+    convMsgs.forEach(function(m) {
+      var isBot = m.role === 'bot';
+      var align = isBot ? 'flex-start' : 'flex-end';
+      var bg = isBot ? 'background:#131313;border-left:2px solid #e8703a' : 'background:rgba(232,112,58,.1);border-right:2px solid #c05020';
+      var d = new Date(m.ts);
+      var tstr = d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      msgsHtml += '<div style="display:flex;flex-direction:column;max-width:78%;align-self:' + align + '">';
+      msgsHtml += '<div style="padding:10px 14px;font-size:12px;line-height:1.55;color:#e0d9cf;' + bg + '">' + m.content.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>') + '</div>';
+      msgsHtml += '<div style="font-family:Space Mono,monospace;font-size:8px;color:#4a4a4a;margin-top:3px;' + (isBot?'':'text-align:right') + '">' + (isBot?'AGENTE · ':'CLIENTE · ') + tstr + '</div>';
+      msgsHtml += '</div>';
+    });
+    msgsHtml += '<div style="font-family:Space Mono,monospace;font-size:9px;color:#2a2a2a;text-align:center;margin-top:8px">— últimas ' + convMsgs.length + ' mensagens —</div>';
+  }
+  msgsHtml += '</div>';
+
+  // Instrução
+  var instrHtml = '<div style="padding:12px 16px;border-top:1px solid #1e1e1e;background:#0f0f0f;flex-shrink:0">';
+  instrHtml += '<div id="instrBox" style="background:#131313;border:1px solid #1e1e1e;padding:10px 14px;display:flex;gap:8px;align-items:center">';
+  instrHtml += '<input id="instrInput" type="text" placeholder="Instrução direta ao agente..." style="flex:1;background:transparent;border:none;color:#e0d9cf;font-size:12px;outline:none;font-family:Barlow,sans-serif">';
+  instrHtml += '<button id="instrBtn" style="background:#e8703a;border:none;color:#080808;padding:7px 14px;font-family:Black Ops One,cursive;font-size:9px;letter-spacing:1px;cursor:pointer;white-space:nowrap">ENVIAR À ' + conv.agent.toUpperCase() + '</button>';
+  instrHtml += '</div></div>';
+
+  det.innerHTML = hdr + msgsHtml + instrHtml;
+
+  // Scroll para o fim
+  var msgArea = det.querySelector('[style*="overflow-y:auto"]');
+  if (msgArea) setTimeout(function(){ msgArea.scrollTop = msgArea.scrollHeight; }, 50);
+
+  // Listener do botão
+  document.getElementById('instrBtn').addEventListener('click', function() {
+    var txt = document.getElementById('instrInput').value.trim();
+    if (!txt) return;
+    var msg = '[INSTRUCAO - ' + conv.agent.toUpperCase() + '] Cliente: ' + phone + ' | ' + txt;
+    var btn = document.getElementById('instrBtn');
+    btn.textContent = 'ENVIANDO...';
+    fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: '8392126681', text: msg})
+    }).then(function(r){ return r.json(); }).then(function(r){
+      document.getElementById('instrInput').value = '';
+      btn.textContent = r.ok ? 'ENVIADO!' : 'ERRO';
+      setTimeout(function(){ btn.textContent = 'ENVIAR À ' + conv.agent.toUpperCase(); }, 2000);
+    });
+  });
+}
+
+function startApp() {
+  setInterval(function() {
+    document.getElementById('ck').textContent = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }, 1000);
+  document.getElementById('ck').textContent = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  renderList();
+  document.querySelectorAll('.hcard').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var tab = this.getAttribute('data-tab');
+      if (tab) goTab(tab);
+    });
+  });
+  document.querySelectorAll('.itab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var id = this.id.replace('tab-', '');
+      goTab(id);
+    });
+  });
+  document.querySelectorAll('.wfb').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.wfb').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      wActiveTab = this.getAttribute('data-wf');
+      renderList();
+    });
+  });
+  document.getElementById('wSearch').addEventListener('input', function() { renderList(); });
+}
+
+document.getElementById('btnEntrar').addEventListener('click', login);
+document.getElementById('pw').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') login();
+});
+document.getElementById('btnSair').addEventListener('click', logout);
+
+if (['oma_hub','oma_auth','oma_monitor','ops'].some(function(k) { return localStorage.getItem(k) === '1'; })) {
+  document.getElementById('ls').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  startApp();
+}
+</script>
+</body>
+</html>
