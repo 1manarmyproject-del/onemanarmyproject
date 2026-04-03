@@ -61,6 +61,12 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 .prio-btn.alta{color:var(--red);border-color:rgba(226,75,74,.3)}
 .prio-btn.media{color:var(--yellow);border-color:rgba(245,166,35,.3)}
 .card-text{font-size:12px;color:var(--bone);line-height:1.4;margin-bottom:6px}
+.card-tags{border-top:1px solid rgba(255,255,255,.06);padding-top:5px;margin-top:4px;margin-bottom:5px}
+.tag-line{display:flex;gap:4px;align-items:center;font-family:'Space Mono',monospace;font-size:8px;line-height:1.9;color:var(--ash)}
+.tag-time{color:var(--ash);min-width:42px;flex-shrink:0}
+.tag-agent{font-weight:700;min-width:38px;flex-shrink:0}
+.tag-action{min-width:48px;flex-shrink:0}
+.tag-detail{color:var(--fog);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .card-actions{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
 .ca{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:9px;font-family:Space Mono,monospace;color:var(--ash);cursor:pointer;letter-spacing:.5px;transition:all .15s}
 .ca:hover{border-color:var(--fire);color:var(--fire)}
@@ -267,6 +273,25 @@ function render(){
         }
         if(c.entregavel) html += '<div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);font-style:italic">⬡ '+c.entregavel+"</div>";
         html += "</div>";
+      }
+      // Execution log tags
+      if(c.execution_log){
+        var logs = c.execution_log.split('\n').filter(function(l){return l.trim();});
+        if(logs.length){
+          html += '<div class="card-tags">';
+          logs.slice(-3).forEach(function(log){
+            var m = log.match(/\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) (\w+)\] (\w+): (.+)/);
+            if(m){
+              var date = m[1].slice(5,16).replace('-','/');
+              var agent = m[2];
+              var action = m[3];
+              var detail = m[4].slice(0,60);
+              var actionColor = action==='STARTED'?'var(--blue)':action==='COMPLETED'?'var(--green)':'var(--yellow)';
+              html += '<div class="tag-line"><span class="tag-time">'+date+'</span><span class="tag-agent" style="color:'+actionColor+'">'+agent+'</span><span class="tag-action">'+action+'</span><span class="tag-detail">'+detail+'</span></div>';
+            }
+          });
+          html += '</div>';
+        }
       }
       html += '<div class="card-actions">'+btns+"</div></div>";
     }
