@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OMA Hub">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/public/lobster-192.png">
 <title>OMA Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0a0a;--card:#111;--coal:#0f0f0f;--iron:#1a1a1a;--border:#222;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#3d9e60;--yellow:#f5a623;--red:#e24b4a;--blue:#378add;--purple:#8b5cf6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 
 /* Login */
 #ls{flex:1;display:flex;align-items:center;justify-content:center}
@@ -700,6 +706,8 @@ function renderBackupData(data,history){
 
   document.getElementById('backup-status').innerHTML=html;
 }
+// PWA Service Worker
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
 </script>
 </body>
 </html>
