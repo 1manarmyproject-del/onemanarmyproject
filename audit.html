@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA — Auditoria & Diagnóstico</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--card:#111;--border:#222;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;--yellow:#f5a623;--red:#e24b4a;--blue:#378add}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;min-height:100vh;padding:24px;max-width:1100px;margin:0 auto}
+
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:2px}
+.title span{color:var(--fire)}
+.updated{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:1px}
+
+/* Score card */
+.score-bar{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;flex:1;min-width:140px}
+.score-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-bottom:6px}
+.score-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px}
+.score-val.g{color:var(--green)}.score-val.y{color:var(--yellow)}.score-val.r{color:var(--red)}
+.score-sub{font-size:11px;color:var(--ash);margin-top:4px}
+
+/* Category */
+.cat{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.cat-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid var(--border)}
+.cat-header:hover{background:rgba(232,112,58,.03)}
+.cat-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1px;display:flex;align-items:center;gap:10px}
+.cat-score{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;padding:4px 10px;border-radius:4px}
+.cat-score.g{background:rgba(61,158,96,.12);color:var(--green)}
+.cat-score.y{background:rgba(245,166,35,.12);color:var(--yellow)}
+.cat-score.r{background:rgba(226,75,74,.12);color:var(--red)}
+.cat-body{padding:0}
+
+/* Item row */
+.item{display:grid;grid-template-columns:32px 1fr 70px 1fr 90px;gap:12px;align-items:start;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+.item:last-child{border-bottom:none}
+.item:hover{background:rgba(255,255,255,.02)}
+@media(max-width:800px){.item{grid-template-columns:32px 1fr;gap:6px}.item .hide-m{display:none}}
+
+.farol{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.farol.g{background:rgba(61,158,96,.15);color:var(--green)}
+.farol.y{background:rgba(245,166,35,.15);color:var(--yellow)}
+.farol.r{background:rgba(226,75,74,.15);color:var(--red)}
+
+.item-main{display:flex;flex-direction:column;gap:3px}
+.item-title{font-weight:600;font-size:13px}
+.item-current{font-size:11px;color:var(--fog);line-height:1.5}
+
+.item-risk{font-size:11px;color:var(--ash);line-height:1.5}
+
+.item-action{display:flex;flex-direction:column;gap:3px}
+.action-text{font-size:11px;color:var(--fog);line-height:1.5}
+.action-tag{display:inline-block;padding:2px 6px;border-radius:3px;font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:1px}
+.action-tag.planned{background:rgba(55,138,221,.12);color:var(--blue)}
+.action-tag.urgent{background:rgba(226,75,74,.12);color:var(--red)}
+.action-tag.done{background:rgba(61,158,96,.12);color:var(--green)}
+.action-tag.progress{background:rgba(245,166,35,.12);color:var(--yellow)}
+
+.item-nota{font-family:'Space Mono',monospace;font-size:11px;text-align:center}
+.nota-num{font-weight:700;font-size:16px;display:block}
+
+/* Legend */
+.legend{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;font-size:11px;color:var(--ash)}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+.legend-dot.g{background:rgba(61,158,96,.2)}.legend-dot.y{background:rgba(245,166,35,.2)}.legend-dot.r{background:rgba(226,75,74,.2)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title">AUDITORIA & <span>DIAGNÓSTICO</span></div>
+  <div class="updated" id="updated"></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot g"></div> Adequado (8-10)</div>
+  <div class="legend-item"><div class="legend-dot y"></div> Atenção (5-7)</div>
+  <div class="legend-item"><div class="legend-dot r"></div> Crítico (0-4)</div>
+  <div style="margin-left:auto;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px">CRITÉRIO · ESTADO ATUAL · NOTA · RISCO · AÇÃO</div>
+</div>
+
+<div class="score-bar" id="scores"></div>
+
+<div id="audit-body"></div>
+
+<script>
+var AUDIT = [
+  {
+    cat: "INFRAESTRUTURA & REDUNDÂNCIA",
+    items: [
+      {
+        title: "Redundância de servidor principal",
+        current: "Mac Mini M4 único em SP. Se parar, tudo para. Sem failover automático.",
+        nota: 3, farol: "r",
+        risk: "Downtime total de todos os agentes e serviços se Mac Mini falhar (hardware, energia, internet)",
+        action: "Hetzner backup Americas ou Oracle SP como failover",
+        tag: "planned", prazo: "Abr/26"
+      },
+      {
+        title: "Servidor cloud com redundância geográfica",
+        current: "Hetzner CX22 único em Helsinki, Finlândia. Sem réplica.",
+        nota: 5, farol: "y",
+        risk: "Se Hetzner Helsinki cair (manutenção, conflito geopolítico), CRM e API ficam fora",
+        action: "Criar Hetzner Ashburn (EUA) ou Oracle SP como réplica",
+        tag: "planned", prazo: "Abr/26"
+      },
+      {
+        title: "Backup automático multi-camada",
+        current: "3 camadas: HD Externo + GitHub + Google Drive. 4x/dia (03h, 09h, 15h, 21h). Regra 3-2-1 ✅",
+        nota: 8, farol: "g",
+        risk: "Perda máxima de 6h de dados (aceitável)",
+        action: "Monitorar execução via Hub. Considerar backup a cada 2h se volume crescer.",
+        tag: "done", prazo: "—"
+      },
+      {
+        title: "Monitoramento e alertas 24/7",
+        current: "Health check 3x/dia (06h, 14h, 20h). Darwin a cada 15min. Sem alerta instantâneo se cair às 3h.",
+        nota: 6, farol: "y",
+        risk: "Gap de até 6h sem visibilidade. Problema noturno só detectado de manhã.",
+        action: "Implementar alerta Telegram instantâneo quando serviço cair (ping a cada 5min)",
+        tag: "planned", prazo: "Abr/26"
+      },
+      {
+        title: "Provider failover LLM",
+        current: "Anthropic → OpenRouter automático. Funciona bem.",
+        nota: 9, farol: "g",
+        risk: "Baixo. Se ambos caírem (improvável), agentes param.",
+        action: "Manter. Considerar Groq LLM como terceiro fallback.",
+        tag: "done", prazo: "—"
+      }
+    ]
+  },
+  {
+    cat: "SEGURANÇA & COMPLIANCE",
+    items: [
+      {
+        title: "Comunicações criptografadas (HTTPS/TLS)",
+        current: "Todas as comunicações via HTTPS. Cloudflare Tunnel ativo. Tailscale VPN mesh.",
+        nota: 9, farol: "g",
+        risk: "Baixo.",
+        action: "Manter. Auditar certificados semestralmente.",
+        tag: "done", prazo: "—"
+      },
+      {
+        title: "Política LGPD formalizada",
+        current: "Não existe documento formal de política de privacidade e tratamento de dados.",
+        nota: 2, farol: "r",
+        risk: "Risco jurídico com clientes B2B. Armazém da Cerveja vai perguntar.",
+        action: "Criar política de privacidade + termos de uso + DPA (Data Processing Agreement)",
+        tag: "urgent", prazo: "Abr/26"
+      },
+      {
+        title: "Chips WhatsApp no CNPJ da empresa",
+        current: "Chips de Bia e Amanda são pessoais (CPF Fabio). Não estão no nome da Riva Labs.",
+        nota: 2, farol: "r",
+        risk: "Mistura PF/PJ. Se chip for bloqueado, atendimento do cliente para. Sem portabilidade.",
+        action: "Migrar para chips corporativos (CNPJ Riva Labs). Avaliar WhatsApp Business Platform (Cloud API Meta).",
+        tag: "urgent", prazo: "Mai/26"
+      },
+      {
+        title: "WhatsApp via API oficial (Cloud API Meta)",
+        current: "Evolution API + Baileys (não-oficial). Funciona mas risco de ban existe.",
+        nota: 4, farol: "r",
+        risk: "Meta pode bloquear conexão Baileys a qualquer momento. Risco de ban do número.",
+        action: "Migrar agentes Business (Bia, Amanda) para WhatsApp Cloud API Meta. Manter Baileys apenas para ZipTalk (uso pessoal).",
+        tag: "planned", prazo: "Mai/26"
+      },
+      {
+        title: "Rotação de API keys e credenciais",
+        current: "Keys fixas desde a criação. Sem rotação periódica.",
+        nota: 5, farol: "y",
+        risk: "Se key vazar, acesso irrestrito até trocar manualmente.",
+        action: "Implementar rotação trimestral. Segregar keys por agente.",
+        tag: "planned", prazo: "Jun/26"
+      },
+      {
+        title: "2FA em serviços críticos",
+        current: "Hetzner sem 2FA. Anthropic sem 2FA. GitHub com 2FA.",
+        nota: 5, farol: "y",
+        risk: "Acesso não autorizado a servidores e billing.",
+        action: "Ativar 2FA em Hetzner, Anthropic Console, Cloudflare, Oracle.",
+        tag: "planned", prazo: "Abr/26"
+      }
+    ]
+  },
+  {
+    cat: "AGENTES & OPERAÇÃO",
+    items: [
+      {
+        title: "Separação de contexto Bia/Amanda (WhatsApp)",
+        current: "Bug conhecido: Bia acessa contexto da Amanda em certas condições.",
+        nota: 3, farol: "r",
+        risk: "Agente responde com informações do contexto errado. Experiência ruim pro cliente.",
+        action: "Corrigir isolamento de JID/contexto na próxima sessão home.",
+        tag: "urgent", prazo: "Abr/26"
+      },
+      {
+        title: "Smart Noter — captura áudio Meet",
+        current: "Chrome Playwright não redireciona WebRTC pro BlackHole. Áudio capturado é ruído.",
+        nota: 3, farol: "r",
+        risk: "Amanda entra na reunião mas não grava conteúdo. Workaround: gravar no celular.",
+        action: "Chrome Extension tab capture ou CDP MediaStream intercept.",
+        tag: "planned", prazo: "Abr/26"
+      },
+      {
+        title: "Agent Squad — agentes executando cards",
+        current: "IPC funciona. George e Flávia consultam e movem cards. Flávia não completa (timeout 10s).",
+        nota: 6, farol: "y",
+        risk: "Agentes consultam mas não executam autonomamente. Squad é semi-manual.",
+        action: "Ajustar timeout container Flávia. Prompt corrigido para forçar execução.",
+        tag: "progress", prazo: "Abr/26"
+      },
+      {
+        title: "Token Instagram — renovação automática",
+        current: "Long-lived token, nunca expira. App Secret salvo. Auto-refresh implementável.",
+        nota: 9, farol: "g",
+        risk: "Baixo.",
+        action: "Manter. Scheduler de refresh preventivo a cada 30 dias.",
+        tag: "done", prazo: "—"
+      },
+      {
+        title: "ZipTalk — Groq free tier como provider primário",
+        current: "Groq ativo e funcionando. Fallback OpenAI automático. Margem 97%.",
+        nota: 9, farol: "g",
+        risk: "Groq pode mudar limites do free tier. Fallback protege.",
+        action: "Monitorar uso vs limite (2000 req/dia). Implementar contador local.",
+        tag: "done", prazo: "—"
+      },
+      {
+        title: "Ekhoa Clipping v2 — operacional",
+        current: "35 RSS feeds, 58 outlets, LLM classifier, PDF reports. 3x/dia.",
+        nota: 8, farol: "g",
+        risk: "Baixo. Feeds podem mudar URL.",
+        action: "Manter. Auditar feeds mensalmente.",
+        tag: "done", prazo: "—"
+      }
+    ]
+  },
+  {
+    cat: "FINANCEIRO & CUSTOS",
+    items: [
+      {
+        title: "Monitoramento de custos API em tempo real",
+        current: "OpenRouter: saldo via management API (real-time). Anthropic: sem Admin key, custo parcial via logs.",
+        nota: 6, farol: "y",
+        risk: "Surpresa na fatura. Sem visibilidade de custo por agente.",
+        action: "Criar Admin API key Anthropic. Implementar custo por agente no Hub.",
+        tag: "progress", prazo: "Abr/26"
+      },
+      {
+        title: "Precificação definida para clientes",
+        current: "Framework existe (setup + mensal). Política First 20 com descontos. Não finalizado.",
+        nota: 5, farol: "y",
+        risk: "Armazém pode perguntar preço e não ter resposta precisa.",
+        action: "Finalizar tabela de preços por módulo. Tiago prepara proposta.",
+        tag: "progress", prazo: "Abr/26"
+      },
+      {
+        title: "Custo variável por execução de agente",
+        current: "Agentes em Haiku ($1/$5 MTok). Conciliação bancária será código puro (custo zero).",
+        nota: 8, farol: "g",
+        risk: "Baixo. Haiku é barato. Agentes determinísticos não usam LLM.",
+        action: "Manter Haiku. Priorizar agentes determinísticos para volume alto.",
+        tag: "done", prazo: "—"
+      }
+    ]
+  },
+  {
+    cat: "JURÍDICO & CONTRATOS",
+    items: [
+      {
+        title: "Contrato padrão de prestação de serviços",
+        current: "Em construção pelo Tiago. Card 'doing' no Squad.",
+        nota: 4, farol: "r",
+        risk: "Sem proteção legal para Riva Labs. Cliente pode questionar.",
+        action: "Tiago finalizar contrato. Revisar com advogado se possível.",
+        tag: "progress", prazo: "Abr/26"
+      },
+      {
+        title: "NDA / Acordo de confidencialidade",
+        current: "Card criado, não iniciado.",
+        nota: 3, farol: "r",
+        risk: "Dados do cliente (Armazém) sem proteção formal de confidencialidade.",
+        action: "Tiago preparar NDA simples. Necessário antes de receber dados do Armazém.",
+        tag: "urgent", prazo: "Abr/26"
+      },
+      {
+        title: "Registro de marca OMA",
+        current: "Não iniciado.",
+        nota: 4, farol: "r",
+        risk: "Alguém pode registrar 'One Man Army' ou 'OMA' antes.",
+        action: "Verificar disponibilidade no INPI. Iniciar registro.",
+        tag: "planned", prazo: "Mai/26"
+      }
+    ]
+  }
+];
+
+// Calculate scores
+function calcScores() {
+  var total = 0, count = 0;
+  var catScores = [];
+  AUDIT.forEach(function(cat) {
+    var catTotal = 0;
+    cat.items.forEach(function(item) { catTotal += item.nota; total += item.nota; count++; });
+    var avg = catTotal / cat.items.length;
+    catScores.push({ name: cat.cat, avg: avg, farol: avg >= 8 ? 'g' : avg >= 5 ? 'y' : 'r' });
+  });
+  var overall = total / count;
+  return { overall: overall, cats: catScores, total: count };
+}
+
+function render() {
+  document.getElementById('updated').textContent = 'Atualizado: ' + new Date().toLocaleString('pt-BR');
+
+  var sc = calcScores();
+
+  // Score cards
+  var sFarol = sc.overall >= 8 ? 'g' : sc.overall >= 5 ? 'y' : 'r';
+  var greens = 0, yellows = 0, reds = 0;
+  AUDIT.forEach(function(cat) { cat.items.forEach(function(i) {
+    if (i.farol === 'g') greens++; else if (i.farol === 'y') yellows++; else reds++;
+  }); });
+
+  document.getElementById('scores').innerHTML =
+    '<div class="score-card"><div class="score-label">NOTA GERAL</div><div class="score-val ' + sFarol + '">' + sc.overall.toFixed(1) + '</div><div class="score-sub">de 10.0 · ' + sc.total + ' critérios</div></div>' +
+    '<div class="score-card"><div class="score-label">ADEQUADOS</div><div class="score-val g">' + greens + '</div><div class="score-sub">nota 8-10</div></div>' +
+    '<div class="score-card"><div class="score-label">ATENÇÃO</div><div class="score-val y">' + yellows + '</div><div class="score-sub">nota 5-7</div></div>' +
+    '<div class="score-card"><div class="score-label">CRÍTICOS</div><div class="score-val r">' + reds + '</div><div class="score-sub">nota 0-4</div></div>';
+
+  // Categories
+  var html = '';
+  AUDIT.forEach(function(cat, ci) {
+    var catSc = sc.cats[ci];
+    html += '<div class="cat">';
+    html += '<div class="cat-header" onclick="toggleCat(' + ci + ')">';
+    html += '<div class="cat-title">' + cat.cat + '</div>';
+    html += '<span class="cat-score ' + catSc.farol + '">' + catSc.avg.toFixed(1) + '/10</span>';
+    html += '</div>';
+    html += '<div class="cat-body" id="cat-' + ci + '">';
+
+    cat.items.forEach(function(item) {
+      var tagClass = item.tag || 'planned';
+      var tagLabel = { done: 'CONCLUÍDO', urgent: 'URGENTE', planned: 'PLANEJADO', progress: 'EM ANDAMENTO' }[tagClass] || tagClass.toUpperCase();
+      html += '<div class="item">';
+      html += '<div class="farol ' + item.farol + '">' + item.nota + '</div>';
+      html += '<div class="item-main"><div class="item-title">' + item.title + '</div><div class="item-current">' + item.current + '</div></div>';
+      html += '<div class="item-nota hide-m"><div class="nota-num" style="color:var(--' + (item.farol === 'g' ? 'green' : item.farol === 'y' ? 'yellow' : 'red') + ')">' + item.nota + '/10</div></div>';
+      html += '<div class="item-risk hide-m"><strong style="font-size:10px;color:var(--ash)">RISCO:</strong><br>' + item.risk + '</div>';
+      html += '<div class="item-action hide-m"><span class="action-tag ' + tagClass + '">' + tagLabel + '</span> ' + (item.prazo !== '—' ? item.prazo : '') + '<div class="action-text" style="margin-top:4px">' + item.action + '</div></div>';
+      html += '</div>';
+    });
+
+    html += '</div></div>';
+  });
+
+  document.getElementById('audit-body').innerHTML = html;
+}
+
+function toggleCat(i) {
+  var el = document.getElementById('cat-' + i);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+render();
+</script>
+</body>
+</html>

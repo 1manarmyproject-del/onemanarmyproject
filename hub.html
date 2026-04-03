@@ -211,6 +211,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
       </div>
       <div class="sb-section">
         <div class="sb-label">Sistema</div>
+        <div class="sb-item" data-tab="audit"><span class="icon">🔍</span><span class="label">Auditoria</span></div>
         <div class="sb-item" data-tab="warroom"><span class="icon">🗺️</span><span class="label">War Room</span></div>
         <div class="sb-item" data-tab="ops"><span class="icon">⚙️</span><span class="label">OPS</span></div>
         <div class="sb-item" data-tab="traffic"><span class="icon">📡</span><span class="label">Traffic</span></div>
@@ -314,6 +315,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
       <div class="page" id="page-financeiro"><iframe class="iframe-page" id="ifr-financeiro" src="about:blank"></iframe></div>
       <div class="page" id="page-warroom"><iframe class="iframe-page" id="ifr-warroom" src="about:blank"></iframe></div>
       <div class="page" id="page-ops"><iframe class="iframe-page" id="ifr-ops" src="about:blank"></iframe></div>
+      <div class="page" id="page-audit"><iframe class="iframe-page" id="ifr-audit" src="about:blank"></iframe></div>
       <div class="page" id="page-traffic"><iframe class="iframe-page" id="ifr-traffic" src="about:blank"></iframe></div>
 
     </div>
@@ -321,7 +323,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
 </div>
 
 <script>
-var SRCS={squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',mktinsights:'/mkt-insights',monitor:'/monitor'};
+var SRCS={audit:'/audit.html',squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',mktinsights:'/mkt-insights',monitor:'/monitor'};
 var loaded={};
 var PMO_API='https://api.onemanarmyproject.com.br';
 var PMO_KEY='354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
