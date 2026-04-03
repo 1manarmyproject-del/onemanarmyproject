@@ -858,9 +858,12 @@ textarea.ch-input::placeholder{color:var(--text4);}
     <div class="screen" id="screenIntro">
       <div class="intro-screen">
         <div class="intro-card fadein">
-          <div class="intro-logo">
-            <div class="intro-logo-icon">🧠</div>
-            <div class="intro-logo-name">OMA <span>Academy</span></div>
+          <div class="intro-logo" style="justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="intro-logo-icon">🧠</div>
+              <div class="intro-logo-name">OMA <span>Academy</span></div>
+            </div>
+            <button onclick="startAcademy()" style="background:var(--fire);color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:9px 18px;cursor:pointer;border-radius:5px;white-space:nowrap;box-shadow:0 2px 8px rgba(232,112,58,.3);transition:background .15s;" onmouseover="this.style.background='var(--ember)'" onmouseout="this.style.background='var(--fire)'">Começar →</button>
           </div>
 
           <div class="intro-eyebrow">Bem-vindo à trilha</div>
@@ -871,8 +874,8 @@ textarea.ch-input::placeholder{color:var(--text4);}
           <div class="intro-divider"></div>
 
           <p class="intro-body">
-            Em 2023, eu não sabia programar. Nunca tinha escrito uma linha de código.
-            Mas sabia de negócios — e percebi que estava acontecendo algo que mudaria
+            Em 2026, ficou claro para mim: Nunca tinha escrito uma linha de código.
+            Mas tinha uma boa experiência em diversos segmentos de negócios — e percebi que estava acontecendo algo que mudaria
             tudo: a IA estava tornando o conhecimento técnico <strong>acessível a qualquer pessoa
             disposta a aprender.</strong>
           </p>
@@ -937,7 +940,7 @@ textarea.ch-input::placeholder{color:var(--text4);}
             <button class="btn-intro-start" onclick="startAcademy()">
               Começar a trilha →
             </button>
-            <div class="intro-note">Gratuito · 30 módulos · Certificado ao final</div>
+            <div class="intro-note"><span style="color:var(--fire);font-weight:700;">Gratuito</span> · 30 módulos · Certificado ao final</div>
           </div>
         </div>
       </div>
