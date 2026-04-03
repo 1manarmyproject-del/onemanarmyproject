@@ -690,13 +690,13 @@ function renderBackupData(data,history){
 
   // Layers
   var hdOk=data?(data.layers.hd_externo.connected!==false?'g':'r'):'g';
-  [{n:'HD Externo',d:'FX_BACKUP_S (ExFAT)',s:hdOk},{n:'GitHub',d:'nanoclaw repo (privado)',s:'g'},{n:'Google Drive',d:'fabio@onemanarmy.com.br',s:'g'},{n:'Hetzner Snapshots',d:'Servidor CRM/API · Semanal',s:'g'}].forEach(function(l){
+  [{n:'HD Externo',d:'FX_BACKUP_S (ExFAT)',s:hdOk},{n:'GitHub',d:'nanoclaw repo (privado)',s:'g'},{n:'Google Drive',d:'fabio@onemanarmy.com.br',s:'g'},{n:'Oracle SP (Brasil)',d:'163.176.167.148 · Always Free',s:'g'},{n:'Hetzner Snapshots',d:'Servidor CRM/API · Semanal',s:'g'}].forEach(function(l){
     html+='<div class="svc"><div class="svc-d '+l.s+'"></div><div class="svc-n">'+l.n+'<small>'+l.d+'</small></div></div>';
   });
 
   // Security footer
   html+='<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ash);line-height:1.8;font-family:Space Mono,monospace;letter-spacing:.5px">';
-  html+='Regra 3-2-1 ✅ &nbsp;|&nbsp; HTTPS/TLS ✅ &nbsp;|&nbsp; Tailscale VPN ✅ &nbsp;|&nbsp; Cloudflare Tunnel ✅</div>';
+  html+='Regra 3-2-1 ✅ (4 camadas) &nbsp;|&nbsp; HTTPS/TLS ✅ &nbsp;|&nbsp; Tailscale VPN ✅ &nbsp;|&nbsp; Cloudflare Tunnel ✅</div>';
 
   document.getElementById('backup-status').innerHTML=html;
 }
