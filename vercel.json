@@ -119,17 +119,6 @@
   ],
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.onemanarmyproject.com.br"
-        }
-      ],
-      "destination": "https://onemanarmyproject.com.br/:path*",
-      "permanent": true
-    },
-    {
       "source": "/monitor",
       "destination": "/hub",
       "permanent": false
