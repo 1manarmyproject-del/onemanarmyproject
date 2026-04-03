@@ -903,6 +903,113 @@ textarea.ch-input::placeholder{color:var(--text4);}
   color:var(--text3);white-space:nowrap;
 }
 
+
+/* ── PRE-CERT SCREEN ─────────────────────────────────────── */
+.precert-screen{padding:32px 32px 80px;max-width:680px;}
+@media(max-width:600px){.precert-screen{padding:20px 16px 80px;}}
+
+.precert-eyebrow{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--fire);margin-bottom:10px;
+}
+.precert-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(26px,4vw,38px);color:var(--text);
+  margin-bottom:6px;line-height:1.1;
+}
+.precert-sub{font-size:14px;color:var(--text3);margin-bottom:28px;line-height:1.6;}
+
+.precert-section{
+  background:#fff;border:1px solid var(--border);border-radius:10px;
+  padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);
+}
+.precert-section-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:17px;color:var(--text);margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;
+}
+.precert-section-sub{font-size:12px;color:var(--text3);margin-bottom:16px;}
+
+/* NPS */
+.nps-wrap{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
+.nps-btn{
+  width:44px;height:44px;border:1.5px solid var(--border2);
+  background:#fff;border-radius:6px;cursor:pointer;
+  font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+  color:var(--text3);transition:all .15s;
+  display:flex;align-items:center;justify-content:center;
+}
+.nps-btn:hover{border-color:var(--fire);color:var(--fire);}
+.nps-btn.selected{background:var(--fire);color:#fff;border-color:var(--fire);}
+.nps-btn[data-v="0"],.nps-btn[data-v="1"],.nps-btn[data-v="2"],.nps-btn[data-v="3"],.nps-btn[data-v="4"],.nps-btn[data-v="5"],.nps-btn[data-v="6"]{--c:#e5383b;}
+.nps-btn[data-v="7"],.nps-btn[data-v="8"]{--c:#f59e0b;}
+.nps-btn[data-v="9"],.nps-btn[data-v="10"]{--c:#16a34a;}
+.nps-btn.selected{background:var(--c,var(--fire));border-color:var(--c,var(--fire));}
+.nps-labels{display:flex;justify-content:space-between;margin-top:4px;}
+.nps-label{font-family:'Space Mono',monospace;font-size:8px;color:var(--text4);}
+
+/* Checkboxes múltipla escolha */
+.mc-opts{display:flex;flex-wrap:wrap;gap:8px;}
+.mc-opt{
+  padding:8px 14px;border:1.5px solid var(--border2);border-radius:20px;
+  cursor:pointer;font-size:13px;color:var(--text3);
+  transition:all .15s;background:#fff;
+}
+.mc-opt:hover{border-color:var(--fire);color:var(--fire);}
+.mc-opt.selected{background:var(--fire-light);border-color:var(--fire);color:var(--fire);font-weight:600;}
+
+/* Form fields */
+.precert-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.precert-grid{grid-template-columns:1fr;}}
+.precert-field{display:flex;flex-direction:column;gap:5px;}
+.precert-field.full{grid-column:span 2;}
+@media(max-width:480px){.precert-field.full{grid-column:span 1;}}
+.precert-label{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3);font-weight:700;
+}
+.precert-label span{color:var(--fire);}
+.precert-input{
+  background:var(--bg2);border:1.5px solid var(--border);
+  color:var(--text);padding:10px 13px;font-size:14px;
+  font-family:'Barlow',sans-serif;outline:none;border-radius:6px;
+  transition:border-color .2s;
+}
+.precert-input:focus{border-color:var(--fire);}
+.precert-input.error{border-color:var(--red);}
+select.precert-input{cursor:pointer;}
+
+/* Pro interest */
+.pro-interest-opts{display:flex;gap:8px;flex-wrap:wrap;}
+.pro-opt{
+  flex:1;min-width:100px;padding:12px 8px;
+  border:1.5px solid var(--border2);border-radius:8px;
+  cursor:pointer;text-align:center;background:#fff;
+  transition:all .15s;
+}
+.pro-opt:hover{border-color:var(--fire);}
+.pro-opt.selected{background:var(--fire-light);border-color:var(--fire);}
+.pro-opt-icon{font-size:20px;margin-bottom:4px;}
+.pro-opt-label{font-size:12px;font-weight:600;color:var(--text2);}
+
+/* Progress steps */
+.precert-steps{
+  display:flex;gap:4px;margin-bottom:24px;align-items:center;
+}
+.precert-step{
+  flex:1;height:4px;border-radius:2px;background:var(--bg4);
+  transition:background .3s;
+}
+.precert-step.done{background:var(--green);}
+.precert-step.active{background:var(--fire);}
+.precert-step-label{
+  font-family:'Space Mono',monospace;font-size:9px;
+  color:var(--text3);white-space:nowrap;margin-left:8px;
+}
+
+/* Error hint */
+.field-error{font-size:11px;color:var(--red);margin-top:3px;display:none;}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1207,6 +1314,190 @@ textarea.ch-input::placeholder{color:var(--text4);}
         </div>
         <!-- Actions -->
         <div class="lesson-actions" id="lessonActions"></div>
+      </div>
+    </div>
+
+
+    <!-- SCREEN: Pre-certificado (pesquisa + dados) -->
+    <div class="screen" id="screenPrecert">
+      <div class="precert-screen fadein">
+        <div class="lv-back" onclick="goScreen('dash')">Voltar ao Dashboard</div>
+
+        <div class="precert-eyebrow">Quase lá! 🏆</div>
+        <h1 class="precert-title">Antes do seu certificado,<br>conta pra gente</h1>
+        <p class="precert-sub">Leva 2 minutos. Suas respostas ajudam a melhorar a Academy para os próximos founders.</p>
+
+        <!-- Steps -->
+        <div class="precert-steps">
+          <div class="precert-step active" id="pcs1"></div>
+          <div class="precert-step" id="pcs2"></div>
+          <div class="precert-step" id="pcs3"></div>
+          <span class="precert-step-label" id="pcsLabel">Avaliação do curso</span>
+        </div>
+
+        <!-- BLOCO 1: Avaliação -->
+        <div id="precertBlock1">
+          <!-- NPS -->
+          <div class="precert-section">
+            <div class="precert-section-title">📊 Recomendaria a OMA Academy?</div>
+            <div class="precert-section-sub">De 0 (nada provável) a 10 (com certeza)</div>
+            <div class="nps-wrap" id="npsWrap">
+              <button class="nps-btn" data-v="0" onclick="selectNps(0)">0</button>
+              <button class="nps-btn" data-v="1" onclick="selectNps(1)">1</button>
+              <button class="nps-btn" data-v="2" onclick="selectNps(2)">2</button>
+              <button class="nps-btn" data-v="3" onclick="selectNps(3)">3</button>
+              <button class="nps-btn" data-v="4" onclick="selectNps(4)">4</button>
+              <button class="nps-btn" data-v="5" onclick="selectNps(5)">5</button>
+              <button class="nps-btn" data-v="6" onclick="selectNps(6)">6</button>
+              <button class="nps-btn" data-v="7" onclick="selectNps(7)">7</button>
+              <button class="nps-btn" data-v="8" onclick="selectNps(8)">8</button>
+              <button class="nps-btn" data-v="9" onclick="selectNps(9)">9</button>
+              <button class="nps-btn" data-v="10" onclick="selectNps(10)">10</button>
+            </div>
+            <div class="nps-labels">
+              <span class="nps-label">Não recomendaria</span>
+              <span class="nps-label">Recomendaria com certeza</span>
+            </div>
+          </div>
+
+          <!-- O que mais gostou -->
+          <div class="precert-section">
+            <div class="precert-section-title">⭐ O que mais gostou?</div>
+            <div class="precert-section-sub">Pode selecionar mais de um</div>
+            <div class="mc-opts" id="likedOpts">
+              <div class="mc-opt" onclick="toggleMc(this,'liked')">As analogias do mundo real</div>
+              <div class="mc-opt" onclick="toggleMc(this,'liked')">A progressão dos módulos</div>
+              <div class="mc-opt" onclick="toggleMc(this,'liked')">O design e a experiência</div>
+              <div class="mc-opt" onclick="toggleMc(this,'liked')">Os quizzes e desafios</div>
+              <div class="mc-opt" onclick="toggleMc(this,'liked')">A profundidade do conteúdo</div>
+              <div class="mc-opt" onclick="toggleMc(this,'liked')">O certificado no LinkedIn</div>
+            </div>
+          </div>
+
+          <!-- O que melhorar -->
+          <div class="precert-section">
+            <div class="precert-section-title">💬 O que podemos melhorar?</div>
+            <div class="precert-section-sub">Campo aberto — seja direto</div>
+            <textarea class="precert-input" id="improvementText" rows="3"
+              placeholder="Ex: queria mais exemplos práticos, algum módulo ficou confuso, faltou tema X..."
+              style="width:100%;resize:vertical;"></textarea>
+          </div>
+
+          <!-- Interesse no Pro -->
+          <div class="precert-section">
+            <div class="precert-section-title">🚀 Tem interesse no OMA Academy Pro?</div>
+            <div class="precert-section-sub">Trilhas práticas onde você sai com algo construído — R$297 no lançamento</div>
+            <div class="pro-interest-opts" id="proInterestOpts">
+              <div class="pro-opt" onclick="selectProInterest('sim',this)">
+                <div class="pro-opt-icon">🔥</div>
+                <div class="pro-opt-label">Sim, quero!</div>
+              </div>
+              <div class="pro-opt" onclick="selectProInterest('talvez',this)">
+                <div class="pro-opt-icon">🤔</div>
+                <div class="pro-opt-label">Talvez</div>
+              </div>
+              <div class="pro-opt" onclick="selectProInterest('nao',this)">
+                <div class="pro-opt-icon">👍</div>
+                <div class="pro-opt-label">Não agora</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-actions">
+            <button class="btn-primary" onclick="precertNext(2)">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- BLOCO 2: Perfil profissional -->
+        <div id="precertBlock2" style="display:none">
+          <div class="precert-section">
+            <div class="precert-section-title">👤 Seu perfil profissional</div>
+            <div class="precert-section-sub">Esses dados aparecem no seu certificado e nos ajudam a personalizar futuras trilhas</div>
+            <div class="precert-grid">
+              <div class="precert-field">
+                <label class="precert-label">Cargo / Profissão <span>*</span></label>
+                <input type="text" class="precert-input" id="pcCargo" placeholder="Ex: CEO, Diretor Comercial, Founder">
+                <div class="field-error" id="errCargo">Campo obrigatório</div>
+              </div>
+              <div class="precert-field">
+                <label class="precert-label">Segmento / Setor <span>*</span></label>
+                <select class="precert-input" id="pcSegmento">
+                  <option value="">Selecione...</option>
+                  <option>Varejo</option>
+                  <option>Saúde</option>
+                  <option>Educação</option>
+                  <option>Tecnologia</option>
+                  <option>Serviços</option>
+                  <option>Indústria</option>
+                  <option>Agronegócio</option>
+                  <option>Financeiro</option>
+                  <option>Jurídico</option>
+                  <option>Marketing e Comunicação</option>
+                  <option>Construção Civil</option>
+                  <option>Alimentação e Bebidas</option>
+                  <option>Moda e Beleza</option>
+                  <option>Outro</option>
+                </select>
+                <div class="field-error" id="errSegmento">Campo obrigatório</div>
+              </div>
+              <div class="precert-field">
+                <label class="precert-label">Tamanho da empresa <span>*</span></label>
+                <select class="precert-input" id="pcTamanho">
+                  <option value="">Selecione...</option>
+                  <option>MEI / Solo</option>
+                  <option>2 a 10 funcionários</option>
+                  <option>11 a 50 funcionários</option>
+                  <option>51 a 200 funcionários</option>
+                  <option>Mais de 200 funcionários</option>
+                </select>
+                <div class="field-error" id="errTamanho">Campo obrigatório</div>
+              </div>
+              <div class="precert-field">
+                <label class="precert-label">Estado <span>*</span></label>
+                <select class="precert-input" id="pcEstado">
+                  <option value="">Selecione...</option>
+                  <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+                  <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+                  <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+                  <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+                  <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+                  <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+                  <option>SP</option><option>SE</option><option>TO</option><option>Fora do Brasil</option>
+                </select>
+                <div class="field-error" id="errEstado">Campo obrigatório</div>
+              </div>
+              <div class="precert-field">
+                <label class="precert-label">WhatsApp <span>*</span></label>
+                <input type="tel" class="precert-input" id="pcWhatsapp" placeholder="(11) 99999-9999">
+                <div class="field-error" id="errWhatsapp">Campo obrigatório</div>
+              </div>
+              <div class="precert-field">
+                <label class="precert-label">Confirmar e-mail <span>*</span></label>
+                <input type="email" class="precert-input" id="pcEmail" placeholder="seu@email.com">
+                <div class="field-error" id="errEmail">Campo obrigatório</div>
+              </div>
+              <div class="precert-field full">
+                <label class="precert-label">Como nos encontrou?</label>
+                <select class="precert-input" id="pcOrigin">
+                  <option value="">Selecione...</option>
+                  <option>Instagram @1manarmy_project</option>
+                  <option>Instagram @fabio_xavier_br</option>
+                  <option>Indicação de amigo/colega</option>
+                  <option>LinkedIn</option>
+                  <option>Google</option>
+                  <option>WhatsApp</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-actions">
+            <button class="btn-primary" onclick="precertSubmit()">Gerar meu certificado 🏆</button>
+            <button class="btn-secondary" onclick="precertNext(1)">← Voltar</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -2121,7 +2412,7 @@ function renderDashboard(){
 function goScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
-  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado',intro:'Bem-vindo'};
+  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado',intro:'Bem-vindo',precert:'Certificado'};
   document.getElementById('topTitle').textContent=titles[name]||name;
   window.scrollTo(0,0);
 }
@@ -2129,7 +2420,7 @@ function goScreen(name){
 function goNextModule(){
   const next=nextModuleId();
   if(next)openModule(next);
-  else goScreen('cert');
+  else goToPrecert();
 }
 
 function openPhase(pid){
@@ -2422,8 +2713,7 @@ async function completeModule(){
     renderLessonActions();
     // check if all done
     if(doneCount()===30){
-      setTimeout(()=>goScreen('cert'),1200);
-      renderCertificate();
+      setTimeout(()=>goToPrecert(),1200);
     }
   }catch(e){
     if(btn){btn.disabled=false;btn.textContent='Concluir módulo ✓';}
@@ -2550,6 +2840,133 @@ async function joinProWaitlist(){
 }
 
 
+
+
+// ════════════════════════════════════════════════════════
+//  PRE-CERTIFICADO
+// ════════════════════════════════════════════════════════
+const PRECERT = {
+  nps: null,
+  liked: [],
+  improvement: '',
+  proInterest: null,
+  cargo: '', segmento: '', tamanho: '', estado: '',
+  whatsapp: '', email: '', origin: ''
+};
+
+function selectNps(val){
+  PRECERT.nps = val;
+  document.querySelectorAll('.nps-btn').forEach(b=>{
+    b.classList.toggle('selected', parseInt(b.dataset.v)===val);
+  });
+}
+
+function toggleMc(el, key){
+  el.classList.toggle('selected');
+  const label = el.textContent.trim();
+  if(el.classList.contains('selected')){
+    if(!PRECERT[key]) PRECERT[key]=[];
+    PRECERT[key].push(label);
+  } else {
+    PRECERT[key] = (PRECERT[key]||[]).filter(v=>v!==label);
+  }
+}
+
+function selectProInterest(val, el){
+  PRECERT.proInterest = val;
+  document.querySelectorAll('.pro-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function precertNext(block){
+  // Atualizar steps
+  const steps = ['pcs1','pcs2','pcs3'];
+  steps.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.className = 'precert-step' + (i+1 < block ? ' done' : i+1===block ? ' active' : '');
+  });
+  const labels = {1:'Avaliação do curso', 2:'Seus dados'};
+  const lbl = document.getElementById('pcsLabel');
+  if(lbl) lbl.textContent = labels[block]||'';
+
+  // Mostrar bloco correto
+  document.getElementById('precertBlock1').style.display = block===1?'':'none';
+  document.getElementById('precertBlock2').style.display = block===2?'':'none';
+
+  // Pré-preencher email se já temos
+  if(block===2 && ST.user?.email){
+    const emailEl = document.getElementById('pcEmail');
+    if(emailEl && !emailEl.value) emailEl.value = ST.user.email;
+  }
+  window.scrollTo(0,0);
+}
+
+function precertSubmit(){
+  // Validar campos obrigatórios
+  const fields = [
+    {id:'pcCargo', err:'errCargo'},
+    {id:'pcSegmento', err:'errSegmento'},
+    {id:'pcTamanho', err:'errTamanho'},
+    {id:'pcEstado', err:'errEstado'},
+    {id:'pcWhatsapp', err:'errWhatsapp'},
+    {id:'pcEmail', err:'errEmail'},
+  ];
+  let valid = true;
+  fields.forEach(({id, err})=>{
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(err);
+    if(!el || !el.value.trim()){
+      if(el) el.classList.add('error');
+      if(errEl) errEl.style.display='block';
+      valid = false;
+    } else {
+      if(el) el.classList.remove('error');
+      if(errEl) errEl.style.display='none';
+    }
+  });
+  if(!valid){ window.scrollTo(0,200); return; }
+
+  // Coletar dados
+  PRECERT.cargo = document.getElementById('pcCargo').value.trim();
+  PRECERT.segmento = document.getElementById('pcSegmento').value;
+  PRECERT.tamanho = document.getElementById('pcTamanho').value;
+  PRECERT.estado = document.getElementById('pcEstado').value;
+  PRECERT.whatsapp = document.getElementById('pcWhatsapp').value.trim();
+  PRECERT.email = document.getElementById('pcEmail').value.trim();
+  PRECERT.origin = document.getElementById('pcOrigin').value;
+  PRECERT.improvement = document.getElementById('improvementText')?.value||'';
+  PRECERT.liked = [...document.querySelectorAll('#likedOpts .mc-opt.selected')].map(e=>e.textContent.trim());
+
+  // Salvar no backend
+  savePrecertData();
+}
+
+async function savePrecertData(){
+  const btn = document.querySelector('#precertBlock2 .btn-primary');
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="spin"></span> Gerando certificado...'; }
+
+  try {
+    await apiFetch('/academy/survey', {
+      method:'POST',
+      body: JSON.stringify(PRECERT)
+    }).catch(()=>{});
+  } catch(e){}
+
+  // Ir para certificado
+  renderCertificate();
+  goScreen('cert');
+  launchConfetti();
+  setTimeout(()=>showMascot(0), 400);
+}
+
+function goToPrecert(){
+  // Pré-preencher email
+  const emailEl = document.getElementById('pcEmail');
+  if(emailEl && ST.user?.email && !emailEl.value) emailEl.value = ST.user.email;
+  precertNext(1);
+  goScreen('precert');
+}
 
 // ════════════════════════════════════════════════════════
 //  MASCOTE LAGOSTA
