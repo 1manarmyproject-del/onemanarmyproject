@@ -624,46 +624,77 @@ function renderSquadIndicators(data){
 
 // ─── BACKUP STATUS ───
 function renderBackup(){
-  // Try to fetch real backup status from Hetzner
-  fetch('/backup-status.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
-    renderBackupData(d);
-  }).catch(function(){
-    renderBackupData(null);
-  });
+  Promise.all([
+    fetch('/backup-status.json?t='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('/backup-history.json?t='+Date.now()).then(function(r){return r.json();}).catch(function(){return [];})
+  ]).then(function(res){renderBackupData(res[0],res[1]);});
 }
-function renderBackupData(data){
-  var lastRun=data?data.updated_at_brt:'—';
-  var hdOk=data?(data.layers.hd_externo.connected?'g':'r'):'g';
-  var hdStatus=data?(data.layers.hd_externo.connected?'Conectado':'Desconectado'):'—';
-  var items=[
-    {n:'HD Externo (FX_BACKUP_S)',freq:'4x/dia (03h, 09h, 15h, 21h)',last:lastRun,s:hdOk,detail:hdStatus},
-    {n:'GitHub (nanoclaw repo)',freq:'4x/dia (03h, 09h, 15h, 21h)',last:lastRun,s:'g',detail:'Push automático'},
-    {n:'Google Drive (rclone)',freq:'4x/dia (03h, 09h, 15h, 21h)',last:lastRun,s:'g',detail:'fabio@onemanarmy.com.br'},
-    {n:'Hetzner Snapshots',freq:'Semanal',last:'—',s:'g',detail:'Servidor CRM/API'},
-  ];
-
-  // Determine overall backup health: green if last backup < 8h ago
+function renderBackupData(data,history){
   var now=new Date();
-  if(data&&data.updated_at){
-    var lastDate=new Date(data.updated_at);
-    var hoursAgo=Math.floor((now-lastDate)/3600000);
-    items.forEach(function(b,i){
-      if(i<3){
-        b.last=hoursAgo<1?'< 1h atrás':hoursAgo+'h atrás ('+lastRun+')';
-        if(hoursAgo>8)b.s='y';
-        if(hoursAgo>24)b.s='r';
-      }
+  var lastRun=data?data.updated_at_brt:'—';
+  var hoursAgo=999;
+  if(data&&data.updated_at) hoursAgo=Math.floor((now-new Date(data.updated_at))/3600000);
+  var overallS=hoursAgo<8?'g':hoursAgo<24?'y':'r';
+
+  // Build 24 expected backup slots
+  var slots=[];
+  for(var d=9;d>=0;d--){
+    var dt=new Date(now);dt.setDate(dt.getDate()-d);
+    var isNew=dt>=new Date('2026-04-03T00:00:00');
+    (isNew?[3,9,15,21]:[3]).forEach(function(h){
+      var s=new Date(dt);s.setHours(h,0,0,0);
+      if(s<=now)slots.push(s);
     });
   }
+  slots=slots.slice(-24);
 
-  var html=items.map(function(b){
-    var statusColor=b.s==='g'?'var(--green)':b.s==='y'?'var(--yellow)':'var(--red)';
-    return '<div class="svc"><div class="svc-d '+b.s+'"></div><div class="svc-n">'+b.n+'<small>'+b.freq+'</small></div><div style="text-align:right"><div class="svc-u" style="color:'+statusColor+'">'+b.last+'</div><div style="font-size:9px;color:var(--ash);margin-top:1px">'+b.detail+'</div></div></div>';
-  }).join('');
+  // Match history to slots
+  var barHtml='';
+  slots.forEach(function(slot){
+    var matched=false;
+    (history||[]).forEach(function(e){
+      if(Math.abs(new Date(e.timestamp)-slot)<10800000)matched=true;
+    });
+    var dd=(slot.getMonth()+1)+'/'+slot.getDate();
+    var hh=slot.getHours().toString().padStart(2,'0')+':00';
+    var isPast=(now-slot)>10800000;
+    var color,tip;
+    if(matched){color='var(--green)';tip=dd+' '+hh+': ✅ Realizado';}
+    else if(isPast){color='var(--red)';tip=dd+' '+hh+': ❌ Não executado';}
+    else{color='var(--border)';tip=dd+' '+hh+': ⏳ Aguardando';}
+    barHtml+='<div class="svc-bar-seg" style="background:'+color+';height:100%" data-t="'+tip+'"></div>';
+  });
 
-  html+='<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ash);line-height:1.8;font-family:Space Mono,monospace;letter-spacing:.5px">';
-  html+='Regra 3-2-1 ✅ &nbsp;|&nbsp; HTTPS/TLS ✅ &nbsp;|&nbsp; Tailscale VPN ✅ &nbsp;|&nbsp; Cloudflare Tunnel ✅';
+  var completedCount=(history||[]).length;
+  var html='';
+
+  // Summary
+  html+='<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">';
+  html+='<div class="svc-d '+overallS+'"></div>';
+  html+='<div style="flex:1"><div style="font-weight:600;font-size:14px">Último backup: '+(hoursAgo<1?'< 1h':hoursAgo+'h')+' atrás</div>';
+  html+='<div style="font-size:11px;color:var(--ash);margin-top:2px">'+lastRun+' · '+completedCount+' backups registrados · 4x/dia</div></div></div>';
+
+  // History bar
+  html+='<div style="margin-bottom:14px">';
+  html+='<div style="font-size:10px;color:var(--ash);margin-bottom:5px;font-family:Space Mono,monospace;letter-spacing:1px">HISTÓRICO DE EXECUÇÕES</div>';
+  html+='<div class="svc-bar" style="max-width:100%;height:20px">'+barHtml+'</div>';
+  if(slots.length>1){
+    var f=slots[0],l=slots[slots.length-1];
+    html+='<div style="display:flex;justify-content:space-between;font-size:9px;color:var(--ash);margin-top:3px;font-family:Space Mono,monospace">';
+    html+='<span>'+(f.getMonth()+1)+'/'+f.getDate()+' '+f.getHours().toString().padStart(2,'0')+':00</span>';
+    html+='<span>'+(l.getMonth()+1)+'/'+l.getDate()+' '+l.getHours().toString().padStart(2,'0')+':00</span></div>';
+  }
   html+='</div>';
+
+  // Layers
+  var hdOk=data?(data.layers.hd_externo.connected!==false?'g':'r'):'g';
+  [{n:'HD Externo',d:'FX_BACKUP_S (ExFAT)',s:hdOk},{n:'GitHub',d:'nanoclaw repo (privado)',s:'g'},{n:'Google Drive',d:'fabio@onemanarmy.com.br',s:'g'},{n:'Hetzner Snapshots',d:'Servidor CRM/API · Semanal',s:'g'}].forEach(function(l){
+    html+='<div class="svc"><div class="svc-d '+l.s+'"></div><div class="svc-n">'+l.n+'<small>'+l.d+'</small></div></div>';
+  });
+
+  // Security footer
+  html+='<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ash);line-height:1.8;font-family:Space Mono,monospace;letter-spacing:.5px">';
+  html+='Regra 3-2-1 ✅ &nbsp;|&nbsp; HTTPS/TLS ✅ &nbsp;|&nbsp; Tailscale VPN ✅ &nbsp;|&nbsp; Cloudflare Tunnel ✅</div>';
 
   document.getElementById('backup-status').innerHTML=html;
 }
