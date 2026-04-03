@@ -458,28 +458,44 @@ function renderMetrics(){
   var items=[
     {l:'Agentes ativos',v:'8',c:'g'},
     {l:'Uptime 30d',v:'99.5%',c:'g'},
-    {l:'API Anthropic',v:'$14.14',c:'y'},
-    {l:'API OpenRouter',v:'$4.86',c:'y'},
-    {l:'Groq Whisper',v:'FREE',c:'g'},
-    {l:'Cards Squad',v:'—',c:'f'},
+    {l:'Anthropic',v:'...',c:'y',sub:'saldo'},
+    {l:'OpenRouter',v:'...',c:'y',sub:'saldo'},
+    {l:'Groq Whisper',v:'FREE',c:'g',sub:'2000 req/dia'},
+    {l:'Cards Squad',v:'...',c:'f'},
   ];
-  // Try to get real squad count
-  fetch(PMO_API+'/pmo/agent/george',{headers:{'x-api-key':PMO_KEY}}).then(function(r){return r.json();}).then(function(d){
-    if(Array.isArray(d)){
-      var total=0;
-      fetch(PMO_API+'/pmo/agent/flavia',{headers:{'x-api-key':PMO_KEY}}).then(function(r2){return r2.json();}).then(function(d2){
-        total=d.length+(Array.isArray(d2)?d2.length:0);
-        items[5].v=String(total+20)+'+ cards'; // rough total
-        renderMetGrid(items);
-      });
-    }
-  }).catch(function(){renderMetGrid(items);});
   renderMetGrid(items);
+
+  // Fetch real OpenRouter balance
+  fetch('https://openrouter.ai/api/v1/credits',{headers:{Authorization:'Bearer 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'}})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var bal=(d.data.total_credits-d.data.total_usage).toFixed(2);
+      var used=d.data.total_usage.toFixed(2);
+      items[3].v='$'+bal;
+      items[3].sub='$'+used+' usado';
+      items[3].c=parseFloat(bal)>5?'g':parseFloat(bal)>2?'y':'r';
+      renderMetGrid(items);
+    }).catch(function(){});
+
+  // Squad card count
+  var agents=['george','flavia','bia','tiago'];
+  var totalCards=0;var pending=agents.length;
+  agents.forEach(function(a){
+    fetch(PMO_API+'/pmo/agent/'+a,{headers:{'x-api-key':PMO_KEY}})
+      .then(function(r){return r.json();})
+      .then(function(cards){if(Array.isArray(cards))totalCards+=cards.length;})
+      .catch(function(){})
+      .finally(function(){
+        pending--;
+        if(pending===0){items[5].v=totalCards+' cards';renderMetGrid(items);}
+      });
+  });
 }
 
 function renderMetGrid(items){
   document.getElementById('met-grid').innerHTML=items.map(function(m){
-    return '<div class="met"><div class="met-l">'+m.l+'</div><div class="met-v '+m.c+'">'+m.v+'</div></div>';
+    var sub=m.sub?'<div class="met-s">'+m.sub+'</div>':'';
+    return '<div class="met"><div class="met-l">'+m.l+'</div><div class="met-v '+m.c+'">'+m.v+'</div>'+sub+'</div>';
   }).join('');
 }
 
