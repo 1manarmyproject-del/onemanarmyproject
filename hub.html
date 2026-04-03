@@ -89,6 +89,10 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
 .svc-d.g{background:var(--green)}.svc-d.y{background:var(--yellow)}.svc-d.r{background:var(--red)}.svc-d.x{background:var(--ash)}
 .svc-n{font-size:13px;font-weight:500;flex:1}.svc-n small{color:var(--ash);font-weight:400;font-size:11px;margin-left:6px}
 .svc-u{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:1px}
+.svc-bar{display:flex;gap:1px;flex:1;max-width:220px;height:16px;align-items:center;margin:0 12px}
+.svc-bar-seg{flex:1;height:100%;border-radius:1px;min-width:1px;cursor:pointer;position:relative;transition:opacity .15s}
+.svc-bar-seg:hover{opacity:.5;transform:scaleY(1.4)}
+.svc-bar-seg:hover::after{content:attr(data-t);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#222;color:var(--bone);padding:3px 7px;border-radius:3px;font-size:9px;font-family:'Space Mono',monospace;white-space:nowrap;pointer-events:none;z-index:10}
 
 /* Metrics */
 .met-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
@@ -419,15 +423,22 @@ function checkInfra(){
 }
 
 function renderSvc(id,list){
+  var now=new Date();
   document.getElementById(id).innerHTML=list.map(function(s){
     var u=s.s==='g'?'100%':s.s==='y'?'Degradado':'Offline';
-    // Mini 24h uptime bar (24 segments = 1 per hour)
+    // 48h uptime bar (48 segments = 1 per hour, last 48 hours)
     var bars='';
-    for(var i=0;i<24;i++){
-      var cls=s.s==='g'?'g':(i>20?s.s:'g'); // simulate: current status only for recent hours
-      bars+='<div style="flex:1;height:100%;background:var(--'+(cls==='g'?'green':cls==='y'?'yellow':'red')+');border-radius:1px;min-width:1px"></div>';
+    for(var i=47;i>=0;i--){
+      var h=new Date(now.getTime()-i*3600000);
+      var hh=h.getHours().toString().padStart(2,'0')+':00';
+      var dd=(h.getMonth()+1)+'/'+h.getDate();
+      var tip=dd+' '+hh;
+      // Current status for last 2h, green for rest (simulated until real health data)
+      var cls=(i<2&&s.s!=='g')?s.s:'g';
+      var color=cls==='g'?'var(--green)':cls==='y'?'var(--yellow)':'var(--red)';
+      bars+='<div class="svc-bar-seg" style="background:'+color+'" data-t="'+tip+': operacional"></div>';
     }
-    return '<div class="svc"><div class="svc-d '+s.s+'"></div><div class="svc-n">'+s.n+'<small>'+s.d+'</small></div><div style="display:flex;gap:1px;width:90px;height:14px;align-items:center;margin-right:10px">'+bars+'</div><div class="svc-u">'+u+'</div></div>';
+    return '<div class="svc"><div class="svc-d '+s.s+'"></div><div class="svc-n">'+s.n+'<small>'+s.d+'</small></div><div class="svc-bar">'+bars+'</div><div class="svc-u">'+u+'</div></div>';
   }).join('');
 }
 
