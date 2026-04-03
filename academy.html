@@ -3,336 +3,1404 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OMA Academy</title>
+<title>OMA Academy — Tech Fluency para Founders</title>
 <link rel="icon" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--fire:#e8703a;--ember:#c05020;--bg:#080808;--bg2:#0f0f0f;--bg3:#161616;--bg4:#1e1e1e;--border:#2a2a2a;--border2:#333;--text:#f0f0f0;--text2:#bbb;--text3:#777;--text4:#444;--green:#4ade80;--blue:#60a5fa;--yellow:#fbbf24;--purple:#a78bfa;--red:#f87171;}
+:root{
+  --fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;
+  --bg:#ffffff;--bg2:#fafafa;--bg3:#f5f5f5;--bg4:#eeeeee;
+  --border:#e5e5e5;--border2:#d0d0d0;
+  --text:#111111;--text2:#444;--text3:#888;--text4:#bbb;
+  --green:#16a34a;--green-light:#dcfce7;
+  --blue:#2563eb;--blue-light:#dbeafe;
+  --red:#dc2626;--red-light:#fee2e2;
+  --yellow:#d97706;--yellow-light:#fef3c7;
+  --purple:#7c3aed;--purple-light:#ede9fe;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg:0 10px 15px rgba(0,0,0,.07),0 4px 6px rgba(0,0,0,.05);
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
-.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh;}
-@media(max-width:900px){.layout{grid-template-columns:1fr;}}
-.sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
-@media(max-width:900px){.sidebar{display:none;}}
-.sidebar::-webkit-scrollbar{width:4px;}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);}
-.sidebar-head{padding:24px 20px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:2;}
-.sidebar-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:2px;color:var(--text);text-transform:uppercase;margin-bottom:2px;}
-.sidebar-logo span{color:var(--fire);}
-.sidebar-sub{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;}
-.xp-mini{margin-top:14px;}.xp-mini-top{display:flex;justify-content:space-between;margin-bottom:5px;}
-.xp-mini-level{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);letter-spacing:1px;}
-.xp-mini-val{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
-.xp-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
-.xp-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));transition:width .5s ease;border-radius:2px;}
-.nav-phases{padding:12px 0 24px;}
-.nav-phase-title{padding:10px 20px 6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text4);}
-.nav-week{display:flex;align-items:center;gap:8px;padding:8px 20px;cursor:pointer;transition:background .15s;border-left:2px solid transparent;}
-.nav-week:hover{background:var(--bg3);}
-.nav-week.active{background:var(--bg3);border-left-color:var(--fire);}
-.nav-week-icon{width:22px;height:22px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);flex-shrink:0;transition:background .2s,color .2s;}
-.nav-week.done .nav-week-icon{background:rgba(74,222,128,.15);color:var(--green);}
-.nav-week.active .nav-week-icon{background:rgba(232,112,58,.15);color:var(--fire);}
-.nav-week-label{font-size:12px;color:var(--text3);line-height:1.3;transition:color .15s;}
-.nav-week:hover .nav-week-label,.nav-week.active .nav-week-label{color:var(--text2);}
-.topnav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;}
-.topnav-left{display:flex;align-items:center;gap:16px;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:400;min-height:100vh;overflow-x:hidden;}
+
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh;}
+@media(max-width:960px){.layout{grid-template-columns:1fr;}}
+
+/* ── SIDEBAR ─────────────────────────────────────────────── */
+.sidebar{
+  background:#fff;border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+@media(max-width:960px){.sidebar{display:none;}}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);}
+
+.sidebar-head{
+  padding:20px;border-bottom:1px solid var(--border);
+  background:#fff;position:sticky;top:0;z-index:2;
+}
+.s-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.s-logo-icon{width:32px;height:32px;background:var(--fire);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.s-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;text-transform:uppercase;color:var(--text);}
+.s-logo-name span{color:var(--fire);}
+
+/* XP strip */
+.xp-strip{background:var(--bg3);border-radius:6px;padding:12px 14px;}
+.xp-strip-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.xp-level{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--fire);font-weight:700;text-transform:uppercase;}
+.xp-val{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);font-weight:700;}
+.xp-bar{height:6px;background:var(--border2);border-radius:3px;overflow:hidden;}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));border-radius:3px;transition:width .6s ease;}
+
+/* Sidebar nav */
+.s-nav{padding:8px 0 24px;}
+.s-phase-label{
+  padding:14px 20px 6px;
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text4);
+  display:flex;align-items:center;gap:8px;
+}
+.s-phase-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.s-module{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 20px;cursor:pointer;
+  transition:background .15s;
+  border-left:3px solid transparent;
+}
+.s-module:hover{background:var(--bg3);}
+.s-module.active{background:var(--fire-light);border-left-color:var(--fire);}
+.s-module.done .s-mod-icon{background:var(--green-light);color:var(--green);}
+.s-mod-icon{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--bg4);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-family:'Space Mono',monospace;color:var(--text3);
+  transition:background .2s,color .2s;
+}
+.s-module.active .s-mod-icon{background:var(--fire);color:#fff;}
+.s-mod-label{font-size:12px;color:var(--text3);line-height:1.3;}
+.s-module.active .s-mod-label,.s-module:hover .s-mod-label{color:var(--text2);}
+.s-module.done .s-mod-label{color:var(--text3);}
+
+/* ── TOPNAV ─────────────────────────────────────────────── */
+.topnav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:56px;
+}
+.topnav-left{display:flex;align-items:center;gap:14px;}
 .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
-@media(max-width:900px){.hamburger{display:flex;}}
-.hamburger span{width:20px;height:2px;background:var(--text2);}
-.topnav-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);}
-.topnav-right{display:flex;align-items:center;gap:16px;}
-.streak-pill{display:flex;align-items:center;gap:5px;background:rgba(232,112,58,.1);border:1px solid rgba(232,112,58,.2);padding:5px 10px;font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);}
-.streak-pill span{font-weight:700;}
-.user-avatar{width:32px;height:32px;border-radius:50%;background:var(--bg4);border:1px solid var(--border2);cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;color:var(--fire);overflow:hidden;}
-.main{min-height:100vh;display:flex;flex-direction:column;}
-.screen{display:none;}.screen.active{display:block;}
-.dash{padding:36px 36px 60px;}
-@media(max-width:600px){.dash{padding:24px 16px 60px;}}
-.dash-greeting{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--text);margin-bottom:4px;}
-.dash-greeting span{color:var(--fire);}
-.dash-meta{font-size:13px;color:var(--text3);margin-bottom:28px;}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
-@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
-.stat-card{background:var(--bg2);border:1px solid var(--border);padding:18px 16px;position:relative;overflow:hidden;}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.stat-card.s1::before{background:var(--fire);}.stat-card.s2::before{background:var(--green);}.stat-card.s3::before{background:var(--blue);}.stat-card.s4::before{background:var(--yellow);}
-.stat-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;line-height:1;margin-bottom:4px;}
-.stat-card.s1 .stat-val{color:var(--fire);}.stat-card.s2 .stat-val{color:var(--green);}.stat-card.s3 .stat-val{color:var(--blue);}.stat-card.s4 .stat-val{color:var(--yellow);}
-.stat-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;}
-.level-block{background:var(--bg2);border:1px solid var(--border);padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-.level-name{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:4px;}
-.level-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--text);}
-.level-bar-wrap{flex:1;min-width:160px;}
-.level-bar-label{display:flex;justify-content:space-between;margin-bottom:6px;}
-.level-bar-label span{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
-.level-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
-.level-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));border-radius:3px;transition:width .6s ease;}
-.continue-block{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--fire);padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;cursor:pointer;transition:background .2s;}
-.continue-block:hover{background:var(--bg3);}
-.continue-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:6px;}
-.continue-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--text);margin-bottom:2px;}
-.continue-meta{font-size:12px;color:var(--text3);}
-.continue-btn{background:var(--fire);color:#080808;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.continue-btn:hover{background:var(--ember);}
-.phases-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:16px;}
-.phases-map{display:flex;flex-direction:column;gap:8px;margin-bottom:32px;}
-.phase-row{background:var(--bg2);border:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .15s,border-color .15s;}
-.phase-row:hover{background:var(--bg3);}.phase-row.phase-done{border-left:3px solid var(--green);}.phase-row.phase-active{border-left:3px solid var(--fire);}
-.phase-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:24px;flex-shrink:0;}
-.phase-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);flex:1;}
-.phase-prog{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
-.phase-bar-wrap{width:80px;flex-shrink:0;}.phase-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
-.phase-bar-fill{height:100%;background:var(--fire);border-radius:2px;transition:width .5s;}
-.phase-row.phase-done .phase-bar-fill{background:var(--green);}
-.badges-section{margin-top:8px;}.badges-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
-.badge-item{background:var(--bg2);border:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:8px;}
-.badge-item.earned{border-color:rgba(232,112,58,.3);}.badge-item.locked{opacity:.35;filter:grayscale(1);}
-.badge-icon{font-size:20px;}.badge-name{font-size:11px;color:var(--text2);font-weight:500;}
-.trail{padding:36px 36px 60px;}
-@media(max-width:600px){.trail{padding:20px 16px 60px;}}
-.trail-back,.wv-back,.lv-back{display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:24px;width:fit-content;transition:color .15s;}
-.trail-back:hover,.wv-back:hover,.lv-back:hover{color:var(--fire);}
-.trail-back::before,.wv-back::before,.lv-back::before{content:'\2190';}
-.trail-phase-lbl,.wv-week-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:8px;}
-.trail-title,.wv-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,36px);color:var(--text);margin-bottom:4px;}
-.trail-goal,.wv-goal{font-size:13px;color:var(--text3);line-height:1.6;margin-bottom:28px;}
-.weeks-grid{display:flex;flex-direction:column;gap:6px;}
-.week-row{background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;transition:background .15s,border-color .15s;}
-.week-row:hover{background:var(--bg3);}.week-row.done{border-left:3px solid var(--green);}.week-row.active{border-left:3px solid var(--fire);}
-.week-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:40px;flex-shrink:0;}
-.week-info{flex:1;}.week-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin-bottom:2px;}
-.week-goal-text{font-size:12px;color:var(--text3);}
-.week-meta{text-align:right;flex-shrink:0;}
-.week-xp{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);}
-.week-done-count{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
-.week-view{padding:36px 36px 60px;}
-@media(max-width:600px){.week-view{padding:20px 16px 60px;}}
-.days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
-.day-card{background:var(--bg2);border:1px solid var(--border);padding:18px 16px;cursor:pointer;transition:background .15s,border-color .15s,transform .15s;position:relative;overflow:hidden;}
-.day-card:hover{background:var(--bg3);border-color:var(--border2);transform:translateY(-2px);}
-.day-card.done{border-top:2px solid var(--green);}.day-card.boss{border-top:2px solid var(--red);}.day-card.current{border-top:2px solid var(--fire);}
-.day-num{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;}
-.day-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);margin-bottom:6px;line-height:1.2;}
-.day-xp{font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);}
-.day-done-mark{position:absolute;top:8px;right:10px;font-size:14px;}
-.day-boss-tag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:4px;}
-.lesson-view{padding:36px 36px 80px;max-width:780px;}
+@media(max-width:960px){.hamburger{display:flex;}}
+.hamburger span{width:18px;height:2px;background:var(--text2);border-radius:1px;}
+.topnav-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);}
+.topnav-right{display:flex;align-items:center;gap:12px;}
+.streak-badge{
+  display:flex;align-items:center;gap:5px;
+  background:var(--fire-light);border:1px solid var(--fire-mid);
+  padding:5px 10px;border-radius:20px;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);font-weight:700;
+}
+.user-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--fire-light);border:2px solid var(--fire-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--fire);
+  cursor:pointer;overflow:hidden;flex-shrink:0;
+}
+
+/* ── MAIN ────────────────────────────────────────────────── */
+.main{min-height:100vh;}
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* ── DASHBOARD ──────────────────────────────────────────── */
+.dash{padding:32px 32px 64px;max-width:860px;}
+@media(max-width:600px){.dash{padding:20px 16px 64px;}}
+
+.dash-hero{margin-bottom:28px;}
+.dash-hello{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(26px,4vw,38px);color:var(--text);margin-bottom:4px;}
+.dash-hello span{color:var(--fire);}
+.dash-sub{font-size:14px;color:var(--text3);}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+@media(max-width:640px){.stats-row{grid-template-columns:repeat(2,1fr);}}
+.stat-tile{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:16px;box-shadow:var(--shadow);
+}
+.stat-tile-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;line-height:1;margin-bottom:4px;}
+.stat-tile.t1 .stat-tile-val{color:var(--fire);}
+.stat-tile.t2 .stat-tile-val{color:var(--green);}
+.stat-tile.t3 .stat-tile-val{color:var(--blue);}
+.stat-tile.t4 .stat-tile-val{color:var(--yellow);}
+.stat-tile-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;}
+
+/* Level card */
+.level-card{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:18px 20px;margin-bottom:24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;box-shadow:var(--shadow);
+}
+.level-card-info .lc-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:3px;}
+.level-card-info .lc-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--text);}
+.level-card-bar{flex:1;min-width:160px;}
+.lc-bar-labels{display:flex;justify-content:space-between;margin-bottom:5px;}
+.lc-bar-labels span{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
+.lc-bar{height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;}
+.lc-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));border-radius:4px;transition:width .6s ease;}
+
+/* Continue CTA */
+.continue-cta{
+  background:var(--fire);border-radius:10px;
+  padding:20px 24px;margin-bottom:28px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;cursor:pointer;
+  transition:background .2s,transform .15s;
+  box-shadow:0 4px 12px rgba(232,112,58,.3);
+}
+.continue-cta:hover{background:var(--ember);transform:translateY(-1px);}
+.cc-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:5px;}
+.cc-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:#fff;margin-bottom:2px;}
+.cc-meta{font-size:12px;color:rgba(255,255,255,.7);}
+.cc-btn{
+  background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);
+  color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:1px;padding:10px 20px;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;border-radius:4px;
+  transition:background .15s;
+}
+.cc-btn:hover{background:rgba(255,255,255,.3);}
+
+/* Phase map */
+.section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.phase-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:28px;}
+.phase-card{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:16px;cursor:pointer;transition:box-shadow .15s,transform .15s,border-color .15s;
+  box-shadow:var(--shadow);
+}
+.phase-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--border2);}
+.phase-card.pc-done{border-left:3px solid var(--green);}
+.phase-card.pc-active{border-left:3px solid var(--fire);}
+.pc-icon{font-size:22px;margin-bottom:8px;}
+.pc-num{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text4);margin-bottom:3px;}
+.pc-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin-bottom:6px;}
+.pc-sub{font-size:11px;color:var(--text3);line-height:1.4;margin-bottom:10px;}
+.pc-bar{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;}
+.pc-fill{height:100%;background:var(--fire);border-radius:2px;transition:width .5s;}
+.phase-card.pc-done .pc-fill{background:var(--green);}
+.pc-prog{font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);margin-top:5px;}
+
+/* Badges */
+.badges-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.badge-chip{
+  display:flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid var(--border);border-radius:20px;
+  padding:6px 12px;
+}
+.badge-chip.earned{border-color:var(--fire-mid);background:var(--fire-light);}
+.badge-chip.locked{opacity:.4;filter:grayscale(1);}
+.badge-chip-icon{font-size:14px;}
+.badge-chip-name{font-size:11px;font-weight:500;color:var(--text2);}
+
+/* ── PHASE VIEW ─────────────────────────────────────────── */
+.phase-view{padding:32px 32px 64px;max-width:760px;}
+@media(max-width:600px){.phase-view{padding:20px 16px 64px;}}
+.pv-back,.wv-back,.lv-back{
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3);margin-bottom:24px;
+  transition:color .15s;padding:6px 10px;border-radius:4px;
+}
+.pv-back:hover,.wv-back:hover,.lv-back:hover{color:var(--fire);background:var(--fire-light);}
+.pv-back::before,.wv-back::before,.lv-back::before{content:'←';}
+.ph-header{margin-bottom:28px;}
+.ph-icon{font-size:32px;margin-bottom:8px;}
+.ph-phase-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:6px;}
+.ph-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,36px);color:var(--text);margin-bottom:4px;}
+.ph-sub{font-size:14px;color:var(--text3);margin-bottom:6px;}
+
+/* Module list */
+.module-list{display:flex;flex-direction:column;gap:8px;}
+.module-row{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  display:flex;align-items:center;gap:14px;padding:14px 16px;
+  cursor:pointer;transition:box-shadow .15s,border-color .15s,transform .1s;
+  box-shadow:var(--shadow);
+}
+.module-row:hover{box-shadow:var(--shadow-md);border-color:var(--border2);transform:translateX(2px);}
+.module-row.mr-done{border-left:3px solid var(--green);}
+.module-row.mr-locked{opacity:.5;cursor:not-allowed;}
+.module-row.mr-current{border-left:3px solid var(--fire);background:var(--fire-light);}
+.mr-num{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:var(--bg3);display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);font-weight:700;
+}
+.module-row.mr-done .mr-num{background:var(--green-light);color:var(--green);}
+.module-row.mr-current .mr-num{background:var(--fire);color:#fff;}
+.mr-info{flex:1;}
+.mr-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin-bottom:1px;}
+.mr-sub{font-size:12px;color:var(--text3);}
+.mr-right{text-align:right;flex-shrink:0;}
+.mr-xp{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);font-weight:700;}
+.mr-status{font-size:11px;color:var(--text4);}
+
+/* ── LESSON VIEW ─────────────────────────────────────────── */
+.lesson-view{padding:32px 32px 80px;max-width:720px;}
 @media(max-width:600px){.lesson-view{padding:20px 16px 80px;}}
-.lv-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
-.lv-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 8px;border:1px solid;}
-.lv-tag.phase-tag{color:var(--fire);border-color:rgba(232,112,58,.3);background:rgba(232,112,58,.06);}
-.lv-tag.week-tag{color:var(--text3);border-color:var(--border);}
-.lv-tag.xp-tag{color:var(--yellow);border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.06);}
-.lv-tag.boss-tag{color:var(--red);border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.06);}
-.lv-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,38px);color:var(--text);line-height:1.1;margin-bottom:8px;}
-.lv-objective{font-size:15px;color:var(--text3);line-height:1.7;margin-bottom:24px;}
-.lv-content{font-size:15px;line-height:1.8;color:var(--text2);min-height:120px;}
-.lv-content p{margin-bottom:14px;}.lv-content strong{color:var(--text);font-weight:600;}
-.lv-content h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--text);margin:20px 0 10px;}
-.lv-content ul{padding-left:20px;margin-bottom:14px;}.lv-content ul li{margin-bottom:6px;}
-.lv-content code{font-family:'Space Mono',monospace;font-size:12px;background:var(--bg3);border:1px solid var(--border2);padding:2px 6px;color:var(--fire);}
-.lv-content .oma-box{background:rgba(232,112,58,.05);border:1px solid rgba(232,112,58,.2);border-left:3px solid var(--fire);padding:16px 18px;margin:18px 0;}
-.lv-content .oma-box-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:8px;}
-.key-terms{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 24px;}
-.key-term{font-family:'Space Mono',monospace;font-size:10px;background:var(--bg3);border:1px solid var(--border2);padding:4px 10px;color:var(--text3);}
-.exercise-block{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--blue);padding:20px 22px;margin:24px 0;}
-.exercise-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:10px;}
-.exercise-text{font-size:14px;color:var(--text2);line-height:1.7;}
-textarea.exercise-input{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:12px;font-size:13px;font-family:'Barlow',sans-serif;min-height:90px;resize:vertical;margin-top:12px;outline:none;transition:border-color .2s;}
-textarea.exercise-input:focus{border-color:var(--blue);}
-textarea.exercise-input::placeholder{color:var(--text4);}
-.skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:2px;}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.skel-line{height:14px;margin-bottom:10px;}
-.quiz-block{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--purple);padding:24px;margin-top:24px;}
-.quiz-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--purple);text-transform:uppercase;margin-bottom:16px;}
-.quiz-q{font-size:15px;color:var(--text);margin-bottom:14px;line-height:1.6;font-weight:500;}
+.lv-header{margin-bottom:24px;}
+.lv-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.lv-tag{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;
+  text-transform:uppercase;padding:4px 8px;border-radius:4px;
+  border:1px solid;font-weight:700;
+}
+.lv-tag.t-phase{color:var(--fire);border-color:var(--fire-mid);background:var(--fire-light);}
+.lv-tag.t-module{color:var(--text3);border-color:var(--border2);background:var(--bg3);}
+.lv-tag.t-xp{color:var(--green);border-color:#bbf7d0;background:var(--green-light);}
+.lv-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,4vw,34px);color:var(--text);line-height:1.1;margin-bottom:6px;}
+.lv-analogy{
+  background:var(--fire-light);border:1px solid var(--fire-mid);
+  border-left:4px solid var(--fire);border-radius:6px;
+  padding:14px 16px;margin-bottom:20px;
+  font-size:14px;color:var(--text2);line-height:1.7;font-style:italic;
+}
+.lv-analogy::before{content:'💡 ';font-style:normal;}
+
+/* Progress bar lição */
+.lesson-progress{display:flex;gap:6px;margin-bottom:24px;align-items:center;}
+.lp-step{
+  flex:1;height:5px;border-radius:3px;background:var(--bg4);
+  transition:background .3s;
+}
+.lp-step.done{background:var(--green);}
+.lp-step.active{background:var(--fire);}
+.lp-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);white-space:nowrap;margin-left:4px;}
+
+/* Cards */
+.cards-area{}
+.lesson-card{
+  background:#fff;border:1px solid var(--border);border-radius:10px;
+  padding:22px 24px;margin-bottom:16px;
+  box-shadow:var(--shadow);
+  display:none;
+}
+.lesson-card.active{display:block;animation:slideIn .25s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card-step{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text4);text-transform:uppercase;margin-bottom:8px;}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--text);margin-bottom:12px;}
+.card-body{font-size:15px;color:var(--text2);line-height:1.8;}
+.card-body p{margin-bottom:12px;}
+.card-body strong{color:var(--text);font-weight:600;}
+.card-body code{
+  font-family:'Space Mono',monospace;font-size:12px;
+  background:var(--bg3);border:1px solid var(--border2);
+  padding:2px 5px;border-radius:3px;color:var(--fire);
+}
+.card-highlight{
+  margin-top:16px;padding:12px 14px;
+  background:var(--bg3);border-radius:6px;
+  border-left:3px solid var(--fire);
+  font-size:13px;font-weight:600;color:var(--text2);
+  display:flex;gap:8px;align-items:flex-start;
+}
+.card-highlight::before{content:'★';color:var(--fire);font-size:12px;flex-shrink:0;margin-top:1px;}
+
+/* Quiz */
+.quiz-area{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);display:none;}
+.quiz-area.active{display:block;animation:slideIn .25s ease;}
+.quiz-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.quiz-icon{width:28px;height:28px;background:var(--purple-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.quiz-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;font-weight:700;}
+.quiz-progress{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);margin-bottom:14px;}
+.quiz-q{font-size:15px;font-weight:600;color:var(--text);margin-bottom:14px;line-height:1.6;}
 .quiz-opts{display:flex;flex-direction:column;gap:8px;}
-.quiz-opt{padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);cursor:pointer;font-size:14px;color:var(--text2);transition:border-color .15s,background .15s;text-align:left;display:block;width:100%;}
-.quiz-opt:hover:not([disabled]){border-color:var(--border2);background:var(--bg4);}
-.quiz-opt.correct{border-color:var(--green);background:rgba(74,222,128,.08);color:var(--green);}
-.quiz-opt.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);}
-.quiz-feedback{margin-top:12px;padding:10px 14px;font-size:13px;border-left:3px solid;display:none;}
-.quiz-feedback.ok{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.06);}
-.quiz-feedback.err{border-color:var(--red);color:var(--red);background:rgba(248,113,113,.06);}
-.lv-actions{display:flex;align-items:center;gap:12px;margin-top:32px;flex-wrap:wrap;}
-.btn-complete{background:var(--fire);color:#080808;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;padding:14px 28px;cursor:pointer;transition:background .2s;}
-.btn-complete:hover{background:var(--ember);}.btn-complete:disabled{opacity:.5;cursor:not-allowed;}
-.btn-next{background:transparent;color:var(--text2);border:1px solid var(--border2);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;padding:12px 20px;cursor:pointer;transition:border-color .2s,color .2s;text-transform:uppercase;}
-.btn-next:hover{border-color:var(--border2);color:var(--text);}
-.lv-done-badge{display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);padding:10px 14px;}
-.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;backdrop-filter:blur(4px);}
+.quiz-opt{
+  padding:13px 16px;border:1.5px solid var(--border2);border-radius:8px;
+  cursor:pointer;font-size:14px;color:var(--text2);text-align:left;
+  background:#fff;width:100%;
+  transition:border-color .15s,background .15s,transform .1s;
+  display:flex;align-items:center;gap:10px;
+}
+.quiz-opt:hover:not([disabled]):not(.correct):not(.wrong){
+  border-color:var(--fire);background:var(--fire-light);transform:translateX(2px);
+}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.quiz-opt-letter{
+  width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:9px;font-weight:700;
+  flex-shrink:0;
+}
+.quiz-feedback{
+  margin-top:12px;padding:12px 14px;border-radius:6px;
+  font-size:13px;display:none;border-left:3px solid;
+}
+.quiz-feedback.ok{border-color:var(--green);color:var(--green);background:var(--green-light);}
+.quiz-feedback.err{border-color:var(--red);color:var(--red);background:var(--red-light);}
+.quiz-retry{
+  margin-top:10px;font-family:'Space Mono',monospace;font-size:10px;
+  color:var(--fire);cursor:pointer;text-decoration:underline;display:none;
+}
+
+/* Challenge */
+.challenge-area{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);display:none;}
+.challenge-area.active{display:block;animation:slideIn .25s ease;}
+.ch-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.ch-icon{width:28px;height:28px;background:var(--yellow-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.ch-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--yellow);text-transform:uppercase;font-weight:700;}
+.ch-text{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:14px;}
+textarea.ch-input{
+  width:100%;background:var(--bg3);border:1.5px solid var(--border2);
+  color:var(--text);padding:12px 14px;font-size:13px;font-family:'Barlow',sans-serif;
+  min-height:90px;resize:vertical;outline:none;border-radius:6px;
+  transition:border-color .2s;
+}
+textarea.ch-input:focus{border-color:var(--fire);}
+textarea.ch-input::placeholder{color:var(--text4);}
+
+/* Action buttons */
+.lesson-actions{display:flex;align-items:center;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--fire);color:#fff;border:none;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:14px;letter-spacing:1px;text-transform:uppercase;
+  padding:13px 28px;cursor:pointer;border-radius:6px;
+  transition:background .15s,transform .1s;box-shadow:0 2px 6px rgba(232,112,58,.3);
+}
+.btn-primary:hover{background:var(--ember);transform:translateY(-1px);}
+.btn-primary:active{transform:none;}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-secondary{
+  background:transparent;color:var(--text3);
+  border:1.5px solid var(--border2);
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;
+  padding:11px 18px;cursor:pointer;border-radius:6px;
+  transition:border-color .15s,color .15s;text-transform:uppercase;
+}
+.btn-secondary:hover{border-color:var(--fire);color:var(--fire);}
+.done-badge{
+  display:flex;align-items:center;gap:8px;
+  background:var(--green-light);border:1.5px solid #bbf7d0;
+  padding:10px 16px;border-radius:6px;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--green);font-weight:700;
+}
+
+/* ── MOBILE DRAWER ──────────────────────────────────────── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;backdrop-filter:blur(2px);}
 .drawer-overlay.open{display:block;}
-.drawer{position:fixed;top:0;left:0;bottom:0;width:300px;background:var(--bg2);border-right:1px solid var(--border);z-index:201;transform:translateX(-100%);transition:transform .25s ease;overflow-y:auto;}
+.drawer{
+  position:fixed;top:0;left:0;bottom:0;width:300px;
+  background:#fff;border-right:1px solid var(--border);
+  z-index:201;transform:translateX(-100%);
+  transition:transform .25s ease;overflow-y:auto;
+}
 .drawer.open{transform:none;}
-.drawer-close{position:absolute;top:16px;right:16px;cursor:pointer;font-size:18px;color:var(--text3);}
-.confetti-piece{position:fixed;top:-20px;border-radius:2px;animation:confetti-fall linear forwards;pointer-events:none;z-index:10000;}
-@keyframes confetti-fall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
-.xp-toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--fire);padding:14px 18px;z-index:1000;transform:translateX(200%);transition:transform .3s ease;font-family:'Space Mono',monospace;}
+.drawer-close{position:absolute;top:14px;right:14px;cursor:pointer;font-size:18px;color:var(--text3);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg3);}
+
+/* ── CERTIFICATE ────────────────────────────────────────── */
+.cert-screen{padding:40px 32px 80px;max-width:760px;}
+@media(max-width:600px){.cert-screen{padding:24px 16px 80px;}}
+.cert-card{
+  background:#fff;border:2px solid var(--fire-mid);border-radius:12px;
+  padding:48px 40px;text-align:center;
+  box-shadow:0 8px 32px rgba(232,112,58,.15);
+  position:relative;overflow:hidden;
+}
+.cert-card::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(232,112,58,.02) 40px,rgba(232,112,58,.02) 80px);
+  pointer-events:none;
+}
+.cert-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:4px;}
+.cert-logo span{color:var(--fire);}
+.cert-icon{font-size:56px;margin:16px 0;}
+.cert-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(20px,4vw,32px);color:var(--text);margin-bottom:8px;}
+.cert-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(24px,5vw,42px);color:var(--fire);margin:12px 0;}
+.cert-desc{font-size:15px;color:var(--text3);line-height:1.7;max-width:500px;margin:0 auto 24px;}
+.cert-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--fire-light);border:1.5px solid var(--fire-mid);
+  padding:8px 16px;border-radius:20px;margin-bottom:28px;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);font-weight:700;
+}
+.cert-date{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:28px;}
+.cert-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cert-share-url{
+  margin-top:20px;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:6px;padding:10px 14px;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);
+  word-break:break-all;
+}
+
+/* ── TOASTS ─────────────────────────────────────────────── */
+.xp-toast{
+  position:fixed;bottom:24px;right:24px;z-index:1000;
+  background:#fff;border:1.5px solid var(--border);border-left:4px solid var(--fire);
+  border-radius:8px;padding:14px 18px;
+  box-shadow:var(--shadow-lg);
+  transform:translateX(calc(100% + 28px));transition:transform .3s ease;
+}
 .xp-toast.show{transform:none;}
-.xp-toast-val{font-size:18px;font-weight:700;color:var(--fire);}
-.xp-toast-lbl{font-size:9px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-top:2px;}
-.badge-toast{position:fixed;top:70px;right:24px;background:var(--bg2);border:1px solid rgba(232,112,58,.3);padding:16px 20px;z-index:1000;max-width:280px;transform:translateX(200%);transition:transform .3s ease;}
+.xp-toast-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--fire);}
+.xp-toast-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+
+.badge-toast{
+  position:fixed;top:70px;right:24px;z-index:1000;
+  background:#fff;border:1.5px solid var(--fire-mid);border-radius:8px;
+  padding:14px 18px;max-width:260px;
+  box-shadow:var(--shadow-lg);
+  transform:translateX(calc(100% + 28px));transition:transform .3s ease .1s;
+}
 .badge-toast.show{transform:none;}
-.badge-toast-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:6px;}
+.badge-toast-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:4px;}
 .badge-toast-name{font-size:15px;font-weight:600;color:var(--text);}
-.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.2);border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
+
+/* ── CONFETTI ────────────────────────────────────────────── */
+.confetti-piece{position:fixed;top:-20px;border-radius:2px;animation:cffall linear forwards;pointer-events:none;z-index:10000;}
+@keyframes cffall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+
+/* ── UTILS ──────────────────────────────────────────────── */
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
 @keyframes spin{to{transform:rotate(360deg)}}
-::-webkit-scrollbar{width:5px;height:5px;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.fadein{animation:fadeUp .3s ease both;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fadein{animation:fadeUp .25s ease both;}
+
+/* ── SKELETON ────────────────────────────────────────────── */
+.skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 </style>
 </head>
 <body>
+
+<!-- Mobile Drawer -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-close" onclick="closeDrawer()">&#x2715;</div>
-  <div class="sidebar-head" style="padding:20px 16px 16px">
-    <div class="sidebar-logo">OMA <span>Academy</span></div>
-    <div class="xp-mini">
-      <div class="xp-mini-top"><span class="xp-mini-level" id="drawerLevel">&#8212;</span><span class="xp-mini-val" id="drawerXpVal">0 XP</span></div>
+  <div class="sidebar-head" style="padding:16px 16px 14px">
+    <div class="s-logo">
+      <div class="s-logo-icon">&#x1F9E0;</div>
+      <div class="s-logo-name">OMA <span>Academy</span></div>
+    </div>
+    <div class="xp-strip">
+      <div class="xp-strip-top">
+        <span class="xp-level" id="drawerLevel">Iniciante</span>
+        <span class="xp-val" id="drawerXpVal">0 XP</span>
+      </div>
       <div class="xp-bar"><div class="xp-fill" id="drawerXpFill" style="width:0%"></div></div>
     </div>
   </div>
-  <div id="drawerNav" class="nav-phases"></div>
+  <div id="drawerNav" class="s-nav"></div>
 </div>
+
 <div class="layout">
-  <aside class="sidebar" id="sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
     <div class="sidebar-head">
-      <div class="sidebar-logo">OMA <span>Academy</span></div>
-      <div class="sidebar-sub">Tech Fluency</div>
-      <div class="xp-mini">
-        <div class="xp-mini-top"><span class="xp-mini-level" id="sideLevel">Iniciante Operacional</span><span class="xp-mini-val" id="sideXp">0 XP</span></div>
+      <div class="s-logo">
+        <div class="s-logo-icon">&#x1F9E0;</div>
+        <div class="s-logo-name">OMA <span>Academy</span></div>
+      </div>
+      <div class="xp-strip">
+        <div class="xp-strip-top">
+          <span class="xp-level" id="sideLevel">Iniciante</span>
+          <span class="xp-val" id="sideXp">0 XP</span>
+        </div>
         <div class="xp-bar"><div class="xp-fill" id="sideXpFill" style="width:0%"></div></div>
       </div>
     </div>
-    <nav class="nav-phases" id="sideNav"></nav>
+    <nav class="s-nav" id="sideNav"></nav>
   </aside>
+
+  <!-- MAIN -->
   <div class="main">
+    <!-- Top Nav -->
     <div class="topnav">
       <div class="topnav-left">
         <div class="hamburger" onclick="openDrawer()"><span></span><span></span><span></span></div>
         <div class="topnav-title" id="topTitle">Dashboard</div>
       </div>
       <div class="topnav-right">
-        <div class="streak-pill">&#x1F525; <span id="streakVal">0</span></div>
+        <div class="streak-badge">&#x1F525; <span id="streakVal">0</span></div>
         <div class="user-avatar" id="userAvatar" onclick="doLogout()" title="Sair">F</div>
       </div>
     </div>
+
+    <!-- SCREEN: Dashboard -->
     <div class="screen active" id="screenDash">
       <div class="dash fadein">
-        <div class="dash-greeting">Ol&#225;, <span id="dashName">&#8212;</span></div>
-        <div class="dash-meta" id="dashMeta">Carregando...</div>
-        <div class="stats-grid">
-          <div class="stat-card s1"><div class="stat-val" id="statXp">0</div><div class="stat-lbl">XP Total</div></div>
-          <div class="stat-card s2"><div class="stat-val" id="statLessons">0</div><div class="stat-lbl">Li&#231;&#245;es</div></div>
-          <div class="stat-card s3"><div class="stat-val" id="statStreak">0</div><div class="stat-lbl">Streak</div></div>
-          <div class="stat-card s4"><div class="stat-val" id="statBadges">0</div><div class="stat-lbl">Badges</div></div>
+        <div class="dash-hero">
+          <div class="dash-hello">Ol&#225;, <span id="dashName">&#8212;</span> &#x1F44B;</div>
+          <div class="dash-sub" id="dashSub">Carregando progresso...</div>
         </div>
-        <div class="level-block">
-          <div><div class="level-name">N&#237;vel atual</div><div class="level-title" id="levelName">Iniciante Operacional</div></div>
-          <div class="level-bar-wrap">
-            <div class="level-bar-label"><span id="levelXpCur">0 XP</span><span id="levelXpNext">pr&#243;ximo: 151 XP</span></div>
-            <div class="level-bar"><div class="level-fill" id="levelFill" style="width:0%"></div></div>
+        <div class="stats-row">
+          <div class="stat-tile t1"><div class="stat-tile-val" id="statXp">0</div><div class="stat-tile-lbl">XP Total</div></div>
+          <div class="stat-tile t2"><div class="stat-tile-val" id="statMods">0</div><div class="stat-tile-lbl">M&#243;dulos</div></div>
+          <div class="stat-tile t3"><div class="stat-tile-val" id="statStreak">0</div><div class="stat-tile-lbl">Streak</div></div>
+          <div class="stat-tile t4"><div class="stat-tile-val" id="statBadges">0</div><div class="stat-tile-lbl">Badges</div></div>
+        </div>
+        <div class="level-card">
+          <div class="level-card-info">
+            <div class="lc-label">N&#237;vel atual</div>
+            <div class="lc-name" id="levelName">Iniciante</div>
+          </div>
+          <div class="level-card-bar">
+            <div class="lc-bar-labels"><span id="lcXpCur">0 XP</span><span id="lcXpNext">pr&#243;ximo: 300 XP</span></div>
+            <div class="lc-bar"><div class="lc-fill" id="lcFill" style="width:0%"></div></div>
           </div>
         </div>
-        <div class="continue-block" onclick="goNextLesson()">
-          <div><div class="continue-tag">Continuar trilha</div><div class="continue-title" id="continueTitle">Carregando...</div><div class="continue-meta" id="continueMeta"></div></div>
-          <button class="continue-btn">Continuar &#x2192;</button>
+        <div class="continue-cta" onclick="goNextModule()">
+          <div>
+            <div class="cc-label">Continuar trilha</div>
+            <div class="cc-title" id="ccTitle">Carregando...</div>
+            <div class="cc-meta" id="ccMeta"></div>
+          </div>
+          <button class="cc-btn">Continuar &#x2192;</button>
         </div>
-        <div class="phases-title">Mapa da Trilha</div>
-        <div class="phases-map" id="phaseMap"></div>
-        <div class="badges-section">
-          <div class="phases-title">Conquistas</div>
-          <div class="badges-grid" id="badgesGrid"></div>
-        </div>
+        <div class="section-title">Mapa da Trilha</div>
+        <div class="phase-cards" id="phaseCards"></div>
+        <div class="section-title">Conquistas</div>
+        <div class="badges-wrap" id="badgesWrap"></div>
       </div>
     </div>
+
+    <!-- SCREEN: Phase -->
     <div class="screen" id="screenPhase">
-      <div class="trail fadein">
-        <div class="trail-back" onclick="goScreen('dash')">Voltar ao Dashboard</div>
-        <div class="trail-phase-lbl" id="trailPhaseLbl"></div>
-        <div class="trail-title" id="trailTitle"></div>
-        <div class="trail-goal" id="trailGoal"></div>
-        <div class="weeks-grid" id="weeksGrid"></div>
+      <div class="phase-view fadein">
+        <div class="pv-back" onclick="goScreen('dash')">Voltar ao Dashboard</div>
+        <div class="ph-header">
+          <div class="ph-icon" id="phIcon"></div>
+          <div class="ph-phase-lbl" id="phLbl"></div>
+          <div class="ph-title" id="phTitle"></div>
+          <div class="ph-sub" id="phSub"></div>
+        </div>
+        <div class="module-list" id="moduleList"></div>
       </div>
     </div>
-    <div class="screen" id="screenWeek">
-      <div class="week-view fadein">
-        <div class="wv-back" id="weekBack">Voltar</div>
-        <div class="wv-week-lbl" id="wvWeekLbl"></div>
-        <div class="wv-title" id="wvTitle"></div>
-        <div class="wv-goal" id="wvGoal"></div>
-        <div class="days-grid" id="daysGrid"></div>
-      </div>
-    </div>
+
+    <!-- SCREEN: Lesson -->
     <div class="screen" id="screenLesson">
       <div class="lesson-view fadein">
         <div class="lv-back" onclick="goBackFromLesson()">Voltar</div>
-        <div class="lv-meta" id="lvMeta"></div>
-        <div class="lv-title" id="lvTitle"></div>
-        <div class="lv-objective" id="lvObjective"></div>
-        <div class="key-terms" id="lvKeyTerms"></div>
-        <div class="lv-content" id="lvContent"></div>
-        <div class="exercise-block">
-          <div class="exercise-tag">Exerc&#237;cio</div>
-          <div class="exercise-text" id="lvExerciseText"></div>
-          <textarea class="exercise-input" id="lvExerciseInput" placeholder="Escreva sua resposta aqui (opcional)..."></textarea>
+        <div class="lv-header">
+          <div class="lv-tags" id="lvTags"></div>
+          <div class="lv-title" id="lvTitle"></div>
+          <div class="lv-analogy" id="lvAnalogy"></div>
+          <div class="lesson-progress" id="lessonProgress"></div>
         </div>
-        <div class="quiz-block" id="lvQuiz" style="display:none">
-          <div class="quiz-tag">Quiz de fixa&#231;&#227;o</div>
+        <!-- Cards 1,2,3 -->
+        <div id="card1" class="lesson-card active"></div>
+        <div id="card2" class="lesson-card"></div>
+        <div id="card3" class="lesson-card"></div>
+        <!-- Quiz -->
+        <div class="quiz-area" id="quizArea">
+          <div class="quiz-header">
+            <div class="quiz-icon">&#x1F9E9;</div>
+            <div class="quiz-label">Quiz</div>
+          </div>
+          <div class="quiz-progress" id="quizProgress">Pergunta 1 de 3</div>
           <div class="quiz-q" id="quizQ"></div>
           <div class="quiz-opts" id="quizOpts"></div>
           <div class="quiz-feedback" id="quizFeedback"></div>
+          <div class="quiz-retry" id="quizRetry" onclick="retryQuiz()">Tentar novamente &rarr;</div>
         </div>
-        <div class="lv-actions" id="lvActions"></div>
+        <!-- Challenge -->
+        <div class="challenge-area" id="challengeArea">
+          <div class="ch-header">
+            <div class="ch-icon">&#x1F3C6;</div>
+            <div class="ch-label">Desafio pr&#225;tico</div>
+          </div>
+          <div class="ch-text" id="chText"></div>
+          <textarea class="ch-input" id="chInput" placeholder="Escreva sua resposta ou reflexão aqui (opcional)..."></textarea>
+        </div>
+        <!-- Actions -->
+        <div class="lesson-actions" id="lessonActions"></div>
       </div>
     </div>
+
+    <!-- SCREEN: Certificate -->
+    <div class="screen" id="screenCert">
+      <div class="cert-screen fadein">
+        <div class="lv-back" onclick="goScreen('dash')">Voltar ao Dashboard</div>
+        <div class="cert-card">
+          <div class="cert-logo">OMA <span>Academy</span></div>
+          <div class="cert-icon">&#x1F3C6;</div>
+          <div class="cert-title">Certificado de Conclus&#227;o</div>
+          <div class="cert-name" id="certName"></div>
+          <div class="cert-desc">Concluiu com sucesso a trilha <strong>OMA Tech Fluency</strong> — 30 m&#243;dulos sobre o universo t&#233;cnico que toda pessoa de neg&#243;cio precisa entender hoje.</div>
+          <div class="cert-badge">&#x2705; Tech Fluency Certified</div>
+          <div class="cert-date" id="certDate"></div>
+          <div class="cert-actions">
+            <button class="btn-primary" onclick="shareCert()">&#x1F4C4; Compartilhar no LinkedIn</button>
+            <button class="btn-secondary" onclick="copyCertLink()">Copiar link</button>
+          </div>
+          <div class="cert-share-url" id="certUrl"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
-<div class="xp-toast" id="xpToast"><div class="xp-toast-val" id="xpToastVal">+35 XP</div><div class="xp-toast-lbl">Li&#231;&#227;o conclu&#237;da!</div></div>
-<div class="badge-toast" id="badgeToast"><div class="badge-toast-title">&#x1F3C6; Nova conquista!</div><div class="badge-toast-name" id="badgeToastName"></div></div>
+
+<!-- Toasts -->
+<div class="xp-toast" id="xpToast">
+  <div class="xp-toast-val" id="xpToastVal">+35 XP</div>
+  <div class="xp-toast-lbl">M&#243;dulo conclu&#237;do!</div>
+</div>
+<div class="badge-toast" id="badgeToast">
+  <div class="badge-toast-title">&#x1F3C6; Nova conquista!</div>
+  <div class="badge-toast-name" id="badgeToastName"></div>
+</div>
+
 <script>
 const API='https://api.onemanarmyproject.com.br';
-const PHASES=[{id:'fase-1',name:'Linguagem',weeks:[1,2]},{id:'fase-2',name:'Infraestrutura',weeks:[3,4]},{id:'fase-3',name:'Inteligência',weeks:[5,6]},{id:'fase-4',name:'Memória',weeks:[7,8]},{id:'fase-5',name:'Execução',weeks:[9,10]},{id:'fase-6',name:'Escala',weeks:[11,12]}];
-const WEEKS={1:{title:'Léxico base de tecnologia',goal:'Sair do tech nebuloso e começar a enxergar blocos claros.'},2:{title:'Internet, identidade e comunicação',goal:'Entender como serviços se encontram e se reconhecem.'},3:{title:'Containers, ambiente e execução',goal:'Entender como serviços rodam de forma organizada e isolada.'},4:{title:'Fluxos, arquitetura e pontos de falha',goal:'Começar a pensar como arquiteto operador.'},5:{title:'LLMs e o que realmente está acontecendo',goal:'Entender o motor cognitivo sem fantasia.'},6:{title:'Agentes, papéis e orchestration',goal:'Entender o que faz um agente parecer realmente útil.'},7:{title:'Contexto, memória e conhecimento',goal:'Parar de misturar tudo que o agente sabe.'},8:{title:'Busca, embeddings e RAG',goal:'Entender como agentes recuperam informação de forma menos cega.'},9:{title:'Canais de entrada e multi-interface',goal:'Entender que o canal muda experiência, risco e arquitetura.'},10:{title:'Ferramentas, execução e automação segura',goal:'Entender o que separa agente útil de agente perigoso.'},11:{title:'Segurança, privacidade e confiabilidade',goal:'Pensar como operador responsável de plataforma.'},12:{title:'Produto, escala e ensino',goal:'Fechar o ciclo founder → operador → professor.'}};
-const LR=[['w01d01','Software, sistema, produto e plataforma','Diferenciar software isolado, sistema, produto e plataforma.',['software','sistema','produto','plataforma'],'Escreva em 5 linhas onde o OMA se encaixa hoje como produto.',1,35,false],['w01d02','Backend, frontend e banco de dados','Entender o que opera por trás, o que o usuário vê e onde os dados vivem.',['backend','frontend','database'],'Mapeie o que no OMA é backend, interface e armazenamento.',1,35,false],['w01d03','Cliente, servidor, requisição e resposta','Compreender a lógica básica da comunicação digital.',['cliente','servidor','requisição','resposta'],'Descreva uma interação simples entre usuário, portal e agente.',1,35,false],['w01d04','API, integração e endpoint','Aprender como sistemas conversam entre si.',['API','integração','endpoint'],'Liste 5 APIs ou integrações já presentes no seu ecossistema.',1,35,false],['w01d05','Webhook, polling e evento','Distinguir consulta ativa de notificação orientada a evento.',['webhook','polling','evento'],'Identifique 2 webhooks que o OMA usa hoje.',1,35,false],['w01d06','Estado, contexto e sessão','Entender o que significa manter informação entre interações.',['estado','contexto','sessão'],'Explique como o contexto da Bia funciona hoje.',1,35,false],['w01d07','Boss fight: explicar o OMA sem jargão','Testar se você consegue traduzir tudo da semana para linguagem de negócio.',['síntese','comunicação'],'Escreva um parágrafo explicando o OMA para um empreendedor que nunca ouviu falar de API.',1,25,true],['w02d01','Domínio, DNS e subdomínio','Entender como endereços na internet funcionam.',['domínio','DNS','subdomínio'],'Mapeie todos os domínios e subdomínios do OMA.',2,35,false],['w02d02','IP, porta e rota','Compreender onde moram os serviços e como são acessados.',['IP','porta','rota'],'Liste as portas dos serviços do OMA no Mac Mini.',2,35,false],['w02d03','HTTPS, SSL/TLS e certificado','Entender por que o cadeado verde existe e o que ele protege.',['HTTPS','SSL','certificado'],'Verifique quais domínios OMA têm certificado ativo.',2,35,false],['w02d04','Autenticação, autorização e permissão','Distinguir quem é você de o que você pode fazer.',['autenticação','autorização','permissão'],'Mapeie quem pode acessar o quê no ecossistema OMA.',2,35,false],['w02d05','Token, chave, segredo e credencial','Entender os diferentes tipos de segredos digitais.',['token','API key','credencial'],'Liste todas as credenciais do OMA e onde elas vivem.',2,35,false],['w02d06','Sessão, expiração e refresh','Entender como o login dura e como se renova.',['sessão','expiração','JWT'],'Explique como o token da OMA Academy funciona.',2,35,false],['w02d07','Boss fight: explicar integrações seguras','Demonstrar domínio de como sistemas se conectam com segurança.',['síntese','segurança'],'Explique para um cliente PME por que o OMA é seguro.',2,25,true],['w03d01','Processo, serviço, daemon e runtime','Entender como programas rodam e se mantêm vivos.',['processo','serviço','daemon'],'Identifique os processos rodando no Mac Mini agora.',3,35,false],['w03d02','Docker: imagem, container e volume','Entender a lógica de isolamento e reprodutibilidade.',['Docker','imagem','container','volume'],'Liste todos os containers Docker do OMA.',3,35,false],['w03d03','Variáveis de ambiente','Entender como configuração separa código de segredo.',['env vars','.env','configuração'],'Conte quantas variáveis de ambiente o OMA usa.',3,35,false],['w03d04','Persistência e armazenamento','Distinguir o que some do que fica.',['persistência','volume','SQLite'],'Mapeie onde cada dado do OMA é guardado.',3,35,false],['w03d05','Logs e observabilidade básica','Entender como você sabe que algo deu errado.',['logs','observabilidade','monitoramento'],'Acesse os logs de um agente e descreva o que vê.',3,35,false],['w03d06','Erro, timeout, retry e fallback','Aprender a pensar em falhas antes que elas aconteçam.',['erro','timeout','retry','fallback'],'Identifique onde o OMA tem fallback implementado.',3,35,false],['w03d07','Boss fight: ciclo de vida do container','Demonstrar entendimento completo de como um serviço nasce, vive e morre.',['container','lifecycle'],'Desenhe o ciclo de vida do agente Bia do boot até responder um lead.',3,25,true],['w04d01','Componente, módulo e serviço compartilhado','Entender a diferença entre partes do sistema.',['componente','módulo','shared service'],'Identifique os serviços compartilhados do NanoClaw.',4,35,false],['w04d02','Acoplamento e desacoplamento','Entender por que independência é valiosa.',['acoplamento','coesão','independência'],'Avalie o grau de acoplamento entre George e Bia hoje.',4,35,false],['w04d03','Single point of failure','Aprender a identificar onde o sistema todo pode travar.',['SPOF','resiliência','redundância'],'Identifique 3 pontos únicos de falha no OMA atual.',4,35,false],['w04d04','Fluxo síncrono e assíncrono','Distinguir processos que bloqueiam dos que não bloqueiam.',['síncrono','assíncrono','async'],'Classifique 5 fluxos do OMA como síncronos ou assíncronos.',4,35,false],['w04d05','Fila, job e scheduler','Entender como tarefas programadas funcionam.',['fila','job','scheduler','cron'],'Mapeie todos os jobs agendados do OMA.',4,35,false],['w04d06','Desenho ponta a ponta','Aprender a enxergar um fluxo completo no papel.',['diagrama','arquitetura','fluxo'],'Desenhe o fluxo de uma mensagem WhatsApp até a resposta da Bia.',4,35,false],['w04d07','Boss fight: arquitetura em 5 blocos','Apresentar a arquitetura OMA de forma clara e estruturada.',['síntese','arquitetura'],'Explique o OMA em 5 blocos para um CTO que nunca viu o sistema.',4,25,true],['w05d01','O que é um LLM','Entender o que um modelo de linguagem realmente faz.',['LLM','transformer','token'],'Explique por que o Claude entende perguntas sobre o OMA.',5,35,false],['w05d02','Prompt, contexto e instrução','Entender a diferença entre o que você pede e como você pede.',['prompt','system prompt','instrução'],'Compare o CLAUDE.md da Bia com o da Amanda.',5,35,false],['w05d03','Janela de contexto','Entender os limites de memória de curto prazo do modelo.',['context window','tokens','limite'],'Calcule quantas mensagens cabem no contexto de um agente OMA.',5,35,false],['w05d04','Temperatura, latência e custo','Entender os três parâmetros que mais afetam resultado e preço.',['temperatura','latência','custo por token'],'Estime o custo mensal de operação da Bia com 100 conversas/dia.',5,35,false],['w05d05','Hallucination, grounding e incerteza','Aprender a reconhecer quando o modelo inventa.',['hallucination','grounding','confiança'],'Identifique uma situação onde a Bia poderia alucinar.',5,35,false],['w05d06','Ferramenta vs inteligência','Distinguir o que o modelo pensa do que ele executa.',['tool use','reasoning','execução'],'Liste as ferramentas que o George tem acesso hoje.',5,35,false],['w05d07','Boss fight: modelo, agente e automação','Demonstrar que você entende a diferença entre os três.',['síntese','LLM vs agente'],'Explique para um CEO a diferença entre ChatGPT, um agente e uma automação.',5,25,true],['w06d01','O que é um agente','Entender o que diferencia um agente de um chatbot.',['agente','autonomia','loop'],'Descreva em que momento George age de forma autônoma.',6,35,false],['w06d02','Agent persona vs capability','Distinguir quem o agente é do que ele pode fazer.',['persona','capability','CLAUDE.md'],'Analise o CLAUDE.md da Bia: o que é persona e o que é capacidade?',6,35,false],['w06d03','Tool calling','Entender como agentes usam ferramentas externas.',['tool calling','function call','MCP'],'Liste todos os tools que o George pode chamar.',6,35,false],['w06d04','Skill, workflow e playbook','Entender como comportamentos complexos são estruturados.',['skill','workflow','playbook'],'Identifique 3 workflows que o OMA executa hoje.',6,35,false],['w06d05','Coordenador, especialista e escalação','Entender a hierarquia entre agentes.',['orquestrador','especialista','escalação'],'Mapeie a hierarquia de agentes do OMA.',6,35,false],['w06d06','Guardrails e containment','Entender como limitar o que um agente pode fazer.',['guardrail','limite','segurança'],'Identifique 3 guardrails que a Bia tem hoje.',6,35,false],['w06d07','Boss fight: agente não é só prompt','Demonstrar entendimento completo de arquitetura de agentes.',['síntese','agentes'],'Explique para um investidor o que torna o OMA diferente de um chatbot.',6,25,true],['w07d01','Contexto de conversa','Entender o que o agente lembra dentro de uma conversa.',['contexto','histórico','mensagem'],'Inspecione quantas mensagens o contexto da Bia carrega.',7,35,false],['w07d02','Memória persistente','Entender o que fica além da conversa.',['memória','persistência','profile'],'Identifique o que o George lembra entre sessões.',7,35,false],['w07d03','Base de conhecimento','Entender como o agente aprende sobre o negócio do cliente.',['knowledge base','CLAUDE.md','knowledge.json'],'Avalie a qualidade da knowledge base da Bia hoje.',7,35,false],['w07d04','Estado operacional','Distinguir o que o agente sabe do que ele está fazendo.',['estado','status','operação'],'Descreva o estado operacional do George às 8h de um dia típico.',7,35,false],['w07d05','Memória por contato, canal e agente','Entender por que isolar contextos é crítico.',['isolamento','contexto separado','JID'],'Explique o bug de contexto Bia/Amanda que precisa ser corrigido.',7,35,false],['w07d06','Quando não lembrar','Entender os riscos de memória excessiva.',['privacidade','LGPD','esquecimento'],'Identifique o que o OMA deveria esquecer depois de certo tempo.',7,35,false],['w07d07','Boss fight: Amanda como exemplo','Usar a Amanda para demonstrar domínio de política de memória.',['síntese','memória'],'Escreva a política de memória ideal para a Amanda.',7,25,true],['w08d01','O que é retrieval','Entender como sistemas buscam informação sob demanda.',['retrieval','busca','RAG'],'Descreva onde o OMA faz retrieval hoje.',8,35,false],['w08d02','Embeddings','Entender a representação matemática de significado.',['embedding','vetor','similaridade'],'Explique por que embeddings são úteis para a Bia responder sobre produtos.',8,35,false],['w08d03','Indexação e chunking','Entender como documentos são preparados para busca.',['indexação','chunk','processamento'],'Estime como você dividiria o knowledge.json da Bia em chunks.',8,35,false],['w08d04','Busca lexical vs semântica','Distinguir busca por palavra exata de busca por significado.',['lexical','semântica','vetor'],'Dê exemplos de quando cada tipo de busca seria melhor para o OMA.',8,35,false],['w08d05','RAG na prática','Entender como retrieval e geração se combinam.',['RAG','retrieval augmented generation','pipeline'],'Desenhe um pipeline RAG simples para a Bia.',8,35,false],['w08d06','Qualidade de recuperação','Entender o que faz uma busca retornar resultados úteis.',['precisão','recall','relevância'],'Avalie a qualidade da knowledge base atual da Pipe Eyewear.',8,35,false],['w08d07','Boss fight: por que não dar tudo no prompt','Defender a necessidade de retrieval com argumentos sólidos.',['síntese','RAG vs prompt'],'Explique para um cliente por que não basta colocar tudo no prompt do agente.',8,25,true],['w09d01','WhatsApp como canal operacional','Entender os limites e possibilidades do WhatsApp para agentes.',['WhatsApp','Evolution API','Baileys'],'Descreva o fluxo completo de uma mensagem na Bia.',9,35,false],['w09d02','Telegram como canal de comando','Entender por que Telegram é diferente de WhatsApp para o orchestrator.',['Telegram','bot','comando'],'Liste os comandos que o George aceita no Telegram.',9,35,false],['w09d03','Email como canal formal e assíncrono','Entender email como canal de agente para humanos.',['email','SMTP','assíncrono'],'Descreva os emails que o George envia automaticamente.',9,35,false],['w09d04','Portal/web app como camada de produto','Entender interfaces web como extensão dos agentes.',['portal','web app','dashboard'],'Avalie quais páginas do OMA Project site precisam de autenticação.',9,35,false],['w09d05','Webhook de canal e roteamento','Entender como mensagens chegam e são distribuídas.',['webhook','roteamento','dispatcher'],'Mapeie como uma mensagem WhatsApp chega até o container da Bia.',9,35,false],['w09d06','Continuidade entre canais','Entender desafios de manter contexto entre WhatsApp e Telegram.',['omnichannel','continuidade','handoff'],'Identifique onde há perda de contexto entre canais no OMA.',9,35,false],['w09d07','Boss fight: mesmo agente, canais diferentes','Demonstrar domínio de estratégia multi-canal.',['síntese','multi-canal'],'Projete como a Bia poderia operar no WhatsApp e no Instagram ao mesmo tempo.',9,25,true],['w10d01','Read actions vs write actions','Distinguir ações seguras de ações irreversíveis.',['read','write','reversibilidade'],'Classifique 10 ações do OMA em read ou write.',10,35,false],['w10d02','Aprovação humana','Entender quando o agente deve parar e perguntar.',['human in the loop','aprovação','escalação'],'Identifique 5 momentos em que o OMA pede aprovação humana.',10,35,false],['w10d03','Idempotência e duplicidade','Entender por que a mesma ação não deve rodar duas vezes.',['idempotência','deduplicação','safe retry'],'Encontre um lugar no OMA onde duplicidade poderia ser um problema.',10,35,false],['w10d04','Agendamento, tarefas e jobs','Entender como automatizar tarefas que ocorrem no tempo.',['cron','scheduler','job queue'],'Liste todos os jobs agendados do OMA com seus horários.',10,35,false],['w10d05','Falhas de integração','Entender como agir quando APIs externas falham.',['falha','retry','degradação graceful'],'Identifique o que acontece quando a API do Anthropic cai.',10,35,false],['w10d06','Auditoria de execução','Entender como saber o que o agente fez.',['auditoria','log','rastreabilidade'],'Verifique se o OMA tem log suficiente para auditar ações da Bia.',10,35,false],['w10d07','Boss fight: autonomia com limite','Defender onde a fronteira da autonomia dos agentes deve estar.',['síntese','autonomia','controle'],'Escreva a política de autonomia do OMA: o que o agente pode fazer sozinho.',10,25,true],['w11d01','Segredo, dado sensível e mínimo privilégio','Entender como proteger informações críticas.',['secret','mínimo privilégio','LGPD'],'Audite as credenciais do OMA: onde estão, quem pode ver.',11,35,false],['w11d02','LGPD e responsabilidade operacional','Entender as obrigações legais de quem opera agentes com dados de terceiros.',['LGPD','DPO','consentimento'],'Identifique onde o OMA coleta dados pessoais e qual é a base legal.',11,35,false],['w11d03','Observabilidade','Entender a diferença entre saber que funciona e entender por quê.',['métricas','traces','logs'],'Avalie o nível atual de observabilidade do OMA.',11,35,false],['w11d04','Incidente e resposta','Aprender como agir quando algo quebra em produção.',['incidente','runbook','postmortem'],'Escreva o runbook mínimo para quando um agente OMA parar de responder.',11,35,false],['w11d05','Backup, persistência e recuperação','Entender como garantir que dados não se perdem.',['backup','recovery','RPO','RTO'],'Verifique a estratégia de backup atual do OMA.',11,35,false],['w11d06','Risco reputacional de agentes','Entender o que acontece quando um agente faz algo errado na frente de um cliente.',['risco','reputação','guardrail'],'Escreva 3 cenários de risco reputacional para a Bia.',11,35,false],['w11d07','Boss fight: segurança em IA além da senha','Demonstrar visão completa de segurança para plataforma de agentes.',['síntese','segurança'],'Apresente a estratégia de segurança do OMA para um cliente enterprise.',11,25,true],['w12d01','OMA como produto','Entender a diferença entre o OMA como ferramenta interna e como produto vendável.',['produto','SaaS','RaaS'],'Escreva a definição de produto do OMA em 3 linhas.',12,35,false],['w12d02','Onboarding técnico de cliente','Entender o que é necessário para ativar um novo cliente.',['onboarding','ativação','time-to-value'],'Escreva o checklist ideal de onboarding para um novo cliente OMA.',12,35,false],['w12d03','Multi-tenant, template e replicabilidade','Entender o que escala e o que trava.',['multi-tenant','template','replicabilidade'],'Liste os blocos do OMA que são 100% replicáveis hoje.',12,35,false],['w12d04','Precificação baseada em risco e operação','Entender como custo e complexidade impactam preço.',['precificação','margem','risco'],'Defina 5 componentes que impactam o preço de um contrato OMA.',12,35,false],['w12d05','Explicação comercial da arquitetura','Aprender a vender sem overpromise.',['pitch técnico','limite','promessa'],'Escreva um pitch técnico-comercial de 90 segundos do OMA.',12,35,false],['w12d06','Transformar aprendizado em treinamento','Entender como isso vira curso, onboarding e playbook.',['curso','treinamento','documentação'],'Separe o que seria curso para founder e curso para cliente OMA.',12,35,false],['w12d07','Boss fight final: apresentar o OMA','Apresentar o OMA como se estivesse treinando novo operador ou parceiro.',['apresentação','capacidade','operação'],'Grave ou escreva sua apresentação final do OMA.',12,25,true]];
-const LESSONS={};
-LR.forEach(r=>{LESSONS[r[0]]={id:r[0],title:r[1],objective:r[2],key_terms:r[3],exercise:r[4],week:r[5],xp:r[6],boss:r[7]};});
-function weekLessons(w){return LR.filter(l=>l[5]===w).map(l=>l[0]);}
-const BADGES_META={'mestre-dos-webhooks':{name:'Mestre dos Webhooks',icon:'🔗',desc:'Semanas 1 e 2'},'domador-de-containers':{name:'Domador de Containers',icon:'🐳',desc:'Semana 3'},'arquiteto-de-fluxos':{name:'Arquiteto de Fluxos',icon:'🏗️',desc:'Semana 4'},'guardiao-dos-tokens':{name:'Guardião dos Tokens',icon:'🔑',desc:'Semana 5'},'orquestrador-de-agentes':{name:'Orquestrador de Agentes',icon:'🤖',desc:'Semana 6'},'guardiao-da-memoria':{name:'Guardião da Memória',icon:'🧠',desc:'Semana 7'},'sentinela-da-seguranca':{name:'Sentinela da Segurança',icon:'🛡️',desc:'Semana 11'},'evangelista-tecnico-oma':{name:'Evangelista Técnico OMA',icon:'🦞',desc:'Trilha completa!'}};
-const LEVEL_NAMES=['Iniciante Operacional','Explorador de Sistemas','Arquiteto em Formacao','Operador de Plataforma','Founder Tech Fluente','Mentor OMA'];
-const LEVEL_MIN=[0,151,301,451,601,801];
-let STATE={token:null,user:null,stats:null,progress:{},currentPhase:null,currentWeek:null,currentLesson:null};
-async function authCheck(){const params=new URLSearchParams(location.search);const urlToken=params.get('token');if(urlToken){localStorage.setItem('oma_academy_token',urlToken);history.replaceState({},'','/academy');}STATE.token=localStorage.getItem('oma_academy_token');if(!STATE.token){location.replace('/academy/login');return;}try{const r=await apiFetch('/academy/me');if(!r.ok){localStorage.removeItem('oma_academy_token');location.replace('/academy/login');return;}const d=await r.json();STATE.user=d;STATE.stats={xp:d.xp,level:d.level,lessons_done:d.lessons_done,badges:d.badges,streak:d.streak,xp_to_next:d.xp_to_next};}catch{location.replace('/academy/login');return;}try{const rp=await apiFetch('/academy/progress');const pd=await rp.json();pd.progress.forEach(p=>{STATE.progress[p.lesson_id]=true;});STATE.stats=pd.stats;}catch{}initUI();}
-function apiFetch(path,opts={}){return fetch(API+path,{...opts,headers:{'Content-Type':'application/json','Authorization':'Bearer '+STATE.token,...(opts.headers||{})}});}
-function doLogout(){if(!confirm('Sair da Academy?'))return;localStorage.removeItem('oma_academy_token');location.replace('/academy/login');}
-function initUI(){updateHeader();buildSidebar(document.getElementById('sideNav'));buildSidebar(document.getElementById('drawerNav'));renderDashboard();}
-function updateHeader(){const u=STATE.user,s=STATE.stats;if(!u)return;const av=document.getElementById('userAvatar');if(u.avatar_url){av.innerHTML='<img src="'+u.avatar_url+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}else{av.textContent=(u.nome||'?')[0].toUpperCase();}document.getElementById('streakVal').textContent=s?.streak?.current||0;updateXpBar(s);}
-function updateXpBar(s){if(!s)return;const idx=LEVEL_NAMES.indexOf(s.level);const min=LEVEL_MIN[idx]||0;const nxt=LEVEL_MIN[idx+1]||9999;const pct=Math.min(100,((s.xp-min)/(nxt-min))*100);['side','drawer'].forEach(p=>{const lv=document.getElementById(p+'Level');const xv=document.getElementById(p+'Xp'+(p==='side'?'':'Val'));const xf=document.getElementById(p+'XpFill');if(lv)lv.textContent=s.level;if(xv)xv.textContent=s.xp+' XP';if(xf)xf.style.width=pct+'%';});}
-function buildSidebar(c){if(!c)return;c.innerHTML='';PHASES.forEach((ph,pi)=>{const d=document.createElement('div');d.innerHTML='<div class="nav-phase-title">FASE '+(pi+1)+' — '+ph.name+'</div>';ph.weeks.forEach(w=>{const wl=weekLessons(w);const wd=wl.filter(id=>STATE.progress[id]).length;const isA=STATE.currentWeek===w;const isDone=wd===wl.length;const div=document.createElement('div');div.className='nav-week'+(isDone?' done':'')+(isA?' active':'');div.innerHTML='<div class="nav-week-icon">'+(isDone?'✓':w)+'</div><div class="nav-week-label">Sem '+w+': '+WEEKS[w].title+'</div>';div.onclick=()=>{goPhaseIdx(pi);setTimeout(()=>goWeek(w),10);closeDrawer();};d.appendChild(div);});c.appendChild(d);});}
-function goScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen'+name[0].toUpperCase()+name.slice(1)).classList.add('active');window.scrollTo(0,0);const t={dash:'Dashboard',phase:'Trilha',week:'Semana',lesson:'Lição'};document.getElementById('topTitle').textContent=t[name]||name;}
-function renderDashboard(){const u=STATE.user,s=STATE.stats;if(!u||!s)return;document.getElementById('dashName').textContent=u.nome.split(' ')[0];const pct=s.lessons_done/84*100;document.getElementById('dashMeta').textContent=Math.round(pct)+'% concluído · '+s.lessons_done+'/84 lições';document.getElementById('statXp').textContent=s.xp;document.getElementById('statLessons').textContent=s.lessons_done;document.getElementById('statStreak').textContent=s.streak?.current||0;document.getElementById('statBadges').textContent=s.badges?.length||0;const idx=LEVEL_NAMES.indexOf(s.level);const min=LEVEL_MIN[idx]||0;const nxt=LEVEL_MIN[idx+1]||9999;const pctLv=Math.min(100,((s.xp-min)/(nxt-min))*100);document.getElementById('levelName').textContent=s.level;document.getElementById('levelFill').style.width=pctLv+'%';document.getElementById('levelXpCur').textContent=s.xp+' XP';document.getElementById('levelXpNext').textContent=idx<5?'próximo: '+nxt+' XP':'Nível máximo!';renderContinueBlock();renderPhaseMap();renderBadges();}
-function renderContinueBlock(){let next=null;for(const [id] of LR){if(!STATE.progress[id]){next=LESSONS[id];break;}}if(!next){document.getElementById('continueTitle').textContent='🎉 Trilha completa!';document.getElementById('continueMeta').textContent='Parabéns — você é um Mentor OMA.';return;}document.getElementById('continueTitle').textContent=next.title;document.getElementById('continueMeta').textContent='Semana '+next.week+' · '+WEEKS[next.week].title+' · '+next.xp+' XP';}
-function renderPhaseMap(){const c=document.getElementById('phaseMap');c.innerHTML='';PHASES.forEach((ph,pi)=>{const tot=ph.weeks.reduce((a,w)=>a+weekLessons(w).length,0);const done=ph.weeks.reduce((a,w)=>a+weekLessons(w).filter(id=>STATE.progress[id]).length,0);const pct=tot?done/tot*100:0;const isDone=done===tot;const isAct=!isDone&&done>0;const div=document.createElement('div');div.className='phase-row'+(isDone?' phase-done':isAct?' phase-active':'');div.innerHTML='<div class="phase-num">0'+(pi+1)+'</div><div class="phase-name">'+ph.name+'</div><div class="phase-prog">'+done+'/'+tot+'</div><div class="phase-bar-wrap"><div class="phase-bar"><div class="phase-bar-fill" style="width:'+pct+'%"></div></div></div>';div.onclick=()=>goPhaseIdx(pi);c.appendChild(div);});}
-function renderBadges(){const earned=new Set(STATE.stats?.badges||[]);const g=document.getElementById('badgesGrid');g.innerHTML='';Object.entries(BADGES_META).forEach(([id,b])=>{const isE=earned.has(id);const div=document.createElement('div');div.className='badge-item'+(isE?' earned':' locked');div.innerHTML='<div class="badge-icon">'+b.icon+'</div><div><div class="badge-name">'+b.name+'</div><div style="font-size:10px;color:var(--text4);margin-top:2px">'+b.desc+'</div></div>';g.appendChild(div);});}
-function goPhaseIdx(pi){STATE.currentPhase=pi;const ph=PHASES[pi];document.getElementById('trailPhaseLbl').textContent='Fase '+(pi+1)+' de 6';document.getElementById('trailTitle').textContent=ph.name;document.getElementById('trailGoal').textContent='';const c=document.getElementById('weeksGrid');c.innerHTML='';ph.weeks.forEach(w=>{const wl=weekLessons(w);const done=wl.filter(id=>STATE.progress[id]).length;const isDone=done===wl.length;const isAct=!isDone&&done>0;const txp=wl.reduce((a,id)=>a+(LESSONS[id]?.xp||0),0);const div=document.createElement('div');div.className='week-row'+(isDone?' done':isAct?' active':'');div.innerHTML='<div class="week-num">Sem '+w+'</div><div class="week-info"><div class="week-title">'+WEEKS[w].title+'</div><div class="week-goal-text">'+WEEKS[w].goal+'</div></div><div class="week-meta"><div class="week-xp">'+txp+' XP</div><div class="week-done-count">'+done+'/'+wl.length+'</div></div>';div.onclick=()=>goWeek(w);c.appendChild(div);});goScreen('phase');buildSidebar(document.getElementById('sideNav'));buildSidebar(document.getElementById('drawerNav'));}
-function goWeek(w){STATE.currentWeek=w;document.getElementById('wvWeekLbl').textContent='Semana '+w+' de 12';document.getElementById('wvTitle').textContent=WEEKS[w].title;document.getElementById('wvGoal').textContent=WEEKS[w].goal;document.getElementById('weekBack').onclick=()=>goPhaseIdx(STATE.currentPhase||0);const c=document.getElementById('daysGrid');c.innerHTML='';const ids=weekLessons(w);ids.forEach((id,i)=>{const l=LESSONS[id];const done=STATE.progress[id];const isBoss=l.boss;const isNext=!done&&ids.slice(0,i).every(pid=>STATE.progress[pid]);const div=document.createElement('div');div.className='day-card'+(done?' done':'')+(isBoss?' boss':'')+(isNext&&!done?' current':'');div.innerHTML=(done?'<div class="day-done-mark">✓</div>':'')+(isBoss?'<div class="day-boss-tag">⚔ Boss Fight</div>':'')+'<div class="day-num">Dia '+(i+1)+'</div><div class="day-title">'+l.title+'</div><div class="day-xp">'+l.xp+' XP</div>';div.onclick=()=>goLesson(id);c.appendChild(div);});goScreen('week');}
-function goLesson(id){STATE.currentLesson=id;const l=LESSONS[id];if(!l)return;const ph=PHASES.find(p=>p.weeks.includes(l.week));document.getElementById('lvMeta').innerHTML='<span class="lv-tag phase-tag">'+(ph?.name||'')+'</span><span class="lv-tag week-tag">Semana '+l.week+'</span><span class="lv-tag xp-tag">+'+l.xp+' XP</span>'+(l.boss?'<span class="lv-tag boss-tag">⚔ Boss Fight</span>':'');document.getElementById('lvTitle').textContent=l.title;document.getElementById('lvObjective').textContent=l.objective;document.getElementById('lvKeyTerms').innerHTML=l.key_terms.map(t=>'<span class="key-term">'+t+'</span>').join('');document.getElementById('lvExerciseText').textContent=l.exercise;document.getElementById('lvExerciseInput').value='';loadLessonContent(l);const done=STATE.progress[id];const act=document.getElementById('lvActions');if(done){act.innerHTML='<div class="lv-done-badge">✓ Lição concluída</div><button class="btn-next" onclick="goNextLesson(true)">Próxima lição →</button>';}else{act.innerHTML='<button class="btn-complete" id="btnComplete" onclick="completeLesson()">Marcar como concluída</button>';}goScreen('lesson');}
-async function loadLessonContent(l){const c=document.getElementById('lvContent');const q=document.getElementById('lvQuiz');q.style.display='none';c.innerHTML='<div class="skeleton skel-line" style="width:100%;height:16px"></div><div class="skeleton skel-line" style="width:80%;margin-top:8px"></div><div class="skeleton skel-line" style="width:100%;margin-top:8px"></div><div class="skeleton skel-line" style="width:60%;margin-top:8px"></div><div class="skeleton skel-line" style="width:100%;margin-top:24px;height:16px"></div><div class="skeleton skel-line" style="width:75%;margin-top:8px"></div>';
-const prompt='Você é professor da OMA Academy — tech fluency para founders brasileiros de IA.\n\nLição: "'+l.title+'"\nObjetivo: '+l.objective+'\nTermos: '+l.key_terms.join(', ')+'\n\nContexto: Aluno é Fabio Xavier, ex-COO Ri Happy (280 lojas), fundou OMA Project — plataforma de agentes (NanoClaw, Node.js, Mac Mini M4, Claude API, Evolution API/WhatsApp). Sem background de programação.\n\nEscreva o conteúdo da lição:\n- Tom: amigo COO explicando no bar — direto, sem academicismo\n- Parágrafos curtos (máx 3 linhas)\n- Use analogias de varejo/negócio\n- Use <strong> para termos importantes\n- Inclua um bloco: <div class="oma-box"><div class="oma-box-title">NO OMA</div>exemplo concreto aqui</div>\n- 200-280 palavras de conteúdo\n\nAo final, adicione exatamente:\nQUIZ_JSON:{"question":"pergunta","options":["A) op1","B) op2","C) op3","D) op4"],"correct":0,"explanation":"explicação breve"}\n\nNão use markdown, não use ``` nem ```html.';
-try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});const d=await r.json();const raw=d.content?.[0]?.text||'';const qm=raw.match(/QUIZ_JSON:(\{[\s\S]*\})/);let html=raw.replace(/QUIZ_JSON:[\s\S]*$/,'').trim();if(!html.includes('<p>')&&!html.includes('<div')){html=html.split(/\n\n+/).map(p=>p.trim()?'<p>'+p+'</p>':'').join('');}c.innerHTML=html||'<p>'+l.objective+'</p>';if(qm){try{const qd=JSON.parse(qm[1]);renderQuiz(qd);q.style.display='block';}catch{}}}catch{c.innerHTML='<p><strong>'+l.title+'</strong></p><p>'+l.objective+'</p><div class="oma-box"><div class="oma-box-title">NO OMA</div><p>Este conceito aparece na infraestrutura do OMA. Explore o exercício abaixo para fixar o aprendizado.</p></div>';}}
-function renderQuiz(q){document.getElementById('quizQ').textContent=q.question;const opts=document.getElementById('quizOpts');const fb=document.getElementById('quizFeedback');opts.innerHTML='';fb.style.display='none';fb.className='quiz-feedback';q.options.forEach((opt,i)=>{const btn=document.createElement('button');btn.className='quiz-opt';btn.textContent=opt;btn.onclick=()=>{opts.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);if(i===q.correct){btn.classList.add('correct');fb.textContent='✓ Correto! '+q.explanation;fb.className='quiz-feedback ok';}else{btn.classList.add('wrong');opts.querySelectorAll('.quiz-opt')[q.correct].classList.add('correct');fb.textContent='✗ '+q.explanation;fb.className='quiz-feedback err';}fb.style.display='block';};opts.appendChild(btn);});}
-async function completeLesson(){const id=STATE.currentLesson;const l=LESSONS[id];if(!l||STATE.progress[id])return;const btn=document.getElementById('btnComplete');if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> Salvando...';}try{const r=await apiFetch('/academy/progress',{method:'POST',body:JSON.stringify({lesson_id:id,xp_earned:l.xp})});const d=await r.json();STATE.progress[id]=true;STATE.stats=d.stats;showXpToast(l.xp);if(d.new_badges?.length)d.new_badges.forEach(bid=>showBadgeToast(bid));updateHeader();updateXpBar(d.stats);buildSidebar(document.getElementById('sideNav'));buildSidebar(document.getElementById('drawerNav'));document.getElementById('lvActions').innerHTML='<div class="lv-done-badge">✓ Lição concluída · +'+l.xp+' XP</div><button class="btn-next" onclick="goNextLesson(true)">Próxima lição →</button>';}catch(e){if(btn){btn.disabled=false;btn.textContent='Marcar como concluída';}}}
-function goNextLesson(fromLesson){const ids=LR.map(l=>l[0]);if(fromLesson&&STATE.currentLesson){const idx=ids.indexOf(STATE.currentLesson);if(idx<ids.length-1){const next=ids[idx+1];STATE.currentWeek=LESSONS[next].week;goLesson(next);return;}goScreen('dash');renderDashboard();return;}for(const id of ids){if(!STATE.progress[id]){STATE.currentWeek=LESSONS[id].week;goLesson(id);return;}}goScreen('dash');}
-function goBackFromLesson(){if(STATE.currentWeek)goWeek(STATE.currentWeek);else goScreen('dash');}
-function showXpToast(xp){const t=document.getElementById('xpToast');document.getElementById('xpToastVal').textContent='+'+xp+' XP';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);fireConfetti();}
-function showBadgeToast(bid){const b=BADGES_META[bid];if(!b)return;const t=document.getElementById('badgeToast');document.getElementById('badgeToastName').textContent=b.icon+' '+b.name;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
-function fireConfetti(){const cols=['#e8703a','#fbbf24','#4ade80','#60a5fa','#a78bfa','#f0f0f0'];for(let i=0;i<35;i++){setTimeout(()=>{const p=document.createElement('div');p.className='confetti-piece';p.style.cssText='left:'+Math.random()*100+'vw;width:'+(6+Math.random()*6)+'px;height:'+(6+Math.random()*6)+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';animation-duration:'+(1.5+Math.random()*1.5)+'s;animation-delay:'+Math.random()*0.4+'s;';document.body.appendChild(p);setTimeout(()=>p.remove(),3000);},i*20);}}
-function openDrawer(){document.getElementById('drawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');}
-function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');}
+
+// ════════════════════════════════════════════════════════
+//  CURRICULUM DATA — 30 modules, 5 phases
+// ════════════════════════════════════════════════════════
+const PHASES=[
+  {id:1,name:'O Mundo Digital',sub:'Como a internet funciona de verdade',icon:'🌐',color:'#3b82f6',modules:['m01','m02','m03','m04','m05','m06']},
+  {id:2,name:'Dados e Sistemas',sub:'Como as peças se conectam',icon:'⚙️',color:'#8b5cf6',modules:['m07','m08','m09','m10','m11','m12']},
+  {id:3,name:'Inteligência Artificial',sub:'O que LLMs realmente são e fazem',icon:'🧠',color:'#ec4899',modules:['m13','m14','m15','m16','m17','m18']},
+  {id:4,name:'Agentes e Automação',sub:'Da IA passiva ao agente que age',icon:'🤖',color:'#f59e0b',modules:['m19','m20','m21','m22','m23','m24']},
+  {id:5,name:'Construir e Escalar',sub:'Do protótipo ao produto real',icon:'🚀',color:'#10b981',modules:['m25','m26','m27','m28','m29','m30']},
+];
+
+const MODS={
+  m01:{id:'m01',title:'Servidor',sub:'A loja que nunca fecha',phase:1,xp:60,
+    analogy:'Pensa num servidor como uma loja alugada num shopping. Você não é dono do espaço — aluga, instala tudo e opera 24h. Se cair a luz do shopping, sua loja para.',
+    cards:[
+      {title:'O que é um servidor',body:'<p>Servidor é só um computador que nunca desliga e fica esperando pedidos. Pode ser uma máquina física num datacenter, ou um espaço alugado numa nuvem como AWS ou Google Cloud.</p><p>A diferença do seu notebook? Ele está sempre ligado, sempre conectado, e foi configurado para responder requisições — não para você digitar nele.</p>',highlight:'Todo site, app e serviço digital tem um servidor por trás. Sem ele, não existe produto.'},
+      {title:'Nuvem vs servidor próprio',body:'<p>Antigamente, empresas compravam servidores físicos — como comprar o imóvel da loja. Caro, inflexível, manutenção cara.</p><p>Hoje a maioria aluga espaço na nuvem (AWS, Google Cloud, Hetzner, Vercel). Você paga pelo que usa, escala quando precisa, e não se preocupa com hardware.</p><p>É como sair de loja própria para loja em shopping: mais caro por metro, mas sem dor de cabeça.</p>',highlight:'Nuvem = infraestrutura alugada. Você foca no produto, não no hardware.'},
+      {title:'Latência e disponibilidade',body:'<p>Dois números que todo founder precisa entender: <strong>latência</strong> (tempo de resposta) e <strong>uptime</strong> (quanto tempo fica no ar).</p><p>Latência alta = loja longe do cliente. Se seu servidor está nos EUA e seu cliente no Brasil, cada pedido faz uma viagem de ida e volta de 200ms.</p><p>Uptime 99,9% parece ótimo. Mas significa 8h fora do ar por ano — o equivalente a fechar a loja por um dia inteiro.</p>',highlight:'Servidor próximo = resposta mais rápida. Uptime alto = negócio confiável.'},
+    ],
+    quiz:[
+      {q:'Qual a melhor analogia para um servidor em nuvem?',opts:['Comprar o imóvel da sua loja','Alugar espaço num shopping já estruturado','Trabalhar de home office','Contratar um freelancer'],c:1,exp:'Nuvem = aluguel de infraestrutura já pronta. Você opera dentro dela sem ser dono.'},
+      {q:'O que significa "uptime de 99,9%"?',opts:['O servidor nunca cai','O servidor fica fora do ar ~8 horas por ano','O servidor responde em menos de 1ms','O servidor usa 99,9% da CPU'],c:1,exp:'99,9% = 0,1% de inatividade = ~8,7h por ano. Em negócios críticos, isso importa.'},
+      {q:'Por que latência importa para aplicações de IA?',opts:['IA é sempre rápida, não importa','Cada parte da resposta é gerada e enviada em tempo real — latência acumula','IA usa mais memória que outros apps','A nuvem cobra por milissegundo'],c:1,exp:'Em IA, latência acumula: cada token gerado é transmitido. Servidor longe = resposta arrastada.'},
+    ],
+    challenge:'Você acessa o Instagram agora. Em 3 linhas, descreva o que acontece nos bastidores: qual servidor recebe seu pedido, onde provavelmente está, e quantas viagens de dados aconteceram até a foto aparecer.'},
+  m02:{id:'m02',title:'DNS e Domínios',sub:'A lista telefônica da internet',phase:1,xp:60,
+    analogy:'DNS é a lista telefônica da internet. Você sabe o nome da pessoa (google.com), mas precisa do número (IP) para ligar. O DNS faz essa tradução automaticamente — em menos de 50 milissegundos.',
+    cards:[
+      {title:'Como o DNS funciona',body:'<p>Quando você digita <strong>google.com</strong>, seu computador pergunta para um servidor DNS: "qual é o IP desse endereço?". O DNS responde com um número como 142.250.78.46.</p><p>Aí o navegador vai até esse IP buscar o site. Tudo isso acontece antes de qualquer conteúdo aparecer — e leva menos de 50ms.</p>',highlight:'Domínio = nome amigável. IP = endereço real. DNS = tradutor instantâneo.'},
+      {title:'Subdomínios na prática',body:'<p>O domínio principal é sua marca: <strong>empresa.com.br</strong></p><p>Subdomínios são como departamentos: <strong>api.empresa.com.br</strong>, <strong>app.empresa.com.br</strong>, <strong>blog.empresa.com.br</strong></p><p>Cada subdomínio pode apontar para um servidor diferente. Seu site no Vercel, sua API no Hetzner, seu blog no WordPress — tudo sob o mesmo domínio, configurado nas entradas DNS.</p>',highlight:'Subdomínios = filiais da mesma marca, cada uma no seu endereço.'},
+      {title:'Cloudflare como guardião',body:'<p><strong>Cloudflare</strong> é como uma guarita na entrada do seu condomínio. Todo visitante passa por ela antes de chegar ao servidor real.</p><p>O que ela faz: filtra ataques (DDoS), acelera carregamento com cache, esconde o IP real do seu servidor, e oferece HTTPS grátis.</p><p>A maioria das empresas digitais sérias usa Cloudflare — não por luxo, mas por necessidade básica de segurança e performance.</p>',highlight:'Cloudflare = guarita digital. Filtra, protege e acelera.'},
+    ],
+    quiz:[
+      {q:'O que o DNS faz, em essência?',opts:['Hospeda seu site','Traduz nomes de domínio em endereços IP','Protege contra hackers','Acelera carregamento'],c:1,exp:'DNS = lista telefônica. Nome → número. Acontece antes de qualquer página carregar.'},
+      {q:'Você tem "empresa.com.br". Quer área separada para a API. O que criar?',opts:['Novo domínio: api-empresa.com.br','Subdomínio: api.empresa.com.br','Uma nova empresa','Pasta no servidor'],c:1,exp:'Subdomínio = departamento do mesmo domínio. Pode apontar para servidor diferente.'},
+      {q:'Para que serve o Cloudflare?',opts:['Hospedar sites gratuitamente','Criar novos domínios','Intermediar tráfego: protege, acelera e esconde o IP real','Gerenciar banco de dados'],c:2,exp:'Cloudflare = camada entre usuário e servidor. Filtra ataques, faz cache, esconde infraestrutura.'},
+    ],
+    challenge:'Abra o terminal e digite: nslookup google.com. O número que aparecer é o IP do Google. Faça o mesmo com instagram.com. São IPs diferentes? Por que uma empresa grande teria múltiplos IPs?'},
+  m03:{id:'m03',title:'HTTP e APIs',sub:'A língua que a internet fala',phase:1,xp:60,
+    analogy:'API é o cardápio de um restaurante. Você não entra na cozinha — pede pelo cardápio (a API) o que quer, e a cozinha (o servidor) prepara e entrega. Cada prato é um endpoint.',
+    cards:[
+      {title:'O que é uma requisição HTTP',body:'<p>Toda vez que você abre um site, seu navegador faz uma <strong>requisição HTTP</strong>: "me dá o conteúdo de google.com". O servidor responde com o conteúdo da página.</p><p>Dois tipos principais: <strong>GET</strong> (buscar informação) e <strong>POST</strong> (enviar informação). GET é pedir o cardápio. POST é fazer o pedido.</p><p>A resposta sempre tem um código de status: <strong>200 = ok</strong>, <strong>404 = não encontrado</strong>, <strong>500 = erro no servidor</strong>.</p>',highlight:'GET = perguntar. POST = enviar. 200 = funcionou. 404 = não existe. 500 = quebrou.'},
+      {title:'O que é uma API',body:'<p><strong>API</strong> (Application Programming Interface) é o conjunto de regras que define como um sistema aceita pedidos de outro.</p><p>Exemplos reais: quando o iFood mostra o mapa do entregador, usa a API do Google Maps. Quando você paga com cartão, o app usa a API do seu banco. Você nunca entra na cozinha do Google Maps — pede pelo cardápio.</p>',highlight:'API = cardápio do serviço. Você pede, eles entregam — sem ver como foi feito.'},
+      {title:'REST e JSON',body:'<p>A maioria das APIs modernas usa <strong>REST</strong> — uma convenção de como organizar rotas e dados.</p><p>Os dados trafegam em <strong>JSON</strong>: um formato de texto que tanto humanos quanto máquinas conseguem ler.</p><p>Exemplo de JSON:<br><code>{"nome": "Fabio", "empresa": "OMA", "plano": "pro"}</code></p><p>É como um formulário digital — campos e valores. Você vai consumir e produzir JSON em qualquer sistema que construir.</p>',highlight:'REST = convenção de organização. JSON = formato universal de dados.'},
+    ],
+    quiz:[
+      {q:'Você quer buscar a lista de pedidos de um cliente. Qual tipo de requisição HTTP usar?',opts:['POST — para enviar dados','GET — para buscar dados','DELETE — para apagar dados','PUT — para atualizar dados'],c:1,exp:'GET = buscar. Você quer ler informação, não enviar nada.'},
+      {q:'O app de delivery usa o mapa do Google. Como funciona tecnicamente?',opts:['O app copia o código do Google Maps','O app faz requisições à API do Google Maps','O Google instalou servidor dentro do app','Usuário precisa ter Google Maps instalado'],c:1,exp:'API = cardápio. O app pede dados de mapa ao Google via API, sem implementar mapas do zero.'},
+      {q:'O servidor retornou status 500. O que aconteceu?',opts:['Requisição bem-sucedida','Recurso não encontrado','Erro interno no servidor','Sem autorização'],c:2,exp:'500 = Internal Server Error. Algo quebrou do lado do servidor, não do cliente.'},
+    ],
+    challenge:'Abra https://api.github.com/users/torvalds no navegador. Você acabou de fazer uma requisição GET a uma API pública. Encontre o campo "public_repos". Quantos repositórios Linus Torvalds tem?'},
+  m04:{id:'m04',title:'HTTPS e Segurança',sub:'O cadeado que protege tudo',phase:1,xp:60,
+    analogy:'HTTPS é como enviar uma carta num envelope lacrado e numerado. Mesmo que alguém intercepte no caminho, não consegue ler. HTTP sem S é carta aberta — qualquer um na mesma rede pode ler.',
+    cards:[
+      {title:'O que o HTTPS protege',body:'<p>Quando você faz login num site com HTTP (sem S), sua senha viaja em <strong>texto puro</strong> até o servidor. Qualquer pessoa na mesma rede Wi-Fi pode interceptar e ler.</p><p>Com HTTPS, tudo é criptografado antes de sair do seu dispositivo. O servidor tem a chave para descriptografar — ninguém no meio consegue ler.</p><p>O cadeado verde no navegador confirma: essa conexão é segura.</p>',highlight:'HTTP = carta aberta. HTTPS = envelope lacrado com código secreto.'},
+      {title:'Certificados SSL/TLS',body:'<p>Para ter HTTPS, seu domínio precisa de um <strong>certificado SSL</strong> — um arquivo que prova que você é quem diz ser e contém as chaves de criptografia.</p><p>Antigamente custava caro. Hoje serviços como Let\'s Encrypt emitem gratuitamente e automaticamente. Cloudflare faz isso por você sem configuração manual.</p><p>Certificado expirado = navegador exibe aviso de "site não seguro". Usuário foge.</p>',highlight:'Certificado SSL = identidade digital do site. Grátis hoje, obrigatório sempre.'},
+      {title:'Autenticação vs Autorização',body:'<p>Dois conceitos que parecem iguais mas são diferentes:</p><p><strong>Autenticação</strong> = provar quem você é. Login com email/senha, Google OAuth, biometria. Responde: "quem é você?"</p><p><strong>Autorização</strong> = verificar o que você pode fazer. Após logar, o sistema verifica suas permissões. Responde: "o que você pode fazer?"</p><p>Exemplo: você se <em>autentica</em> no banco (login). O banco te <em>autoriza</em> a ver sua conta, não a de outros clientes.</p>',highlight:'Autenticação = quem é você. Autorização = o que você pode fazer.'},
+    ],
+    quiz:[
+      {q:'Você está num café com Wi-Fi público e faz login num site HTTP. Qual o risco?',opts:['Nenhum, Wi-Fi público é seguro','Sua senha pode ser interceptada por qualquer pessoa na mesma rede','O site pode ficar mais lento','Você pode ser bloqueado pelo café'],c:1,exp:'HTTP sem S = dados em texto puro. Em rede compartilhada, qualquer um com as ferramentas certas intercepta.'},
+      {q:'Qual a diferença entre autenticação e autorização?',opts:['São sinônimos','Autenticação = quem você é. Autorização = o que pode fazer.','Autorização = quem você é. Autenticação = o que pode fazer.','Autenticação é para admins, autorização para usuários'],c:1,exp:'Login = autenticação (prova identidade). Permissões = autorização (define acesso).'},
+      {q:'O que é um certificado SSL?',opts:['Uma senha de servidor','Um arquivo que habilita HTTPS e prova a identidade do domínio','Um antivírus para sites','Um backup automático'],c:1,exp:'SSL = certificado de identidade + chaves de criptografia. Necessário para HTTPS funcionar.'},
+    ],
+    challenge:'Acesse qualquer site que você usa (banco, email, redes sociais). Clique no cadeado ao lado da URL. Quem emitiu o certificado SSL? Quando expira? Esse é o "documento de identidade" do site.'},
+  m05:{id:'m05',title:'Cloud e Infraestrutura',sub:'Alugar em vez de construir',phase:1,xp:60,
+    analogy:'Cloud é o mercado imobiliário digital. IaaS = terreno vazio (você constrói tudo). PaaS = apartamento mobiliado (você decora). SaaS = hotel (só usar). Custo e controle variam proporcionalmente.',
+    cards:[
+      {title:'IaaS, PaaS e SaaS',body:'<p>Três modelos de cloud, do mais cru ao mais pronto:</p><p><strong>IaaS</strong> — você aluga o servidor puro. Responsável por tudo: sistema operacional, segurança, escala. Ex: AWS EC2, Hetzner VPS.</p><p><strong>PaaS</strong> — você só sobe o código. A plataforma gerencia o resto. Ex: Vercel, Railway, Render.</p><p><strong>SaaS</strong> — produto pronto, você usa. Ex: Notion, Slack, Google Docs.</p>',highlight:'Mais controle = mais responsabilidade. Mais abstração = menos dor de cabeça.'},
+      {title:'Escalabilidade',body:'<p>Dois jeitos de lidar com crescimento:</p><p><strong>Escala vertical</strong> = aumentar a máquina. Servidor de 4GB → 16GB RAM. Simples, mas tem limite físico e fica caro.</p><p><strong>Escala horizontal</strong> = adicionar máquinas. Em vez de 1 servidor grande, 10 servidores médios. É como abrir mais filiais em vez de ampliar a loja original.</p><p>Aplicações modernas são projetadas para escala horizontal — mais flexível e resiliente.</p>',highlight:'Vertical = loja maior. Horizontal = mais lojas. Scale-out é o padrão moderno.'},
+      {title:'Edge computing e CDN',body:'<p><strong>CDN</strong> (Content Delivery Network) é uma rede de servidores espalhados pelo mundo com cópias do seu conteúdo.</p><p>Sem CDN, usuário em SP acessa seu site hospedado nos EUA: 10.000km de distância. Com CDN, existe um servidor em Campinas com uma cópia — resposta de 50km.</p><p><strong>Edge computing</strong> vai além: processa lógica nesses servidores próximos. Cloudflare Workers é edge — seu código roda no servidor mais próximo do usuário.</p>',highlight:'CDN = estoque regional. Edge = fábrica regional. Ambos reduzem distância até o cliente.'},
+    ],
+    quiz:[
+      {q:'Você usa o Notion para gestão da equipe. Qual modelo de cloud é esse?',opts:['IaaS — você gerencia a infraestrutura','PaaS — você sobe apenas o código','SaaS — software pronto que você consome','Edge Computing'],c:2,exp:'SaaS = produto pronto. Você usa, não gerencia nada por baixo.'},
+      {q:'Seu site tem muitos acessos simultâneos. Qual estratégia de escala é mais recomendada?',opts:['Escala vertical — trocar por servidor maior','Escala horizontal — adicionar mais servidores menores','Migrar para SaaS','Usar menos CDN'],c:1,exp:'Escala horizontal = mais resiliente, mais flexível, sem limite físico único.'},
+      {q:'Para que serve um CDN?',opts:['Criptografar dados do usuário','Distribuir conteúdo em servidores próximos ao usuário para reduzir latência','Gerenciar autenticação','Fazer backup do banco de dados'],c:1,exp:'CDN = cópias regionais do conteúdo. Menos distância = resposta mais rápida.'},
+    ],
+    challenge:'Você tem uma startup com 100 usuários hoje. Em 3 linhas: qual modelo de cloud você escolheria agora (IaaS/PaaS/SaaS) e por quê? Considere custo, controle e tempo do time.'},
+  m06:{id:'m06',title:'Banco de Dados',sub:'Onde tudo fica guardado',phase:1,xp:60,
+    analogy:'Banco de dados é o arquivo morto da empresa — só que pesquisável em milissegundos. SQL é como uma planilha Excel ultra-poderosa. NoSQL é como uma gaveta de documentos sem formato fixo.',
+    cards:[
+      {title:'SQL — dados com estrutura',body:'<p>Bancos SQL (relacionais) organizam dados em tabelas com colunas fixas — como planilhas conectadas entre si.</p><p>Exemplos: PostgreSQL, MySQL, SQLite.</p><p>Ideal quando seus dados têm estrutura previsível: clientes sempre têm nome, CPF, email. Pedidos sempre têm data, valor, cliente. A rigidez é um recurso — garante consistência.</p><p>Você consulta usando SQL: <code>SELECT * FROM clientes WHERE cidade = "São Paulo"</code></p>',highlight:'SQL = planilha poderosa com relações. Estrutura rígida, dados consistentes.'},
+      {title:'NoSQL — sem molde fixo',body:'<p>Bancos NoSQL guardam dados sem estrutura pré-definida — como documentos JSON numa gaveta.</p><p>Exemplos: MongoDB, Redis, Firestore.</p><p>Ideal quando os dados variam muito — um produto pode ter 3 ou 300 atributos dependendo da categoria. Ou quando precisa de velocidade extrema: Redis guarda dados na memória RAM, não em disco.</p>',highlight:'NoSQL = gaveta de documentos. Flexível, mas menos garantias.'},
+      {title:'Backup, índices e migrations',body:'<p><strong>Backup</strong> = cópia de segurança. Sem backup, uma falha apaga tudo. Automatize. <em>Teste a restauração</em> — backup que nunca foi restaurado pode estar corrompido.</p><p><strong>Índice</strong> = marcador de página. Sem índice, buscar 1 registro entre 1 milhão = ler tudo. Com índice, vai direto.</p><p><strong>Migration</strong> = versionamento do banco. Como o Git para o código, mas para a estrutura dos dados.</p>',highlight:'Backup sem teste não existe. Índice = velocidade. Migration = histórico de mudanças.'},
+    ],
+    quiz:[
+      {q:'Você precisa guardar clientes: nome, CPF, email, endereço — sempre os mesmos campos. Qual banco faz mais sentido?',opts:['NoSQL — mais flexível','SQL — estrutura previsível e consistente','Redis — mais rápido','Qualquer um, tanto faz'],c:1,exp:'Dados estruturados e consistentes = SQL. A rigidez aqui é vantagem, não limitação.'},
+      {q:'O que um índice faz num banco de dados?',opts:['Criptografa os dados','Acelera buscas criando atalho para encontrar registros sem varrer tudo','Faz backup automático','Define quem pode acessar'],c:1,exp:'Índice = marcador de página. Vai direto ao registro sem ler toda a tabela.'},
+      {q:'Por que testar a restauração de um backup é tão importante quanto fazê-lo?',opts:['Não é importante, backup feito é backup garantido','Backup não testado pode estar corrompido — só descobre na pior hora','Restaurar apaga o backup original','Para economizar espaço em disco'],c:1,exp:'Backup não testado = falsa segurança. Só existe quando você restaura e funciona.'},
+    ],
+    challenge:'Pense no seu negócio. Liste 3 tabelas que existiriam no banco de dados: nome da tabela e 4-5 colunas de cada. Ex: tabela "clientes" → id, nome, email, telefone, cidade.'},
+};
+
+// Módulos simplificados para fase 2-5 (estrutura igual, conteúdo resumido por espaço)
+// Em produção cada módulo teria conteúdo completo como acima
+const MOD_TITLES={
+  m07:{title:'Código e Programação',sub:'O que é, o que não é',phase:2},
+  m08:{title:'Containers e Docker',sub:'A franquia do mundo digital',phase:2},
+  m09:{title:'Variáveis de Ambiente',sub:'Segredos que não entram no código',phase:2},
+  m10:{title:'Filas e Processamento Assíncrono',sub:'Fazer agora ou processar depois',phase:2},
+  m11:{title:'Logs e Observabilidade',sub:'Saber o que está acontecendo',phase:2},
+  m12:{title:'Segurança Básica',sub:'As portas que precisam estar fechadas',phase:2},
+  m13:{title:'O que é um LLM',sub:'O estagiário que leu tudo',phase:3},
+  m14:{title:'Prompt Engineering',sub:'A arte de dar instruções claras',phase:3},
+  m15:{title:'Modelos de IA',sub:'Qual usar e quando',phase:3},
+  m16:{title:'RAG e Bases de Conhecimento',sub:'Como dar memória ao modelo',phase:3},
+  m17:{title:'Fine-tuning',sub:'Quando treinar seu próprio modelo',phase:3},
+  m18:{title:'Avaliação e Qualidade',sub:'Como saber se a IA está funcionando',phase:3},
+  m19:{title:'O que é um Agente de IA',sub:'Além do chatbot',phase:4},
+  m20:{title:'MCP — Model Context Protocol',sub:'O ramal interno dos agentes',phase:4},
+  m21:{title:'Automação e Workflows',sub:'Processos que rodam sozinhos',phase:4},
+  m22:{title:'Multi-agentes',sub:'Quando um agente não basta',phase:4},
+  m23:{title:'Memória e Contexto de Agentes',sub:'O que o agente lembra',phase:4},
+  m24:{title:'Segurança em Agentes',sub:'O que pode dar errado',phase:4},
+  m25:{title:'Arquitetura de Produto',sub:'O projeto antes da obra',phase:5},
+  m26:{title:'Deploy e CI/CD',sub:'Colocar código em produção com confiança',phase:5},
+  m27:{title:'Precificação de Produtos de IA',sub:'Quanto cobrar quando IA custa por uso',phase:5},
+  m28:{title:'Produto, Escala e Onboarding',sub:'Crescer sem quebrar',phase:5},
+  m29:{title:'Métricas que Importam',sub:'O que medir para crescer',phase:5},
+  m30:{title:'O Founder Técnico',sub:'Liderar sem programar',phase:5},
+};
+
+// Preencher módulos simples que não têm conteúdo completo acima
+Object.entries(MOD_TITLES).forEach(([id,d])=>{
+  if(!MODS[id]) MODS[id]={id,...d,xp:60,
+    analogy:'Este módulo cobre conceitos fundamentais para o founder moderno que precisa entender o universo técnico sem ser programador.',
+    cards:[
+      {title:d.title,body:'<p>Conteúdo carregando... Este módulo aborda <strong>'+d.title+'</strong> — '+d.sub+'</p><p>Use o desafio prático abaixo para refletir sobre como esse conceito se aplica ao seu contexto.</p>',highlight:d.sub},
+      {title:'Na prática',body:'<p>Este conceito é fundamental para qualquer founder que constrói ou lidera times que constroem produtos digitais.</p><p>A analogia mais útil: imagine como esse conceito funciona numa empresa física — como uma rede de lojas, uma fábrica, ou um escritório de serviços.</p>',highlight:'Sempre busque a analogia do mundo físico para fixar conceitos técnicos.'},
+      {title:'O que você precisa saber',body:'<p>Você não precisa implementar isso — precisa entender <em>o que é</em>, <em>para que serve</em>, e <em>quando usar</em>.</p><p>Com esse vocabulário, você faz as perguntas certas para o time técnico, avalia trade-offs, e toma decisões melhores.</p>',highlight:'Tech fluency = fazer as perguntas certas, não escrever o código.'},
+    ],
+    quiz:[
+      {q:'Qual é o propósito principal de '+d.title+'?',opts:['Economizar custos de infraestrutura','Resolver um problema técnico específico que impacta produto e negócio','Apenas relevante para desenvolvedores','Aumentar a velocidade do servidor'],c:1,exp:'Todo conceito técnico existe para resolver um problema real de negócio ou operação.'},
+      {q:'Como um founder deve usar o conhecimento sobre '+d.title+'?',opts:['Implementar pessoalmente','Fazer as perguntas certas e avaliar trade-offs junto ao time técnico','Ignorar, é responsabilidade do CTO','Contratar alguém específico para isso'],c:1,exp:'Tech fluency = vocabulário para liderar decisões técnicas, não para substituir o time.'},
+      {q:'Quando '+d.title+' se torna crítico para um produto digital?',opts:['Apenas em grandes empresas','Desde o início — impacta arquitetura, custo e escalabilidade','Somente após 10.000 usuários','Apenas quando há problemas de performance'],c:1,exp:'Decisões técnicas precoces definem o custo e a flexibilidade do produto por anos.'},
+    ],
+    challenge:'Pesquise sobre '+d.title+' e encontre um exemplo de como uma empresa que você conhece (iFood, Nubank, Magazine Luiza) utiliza esse conceito no dia a dia. Descreva em 2-3 linhas.'
+  };
+});
+
+const ALL_MODULE_IDS=['m01','m02','m03','m04','m05','m06','m07','m08','m09','m10','m11','m12','m13','m14','m15','m16','m17','m18','m19','m20','m21','m22','m23','m24','m25','m26','m27','m28','m29','m30'];
+
+const BADGES={
+  'fase1-complete':{name:'Fundamentos Digitais',icon:'🌐',desc:'Fase 1 completa'},
+  'fase2-complete':{name:'Mestre dos Sistemas',icon:'⚙️',desc:'Fase 2 completa'},
+  'fase3-complete':{name:'Domador de LLMs',icon:'🧠',desc:'Fase 3 completa'},
+  'fase4-complete':{name:'Arquiteto de Agentes',icon:'🤖',desc:'Fase 4 completa'},
+  'fase5-complete':{name:'Founder Técnico',icon:'🚀',desc:'Fase 5 completa'},
+  'halfway':{name:'Meio Caminho',icon:'🏅',desc:'15 módulos concluídos'},
+  'trilha-completa':{name:'Tech Fluency Certified',icon:'🏆',desc:'Trilha completa!'},
+};
+
+const LEVELS=[
+  {name:'Iniciante',min:0,max:299},
+  {name:'Explorador',min:300,max:599},
+  {name:'Construtor',min:600,max:899},
+  {name:'Arquiteto',min:900,max:1199},
+  {name:'Estrategista',min:1200,max:1499},
+  {name:'Founder Técnico',min:1500,max:9999},
+];
+
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+let ST={token:null,user:null,stats:null,progress:{},
+  currentPhase:null,currentModule:null,
+  lessonStep:0, // 0=card1 1=card2 2=card3 3=quiz 4=challenge
+  quizIdx:0, quizCorrect:0, quizPassed:false,
+};
+
+// ════════════════════════════════════════════════════════
+//  AUTH
+// ════════════════════════════════════════════════════════
+async function authCheck(){
+  const p=new URLSearchParams(location.search);
+  const t=p.get('token');
+  if(t){localStorage.setItem('oma_academy_token',t);history.replaceState({},'','/academy');}
+  ST.token=localStorage.getItem('oma_academy_token');
+  if(!ST.token){location.replace('/academy/login');return;}
+  try{
+    const r=await apiFetch('/academy/me');
+    if(!r.ok){localStorage.removeItem('oma_academy_token');location.replace('/academy/login');return;}
+    const d=await r.json();
+    ST.user=d;
+    ST.stats={xp:d.xp,level:d.level,lessons_done:d.lessons_done,badges:d.badges,streak:d.streak,xp_to_next:d.xp_to_next};
+  }catch{location.replace('/academy/login');return;}
+  try{
+    const rp=await apiFetch('/academy/progress');
+    const pd=await rp.json();
+    pd.progress.forEach(p=>{ST.progress[p.lesson_id]=true;});
+    ST.stats=pd.stats;
+  }catch{}
+  initUI();
+}
+
+function apiFetch(path,opts={}){
+  return fetch(API+path,{...opts,headers:{'Content-Type':'application/json','Authorization':'Bearer '+ST.token,...(opts.headers||{})}});
+}
+
+function doLogout(){
+  if(!confirm('Sair da Academy?'))return;
+  localStorage.removeItem('oma_academy_token');
+  location.replace('/academy/login');
+}
+
+// ════════════════════════════════════════════════════════
+//  LEVEL & XP HELPERS
+// ════════════════════════════════════════════════════════
+function getLevelInfo(xp){
+  for(let i=LEVELS.length-1;i>=0;i--){if(xp>=LEVELS[i].min)return{...LEVELS[i],idx:i};}
+  return{...LEVELS[0],idx:0};
+}
+function getXpPct(xp){
+  const lv=getLevelInfo(xp);
+  const range=lv.max-lv.min;
+  const prog=xp-lv.min;
+  return Math.min(100,Math.round(prog/range*100));
+}
+function getNextLevelXp(xp){
+  const lv=getLevelInfo(xp);
+  return lv.max===9999?'MAX':lv.max+' XP';
+}
+
+// ════════════════════════════════════════════════════════
+//  PROGRESS HELPERS
+// ════════════════════════════════════════════════════════
+function isDone(mid){return !!ST.progress[mid];}
+function doneCount(){return Object.keys(ST.progress).length;}
+function phaseProgress(phase){
+  const ids=PHASES[phase-1].modules;
+  const done=ids.filter(id=>isDone(id)).length;
+  return{done,total:ids.length,pct:Math.round(done/ids.length*100)};
+}
+function nextModuleId(){
+  for(const id of ALL_MODULE_IDS){if(!isDone(id))return id;}
+  return null;
+}
+function getPhaseOfModule(mid){
+  const m=MODS[mid];return m?m.phase:1;
+}
+function isModuleLocked(mid){
+  const idx=ALL_MODULE_IDS.indexOf(mid);
+  if(idx===0)return false;
+  return!isDone(ALL_MODULE_IDS[idx-1]);
+}
+
+// ════════════════════════════════════════════════════════
+//  UI INIT
+// ════════════════════════════════════════════════════════
+function initUI(){
+  renderSidebar();
+  renderDashboard();
+  updateTopBar();
+  goScreen('dash');
+}
+
+function updateTopBar(){
+  const xp=ST.stats?.xp||0;
+  const streak=ST.stats?.streak||0;
+  const lv=getLevelInfo(xp);
+  const pct=getXpPct(xp);
+  document.getElementById('streakVal').textContent=streak;
+  document.getElementById('sideLevel').textContent=lv.name;
+  document.getElementById('sideXp').textContent=xp+' XP';
+  document.getElementById('sideXpFill').style.width=pct+'%';
+  document.getElementById('drawerLevel').textContent=lv.name;
+  document.getElementById('drawerXpVal').textContent=xp+' XP';
+  document.getElementById('drawerXpFill').style.width=pct+'%';
+  const u=ST.user;
+  if(u){
+    const av=document.getElementById('userAvatar');
+    if(u.avatar_url){av.innerHTML='<img src="'+u.avatar_url+'" style="width:100%;height:100%;object-fit:cover;">';}
+    else{av.textContent=(u.nome||'U')[0].toUpperCase();}
+    document.getElementById('dashName').textContent=(u.nome||'').split(' ')[0];
+  }
+}
+
+function renderSidebar(){
+  const navEl=document.getElementById('sideNav');
+  const drawerEl=document.getElementById('drawerNav');
+  let html='';
+  PHASES.forEach(ph=>{
+    html+=`<div class="s-phase-label"><span class="s-phase-dot" style="background:${ph.color}"></span>Fase ${ph.id} · ${ph.name}</div>`;
+    ph.modules.forEach((mid,i)=>{
+      const m=MODS[mid];
+      const done=isDone(mid);
+      const locked=isModuleLocked(mid);
+      const active=ST.currentModule===mid;
+      const num=String((ph.id-1)*6+i+1).padStart(2,'0');
+      html+=`<div class="s-module${done?' done':''}${active?' active':''}${locked?' mr-locked':''}" onclick="${locked?'':'openModule(\''+mid+'\')'}">
+        <div class="s-mod-icon">${done?'✓':num}</div>
+        <div class="s-mod-label">${m.title}</div>
+      </div>`;
+    });
+  });
+  navEl.innerHTML=html;
+  drawerEl.innerHTML=html;
+}
+
+function renderDashboard(){
+  const xp=ST.stats?.xp||0;
+  const done=doneCount();
+  const streak=ST.stats?.streak||0;
+  const badges=ST.stats?.badges||[];
+  const lv=getLevelInfo(xp);
+  const pct=getXpPct(xp);
+  // stats
+  document.getElementById('statXp').textContent=xp;
+  document.getElementById('statMods').textContent=done+'/30';
+  document.getElementById('statStreak').textContent=streak+'d';
+  document.getElementById('statBadges').textContent=badges.length;
+  document.getElementById('levelName').textContent=lv.name;
+  document.getElementById('lcXpCur').textContent=xp+' XP';
+  document.getElementById('lcXpNext').textContent='próximo: '+getNextLevelXp(xp);
+  document.getElementById('lcFill').style.width=pct+'%';
+  // sub
+  const sub=done===30?'🎉 Trilha completa! Você é um Founder Técnico.':done===0?'Comece pelo Módulo 1 — leva 10 minutos.':''+done+' de 30 módulos concluídos · Continue de onde parou.';
+  document.getElementById('dashSub').textContent=sub;
+  // continue CTA
+  const next=nextModuleId();
+  if(next){
+    const nm=MODS[next];
+    document.getElementById('ccTitle').textContent=nm.title;
+    document.getElementById('ccMeta').textContent='Fase '+nm.phase+' · '+nm.sub+' · 60 XP';
+  } else {
+    document.getElementById('ccTitle').textContent='Trilha completa!';
+    document.getElementById('ccMeta').textContent='Ver certificado';
+  }
+  // phase cards
+  let phHtml='';
+  PHASES.forEach(ph=>{
+    const pp=phaseProgress(ph.id);
+    const cls=pp.done===pp.total?'pc-done':pp.done>0?'pc-active':'';
+    phHtml+=`<div class="phase-card ${cls}" onclick="openPhase(${ph.id})">
+      <div class="pc-icon">${ph.icon}</div>
+      <div class="pc-num">Fase ${ph.id}</div>
+      <div class="pc-name">${ph.name}</div>
+      <div class="pc-sub">${ph.sub}</div>
+      <div class="pc-bar"><div class="pc-fill" style="width:${pp.pct}%"></div></div>
+      <div class="pc-prog">${pp.done}/${pp.total} módulos</div>
+    </div>`;
+  });
+  document.getElementById('phaseCards').innerHTML=phHtml;
+  // badges
+  let bHtml='';
+  Object.entries(BADGES).forEach(([id,b])=>{
+    const earned=badges.includes(id);
+    bHtml+=`<div class="badge-chip ${earned?'earned':'locked'}"><span class="badge-chip-icon">${b.icon}</span><span class="badge-chip-name">${b.name}</span></div>`;
+  });
+  document.getElementById('badgesWrap').innerHTML=bHtml;
+}
+
+// ════════════════════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════════════════════
+function goScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
+  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado'};
+  document.getElementById('topTitle').textContent=titles[name]||name;
+  window.scrollTo(0,0);
+}
+
+function goNextModule(){
+  const next=nextModuleId();
+  if(next)openModule(next);
+  else goScreen('cert');
+}
+
+function openPhase(pid){
+  const ph=PHASES[pid-1];
+  ST.currentPhase=pid;
+  document.getElementById('phIcon').textContent=ph.icon;
+  document.getElementById('phLbl').textContent='Fase '+pid;
+  document.getElementById('phTitle').textContent=ph.name;
+  document.getElementById('phSub').textContent=ph.sub;
+  let html='';
+  ph.modules.forEach((mid,i)=>{
+    const m=MODS[mid];
+    const done=isDone(mid);
+    const locked=isModuleLocked(mid);
+    const isCurrent=!done&&!locked;
+    const num=String((pid-1)*6+i+1).padStart(2,'0');
+    const cls=done?'mr-done':locked?'mr-locked':isCurrent&&i===ph.modules.findIndex(id=>!isDone(id))?'mr-current':'';
+    html+=`<div class="module-row ${cls}" onclick="${locked?'showLocked()':'openModule(\''+mid+'\')'}">
+      <div class="mr-num">${done?'✓':num}</div>
+      <div class="mr-info">
+        <div class="mr-title">${m.title}</div>
+        <div class="mr-sub">${m.sub}</div>
+      </div>
+      <div class="mr-right">
+        <div class="mr-xp">+${m.xp} XP</div>
+        <div class="mr-status">${done?'✅ feito':locked?'🔒':'▶'}</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('moduleList').innerHTML=html;
+  goScreen('phase');
+  renderSidebar();
+}
+
+function showLocked(){
+  showToastMsg('Complete o módulo anterior primeiro 🔒');
+}
+
+function goBackFromLesson(){
+  if(ST.currentPhase)openPhase(ST.currentPhase);
+  else goScreen('dash');
+}
+
+// ════════════════════════════════════════════════════════
+//  LESSON ENGINE
+// ════════════════════════════════════════════════════════
+function openModule(mid){
+  const m=MODS[mid];
+  if(!m)return;
+  ST.currentModule=mid;
+  ST.currentPhase=m.phase;
+  ST.lessonStep=0;
+  ST.quizIdx=0;
+  ST.quizCorrect=0;
+  ST.quizPassed=false;
+  renderLesson(m);
+  goScreen('lesson');
+  renderSidebar();
+}
+
+function renderLesson(m){
+  // tags
+  const ph=PHASES[m.phase-1];
+  document.getElementById('lvTags').innerHTML=
+    `<span class="lv-tag t-phase">${ph.icon} Fase ${m.phase} · ${ph.name}</span>`+
+    `<span class="lv-tag t-module">${m.title}</span>`+
+    `<span class="lv-tag t-xp">+${m.xp} XP</span>`;
+  document.getElementById('lvTitle').textContent=m.title+' — '+m.sub;
+  document.getElementById('lvAnalogy').textContent=m.analogy;
+  // progress steps: 3 cards + quiz + challenge
+  renderLessonProgress();
+  // cards
+  m.cards.forEach((c,i)=>{
+    const el=document.getElementById('card'+(i+1));
+    el.innerHTML=`<div class="card-step">Conceito ${i+1} de 3</div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-body">${c.body}</div>
+      <div class="card-highlight">${c.highlight}</div>`;
+    el.classList.toggle('active',i===0);
+  });
+  // hide quiz/challenge
+  document.getElementById('quizArea').classList.remove('active');
+  document.getElementById('challengeArea').classList.remove('active');
+  // actions
+  renderLessonActions();
+}
+
+function renderLessonProgress(){
+  const steps=['Conceito 1','Conceito 2','Conceito 3','Quiz','Desafio'];
+  let html='';
+  steps.forEach((s,i)=>{
+    const cls=i<ST.lessonStep?'done':i===ST.lessonStep?'active':'';
+    html+=`<div class="lp-step ${cls}" title="${s}"></div>`;
+  });
+  html+=`<span class="lp-label">${steps[Math.min(ST.lessonStep,4)]}</span>`;
+  document.getElementById('lessonProgress').innerHTML=html;
+}
+
+function renderLessonActions(){
+  const el=document.getElementById('lessonActions');
+  const m=MODS[ST.currentModule];
+  const done=isDone(ST.currentModule);
+  if(done && ST.lessonStep<4){
+    el.innerHTML=`<span class="done-badge">✅ Módulo já concluído</span>
+      <button class="btn-secondary" onclick="advanceLesson()">Rever próximo ▸</button>`;
+    return;
+  }
+  if(ST.lessonStep<3){
+    el.innerHTML=`<button class="btn-primary" onclick="advanceLesson()">Próximo ▸</button>`;
+    if(ST.lessonStep>0) el.innerHTML+=`<button class="btn-secondary" onclick="prevLesson()">◂ Voltar</button>`;
+  } else if(ST.lessonStep===3){
+    // quiz — handled by quiz logic
+    el.innerHTML='';
+  } else if(ST.lessonStep===4){
+    if(done){
+      el.innerHTML=`<span class="done-badge">✅ Módulo concluído</span>
+        <button class="btn-primary" onclick="goNextModule()">Próximo módulo ▸</button>`;
+    } else {
+      el.innerHTML=`<button class="btn-primary" onclick="completeModule()">Concluir módulo ✓</button>
+        <button class="btn-secondary" onclick="completeModule()">Pular desafio</button>`;
+    }
+  }
+}
+
+function advanceLesson(){
+  ST.lessonStep++;
+  if(ST.lessonStep>4)ST.lessonStep=4;
+  showLessonStep();
+}
+
+function prevLesson(){
+  if(ST.lessonStep>0)ST.lessonStep--;
+  showLessonStep();
+}
+
+function showLessonStep(){
+  // hide all
+  for(let i=1;i<=3;i++) document.getElementById('card'+i).classList.remove('active');
+  document.getElementById('quizArea').classList.remove('active');
+  document.getElementById('challengeArea').classList.remove('active');
+  if(ST.lessonStep<3){
+    document.getElementById('card'+(ST.lessonStep+1)).classList.add('active');
+  } else if(ST.lessonStep===3){
+    showQuiz();
+  } else if(ST.lessonStep===4){
+    showChallenge();
+  }
+  renderLessonProgress();
+  renderLessonActions();
+  window.scrollTo(0,0);
+}
+
+// ════════════════════════════════════════════════════════
+//  QUIZ ENGINE
+// ════════════════════════════════════════════════════════
+function showQuiz(){
+  const qa=document.getElementById('quizArea');
+  qa.classList.add('active');
+  ST.quizIdx=0;
+  ST.quizCorrect=0;
+  ST.quizPassed=false;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion(){
+  const m=MODS[ST.currentModule];
+  const q=m.quiz[ST.quizIdx];
+  document.getElementById('quizProgress').textContent='Pergunta '+(ST.quizIdx+1)+' de '+m.quiz.length;
+  document.getElementById('quizQ').textContent=q.q;
+  const letters=['A','B','C','D'];
+  let html='';
+  q.opts.forEach((opt,i)=>{
+    html+=`<button class="quiz-opt" onclick="selectOpt(${i})" id="qopt${i}">
+      <span class="quiz-opt-letter">${letters[i]}</span>${opt}
+    </button>`;
+  });
+  document.getElementById('quizOpts').innerHTML=html;
+  document.getElementById('quizFeedback').style.display='none';
+  document.getElementById('quizRetry').style.display='none';
+  // actions
+  document.getElementById('lessonActions').innerHTML='';
+}
+
+function selectOpt(idx){
+  const m=MODS[ST.currentModule];
+  const q=m.quiz[ST.quizIdx];
+  const opts=document.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.setAttribute('disabled','true'));
+  const correct=idx===q.c;
+  opts[idx].classList.add(correct?'correct':'wrong');
+  opts[q.c].classList.add('correct');
+  if(correct)ST.quizCorrect++;
+  const fb=document.getElementById('quizFeedback');
+  fb.className='quiz-feedback '+(correct?'ok':'err');
+  fb.textContent=(correct?'✓ Correto! ':'✗ Não exatamente. ')+q.exp;
+  fb.style.display='block';
+  // next question or finish
+  setTimeout(()=>{
+    ST.quizIdx++;
+    if(ST.quizIdx<m.quiz.length){
+      renderQuizQuestion();
+    } else {
+      finishQuiz();
+    }
+  },1800);
+}
+
+function finishQuiz(){
+  const m=MODS[ST.currentModule];
+  const passed=ST.quizCorrect>=2;
+  ST.quizPassed=passed;
+  const qa=document.getElementById('quizArea');
+  if(passed){
+    qa.innerHTML=`<div style="text-align:center;padding:20px 0">
+      <div style="font-size:40px;margin-bottom:10px">🎉</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;color:var(--green)">Quiz aprovado!</div>
+      <div style="font-size:13px;color:var(--text3);margin-top:6px">${ST.quizCorrect} de ${m.quiz.length} corretas</div>
+    </div>`;
+    ST.lessonStep=4;
+    setTimeout(()=>{showLessonStep();},800);
+  } else {
+    qa.innerHTML=`<div style="text-align:center;padding:20px 0">
+      <div style="font-size:40px;margin-bottom:10px">💪</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--fire)">Quase lá!</div>
+      <div style="font-size:13px;color:var(--text3);margin:8px 0">${ST.quizCorrect} de ${m.quiz.length} corretas. Precisa de pelo menos 2 para avançar.</div>
+      <button class="btn-primary" style="margin-top:14px" onclick="retryQuiz()">Tentar novamente</button>
+    </div>`;
+  }
+}
+
+function retryQuiz(){
+  const qa=document.getElementById('quizArea');
+  qa.innerHTML=`<div class="quiz-header">
+    <div class="quiz-icon">🧩</div>
+    <div class="quiz-label">Quiz</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-q" id="quizQ"></div>
+  <div class="quiz-opts" id="quizOpts"></div>
+  <div class="quiz-feedback" id="quizFeedback"></div>`;
+  showQuiz();
+}
+
+// ════════════════════════════════════════════════════════
+//  CHALLENGE
+// ════════════════════════════════════════════════════════
+function showChallenge(){
+  const m=MODS[ST.currentModule];
+  const ca=document.getElementById('challengeArea');
+  ca.innerHTML=`<div class="ch-header">
+    <div class="ch-icon">🏆</div>
+    <div class="ch-label">Desafio prático</div>
+  </div>
+  <div class="ch-text">${m.challenge}</div>
+  <textarea class="ch-input" id="chInput" placeholder="Escreva sua reflexão aqui (opcional — o importante é pensar sobre isso)..."></textarea>`;
+  ca.classList.add('active');
+  renderLessonActions();
+}
+
+// ════════════════════════════════════════════════════════
+//  COMPLETE MODULE
+// ════════════════════════════════════════════════════════
+async function completeModule(){
+  if(isDone(ST.currentModule))return;
+  const btn=document.querySelector('#lessonActions .btn-primary');
+  if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> Salvando...';}
+  try{
+    const r=await apiFetch('/academy/progress',{method:'POST',body:JSON.stringify({lesson_id:ST.currentModule,self_rating:5})});
+    const d=await r.json();
+    ST.progress[ST.currentModule]=true;
+    ST.stats=d.stats;
+    // check new badges
+    const prevBadges=ST.stats.badges||[];
+    if(d.new_badges&&d.new_badges.length>0){
+      d.new_badges.forEach(bid=>showBadgeToast(bid));
+    }
+    showXpToast('+'+MODS[ST.currentModule].xp+' XP');
+    launchConfetti();
+    updateTopBar();
+    renderSidebar();
+    renderLessonActions();
+    // check if all done
+    if(doneCount()===30){
+      setTimeout(()=>goScreen('cert'),1200);
+      renderCertificate();
+    }
+  }catch(e){
+    if(btn){btn.disabled=false;btn.textContent='Concluir módulo ✓';}
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  CERTIFICATE
+// ════════════════════════════════════════════════════════
+function renderCertificate(){
+  const u=ST.user;
+  const name=u?u.nome:'Founder';
+  document.getElementById('certName').textContent=name;
+  const now=new Date();
+  document.getElementById('certDate').textContent='Concluído em '+now.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  const slug=encodeURIComponent((name||'founder').toLowerCase().replace(/\s+/g,'-'))+'-'+Math.random().toString(36).slice(2,8);
+  const url='https://onemanarmyproject.com.br/certificado/'+slug;
+  document.getElementById('certUrl').textContent=url;
+}
+
+function shareCert(){
+  const name=ST.user?.nome||'Founder';
+  const url=document.getElementById('certUrl').textContent;
+  const text=`Concluí a trilha Tech Fluency da OMA Academy — 30 módulos sobre o universo técnico que todo founder precisa entender hoje.\n\nDa internet ao LLM, de APIs a agentes de IA.\n\n#OMAcademy #TechFluency #FounderTécnico\n\n`;
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'&summary='+encodeURIComponent(text),'_blank');
+}
+
+function copyCertLink(){
+  const url=document.getElementById('certUrl').textContent;
+  navigator.clipboard.writeText(url).then(()=>showToastMsg('Link copiado! 📋'));
+}
+
+// ════════════════════════════════════════════════════════
+//  TOAST & FX
+// ════════════════════════════════════════════════════════
+function showXpToast(txt){
+  const t=document.getElementById('xpToast');
+  document.getElementById('xpToastVal').textContent=txt;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+function showBadgeToast(bid){
+  const b=BADGES[bid];if(!b)return;
+  const t=document.getElementById('badgeToast');
+  document.getElementById('badgeToastName').textContent=b.icon+' '+b.name;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+function showToastMsg(msg){
+  const t=document.getElementById('xpToast');
+  document.getElementById('xpToastVal').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function launchConfetti(){
+  const colors=['#e8703a','#c05020','#fbbf24','#10b981','#3b82f6','#8b5cf6'];
+  for(let i=0;i<60;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    const size=Math.random()*8+5;
+    p.style.cssText=`width:${size}px;height:${size*0.6}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*1.5+1.5}s;animation-delay:${Math.random()*0.5}s;`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),3500);
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  DRAWER
+// ════════════════════════════════════════════════════════
+function openDrawer(){
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+
+// ════════════════════════════════════════════════════════
+//  BOOT
+// ════════════════════════════════════════════════════════
 authCheck();
 </script>
 </body>
