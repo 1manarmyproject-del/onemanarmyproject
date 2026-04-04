@@ -98,6 +98,31 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .act-agent{font-size:11px;font-weight:600;color:var(--fire);width:64px;flex-shrink:0;}
 .act-msg{font-size:12px;color:var(--fog);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
+/* INTELLIGENCE MATRIX */
+.intel-matrix{margin-top:48px;}
+.intel-table{width:100%;border-collapse:collapse;font-size:12px;}
+.intel-table th{text-align:left;padding:10px 8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);font-weight:400;border-bottom:2px solid var(--iron);}
+.intel-table th.r{text-align:right;}
+.intel-table th.c{text-align:center;}
+.intel-table td{padding:8px;border-bottom:1px solid var(--iron);vertical-align:top;}
+.intel-table tr.svc-header td{background:rgba(255,255,255,.02);}
+.intel-svc{font-weight:600;font-size:13px;color:var(--bone);}
+.intel-act{color:var(--fog);font-size:12px;}
+.intel-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;}
+.intel-badge.anthropic{background:rgba(58,123,213,.15);color:#5b9aef;}
+.intel-badge.sonnet{background:rgba(122,95,255,.15);color:#9b85ff;}
+.intel-badge.groq{background:rgba(61,158,96,.15);color:#5bc47a;}
+.intel-badge.openrouter{background:rgba(200,164,86,.15);color:#d4b56a;}
+.intel-badge.other{background:rgba(85,85,85,.15);color:var(--ash);}
+.intel-cost{text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--fog);}
+.intel-cost .val{color:var(--bone);font-weight:600;}
+.intel-runs{text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+.intel-sep td{padding:14px 8px 6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);border-bottom:1px solid var(--iron);}
+.intel-total{margin-top:12px;padding:12px;background:var(--carbon);border:1px solid var(--iron);border-radius:6px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:11px;color:var(--ash);font-family:'Space Mono',monospace;}
+.intel-legend{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px;font-size:10px;color:var(--ash);font-family:'Space Mono',monospace;}
+.intel-legend-item{display:flex;align-items:center;gap:4px;}
+.intel-legend-dot{width:8px;height:8px;border-radius:2px;}
+
 /* FOOTER */
 .ftr{padding:24px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;}
 .ftr-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
@@ -403,6 +428,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
   </div>
 
+  <!-- INTELLIGENCE MATRIX -->
+  <div class="intel-matrix">
+    <div class="sec-title">Matriz de Inteligências</div>
+    <div id="intel-matrix-content">Carregando...</div>
+  </div>
+
 </main>
 
 <footer class="ftr">
@@ -630,6 +661,91 @@ async function criarAgente(){
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-OMA2026PROJ');
+</script>
+<script>
+// Intelligence Matrix — dynamic from intelligence-matrix.json
+(function(){
+  fetch('/intelligence-matrix.json?t='+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(data){renderIntelMatrix(data);})
+    .catch(function(){document.getElementById('intel-matrix-content').innerHTML='<div style="color:var(--ash);font-size:12px">Dados não disponíveis</div>';});
+
+  function renderIntelMatrix(data){
+    var html='';
+    
+    // Table header
+    html+='<table class="intel-table">';
+    html+='<tr><th>SERVIÇO</th><th>ATIVIDADE</th><th class="c">LLM</th><th class="c">RUNS</th><th class="r">CUSTO (ABR)</th></tr>';
+
+    // Agent services
+    var order=['george','flavia','bia','amanda','ekhoa','darwin','tiago','system'];
+    order.forEach(function(key){
+      var svc=data.services[key];
+      if(!svc)return;
+      var acts=svc.activities||[];
+      acts.forEach(function(act,i){
+        html+='<tr'+(i===0?' class="svc-header"':'')+'>';
+        if(i===0) html+='<td rowspan="'+acts.length+'"><span class="intel-svc">'+svc.name+'</span></td>';
+        html+='<td class="intel-act">'+act.activity+'</td>';
+        html+='<td style="text-align:center"><span class="intel-badge '+(act.llm.indexOf('Sonnet')>=0?'sonnet':act.llm_color)+'">'+act.llm+'</span></td>';
+        html+='<td class="intel-runs">'+(act.runs||'—')+'</td>';
+        html+='<td class="intel-cost">'+(act.cost>0?'<span class="val">$'+act.cost.toFixed(4)+'</span>':'—')+'</td>';
+        html+='</tr>';
+      });
+    });
+
+    // Separator
+    html+='<tr class="intel-sep"><td colspan="5">PRODUTOS / SERVIÇOS</td></tr>';
+
+    // Products
+    ['ziptalk','smartnoter','mirofish'].forEach(function(key){
+      var p=data.products[key];
+      if(!p)return;
+      var acts=p.activities||[];
+      acts.forEach(function(act,i){
+        html+='<tr>';
+        if(i===0) html+='<td rowspan="'+acts.length+'"><span class="intel-svc">'+p.name+'</span></td>';
+        html+='<td class="intel-act">'+act.activity+'</td>';
+        html+='<td style="text-align:center"><span class="intel-badge '+act.llm_color+'">'+act.llm+'</span></td>';
+        html+='<td class="intel-runs">'+(act.runs||'—')+'</td>';
+        html+='<td class="intel-cost">'+(act.cost>0?'<span class="val">$'+act.cost.toFixed(4)+'</span>':'grátis')+'</td>';
+        html+='</tr>';
+      });
+    });
+
+    // Separator
+    html+='<tr class="intel-sep"><td colspan="5">FAILOVER</td></tr>';
+
+    // Failover
+    (data.failover||[]).forEach(function(f){
+      html+='<tr>';
+      html+='<td><span class="intel-svc">'+f.name+'</span></td>';
+      html+='<td class="intel-act">'+f.activity+'</td>';
+      html+='<td style="text-align:center"><span class="intel-badge '+f.llm_color+'">'+f.llm+'</span></td>';
+      html+='<td class="intel-runs">—</td>';
+      html+='<td class="intel-cost">sob demanda</td>';
+      html+='</tr>';
+    });
+
+    html+='</table>';
+
+    // Total + legend
+    html+='<div class="intel-total">';
+    html+='<span>Mês: '+data.month+'</span>';
+    html+='<span>Total Anthropic: <span style="color:var(--bone);font-weight:700">$'+data.total_cost_usd.toFixed(2)+'</span></span>';
+    html+='<span>Atualizado: '+data.updated_at_brt+'</span>';
+    html+='</div>';
+
+    html+='<div class="intel-legend">';
+    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#5b9aef"></div>Anthropic Haiku</div>';
+    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#9b85ff"></div>Anthropic Sonnet</div>';
+    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#5bc47a"></div>Groq (grátis)</div>';
+    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#d4b56a"></div>OpenRouter</div>';
+    html+='</div>';
+
+    document.getElementById('intel-matrix-content').innerHTML=html;
+  }
+})();
 </script>
 </body>
 </html>

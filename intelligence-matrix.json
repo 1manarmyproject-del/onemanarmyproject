@@ -1,0 +1,157 @@
+{
+  "updated_at": "2026-04-04T11:41:57.274695Z",
+  "updated_at_brt": "08:41 BRT · 04/04/2026",
+  "month": "2026-04",
+  "total_cost_usd": 2.7389,
+  "services": {
+    "system": {
+      "name": "Sistema",
+      "activities": [
+        {
+          "activity": "Compactação de sessões",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 0.10079999999999999,
+          "runs": 25
+        },
+        {
+          "activity": "Aprendizado e memória",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 0.0841,
+          "runs": 79
+        }
+      ],
+      "total_cost": 0.18489999999999998,
+      "total_runs": 104
+    },
+    "ekhoa": {
+      "name": "Ekhoa",
+      "activities": [
+        {
+          "activity": "Análise contextual / temática",
+          "llm": "Sonnet 4",
+          "llm_color": "anthropic",
+          "cost": 0.0842,
+          "runs": 4
+        }
+      ],
+      "total_cost": 0.0842,
+      "total_runs": 4
+    },
+    "george": {
+      "name": "George",
+      "activities": [
+        {
+          "activity": "Orquestração, email, agenda, tarefas",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 2.402,
+          "runs": 22
+        },
+        {
+          "activity": "Diagnóstico diário",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 0.0252,
+          "runs": 3
+        }
+      ],
+      "total_cost": 2.4272,
+      "total_runs": 25
+    },
+    "bia": {
+      "name": "Bia",
+      "activities": [
+        {
+          "activity": "Relatórios comerciais",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 0.0194,
+          "runs": 3
+        }
+      ],
+      "total_cost": 0.0194,
+      "total_runs": 3
+    },
+    "darwin": {
+      "name": "Darwin",
+      "activities": [
+        {
+          "activity": "Auditoria técnica, monitoramento",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 0.0232,
+          "runs": 3
+        }
+      ],
+      "total_cost": 0.0232,
+      "total_runs": 3
+    }
+  },
+  "products": {
+    "ziptalk": {
+      "name": "ZipTalk",
+      "activities": [
+        {
+          "activity": "Transcrição de áudio em tempo real",
+          "llm": "Groq Whisper",
+          "llm_color": "groq",
+          "cost": 0,
+          "runs": 0
+        }
+      ],
+      "total_cost": 0,
+      "total_runs": 0
+    },
+    "smartnoter": {
+      "name": "Smart Noter",
+      "activities": [
+        {
+          "activity": "Transcrição pós-reunião",
+          "llm": "Groq Whisper",
+          "llm_color": "groq",
+          "cost": 0,
+          "runs": 0
+        },
+        {
+          "activity": "Resumo e atas inteligentes",
+          "llm": "Haiku 4.5",
+          "llm_color": "anthropic",
+          "cost": 0,
+          "runs": 0
+        }
+      ],
+      "total_cost": 0,
+      "total_runs": 0
+    },
+    "mirofish": {
+      "name": "MiroFish",
+      "activities": [
+        {
+          "activity": "Simulação de cenários (Predictions)",
+          "llm": "DeepSeek V3",
+          "llm_color": "openrouter",
+          "cost": 0,
+          "runs": 0
+        }
+      ],
+      "total_cost": 0,
+      "total_runs": 0
+    }
+  },
+  "failover": [
+    {
+      "name": "Todos os agentes",
+      "activity": "Fallback se Anthropic cair",
+      "llm": "OpenRouter",
+      "llm_color": "openrouter"
+    },
+    {
+      "name": "ZipTalk / Smart Noter",
+      "activity": "Fallback se Groq cair",
+      "llm": "OpenAI Whisper",
+      "llm_color": "other"
+    }
+  ]
+}
