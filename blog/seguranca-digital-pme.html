@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segurança digital para PME: o guia básico que todo founder precisa ler | OMA Blog</title>
+<meta name="description" content="A maioria dos ataques digitais explora descuido básico, não sofisticação técnica. Guia prático de segurança digital para founders de pequenas e médias empresas.">
+<meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
+<meta property="og:title" content="Segurança digital para PME: o guia básico que todo founder precisa ler">
+<meta property="og:description" content="A maioria dos ataques digitais explora descuido básico, não sofisticação técnica. Guia prático de segurança digital para founders de pequenas e médias empresas.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/seguranca-digital-pme">
+<meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/seguranca-digital-pme">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Segurança digital para PME: o guia básico que todo founder precisa ler","description":"A maioria dos ataques digitais explora descuido básico, não sofisticação técnica. Guia prático de segurança digital para founders de pequenas e médias empresas.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/seguranca-digital-pme"}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--border2:#d0d0d0;--text:#111;--text2:#444;--text3:#777;--text4:#bbb;}
+body{background:var(--bg);font-family:"Barlow",sans-serif;color:var(--text);line-height:1.7;}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
+.topbar-logo-name{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-link{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;}
+.topbar-link:hover{color:var(--fire);}
+.topbar-cta{background:var(--fire);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
+.breadcrumb{max-width:780px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bc-item{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;text-transform:uppercase;}
+.bc-item:hover{color:var(--fire);}
+.bc-sep{color:var(--text4);font-size:10px;}
+.bc-back-btn{display:inline-flex;align-items:center;gap:6px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--fire);text-decoration:none;padding:5px 10px;border:1px solid var(--fire-mid);border-radius:4px;background:var(--fire-light);margin-left:auto;}
+.article-wrap{max-width:780px;margin:0 auto;padding:28px 24px 80px;}
+.article-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.article-tag{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:4px 10px;border-radius:20px;font-weight:700;}
+.article-read{font-family:"Space Mono",monospace;font-size:9px;color:var(--text3);}
+.article-academy-badge{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:1px;color:var(--text3);background:var(--bg3);border:1px solid var(--border2);padding:4px 10px;border-radius:20px;text-decoration:none;}
+h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(28px,5vw,46px);line-height:1.05;color:var(--text);margin-bottom:12px;}
+.article-lead{font-size:16px;color:var(--text3);line-height:1.7;margin-bottom:24px;border-left:4px solid var(--fire);padding:14px 16px;border-radius:0 8px 8px 0;background:var(--fire-light);}
+.article-author{display:flex;align-items:center;gap:10px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);}
+.author-name{font-weight:600;font-size:14px;color:var(--text);}
+.author-role{font-size:12px;color:var(--text3);}
+.article-content h2{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(20px,3vw,28px);color:var(--text);margin:36px 0 12px;}
+.article-content h3{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:20px;color:var(--text);margin:28px 0 10px;}
+.article-content p{font-size:16px;color:var(--text2);margin-bottom:16px;line-height:1.8;}
+.article-content strong{color:var(--text);font-weight:600;}
+.article-content ul,.article-content ol{padding-left:22px;margin-bottom:16px;}
+.article-content li{font-size:15px;color:var(--text2);margin-bottom:8px;line-height:1.7;}
+.article-content blockquote{background:var(--fire-light);border-left:4px solid var(--fire);padding:16px 18px;margin:24px 0;border-radius:0 8px 8px 0;}
+.article-content blockquote p{color:var(--text2);font-style:italic;margin:0;}
+.article-content code{font-family:"Space Mono",monospace;font-size:12px;background:var(--bg3);border:1px solid var(--border2);padding:2px 6px;border-radius:3px;color:var(--fire);}
+.highlight-box{background:var(--bg3);border-radius:8px;padding:18px 20px;margin:24px 0;border-left:4px solid var(--fire);}
+.highlight-box-title{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;font-weight:700;}
+.highlight-box p{margin:0;font-size:14px;color:var(--text2);}
+.share-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.share-label{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;color:var(--text);}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;cursor:pointer;border:none;}
+.share-btn.wa{background:#25D366;color:#fff;}
+.share-btn.li{background:#0A66C2;color:#fff;}
+.share-btn.cp{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border2);}
+.academy-cta{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:32px 0;text-align:center;}
+.academy-cta-eyebrow{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;}
+.academy-cta-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:26px;color:#fff;margin-bottom:8px;}
+.academy-cta-sub{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:18px;}
+.academy-cta-btn{display:inline-block;background:#fff;color:var(--fire);font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:12px 28px;border-radius:6px;text-decoration:none;}
+.related-section{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);}
+.related-title{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.related-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;text-decoration:none;transition:box-shadow .15s;display:flex;flex-direction:column;gap:4px;}
+.related-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);}
+.related-tag{font-family:"Space Mono",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);}
+.related-title-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.related-arrow{font-size:12px;color:var(--text4);margin-top:4px;}
+.article-footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px;}
+.article-footer a{color:var(--fire);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="/"><img src="/lobster-logo.png" alt="OMA"><div class="topbar-logo-name">OMA <span>Blog</span></div></a>
+  <div class="topbar-right">
+    <a href="/blog" class="topbar-link">← Blog</a>
+    <a href="/academy" class="topbar-cta">Academy grátis →</a>
+  </div>
+</div>
+<div class="breadcrumb">
+  <a href="/" class="bc-item">OMA</a><span class="bc-sep">›</span>
+  <a href="/blog" class="bc-item">Blog</a><span class="bc-sep">›</span>
+  <span class="bc-item" style="color:var(--text3);">Segurança digital para PMEs — o básico que protege 90%</span>
+  <a href="/academy?modulo=m12" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
+</div>
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="article-tag">Dados e Sistemas</span>
+    <span class="article-read">⏱ 8 min de leitura</span>
+    <a href="/academy?modulo=m12" class="article-academy-badge">🦞 OMA Academy</a>
+  </div>
+  <h1 class="article-title">Segurança digital para PMEs — o básico que protege 90%</h1>
+  <div class="article-lead">A maioria dos ataques digitais explora descuido básico, não sofisticação técnica. Guia prático de segurança digital para founders de pequenas e médias empresas.</div>
+  <div class="article-author">
+    <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
+    <div><div class="author-name">Fabio Xavier</div><div class="author-role">Founder · OMA Project</div></div>
+  </div>
+  <div class="article-content">
+<h2>A fechadura que ninguém troca</h2>
+<p>Imagine que você abre uma loja. Coloca câmera, alarme, seguro. Mas a chave reserva fica embaixo do capacho na frente da loja. Todo mundo sabe que está lá.</p>
+<p>É assim que a maioria das PMEs trata a segurança digital. Investe em alguns controles, mas deixa vulnerabilidades básicas abertas — senhas fracas, chaves de API no código, funcionários com acesso a tudo.</p>
+<p>A boa notícia: 90% dos ataques que afetam PMEs exploram essas vulnerabilidades básicas. Resolver o básico bem já coloca você numa posição muito melhor que a média.</p>
+<div class="highlight-box">
+<div class="highlight-box-title">A analogia central</div>
+<p>Segurança digital = segurança física da empresa. Câmeras (logs), crachá de acesso (autenticação), níveis de permissão (autorização), política de não deixar estranhos entrar (firewall). O básico bem feito resolve a maioria dos riscos.</p>
+</div>
+<h2>Os ataques mais comuns em PMEs</h2>
+<p><strong>Credential stuffing</strong> — alguém usa listas de emails e senhas vazados de outros serviços para tentar logar nos seus sistemas. Se seus funcionários usam a mesma senha em vários lugares (e usam), basta um vazamento em qualquer serviço para comprometer o seu.</p>
+<p><strong>Phishing</strong> — email que parece do banco, do Google, de um fornecedor, pedindo que você clique num link e insira suas credenciais. Sofisticação crescente com IA — hoje os emails são bem escritos, sem erros de português.</p>
+<p><strong>Ransomware</strong> — malware que criptografa seus arquivos e pede resgate. Entrada mais comum: anexo de email ou link malicioso clicado por um funcionário.</p>
+<p><strong>Exposição de credenciais</strong> — chave de API ou senha deixada num código no GitHub, num documento compartilhado, ou num chat. Bots automatizados vasculham repositórios públicos em tempo real.</p>
+<h2>O princípio do mínimo privilégio</h2>
+<p>Cada pessoa e sistema deve ter acesso apenas ao que precisa para funcionar — nada a mais.</p>
+<p>Sua agente de atendimento não precisa de acesso ao financeiro. O estagiário de marketing não precisa editar o código do site. O sistema de automação de email não precisa ler o banco de dados de clientes inteiro.</p>
+<p>Quando algo é comprometido (e eventualmente algo será), o dano fica contido ao que tinha acesso. É como portas corta-fogo: o problema do estoque não chega ao administrativo.</p>
+<h2>Senhas e autenticação — o básico que resolve muito</h2>
+<p><strong>Use um gerenciador de senhas</strong> (1Password, Bitwarden). Uma senha forte e única para cada serviço, sem precisar memorizar. O time todo com acesso compartilhado para contas da empresa.</p>
+<p><strong>Ative 2FA em tudo que importa</strong> — email, banco, domínio, cloud. Autenticação de dois fatores significa que mesmo com a senha, o atacante precisa do segundo fator (celular, app autenticador). Elimina a maioria dos ataques de credential stuffing.</p>
+<p><strong>Nunca reutilize senhas</strong> — especialmente não use a mesma senha do email pessoal em sistemas da empresa.</p>
+<h2>LGPD — o básico que toda PME precisa ter</h2>
+<p>A Lei Geral de Proteção de Dados se aplica a qualquer empresa que coleta dados de brasileiros — independente do tamanho.</p>
+<p>O que você precisa ter no mínimo:</p>
+<ul>
+<li>Política de privacidade pública no seu site</li>
+<li>Saber quais dados você coleta e onde ficam guardados</li>
+<li>Processo para responder quando um cliente pedir seus dados ou a exclusão</li>
+<li>Contrato de tratamento de dados com fornecedores que acessam dados dos seus clientes</li>
+</ul>
+<p>Multas chegam a 2% do faturamento, limitado a R$50 milhões por infração. Não é abstrato — já houve casos aplicados no Brasil.</p>
+<h2>Checklist mínimo de segurança para PMEs</h2>
+<ul>
+<li>✅ Gerenciador de senhas ativo para o time</li>
+<li>✅ 2FA em email, banco, domínio e cloud</li>
+<li>✅ Backup automático dos dados críticos (testado pelo menos uma vez)</li>
+<li>✅ Acesso por nível — quem precisa acessa, quem não precisa não tem acesso</li>
+<li>✅ Política de privacidade no site</li>
+<li>✅ Processo documentado para quando um funcionário sair (revogar acessos)</li>
+</ul>
+<blockquote><p>"Segurança não é um projeto. É uma prática. O checklist acima não é resolvido uma vez — é revisado periodicamente."</p></blockquote>
+</div>
+  <div class="share-bar">
+    <div class="share-label">Gostou? Compartilha 👇</div>
+    <div class="share-btns">
+      <a href="https://wa.me/?text=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fseguranca-digital-pme" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fseguranca-digital-pme" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
+    </div>
+  </div>
+  <div class="academy-cta">
+    <div class="academy-cta-eyebrow">Quer se aprofundar mais?</div>
+    <div class="academy-cta-title">Faça a OMA Academy — é gratuito</div>
+    <div class="academy-cta-sub">30 módulos sobre o universo técnico que todo founder precisa entender. Certificado no LinkedIn ao final.</div>
+    <a href="/academy" class="academy-cta-btn">Começar agora →</a>
+  </div>
+  <div class="related-section">
+    <div class="related-title">Artigos relacionados</div>
+    <div class="related-grid"><a href="/blog/o-que-e-docker" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">O que é Docker</div><div class="related-arrow">→</div></a><a href="/blog/automatizar-processos-pme" class="related-card"><div class="related-tag">Automação</div><div class="related-title-text">Automatizar processos na PME</div><div class="related-arrow">→</div></a><a href="/blog/o-que-e-um-agente-de-ia" class="related-card"><div class="related-tag">Agentes</div><div class="related-title-text">O que é um Agente de IA</div><div class="related-arrow">→</div></a></div>
+  </div>
+</div>
+<div class="article-footer">
+  <a href="/">OMA Project</a> · <a href="/blog">Blog</a> · <a href="/academy">Academy</a>
+</div>
+<script>
+const p=new URLSearchParams(window.location.search);
+const v=p.get('volta');
+const b=document.getElementById('backBtn');
+if(v&&b){b.href='/academy?modulo='+v;b.textContent='← Voltar ao módulo '+v.toUpperCase();}
+</script>
+</body></html>

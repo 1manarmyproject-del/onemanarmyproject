@@ -1,6 +1,30 @@
 {
   "rewrites": [
     {
+      "source": "/blog/founder-tecnico",
+      "destination": "/blog/founder-tecnico.html"
+    },
+    {
+      "source": "/blog/metricas-produto-digital",
+      "destination": "/blog/metricas-produto-digital.html"
+    },
+    {
+      "source": "/blog/o-que-e-rag",
+      "destination": "/blog/o-que-e-rag.html"
+    },
+    {
+      "source": "/blog/seguranca-digital-pme",
+      "destination": "/blog/seguranca-digital-pme.html"
+    },
+    {
+      "source": "/blog/automatizar-processos-pme",
+      "destination": "/blog/automatizar-processos-pme.html"
+    },
+    {
+      "source": "/blog/o-que-e-docker",
+      "destination": "/blog/o-que-e-docker.html"
+    },
+    {
       "source": "/blog/modelos-de-ia-qual-usar",
       "destination": "/blog/modelos-de-ia-qual-usar.html"
     },
