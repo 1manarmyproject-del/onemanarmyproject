@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/blog/from-the-scratch",
+      "destination": "/blog/from-the-scratch.html"
+    },
+    {
       "source": "/blog/como-precificar-produto-ia",
       "destination": "/blog/como-precificar-produto-ia.html"
     },

@@ -3,6 +3,7 @@
   <url><loc>https://onemanarmyproject.com.br/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://onemanarmyproject.com.br/academy</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/from-the-scratch</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/o-que-e-um-llm</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/prompt-engineering</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/modelos-de-ia-qual-usar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

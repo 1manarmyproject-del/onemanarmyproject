@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From the Scratch — A história do OMA Project | Fabio Xavier</title>
+<meta name="description" content="Nunca programei nada. Construí uma plataforma de agentes de IA em 30 dias, do celular, sem CTO, sem equipe técnica. Essa é a história do OMA Project — e por que ela importa para você.">
+<meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
+<meta property="og:title" content="From the Scratch — A história do OMA Project">
+<meta property="og:description" content="Nunca programei nada. Construí uma plataforma de agentes de IA em 30 dias, do celular, sem CTO. Essa é a história do OMA Project.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/from-the-scratch">
+<meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/from-the-scratch">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"From the Scratch — A história do OMA Project","description":"Nunca programei nada. Construí uma plataforma de agentes de IA em 30 dias, do celular, sem CTO. Essa é a história do OMA Project.","author":{"@type":"Person","name":"Fabio Xavier","url":"https://instagram.com/fabio_xavier_br"},"publisher":{"@type":"Organization","name":"OMA Project","logo":{"@type":"ImageObject","url":"https://onemanarmyproject.com.br/lobster-logo.png"}},"url":"https://onemanarmyproject.com.br/blog/from-the-scratch"}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--text:#111;--text2:#333;--text3:#666;--text4:#bbb;}
+body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);line-height:1.7;}
+
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
+.topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;}
+.topbar-link:hover{color:var(--fire);}
+.topbar-cta{background:var(--fire);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
+
+.breadcrumb{max-width:740px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bc-item{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;text-transform:uppercase;}
+.bc-item:hover{color:var(--fire);}
+.bc-sep{color:var(--text4);font-size:10px;}
+
+/* HERO — especial para esse artigo */
+.article-hero{
+  max-width:740px;margin:0 auto;
+  padding:32px 24px 0;
+}
+.hero-tag{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--fire);
+  background:var(--fire-light);border:1px solid var(--fire-mid);
+  padding:4px 12px;border-radius:20px;
+  display:inline-block;margin-bottom:16px;font-weight:700;
+}
+.hero-number{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(60px,12vw,120px);line-height:1;
+  color:var(--fire);opacity:.08;
+  position:absolute;top:-20px;right:24px;
+  pointer-events:none;
+  display:none;
+}
+h1.story-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(36px,6vw,64px);line-height:1.0;
+  color:var(--text);margin-bottom:16px;
+}
+h1.story-title em{color:var(--fire);font-style:normal;}
+.story-lead{
+  font-size:18px;color:var(--text3);line-height:1.7;
+  margin-bottom:28px;
+  font-weight:300;
+}
+.author-row{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  margin-bottom:36px;
+}
+.author-img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);}
+.author-info{}
+.author-name{font-weight:700;font-size:14px;color:var(--text);}
+.author-meta{font-size:12px;color:var(--text3);}
+.author-meta a{color:var(--fire);text-decoration:none;}
+
+/* CONTENT */
+.story-wrap{max-width:740px;margin:0 auto;padding:0 24px 80px;}
+.story-content{}
+.story-content h2{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(22px,3.5vw,32px);color:var(--text);
+  margin:48px 0 14px;line-height:1.15;
+}
+.story-content h3{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:22px;color:var(--text);margin:32px 0 10px;
+}
+.story-content p{
+  font-size:17px;color:var(--text2);margin-bottom:18px;
+  line-height:1.85;
+}
+.story-content strong{color:var(--text);font-weight:600;}
+.story-content em{color:var(--text3);font-style:italic;}
+.story-content ul{padding-left:24px;margin-bottom:18px;}
+.story-content li{font-size:16px;color:var(--text2);margin-bottom:10px;line-height:1.7;}
+
+/* Pull quote — destaque especial */
+.pull-quote{
+  border-left:5px solid var(--fire);
+  padding:20px 24px;margin:36px 0;
+  background:var(--fire-light);
+  border-radius:0 10px 10px 0;
+}
+.pull-quote p{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:clamp(18px,3vw,24px);color:var(--text);
+  line-height:1.3;margin:0;font-style:normal;
+}
+.pull-quote cite{
+  display:block;margin-top:10px;
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:1px;color:var(--fire);text-transform:uppercase;
+  font-style:normal;
+}
+
+/* Timeline */
+.timeline{margin:32px 0;}
+.tl-item{
+  display:flex;gap:16px;padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+.tl-item:last-child{border-bottom:none;}
+.tl-year{
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:11px;color:var(--fire);
+  white-space:nowrap;padding-top:3px;
+  min-width:60px;
+}
+.tl-content{}
+.tl-title{font-weight:700;font-size:15px;color:var(--text);margin-bottom:3px;}
+.tl-desc{font-size:13px;color:var(--text3);line-height:1.5;}
+
+/* Stats visuais */
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin:32px 0;
+}
+@media(max-width:480px){.stats-row{grid-template-columns:repeat(2,1fr);}}
+.stat-box{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:8px;padding:16px;text-align:center;
+}
+.stat-num{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:36px;color:var(--fire);line-height:1;margin-bottom:4px;
+}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;}
+
+/* Share */
+.share-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:40px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.share-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--text);}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;cursor:pointer;border:none;}
+.share-btn.wa{background:#25D366;color:#fff;}
+.share-btn.li{background:#0A66C2;color:#fff;}
+.share-btn.cp{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border);}
+
+/* CTA Academy */
+.academy-cta{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:32px;margin:40px 0;text-align:center;}
+.academy-cta-eyebrow{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;}
+.academy-cta-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:#fff;margin-bottom:8px;}
+.academy-cta-sub{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:20px;line-height:1.6;}
+.academy-cta-btn{display:inline-block;background:#fff;color:var(--fire);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:13px 30px;border-radius:6px;text-decoration:none;}
+
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:40px;}
+.footer a{color:var(--fire);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-logo" href="/"><img src="/lobster-logo.png" alt="OMA"><div class="topbar-logo-name">OMA <span>Blog</span></div></a>
+  <div class="topbar-right">
+    <a href="/blog" class="topbar-link">← Blog</a>
+    <a href="/academy" class="topbar-cta">Academy grátis →</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="/" class="bc-item">OMA</a>
+  <span class="bc-sep">›</span>
+  <a href="/blog" class="bc-item">Blog</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-item" style="color:var(--text3);">From the Scratch</span>
+</div>
+
+<div class="article-hero">
+  <span class="hero-tag">✦ Artigo 00 — A origem</span>
+  <h1 class="story-title">
+    From the<br><em>Scratch</em>
+  </h1>
+  <p class="story-lead">
+    Nunca programei nada na minha vida. Não sei o que é uma linha de código. 
+    E em 2026, construí do meu celular uma plataforma de agentes de IA 
+    rodando 24 horas por dia — sem CTO, sem equipe técnica, sem escritório. 
+    Essa é a história do OMA Project. E por que ela pode ser a sua também.
+  </p>
+  <div class="author-row">
+    <img src="/lobster-logo.png" class="author-img" alt="Fabio Xavier">
+    <div class="author-info">
+      <div class="author-name">Fabio Xavier</div>
+      <div class="author-meta">Founder · OMA Project · <a href="https://instagram.com/fabio_xavier_br" target="_blank">@fabio_xavier_br</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="story-wrap">
+  <div class="story-content">
+
+    <h2>Antes de tudo, quem eu sou</h2>
+
+    <p>Sou de Toledo, no interior do Paraná. Formado em Jornalismo pela PUC-PR, MBA pela FGV, Executive Education em Sales Leadership pela Wharton. Passei quase 10 anos na AmBev — da supervisão de merchandising no Paraná até liderar o canal off-trade no Centro-Oeste, com R$1 bilhão em vendas e mais de 400 pessoas na estrutura indireta.</p>
+
+    <p>Depois da AmBev, fui para o varejo. Ri Happy, com 280 lojas e R$1,8 bilhão de receita. Via Varejo. Armazém da Cerveja. Sempre em posições de liderança, sempre em empresas grandes, sempre operando no mundo físico, de pessoas e de negócios.</p>
+
+    <p>Tecnologia? Usuário. Nunca construtor. Nunca nem imaginei ser.</p>
+
+    <div class="pull-quote">
+      <p>"Fui formado na escola mais exigente do varejo brasileiro. Aprendi que resultado não negocia. Mas também aprendi que o mundo muda — e quem não acompanha, fica pra trás."</p>
+    </div>
+
+    <h2>O ano que tudo mudou</h2>
+
+    <p>Em 2023, tomei uma decisão que muita gente achou estranha: tirei um ano sabático intencional. Não por necessidade. Por escolha. Precisava respirar, pensar, e entender para onde queria ir.</p>
+
+    <p>Foi nesse período que comecei a usar IA de verdade — não como curiosidade, mas como ferramenta de trabalho. ChatGPT, depois Claude. 456 conversas registradas em menos de um ano. Estratégia, contratos, comunicação, fitness, ideias de negócio. A IA foi virando parceira de raciocínio.</p>
+
+    <p>E aí veio a pergunta que mudou tudo: <strong>"Se eu consigo usar IA para pensar melhor, por que não posso usar IA para trabalhar por mim enquanto durmo?"</strong></p>
+
+    <h2>A virada — o que eu descobri que era possível</h2>
+
+    <p>Quando entendi que existiam modelos de linguagem que podiam não só responder perguntas, mas também executar tarefas de forma autônoma — consultar sistemas, tomar decisões, enviar mensagens, processar informações — algo travou na minha cabeça.</p>
+
+    <p>Eu tinha passado 20 anos construindo operações com pessoas. Sabia exatamente quais processos eram repetitivos, quais consumiam mais energia do time, quais poderiam ser automatizados se houvesse alguém disponível 24 horas por dia, 7 dias por semana, sem reclamar, sem esquecer, sem precisar de férias.</p>
+
+    <p>Agora existia esse "alguém". E se chamava agente de IA.</p>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">30</div>
+        <div class="stat-lbl">dias para construir</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">0</div>
+        <div class="stat-lbl">linhas de código manual</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">24h</div>
+        <div class="stat-lbl">operando por dia</div>
+      </div>
+    </div>
+
+    <h2>Do celular. Sem programar. Em 30 dias.</h2>
+
+    <p>Em março de 2026, lancei oficialmente o OMA Project. Mas a construção começou semanas antes, operando do meu celular, usando IA para escrever cada linha de código da plataforma.</p>
+
+    <p>Vibe coding — a prática de descrever o que você quer para uma IA e ela construir — foi o que tornou isso possível. Eu não escrevia código. Eu descrevia o que queria construir, validava o resultado, corrigia o rumo, e avançava.</p>
+
+    <p>Em 30 dias, o que estava no ar:</p>
+
+    <ul>
+      <li><strong>George</strong> — meu agente pessoal no Telegram. Gerencia agenda, email, tarefas, pesquisas. Opera 24h, responde quando precisar.</li>
+      <li><strong>Bia</strong> — agente comercial no WhatsApp. Atende leads, qualifica interesse, agenda reuniões, escala para mim quando necessário. Nunca dorme.</li>
+      <li><strong>Flávia</strong> — agente de marketing. Cria conteúdo, publica no Instagram de forma autônoma, segue a identidade da marca.</li>
+      <li><strong>Ekhoa</strong> — sistema de clipping de mídia para a empresa de RP da Dani. Monitora 35 fontes, classifica por relevância, envia relatório 3 vezes por dia.</li>
+      <li><strong>Darwin</strong> — agente de monitoramento. Roda a cada 15 minutos, verifica a saúde de toda a infraestrutura.</li>
+    </ul>
+
+    <p>Tudo rodando num Mac Mini M4 que fica no meu escritório em São Paulo, conectado à internet 24 horas. Uma pequena central de operações autônoma.</p>
+
+    <div class="pull-quote">
+      <p>"Não construí uma empresa de tecnologia. Construí uma operação de negócios que usa tecnologia como vantagem competitiva. A diferença importa."</p>
+    </div>
+
+    <h2>Por que o nome One Man Army</h2>
+
+    <p>Terceirização de mão de obra — mas de agentes.</p>
+
+    <p>Esse é o posicionamento do OMA. A ideia é simples: pequenas e médias empresas não têm como contratar um time de 10 pessoas para cobrir todas as frentes operacionais. Mas podem ter agentes de IA que trabalham por elas 24 horas — no atendimento, no comercial, no marketing, no monitoramento.</p>
+
+    <p>One Man Army. Um exército de um homem só. Ou, no caso das empresas que atendemos, um exército de agentes operando por você enquanto você foca no que realmente importa: estratégia, relacionamentos, produto.</p>
+
+    <h2>O propósito que vai além do negócio</h2>
+
+    <p>Quando comecei a construir o OMA, percebi algo que me incomodava: o conhecimento técnico necessário para usar IA de verdade estava concentrado em desenvolvedores e engenheiros. Founders, executivos, donos de negócio — as pessoas que mais se beneficiariam de agentes autônomos — ficavam de fora porque o vocabulário técnico era uma barreira.</p>
+
+    <p>Não é justo. E não é necessário.</p>
+
+    <p>Você não precisa saber programar para entender o que é um LLM, por que tokens importam, como um agente decide seus próximos passos, ou quando usar RAG em vez de fine-tuning. Você precisa de alguém que traduza esses conceitos para o vocabulário do negócio — com analogias do mundo real, sem jargão desnecessário.</p>
+
+    <p>Foi por isso que nasceu a <strong>OMA Academy</strong>. Trinta módulos de tech fluency para founders e executivos. Gratuita. Com certificado no LinkedIn ao final.</p>
+
+    <p>A missão: contribuir para a digitalização real das PMEs brasileiras. Não a digitalização de fachada — aquela que compra um sistema e não usa. A digitalização que gera eficiência, produtividade e vantagem competitiva de verdade.</p>
+
+    <h2>O que aprendi que não estava nos livros</h2>
+
+    <p>Vinte anos de carreira me ensinaram sobre liderança, execução, pessoas e resultado. Mas a construção do OMA me ensinou algo diferente:</p>
+
+    <p><strong>A barreira para inovar nunca foi técnica. Sempre foi de coragem e clareza.</strong></p>
+
+    <p>Clareza sobre o que você quer construir. Coragem para começar sem saber tudo. E a humildade de reconhecer que você não precisa fazer tudo sozinho — especialmente quando existem ferramentas que fazem por você.</p>
+
+    <p>A história que estou vivendo em 2026 vai virar case. Não porque sou exceção. Mas porque o que fiz é replicável. E quero que outros founders façam o mesmo — cada um no seu contexto, no seu segmento, na sua velocidade.</p>
+
+    <div class="pull-quote">
+      <p>"Nunca programei nada. E construí isso. Não é sobre tecnologia. É sobre não aceitar que o impossível de ontem ainda seja impossível hoje."</p>
+      <cite>— Fabio Xavier, fundador do OMA Project</cite>
+    </div>
+
+    <h2>Para onde vamos</h2>
+
+    <p>O OMA Project está em construção. Não é um produto acabado — é um projeto vivo, que cresce a cada semana, que erra e corrige, que aprende com cada cliente e com cada agente que vai ao ar.</p>
+
+    <p>Este blog é parte disso. Cada artigo aqui é um capítulo do que estamos aprendendo — sobre IA, sobre agentes, sobre o que funciona para PMEs, sobre o que não funciona.</p>
+
+    <p>Se você chegou até aqui, provavelmente está num momento parecido com o que eu estava: vendo o mundo mudar, sentindo que precisa fazer algo diferente, mas não sabendo exatamente por onde começar.</p>
+
+    <p>Começa pela Academy. É gratuita. Leva uma hora por semana. E ao final, você vai ter o vocabulário para fazer as perguntas certas — e tomar as decisões certas.</p>
+
+    <p>A jornada começa aqui.</p>
+
+  </div>
+
+  <div class="share-bar">
+    <div class="share-label">Se fez sentido, compartilha 🦞</div>
+    <div class="share-btns">
+      <a href="https://wa.me/?text=Leia+essa+história%3A+https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Ffrom-the-scratch" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Ffrom-the-scratch" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
+    </div>
+  </div>
+
+  <div class="academy-cta">
+    <div class="academy-cta-eyebrow">O próximo passo</div>
+    <div class="academy-cta-title">Faça a OMA Academy — é gratuito</div>
+    <div class="academy-cta-sub">30 módulos de tech fluency para founders. Do que é um LLM até como escalar um produto de IA. Com analogias do mundo real, sem jargão. Certificado no LinkedIn ao final.</div>
+    <a href="/academy" class="academy-cta-btn">Começar agora →</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="/">OMA Project</a> · <a href="/blog">Blog</a> · <a href="/academy">Academy</a> · <a href="https://instagram.com/fabio_xavier_br" target="_blank">@fabio_xavier_br</a>
+</div>
+</body>
+</html>
