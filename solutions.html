@@ -131,6 +131,15 @@ footer a:hover{color:var(--bone);}
 /* LIVEPULSE */
 @keyframes livepulse{0%,100%{opacity:.4}50%{opacity:1}}
 
+
+/* FORM TABS */
+.form-tabs{display:flex;gap:0;margin-bottom:0;}
+.form-tab{flex:1;padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:var(--iron);border:1px solid var(--steel);color:var(--ash);cursor:pointer;text-align:center;transition:all .2s;border-bottom:none;}
+.form-tab.active{background:var(--coal);color:var(--fire);border-color:var(--iron);border-top:2px solid var(--fire);}
+.form-tab:first-child{border-right:none;}
+.form-pane{display:none;}
+.form-pane.active{display:block;}
+
 /* FORM */
 .form-section{max-width:860px;margin:0 auto;padding:80px 32px;}
 .form-card{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--fire);padding:40px 36px;}
@@ -400,133 +409,159 @@ footer a:hover{color:var(--bone);}
   </div>
 </section>
 
-<div class="divider"><div class="divider-gem"></div></div>
-
-<!-- REQUEST FORM -->
-<section class="form-section" id="solicitar">
-  <div class="section-label">Solicitar Relatório</div>
-  <div class="section-title">Conte sobre seu <em>negócio</em></div>
-
-  <div class="form-box" id="form-container">
-    <h3>OMA Predictions — Solicitar análise</h3>
-    <p>Preencha os campos abaixo. Nosso algoritmo de swarm intelligence vai simular como seu mercado reagiria nos próximos 6 meses. Relatório entregue por email em até 24h.</p>
-
-    <div class="form-grid">
-      <div class="form-row">
-        <label>Seu nome</label>
-        <input type="text" id="f-name" placeholder="Ex: Maria Silva">
-      </div>
-      <div class="form-row">
-        <label>Email para entrega</label>
-        <input type="email" id="f-email" placeholder="seu@email.com">
-      </div>
-    </div>
-
-    <div class="form-grid">
-      <div class="form-row">
-        <label>Empresa</label>
-        <input type="text" id="f-company" placeholder="Nome da empresa">
-      </div>
-      <div class="form-row">
-        <label>Segmento</label>
-        <select id="f-segment">
-          <option value="">Selecione...</option>
-          <option>Escritório de advocacia</option>
-          <option>Consultório médico / Clínica</option>
-          <option>Ótica</option>
-          <option>Condomínio / Administradora</option>
-          <option>Shopping center</option>
-          <option>Distribuidor</option>
-          <option>Franquia / Rede de varejo</option>
-          <option>Restaurante / Food service</option>
-          <option>Contabilidade</option>
-          <option>Imobiliária</option>
-          <option>E-commerce</option>
-          <option>Outro</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <label>Principais dores do seu negócio (3 a 5)</label>
-      <textarea id="f-pains" placeholder="Ex: Perco vendas fora do horário, não consigo cobrar inadimplentes, gasto muito tempo com agendamento..."></textarea>
-    </div>
-
-    <div class="form-row">
-      <label>Concorrentes diretos (se souber)</label>
-      <input type="text" id="f-competitors" placeholder="Ex: Clínica X, Escritório Y (opcional)">
-    </div>
-
-    <div class="form-row">
-      <label>Pergunta central — O que você quer descobrir?</label>
-      <textarea id="f-question" placeholder="Ex: Como meu consultório seria impactado se eu automatizasse o agendamento e a cobrança nos próximos 6 meses?"></textarea>
-    </div>
-
-    <div class="form-grid">
-      <div class="form-row">
-        <label>Tamanho da equipe</label>
-        <select id="f-team">
-          <option value="">Selecione...</option>
-          <option>Só eu (empreendedor solo)</option>
-          <option>2-5 pessoas</option>
-          <option>6-15 pessoas</option>
-          <option>16-50 pessoas</option>
-          <option>50+ pessoas</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label>Faturamento mensal aproximado</label>
-        <select id="f-revenue">
-          <option value="">Selecione...</option>
-          <option>Até R$10k</option>
-          <option>R$10k - R$50k</option>
-          <option>R$50k - R$200k</option>
-          <option>R$200k - R$1M</option>
-          <option>Acima de R$1M</option>
-          <option>Prefiro não informar</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="form-submit" id="form-btn" onclick="submitPrediction()">Solicitar relatório preditivo</button>
-  </div>
-
-  <div class="form-success" id="form-ok">
-    <h4>✅ Solicitação recebida!</h4>
-    <p>Seu relatório preditivo será gerado por nosso algoritmo de swarm intelligence e entregue no email informado em até 24 horas.</p>
-    <p style="margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);">Enquanto isso, explore nosso case de estudo abaixo.</p>
-  </div>
-</section>
 
 <div class="divider"><div class="divider-gem"></div></div>
 
 <!-- CASE STUDY -->
 <section class="case-section" id="cases">
   <div class="section-label">Transparência Brutal</div>
-  <div class="section-title">Nosso próprio relatório. <em>Aberto.</em></div>
-  <p style="font-size:14px;color:var(--fog);max-width:600px;margin-bottom:32px;">Antes de pedir que você confie na nossa ferramenta, mostramos o que ela gerou para nós mesmos. Este é o relatório real que usamos para definir a estratégia do OMA Project.</p>
-
+  <div class="section-title" style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:24px;">Nosso próprio relatório. <em style="color:var(--fire);font-style:italic;">Aberto.</em></div>
   <div class="case-card">
-    <div class="case-badge">
-      <div class="case-badge-label">Case Study</div>
-      <div class="case-badge-name">OMA<br>PROJECT</div>
+    <div class="case-icon">📊</div>
+    <div class="case-info">
+      <h4>Analisamos o OMA Project com o OMA Predictions</h4>
+      <p>43 agentes simulados debateram sobre nosso negócio por 15 rounds. Veja o que descobrimos — sem filtro, sem edição.</p>
+      <span class="case-tag">43 agentes · 334 interações · 4 seções · custo R$1.50</span>
     </div>
-    <div class="case-body">
-      <h4>Projeção de Impacto no Mercado Brasileiro de PMEs</h4>
-      <p>Simulação completa com 43 agentes autônomos analisando como 7 segmentos de PMEs brasileiras reagiriam ao OMA nos próximos 6 meses — incluindo adoção por segmento, reação de concorrentes, objeções e crises potenciais.</p>
-      <div class="case-stats">
-        <div class="case-stat"><div class="case-stat-val">43</div><div class="case-stat-lbl">Agentes</div></div>
-        <div class="case-stat"><div class="case-stat-val">334</div><div class="case-stat-lbl">Ações</div></div>
-        <div class="case-stat"><div class="case-stat-val">15</div><div class="case-stat-lbl">Rounds</div></div>
-        <div class="case-stat"><div class="case-stat-val">4</div><div class="case-stat-lbl">Seções</div></div>
-      </div>
-      <div class="case-dl">
-        <a href="/reports/oma-case-study.html" target="_blank" class="btn-product btn-fire" style="font-size:10px;padding:10px 20px;">Relatório Visual</a>
-        <a href="/reports/oma-case-study.md" target="_blank" class="btn-product btn-ghost" style="font-size:10px;padding:10px 20px;">Texto Consultoria</a>
-      </div>
+    <div class="case-dl">
+      <a href="/reports/oma-case-study.html" target="_blank">Ver relatório</a>
     </div>
   </div>
 </section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- PREDICTION FORM -->
+<section class="form-section" id="solicitar">
+  <div class="section-label">Solicitar Relatório</div>
+  <div class="section-title" style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:24px;">Conte sua história.<br><em style="color:var(--fire);font-style:italic;">Nós prevemos o futuro.</em></div>
+  
+  <div class="form-card">
+    <div id="formContent">
+      
+      <!-- TABS -->
+      <div class="form-tabs">
+        <div class="form-tab active" onclick="switchFormTab('business',this)">🏢 Meu negócio</div>
+        <div class="form-tab" onclick="switchFormTab('scenario',this)">🔮 Cenário livre</div>
+      </div>
+      
+      <!-- TAB 1: BUSINESS -->
+      <div class="form-pane active" id="pane-business" style="padding-top:28px;">
+        <p class="form-sub">Para empresas que querem prever como o mercado reagiria a uma mudança.</p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Seu nome *</label>
+            <input type="text" class="form-input" id="f-name" placeholder="Ex: Maria Silva">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-input" id="f-email" placeholder="Ex: maria@empresa.com.br">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">WhatsApp</label>
+            <input type="text" class="form-input" id="f-whatsapp" placeholder="11 99999-9999">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Empresa *</label>
+            <input type="text" class="form-input" id="f-company" placeholder="Ex: Clínica Vida Plena">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Segmento *</label>
+          <select class="form-select" id="f-segment">
+            <option value="">Selecione seu segmento</option>
+            <option value="advocacia">Escritório de Advocacia</option>
+            <option value="consultorio">Consultório / Clínica Médica</option>
+            <option value="otica">Ótica</option>
+            <option value="condominio">Administradora de Condomínio</option>
+            <option value="shopping">Shopping Center</option>
+            <option value="distribuidor">Distribuidor / Atacadista</option>
+            <option value="franquia">Franquia / Rede de Varejo</option>
+            <option value="restaurante">Restaurante / Food Service</option>
+            <option value="imobiliaria">Imobiliária</option>
+            <option value="contabilidade">Contabilidade</option>
+            <option value="consultoria">Consultoria Empresarial</option>
+            <option value="educacao">Escola / Educação</option>
+            <option value="saude">Saúde (outros)</option>
+            <option value="tech">Startup / Tech</option>
+            <option value="governo">Governo / Política</option>
+            <option value="comunicacao">Comunicação / RP</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Descreva seu negócio *</label>
+          <textarea class="form-textarea" id="f-business" placeholder="O que sua empresa faz, tamanho, há quanto tempo existe..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Maiores dores operacionais *</label>
+          <textarea class="form-textarea" id="f-pain" placeholder="O que consome seu tempo, onde perde dinheiro, o que não funciona..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">O que você quer prever? *</label>
+          <textarea class="form-textarea" id="f-question" placeholder="Ex: Como meus clientes reagiriam se eu automatizasse o atendimento? Devo abrir uma segunda unidade?"></textarea>
+        </div>
+      </div>
+      
+      <!-- TAB 2: SCENARIO -->
+      <div class="form-pane" id="pane-scenario" style="padding-top:28px;">
+        <p class="form-sub">Para situações abertas — política, mercado, lançamentos, crises, tendências. Conte a história.</p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Seu nome *</label>
+            <input type="text" class="form-input" id="f2-name" placeholder="Ex: João Silva">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-input" id="f2-email" placeholder="Ex: joao@email.com">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">WhatsApp</label>
+          <input type="text" class="form-input" id="f2-whatsapp" placeholder="11 99999-9999">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Conte o contexto *</label>
+          <textarea class="form-textarea" id="f2-context" placeholder="Descreva a situação em detalhes. Quem são os envolvidos, o que aconteceu, qual o cenário atual..." style="min-height:120px;"></textarea>
+          <div class="form-hint">Quanto mais detalhes, mais precisa a simulação. Inclua nomes, datas, lugares, stakeholders.</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Onde isso acontece? *</label>
+          <textarea class="form-textarea" id="f2-where" placeholder="Cidade, estado, país. Contexto geográfico e cultural relevante..." style="min-height:60px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">O que você quer prever? *</label>
+          <textarea class="form-textarea" id="f2-predict" placeholder="Ex: Como a população vai reagir? Como a imprensa vai cobrir? Quais grupos vão apoiar e quais vão criticar?" style="min-height:100px;"></textarea>
+          <div class="form-hint">Pode incluir múltiplas perguntas. A simulação responderá cada uma.</div>
+        </div>
+      </div>
+      
+      <button class="form-submit" id="formSubmit" onclick="submitPrediction()">Solicitar Relatório Preditivo</button>
+      <div class="form-hint" style="text-align:center;margin-top:8px;">Relatório entregue em até 24h úteis por email + Telegram.</div>
+    </div>
+    
+    <div class="form-success" id="formSuccess">
+      <h3>🐟 Recebemos seu briefing!</h3>
+      <p>Nosso algoritmo vai simular <strong>43+ agentes autônomos</strong> debatendo sobre o seu cenário.</p>
+      <p>Você receberá o relatório completo por email em até <strong>24 horas úteis</strong>.</p>
+      <p style="color:var(--fire);margin-top:20px;font-family:'Space Mono',monospace;font-size:11px;">A Bia entrará em contato para confirmar.</p>
+    </div>
+  </div>
+</section>
+
 
 <div class="divider"><div class="divider-gem"></div></div>
 
@@ -551,33 +586,59 @@ footer a:hover{color:var(--bone);}
 
 
 <script>
+function switchFormTab(tab, btn) {
+  document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.form-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pane-' + tab).classList.add('active');
+}
+
 async function submitPrediction() {
   const btn = document.getElementById('formSubmit');
   btn.disabled = true;
   btn.textContent = 'Enviando...';
   
-  const data = {
-    name: document.getElementById('f-name').value,
-    email: document.getElementById('f-email').value,
-    whatsapp: document.getElementById('f-whatsapp').value,
-    company: document.getElementById('f-company').value,
-    segment: document.getElementById('f-segment').value,
-    business: document.getElementById('f-business').value,
-    pain_points: document.getElementById('f-pain').value,
-    competitors: document.getElementById('f-competitors').value,
-    question: document.getElementById('f-question').value,
-    budget: document.getElementById('f-budget').value,
-    employees: document.getElementById('f-employees').value,
-    submitted_at: new Date().toISOString(),
-    source: 'solutions-page'
-  };
+  const isScenario = document.getElementById('pane-scenario').classList.contains('active');
   
-  // Validate required fields
-  if (!data.name || !data.email || !data.company || !data.segment || !data.business || !data.pain_points || !data.question) {
-    alert('Por favor, preencha todos os campos obrigatórios (*)');
-    btn.disabled = false;
-    btn.textContent = 'Solicitar Relatório Preditivo';
-    return;
+  let data;
+  if (isScenario) {
+    data = {
+      type: 'scenario',
+      name: document.getElementById('f2-name').value,
+      email: document.getElementById('f2-email').value,
+      whatsapp: document.getElementById('f2-whatsapp').value,
+      context: document.getElementById('f2-context').value,
+      where: document.getElementById('f2-where').value,
+      question: document.getElementById('f2-predict').value,
+      submitted_at: new Date().toISOString(),
+      source: 'solutions-scenario'
+    };
+    if (!data.name || !data.email || !data.context || !data.where || !data.question) {
+      alert('Por favor, preencha todos os campos obrigatórios (*)');
+      btn.disabled = false;
+      btn.textContent = 'Solicitar Relatório Preditivo';
+      return;
+    }
+  } else {
+    data = {
+      type: 'business',
+      name: document.getElementById('f-name').value,
+      email: document.getElementById('f-email').value,
+      whatsapp: document.getElementById('f-whatsapp').value,
+      company: document.getElementById('f-company').value,
+      segment: document.getElementById('f-segment').value,
+      business: document.getElementById('f-business').value,
+      pain_points: document.getElementById('f-pain').value,
+      question: document.getElementById('f-question').value,
+      submitted_at: new Date().toISOString(),
+      source: 'solutions-business'
+    };
+    if (!data.name || !data.email || !data.company || !data.business || !data.question) {
+      alert('Por favor, preencha todos os campos obrigatórios (*)');
+      btn.disabled = false;
+      btn.textContent = 'Solicitar Relatório Preditivo';
+      return;
+    }
   }
   
   try {
