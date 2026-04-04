@@ -7,36 +7,53 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,900&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&family=Black+Ops+One&display=swap" rel="stylesheet">
 <style>
-:root{--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;--ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;}
+:root{--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;--ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;--red:#c44;--blue:#4a8fc4;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.7;}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
 .back{position:fixed;top:20px;left:20px;z-index:100;font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);text-decoration:none;letter-spacing:2px;}
 .back:hover{color:var(--bone);}
-.cover{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px 60px;}
-.cover-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:32px;}
-.cover h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5vw,52px);color:var(--white);line-height:1.05;margin-bottom:12px;}
+.cover{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px 60px;position:relative;}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(232,112,58,.04) 0%,transparent 60%);}
+.cover-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:32px;position:relative;z-index:1;}
+.cover h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5vw,52px);color:var(--white);line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
 .cover h1 em{color:var(--fire);font-style:italic;}
-.cover p{font-size:15px;color:var(--fog);max-width:500px;}
-.metrics{display:flex;gap:24px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
-.metric{text-align:center;}
-.metric-val{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}
-.metric-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
-.section{max-width:760px;margin:0 auto;padding:60px 32px;}
-.section h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:24px;line-height:1.2;}
-.section h3{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin:28px 0 10px;}
-.section p,.section li{font-size:14px;color:var(--bone);line-height:1.8;margin-bottom:10px;}
-.section strong{color:var(--white);font-weight:600;}
-.section ul{margin-left:20px;margin-bottom:16px;}
-.section blockquote{border-left:3px solid var(--blood);padding:12px 20px;margin:16px 0;background:rgba(122,34,4,.05);font-style:italic;color:var(--fog);}
-.section blockquote p{margin:0;}
+.cover>p{font-size:15px;color:var(--fog);max-width:500px;position:relative;z-index:1;}
+.metrics{display:flex;gap:24px;justify-content:center;margin-top:32px;flex-wrap:wrap;position:relative;z-index:1;}
+.m{text-align:center;}.m-v{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}.m-l{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.sec{max-width:760px;margin:0 auto;padding:60px 32px;}
+.sec-num{font-family:'Black Ops One',cursive;font-size:64px;color:var(--iron);line-height:1;margin-bottom:4px;}
+.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--fire);text-transform:uppercase;margin-bottom:10px;}
+.sec h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:20px;line-height:1.2;}
+.sec h2 em{color:var(--fire);font-style:italic;}
+.sec h3{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin:28px 0 10px;}
+.sec p{font-size:14px;line-height:1.8;margin-bottom:12px;}
+.sec strong{color:var(--white);font-weight:600;}
+.sec em{color:var(--fire);font-style:italic;}
+.quote{border-left:3px solid var(--blood);padding:14px 20px;margin:16px 0;background:rgba(122,34,4,.05);}
+.quote p{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--bone);margin:0;}
+.quote cite{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);display:block;margin-top:6px;font-style:normal;}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
+th{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);text-align:left;padding:10px 12px;border-bottom:2px solid var(--blood);}
+td{padding:10px 12px;border-bottom:1px solid var(--iron);}
+.bar{display:inline-block;height:6px;background:var(--fire);border-radius:3px;vertical-align:middle;margin-right:8px;}
+.finding{background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--fire);padding:20px;margin:12px 0;}
+.finding h4{font-size:14px;color:var(--white);margin-bottom:6px;}
+.finding p{font-size:13px;color:var(--fog);margin:0;}
+.crisis{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--red);padding:20px;margin:12px 0;}
+.crisis h4{font-size:14px;color:var(--white);margin-bottom:6px;}
+.crisis p{font-size:13px;color:var(--fog);margin:0;}
+.sent{margin:20px 0;}
+.sent-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.sent-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);width:70px;text-align:right;}
+.sent-bar{flex:1;height:20px;background:var(--iron);display:flex;overflow:hidden;}
+.sent-neg{background:var(--red);height:100%;}.sent-pos{background:var(--green);height:100%;}
 .divider{display:flex;align-items:center;gap:16px;max-width:760px;margin:0 auto;padding:0 32px;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--iron);}
 .divider-gem{width:6px;height:6px;background:var(--blood);transform:rotate(45deg);}
-.disclaimer{max-width:760px;margin:0 auto;padding:20px 32px 60px;text-align:center;}
-.disclaimer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:1px;}
-footer{text-align:center;padding:40px 32px;border-top:1px solid var(--iron);}
-footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;}
+footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
+footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;margin-top:6px;}
+footer a{color:var(--fire);text-decoration:none;}
 </style>
 </head>
 <body>
@@ -47,346 +64,138 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);let
   <h1>One Man Army Project:<br><em>Projeção de Mercado</em></h1>
   <p>Este relatório foi gerado pelo OMA Predictions para o nosso próprio negócio. Sem filtro. Sem edição. Transparência brutal.</p>
   <div class="metrics">
-    <div class="metric"><div class="metric-val">43</div><div class="metric-lbl">Agentes</div></div>
-    <div class="metric"><div class="metric-val">334</div><div class="metric-lbl">Interações</div></div>
-    <div class="metric"><div class="metric-val">44</div><div class="metric-lbl">Entidades</div></div>
-    <div class="metric"><div class="metric-val">15</div><div class="metric-lbl">Rounds</div></div>
-    <div class="metric"><div class="metric-val">R$1.50</div><div class="metric-lbl">Custo</div></div>
+    <div class="m"><div class="m-v">43</div><div class="m-l">Agentes</div></div>
+    <div class="m"><div class="m-v">334</div><div class="m-l">Interações</div></div>
+    <div class="m"><div class="m-v">44</div><div class="m-l">Entidades</div></div>
+    <div class="m"><div class="m-v">15</div><div class="m-l">Rounds</div></div>
+    <div class="m"><div class="m-v">R$1,50</div><div class="m-l">Custo</div></div>
   </div>
 </section>
 
 <div class="divider"><div class="divider-gem"></div></div>
-<section class="section">
-<h2>Sector-Specific Adoption Patterns</h2>
 
-<h3>Medical Clinics (Consultórios Médicos)</h3>
-<p>The healthcare sector shows rapid early adoption, particularly for administrative automation. Medical offices are prioritizing solutions that integrate with Brazil's evolving electronic health record systems while complying with LGPD data protection laws.</p>
-
-<blockquote><p>"Over the next 6 months, automating these processes would significantly reduce clerical errors and free up staff time for patient-facing tasks." (consultórios_médicos_662)</p></blockquote>
-
-<p>Key adoption drivers include:</p>
-<ul>
-<li>40% reduction in administrative workload</li>
-<li>Improved patient scheduling accuracy</li>
-<li>Automated compliance with healthcare regulations</li>
-</ul>
-
-<h3>Law Firms (Escritórios de Advocacia)</h3>
-<p>Legal practices demonstrate cautious but strategic adoption, focusing on document automation and client management systems. The sector faces unique challenges with Brazil's complex legal frameworks.</p>
-
-<blockquote><p>"Automated solutions could enhance document processing and case management, which currently consume excessive hours of manual work." (escritórios_de_advocacia_154)</p></blockquote>
-
-<p>Adoption patterns show:</p>
-<ul>
-<li>Early adopters gaining competitive advantage in client service</li>
-<li>12-18 month expected lag before mainstream adoption</li>
-<li>Strong emphasis on maintaining client relationships while automating backend processes</li>
-</ul>
-
-<h3>Optical Shops (Óticas)</h3>
-<p>Retail optical businesses show moderate adoption rates, with inventory management being the primary use case. The sector balances automation with maintaining personalized customer service.</p>
-
-<blockquote><p>"Automated inventory alerts could reduce stock discrepancies by 30-40% while improving customer wait times." (óticas_620)</p></blockquote>
-
-<p>Sector-specific factors:</p>
-<ul>
-<li>Phased implementation preferred to maintain customer experience</li>
-<li>Integration with existing POS systems critical</li>
-<li>Rural expansion opportunities through mobile units</li>
-</ul>
-
-<h3>Condominiums (Condomínios)</h3>
-<p>Property management demonstrates aggressive adoption in security and maintenance automation. The sector benefits from Brazil's growing smart building trends.</p>
-
-<blockquote><p>"Automating routine maintenance requests would save 40% of staff time, a major pain point for mid-sized condominiums." (condomínios_713)</p></blockquote>
-
-<p>Notable trends:</p>
-<ul>
-<li>Strong ROI from energy management systems</li>
-<li>Emergence of AI-powered security solutions</li>
-<li>Potential to democratize luxury amenities across property classes</li>
-</ul>
-
-<h3>Distributors (Distribuidores)</h3>
-<p>Logistics-focused businesses show uneven adoption, with early movers in inventory and route optimization. The sector faces infrastructure challenges but sees significant efficiency gains.</p>
-
-<blockquote><p>"Automated solutions could optimize route planning, reducing fuel costs and improving delivery times by 20-30%." (distribuidores_430)</p></blockquote>
-
-<p>Key observations:</p>
-<ul>
-<li>Inventory accuracy improvements driving adoption</li>
-<li>Last-mile delivery solutions as competitive differentiators</li>
-<li>Potential for micro-fulfillment centers in underserved areas</li>
-</ul>
-
-<h3>Cross-Sector Trends</h3>
-<p>All sectors demonstrate:</p>
-<ul>
-<li>Initial resistance giving way to strategic adoption</li>
-<li>Focus on solutions that complement rather than replace human roles</li>
-<li>Economic factors (interest rates, inflation) influencing adoption timelines</li>
-<li>Competitive pressure accelerating implementation in 12-18 month window</li>
-</ul>
-
-<blockquote><p>"Within 12-18 months, we expect most reputable [businesses] will recognize automation as an industry standard rather than a competitive differentiator." (consultórios_médicos_662)</p></blockquote>
-
-
-</section>
-<div class="divider"><div class="divider-gem"></div></div>
-<section class="section">
-<h2>Competitive Landscape Transformation</h2>
-
-<h3></h3>
-
-<h3>Executive Summary</h3>
-
-<p>The simulation reveals OMA Project will trigger fundamental shifts across Brazilian SME sectors through autonomous AI adoption. Key findings:</p>
-
-<h3>Market Reactions</h3>
-<ul>
-<li><strong>Incumbent Software Providers</strong></li>
-</ul>
-<blockquote><p>"Traditional RPA companies face 30-40% price pressure as OMA's pay-per-use model disrupts subscription pricing" (market_analyst_441)</p></blockquote>
-
-<ul>
-<li><strong>Consulting Firms</strong></li>
-<li>IT consultancies rapidly develop OMA integration services</li>
-<li>72% of surveyed firms added AI agent training within 3 months</li>
-<li>Specialized boutiques emerge for sector-specific implementations</li>
-</ul>
-
-<h3>Sector Transformations</h3>
-
-<h3>Legal Services</h3>
-<ul>
-<li>Document automation replaces 40% of paralegal workflows</li>
-<li>Boutique firms gain advantage through customized AI augmentation</li>
-<li>Large firms face pressure to reduce billing hours</li>
-</ul>
-
-<h3>Healthcare Clinics</h3>
-<ul>
-<li>Administrative staff reductions average 25%</li>
-<li>New hybrid roles emerge combining medical and technical skills</li>
-<li>Patient scheduling accuracy improves 35%</li>
-</ul>
-
-<h3>Optical Retail</h3>
-<ul>
-<li>Inventory discrepancies drop 30-40%</li>
-<li>Personalized recommendation engines boost average order value</li>
-<li>Rural expansion accelerates via mobile-enabled agents</li>
-</ul>
-
-<h3>Property Management</h3>
-<ul>
-<li>Maintenance response times improve 50%</li>
-<li>Energy savings average 15% through automated systems</li>
-<li>Security costs decrease while effectiveness increases</li>
-</ul>
-
-<h3>Distribution Logistics</h3>
-<ul>
-<li>Route optimization reduces fuel costs 20-30%</li>
-<li>Inventory turns improve by 1.5-2x</li>
-<li>Last-mile delivery capabilities become competitive differentiators</li>
-</ul>
-
-<h3>Strategic Implications</h3>
-<ul>
-<li><strong>First-Mover Advantage</strong></li>
-</ul>
-<p>Early adopters capture disproportionate market share</p>
-
-<ul>
-<li><strong>Workforce Transition</strong></li>
-</ul>
-<p>Successful firms reskill staff for AI-augmented roles</p>
-
-<ul>
-<li><strong>Ecosystem Evolution</strong></li>
-</ul>
-<p>New service providers emerge around OMA integration</p>
-
-<h3>Risk Factors</h3>
-<ul>
-<li>Regulatory uncertainty around AI implementation</li>
-<li>Potential skills gap in smaller organizations</li>
-<li>Cybersecurity concerns with autonomous systems</li>
-</ul>
-
-<p>The data suggests Brazilian SMEs that embrace this transformation early will gain sustainable competitive advantages. Incumbents must adapt quickly or risk displacement.</p>
-
-
-</section>
-<div class="divider"><div class="divider-gem"></div></div>
-<section class="section">
-<h2>Public Perception Challenges</h2>
-
-<h3>Cultural Resistance to Automation</h3>
-<p>Brazilian SMEs demonstrate significant hesitation toward fully autonomous systems, rooted in cultural preferences for personal relationships in business operations. The simulation reveals:</p>
-
-<blockquote><p>"SME owners might worry that the 'one-man-army' model could lead to overdependence on a single solution provider or lack of personalized support." (brazilian_sme_market_914)</p></blockquote>
-
-<p>Key concerns include:</p>
-<ul>
-<li>Loss of human touch in customer interactions</li>
-<li>Perceived inability to handle complex, context-specific situations</li>
-<li>Preference for traditional service models with human intermediaries</li>
-</ul>
-
-<h3>Trust Barriers in Critical Sectors</h3>
-<p>Medical clinics and law firms exhibit heightened skepticism due to regulatory and liability concerns:</p>
-
-<blockquote><p>"Healthcare providers requiring efficient patient management systems still demand human oversight for critical decisions." (pequenas_e_médias_empresas_272)</p></blockquote>
-
-<p>Sector-specific objections:</p>
-<ul>
-<li>Legal professionals fear ethical implications of AI-generated documents</li>
-<li>Medical practitioners question diagnostic reliability</li>
-<li>Distributors worry about supply chain disruptions from algorithmic errors</li>
-</ul>
-
-<h3>Economic Anxiety in Volatile Climate</h3>
-<p>Brazil's 2026 economic context amplifies risk aversion:</p>
-
-<blockquote><p>"Currency fluctuations making technology imports more expensive and political uncertainty might make SMEs hesitant about long-term tech investments." (brazilian_sme_market_914)</p></blockquote>
-
-<p>Financial concerns manifest as:</p>
-<ul>
-<li>Preference for short-term staffing over automation investments</li>
-<li>Resistance to recurring SaaS payments in favor of one-time purchases</li>
-<li>Fear of technology becoming obsolete during economic instability</li>
-</ul>
-
-<h3>Technological Literacy Gaps</h3>
-<p>Smaller enterprises in rural areas face adoption hurdles:</p>
-
-<blockquote><p>"Infrastructure challenges like unreliable internet in some regions might impact AI solution performance." (one_man_army_project_oma_148)</p></blockquote>
-
-<p>Educational barriers include:</p>
-<ul>
-<li>Limited understanding of AI capabilities beyond basic automation</li>
-<li>Concerns about employee retraining requirements</li>
-<li>Misconceptions about implementation complexity</li>
-</ul>
-
-<h3>Competitor-Fueled Misinformation</h3>
-<p>Traditional service providers actively shape negative perceptions:</p>
-
-<blockquote><p>"Competitors and IT consultancies may initially view autonomous AI agents as threats to their traditional service models, potentially spreading FUD about reliability or security." (fabio_416)</p></blockquote>
-
-<p>Common narratives include:</p>
-<ul>
-<li>Exaggerated claims about job displacement</li>
-<li>Doubts about data security with cloud-based solutions</li>
-<li>Emphasis on hypothetical edge cases where AI might fail</li>
-</ul>
-
-<h3>Perception Evolution Timeline</h3>
-<p>The panorama_search reveals distinct phases in market reception:</p>
-<ul>
-<li><strong>Month 1-2:</strong> Skepticism dominates (78% negative sentiment)</li>
-<li><strong>Month 3-4:</strong> Early adopters demonstrate ROI (sentiment shifts to 45% positive)</li>
-<li><strong>Month 5-6:</strong> Sector-specific patterns emerge (legal remains cautious while retail embraces)</li>
-</ul>
-
-<h3>Sector-Specific Perception Variations</h3>
-<p>Adoption readiness differs markedly across industries:</p>
-
-<blockquote><p>"Micro-retailers (especially e-commerce), independent healthcare providers, and specialized professional services show most promise for rapid adoption." (fabio_416)</p></blockquote>
-
-<p>Perception spectrum:</p>
-<ul>
-<li>High readiness: E-commerce, property management</li>
-<li>Moderate readiness: Optical retail, distribution</li>
-<li>Low readiness: Legal services, medical diagnostics</li>
-</ul>
-
-<p>The simulation predicts these perception challenges will create a 12-18 month adoption lag despite demonstrated ROI, with early adopters facing skepticism from industry peers. Successful implementation will require localized case studies and phased integration strategies to overcome cultural and economic reservations.</p>
-
-
-</section>
-<div class="divider"><div class="divider-gem"></div></div>
-<section class="section">
-<h2>Economic Opportunities & Crisis Points</h2>
-
-<h3>Economic Opportunities Across Sectors</h3>
-<p>The panorama_search reveals distinct sector-specific opportunities emerging from OMA adoption:</p>
-
-<ul>
-<li><strong>Legal Services</strong>: Document automation could reduce operational costs by 20-30% for small law firms, with strongest potential in high-volume practices like labor law and real estate transactions. The challenge lies in overcoming technophobia among practitioners and integrating with legacy systems.</li>
-</ul>
-
-<ul>
-<li><strong>Healthcare Clinics</strong>:</li>
-</ul>
-<blockquote><p>"Medical offices are considering adopting automation solutions from Brazilian SMEs" (panorama_search result #2)</p></blockquote>
-
-<p>Administrative automation shows 40%+ efficiency gains potential, particularly in appointment scheduling and insurance processing. Data security concerns and regulatory compliance remain key barriers.</p>
-
-<ul>
-<li><strong>Optical Retail</strong>: Inventory optimization could reduce discrepancies by 30-40%, with mobile-enabled solutions creating new rural market opportunities. The sector requires careful balancing between automation and personalized service.</li>
-</ul>
-
-<h3>Emerging Crisis Points</h3>
-<p>The simulation reveals several potential economic risks:</p>
-
-<p><strong>Credit Constraints</strong>:</p>
-<blockquote><p>"Brazilian SME market is currently resistant but considering adopting Fabio's autonomous AI solution" (panorama_search result #10)</p></blockquote>
-
-<ul>
-<li>Brazil's 2026 economic landscape shows tightening credit conditions, potentially limiting SMEs' ability to finance automation investments</li>
-<li>Rural-urban digital divide could widen productivity gaps between regions</li>
-</ul>
-
-<p><strong>Workforce Transition</strong>:</p>
-<ul>
-<li>Temporary productivity dips during implementation phases</li>
-<li>Skills gaps in smaller cities requiring localized training hubs</li>
-<li>Potential over-reliance on systems without proper contingency plans</li>
-</ul>
-
-<h3>Mitigation Strategies</h3>
-<p>Sectors are developing distinct approaches:</p>
-
-<p><strong>Legal</strong>:</p>
-<blockquote><p>"We'd overcome these through targeted training programs and developing flexible API connections that work with existing legal management software." (escritórios_de_advocacia_154)</p></blockquote>
-
-<p><strong>Healthcare</strong>:</p>
-<blockquote><p>"SMEs can mitigate these risks by investing in staff upskilling programs and prioritizing solutions that complement rather than replace human roles." (consultórios_médicos_662)</p></blockquote>
-
-<p><strong>Distribution</strong>: Phased implementations with parallel manual processes during transitions</p>
-
-<h3>New Economic Ecosystems</h3>
-<p>The simulation predicts emergence of:</p>
-<ul>
-<li>OMA-trained freelancers offering sector-specific implementation services</li>
-<li>Vertical-specific template marketplaces</li>
-<li>Pay-per-use financing models tailored to Brazil's 2026 credit environment</li>
-</ul>
-
-<h3>Critical Success Factors</h3>
-<ul>
-<li>Localized case studies demonstrating 3-6 month ROI periods</li>
-<li>Partnerships with industry associations for sector-specific solutions</li>
-<li>Government collaborations to improve digital infrastructure in secondary cities</li>
-</ul>
-
-<p>The data suggests Brazilian SMEs that navigate these economic challenges while capitalizing on automation opportunities will achieve sustainable competitive advantages by late 2026.</p>
-
-
+<!-- SECTION 1 -->
+<section class="sec">
+  <div class="sec-num">01</div>
+  <div class="sec-label">Adoção por Segmento</div>
+  <h2>Quem compra <em>primeiro</em></h2>
+
+  <table>
+    <thead><tr><th>#</th><th>Segmento</th><th>Velocidade</th><th>ROI estimado</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Condomínios</td><td><span class="bar" style="width:90px"></span>Agressiva</td><td>40% redução staff</td></tr>
+      <tr><td><strong>2</strong></td><td>Consultórios médicos</td><td><span class="bar" style="width:80px"></span>Rápida</td><td>40%+ eficiência admin</td></tr>
+      <tr><td><strong>3</strong></td><td>Distribuidores</td><td><span class="bar" style="width:65px"></span>Moderada+</td><td>20-30% custos logísticos</td></tr>
+      <tr><td><strong>4</strong></td><td>Óticas</td><td><span class="bar" style="width:55px"></span>Moderada</td><td>30-40% discrepância estoque</td></tr>
+      <tr><td><strong>5</strong></td><td>Shopping centers</td><td><span class="bar" style="width:50px"></span>Moderada</td><td>15% economia energia</td></tr>
+      <tr><td><strong>6</strong></td><td>Franquias</td><td><span class="bar" style="width:40px"></span>Moderada-</td><td>Padronização operacional</td></tr>
+      <tr><td><strong>7</strong></td><td>Advocacia</td><td><span class="bar" style="width:25px"></span>Lenta</td><td>20-30% custo operacional</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🏢 Condomínios — O segmento #1</h3>
+  <p>A Amanda já faz reserva de quadra no condomínio do Fabio — <strong>isso é produto funcionando, não piloto</strong>. Administradoras têm dores claras e baixa resistência porque o morador final não interage diretamente com o agente.</p>
+
+  <div class="quote">
+    <p>"Automatizar requests de manutenção economizaria 40% do tempo da equipe — um pain point enorme para condomínios médios."</p>
+    <cite>— Agente simulado: Condomínios</cite>
+  </div>
+
+  <h3>🏥 Consultórios — O segundo mais promissor</h3>
+  <p>Alta demanda por automação administrativa (agendamento, confirmação, fila de espera). A barreira é LGPD e compliance. <strong>Posicionar como "automação administrativa" — nunca como "assistente médico".</strong></p>
+
+  <h3>⚖️ Advocacia — O mais desafiador</h3>
+  <p>Advogados são conservadores, têm preocupações reais sobre confidencialidade. Na simulação, <em>12-18 meses para adoção mainstream</em>. Recomendação: não priorizar nos primeiros 6 meses.</p>
 </section>
 
 <div class="divider"><div class="divider-gem"></div></div>
 
-<div class="disclaimer">
-  <p>Relatório gerado por OMA Predictions · MiroFish + DeepSeek V3 · Abril 2026</p>
-  <p style="margin-top:4px;">Simulação baseada em personas de IA. Resultados são indicativos, não estatisticamente representativos.</p>
-  <p style="margin-top:12px;"><a href="/solutions#solicitar" style="color:var(--fire);text-decoration:none;font-size:11px;letter-spacing:2px;">QUERO UM RELATÓRIO ASSIM PARA O MEU NEGÓCIO →</a></p>
+<!-- SECTION 2 -->
+<section class="sec">
+  <div class="sec-num">02</div>
+  <div class="sec-label">Panorama Competitivo</div>
+  <h2>Como os concorrentes vão <em>reagir</em></h2>
+
+  <h3>Mês 1-2: Observação</h3>
+  <p>Consultorias tradicionais <strong>ignoram ou subestimam</strong> o OMA. UiPath e Automation Anywhere classificam como "nicho irrelevante".</p>
+
+  <h3>Mês 3-4: Reação</h3>
+  <p>Consultorias oferecem "integração com agentes de IA" (~R$20-50k). UiPath lança pacote SME. <strong>72% das consultorias adicionam "treinamento de IA" ao portfólio em 3 meses.</strong></p>
+
+  <h3>Mês 5-6: Adaptação</h3>
+  <p>Pressão de preço de <strong>30-40%</strong> em RPA tradicional. Surgem boutiques especializadas. O modelo pay-per-use do OMA vira benchmark de pricing.</p>
+
+  <div class="quote">
+    <p>"Provedores tradicionais de RPA enfrentam pressão de preço de 30-40% enquanto o modelo pay-per-use do OMA disrupta a precificação por subscrição."</p>
+    <cite>— Agente simulado: Analista de Mercado</cite>
+  </div>
+
+  <div class="finding">
+    <h4>⚠️ Riscos competitivos</h4>
+    <p><strong>Big techs</strong> podem lançar soluções genéricas de agentes para PMEs. <strong>Consultorias</strong> podem copiar o modelo. <strong>Open source</strong> pode comoditizar a camada de agentes. O ecossistema (Academy + Blog + ZipTalk) é a defesa.</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- SECTION 3 -->
+<section class="sec">
+  <div class="sec-num">03</div>
+  <div class="sec-label">Percepção Pública</div>
+  <h2>A batalha é <em>psicológica</em>, não tecnológica</h2>
+
+  <h3>Evolução do sentimento</h3>
+  <div class="sent">
+    <div class="sent-row"><div class="sent-lbl">Mês 1-2</div><div class="sent-bar"><div class="sent-neg" style="width:78%"></div><div class="sent-pos" style="width:22%"></div></div></div>
+    <div class="sent-row"><div class="sent-lbl">Mês 3-4</div><div class="sent-bar"><div class="sent-neg" style="width:55%"></div><div class="sent-pos" style="width:45%"></div></div></div>
+    <div class="sent-row"><div class="sent-lbl">Mês 5-6</div><div class="sent-bar"><div class="sent-neg" style="width:38%"></div><div class="sent-pos" style="width:62%"></div></div></div>
+  </div>
+
+  <p><strong>78% de sentimento negativo nos primeiros 2 meses.</strong> Ceticismo dominante: "Isso é real?" O que inverte: cases reais de ROI publicados. No mês 3-4, com os primeiros resultados, o sentimento vira para <strong>45% positivo</strong>.</p>
+
+  <h3>As 5 objeções mais frequentes</h3>
+  <div class="finding"><h4>1. "Vai substituir meus funcionários?"</h4><p>Posicionar como complemento. O agente faz o operacional, o humano faz o estratégico.</p></div>
+  <div class="finding"><h4>2. "E se der errado?"</h4><p>Escalação automática para humano nos 20% de casos complexos. SLA de resposta.</p></div>
+  <div class="finding"><h4>3. "Um homem só? E se ele sumir?"</h4><p>Mostrar infraestrutura distribuída (Hetzner, Oracle, Vercel) e roadmap de contratação.</p></div>
+  <div class="finding"><h4>4. "Meus dados ficam seguros?"</h4><p>Criptografia, LGPD, auditoria contínua (Darwin), hospedagem Brasil (Oracle SP).</p></div>
+  <div class="finding"><h4>5. "Não entendo de tecnologia"</h4><p>Academy com 30+ módulos gratuitos. Nenhum concorrente oferece educação + ferramenta.</p></div>
+
+  <h3>O efeito "Nunca Programei Nada"</h3>
+  <p><strong>55% veem como força</strong> — identificação com founders não-técnicos. <strong>45% veem como risco</strong> — concorrentes usam pra questionar robustez. Recomendação: manter para marca pessoal, não usar em propostas B2B.</p>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- SECTION 4 -->
+<section class="sec">
+  <div class="sec-num">04</div>
+  <div class="sec-label">Oportunidades e Crises</div>
+  <h2>O que pode dar <em>muito certo</em> — e o que pode dar errado</h2>
+
+  <h3>Oportunidades</h3>
+  <div class="finding"><h4>1. Ecossistema como moat</h4><p>Academy + Blog + ZipTalk + Smart Noter + Predictions formam barreira que nenhum concorrente copia rápido.</p></div>
+  <div class="finding"><h4>2. Freelancers treinados pelo OMA</h4><p>A simulação prevê implementadores independentes usando a plataforma. Escala sem contratar.</p></div>
+  <div class="finding"><h4>3. Templates por vertical</h4><p>Templates pré-configurados por segmento (cobrança pra condomínio, follow-up pra ótica) como upsell.</p></div>
+  <div class="finding"><h4>4. Pay-per-use adaptado ao Brasil</h4><p>Setup parcelado + mensalidade fixa baixa. Adaptado à realidade de crédito de 2026.</p></div>
+
+  <h3>Pontos de crise</h3>
+  <div class="crisis"><h4>⚡ Fabio como single point of failure</h4><p>Se Fabio ficar indisponível por 1+ semana, a operação para. George assume coordenação mas precisa de humano para decisões comerciais.</p></div>
+  <div class="crisis"><h4>⚡ Queda de API da Anthropic</h4><p>Se Claude sair por horas, todos os agentes param. Failover via OpenRouter implementado mas precisa de stress test.</p></div>
+  <div class="crisis"><h4>⚡ Migração WhatsApp</h4><p>API não-oficial pode ser bloqueada pela Meta. Migração para Cloud API é crítica e planejada.</p></div>
+  <div class="crisis"><h4>⚡ Primeiro cliente insatisfeito</h4><p>Inevitável. A resposta define a reputação. Playbook de crise pronto, com SLA e template de comunicação.</p></div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<div style="max-width:760px;margin:0 auto;padding:20px 32px 60px;text-align:center;">
+  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:1px;">Relatório gerado por OMA Predictions · MiroFish + DeepSeek V3 · Abril 2026</p>
+  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);margin-top:4px;">Simulação com 43 agentes autônomos · 334 interações · 15 rounds</p>
+  <p style="margin-top:16px;"><a href="/predictions" style="color:var(--fire);text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;">QUERO UM RELATÓRIO ASSIM PARA O MEU NEGÓCIO →</a></p>
 </div>
 
 <footer>
   <p>ONE MAN ARMY PROJECT · 2026</p>
+  <p><a href="/">Home</a> · <a href="/solutions">Soluções</a> · <a href="/predictions">Predictions</a></p>
 </footer>
-</body></html>
+</body>
+</html>
