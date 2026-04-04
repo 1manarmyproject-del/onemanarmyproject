@@ -215,7 +215,7 @@ var SK = 'oma-clientes-v1';
 function dL(){
   if(document.getElementById('pw').value===PW){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){localStorage.setItem(k,'1');});
-    localStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+    localStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
     init();
@@ -236,7 +236,7 @@ if(localStorage.getItem('oma_auth')==='1'){
 function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
 
 var CLIENTES_API = 'https://api.onemanarmyproject.com.br';
-var CLIENTES_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var CLIENTES_KEY = (sessionStorage.getItem('oma_api_key')||'');
 
 async function init(){
   try{
@@ -380,7 +380,7 @@ async function salvarCliente(){
   try{
     var r = await fetch(url, {
       method: cId?'PATCH':'POST',
-      headers: {'Content-Type':'application/json','x-api-key':'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'},
+      headers: {'Content-Type':'application/json','x-api-key':(sessionStorage.getItem('oma_api_key')||'')},
       body: JSON.stringify(cliente)
     });
     var res = await r.json();

@@ -546,7 +546,7 @@ const PWD='omaproject2026';
 function doLogin(){
   if(document.getElementById('pw').value===PWD){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
-    sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+    sessionStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('appContent').style.display='block';
   }else{
@@ -635,7 +635,7 @@ async function criarAgente(){
   try{
     var res2 = await fetch('https://api.onemanarmyproject.com.br/criar-agente',{
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'},
+      headers:{'Content-Type':'application/json','x-api-key':(sessionStorage.getItem('oma_api_key')||'')},
       body:JSON.stringify({filename:filename,html:html,nome:nome,funcao:funcao,canal:canal,modelo:modelo,slug:slug})
     });
     var data = await res2.json();

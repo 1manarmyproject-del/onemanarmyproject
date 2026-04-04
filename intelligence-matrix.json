@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-04T14:20:11.631378Z",
-  "updated_at_brt": "11:20 BRT · 04/04/2026",
+  "updated_at": "2026-04-04T20:50:55.785647Z",
+  "updated_at_brt": "17:50 BRT · 04/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 2.7459,
+  "total_cost_usd": 2.7493,
   "services": {
     "system": {
       "name": "Sistema",
@@ -18,12 +18,12 @@
           "activity": "Aprendizado e memória",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.0911,
-          "runs": 84
+          "cost": 0.0945,
+          "runs": 87
         }
       ],
-      "total_cost": 0.1919,
-      "total_runs": 109
+      "total_cost": 0.19529999999999997,
+      "total_runs": 112
     },
     "ekhoa": {
       "name": "Ekhoa",

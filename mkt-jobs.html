@@ -195,7 +195,7 @@ main{padding:24px 28px 60px;}
 </div>
 <div class="toast" id="toast"></div>
 <script>
-var API='https://oma-api.pipeeyewear.com.br',KEY='354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var API='https://oma-api.pipeeyewear.com.br',KEY=(sessionStorage.getItem('oma_api_key')||'');
 var HDR={'Content-Type':'application/json','x-api-key':KEY};
 var jobs=[],fS='all',fC='all',view='grid',cur=null,ctab='ov';
 var SC={publicado:'var(--gr)',producao:'var(--or)',revisao:'var(--ye)',briefing:'var(--bl)',pausado:'var(--mu)'};

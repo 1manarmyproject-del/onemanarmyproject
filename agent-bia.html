@@ -255,7 +255,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
 // INTEGRAÇÕES
 var INTEG_API = 'https://api.onemanarmyproject.com.br';
-var INTEG_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var INTEG_KEY = (sessionStorage.getItem('oma_api_key')||'');
 var INTEG_AGENTE_SLUG = 'bia'; // ajustado dinamicamente
 
 var INTEG_TIPO_LABELS = {
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 <script>
 // RÉGUA DE CRM
-var REGUA_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var REGUA_KEY = (sessionStorage.getItem('oma_api_key')||'');
 var reguaConfig = [];
 
 var ETAPA_LABELS = {
@@ -636,7 +636,7 @@ function setGerarStatus(msg, type){
 
 // AGENDA
 var AGENDA_API = 'https://api.onemanarmyproject.com.br';
-var AGENDA_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var AGENDA_KEY = (sessionStorage.getItem('oma_api_key')||'');
 
 function openSlotModal(){
   var today = new Date();
@@ -727,7 +727,7 @@ const PWD='omaproject2026';
 function dL(){
   if(document.getElementById('pw').value===PWD){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
-    sessionStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+    sessionStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
   }else{

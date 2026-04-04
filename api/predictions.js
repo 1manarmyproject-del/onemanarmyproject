@@ -4,7 +4,7 @@
 const TELEGRAM_BOT_TOKEN = '7879687342:AAHTwjpMT3IRRfGPTD_c7CKEqVSmICdJXiM';
 const FABIO_CHAT_ID = '8392126681';
 const PMO_API = 'https://api.onemanarmyproject.com.br';
-const PMO_KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+const PMO_KEY = (sessionStorage.getItem('oma_api_key')||'');
 
 export default async function handler(req, res) {
   // CORS

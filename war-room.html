@@ -669,7 +669,7 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
 // ── GEORGE — COORDENAÇÃO ─────────────────────────────────────────────
 async function loadGeorgeKPIs() {
   const API = 'https://api.onemanarmyproject.com.br';
-  const KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+  const KEY = (sessionStorage.getItem('oma_api_key')||'');
 
   try {
     const r = await fetch(API + '/george/stats', { headers: { 'x-api-key': KEY } });

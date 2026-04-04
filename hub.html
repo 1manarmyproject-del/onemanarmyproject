@@ -332,7 +332,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
 var SRCS={audit:'/audit.html',squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',mktinsights:'/mkt-insights',monitor:'/monitor'};
 var loaded={};
 var PMO_API='https://api.onemanarmyproject.com.br';
-var PMO_KEY='354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var PMO_KEY=(sessionStorage.getItem('oma_api_key')||'');
 
 // Auth
 function login(){

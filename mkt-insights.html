@@ -55,7 +55,7 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 </div>
 <script>
 var API = 'https://api.onemanarmyproject.com.br';
-var KEY = '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+var KEY = (sessionStorage.getItem('oma_api_key')||'');
 
 async function loadInsights(){
   try{
