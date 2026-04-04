@@ -178,9 +178,18 @@ footer a{color:var(--ash);text-decoration:none;}
           <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="f2-email" placeholder="Ex: joao@email.com"></div>
         </div>
         <div class="form-group"><label class="form-label">WhatsApp</label><input type="text" class="form-input" id="f2-whatsapp" placeholder="11 99999-9999"></div>
-        <div class="form-group"><label class="form-label">Conte o contexto *</label><textarea class="form-textarea" id="f2-context" placeholder="Descreva a situação em detalhes. Quem são os envolvidos, o que aconteceu, qual o cenário atual..." style="min-height:120px;"></textarea><div class="form-hint">Quanto mais detalhes, mais precisa a simulação.</div></div>
-        <div class="form-group"><label class="form-label">Onde isso acontece? *</label><textarea class="form-textarea" id="f2-where" placeholder="Cidade, estado, país. Contexto geográfico e cultural..." style="min-height:60px;"></textarea></div>
-        <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f2-predict" placeholder="Ex: Como a população vai reagir? Como a imprensa vai cobrir? Quais grupos vão apoiar e quais vão criticar?" style="min-height:100px;"></textarea><div class="form-hint">Pode incluir múltiplas perguntas.</div></div>
+        
+        <div class="form-group"><label class="form-label">Conte o contexto *</label><textarea class="form-textarea" id="f2-context" placeholder="Descreva a situação em detalhes. O que está acontecendo, qual o cenário atual, como chegou até aqui..." style="min-height:120px;"></textarea><div class="form-hint">Quanto mais detalhes, mais precisa a simulação.</div></div>
+        
+        <div class="form-group"><label class="form-label">Quem são os atores principais? *</label><textarea class="form-textarea" id="f2-actors" placeholder="Liste as pessoas, grupos, instituições ou organizações envolvidas. Inclua nomes, cargos, partidos, relações entre eles..." style="min-height:80px;"></textarea><div class="form-hint">Ex: "Prefeito Renato Júnior (MDB), Câmara Municipal, sindicato dos professores, imprensa local (A Crítica, BandNews Manaus)"</div></div>
+        
+        <div class="form-group"><label class="form-label">Onde isso acontece? *</label><input type="text" class="form-input" id="f2-where" placeholder="Ex: Manaus, Amazonas, Brasil"></div>
+
+        <div class="form-group"><label class="form-label">Quem é o público afetado? *</label><textarea class="form-textarea" id="f2-audience" placeholder="Quem sente o impacto direto dessa situação? Qual o perfil demográfico, classe social, faixa etária?" style="min-height:60px;"></textarea><div class="form-hint">Ex: "População de Manaus, principalmente classes C/D/E, 18-50 anos, dependentes de transporte público e saúde pública"</div></div>
+
+        <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f2-predict" placeholder="Quais perguntas específicas quer que a simulação responda?" style="min-height:100px;"></textarea><div class="form-hint">Ex: "Como a população vai reagir? A imprensa vai cobrir positiva ou negativamente? Quais grupos vão apoiar e criticar?"</div></div>
+        
+        <div class="form-group"><label class="form-label">Qual o pior cenário que quer evitar?</label><textarea class="form-textarea" id="f2-fear" placeholder="O que NÃO pode acontecer? Qual crise quer antecipar?" style="min-height:60px;"></textarea><div class="form-hint">Isso ajuda a simulação a testar cenários de risco específicos.</div></div>
       </div>
 
       <div style="background:var(--iron);border-left:3px solid var(--blood);padding:14px 18px;margin:20px 0 16px;font-size:12px;color:var(--fog);line-height:1.7;">
@@ -236,12 +245,15 @@ async function submitPrediction() {
       email: document.getElementById('f2-email').value,
       whatsapp: document.getElementById('f2-whatsapp').value,
       context: document.getElementById('f2-context').value,
+      actors: document.getElementById('f2-actors').value,
       where: document.getElementById('f2-where').value,
+      audience: document.getElementById('f2-audience').value,
       question: document.getElementById('f2-predict').value,
+      fear: document.getElementById('f2-fear').value,
       submitted_at: new Date().toISOString(),
       source: 'predictions-scenario'
     };
-    if (!data.name || !data.email || !data.context || !data.where || !data.question) {
+    if (!data.name || !data.email || !data.context || !data.actors || !data.where || !data.question) {
       alert('Preencha todos os campos obrigatórios (*)');
       btn.disabled = false; btn.textContent = 'Solicitar Relatório Preditivo'; return;
     }
