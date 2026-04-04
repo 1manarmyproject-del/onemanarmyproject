@@ -748,7 +748,7 @@ function renderBackupData(data,history){
     oracleStatus=data.layers.oracle_sp.status==='ok'?'g':'r';
     oracleLast=data.layers.oracle_sp.last_backup||'—';
   }
-  html+='<div class="svc" style="margin-bottom:8px"><div class="svc-d '+oracleStatus+'"></div><div class="svc-n">🇧🇷 Oracle SP (Brasil)<small>163.176.167.148 · Recebe sync do Mac Mini</small></div><span style="font-size:10px;color:var(--ash);font-family:Space Mono,monospace;margin-left:auto">'+oracleLast+'</span></div>';
+  html+='<div class="svc" style="margin-bottom:8px"><div class="svc-d '+oracleStatus+'"></div><div class="svc-n">🇧🇷 Oracle SP (Brasil)<small>163.176.167.148 · Recebe: Mac Mini ✅ · Hetzner ❌ (pendente)</small></div><span style="font-size:10px;color:var(--ash);font-family:Space Mono,monospace;margin-left:auto">'+oracleLast+'</span></div>';
   html+='<div class="svc"><div class="svc-d g"></div><div class="svc-n">🇫🇮 Hetzner (Helsinki)<small>Servidor CRM/API · Snapshots semanais</small></div></div>';
 
   // Security footer
