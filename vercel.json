@@ -1,6 +1,78 @@
 {
   "rewrites": [
     {
+      "source": "/blog/o-founder-tecnico",
+      "destination": "/blog/o-founder-tecnico.html"
+    },
+    {
+      "source": "/blog/metricas-que-importam",
+      "destination": "/blog/metricas-que-importam.html"
+    },
+    {
+      "source": "/blog/escala-e-onboarding",
+      "destination": "/blog/escala-e-onboarding.html"
+    },
+    {
+      "source": "/blog/precificacao-produtos-ia",
+      "destination": "/blog/precificacao-produtos-ia.html"
+    },
+    {
+      "source": "/blog/deploy-e-cicd",
+      "destination": "/blog/deploy-e-cicd.html"
+    },
+    {
+      "source": "/blog/arquitetura-de-produto",
+      "destination": "/blog/arquitetura-de-produto.html"
+    },
+    {
+      "source": "/blog/seguranca-em-agentes",
+      "destination": "/blog/seguranca-em-agentes.html"
+    },
+    {
+      "source": "/blog/memoria-de-agentes",
+      "destination": "/blog/memoria-de-agentes.html"
+    },
+    {
+      "source": "/blog/multi-agentes-ia",
+      "destination": "/blog/multi-agentes-ia.html"
+    },
+    {
+      "source": "/blog/automacao-de-processos",
+      "destination": "/blog/automacao-de-processos.html"
+    },
+    {
+      "source": "/blog/avaliacao-qualidade-ia",
+      "destination": "/blog/avaliacao-qualidade-ia.html"
+    },
+    {
+      "source": "/blog/fine-tuning-ia",
+      "destination": "/blog/fine-tuning-ia.html"
+    },
+    {
+      "source": "/blog/banco-de-dados",
+      "destination": "/blog/banco-de-dados.html"
+    },
+    {
+      "source": "/blog/cloud-e-infraestrutura",
+      "destination": "/blog/cloud-e-infraestrutura.html"
+    },
+    {
+      "source": "/blog/https-e-seguranca",
+      "destination": "/blog/https-e-seguranca.html"
+    },
+    {
+      "source": "/blog/http-e-apis",
+      "destination": "/blog/http-e-apis.html"
+    },
+    {
+      "source": "/blog/dns-e-dominios",
+      "destination": "/blog/dns-e-dominios.html"
+    },
+    {
+      "source": "/blog/o-que-e-um-servidor",
+      "destination": "/blog/o-que-e-um-servidor.html"
+    },
+    {
       "source": "/blog/seguranca-digital-basica",
       "destination": "/blog/seguranca-digital-basica.html"
     },

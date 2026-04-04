@@ -2,19 +2,19 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O que é código? Guia para founders que não programam mas precisam liderar times técnicos | OMA Blog</title>
-<meta name="description" content="Você não precisa saber programar para liderar um time técnico. Mas precisa entender o vocabulário: o que é código, Git, build, deploy — e como vibe coding mudou o jogo para quem nunca escreveu uma linha.">
+<title>O que é um servidor? Cloud, nuvem e infraestrutura para founders | OMA Blog</title>
+<meta name="description" content="Servidor é uma loja alugada que nunca fecha. Entenda cloud, latência, uptime e por que essas decisões impactam custo e qualidade do produto.">
 <meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
-<meta property="og:title" content="O que é código? Guia para founders que não programam mas precisam liderar times técnicos">
-<meta property="og:description" content="Você não precisa saber programar para liderar um time técnico. Mas precisa entender o vocabulário: o que é código, Git, build, deploy — e como vibe coding mudou o jogo para quem nunca escreveu uma linha.">
+<meta property="og:title" content="O que é um servidor? Cloud, nuvem e infraestrutura para founders">
+<meta property="og:description" content="Servidor é uma loja alugada que nunca fecha. Entenda cloud, latência, uptime e por que essas decisões impactam custo e qualidade do produto.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://onemanarmyproject.com.br/blog/codigo-e-programacao">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/o-que-e-um-servidor">
 <meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
-<link rel="canonical" href="https://onemanarmyproject.com.br/blog/codigo-e-programacao">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/o-que-e-um-servidor">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"O que é código? Guia para founders que não programam mas precisam liderar times técnicos","description":"Você não precisa saber programar para liderar um time técnico. Mas precisa entender o vocabulário: o que é código, Git, build, deploy — e como vibe coding mudou o jogo para quem nunca escreveu uma linha.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/codigo-e-programacao"}
+{"@context":"https://schema.org","@type":"Article","headline":"O que é um servidor? Cloud, nuvem e infraestrutura para founders","description":"Servidor é uma loja alugada que nunca fecha. Entenda cloud, latência, uptime e por que essas decisões impactam custo e qualidade do produto.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/o-que-e-um-servidor"}
 </script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -92,70 +92,48 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
 <div class="breadcrumb">
   <a href="/" class="bc-item">OMA</a><span class="bc-sep">›</span>
   <a href="/blog" class="bc-item">Blog</a><span class="bc-sep">›</span>
-  <span class="bc-item" style="color:var(--text3);">Código e Programação — o que todo founder precisa entender</span>
-  <a href="/academy?modulo=m07" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
+  <span class="bc-item" style="color:var(--text3);">O que é um Servidor — a loja que nunca fecha</span>
+  <a href="/academy?modulo=m01" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
 </div>
 <div class="article-wrap">
   <div class="article-meta">
-    <span class="article-tag">Dados e Sistemas</span>
-    <span class="article-read">⏱ 7 min de leitura</span>
-    <a href="/academy?modulo=m07" class="article-academy-badge">🦞 OMA Academy</a>
+    <span class="article-tag">O Mundo Digital</span>
+    <span class="article-read">⏱ 6 min de leitura</span>
+    <a href="/academy?modulo=m01" class="article-academy-badge">🦞 OMA Academy</a>
   </div>
-  <h1 class="article-title">Código e Programação — o que todo founder precisa entender</h1>
-  <div class="article-lead">Você não precisa saber programar para liderar um time técnico. Mas precisa entender o vocabulário: o que é código, Git, build, deploy — e como vibe coding mudou o jogo para quem nunca escreveu uma linha.</div>
+  <h1 class="article-title">O que é um Servidor — a loja que nunca fecha</h1>
+  <div class="article-lead">Servidor é uma loja alugada que nunca fecha. Entenda cloud, latência, uptime e por que essas decisões impactam custo e qualidade do produto.</div>
   <div class="article-author">
     <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
     <div>
       <div class="author-name">Fabio Xavier</div>
-      <div class="author-role">Founder · OMA Project &nbsp;·&nbsp; <span style="color:#e8703a;font-weight:600;">Co-criado com OMA</span></div>
+      <div class="author-role">Founder · OMA Project &nbsp;·&nbsp; <span style="color:var(--fire);font-weight:600;">Co-criado com OMA</span></div>
     </div>
   </div>
   <div class="article-content">
-<h2>A receita de bolo ultra-precisa</h2>
-<p>Existe uma analogia que, quando você entende, desmistifica completamente o que programação é: código é uma receita de bolo escrita para uma cozinheira que segue instruções à risca — sem criatividade, sem interpretação, sem improviso.</p>
-<p>Se a receita diz "adicione 2 ovos", ela adiciona 2. Se disser "adicione 2 ovs" — erro de digitação — ela para e trava. Não interpreta. Não infere que você quis dizer "ovos". Simplesmente não executa.</p>
-<p>Essa precisão absurda é ao mesmo tempo o maior poder e a maior fragilidade do código. Um caractere errado pode derrubar um sistema inteiro. Uma instrução clara e precisa pode automatizar o trabalho de 10 pessoas.</p>
-<div class="highlight-box">
-  <div class="highlight-box-title">A analogia central</div>
-  <p>Código = receita ultra-precisa. Computador = cozinheira que segue à risca sem interpretar. Um erro de digitação = trava tudo.</p>
-</div>
-<h2>O que acontece desde o código até o produto</h2>
-<p>O desenvolvedor escreve código em texto simples — parece um documento, só que numa linguagem que o computador entende. Esse texto passa por um processo chamado <strong>build</strong>: o sistema transforma o código legível em algo que o computador consegue executar.</p>
-<p>Depois vem o <strong>deploy</strong>: o executável é enviado para um servidor e colocado no ar. Do momento em que o desenvolvedor termina de escrever até o usuário conseguir usar, existem vários passos intermediários — e cada um pode dar errado.</p>
-<p>Entender esse fluxo permite fazer perguntas certas: "Onde está no processo?", "Já foi testado?", "Está no servidor de produção ou ainda em testes?"</p>
-<h2>Git — o histórico de versões do código</h2>
-<p>Git é o sistema que registra cada mudança no código, quem fez, quando e por quê. Pense como o histórico de versões do Google Docs — só que para código, com muito mais controle.</p>
-<p>Cada mudança registrada se chama <strong>commit</strong>. É uma foto do estado atual do código com uma mensagem descrevendo o que mudou: "adiciona validação de email no cadastro" ou "corrige erro no cálculo de frete".</p>
-<p><strong>GitHub</strong> é onde esses registros ficam armazenados na nuvem — o repositório online. Qualquer desenvolvedor do time pode ver o histórico completo, reverter para uma versão anterior, ou trabalhar em paralelo sem interferir no trabalho do outro.</p>
-<p>Como founder, quando algo quebra em produção, a primeira pergunta é: "Qual foi o último commit?" Isso identifica imediatamente o que mudou e causou o problema.</p>
-<h2>Linguagens — cada uma tem sua especialidade</h2>
-<p>Assim como idiomas humanos, linguagens de programação têm especialidades:</p>
-<ul>
-  <li><strong>Python</strong> — favorita para IA, análise de dados, automações. Legível, próxima do inglês natural.</li>
-  <li><strong>JavaScript</strong> — roda no navegador (frontend) e no servidor (Node.js). A linguagem da web.</li>
-  <li><strong>SQL</strong> — linguagem para consultar bancos de dados. Toda empresa com dados usa SQL.</li>
-  <li><strong>TypeScript</strong> — JavaScript com tipagem — menos erros, mais fácil de manter em projetos grandes.</li>
-</ul>
-<p>Você não precisa escrever nenhuma delas. Mas saber que elas existem e para que servem permite entender quando o time está usando a ferramenta certa para o trabalho.</p>
-<h2>Vibe coding — o jogo mudou</h2>
-<p>Em 2025, surgiu um novo paradigma: <strong>vibe coding</strong>. Você descreve o que quer em linguagem natural para uma IA — Claude, Cursor, v0 — e ela gera o código.</p>
-<p>Não exige saber programar. Exige saber o que você quer construir, entender a arquitetura geral, e validar se o resultado funciona como esperado.</p>
-<p>A OMA Academy inteira foi construída assim — do celular, sem escrever uma linha de código manualmente. O que antes exigiria um time de 3 desenvolvedores por 3 meses, hoje uma pessoa com clareza do produto consegue em dias.</p>
-<blockquote><p>"O código não é mais a barreira. A barreira agora é saber o que você quer construir e conseguir comunicar isso com precisão."</p></blockquote>
-<h2>O que founders precisam saber na prática</h2>
-<p>Você não precisa escrever código. Precisa:</p>
-<ul>
-  <li>Entender o vocabulário para fazer perguntas certas</li>
-  <li>Saber quando algo está em desenvolvimento vs produção</li>
-  <li>Reconhecer quando uma decisão técnica tem implicações de negócio</li>
-  <li>Usar vibe coding para prototipar ideias rapidamente</li>
-</ul>
+<h2>A loja que nunca fecha</h2>
+<p>Imagine uma loja num shopping que opera 24h por dia, sem funcionários físicos. Quando um cliente chega — seja às 14h ou às 3h — a loja abre, atende, entrega e fecha. Automaticamente. Esse é um servidor.</p>
+<p>Um servidor é um computador ligado continuamente, conectado à internet, configurado para responder quando alguém faz um pedido. Todo site, app, API e serviço digital tem um servidor por trás. Sem ele, não existe produto digital.</p>
+<div class="highlight-box"><div class="highlight-box-title">A analogia central</div><p>Servidor = loja alugada num shopping. Você não é dono do espaço, instala tudo e opera 24h. Se cair a luz do shopping (o datacenter), sua loja para.</p></div>
+<h2>Servidor físico vs nuvem</h2>
+<p>Antigamente, empresas compravam servidores físicos — máquinas instaladas num rack numa sala climatizada. Caro para comprar, caro para manter, inflexível para escalar. Era como comprar o imóvel da sua loja.</p>
+<p>Hoje a maioria usa nuvem: você aluga capacidade de computação de empresas como AWS, Google Cloud ou Hetzner. Paga pelo que usa, escala em minutos, e não se preocupa com hardware. É como sair de loja própria para loja em shopping: mais caro por metro, mas sem reforma nem manutenção.</p>
+<h2>Latência — a distância importa</h2>
+<p>Latência é o tempo entre fazer um pedido e receber a resposta. Se seu servidor está nos EUA e seu usuário em São Paulo, cada requisição viaja ~10.000km de ida e volta — ~200ms adicionais. Em aplicações de IA onde cada token é transmitido em tempo real, essa latência acumula e degrada a experiência.</p>
+<p>Regra prática: servidor mais próximo do usuário = resposta mais rápida. Para produtos com usuários brasileiros, servidores no Brasil fazem diferença real.</p>
+<h2>Uptime — quanto tempo fica no ar</h2>
+<p>Uptime é a porcentagem do tempo em que o servidor funciona. 99,9% parece excelente — mas significa 8,7 horas fora do ar por ano. Para um e-commerce em Black Friday, pode ser catastrófico.</p>
+<h2>IaaS, PaaS e SaaS</h2>
+<p><strong>IaaS</strong> — você aluga o servidor puro. Máximo controle, máxima responsabilidade. Ex: AWS EC2, Hetzner VPS.</p>
+<p><strong>PaaS</strong> — você sobe só o código, a plataforma cuida do resto. Ex: Vercel, Railway.</p>
+<p><strong>SaaS</strong> — produto pronto para usar, você é usuário. Ex: Notion, Slack, Google Docs.</p>
+<blockquote><p>"A decisão de onde hospedar não é técnica — é de negócio. Custo, latência, compliance, escalabilidade. Founder que entende essas variáveis toma decisão melhor."</p></blockquote>
 </div>
   <div class="share-bar">
     <div class="share-label">Gostou? Compartilha 👇</div>
     <div class="share-btns">
-      <a href="https://wa.me/?text=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fcodigo-e-programacao" target="_blank" class="share-btn wa">💬 WhatsApp</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fcodigo-e-programacao" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <a href="https://wa.me/?text=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-que-e-um-servidor" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-que-e-um-servidor" target="_blank" class="share-btn li">💼 LinkedIn</a>
       <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
     </div>
   </div>
@@ -167,7 +145,7 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
   </div>
   <div class="related-section">
     <div class="related-title">Artigos relacionados</div>
-    <div class="related-grid"><a href="/blog/o-que-e-um-agente-de-ia" class="related-card"><div class="related-tag">Agentes</div><div class="related-title-text">O que é um Agente de IA</div><div class="related-arrow">→</div></a><a href="/blog/prompt-engineering" class="related-card"><div class="related-tag">IA</div><div class="related-title-text">Prompt Engineering</div><div class="related-arrow">→</div></a><a href="/blog/o-que-e-um-llm" class="related-card"><div class="related-tag">IA</div><div class="related-title-text">O que é um LLM</div><div class="related-arrow">→</div></a></div>
+    <div class="related-grid"><a href="/blog/dns-e-dominios" class="related-card"><div class="related-tag">Web</div><div class="related-title-text">DNS e Domínios</div><div class="related-arrow">→</div></a><a href="/blog/http-e-apis" class="related-card"><div class="related-tag">Web</div><div class="related-title-text">HTTP e APIs</div><div class="related-arrow">→</div></a><a href="/blog/cloud-e-infraestrutura" class="related-card"><div class="related-tag">Web</div><div class="related-title-text">Cloud e Infraestrutura</div><div class="related-arrow">→</div></a></div>
   </div>
 </div>
 <div class="article-footer">

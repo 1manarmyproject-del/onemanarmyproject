@@ -5,16 +5,34 @@
   <url><loc>https://onemanarmyproject.com.br/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/o-que-e-um-llm</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/prompt-engineering</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/modelos-de-ia-qual-usar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/rag-bases-de-conhecimento</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/o-que-e-um-agente-de-ia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/mcp-model-context-protocol</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://onemanarmyproject.com.br/blog/rag-bases-de-conhecimento</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://onemanarmyproject.com.br/blog/modelos-de-ia-qual-usar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/codigo-e-programacao</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/containers-e-docker</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/variaveis-de-ambiente</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/filas-e-processamento-assincrono</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/logs-e-observabilidade</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/blog/seguranca-digital-basica</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/o-que-e-um-servidor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/dns-e-dominios</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/http-e-apis</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/https-e-seguranca</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/cloud-e-infraestrutura</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/banco-de-dados</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/fine-tuning-ia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/avaliacao-qualidade-ia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/automacao-de-processos</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/multi-agentes-ia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/memoria-de-agentes</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/seguranca-em-agentes</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/arquitetura-de-produto</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/deploy-e-cicd</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/precificacao-produtos-ia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/escala-e-onboarding</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/metricas-que-importam</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://onemanarmyproject.com.br/blog/o-founder-tecnico</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://onemanarmyproject.com.br/privacidade</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://onemanarmyproject.com.br/termos</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
