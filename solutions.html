@@ -128,44 +128,6 @@ footer a{color:var(--ash);text-decoration:none;}
 footer a:hover{color:var(--bone);}
 
 
-/* FORM */
-.form-section{max-width:860px;margin:0 auto;padding:80px 32px;}
-.form-box{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--fire);padding:40px 36px;}
-.form-box h3{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:3px;color:var(--fire);margin-bottom:8px;}
-.form-box p{font-size:14px;color:var(--fog);margin-bottom:24px;}
-.form-row{margin-bottom:18px;}
-.form-row label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-bottom:6px;}
-.form-row input,.form-row select,.form-row textarea{width:100%;background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;}
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--fire);}
-.form-row textarea{min-height:100px;resize:vertical;}
-.form-row select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
-.form-row select option{background:var(--iron);color:var(--bone);}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-@media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
-.form-submit{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:16px 36px;cursor:pointer;transition:background .2s,transform .15s;width:100%;margin-top:8px;}
-.form-submit:hover{background:var(--ember);transform:translateY(-2px);}
-.form-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.form-success{display:none;text-align:center;padding:32px;}
-.form-success h4{font-family:'Black Ops One',cursive;font-size:16px;color:var(--green);margin-bottom:8px;}
-.form-success p{font-size:14px;color:var(--fog);}
-
-/* CASE STUDY */
-.case-section{max-width:860px;margin:0 auto;padding:40px 32px 80px;}
-.case-card{background:var(--coal);border:1px solid var(--iron);display:grid;grid-template-columns:auto 1fr;gap:0;overflow:hidden;}
-@media(max-width:600px){.case-card{grid-template-columns:1fr;}}
-.case-badge{background:linear-gradient(145deg,var(--blood) 0%,rgba(232,112,58,.3) 100%);padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:160px;}
-.case-badge-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:4px;}
-.case-badge-name{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--white);text-align:center;}
-.case-body{padding:28px 32px;}
-.case-body h4{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px;}
-.case-body p{font-size:13px;color:var(--fog);line-height:1.7;margin-bottom:16px;}
-.case-stats{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap;}
-.case-stat{text-align:center;}
-.case-stat-val{font-family:'Black Ops One',cursive;font-size:20px;color:var(--fire);}
-.case-stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
-.case-dl{display:flex;gap:10px;flex-wrap:wrap;}
-.case-dl a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;padding:8px 16px;text-decoration:none;transition:all .2s;}
-
 /* LIVEPULSE */
 @keyframes livepulse{0%,100%{opacity:.4}50%{opacity:1}}
 
@@ -292,8 +254,8 @@ footer a:hover{color:var(--bone);}
       </div>
 
       <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="#" class="btn-product btn-fire" onclick="alert('Pagamento via Stripe em breve. Entre em contato com a Bia para fechar agora!');return false;">Quero o pacote</a>
-        <a href="#como-funciona" class="btn-product btn-ghost">Como funciona</a>
+        <a href="/predictions" class="btn-product btn-fire">Solicitar relatório</a>
+        <a href="/predictions#formulario" class="btn-product btn-ghost">Preencher briefing</a>
       </div>
     </div>
   </div>
@@ -403,132 +365,6 @@ footer a:hover{color:var(--bone);}
     </div>
   </div>
 </div>
-
-
-<!-- CASE STUDY DOWNLOAD -->
-<div class="case-section">
-  <div class="case-card">
-    <div class="case-icon">📊</div>
-    <div class="case-info">
-      <h4>Transparência brutal: veja um relatório real</h4>
-      <p>Este é o relatório OMA Predictions que fizemos para o nosso próprio negócio. Sem filtro. Sem edição. O mesmo nível de profundidade que você recebe.</p>
-      <span class="case-tag">43 agentes · 334 interações · 4 seções</span>
-    </div>
-    <div class="case-dl">
-      <a href="/reports/oma-case-study.html" target="_blank">Ver relatório</a>
-    </div>
-  </div>
-</div>
-
-<!-- PREDICTION FORM -->
-<section class="form-section" id="solicitar">
-  <div class="section-label">Solicitar Relatório</div>
-  <div class="section-title">Preencha e receba seu<br><em>relatório preditivo</em></div>
-  
-  <div class="form-card">
-    <div id="formContent">
-      <h3>🔮 Briefing para simulação</h3>
-      <p class="form-sub">Quanto mais detalhes, melhor o relatório. Campos com * são obrigatórios.</p>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Seu nome *</label>
-          <input type="text" class="form-input" id="f-name" placeholder="Ex: Maria Silva" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email *</label>
-          <input type="email" class="form-input" id="f-email" placeholder="Ex: maria@empresa.com.br" required>
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">WhatsApp</label>
-          <input type="text" class="form-input" id="f-whatsapp" placeholder="Ex: 11 99999-9999">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Empresa *</label>
-          <input type="text" class="form-input" id="f-company" placeholder="Ex: Clínica Vida Plena" required>
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Segmento *</label>
-        <select class="form-select" id="f-segment">
-          <option value="">Selecione seu segmento</option>
-          <option value="advocacia">Escritório de Advocacia</option>
-          <option value="consultorio">Consultório / Clínica Médica</option>
-          <option value="otica">Ótica</option>
-          <option value="condominio">Administradora de Condomínio</option>
-          <option value="shopping">Shopping Center</option>
-          <option value="distribuidor">Distribuidor / Atacadista</option>
-          <option value="franquia">Franquia / Rede de Varejo</option>
-          <option value="restaurante">Restaurante / Food Service</option>
-          <option value="imobiliaria">Imobiliária</option>
-          <option value="contabilidade">Contabilidade</option>
-          <option value="educacao">Escola / Educação</option>
-          <option value="saude">Saúde (outros)</option>
-          <option value="tech">Startup / Tech</option>
-          <option value="outro">Outro</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Descreva seu negócio em 2-3 frases *</label>
-        <textarea class="form-textarea" id="f-business" placeholder="O que sua empresa faz, quantos funcionários, faturamento aproximado, há quanto tempo existe..."></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Quais são suas 3 maiores dores operacionais? *</label>
-        <textarea class="form-textarea" id="f-pain" placeholder="Ex: Perco vendas fora do horário, gasto 3h/dia respondendo WhatsApp, não consigo cobrar inadimplentes..."></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Quem são seus principais concorrentes?</label>
-        <textarea class="form-textarea" id="f-competitors" placeholder="Ex: Clínica X na mesma região, redes como Drogasil para parte do nosso público..." style="min-height:60px;"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">O que você gostaria de prever? *</label>
-        <textarea class="form-textarea" id="f-question" placeholder="Ex: Como meus clientes reagiriam se eu implementasse atendimento 24h por IA? Devo expandir para uma segunda unidade nos próximos 6 meses?"></textarea>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Orçamento mensal para tecnologia</label>
-          <select class="form-select" id="f-budget">
-            <option value="">Selecione</option>
-            <option value="ate500">Até R$500/mês</option>
-            <option value="500-1000">R$500 a R$1.000/mês</option>
-            <option value="1000-3000">R$1.000 a R$3.000/mês</option>
-            <option value="3000-5000">R$3.000 a R$5.000/mês</option>
-            <option value="5000+">Acima de R$5.000/mês</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Quantos funcionários?</label>
-          <select class="form-select" id="f-employees">
-            <option value="">Selecione</option>
-            <option value="1-5">1 a 5</option>
-            <option value="6-15">6 a 15</option>
-            <option value="16-50">16 a 50</option>
-            <option value="50+">Mais de 50</option>
-          </select>
-        </div>
-      </div>
-      
-      <button class="form-submit" id="formSubmit" onclick="submitPrediction()">Solicitar Relatório Preditivo</button>
-      <div class="form-hint" style="text-align:center;margin-top:8px;">Seu relatório será gerado em até 24h úteis e enviado por email.</div>
-    </div>
-    
-    <div class="form-success" id="formSuccess">
-      <h3>🐟 Recebemos seu briefing!</h3>
-      <p>Nosso algoritmo vai simular <strong>43+ agentes autônomos</strong> debatendo sobre o seu mercado.</p>
-      <p>Você receberá o relatório completo por email em até <strong>24 horas úteis</strong>.</p>
-      <p style="color:var(--fire);margin-top:20px;font-family:'Space Mono',monospace;font-size:11px;">A Bia entrará em contato pelo WhatsApp para confirmar.</p>
-    </div>
-  </div>
-</section>
 
 
 <div class="divider"><div class="divider-gem"></div></div>
@@ -699,7 +535,7 @@ footer a:hover{color:var(--bone);}
   <h2>Pronto para ver o <em>futuro</em><br>do seu negócio?</h2>
   <p>Comece com o pacote Predictions ou experimente o Scribe gratuitamente.</p>
   <div class="cta-buttons">
-    <a href="#predictions" class="btn-product btn-fire" style="padding:17px 40px;font-size:12px;">Pacote Predictions — R$1.299</a>
+    <a href="/predictions" class="btn-product btn-fire" style="padding:17px 40px;font-size:12px;">Solicitar Predictions — R$1.299</a>
     <a href="/qr-ziptalk.html" class="btn-product btn-ghost" style="padding:17px 40px;font-size:12px;">Scribe grátis</a>
   </div>
 </section>
@@ -712,55 +548,7 @@ footer a:hover{color:var(--bone);}
 </footer>
 
 
-<script>
-async function submitPrediction() {
-  const btn = document.getElementById('form-btn');
-  const fields = {
-    name: document.getElementById('f-name').value.trim(),
-    email: document.getElementById('f-email').value.trim(),
-    company: document.getElementById('f-company').value.trim(),
-    segment: document.getElementById('f-segment').value,
-    pains: document.getElementById('f-pains').value.trim(),
-    competitors: document.getElementById('f-competitors').value.trim(),
-    question: document.getElementById('f-question').value.trim(),
-    team: document.getElementById('f-team').value,
-    revenue: document.getElementById('f-revenue').value
-  };
 
-  if (!fields.name || !fields.email || !fields.company || !fields.segment || !fields.pains || !fields.question) {
-    alert('Por favor, preencha os campos obrigatórios: nome, email, empresa, segmento, dores e pergunta central.');
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-
-  try {
-    // Send to Hetzner API for processing
-    const resp = await fetch('https://api.onemanarmyproject.com.br/predictions/request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(fields)
-    });
-    
-    // Even if API fails, show success (we'll handle manually via Telegram notification)
-    document.getElementById('form-container').style.display = 'none';
-    document.getElementById('form-ok').style.display = 'block';
-    
-    // Also notify via a simple webhook as backup
-    fetch('https://api.onemanarmyproject.com.br/webhook/predictions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({...fields, timestamp: new Date().toISOString()})
-    }).catch(() => {});
-
-  } catch (e) {
-    // Show success anyway — worst case Fabio gets notified via Telegram
-    document.getElementById('form-container').style.display = 'none';
-    document.getElementById('form-ok').style.display = 'block';
-  }
-}
-</script>
 
 <script>
 async function submitPrediction() {
