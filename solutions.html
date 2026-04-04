@@ -793,18 +793,29 @@ async function submitPrediction() {
   }
   
   try {
-    // Send to Hetzner API
-    await fetch('https://api.onemanarmyproject.com.br/predictions/submit', {
+    // Send to Telegram (George notifies Fabio)
+    const msg = '🔮 *NOVO PEDIDO — OMA Predictions*\n\n' +
+      '👤 ' + data.name + '\n' +
+      '📧 ' + data.email + '\n' +
+      '📱 ' + (data.whatsapp || '—') + '\n' +
+      '🏢 ' + data.company + ' (' + data.segment + ')\n' +
+      '👥 ' + (data.employees || '?') + ' func · 💰 ' + (data.budget || '?') + '\n\n' +
+      '*Dores:*\n' + (data.pain_points || '').substring(0, 300) + '\n\n' +
+      '*Pergunta:*\n' + (data.question || '').substring(0, 300) + '\n\n' +
+      '*Concorrentes:*\n' + (data.competitors || '—').substring(0, 200) + '\n\n' +
+      '*Negócio:*\n' + (data.business || '').substring(0, 300);
+    
+    await fetch('https://api.telegram.org/bot8799149983:AAG6AsWEW-P9j25cIwgVGtoWdsNpgjr9zcs/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: '8392126681', text: msg, parse_mode: 'Markdown' })
+    }).catch(() => {});
+    
+    // Also try local predictions server (Mac Mini)
+    await fetch('http://localhost:3070/predictions/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
-    }).catch(() => {});
-    
-    // Also send notification to George via webhook
-    await fetch('https://api.onemanarmyproject.com.br/webhook/predictions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'new_prediction_request', data })
     }).catch(() => {});
     
     // Show success
