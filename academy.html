@@ -2500,6 +2500,7 @@ function openModule(mid){
 }
 
 function renderLesson(m){
+  const mid=m.id;
   // tags
   const ph=PHASES[m.phase-1];
   document.getElementById('lvTags').innerHTML=
