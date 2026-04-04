@@ -748,12 +748,60 @@ function renderBackupData(data,history){
     oracleStatus=data.layers.oracle_sp.status==='ok'?'g':'r';
     oracleLast=data.layers.oracle_sp.last_backup||'—';
   }
-  html+='<div class="svc" style="margin-bottom:8px"><div class="svc-d '+oracleStatus+'"></div><div class="svc-n">🇧🇷 Oracle SP (Brasil)<small>163.176.167.148 · Recebe: Mac Mini ✅ · Hetzner ❌ (pendente)</small></div><span style="font-size:10px;color:var(--ash);font-family:Space Mono,monospace;margin-left:auto">'+oracleLast+'</span></div>';
+  html+='<div class="svc" style="margin-bottom:8px"><div class="svc-d '+oracleStatus+'"></div><div class="svc-n">🇧🇷 Oracle SP (Brasil)<small>163.176.167.148 · Recebe: Mac Mini ✅ · Hetzner ✅ (via API)</small></div><span style="font-size:10px;color:var(--ash);font-family:Space Mono,monospace;margin-left:auto">'+oracleLast+'</span></div>';
   html+='<div class="svc"><div class="svc-d g"></div><div class="svc-n">🇫🇮 Hetzner (Helsinki)<small>Servidor CRM/API · Snapshots semanais</small></div></div>';
 
   // Security footer
   html+='<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ash);line-height:1.8;font-family:Space Mono,monospace;letter-spacing:.5px">';
   html+='Regra 3-2-1 ✅ (4 camadas) &nbsp;|&nbsp; HTTPS/TLS ✅ &nbsp;|&nbsp; Tailscale VPN ✅ &nbsp;|&nbsp; Cloudflare Tunnel ✅</div>';
+
+  // ── MATRIZ DE COBERTURA ──
+  html+='<div style="margin-top:16px;font-size:10px;color:var(--ash);font-family:Space Mono,monospace;letter-spacing:1px;margin-bottom:8px">MATRIZ DE COBERTURA</div>';
+  html+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:Space Mono,monospace">';
+
+  // Header
+  html+='<tr style="border-bottom:1px solid var(--border)">';
+  html+='<th style="text-align:left;padding:8px 6px;color:var(--ash);font-weight:400;min-width:120px">SERVIÇO</th>';
+  html+='<th style="text-align:center;padding:8px 4px;color:var(--ash);font-weight:400;font-size:9px">💾 HD</th>';
+  html+='<th style="text-align:center;padding:8px 4px;color:var(--ash);font-weight:400;font-size:9px">🐙 Git</th>';
+  html+='<th style="text-align:center;padding:8px 4px;color:var(--ash);font-weight:400;font-size:9px">☁️ GDrive</th>';
+  html+='<th style="text-align:center;padding:8px 4px;color:var(--ash);font-weight:400;font-size:9px">🇧🇷 Oracle</th>';
+  html+='</tr>';
+
+  // Data rows
+  var matrix=[
+    {svc:"Sistema de Agentes",sub:"NanoClaw src/ + groups/",hd:1,git:1,gd:0,or:1},
+    {svc:"Banco de Mensagens",sub:"messages.db (SQLite)",hd:1,git:0,gd:0,or:1},
+    {svc:"CRM / PMO",sub:"Hetzner API → cards + details",hd:0,git:0,gd:0,or:1},
+    {svc:"Credenciais",sub:".env + tokens + API keys",hd:1,git:0,gd:1,or:1},
+    {svc:"Prompt dos Agentes",sub:"CLAUDE.md de cada agente",hd:1,git:1,gd:0,or:1},
+    {svc:"Knowledge Bases",sub:"Perfil Fabio, templates, KB",hd:1,git:1,gd:1,or:0},
+    {svc:"Marketing Assets",sub:"Imagens, cards, legendas",hd:1,git:0,gd:1,or:0},
+    {svc:"Site OMA",sub:"HTML/JS do site e Hub",hd:0,git:1,gd:0,or:0},
+    {svc:"Ekhoa Clipping",sub:"Config + keywords + fontes",hd:1,git:1,gd:0,or:0},
+    {svc:"Backup History",sub:"Logs e histórico de backups",hd:0,git:0,gd:0,or:1}
+  ];
+
+  matrix.forEach(function(row){
+    var check=function(v){return v?'<span style="color:var(--green)">✅</span>':'<span style="color:var(--border)">—</span>';};
+    var total=row.hd+row.git+row.gd+row.or;
+    var rowColor=total>=3?'':(total>=2?'':(total>=1?'border-left:2px solid var(--yellow);':' border-left:2px solid var(--red);'));
+    html+='<tr style="border-bottom:1px solid var(--border);'+ rowColor +'">';
+    html+='<td style="padding:7px 6px"><div style="color:var(--bone);font-weight:600;font-size:11px">'+row.svc+'</div><div style="color:var(--ash);font-size:9px;margin-top:1px">'+row.sub+'</div></td>';
+    html+='<td style="text-align:center;padding:7px 4px">'+check(row.hd)+'</td>';
+    html+='<td style="text-align:center;padding:7px 4px">'+check(row.git)+'</td>';
+    html+='<td style="text-align:center;padding:7px 4px">'+check(row.gd)+'</td>';
+    html+='<td style="text-align:center;padding:7px 4px">'+check(row.or)+'</td>';
+    html+='</tr>';
+  });
+
+  html+='</table></div>';
+
+  // Coverage summary
+  var totalChecks=0,coveredChecks=0;
+  matrix.forEach(function(r){totalChecks+=4;coveredChecks+=r.hd+r.git+r.gd+r.or;});
+  var pct=Math.round(coveredChecks/totalChecks*100);
+  html+='<div style="margin-top:10px;font-size:10px;color:var(--ash);font-family:Space Mono,monospace">Cobertura: '+coveredChecks+'/'+totalChecks+' ('+pct+'%) · Redundância mín. recomendada: 2 destinos por serviço</div>';
 
   document.getElementById('backup-status').innerHTML=html;
 }
