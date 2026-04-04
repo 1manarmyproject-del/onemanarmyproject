@@ -655,50 +655,91 @@ function renderBackupData(data,history){
     });
   }
   slots=slots.slice(-24);
-
-  // Match history to slots
-  var barHtml='';
-  slots.forEach(function(slot){
-    var matched=false;
-    (history||[]).forEach(function(e){
-      if(Math.abs(new Date(e.timestamp)-slot)<10800000)matched=true;
-    });
-    var dd=(slot.getMonth()+1)+'/'+slot.getDate();
-    var hh=slot.getHours().toString().padStart(2,'0')+':00';
-    var isPast=(now-slot)>10800000;
-    var color,tip;
-    if(matched){color='var(--green)';tip=dd+' '+hh+': ✅ Realizado';}
-    else if(isPast){color='var(--red)';tip=dd+' '+hh+': ❌ Não executado';}
-    else{color='var(--border)';tip=dd+' '+hh+': ⏳ Aguardando';}
-    barHtml+='<div class="svc-bar-seg" style="background:'+color+';height:100%" data-t="'+tip+'"></div>';
-  });
-
   var completedCount=(history||[]).length;
+
   var html='';
 
-  // Summary
-  html+='<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">';
+  // Summary header
+  html+='<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">';
   html+='<div class="svc-d '+overallS+'"></div>';
   html+='<div style="flex:1"><div style="font-weight:600;font-size:14px">Último backup: '+(hoursAgo<1?'< 1h':hoursAgo+'h')+' atrás</div>';
   html+='<div style="font-size:11px;color:var(--ash);margin-top:2px">'+lastRun+' · '+completedCount+' backups registrados · 4x/dia</div></div></div>';
 
-  // History bar
-  html+='<div style="margin-bottom:14px">';
-  html+='<div style="font-size:10px;color:var(--ash);margin-bottom:5px;font-family:Space Mono,monospace;letter-spacing:1px">HISTÓRICO DE EXECUÇÕES</div>';
-  html+='<div class="svc-bar" style="max-width:100%;height:20px">'+barHtml+'</div>';
+  // Per-layer bars
+  var layers=[
+    {key:'hd',name:'HD Externo',desc:'FX_BACKUP_S (ExFAT)',icon:'💾'},
+    {key:'github',name:'GitHub',desc:'nanoclaw repo (privado)',icon:'🐙'},
+    {key:'gdrive',name:'Google Drive',desc:'fabio@onemanarmy.com.br',icon:'☁️'},
+    {key:'oracle_sp',name:'Oracle SP',desc:'163.176.167.148 · Always Free',icon:'🇧🇷'},
+    {key:'hetzner',name:'Hetzner Snapshots',desc:'Servidor CRM/API · Semanal',icon:'🇫🇮'}
+  ];
+
+  layers.forEach(function(layer){
+    // Build bar for this layer
+    var barHtml='';
+    var lastOk=null;
+    slots.forEach(function(slot){
+      var matched=false;
+      var layerOk=false;
+      (history||[]).forEach(function(e){
+        if(Math.abs(new Date(e.timestamp)-slot)<10800000){
+          matched=true;
+          // Check this specific layer status
+          var ls=e[layer.key];
+          if(ls==='ok' || (!ls && layer.key==='hetzner')) layerOk=true;
+        }
+      });
+      var dd=(slot.getMonth()+1)+'/'+slot.getDate();
+      var hh=slot.getHours().toString().padStart(2,'0')+':00';
+      var isPast=(now-slot)>10800000;
+      var color,tip;
+      if(matched && layerOk){color='var(--green)';tip=dd+' '+hh+': ✅ OK';lastOk=slot;}
+      else if(matched && !layerOk){color='var(--red)';tip=dd+' '+hh+': ❌ Falhou';}
+      else if(layer.key==='hetzner'){color='var(--border)';tip=dd+' '+hh+': — Semanal';}
+      else if(isPast){color='var(--red)';tip=dd+' '+hh+': ❌ Não executado';}
+      else{color='var(--border)';tip=dd+' '+hh+': ⏳ Aguardando';}
+      barHtml+='<div class="svc-bar-seg" style="background:'+color+';height:100%" data-t="'+tip+'"></div>';
+    });
+
+    // Layer status dot
+    var layerStatus='g';
+    if(data && data.layers){
+      var ld=data.layers[layer.key];
+      if(ld){
+        layerStatus=ld.status==='ok'?'g':(ld.status==='offline'?'r':'y');
+      } else if(layer.key==='hetzner'){
+        layerStatus='g';
+      }
+    }
+    if(layer.key==='hd' && data && data.layers && data.layers.hd_externo){
+      layerStatus=data.layers.hd_externo.connected!==false?'g':'r';
+    }
+
+    // Last backup time for this layer
+    var layerLastTime='—';
+    if(data && data.layers){
+      var lk=layer.key==='hd'?'hd_externo':layer.key;
+      if(data.layers[lk] && data.layers[lk].last_backup) layerLastTime=data.layers[lk].last_backup;
+    }
+
+    html+='<div style="margin-bottom:12px">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+    html+='<div class="svc-d '+layerStatus+'"></div>';
+    html+='<span style="font-size:12px;font-weight:600">'+layer.icon+' '+layer.name+'</span>';
+    html+='<span style="font-size:10px;color:var(--ash);margin-left:auto;font-family:Space Mono,monospace">'+layerLastTime+'</span>';
+    html+='</div>';
+    html+='<div style="font-size:9px;color:var(--ash);margin-bottom:3px;margin-left:18px">'+layer.desc+'</div>';
+    html+='<div class="svc-bar" style="max-width:100%;height:14px;margin-left:18px">'+barHtml+'</div>';
+    html+='</div>';
+  });
+
+  // Timestamps
   if(slots.length>1){
     var f=slots[0],l=slots[slots.length-1];
-    html+='<div style="display:flex;justify-content:space-between;font-size:9px;color:var(--ash);margin-top:3px;font-family:Space Mono,monospace">';
+    html+='<div style="display:flex;justify-content:space-between;font-size:9px;color:var(--ash);margin-top:2px;font-family:Space Mono,monospace;margin-left:18px">';
     html+='<span>'+(f.getMonth()+1)+'/'+f.getDate()+' '+f.getHours().toString().padStart(2,'0')+':00</span>';
     html+='<span>'+(l.getMonth()+1)+'/'+l.getDate()+' '+l.getHours().toString().padStart(2,'0')+':00</span></div>';
   }
-  html+='</div>';
-
-  // Layers
-  var hdOk=data?(data.layers.hd_externo.connected!==false?'g':'r'):'g';
-  [{n:'HD Externo',d:'FX_BACKUP_S (ExFAT)',s:hdOk},{n:'GitHub',d:'nanoclaw repo (privado)',s:'g'},{n:'Google Drive',d:'fabio@onemanarmy.com.br',s:'g'},{n:'Oracle SP (Brasil)',d:'163.176.167.148 · Always Free',s:'g'},{n:'Hetzner Snapshots',d:'Servidor CRM/API · Semanal',s:'g'}].forEach(function(l){
-    html+='<div class="svc"><div class="svc-d '+l.s+'"></div><div class="svc-n">'+l.n+'<small>'+l.d+'</small></div></div>';
-  });
 
   // Security footer
   html+='<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ash);line-height:1.8;font-family:Space Mono,monospace;letter-spacing:.5px">';

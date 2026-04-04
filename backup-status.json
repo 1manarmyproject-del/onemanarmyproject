@@ -1,9 +1,27 @@
 {
-  "updated_at": "2026-04-03T11:32:34Z",
-  "updated_at_brt": "08:32 BRT · 03/04/2026",
+  "updated_at": "2026-04-04T11:12:45Z",
+  "updated_at_brt": "08:12 BRT · 04/04/2026",
   "layers": {
-    "hd_externo": {"status": "ok","connected": true,"last_backup": "08:32 BRT · 03/04/2026"},
-    "github": {"status": "ok","last_backup": "08:32 BRT · 03/04/2026"},
-    "google_drive": {"status": "ok","last_backup": "08:32 BRT · 03/04/2026"}
+    "hd_externo": {
+      "status": "ok",
+      "volume": "FX_BACKUP_S",
+      "connected": true,
+      "items": ["store/", "groups/", "src/", ".env"],
+      "last_backup": "08:12 BRT · 04/04/2026"
+    },
+    "github": {
+      "status": "ok",
+      "repo": "nanoclaw",
+      "items": ["código", "CLAUDE.md agentes", "store/"],
+      "env_excluded": true,
+      "last_backup": "08:12 BRT · 04/04/2026"
+    },
+    "oracle_sp": {"status": "ok","host": "163.176.167.148","last_backup": "08:12 BRT · 04/04/2026"},
+    "google_drive": {
+      "status": "ok",
+      "account": "fabio@onemanarmy.com.br",
+      "items": ["credentials/", ".env", "oma-project/", "users/"],
+      "last_backup": "08:12 BRT · 04/04/2026"
+    }
   }
 }
