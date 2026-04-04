@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/solutions",
+      "destination": "/solutions.html"
+    },
+    {
       "source": "/blog/from-the-scratch",
       "destination": "/blog/from-the-scratch.html"
     },
