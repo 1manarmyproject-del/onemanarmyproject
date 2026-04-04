@@ -134,7 +134,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') 
     // 3. Forward to Mac Mini for pipeline processing
-    await fetch('https://alexa.pipeeyewear.com.br/predictions-intake', {
+    fetch('https://alexa.pipeeyewear.com.br/predictions-intake', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...data, prediction_id: id })
@@ -170,11 +170,11 @@ export default async function handler(req, res) {
     // 2. Send confirmation email
     const emailHtml = buildConfirmationEmail(data);
     const subject = `Recebemos seu briefing, ${data.name}! — OMA Predictions`;
-    await sendEmail(data.email, subject, emailHtml);
+    sendEmail(data.email, subject, emailHtml).catch(() => {});
 
     // 3. Also email Fabio
     const fabioSubject = `[PREDICTIONS] Nova solicitação — ${data.company || data.name}`;
-    await sendEmail('fabio@onemanarmy.com.br', fabioSubject, emailHtml);
+    sendEmail('fabio@onemanarmy.com.br', fabioSubject, emailHtml).catch(() => {});
 
     return res.status(200).json({ success: true, id, message: 'Recebido!' });
 
