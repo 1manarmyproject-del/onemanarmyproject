@@ -1,27 +1,22 @@
 {
-  "updated_at": "2026-04-04T11:12:45Z",
-  "updated_at_brt": "08:12 BRT · 04/04/2026",
+  "updated_at": "2026-04-04T11:31:54Z",
+  "updated_at_brt": "08:31 BRT · 04/04/2026",
   "layers": {
-    "hd_externo": {
-      "status": "ok",
-      "volume": "FX_BACKUP_S",
-      "connected": true,
-      "items": ["store/", "groups/", "src/", ".env"],
-      "last_backup": "08:12 BRT · 04/04/2026"
-    },
-    "github": {
-      "status": "ok",
-      "repo": "nanoclaw",
-      "items": ["código", "CLAUDE.md agentes", "store/"],
-      "env_excluded": true,
-      "last_backup": "08:12 BRT · 04/04/2026"
-    },
-    "oracle_sp": {"status": "ok","host": "163.176.167.148","last_backup": "08:12 BRT · 04/04/2026"},
-    "google_drive": {
-      "status": "ok",
-      "account": "fabio@onemanarmy.com.br",
-      "items": ["credentials/", ".env", "oma-project/", "users/"],
-      "last_backup": "08:12 BRT · 04/04/2026"
-    }
+    "hd_externo": {"status": "ok", "volume": "FX_BACKUP_S", "connected": true, "last_backup": "08:31 BRT · 04/04/2026"},
+    "github": {"status": "ok", "repo": "nanoclaw", "last_backup": "08:31 BRT · 04/04/2026"},
+    "oracle_sp": {"status": "ok", "host": "163.176.167.148", "last_backup": "08:31 BRT · 04/04/2026"},
+    "google_drive": {"status": "ok", "account": "fabio@onemanarmy.com.br", "last_backup": "08:31 BRT · 04/04/2026"},
+    "hetzner_crm": {"status": "ok", "via": "API pull to Oracle", "last_backup": "08:31 BRT · 04/04/2026"}
+  },
+  "coverage": {
+    "agentes":      {"hd": "ok", "github": "ok", "gdrive": "no", "oracle": "ok"},
+    "messages_db":  {"hd": "ok", "github": "no", "gdrive": "no", "oracle": "ok"},
+    "crm_pmo":      {"hd": "no", "github": "no", "gdrive": "no", "oracle": "ok"},
+    "credenciais":  {"hd": "ok", "github": "no", "gdrive": "ok", "oracle": "ok"},
+    "prompts":      {"hd": "ok", "github": "ok", "gdrive": "no", "oracle": "ok"},
+    "knowledge":    {"hd": "ok", "github": "ok", "gdrive": "ok", "oracle": "no"},
+    "marketing":    {"hd": "ok", "github": "no", "gdrive": "ok", "oracle": "no"},
+    "site_oma":     {"hd": "no", "github": "ok", "gdrive": "no", "oracle": "no"},
+    "ekhoa":        {"hd": "ok", "github": "ok", "gdrive": "no", "oracle": "no"}
   }
 }
