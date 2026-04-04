@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OMA Predictions — Simulação de Cenários com IA</title>
-<meta name="description" content="Descubra como seu mercado vai reagir nos próximos 6 meses. Relatório preditivo com 43+ agentes de IA simulando cenários reais. Pacote com 5 relatórios por R$1.299.">
+<title>OMA Predictions — Relatório Preditivo com IA</title>
+<meta name="description" content="Simule como seu mercado vai reagir nos próximos 6 meses. 43 agentes autônomos de IA debatem sobre o seu cenário. Relatório nível consultoria.">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,900&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&family=Black+Ops+One&display=swap" rel="stylesheet">
 <style>
@@ -13,7 +13,6 @@
 html{scroll-behavior:smooth;}
 body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
-
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);}
 .nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
 .nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);}
@@ -23,301 +22,245 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .nav-links a:hover,.nav-links a.active{color:var(--fire);}
 .nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
 @media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
-
 .hero{padding:140px 32px 60px;text-align:center;position:relative;}
 .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(232,112,58,.05) 0%,transparent 60%);}
 .hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
-.hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,5vw,48px);line-height:1.05;color:var(--white);margin-bottom:12px;position:relative;z-index:1;}
+.hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5.5vw,52px);line-height:1.05;color:var(--white);margin-bottom:14px;position:relative;z-index:1;}
 .hero h1 em{color:var(--fire);font-style:italic;}
-.hero p{font-size:15px;color:var(--fog);max-width:520px;margin:0 auto;line-height:1.8;position:relative;z-index:1;}
-
-.metrics{display:flex;gap:2px;max-width:700px;margin:32px auto 0;position:relative;z-index:1;}
-.metric{background:var(--coal);border:1px solid var(--iron);padding:20px;text-align:center;flex:1;}
+.hero p{font-size:clamp(14px,1.6vw,16px);color:var(--fog);max-width:520px;margin:0 auto;line-height:1.8;position:relative;z-index:1;}
+.metrics{display:flex;gap:24px;justify-content:center;margin-top:28px;flex-wrap:wrap;position:relative;z-index:1;}
+.metric{text-align:center;}
 .metric-val{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}
-.metric-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-top:2px;}
-
-.content{max-width:860px;margin:0 auto;padding:60px 32px;}
+.metric-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.sec{max-width:860px;margin:0 auto;padding:60px 32px;}
+.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);line-height:1.15;margin-bottom:24px;}
+.sec-title em{color:var(--fire);font-style:italic;}
 .divider{display:flex;align-items:center;gap:16px;max-width:860px;margin:0 auto;padding:0 32px;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--iron);}
-.divider-gem{width:7px;height:7px;background:var(--blood);transform:rotate(45deg);}
-
-/* CASE STUDY */
-.case-card{background:linear-gradient(135deg,rgba(122,34,4,.12) 0%,var(--coal) 100%);border:1px solid var(--blood);padding:24px 28px;display:flex;align-items:center;gap:20px;margin-bottom:40px;}
-.case-card:hover{border-color:var(--fire);}
-.case-icon{font-size:32px;}
-.case-info h4{font-family:'Barlow',sans-serif;font-weight:700;font-size:14px;color:var(--white);margin-bottom:3px;}
-.case-info p{font-size:12px;color:var(--fog);}
-.case-info .case-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;color:var(--fire);background:rgba(232,112,58,.1);padding:2px 6px;letter-spacing:1px;margin-top:4px;}
-.case-dl{margin-left:auto;}
-.case-dl a{font-family:'Black Ops One',cursive;font-size:9px;letter-spacing:2px;color:var(--fire);border:1px solid var(--blood);padding:8px 16px;text-decoration:none;transition:all .2s;}
-.case-dl a:hover{background:var(--fire);color:var(--char);}
-@media(max-width:600px){.case-card{flex-direction:column;text-align:center;}.case-dl{margin:12px auto 0;}}
-
-/* HOW IT WORKS */
-.how{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:48px;}
-@media(max-width:600px){.how{grid-template-columns:1fr;}}
-.how-step{background:var(--coal);border:1px solid var(--iron);padding:24px 20px;text-align:center;}
-.how-num{font-family:'Black Ops One',cursive;font-size:36px;color:var(--iron);}
-.how-title{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;color:var(--bone);margin:8px 0 6px;}
-.how-desc{font-size:12px;color:var(--ash);line-height:1.5;}
-
-/* PRICING */
-.pricing{background:var(--iron);border:1px solid var(--steel);padding:32px;margin-bottom:48px;text-align:center;}
-.pricing-badge{display:inline-block;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:4px 12px;margin-bottom:10px;}
+.divider-gem{width:6px;height:6px;background:var(--blood);transform:rotate(45deg);}
+.pricing-box{background:var(--iron);border:1px solid var(--steel);padding:32px;text-align:center;max-width:400px;margin:0 auto;}
+.pricing-badge{display:inline-block;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:4px 12px;margin-bottom:12px;}
 .pricing-old{font-family:'Space Mono',monospace;font-size:13px;color:var(--ash);text-decoration:line-through;}
-.pricing-new{font-family:'Black Ops One',cursive;font-size:42px;color:var(--white);line-height:1;margin:4px 0;}
-.pricing-new span{font-size:20px;color:var(--fire);}
-.pricing-detail{font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);letter-spacing:1px;}
-.pricing-includes{margin-top:16px;padding-top:16px;border-top:1px solid var(--steel);text-align:left;max-width:400px;margin-left:auto;margin-right:auto;}
-.pricing-includes p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);margin-bottom:6px;text-transform:uppercase;}
-.pricing-includes li{font-size:12px;color:var(--bone);padding:3px 0 3px 16px;position:relative;list-style:none;}
-.pricing-includes li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px;}
-
+.pricing-new{font-family:'Black Ops One',cursive;font-size:36px;color:var(--white);line-height:1;margin:4px 0;}
+.pricing-new span{font-size:18px;color:var(--fire);}
+.pricing-detail{font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);letter-spacing:1px;margin-top:4px;}
+.pricing-list{list-style:none;text-align:left;margin-top:16px;padding-top:16px;border-top:1px solid var(--steel);}
+.pricing-list li{font-size:12px;color:var(--bone);padding:3px 0 3px 16px;position:relative;}
+.pricing-list li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px;}
 /* FORM */
-.form-card{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--fire);padding:40px 36px;}
-.form-card h3{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--fire);margin-bottom:4px;}
-.form-sub{font-size:13px;color:var(--fog);margin-bottom:24px;}
+.form-card{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--fire);padding:40px 36px;max-width:860px;margin:0 auto;}
+.form-tabs{display:flex;gap:0;margin-bottom:0;}
+.form-tab{flex:1;padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:var(--iron);border:1px solid var(--steel);color:var(--ash);cursor:pointer;text-align:center;transition:all .2s;border-bottom:none;}
+.form-tab.active{background:var(--coal);color:var(--fire);border-color:var(--iron);border-top:2px solid var(--fire);}
+.form-tab:first-child{border-right:none;}
+.form-pane{display:none;padding-top:28px;}
+.form-pane.active{display:block;}
+.form-sub{font-size:14px;color:var(--fog);margin-bottom:24px;}
 .form-group{margin-bottom:18px;}
-.form-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:block;margin-bottom:5px;}
-.form-input,.form-textarea,.form-select{width:100%;background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;padding:11px 14px;outline:none;transition:border-color .2s;}
+.form-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:block;margin-bottom:6px;}
+.form-input,.form-textarea,.form-select{width:100%;background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;}
 .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--fire);}
-.form-textarea{min-height:72px;resize:vertical;line-height:1.6;}
-.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;}
-.form-select option{background:var(--iron);color:var(--bone);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-textarea{min-height:80px;resize:vertical;line-height:1.6;}
+.form-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
-.form-hint{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:3px;}
+.form-hint{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:4px;}
 .form-submit{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:16px 36px;cursor:pointer;transition:background .2s,transform .15s;margin-top:8px;width:100%;}
 .form-submit:hover{background:var(--ember);transform:translateY(-2px);}
 .form-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .form-success{display:none;text-align:center;padding:40px 20px;}
-.form-success h3{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;color:var(--white);margin-bottom:10px;}
-.form-success p{font-size:14px;color:var(--fog);margin-bottom:6px;}
-
+.form-success h3{font-family:'Playfair Display',serif;font-weight:900;font-size:28px;color:var(--white);margin-bottom:12px;}
+.form-success p{font-size:14px;color:var(--fog);margin-bottom:8px;}
 footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
-footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;}
+footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;margin-top:6px;}
 footer a{color:var(--ash);text-decoration:none;}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="/" class="nav-brand">
-    <span class="nav-name">ONE MAN <span>ARMY</span></span>
-    <img src="/lobster-nav.png" alt="OMA" style="width:28px;height:28px;border-radius:4px;margin-left:6px">
-  </a>
+  <a href="/" class="nav-brand"><span class="nav-name">ONE MAN <span>ARMY</span></span><img src="/lobster-nav.png" alt="" style="width:28px;height:28px;margin-left:8px;border-radius:4px"></a>
   <div class="nav-links">
     <a href="/solutions" class="active">Soluções</a>
     <a href="/academy">Academy</a>
     <a href="/blog">Blog</a>
   </div>
-  <a href="#formulario" class="nav-cta">Solicitar agora</a>
+  <a href="#formulario" class="nav-cta">Solicitar relatório</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <p class="hero-badge">🔮 OMA Predictions</p>
-  <h1>Descubra como seu mercado<br>vai reagir — <em>antes de agir</em></h1>
-  <p>43 agentes de IA simulam concorrentes, clientes e influenciadores do seu segmento debatendo sobre o seu negócio. O resultado: um relatório nível consultoria em 30 minutos.</p>
+  <h1>Veja o futuro do seu<br>negócio <em>antes de decidir</em></h1>
+  <p>43 agentes autônomos de IA simulam como seu mercado, concorrentes e clientes vão reagir — em 30 minutos, por uma fração do custo de uma consultoria.</p>
   <div class="metrics">
     <div class="metric"><div class="metric-val">43+</div><div class="metric-lbl">Agentes</div></div>
     <div class="metric"><div class="metric-val">334+</div><div class="metric-lbl">Interações</div></div>
     <div class="metric"><div class="metric-val">~30min</div><div class="metric-lbl">Geração</div></div>
-    <div class="metric"><div class="metric-val">6 meses</div><div class="metric-lbl">Projeção</div></div>
+    <div class="metric"><div class="metric-val">6 meses</div><div class="metric-lbl">Horizonte</div></div>
   </div>
 </section>
 
-<div class="content">
+<div class="divider"><div class="divider-gem"></div></div>
 
-  <!-- CASE STUDY -->
-  <div class="case-card">
-    <div class="case-icon">📊</div>
-    <div class="case-info">
-      <h4>Veja um relatório real — o nosso</h4>
-      <p>Usamos o Predictions no nosso próprio negócio. Sem filtro.</p>
-      <span class="case-tag">43 agentes · 334 interações · 4 seções</span>
-    </div>
-    <div class="case-dl"><a href="/reports/oma-case-study.html" target="_blank">Ver relatório</a></div>
-  </div>
-
-  <!-- HOW IT WORKS -->
-  <div class="how">
-    <div class="how-step">
-      <div class="how-num">01</div>
-      <div class="how-title">Você preenche</div>
-      <div class="how-desc">Descreva seu negócio, dores e o que quer prever</div>
-    </div>
-    <div class="how-step">
-      <div class="how-num">02</div>
-      <div class="how-title">IA simula</div>
-      <div class="how-desc">43 agentes debatem em redes sociais simuladas</div>
-    </div>
-    <div class="how-step">
-      <div class="how-num">03</div>
-      <div class="how-title">Você recebe</div>
-      <div class="how-desc">Relatório com predições, objeções e plano de ação</div>
-    </div>
-  </div>
-
-  <div class="divider"><div class="divider-gem"></div></div>
-
-  <!-- PRICING -->
-  <div class="pricing" style="margin-top:48px;">
+<!-- PRICING -->
+<section class="sec">
+  <div class="pricing-box">
     <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
     <div class="pricing-old">De R$ 2.599,00</div>
     <div class="pricing-new">R$ 1.299<span>,00</span></div>
-    <div class="pricing-detail">5 relatórios preditivos · Cada um por menos de R$260</div>
-    <ul class="pricing-includes">
-      <p>Incluso no pacote</p>
+    <div class="pricing-detail">5 relatórios preditivos · Menos de R$260 cada</div>
+    <ul class="pricing-list">
       <li>5 relatórios OMA Predictions completos</li>
-      <li>100 minutos de Scribe by OMA (transcrição)</li>
+      <li>100 minutos de Scribe by OMA</li>
       <li>10 atas inteligentes OMA Recap</li>
-      <li>Suporte via WhatsApp com a Bia</li>
+      <li>Suporte via WhatsApp</li>
     </ul>
   </div>
+</section>
 
-  <!-- FORM -->
-  <div class="form-card" id="formulario">
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- FORM -->
+<section class="sec" id="formulario">
+  <div class="sec-label">Solicitar Relatório</div>
+  <div class="sec-title">Conte sua história.<br><em>Nós prevemos o futuro.</em></div>
+
+  <div class="form-card">
     <div id="formContent">
-      <h3>Briefing para simulação</h3>
-      <p class="form-sub">Quanto mais detalhes, melhor o relatório. Campos com * são obrigatórios.</p>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Seu nome *</label>
-          <input type="text" class="form-input" id="f-name" placeholder="Ex: Maria Silva">
+      <div class="form-tabs">
+        <div class="form-tab active" onclick="switchTab('business',this)">🏢 Meu negócio</div>
+        <div class="form-tab" onclick="switchTab('scenario',this)">🔮 Cenário livre</div>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="form-pane active" id="pane-business">
+        <p class="form-sub">Para empresas que querem prever como o mercado reagiria a uma mudança.</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Seu nome *</label><input type="text" class="form-input" id="f-name" placeholder="Ex: Maria Silva"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="f-email" placeholder="Ex: maria@empresa.com.br"></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Email *</label>
-          <input type="email" class="form-input" id="f-email" placeholder="Ex: maria@empresa.com.br">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">WhatsApp</label><input type="text" class="form-input" id="f-whatsapp" placeholder="11 99999-9999"></div>
+          <div class="form-group"><label class="form-label">Empresa *</label><input type="text" class="form-input" id="f-company" placeholder="Ex: Clínica Vida Plena"></div>
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">WhatsApp</label>
-          <input type="text" class="form-input" id="f-whatsapp" placeholder="11 99999-9999">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Empresa *</label>
-          <input type="text" class="form-input" id="f-company" placeholder="Ex: Clínica Vida Plena">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Segmento *</label>
-        <select class="form-select" id="f-segment">
-          <option value="">Selecione seu segmento</option>
-          <option value="advocacia">Escritório de Advocacia</option>
-          <option value="consultorio">Consultório / Clínica Médica</option>
-          <option value="otica">Ótica</option>
-          <option value="condominio">Administradora de Condomínio</option>
-          <option value="shopping">Shopping Center</option>
-          <option value="distribuidor">Distribuidor / Atacadista</option>
-          <option value="franquia">Franquia / Rede de Varejo</option>
-          <option value="restaurante">Restaurante / Food Service</option>
-          <option value="imobiliaria">Imobiliária</option>
-          <option value="contabilidade">Contabilidade</option>
-          <option value="educacao">Escola / Educação</option>
-          <option value="saude">Saúde (outros)</option>
-          <option value="tech">Startup / Tech</option>
-          <option value="outro">Outro</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Descreva seu negócio em 2-3 frases *</label>
-        <textarea class="form-textarea" id="f-business" placeholder="O que sua empresa faz, quantos funcionários, faturamento aproximado, há quanto tempo existe..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Quais são suas 3 maiores dores operacionais? *</label>
-        <textarea class="form-textarea" id="f-pain" placeholder="Ex: Perco vendas fora do horário, gasto 3h/dia respondendo WhatsApp, não consigo cobrar inadimplentes..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Quem são seus principais concorrentes?</label>
-        <textarea class="form-textarea" id="f-competitors" placeholder="Ex: Clínica X na mesma região, redes como Drogasil..." style="min-height:56px;"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">O que você gostaria de prever? *</label>
-        <textarea class="form-textarea" id="f-question" placeholder="Ex: Como meus clientes reagiriam se eu implementasse atendimento 24h por IA? Devo abrir uma segunda unidade?"></textarea>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Orçamento mensal p/ tecnologia</label>
-          <select class="form-select" id="f-budget">
+        <div class="form-group"><label class="form-label">Segmento *</label>
+          <select class="form-select" id="f-segment">
             <option value="">Selecione</option>
-            <option value="ate500">Até R$500</option>
-            <option value="500-1000">R$500 a R$1.000</option>
-            <option value="1000-3000">R$1.000 a R$3.000</option>
-            <option value="3000+">Acima de R$3.000</option>
+            <option value="advocacia">Escritório de Advocacia</option>
+            <option value="consultorio">Consultório / Clínica</option>
+            <option value="otica">Ótica</option>
+            <option value="condominio">Administradora de Condomínio</option>
+            <option value="shopping">Shopping Center</option>
+            <option value="distribuidor">Distribuidor / Atacadista</option>
+            <option value="franquia">Franquia / Rede de Varejo</option>
+            <option value="restaurante">Restaurante / Food Service</option>
+            <option value="consultoria">Consultoria Empresarial</option>
+            <option value="comunicacao">Comunicação / RP</option>
+            <option value="governo">Governo / Política</option>
+            <option value="tech">Startup / Tech</option>
+            <option value="outro">Outro</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Funcionários</label>
-          <select class="form-select" id="f-employees">
-            <option value="">Selecione</option>
-            <option value="1-5">1 a 5</option>
-            <option value="6-15">6 a 15</option>
-            <option value="16-50">16 a 50</option>
-            <option value="50+">Mais de 50</option>
-          </select>
+        <div class="form-group"><label class="form-label">Descreva seu negócio *</label><textarea class="form-textarea" id="f-business" placeholder="O que sua empresa faz, tamanho, há quanto tempo existe..."></textarea></div>
+        <div class="form-group"><label class="form-label">Maiores dores operacionais *</label><textarea class="form-textarea" id="f-pain" placeholder="O que consome seu tempo, onde perde dinheiro..."></textarea></div>
+        <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f-question" placeholder="Ex: Como meus clientes reagiriam se eu automatizasse o atendimento?"></textarea></div>
+      </div>
+
+      <!-- SCENARIO -->
+      <div class="form-pane" id="pane-scenario">
+        <p class="form-sub">Para situações abertas — política, mercado, lançamentos, crises, tendências.</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Seu nome *</label><input type="text" class="form-input" id="f2-name" placeholder="Ex: João Silva"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="f2-email" placeholder="Ex: joao@email.com"></div>
         </div>
+        <div class="form-group"><label class="form-label">WhatsApp</label><input type="text" class="form-input" id="f2-whatsapp" placeholder="11 99999-9999"></div>
+        <div class="form-group"><label class="form-label">Conte o contexto *</label><textarea class="form-textarea" id="f2-context" placeholder="Descreva a situação em detalhes. Quem são os envolvidos, o que aconteceu, qual o cenário atual..." style="min-height:120px;"></textarea><div class="form-hint">Quanto mais detalhes, mais precisa a simulação.</div></div>
+        <div class="form-group"><label class="form-label">Onde isso acontece? *</label><textarea class="form-textarea" id="f2-where" placeholder="Cidade, estado, país. Contexto geográfico e cultural..." style="min-height:60px;"></textarea></div>
+        <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f2-predict" placeholder="Ex: Como a população vai reagir? Como a imprensa vai cobrir? Quais grupos vão apoiar e quais vão criticar?" style="min-height:100px;"></textarea><div class="form-hint">Pode incluir múltiplas perguntas.</div></div>
       </div>
 
       <button class="form-submit" id="formSubmit" onclick="submitPrediction()">Solicitar Relatório Preditivo</button>
-      <div class="form-hint" style="text-align:center;margin-top:6px;">Seu relatório será gerado em até 24h úteis e enviado por email.</div>
+      <div class="form-hint" style="text-align:center;margin-top:8px;">Relatório entregue em até 24h úteis.</div>
     </div>
 
     <div class="form-success" id="formSuccess">
       <h3>🐟 Recebemos seu briefing!</h3>
-      <p>Nosso algoritmo vai simular <strong>43+ agentes autônomos</strong> debatendo sobre o seu mercado.</p>
-      <p>Você receberá o relatório completo por email em até <strong>24 horas úteis</strong>.</p>
-      <p style="color:var(--fire);margin-top:16px;font-family:'Space Mono',monospace;font-size:10px;">A Bia entrará em contato pelo WhatsApp para confirmar.</p>
+      <p>Nosso algoritmo vai simular <strong>43+ agentes autônomos</strong> debatendo sobre o seu cenário.</p>
+      <p>Relatório completo em até <strong>24 horas úteis</strong>.</p>
+      <p style="color:var(--fire);margin-top:16px;font-family:'Space Mono',monospace;font-size:11px;">Entraremos em contato para confirmar.</p>
     </div>
   </div>
-
-</div>
+</section>
 
 <footer>
   <p><a href="/">Home</a> · <a href="/solutions">Soluções</a> · <a href="/academy">Academy</a> · <a href="/blog">Blog</a></p>
-  <p style="margin-top:6px;">Riva Labs Ltda · CNPJ 65.452.151/0001-26 · 2026</p>
+  <p>Riva Labs Ltda · CNPJ 65.452.151/0001-26 · 2026</p>
 </footer>
 
 <script>
-async function submitPrediction(){
-  const btn=document.getElementById('formSubmit');
-  btn.disabled=true;btn.textContent='Enviando...';
-  const data={
-    name:document.getElementById('f-name').value,
-    email:document.getElementById('f-email').value,
-    whatsapp:document.getElementById('f-whatsapp').value,
-    company:document.getElementById('f-company').value,
-    segment:document.getElementById('f-segment').value,
-    business:document.getElementById('f-business').value,
-    pain_points:document.getElementById('f-pain').value,
-    competitors:document.getElementById('f-competitors').value,
-    question:document.getElementById('f-question').value,
-    budget:document.getElementById('f-budget').value,
-    employees:document.getElementById('f-employees').value,
-    submitted_at:new Date().toISOString(),
-    source:'predictions-page'
-  };
-  if(!data.name||!data.email||!data.company||!data.segment||!data.business||!data.pain_points||!data.question){
-    alert('Preencha todos os campos obrigatórios (*)');
-    btn.disabled=false;btn.textContent='Solicitar Relatório Preditivo';return;
+function switchTab(tab, btn) {
+  document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.form-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pane-' + tab).classList.add('active');
+}
+
+async function submitPrediction() {
+  const btn = document.getElementById('formSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const isScenario = document.getElementById('pane-scenario').classList.contains('active');
+  let data;
+
+  if (isScenario) {
+    data = {
+      type: 'scenario',
+      name: document.getElementById('f2-name').value,
+      email: document.getElementById('f2-email').value,
+      whatsapp: document.getElementById('f2-whatsapp').value,
+      context: document.getElementById('f2-context').value,
+      where: document.getElementById('f2-where').value,
+      question: document.getElementById('f2-predict').value,
+      submitted_at: new Date().toISOString(),
+      source: 'predictions-scenario'
+    };
+    if (!data.name || !data.email || !data.context || !data.where || !data.question) {
+      alert('Preencha todos os campos obrigatórios (*)');
+      btn.disabled = false; btn.textContent = 'Solicitar Relatório Preditivo'; return;
+    }
+  } else {
+    data = {
+      type: 'business',
+      name: document.getElementById('f-name').value,
+      email: document.getElementById('f-email').value,
+      whatsapp: document.getElementById('f-whatsapp').value,
+      company: document.getElementById('f-company').value,
+      segment: document.getElementById('f-segment').value,
+      business: document.getElementById('f-business').value,
+      pain_points: document.getElementById('f-pain').value,
+      question: document.getElementById('f-question').value,
+      submitted_at: new Date().toISOString(),
+      source: 'predictions-business'
+    };
+    if (!data.name || !data.email || !data.company || !data.business || !data.question) {
+      alert('Preencha todos os campos obrigatórios (*)');
+      btn.disabled = false; btn.textContent = 'Solicitar Relatório Preditivo'; return;
+    }
   }
-  try{
-    await fetch('/api/predictions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
-    document.getElementById('formContent').style.display='none';
-    document.getElementById('formSuccess').style.display='block';
-  }catch(e){
-    document.getElementById('formContent').style.display='none';
-    document.getElementById('formSuccess').style.display='block';
-  }
+
+  try {
+    await fetch('https://api.onemanarmyproject.com.br/predictions/submit', {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
+    }).catch(() => {});
+  } catch(e) {}
+
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
 }
 </script>
 </body>
