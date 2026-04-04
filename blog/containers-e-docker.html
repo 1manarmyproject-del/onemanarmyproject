@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker explicado para founders: o que são containers e por que todo produto digital usa | OMA Blog</title>
+<meta name="description" content="Docker resolve o problema clássico de desenvolvimento: código que funciona no computador do dev mas quebra no servidor. Entenda a analogia da franquia e por que isso importa para escalar produtos digitais.">
+<meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
+<meta property="og:title" content="Docker explicado para founders: o que são containers e por que todo produto digital usa">
+<meta property="og:description" content="Docker resolve o problema clássico de desenvolvimento: código que funciona no computador do dev mas quebra no servidor. Entenda a analogia da franquia e por que isso importa para escalar produtos digitais.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/containers-e-docker">
+<meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/containers-e-docker">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Docker explicado para founders: o que são containers e por que todo produto digital usa","description":"Docker resolve o problema clássico de desenvolvimento: código que funciona no computador do dev mas quebra no servidor. Entenda a analogia da franquia e por que isso importa para escalar produtos digitais.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/containers-e-docker"}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--border2:#d0d0d0;--text:#111;--text2:#444;--text3:#777;--text4:#bbb;}
+body{background:var(--bg);font-family:"Barlow",sans-serif;color:var(--text);line-height:1.7;}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
+.topbar-logo-name{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-link{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;}
+.topbar-link:hover{color:var(--fire);}
+.topbar-cta{background:var(--fire);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
+.breadcrumb{max-width:780px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bc-item{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;text-transform:uppercase;}
+.bc-item:hover{color:var(--fire);}
+.bc-sep{color:var(--text4);font-size:10px;}
+.bc-back-btn{display:inline-flex;align-items:center;gap:6px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--fire);text-decoration:none;padding:5px 10px;border:1px solid var(--fire-mid);border-radius:4px;background:var(--fire-light);margin-left:auto;}
+.article-wrap{max-width:780px;margin:0 auto;padding:28px 24px 80px;}
+.article-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.article-tag{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:4px 10px;border-radius:20px;font-weight:700;}
+.article-read{font-family:"Space Mono",monospace;font-size:9px;color:var(--text3);}
+.article-academy-badge{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:1px;color:var(--text3);background:var(--bg3);border:1px solid var(--border2);padding:4px 10px;border-radius:20px;text-decoration:none;}
+h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(28px,5vw,46px);line-height:1.05;color:var(--text);margin-bottom:12px;}
+.article-lead{font-size:16px;color:var(--text3);line-height:1.7;margin-bottom:24px;border-left:4px solid var(--fire);padding:14px 16px;border-radius:0 8px 8px 0;background:var(--fire-light);}
+.article-author{display:flex;align-items:center;gap:10px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);}
+.author-name{font-weight:600;font-size:14px;color:var(--text);}
+.author-role{font-size:12px;color:var(--text3);}
+.article-content h2{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(20px,3vw,28px);color:var(--text);margin:36px 0 12px;}
+.article-content h3{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:20px;color:var(--text);margin:28px 0 10px;}
+.article-content p{font-size:16px;color:var(--text2);margin-bottom:16px;line-height:1.8;}
+.article-content strong{color:var(--text);font-weight:600;}
+.article-content ul,.article-content ol{padding-left:22px;margin-bottom:16px;}
+.article-content li{font-size:15px;color:var(--text2);margin-bottom:8px;line-height:1.7;}
+.article-content blockquote{background:var(--fire-light);border-left:4px solid var(--fire);padding:16px 18px;margin:24px 0;border-radius:0 8px 8px 0;}
+.article-content blockquote p{color:var(--text2);font-style:italic;margin:0;}
+.article-content code{font-family:"Space Mono",monospace;font-size:12px;background:var(--bg3);border:1px solid var(--border2);padding:2px 6px;border-radius:3px;color:var(--fire);}
+.highlight-box{background:var(--bg3);border-radius:8px;padding:18px 20px;margin:24px 0;border-left:4px solid var(--fire);}
+.highlight-box-title{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;font-weight:700;}
+.highlight-box p{margin:0;font-size:14px;color:var(--text2);}
+.share-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.share-label{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;color:var(--text);}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;cursor:pointer;border:none;}
+.share-btn.wa{background:#25D366;color:#fff;}
+.share-btn.li{background:#0A66C2;color:#fff;}
+.share-btn.cp{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border2);}
+.academy-cta{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:32px 0;text-align:center;}
+.academy-cta-eyebrow{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;}
+.academy-cta-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:26px;color:#fff;margin-bottom:8px;}
+.academy-cta-sub{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:18px;}
+.academy-cta-btn{display:inline-block;background:#fff;color:var(--fire);font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:12px 28px;border-radius:6px;text-decoration:none;}
+.related-section{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);}
+.related-title{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.related-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;text-decoration:none;transition:box-shadow .15s;display:flex;flex-direction:column;gap:4px;}
+.related-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);}
+.related-tag{font-family:"Space Mono",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);}
+.related-title-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.related-arrow{font-size:12px;color:var(--text4);margin-top:4px;}
+.article-footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px;}
+.article-footer a{color:var(--fire);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="/"><img src="/lobster-logo.png" alt="OMA"><div class="topbar-logo-name">OMA <span>Blog</span></div></a>
+  <div class="topbar-right">
+    <a href="/blog" class="topbar-link">← Blog</a>
+    <a href="/academy" class="topbar-cta">Academy grátis →</a>
+  </div>
+</div>
+<div class="breadcrumb">
+  <a href="/" class="bc-item">OMA</a><span class="bc-sep">›</span>
+  <a href="/blog" class="bc-item">Blog</a><span class="bc-sep">›</span>
+  <span class="bc-item" style="color:var(--text3);">Docker e Containers — a franquia do mundo digital</span>
+  <a href="/academy?modulo=m08" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
+</div>
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="article-tag">Dados e Sistemas</span>
+    <span class="article-read">⏱ 6 min de leitura</span>
+    <a href="/academy?modulo=m08" class="article-academy-badge">🦞 OMA Academy</a>
+  </div>
+  <h1 class="article-title">Docker e Containers — a franquia do mundo digital</h1>
+  <div class="article-lead">Docker resolve o problema clássico de desenvolvimento: código que funciona no computador do dev mas quebra no servidor. Entenda a analogia da franquia e por que isso importa para escalar produtos digitais.</div>
+  <div class="article-author">
+    <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
+    <div><div class="author-name">Fabio Xavier</div><div class="author-role">Founder · OMA Project</div></div>
+  </div>
+  <div class="article-content">
+<h2>O pesadelo clássico: "no meu computador funcionava"</h2>
+<p>Todo founder que já trabalhou com desenvolvimento de software já ouviu essa frase. O desenvolvedor termina a feature, funciona perfeitamente na máquina dele. Vai para o servidor de produção — quebra. Horas de debug depois, o problema: uma biblioteca estava em versão diferente, ou o sistema operacional tinha uma configuração específica que não existia no servidor.</p>
+<p>Esse problema custou (e ainda custa) bilhões de horas de trabalho em toda a indústria de software. Docker nasceu para resolver isso de vez.</p>
+<div class="highlight-box">
+  <div class="highlight-box-title">A analogia da franquia</div>
+  <p>Docker é o sistema de franquia do software. Você empacota produto, processos e ambiente numa caixa padrão. Abre em qualquer lugar e funciona idêntico — São Paulo ou Manaus, servidor local ou nuvem.</p>
+</div>
+<h2>O que é um container</h2>
+<p>Container é uma unidade isolada que empacota uma aplicação com tudo que ela precisa para rodar: código, dependências na versão exata, configurações de sistema.</p>
+<p>É como a caixa de kit de um franqueado: receita, equipamentos na especificação certa, ingredientes nas quantidades certas. Qualquer pessoa que receber essa caixa consegue replicar o produto exatamente igual, independente de onde estiver.</p>
+<p>O container roda de forma isolada — não interfere com outros containers no mesmo servidor, não é afetado pelo ambiente externo.</p>
+<h2>Imagem vs Container — a receita e o bolo</h2>
+<p><strong>Imagem Docker</strong> é a receita — o molde estático que descreve como o container deve ser. Você versiona imagens, compartilha imagens, guarda imagens num repositório (Docker Hub).</p>
+<p><strong>Container</strong> é a receita em execução — o bolo sendo feito. Você pode ter 10 containers rodando a partir da mesma imagem simultaneamente, como fazer 10 bolos com a mesma receita ao mesmo tempo.</p>
+<p>Quando o container para, os dados dentro somem — a menos que você use <strong>volumes</strong>, que são como gavetas externas que persistem independente do container.</p>
+<h2>Docker Compose — orquestrando múltiplos serviços</h2>
+<p>Aplicações reais raramente são um único serviço. Têm a API, o banco de dados, o sistema de cache, a fila de tarefas. Cada um roda no seu container.</p>
+<p><strong>Docker Compose</strong> permite definir todos esses serviços num arquivo só e subir tudo com um único comando. É como o manual operacional da franquia que descreve não só como fazer o produto, mas como todo o restaurante deve funcionar — cozinha, atendimento, estoque, todos os processos juntos.</p>
+<h2>Por que founders precisam entender isso</h2>
+<p>Quando seu time diz "vamos dockerizar a aplicação", eles estão resolvendo um problema real de consistência e escala. Quando dizem "o container caiu", é um serviço específico que parou — não necessariamente toda a aplicação.</p>
+<p>Entender containers permite perguntar: "Quantos containers estão rodando?", "O que acontece se um cair?", "Como está a estratégia de volume para persistência dos dados?"</p>
+<blockquote><p>"Container não é tendência técnica — é a infraestrutura padrão de qualquer produto digital sério. Saber o que é permite gerenciar decisões de escala e custo com inteligência."</p></blockquote>
+</div>
+  <div class="share-bar">
+    <div class="share-label">Gostou? Compartilha 👇</div>
+    <div class="share-btns">
+      <a href="https://wa.me/?text=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fcontainers-e-docker" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fcontainers-e-docker" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
+    </div>
+  </div>
+  <div class="academy-cta">
+    <div class="academy-cta-eyebrow">Quer se aprofundar mais?</div>
+    <div class="academy-cta-title">Faça a OMA Academy — é gratuito</div>
+    <div class="academy-cta-sub">30 módulos sobre o universo técnico que todo founder precisa entender. Certificado no LinkedIn ao final.</div>
+    <a href="/academy" class="academy-cta-btn">Começar agora →</a>
+  </div>
+  <div class="related-section">
+    <div class="related-title">Artigos relacionados</div>
+    <div class="related-grid"><a href="/blog/codigo-e-programacao" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Código e Programação para founders</div><div class="related-arrow">→</div></a><a href="/blog/logs-e-observabilidade" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Logs e Observabilidade</div><div class="related-arrow">→</div></a><a href="/blog/o-que-e-um-agente-de-ia" class="related-card"><div class="related-tag">Agentes</div><div class="related-title-text">O que é um Agente de IA</div><div class="related-arrow">→</div></a></div>
+  </div>
+</div>
+<div class="article-footer">
+  <a href="/">OMA Project</a> · <a href="/blog">Blog</a> · <a href="/academy">Academy</a>
+</div>
+<script>
+const p=new URLSearchParams(window.location.search);
+const v=p.get('volta');
+const b=document.getElementById('backBtn');
+if(v&&b){b.href='/academy?modulo='+v;b.textContent='← Voltar ao módulo '+v.toUpperCase();}
+</script>
+</body></html>

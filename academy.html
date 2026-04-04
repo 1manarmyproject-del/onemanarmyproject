@@ -2510,7 +2510,7 @@ function renderLesson(m){
   document.getElementById('lvTitle').textContent=m.title+' — '+m.sub;
   document.getElementById('lvAnalogy').textContent=m.analogy;
   // Botão de aprofundar — se tiver artigo no blog
-  const BLOG_MAP={'m13':'o-que-e-um-llm','m14':'prompt-engineering','m15':'modelos-de-ia-qual-usar','m16':'rag-bases-de-conhecimento','m19':'o-que-e-um-agente-de-ia','m20':'mcp-model-context-protocol'};
+  const BLOG_MAP={'m07':'codigo-e-programacao','m08':'containers-e-docker','m09':'variaveis-de-ambiente','m10':'filas-e-processamento-assincrono','m11':'logs-e-observabilidade','m12':'seguranca-digital-basica','m13':'o-que-e-um-llm','m14':'prompt-engineering','m15':'modelos-de-ia-qual-usar','m16':'rag-bases-de-conhecimento','m19':'o-que-e-um-agente-de-ia','m20':'mcp-model-context-protocol'};
   const blogSlug=BLOG_MAP[mid];
   const existingDeepen=document.getElementById('deepenBtn');
   if(existingDeepen)existingDeepen.remove();

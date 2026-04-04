@@ -1,6 +1,30 @@
 {
   "rewrites": [
     {
+      "source": "/blog/seguranca-digital-basica",
+      "destination": "/blog/seguranca-digital-basica.html"
+    },
+    {
+      "source": "/blog/logs-e-observabilidade",
+      "destination": "/blog/logs-e-observabilidade.html"
+    },
+    {
+      "source": "/blog/filas-e-processamento-assincrono",
+      "destination": "/blog/filas-e-processamento-assincrono.html"
+    },
+    {
+      "source": "/blog/variaveis-de-ambiente",
+      "destination": "/blog/variaveis-de-ambiente.html"
+    },
+    {
+      "source": "/blog/containers-e-docker",
+      "destination": "/blog/containers-e-docker.html"
+    },
+    {
+      "source": "/blog/codigo-e-programacao",
+      "destination": "/blog/codigo-e-programacao.html"
+    },
+    {
       "source": "/blog/founder-tecnico",
       "destination": "/blog/founder-tecnico.html"
     },
