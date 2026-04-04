@@ -199,7 +199,11 @@ footer a{color:var(--ash);text-decoration:none;}
       <h3>🐟 Recebemos seu briefing!</h3>
       <p>Nosso algoritmo vai simular <strong>43+ agentes autônomos</strong> debatendo sobre o seu cenário.</p>
       <p>Relatório completo em até <strong>24 horas úteis</strong>.</p>
+      <p>Você receberá um <strong>email de confirmação</strong> com o resumo da solicitação.</p>
       <p style="color:var(--fire);margin-top:16px;font-family:'Space Mono',monospace;font-size:11px;">Entraremos em contato para confirmar.</p>
+      <p style="margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);">
+        📧 <a href="mailto:atendimento@onemanarmy.com.br" style="color:var(--bone);text-decoration:underline;">atendimento@onemanarmy.com.br</a>
+      </p>
     </div>
   </div>
 </section>
@@ -271,5 +275,32 @@ async function submitPrediction() {
   document.getElementById('formSuccess').style.display = 'block';
 }
 </script>
+
+<!-- BIA WEBCHAT -->
+<script>
+(function(){
+  var btn = document.createElement('div');
+  btn.id = 'bia-float';
+  btn.innerHTML = '🦞';
+  btn.title = 'Falar com a Bia';
+  btn.style.cssText = 'position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:var(--fire);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:200;box-shadow:0 4px 16px rgba(232,112,58,.3);transition:transform .2s;';
+  btn.onmouseover = function(){ this.style.transform='scale(1.1)'; };
+  btn.onmouseout = function(){ this.style.transform='scale(1)'; };
+  btn.onclick = function(){
+    var iframe = document.getElementById('bia-chat');
+    if(iframe){
+      iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+    } else {
+      var f = document.createElement('iframe');
+      f.id = 'bia-chat';
+      f.src = 'https://onemanarmyproject.com.br/webchat?context=predictions';
+      f.style.cssText = 'position:fixed;bottom:90px;right:24px;width:380px;height:520px;border:1px solid var(--iron);border-radius:8px;z-index:200;background:var(--char);box-shadow:0 8px 32px rgba(0,0,0,.5);';
+      document.body.appendChild(f);
+    }
+  };
+  document.body.appendChild(btn);
+})();
+</script>
+
 </body>
 </html>
