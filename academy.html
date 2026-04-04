@@ -2557,8 +2557,8 @@ function renderLessonActions(){
   const m=MODS[ST.currentModule];
   const done=isDone(ST.currentModule);
   if(done && ST.lessonStep<4){
-    el.innerHTML=`<span class="done-badge">✅ Módulo já concluído</span>
-      <button class="btn-secondary" onclick="advanceLesson()">Rever próximo ▸</button>`;
+    el.innerHTML=`<span class="done-badge">✅ Módulo concluído</span>
+      <button class="btn-primary" onclick="goNextModule()">Próximo módulo ▸</button>`;
     return;
   }
   if(ST.lessonStep<3){
