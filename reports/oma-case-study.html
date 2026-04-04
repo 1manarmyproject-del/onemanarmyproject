@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA Predictions — Case Study: OMA Project</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700&family=Black+Ops+One&display=swap" rel="stylesheet">
+<style>
+:root{--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;--ash:#666;--fog:#999;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;--red:#c44;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.7;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 32px;position:relative;}
+.cover-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(232,112,58,.06) 0%,transparent 60%);}
+.cover h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5.5vw,64px);line-height:.95;color:var(--white);margin-bottom:16px;position:relative;z-index:1;}
+.cover h1 em{color:var(--fire);font-style:italic;}
+.cover h2{font-family:'Barlow',sans-serif;font-weight:300;font-size:clamp(14px,2vw,20px);color:var(--fog);max-width:560px;margin-bottom:40px;position:relative;z-index:1;}
+.badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:32px;position:relative;z-index:1;}
+.meta{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;}
+.meta-item{text-align:center;}
+.meta-num{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}
+.meta-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-top:2px;}
+.sec{max-width:800px;margin:0 auto;padding:64px 32px;}
+.sec-num{font-family:'Black Ops One',cursive;font-size:64px;color:var(--iron);line-height:1;}
+.sec-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--fire);text-transform:uppercase;margin-bottom:8px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,36px);color:var(--white);line-height:1.15;margin-bottom:24px;}
+.sec-title em{color:var(--fire);font-style:italic;}
+.divider{display:flex;align-items:center;gap:16px;max-width:800px;margin:0 auto;padding:0 32px;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--iron);}
+.divider-gem{width:7px;height:7px;background:var(--blood);transform:rotate(45deg);}
+.prose{font-size:15px;line-height:1.8;color:var(--bone);}
+.prose strong{color:var(--white);font-weight:600;}
+.prose em{color:var(--fire);font-style:italic;}
+.prose p{margin-bottom:14px;}
+.prose h3{font-family:'Barlow',sans-serif;font-weight:700;font-size:17px;color:var(--white);margin:28px 0 10px;}
+.quote{border-left:3px solid var(--blood);padding:16px 20px;margin:20px 0;background:rgba(122,34,4,.05);}
+.quote p{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--bone);line-height:1.7;}
+.quote cite{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);display:block;margin-top:6px;font-style:normal;}
+table{width:100%;border-collapse:collapse;margin:24px 0;}
+th{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);text-align:left;padding:10px 12px;border-bottom:2px solid var(--blood);}
+td{font-size:13px;padding:10px 12px;border-bottom:1px solid var(--iron);color:var(--bone);}
+tr:hover{background:rgba(232,112,58,.03);}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:24px 0;}
+@media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr);}}
+.metric{background:var(--coal);border:1px solid var(--iron);padding:20px 16px;text-align:center;}
+.metric-v{font-family:'Black Ops One',cursive;font-size:28px;color:var(--fire);line-height:1;}
+.metric-l{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.finding{background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--fire);padding:20px;margin:8px 0;}
+.finding h4{font-family:'Barlow',sans-serif;font-weight:700;font-size:14px;color:var(--white);margin-bottom:6px;}
+.finding p{font-size:13px;color:var(--fog);line-height:1.6;}
+.sent-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.sent-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);width:70px;text-align:right;}
+.sent-bar{flex:1;height:20px;background:var(--iron);border-radius:2px;display:flex;overflow:hidden;}
+.sent-neg{background:var(--red);height:100%;}
+.sent-pos{background:var(--green);height:100%;}
+footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
+footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;}
+.back{position:fixed;top:20px;left:20px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:2px;z-index:100;}
+.back:hover{color:var(--fire);}
+</style></head><body>
+
+<a href="/solutions" class="back">← SOLUTIONS</a>
+
+<section class="cover">
+<div class="cover-glow"></div>
+<p class="badge">🔮 OMA Predictions — Case Study</p>
+<h1>Projeção de <em>Impacto</em><br>no Mercado de <em>PMEs</em></h1>
+<h2>Como 43 agentes autônomos de IA simularam a reação do mercado brasileiro ao One Man Army Project</h2>
+<div class="meta">
+<div class="meta-item"><div class="meta-num">43</div><div class="meta-lbl">Agentes</div></div>
+<div class="meta-item"><div class="meta-num">334</div><div class="meta-lbl">Ações</div></div>
+<div class="meta-item"><div class="meta-num">44</div><div class="meta-lbl">Entidades</div></div>
+<div class="meta-item"><div class="meta-num">15</div><div class="meta-lbl">Rounds</div></div>
+</div>
+<p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--steel);margin-top:48px;position:relative;z-index:1;">Abril 2026 · Gerado por OMA Predictions</p>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<section class="sec">
+<div class="sec-lbl">Sumário Executivo</div>
+<div class="sec-title">6 descobertas que definem os <em>próximos meses</em></div>
+<div class="finding"><h4>01 — Adoção segmentada</h4><p>Condomínios e consultórios lideram. Advocacia é o mais resistente — 12-18 meses de lag.</p></div>
+<div class="finding"><h4>02 — Narrativa polarizada</h4><p>"Nunca Programei Nada" gera identificação (55%) mas também dúvida de robustez (45%).</p></div>
+<div class="finding"><h4>03 — Ecossistema é o moat</h4><p>Academy + Blog + ZipTalk + Smart Noter — nenhum concorrente tem educação + ferramenta + agentes.</p></div>
+<div class="finding"><h4>04 — Concorrentes reagem em 3-4 meses</h4><p>UiPath e Automation Anywhere vão baixar preços. Consultorias vão oferecer "integração com IA".</p></div>
+<div class="finding"><h4>05 — Ameaça psicológica > tecnológica</h4><p>78% de sentimento negativo nos primeiros 2 meses. Inverte com cases de ROI reais.</p></div>
+<div class="finding"><h4>06 — Path claro para 10 clientes</h4><p>Mês 1-2: indicações. Mês 3-4: condomínios e clínicas. Mês 5-6: penetração de ~22%.</p></div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<section class="sec">
+<div class="sec-num">01</div>
+<div class="sec-lbl">Adoção por Segmento</div>
+<div class="sec-title">Quem compra <em>primeiro</em></div>
+<table>
+<thead><tr><th>#</th><th>Segmento</th><th>Velocidade</th><th>ROI</th></tr></thead>
+<tbody>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">1</td><td><strong>Condomínios</strong></td><td>Agressiva</td><td>40% redução staff</td></tr>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">2</td><td><strong>Consultórios</strong></td><td>Rápida</td><td>40%+ eficiência</td></tr>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">3</td><td><strong>Distribuidores</strong></td><td>Moderada+</td><td>20-30% custos</td></tr>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">4</td><td><strong>Óticas</strong></td><td>Moderada</td><td>30-40% estoque</td></tr>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">5</td><td><strong>Shopping</strong></td><td>Moderada</td><td>15% energia</td></tr>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">6</td><td><strong>Franquias</strong></td><td>Moderada-</td><td>Padronização</td></tr>
+<tr><td style="font-family:'Black Ops One';color:var(--fire)">7</td><td><strong>Advocacia</strong></td><td>Lenta (12-18m)</td><td>20-30% custo</td></tr>
+</tbody>
+</table>
+<div class="quote"><p>"Automatizar requests de manutenção economizaria 40% do tempo da equipe — um pain point enorme para condomínios médios."</p><cite>— Agente simulado: Condomínios</cite></div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<section class="sec">
+<div class="sec-num">02</div>
+<div class="sec-lbl">Competição</div>
+<div class="sec-title">Como os concorrentes vão <em>reagir</em></div>
+<div class="metrics">
+<div class="metric"><div class="metric-v">80%+</div><div class="metric-l">Margem</div></div>
+<div class="metric"><div class="metric-v">48h</div><div class="metric-l">Onboarding</div></div>
+<div class="metric"><div class="metric-v">5x</div><div class="metric-l">Mais barato</div></div>
+<div class="metric"><div class="metric-v">24/7</div><div class="metric-l">Disponível</div></div>
+</div>
+<div class="prose">
+<h3>Timeline competitivo</h3>
+<p><strong>Mês 1-2:</strong> Consultorias ignoram. UiPath classifica como "nicho irrelevante".</p>
+<p><strong>Mês 3-4:</strong> 72% das consultorias adicionam "treinamento de IA". UiPath lança pacote SME.</p>
+<p><strong>Mês 5-6:</strong> Pressão de preço 30-40% em RPA tradicional. Pay-per-use vira benchmark.</p>
+</div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<section class="sec">
+<div class="sec-num">03</div>
+<div class="sec-lbl">Percepção</div>
+<div class="sec-title">A batalha é <em>psicológica</em></div>
+<div style="margin:24px 0;">
+<div class="sent-row"><div class="sent-lbl">Mês 1-2</div><div class="sent-bar"><div class="sent-neg" style="width:78%"></div><div class="sent-pos" style="width:22%"></div></div></div>
+<div class="sent-row"><div class="sent-lbl">Mês 3-4</div><div class="sent-bar"><div class="sent-neg" style="width:55%"></div><div class="sent-pos" style="width:45%"></div></div></div>
+<div class="sent-row"><div class="sent-lbl">Mês 5-6</div><div class="sent-bar"><div class="sent-neg" style="width:38%"></div><div class="sent-pos" style="width:62%"></div></div></div>
+</div>
+<div class="prose">
+<h3>Top 5 objeções</h3>
+<p><strong>1. "Vai substituir funcionários?"</strong> — Posicionar como complemento.</p>
+<p><strong>2. "E se der errado?"</strong> — Escalação automática + SLA.</p>
+<p><strong>3. "Um homem só?"</strong> — Infra distribuída + roadmap de contratação.</p>
+<p><strong>4. "Dados seguros?"</strong> — LGPD, criptografia, auditoria contínua.</p>
+<p><strong>5. "Não entendo de tech"</strong> — Academy com 30+ módulos gratuitos.</p>
+</div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<section class="sec">
+<div class="sec-num">04</div>
+<div class="sec-lbl">Estratégia</div>
+<div class="sec-title">Os próximos <em>6 meses</em></div>
+<div class="prose">
+<h3>Mês 1-2 — Consolidar</h3>
+<p>Fechar case Armazém da Cerveja. Atacar 3-5 administradoras de condomínio. Publicar 3 cases de ROI. Migrar WhatsApp.</p>
+<h3>Mês 3-4 — Escalar</h3>
+<p>Templates por segmento. SEO com 30+ artigos. Ferramentas gratuitas como funil. Primeiro hire.</p>
+<h3>Mês 5-6 — Expandir</h3>
+<p>Predictions como serviço. Implementadores independentes. Pitch franquias. Considerar round.</p>
+</div>
+</section>
+
+<footer>
+<p>OMA Predictions · MiroFish + DeepSeek V3 · Abril 2026</p>
+<p style="margin-top:4px;"><a href="/solutions" style="color:var(--fire);text-decoration:none;">← Voltar para Soluções</a></p>
+</footer>
+</body></html>

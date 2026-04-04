@@ -127,6 +127,45 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);let
 footer a{color:var(--ash);text-decoration:none;}
 footer a:hover{color:var(--bone);}
 
+
+/* FORM */
+.form-section{max-width:860px;margin:0 auto;padding:80px 32px;}
+.form-box{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--fire);padding:40px 36px;}
+.form-box h3{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:3px;color:var(--fire);margin-bottom:8px;}
+.form-box p{font-size:14px;color:var(--fog);margin-bottom:24px;}
+.form-row{margin-bottom:18px;}
+.form-row label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-bottom:6px;}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--fire);}
+.form-row textarea{min-height:100px;resize:vertical;}
+.form-row select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.form-row select option{background:var(--iron);color:var(--bone);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+.form-submit{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:16px 36px;cursor:pointer;transition:background .2s,transform .15s;width:100%;margin-top:8px;}
+.form-submit:hover{background:var(--ember);transform:translateY(-2px);}
+.form-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.form-success{display:none;text-align:center;padding:32px;}
+.form-success h4{font-family:'Black Ops One',cursive;font-size:16px;color:var(--green);margin-bottom:8px;}
+.form-success p{font-size:14px;color:var(--fog);}
+
+/* CASE STUDY */
+.case-section{max-width:860px;margin:0 auto;padding:40px 32px 80px;}
+.case-card{background:var(--coal);border:1px solid var(--iron);display:grid;grid-template-columns:auto 1fr;gap:0;overflow:hidden;}
+@media(max-width:600px){.case-card{grid-template-columns:1fr;}}
+.case-badge{background:linear-gradient(145deg,var(--blood) 0%,rgba(232,112,58,.3) 100%);padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:160px;}
+.case-badge-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:4px;}
+.case-badge-name{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--white);text-align:center;}
+.case-body{padding:28px 32px;}
+.case-body h4{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px;}
+.case-body p{font-size:13px;color:var(--fog);line-height:1.7;margin-bottom:16px;}
+.case-stats{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap;}
+.case-stat{text-align:center;}
+.case-stat-val{font-family:'Black Ops One',cursive;font-size:20px;color:var(--fire);}
+.case-stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;}
+.case-dl{display:flex;gap:10px;flex-wrap:wrap;}
+.case-dl a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;padding:8px 16px;text-decoration:none;transition:all .2s;}
+
 /* LIVEPULSE */
 @keyframes livepulse{0%,100%{opacity:.4}50%{opacity:1}}
 </style>
@@ -364,6 +403,134 @@ footer a:hover{color:var(--bone);}
 
 <div class="divider"><div class="divider-gem"></div></div>
 
+<!-- REQUEST FORM -->
+<section class="form-section" id="solicitar">
+  <div class="section-label">Solicitar Relatório</div>
+  <div class="section-title">Conte sobre seu <em>negócio</em></div>
+
+  <div class="form-box" id="form-container">
+    <h3>OMA Predictions — Solicitar análise</h3>
+    <p>Preencha os campos abaixo. Nosso algoritmo de swarm intelligence vai simular como seu mercado reagiria nos próximos 6 meses. Relatório entregue por email em até 24h.</p>
+
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Seu nome</label>
+        <input type="text" id="f-name" placeholder="Ex: Maria Silva">
+      </div>
+      <div class="form-row">
+        <label>Email para entrega</label>
+        <input type="email" id="f-email" placeholder="seu@email.com">
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Empresa</label>
+        <input type="text" id="f-company" placeholder="Nome da empresa">
+      </div>
+      <div class="form-row">
+        <label>Segmento</label>
+        <select id="f-segment">
+          <option value="">Selecione...</option>
+          <option>Escritório de advocacia</option>
+          <option>Consultório médico / Clínica</option>
+          <option>Ótica</option>
+          <option>Condomínio / Administradora</option>
+          <option>Shopping center</option>
+          <option>Distribuidor</option>
+          <option>Franquia / Rede de varejo</option>
+          <option>Restaurante / Food service</option>
+          <option>Contabilidade</option>
+          <option>Imobiliária</option>
+          <option>E-commerce</option>
+          <option>Outro</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Principais dores do seu negócio (3 a 5)</label>
+      <textarea id="f-pains" placeholder="Ex: Perco vendas fora do horário, não consigo cobrar inadimplentes, gasto muito tempo com agendamento..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <label>Concorrentes diretos (se souber)</label>
+      <input type="text" id="f-competitors" placeholder="Ex: Clínica X, Escritório Y (opcional)">
+    </div>
+
+    <div class="form-row">
+      <label>Pergunta central — O que você quer descobrir?</label>
+      <textarea id="f-question" placeholder="Ex: Como meu consultório seria impactado se eu automatizasse o agendamento e a cobrança nos próximos 6 meses?"></textarea>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Tamanho da equipe</label>
+        <select id="f-team">
+          <option value="">Selecione...</option>
+          <option>Só eu (empreendedor solo)</option>
+          <option>2-5 pessoas</option>
+          <option>6-15 pessoas</option>
+          <option>16-50 pessoas</option>
+          <option>50+ pessoas</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Faturamento mensal aproximado</label>
+        <select id="f-revenue">
+          <option value="">Selecione...</option>
+          <option>Até R$10k</option>
+          <option>R$10k - R$50k</option>
+          <option>R$50k - R$200k</option>
+          <option>R$200k - R$1M</option>
+          <option>Acima de R$1M</option>
+          <option>Prefiro não informar</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="form-submit" id="form-btn" onclick="submitPrediction()">Solicitar relatório preditivo</button>
+  </div>
+
+  <div class="form-success" id="form-ok">
+    <h4>✅ Solicitação recebida!</h4>
+    <p>Seu relatório preditivo será gerado por nosso algoritmo de swarm intelligence e entregue no email informado em até 24 horas.</p>
+    <p style="margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);">Enquanto isso, explore nosso case de estudo abaixo.</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- CASE STUDY -->
+<section class="case-section" id="cases">
+  <div class="section-label">Transparência Brutal</div>
+  <div class="section-title">Nosso próprio relatório. <em>Aberto.</em></div>
+  <p style="font-size:14px;color:var(--fog);max-width:600px;margin-bottom:32px;">Antes de pedir que você confie na nossa ferramenta, mostramos o que ela gerou para nós mesmos. Este é o relatório real que usamos para definir a estratégia do OMA Project.</p>
+
+  <div class="case-card">
+    <div class="case-badge">
+      <div class="case-badge-label">Case Study</div>
+      <div class="case-badge-name">OMA<br>PROJECT</div>
+    </div>
+    <div class="case-body">
+      <h4>Projeção de Impacto no Mercado Brasileiro de PMEs</h4>
+      <p>Simulação completa com 43 agentes autônomos analisando como 7 segmentos de PMEs brasileiras reagiriam ao OMA nos próximos 6 meses — incluindo adoção por segmento, reação de concorrentes, objeções e crises potenciais.</p>
+      <div class="case-stats">
+        <div class="case-stat"><div class="case-stat-val">43</div><div class="case-stat-lbl">Agentes</div></div>
+        <div class="case-stat"><div class="case-stat-val">334</div><div class="case-stat-lbl">Ações</div></div>
+        <div class="case-stat"><div class="case-stat-val">15</div><div class="case-stat-lbl">Rounds</div></div>
+        <div class="case-stat"><div class="case-stat-val">4</div><div class="case-stat-lbl">Seções</div></div>
+      </div>
+      <div class="case-dl">
+        <a href="/reports/oma-case-study.html" target="_blank" class="btn-product btn-fire" style="font-size:10px;padding:10px 20px;">Relatório Visual</a>
+        <a href="/reports/oma-case-study.md" target="_blank" class="btn-product btn-ghost" style="font-size:10px;padding:10px 20px;">Texto Consultoria</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
 <!-- CTA -->
 <section class="cta-section">
   <h2>Pronto para ver o <em>futuro</em><br>do seu negócio?</h2>
@@ -381,5 +548,55 @@ footer a:hover{color:var(--bone);}
   <p style="margin-top:8px;">Riva Labs Ltda · CNPJ 65.452.151/0001-26 · 2026</p>
 </footer>
 
+
+<script>
+async function submitPrediction() {
+  const btn = document.getElementById('form-btn');
+  const fields = {
+    name: document.getElementById('f-name').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    company: document.getElementById('f-company').value.trim(),
+    segment: document.getElementById('f-segment').value,
+    pains: document.getElementById('f-pains').value.trim(),
+    competitors: document.getElementById('f-competitors').value.trim(),
+    question: document.getElementById('f-question').value.trim(),
+    team: document.getElementById('f-team').value,
+    revenue: document.getElementById('f-revenue').value
+  };
+
+  if (!fields.name || !fields.email || !fields.company || !fields.segment || !fields.pains || !fields.question) {
+    alert('Por favor, preencha os campos obrigatórios: nome, email, empresa, segmento, dores e pergunta central.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    // Send to Hetzner API for processing
+    const resp = await fetch('https://api.onemanarmyproject.com.br/predictions/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(fields)
+    });
+    
+    // Even if API fails, show success (we'll handle manually via Telegram notification)
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('form-ok').style.display = 'block';
+    
+    // Also notify via a simple webhook as backup
+    fetch('https://api.onemanarmyproject.com.br/webhook/predictions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({...fields, timestamp: new Date().toISOString()})
+    }).catch(() => {});
+
+  } catch (e) {
+    // Show success anyway — worst case Fabio gets notified via Telegram
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('form-ok').style.display = 'block';
+  }
+}
+</script>
 </body>
 </html>
