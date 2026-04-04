@@ -39,6 +39,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .divider{display:flex;align-items:center;gap:16px;max-width:860px;margin:0 auto;padding:0 32px;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--iron);}
 .divider-gem{width:6px;height:6px;background:var(--blood);transform:rotate(45deg);}
+@media(max-width:600px){.pricing-grid{grid-template-columns:1fr !important;}}
 .pricing-box{background:var(--iron);border:1px solid var(--steel);padding:32px;text-align:center;max-width:400px;margin:0 auto;}
 .pricing-badge{display:inline-block;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:4px 12px;margin-bottom:12px;}
 .pricing-old{font-family:'Space Mono',monospace;font-size:13px;color:var(--ash);text-decoration:line-through;}
@@ -107,17 +108,32 @@ footer a{color:var(--ash);text-decoration:none;}
 
 <!-- PRICING -->
 <section class="sec">
-  <div class="pricing-box">
-    <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
-    <div class="pricing-old">De R$ 2.599,00</div>
-    <div class="pricing-new">R$ 1.299<span>,00</span></div>
-    <div class="pricing-detail">5 relatórios preditivos · Menos de R$260 cada</div>
-    <ul class="pricing-list">
-      <li>5 relatórios OMA Predictions completos</li>
-      <li>100 minutos de Scribe by OMA</li>
-      <li>10 atas inteligentes OMA Recap</li>
-      <li>Suporte via WhatsApp</li>
-    </ul>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:700px;margin:0 auto;">
+    <div class="pricing-box" style="max-width:none;">
+      <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
+      <div class="pricing-old">De R$ 2.599,00</div>
+      <div class="pricing-new">R$ 1.299<span>,00</span></div>
+      <div class="pricing-detail">5 relatórios · R$260 cada</div>
+      <ul class="pricing-list">
+        <li>5 relatórios OMA Predictions</li>
+        <li>100 min Scribe by OMA</li>
+        <li>10 atas OMA Recap</li>
+        <li>Suporte via WhatsApp</li>
+      </ul>
+    </div>
+    <div class="pricing-box" style="max-width:none;border:1px solid var(--fire);">
+      <div class="pricing-badge" style="background:var(--green);">⚡ Plano Profissional</div>
+      <div class="pricing-old">De R$ 7.999,00</div>
+      <div class="pricing-new">R$ 3.999<span>,00</span></div>
+      <div class="pricing-detail">30 relatórios · 1 por dia · R$133 cada</div>
+      <ul class="pricing-list">
+        <li>30 relatórios OMA Predictions</li>
+        <li>500 min Scribe by OMA</li>
+        <li>30 atas OMA Recap</li>
+        <li>Suporte prioritário</li>
+        <li>Relatórios em até 12h</li>
+      </ul>
+    </div>
   </div>
 </section>
 
