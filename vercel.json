@@ -1,6 +1,26 @@
 {
   "rewrites": [
     {
+      "source": "/blog/como-precificar-produto-ia",
+      "destination": "/blog/como-precificar-produto-ia.html"
+    },
+    {
+      "source": "/blog/arquitetura-de-produto-digital",
+      "destination": "/blog/arquitetura-de-produto-digital.html"
+    },
+    {
+      "source": "/blog/sistemas-multi-agentes",
+      "destination": "/blog/sistemas-multi-agentes.html"
+    },
+    {
+      "source": "/blog/automacao-de-workflows",
+      "destination": "/blog/automacao-de-workflows.html"
+    },
+    {
+      "source": "/blog/como-avaliar-qualidade-ia",
+      "destination": "/blog/como-avaliar-qualidade-ia.html"
+    },
+    {
       "source": "/blog/o-founder-tecnico",
       "destination": "/blog/o-founder-tecnico.html"
     },
@@ -95,30 +115,6 @@
     {
       "source": "/blog/codigo-e-programacao",
       "destination": "/blog/codigo-e-programacao.html"
-    },
-    {
-      "source": "/blog/founder-tecnico",
-      "destination": "/blog/founder-tecnico.html"
-    },
-    {
-      "source": "/blog/metricas-produto-digital",
-      "destination": "/blog/metricas-produto-digital.html"
-    },
-    {
-      "source": "/blog/o-que-e-rag",
-      "destination": "/blog/o-que-e-rag.html"
-    },
-    {
-      "source": "/blog/seguranca-digital-pme",
-      "destination": "/blog/seguranca-digital-pme.html"
-    },
-    {
-      "source": "/blog/automatizar-processos-pme",
-      "destination": "/blog/automatizar-processos-pme.html"
-    },
-    {
-      "source": "/blog/o-que-e-docker",
-      "destination": "/blog/o-que-e-docker.html"
     },
     {
       "source": "/blog/modelos-de-ia-qual-usar",

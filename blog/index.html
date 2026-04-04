@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OMA Blog — Tech Fluency para Founders</title>
-<meta name="description" content="30 artigos sobre IA, agentes, automação e tecnologia para founders e executivos de PME. Sem jargão. Com analogias do mundo real.">
+<meta name="description" content="30 artigos sobre IA, agentes, automação e tecnologia para founders e executivos de PME. Sem jargão, com analogias do mundo real.">
 <meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
 <link rel="canonical" href="https://onemanarmyproject.com.br/blog">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
@@ -21,29 +22,28 @@ body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);}
 .topbar-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;}
 .topbar-link:hover{color:var(--fire);}
 .topbar-cta{background:var(--fire);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
-.topbar-cta:hover{background:var(--ember);}
 .hero{max-width:960px;margin:0 auto;padding:48px 24px 32px;}
 .hero-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:10px;}
 .hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,52px);color:var(--text);margin-bottom:10px;}
 .hero-sub{font-size:16px;color:var(--text3);max-width:520px;line-height:1.6;margin-bottom:8px;}
-.hero-author{font-size:13px;color:var(--text3);}
-.hero-author strong{color:var(--fire);}
+.hero-count{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);}
+.hero-count span{color:var(--fire);font-weight:700;}
 .wrap{max-width:960px;margin:0 auto;padding:0 24px 80px;}
-.phase-section{margin-bottom:40px;}
-.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+.phase-block{margin-bottom:40px;}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border);}
 .phase-icon{font-size:20px;}
-.phase-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text4,#bbb);}
 .phase-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:var(--text);}
-.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
-.article-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;text-decoration:none;transition:box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:8px;}
+.phase-sub{font-size:12px;color:var(--text3);margin-top:2px;}
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.article-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-decoration:none;transition:box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:8px;}
 .article-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px);}
 .card-tag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);font-weight:700;}
 .card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--text);line-height:1.2;}
 .card-desc{font-size:12px;color:var(--text3);line-height:1.5;flex:1;}
 .card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
-.card-read{font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);}
+.card-read{font-family:'Space Mono',monospace;font-size:9px;color:var(--text4,#bbb);}
 .card-arrow{color:var(--fire);font-size:14px;}
-.academy-banner{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:32px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.academy-banner{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:40px 0 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
 .banner-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;color:#fff;}
 .banner-sub{font-size:14px;color:rgba(255,255,255,.85);margin-top:4px;}
 .banner-btn{background:#fff;color:var(--fire);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:12px 24px;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0;}
@@ -59,80 +59,107 @@ body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);}
     <a href="/academy" class="topbar-cta">Academy grátis →</a>
   </div>
 </div>
+
 <div class="hero">
   <div class="hero-eyebrow">OMA Blog</div>
   <h1 class="hero-title">Tech Fluency<br>para Founders</h1>
-  <p class="hero-sub">30 artigos sobre IA, agentes, automação e tecnologia — com analogias do mundo real, sem jargão.</p>
-  <p class="hero-author">Por <strong>Fabio Xavier</strong> · Co-criado com OMA</p>
+  <p class="hero-sub">Conceitos técnicos explicados com analogias do mundo real. Sem jargão. Para quem lidera negócios.</p>
+  <div class="hero-count"><span>30 artigos</span> · 5 fases · da infraestrutura ao founder técnico</div>
 </div>
+
 <div class="wrap">
 
-<div class="phase-section">
-  <div class="phase-header"><span class="phase-icon">🧠</span><div><div class="phase-label">Fase 1</div><div class="phase-name">Inteligência Artificial</div></div></div>
-  <div class="articles-grid">
-    <a href="/blog/o-que-e-um-llm" class="article-card"><div class="card-tag">IA</div><div class="card-title">O que é um LLM</div><div class="card-desc">O estagiário que leu tudo mas nunca viveu nada. Como LLMs funcionam e por que tokens importam.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/prompt-engineering" class="article-card"><div class="card-tag">IA</div><div class="card-title">Prompt Engineering</div><div class="card-desc">A arte do briefing perfeito. Role + Context + Task + Format — a estrutura que funciona.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/modelos-de-ia-qual-usar" class="article-card"><div class="card-tag">IA</div><div class="card-title">Modelos de IA: qual usar</div><div class="card-desc">Claude, GPT, Gemini, Llama. Custo, capacidade e quando usar cada um.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/rag-bases-de-conhecimento" class="article-card"><div class="card-tag">IA</div><div class="card-title">RAG e Bases de Conhecimento</div><div class="card-desc">Como dar memória real ao agente. Pendrive antes da reunião.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/fine-tuning-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Fine-tuning de IA</div><div class="card-desc">Quando treinar seu próprio modelo — e quando prompt engineering já resolve.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/avaliacao-qualidade-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Avaliação e Qualidade</div><div class="card-desc">Evals, métricas e monitoramento. Como saber se a IA está funcionando.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+  <!-- FASE 1: IA -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-icon">🧠</span>
+      <div><div class="phase-name">Inteligência Artificial</div><div class="phase-sub">O que LLMs realmente são e fazem</div></div>
+    </div>
+    <div class="articles-grid">
+      <a href="/blog/o-que-e-um-llm" class="article-card"><div class="card-tag">IA</div><div class="card-title">O que é um LLM</div><div class="card-desc">O estagiário que leu tudo mas nunca viveu nada. O que são Large Language Models e como isso muda tudo.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/prompt-engineering" class="article-card"><div class="card-tag">IA</div><div class="card-title">Prompt Engineering</div><div class="card-desc">A arte do briefing perfeito. Role, Context, Task, Format — a estrutura que funciona na primeira vez.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/modelos-de-ia-qual-usar" class="article-card"><div class="card-tag">IA</div><div class="card-title">Modelos de IA — qual usar</div><div class="card-desc">Claude, GPT, Gemini, Llama. Guia prático para founders tomarem a decisão certa sem se perder.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/rag-bases-de-conhecimento" class="article-card"><div class="card-tag">IA</div><div class="card-title">RAG — memória real para IA</div><div class="card-desc">Como dar um pendrive de documentos para o modelo antes da reunião. Menos alucinação, mais precisão.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/fine-tuning-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Fine-tuning</div><div class="card-desc">Quando treinar seu próprio modelo faz sentido — e quando prompt + RAG já resolve melhor.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/avaliacao-qualidade-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Avaliação e Qualidade</div><div class="card-desc">Como saber se a IA está funcionando. Evals, métricas e monitoramento em produção.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+    </div>
   </div>
-</div>
 
-<div class="phase-section">
-  <div class="phase-header"><span class="phase-icon">🤖</span><div><div class="phase-label">Fase 2</div><div class="phase-name">Agentes e Automação</div></div></div>
-  <div class="articles-grid">
-    <a href="/blog/o-que-e-um-agente-de-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">O que é um Agente de IA</div><div class="card-desc">Além do chatbot. Chatbot segue menu, agente decide o caminho.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/mcp-model-context-protocol" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">MCP — Model Context Protocol</div><div class="card-desc">O USB da IA. Como agentes se conectam a qualquer ferramenta.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/automacao-de-processos" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Automação de Processos</div><div class="card-desc">Trigger → Lógica → Ação → Monitoramento. A esteira da sua empresa.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/multi-agentes-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Sistemas Multi-agentes</div><div class="card-desc">CEO e gerentes especializados. Quando um agente não basta.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/memoria-de-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Memória de Agentes</div><div class="card-desc">RAM, HD e biblioteca. O que o agente lembra entre conversas.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/seguranca-em-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Segurança em Agentes</div><div class="card-desc">Prompt injection, mínimo privilégio e audit trail. O que pode dar errado.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+  <!-- FASE 2: Agentes -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-icon">🤖</span>
+      <div><div class="phase-name">Agentes e Automação</div><div class="phase-sub">Da IA passiva ao agente que age</div></div>
+    </div>
+    <div class="articles-grid">
+      <a href="/blog/o-que-e-um-agente-de-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">O que é um Agente de IA</div><div class="card-desc">Além do chatbot. A diferença entre seguir um menu e receber um objetivo e decidir os passos.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/mcp-model-context-protocol" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">MCP — o USB da IA</div><div class="card-desc">O protocolo que padroniza como agentes se conectam a ferramentas. O ramal interno da empresa.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/automacao-de-processos" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Automação de Processos</div><div class="card-desc">A esteira da fábrica digital. Trigger, lógica, ação e monitoramento — toda automação começa aqui.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/multi-agentes-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Multi-agentes</div><div class="card-desc">Quando um agente não basta. CEO orquestrador + gerentes especialistas — a estrutura de empresa.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/memoria-de-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Memória de Agentes</div><div class="card-desc">RAM, HD e biblioteca. Os três tipos de memória e por que contextos separados evitam bugs bizarros.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/seguranca-em-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Segurança em Agentes</div><div class="card-desc">Prompt injection, mínimo privilégio e audit trail. O que pode dar errado quando agentes têm autonomia.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+    </div>
   </div>
-</div>
 
-<div class="phase-section">
-  <div class="phase-header"><span class="phase-icon">🌐</span><div><div class="phase-label">Fase 3</div><div class="phase-name">O Mundo Digital</div></div></div>
-  <div class="articles-grid">
-    <a href="/blog/o-que-e-um-servidor" class="article-card"><div class="card-tag">Web</div><div class="card-title">O que é um Servidor</div><div class="card-desc">A loja que nunca fecha. Cloud, latência, uptime e os modelos IaaS/PaaS/SaaS.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/dns-e-dominios" class="article-card"><div class="card-tag">Web</div><div class="card-title">DNS e Domínios</div><div class="card-desc">A lista telefônica da internet. Como domínios, subdomínios e Cloudflare funcionam.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/http-e-apis" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTP e APIs</div><div class="card-desc">O cardápio do restaurante. Como sistemas se comunicam via GET, POST e JSON.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/https-e-seguranca" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTPS e Segurança</div><div class="card-desc">Carta aberta vs envelope lacrado. SSL, autenticação e autorização.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/cloud-e-infraestrutura" class="article-card"><div class="card-tag">Web</div><div class="card-title">Cloud e Infraestrutura</div><div class="card-desc">Alugar em vez de construir. IaaS, PaaS, SaaS, CDN e escalabilidade.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/banco-de-dados" class="article-card"><div class="card-tag">Web</div><div class="card-title">Banco de Dados</div><div class="card-desc">O arquivo morto pesquisável em milissegundos. SQL vs NoSQL, backup e índices.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+  <!-- FASE 3: O Mundo Digital -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-icon">🌐</span>
+      <div><div class="phase-name">O Mundo Digital</div><div class="phase-sub">Como a internet funciona de verdade</div></div>
+    </div>
+    <div class="articles-grid">
+      <a href="/blog/o-que-e-um-servidor" class="article-card"><div class="card-tag">Web</div><div class="card-title">O que é um Servidor</div><div class="card-desc">A loja que nunca fecha. Cloud, IaaS, PaaS, latência e uptime — o vocabulário de infraestrutura.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/dns-e-dominios" class="article-card"><div class="card-tag">Web</div><div class="card-title">DNS e Domínios</div><div class="card-desc">A lista telefônica da internet. Como domínios, subdomínios e Cloudflare funcionam nos bastidores.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/http-e-apis" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTP e APIs</div><div class="card-desc">O cardápio do restaurante digital. GET, POST, JSON e por que toda integração moderna fala REST.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/https-e-seguranca" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTPS e Segurança</div><div class="card-desc">O envelope lacrado da internet. Por que HTTP sem S é carta aberta e o que SSL realmente protege.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/cloud-e-infraestrutura" class="article-card"><div class="card-tag">Web</div><div class="card-title">Cloud e Infraestrutura</div><div class="card-desc">O mercado imobiliário digital. IaaS, PaaS, SaaS, CDN e edge — como escolher o modelo certo.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/banco-de-dados" class="article-card"><div class="card-tag">Web</div><div class="card-title">Banco de Dados</div><div class="card-desc">O arquivo morto pesquisável em milissegundos. SQL, NoSQL, índices e backup — o mínimo para founders.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+    </div>
   </div>
-</div>
 
-<div class="phase-section">
-  <div class="phase-header"><span class="phase-icon">⚙️</span><div><div class="phase-label">Fase 4</div><div class="phase-name">Dados e Sistemas</div></div></div>
-  <div class="articles-grid">
-    <a href="/blog/codigo-e-programacao" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Código e Programação</div><div class="card-desc">A receita ultra-precisa. Git, linguagens e como vibe coding mudou o jogo.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/containers-e-docker" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Docker e Containers</div><div class="card-desc">A franquia do mundo digital. Por que "no meu computador funcionava" acabou.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/variaveis-de-ambiente" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Variáveis de Ambiente</div><div class="card-desc">A combinação do cofre. Por que senhas nunca entram no código.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/filas-e-processamento-assincrono" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Filas e Processamento</div><div class="card-desc">A senha de banco. Processamento assíncrono e por que usuários não esperam.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/logs-e-observabilidade" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Logs e Observabilidade</div><div class="card-desc">O diário de bordo do avião. Métricas, alertas e saber antes de quebrar.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/seguranca-digital-basica" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Segurança Digital Básica</div><div class="card-desc">SQL injection, LGPD e mínimo privilégio. As portas que precisam estar fechadas.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+  <!-- FASE 4: Dados e Sistemas -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-icon">⚙️</span>
+      <div><div class="phase-name">Dados e Sistemas</div><div class="phase-sub">Como as peças se conectam</div></div>
+    </div>
+    <div class="articles-grid">
+      <a href="/blog/codigo-e-programacao" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Código e Programação</div><div class="card-desc">A receita ultra-precisa. O que todo founder precisa entender sobre Git, build, deploy e vibe coding.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/containers-e-docker" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Docker e Containers</div><div class="card-desc">A franquia do software. Como containers resolvem o "no meu computador funcionava" de vez.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/variaveis-de-ambiente" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Variáveis de Ambiente</div><div class="card-desc">Os segredos que não entram no código. Por que senhas no GitHub custam fortunas e como evitar.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/filas-e-processamento-assincrono" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Filas e Processamento</div><div class="card-desc">A senha de banco digital. Por que usuários não podem esperar e como filas resolvem operações lentas.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/logs-e-observabilidade" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Logs e Observabilidade</div><div class="card-desc">A caixa preta do produto. Sem logs você está no escuro. Com alertas você sabe antes de quebrar.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/seguranca-digital-basica" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Segurança Digital Básica</div><div class="card-desc">SQL injection, LGPD, mínimo privilégio. As portas que precisam estar fechadas em qualquer PME.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+    </div>
   </div>
-</div>
 
-<div class="phase-section">
-  <div class="phase-header"><span class="phase-icon">🚀</span><div><div class="phase-label">Fase 5</div><div class="phase-name">Construir e Escalar</div></div></div>
-  <div class="articles-grid">
-    <a href="/blog/arquitetura-de-produto" class="article-card"><div class="card-tag">Construção</div><div class="card-title">Arquitetura de Produto</div><div class="card-desc">O projeto antes da obra. Monolito vs microsserviços e API-first design.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/deploy-e-cicd" class="article-card"><div class="card-tag">Construção</div><div class="card-title">Deploy e CI/CD</div><div class="card-desc">A esteira de qualidade. Pipelines, testes automáticos e feature flags.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/precificacao-produtos-ia" class="article-card"><div class="card-tag">Negócio</div><div class="card-title">Precificação de Produtos de IA</div><div class="card-desc">Quanto cobrar quando IA custa por uso. Tokens, margens e super-usuários.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/escala-e-onboarding" class="article-card"><div class="card-tag">Negócio</div><div class="card-title">Escala e Onboarding</div><div class="card-desc">Crescer sem quebrar. Multi-tenancy, time-to-value e replicabilidade.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/metricas-que-importam" class="article-card"><div class="card-tag">Negócio</div><div class="card-title">Métricas que Importam</div><div class="card-desc">MRR, churn, LTV/CAC e North Star Metric. O painel de controle do produto.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-    <a href="/blog/o-founder-tecnico" class="article-card"><div class="card-tag">Negócio</div><div class="card-title">O Founder Técnico</div><div class="card-desc">Liderar sem programar. Tech fluency, dívida técnica e construir vs comprar.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
+  <!-- FASE 5: Construir e Escalar -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-icon">🚀</span>
+      <div><div class="phase-name">Construir e Escalar</div><div class="phase-sub">Do protótipo ao produto real</div></div>
+    </div>
+    <div class="articles-grid">
+      <a href="/blog/arquitetura-de-produto" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Arquitetura de Produto</div><div class="card-desc">O projeto antes da obra. Monolito, microsserviços e API-first — decisões que definem anos de produto.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/deploy-e-cicd" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Deploy e CI/CD</div><div class="card-desc">A esteira de qualidade. Como colocar código em produção com confiança e sem surpresas.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/precificacao-produtos-ia" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Precificação de Produtos de IA</div><div class="card-desc">Quanto cobrar quando IA custa por uso. Custo real, modelos de precificação e o risco do super-usuário.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/escala-e-onboarding" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Escala e Onboarding</div><div class="card-desc">Crescer sem quebrar. Multi-tenancy, time-to-value e por que onboarding manual é teto de crescimento.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/metricas-que-importam" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Métricas que Importam</div><div class="card-desc">MRR, churn, LTV/CAC e North Star Metric. O painel de controle do avião para founders de produto digital.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/o-founder-tecnico" class="article-card"><div class="card-tag">Produto</div><div class="card-title">O Founder Técnico</div><div class="card-desc">Liderar sem programar. O que founders com fluência técnica fazem diferente — e como chegar lá.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+    </div>
   </div>
-</div>
 
   <div class="academy-banner">
-    <div><div class="banner-title">Quer praticar tudo isso na trilha interativa?</div><div class="banner-sub">OMA Academy — 30 módulos gratuitos com quiz, desafios e certificado no LinkedIn.</div></div>
+    <div>
+      <div class="banner-title">Quer se aprofundar em todos esses temas?</div>
+      <div class="banner-sub">OMA Academy — 30 módulos gratuitos com quiz, desafios e certificado no LinkedIn.</div>
+    </div>
     <a href="/academy" class="banner-btn">Começar agora →</a>
   </div>
 </div>
+
 <div class="footer">
   <a href="/">OMA Project</a> · <a href="/academy">Academy</a> · <a href="/privacidade">Privacidade</a>
 </div>
-</body></html>
+</body>
+</html>

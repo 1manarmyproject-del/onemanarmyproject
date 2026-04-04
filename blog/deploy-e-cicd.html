@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O que é CI/CD? Deploy automatizado, pipelines e feature flags para founders | OMA Blog</title>
-<meta name="description" content="CI/CD é a esteira de qualidade da fábrica. Toda peça passa por inspeção automática antes de ir para o cliente. Entenda pipelines, testes automatizados e feature flags.">
+<title>CI/CD para founders: como funciona deploy automático, feature flags e pipeline de qualidade | OMA Blog</title>
+<meta name="description" content="CI/CD é a esteira de qualidade da fábrica digital. Todo código que sai passa por inspeção automática antes de chegar ao usuário. Entenda pipelines, feature flags e deploys sem risco.">
 <meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
-<meta property="og:title" content="O que é CI/CD? Deploy automatizado, pipelines e feature flags para founders">
-<meta property="og:description" content="CI/CD é a esteira de qualidade da fábrica. Toda peça passa por inspeção automática antes de ir para o cliente. Entenda pipelines, testes automatizados e feature flags.">
+<meta property="og:title" content="CI/CD para founders: como funciona deploy automático, feature flags e pipeline de qualidade">
+<meta property="og:description" content="CI/CD é a esteira de qualidade da fábrica digital. Todo código que sai passa por inspeção automática antes de chegar ao usuário. Entenda pipelines, feature flags e deploys sem risco.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://onemanarmyproject.com.br/blog/deploy-e-cicd">
 <meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
@@ -14,7 +14,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"O que é CI/CD? Deploy automatizado, pipelines e feature flags para founders","description":"CI/CD é a esteira de qualidade da fábrica. Toda peça passa por inspeção automática antes de ir para o cliente. Entenda pipelines, testes automatizados e feature flags.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/deploy-e-cicd"}
+{"@context":"https://schema.org","@type":"Article","headline":"CI/CD para founders: como funciona deploy automático, feature flags e pipeline de qualidade","description":"CI/CD é a esteira de qualidade da fábrica digital. Todo código que sai passa por inspeção automática antes de chegar ao usuário. Entenda pipelines, feature flags e deploys sem risco.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/deploy-e-cicd"}
 </script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -102,7 +102,7 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
     <a href="/academy?modulo=m26" class="article-academy-badge">🦞 OMA Academy</a>
   </div>
   <h1 class="article-title">Deploy e CI/CD — colocar código em produção com confiança</h1>
-  <div class="article-lead">CI/CD é a esteira de qualidade da fábrica. Toda peça passa por inspeção automática antes de ir para o cliente. Entenda pipelines, testes automatizados e feature flags.</div>
+  <div class="article-lead">CI/CD é a esteira de qualidade da fábrica digital. Todo código que sai passa por inspeção automática antes de chegar ao usuário. Entenda pipelines, feature flags e deploys sem risco.</div>
   <div class="article-author">
     <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
     <div>
@@ -112,26 +112,25 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
   </div>
   <div class="article-content">
 <h2>A esteira de qualidade</h2>
-<p>Numa fábrica bem gerenciada, nenhum produto chega ao cliente sem passar por controle de qualidade. Existe um processo definido, com checkpoints específicos, onde cada etapa precisa ser aprovada antes de avançar para a próxima.</p>
-<p>CI/CD (Continuous Integration / Continuous Delivery) é a esteira de qualidade do desenvolvimento de software. Código escrito → testes automáticos → deploy automático. Se qualquer etapa falhar, o código não avança.</p>
-<div class="highlight-box"><div class="highlight-box-title">O resultado prático</div>
-<p>Sem CI/CD: deploy manual, nervoso, feito às 23h com medo de quebrar. Com CI/CD: push no Git, pipeline roda, deploy acontece, você dorme tranquilo.</p></div>
-<h2>O pipeline típico</h2>
-<p>1. <strong>Push</strong> — desenvolvedor envia código para o repositório<br>
-2. <strong>Build</strong> — sistema compila e prepara o executável<br>
-3. <strong>Test</strong> — roda testes automatizados. Se falhar, para aqui<br>
-4. <strong>Deploy staging</strong> — sobe para ambiente de teste<br>
-5. <strong>Deploy production</strong> — sobe para produção (automático ou com aprovação)</p>
-<p>Ferramentas: GitHub Actions, Vercel (para frontend com deploy automático em cada push), Railway, Render.</p>
-<h2>Feature flags — lançar sem risco</h2>
-<p>Feature flag é um interruptor no código que liga e desliga funcionalidades sem novo deploy. Você faz o deploy do código, mas mantém a feature desligada. Liga para 1% dos usuários. Monitora. Liga para 10%. Monitora. Liga para todos.</p>
-<p>Se algo der errado, desliga o interruptor instantaneamente. Sem rollback de código, sem stress, sem comunicado de "estamos em manutenção".</p>
-<h2>O que founders precisam monitorar</h2>
-<p>Você não precisa entender cada linha do pipeline. Mas vale perguntar:<br>
-→ Quanto tempo leva um deploy? (deve ser minutos, não horas)<br>
-→ Quando foi o último deploy que quebrou produção? (deve ser raro)<br>
-→ Temos rollback automático configurado? (deve existir)</p>
-<blockquote><p>"Frequência de deploy é um indicador de saúde do time. Times que deployam diariamente têm menos medo de mudar, menos bugs acumulados e mais velocidade de inovação."</p></blockquote>
+<p>Em qualquer fábrica séria, toda peça produzida passa por inspeção antes de sair. Há testes automatizados, verificações de padrão, checkpoints de qualidade. Peça com defeito não chega ao cliente — é detectada e rejeitada na esteira.</p>
+<p>CI/CD é esse processo aplicado ao software. Toda vez que um desenvolvedor faz uma mudança no código, uma esteira automática roda: compila, testa, valida. Se passar em tudo, faz o deploy automaticamente. Se falhar, para ali — o código não vai para produção.</p>
+<div class="highlight-box"><div class="highlight-box-title">CI vs CD</div><p>CI (Continuous Integration) = integrar e testar automaticamente a cada mudança. CD (Continuous Delivery) = entregar automaticamente até produção o que passou nos testes. Complementares.</p></div>
+<h2>O problema do deploy manual</h2>
+<p>Deploy manual é assim: desenvolvedor termina a feature, comprime os arquivos, faz upload por FTP (ou SSH), reza para não ter quebrado nada, e espera o cliente reclamar para saber se funcionou.</p>
+<p>Problemas: demora, erro humano (esqueceu de subir um arquivo), sem rastreabilidade (quem subiu o quê quando), impossível reverter rapidamente quando quebra.</p>
+<h2>Pipeline — a esteira passo a passo</h2>
+<ol>
+<li><strong>Push</strong>: desenvolvedor envia código para o Git</li>
+<li><strong>Build</strong>: sistema compila e prepara o executável</li>
+<li><strong>Test</strong>: roda testes automatizados — unitários, integração, end-to-end</li>
+<li><strong>Deploy staging</strong>: sobe para ambiente de testes</li>
+<li><strong>Deploy production</strong>: sobe para produção (automático ou com aprovação)</li>
+</ol>
+<p>Falhou em qualquer etapa: para tudo, alerta o time, não avança. Isso protege produção de código com bug.</p>
+<h2>Feature flags — o interruptor de funcionalidades</h2>
+<p>Feature flag é um interruptor no código que liga ou desliga funcionalidades sem novo deploy. Você faz o deploy do código mas mantém a feature desligada. Liga para 1% dos usuários. Monitora. Liga para 10%. Monitora. Liga para todos.</p>
+<p>Se algo der errado, desliga o interruptor instantaneamente — sem rollback de código, sem stresse, sem cerimônia. É a diferença entre um incidente de 30 segundos e um de 30 minutos.</p>
+<blockquote><p>"CI/CD não é luxo de empresa grande. É o mínimo para qualquer produto que tem usuários e precisa evoluir com segurança."</p></blockquote>
 </div>
   <div class="share-bar">
     <div class="share-label">Gostou? Compartilha 👇</div>
@@ -149,7 +148,7 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
   </div>
   <div class="related-section">
     <div class="related-title">Artigos relacionados</div>
-    <div class="related-grid"><a href="/blog/arquitetura-de-produto" class="related-card"><div class="related-tag">Construção</div><div class="related-title-text">Arquitetura de Produto Digital</div><div class="related-arrow">→</div></a><a href="/blog/logs-e-observabilidade" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Logs e Observabilidade</div><div class="related-arrow">→</div></a><a href="/blog/containers-e-docker" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Docker e Containers</div><div class="related-arrow">→</div></a></div>
+    <div class="related-grid"><a href="/blog/arquitetura-de-produto-digital" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Arquitetura de Produto</div><div class="related-arrow">→</div></a><a href="/blog/logs-e-observabilidade" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Logs e Observabilidade</div><div class="related-arrow">→</div></a><a href="/blog/containers-e-docker" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Docker</div><div class="related-arrow">→</div></a></div>
   </div>
 </div>
 <div class="article-footer">

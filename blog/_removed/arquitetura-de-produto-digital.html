@@ -2,19 +2,19 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tech fluency para founders: como liderar times técnicos sem saber programar | OMA Blog</title>
-<meta name="description" content="Founder técnico é como arquiteto que não bate martelo. Você não executa cada linha de código — mas entende o projeto, faz as perguntas certas e reconhece quando a estrutura está errada.">
+<title>Arquitetura de software para founders: monolito, microsserviços e API-first design | OMA Blog</title>
+<meta name="description" content="Arquitetura de software é o projeto do imóvel antes de construir. Monolito vs microsserviços, separação de responsabilidades e API-first design — decisões que definem custos por anos.">
 <meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
-<meta property="og:title" content="Tech fluency para founders: como liderar times técnicos sem saber programar">
-<meta property="og:description" content="Founder técnico é como arquiteto que não bate martelo. Você não executa cada linha de código — mas entende o projeto, faz as perguntas certas e reconhece quando a estrutura está errada.">
+<meta property="og:title" content="Arquitetura de software para founders: monolito, microsserviços e API-first design">
+<meta property="og:description" content="Arquitetura de software é o projeto do imóvel antes de construir. Monolito vs microsserviços, separação de responsabilidades e API-first design — decisões que definem custos por anos.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://onemanarmyproject.com.br/blog/o-founder-tecnico">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/arquitetura-de-produto-digital">
 <meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
-<link rel="canonical" href="https://onemanarmyproject.com.br/blog/o-founder-tecnico">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/arquitetura-de-produto-digital">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Tech fluency para founders: como liderar times técnicos sem saber programar","description":"Founder técnico é como arquiteto que não bate martelo. Você não executa cada linha de código — mas entende o projeto, faz as perguntas certas e reconhece quando a estrutura está errada.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/o-founder-tecnico"}
+{"@context":"https://schema.org","@type":"Article","headline":"Arquitetura de software para founders: monolito, microsserviços e API-first design","description":"Arquitetura de software é o projeto do imóvel antes de construir. Monolito vs microsserviços, separação de responsabilidades e API-first design — decisões que definem custos por anos.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/arquitetura-de-produto-digital"}
 </script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -92,17 +92,17 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
 <div class="breadcrumb">
   <a href="/" class="bc-item">OMA</a><span class="bc-sep">›</span>
   <a href="/blog" class="bc-item">Blog</a><span class="bc-sep">›</span>
-  <span class="bc-item" style="color:var(--text3);">O Founder Técnico — liderar sem programar</span>
-  <a href="/academy?modulo=m30" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
+  <span class="bc-item" style="color:var(--text3);">Arquitetura de Produto Digital — o projeto antes da obra</span>
+  <a href="/academy?modulo=m25" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
 </div>
 <div class="article-wrap">
   <div class="article-meta">
     <span class="article-tag">Construir e Escalar</span>
     <span class="article-read">⏱ 7 min de leitura</span>
-    <a href="/academy?modulo=m30" class="article-academy-badge">🦞 OMA Academy</a>
+    <a href="/academy?modulo=m25" class="article-academy-badge">🦞 OMA Academy</a>
   </div>
-  <h1 class="article-title">O Founder Técnico — liderar sem programar</h1>
-  <div class="article-lead">Founder técnico é como arquiteto que não bate martelo. Você não executa cada linha de código — mas entende o projeto, faz as perguntas certas e reconhece quando a estrutura está errada.</div>
+  <h1 class="article-title">Arquitetura de Produto Digital — o projeto antes da obra</h1>
+  <div class="article-lead">Arquitetura de software é o projeto do imóvel antes de construir. Monolito vs microsserviços, separação de responsabilidades e API-first design — decisões que definem custos por anos.</div>
   <div class="article-author">
     <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
     <div>
@@ -111,40 +111,29 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
     </div>
   </div>
   <div class="article-content">
-<h2>O arquiteto que não bate martelo</h2>
-<p>O arquiteto mais talentoso não é necessariamente o melhor pedreiro. Ele entende estruturas, materiais, normas, estética — e usa esse conhecimento para projetar. Os mestres de obra e pedreiros executam. O arquiteto garante que o que é construído é o que deve ser construído.</p>
-<p>Founder técnico funciona assim. Você não precisa escrever cada linha de código. Precisa entender o suficiente para projetar, comunicar, avaliar e decidir. O time técnico executa. Você garante que a direção está certa.</p>
-<div class="highlight-box"><div class="highlight-box-title">O que é tech fluency</div><p>Não é saber programar. É ter vocabulário técnico suficiente para fazer as perguntas certas, avaliar trade-offs e comunicar com precisão o que precisa ser construído.</p></div>
-<h2>O que founders técnicos fazem na prática</h2>
-<p>Um founder com fluência técnica:</p>
-<ul>
-<li>Faz as perguntas certas: <em>"Qual é o trade-off de escalar vertical vs horizontal aqui?"</em></li>
-<li>Reconhece dívida técnica: <em>"Estamos priorizando velocidade agora — quando revisitamos esse ponto?"</em></li>
-<li>Comunica com precisão: <em>"Precisamos de processamento assíncrono aqui, não síncrono"</em></li>
-<li>Avalia propostas: <em>"Por que microsserviços agora? O monolito não atende até termos 10x o volume?"</em></li>
-<li>Gerencia com dados: <em>"A latência do P95 está em 2s — qual é o nosso target?"</em></li>
-</ul>
-<h2>Dívida técnica como decisão de negócio</h2>
-<p>Dívida técnica é o custo acumulado de decisões de atalho no desenvolvimento. Como dívida financeira: você paga agora com velocidade, paga depois com juros de manutenção.</p>
-<p>Tomar dívida técnica conscientemente é uma decisão válida: "vamos lançar rápido agora e refatorar depois". O problema é a dívida acidental — atalhos tomados sem consciência do custo futuro.</p>
-<p>Founder com fluência técnica reconhece quando o time está tomando dívida e decide explicitamente: vale a pena? Quando vamos pagar?</p>
-<h2>Construir vs comprar vs agenciar</h2>
-<p>Para cada componente do produto, você tem três opções:</p>
-<p><strong>Construir</strong>: máximo controle e customização, maior custo e tempo. Justificado quando é diferencial competitivo real — algo que nenhum produto no mercado oferece.</p>
-<p><strong>Comprar</strong> (SaaS): rápido, sem manutenção, custo previsível. Justificado para funcionalidades commoditizadas — pagamento (Stripe), email (SendGrid), autenticação (Auth0).</p>
-<p><strong>Agenciar</strong>: equipe externa constrói. Útil para especialidades pontuais. Risco: qualidade variável e dependência.</p>
-<p>Regra: compre o que não é diferencial. Construa o que define sua vantagem competitiva. Nunca construa o que já existe pronto e funciona.</p>
-<h2>A história que você está vivendo</h2>
-<p>Em 2026, ficou evidente que a barreira técnica para construir produtos digitais caiu drasticamente. IA generativa permite que founders sem background técnico construam infraestruturas completas — do celular, em dias, sem CTO.</p>
-<p>A OMA Academy foi construída assim. Do zero. 30 módulos de currículo, sistema de gamificação, autenticação OAuth, banco de dados no Hetzner, deploy automático no Vercel, blog com 30 artigos otimizados para SEO. Tudo sem uma linha de código escrita manualmente.</p>
-<p>O que mudou não é a tecnologia — é o acesso. Tech fluency hoje não significa saber programar. Significa saber o que você quer construir e conseguir comunicar isso com precisão suficiente para a IA e o time técnico executarem.</p>
-<blockquote><p>"O founder técnico do futuro não é aquele que programa — é aquele que entende o suficiente para liderar com clareza numa empresa cada vez mais digital."</p></blockquote>
+<h2>O projeto antes de levantar as paredes</h2>
+<p>Nenhum engenheiro civil começa a construir sem o projeto aprovado. As decisões de projeto — onde ficam as colunas, como passa a hidráulica, qual a resistência da fundação — determinam o que pode ser construído em cima depois. Mudar uma coluna estrutural após a obra é muito mais caro do que decidir certo antes.</p>
+<p>Software é igual. Decisões de arquitetura tomadas no início definem custo, velocidade e flexibilidade por anos. A diferença: software mal arquitetado não desmorona visivelmente — ele vai ficando cada vez mais caro e lento de mudar.</p>
+<div class="highlight-box"><div class="highlight-box-title">O conselho da indústria</div><p>Comece monolito. A maioria das startups que começa com microsserviços se arrepende. Extraia microsserviços quando a dor for real, não antecipada.</p></div>
+<h2>Monolito — simples e subestimado</h2>
+<p>Monolito é toda a aplicação num único sistema. Uma codebase, um deploy, um banco de dados. Simples de desenvolver, simples de debugar, simples de escalar no início.</p>
+<p>O problema aparece com crescimento: times diferentes trabalhando na mesma codebase criam conflitos. Mudar uma parte pode afetar outra inesperadamente. Escalar exige escalar tudo junto, mesmo que só uma parte esteja sobrecarregada.</p>
+<p>Mas para a maioria das PMEs e startups early-stage, o monolito é a escolha certa. A complexidade operacional de microsserviços mata a velocidade de times pequenos.</p>
+<h2>Microsserviços — quando faz sentido</h2>
+<p>Microsserviços dividem a aplicação em serviços independentes, cada um com seu próprio código, banco e deploy. Times independentes, escala independente, falha isolada.</p>
+<p>O preço: muito mais complexo de operar. Você precisa de DevOps maduro, observabilidade avançada, e comunicação entre serviços bem projetada. Para equipes pequenas, esse overhead consome mais tempo do que o benefício justifica.</p>
+<h2>Separação de responsabilidades</h2>
+<p>Um princípio que vale desde o monolito: cada componente faz uma coisa e faz bem. Função que busca dados, processa e formata tudo junto é difícil de testar, difícil de manter, impossível de reusar.</p>
+<p>Funções curtas, módulos com propósito único, APIs que fazem uma coisa. Essa disciplina no monolito facilita a extração para microsserviços quando chegar a hora.</p>
+<h2>API-first design</h2>
+<p>API-first significa projetar e documentar a API antes de implementar qualquer componente. O contrato é definido primeiro. Frontend e backend desenvolvem em paralelo contra o mesmo contrato. Integrações futuras já têm onde se encaixar.</p>
+<blockquote><p>"A decisão de arquitetura mais importante que você toma é a primeira. Não porque é difícil de mudar — é — mas porque define a mentalidade do time por muito tempo."</p></blockquote>
 </div>
   <div class="share-bar">
     <div class="share-label">Gostou? Compartilha 👇</div>
     <div class="share-btns">
-      <a href="https://wa.me/?text=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-founder-tecnico" target="_blank" class="share-btn wa">💬 WhatsApp</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-founder-tecnico" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <a href="https://wa.me/?text=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Farquitetura-de-produto-digital" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Farquitetura-de-produto-digital" target="_blank" class="share-btn li">💼 LinkedIn</a>
       <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
     </div>
   </div>
@@ -156,7 +145,7 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
   </div>
   <div class="related-section">
     <div class="related-title">Artigos relacionados</div>
-    <div class="related-grid"><a href="/blog/metricas-que-importam" class="related-card"><div class="related-tag">Negócios</div><div class="related-title-text">Métricas que Importam</div><div class="related-arrow">→</div></a><a href="/blog/arquitetura-de-produto-digital" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Arquitetura de Produto</div><div class="related-arrow">→</div></a><a href="/blog/o-que-e-um-agente-de-ia" class="related-card"><div class="related-tag">Agentes</div><div class="related-title-text">O que é um Agente de IA</div><div class="related-arrow">→</div></a></div>
+    <div class="related-grid"><a href="/blog/codigo-e-programacao" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Código e Programação</div><div class="related-arrow">→</div></a><a href="/blog/containers-e-docker" class="related-card"><div class="related-tag">Sistemas</div><div class="related-title-text">Docker e Containers</div><div class="related-arrow">→</div></a><a href="/blog/como-precificar-produto-ia" class="related-card"><div class="related-tag">Negócios</div><div class="related-title-text">Precificação de Produto de IA</div><div class="related-arrow">→</div></a></div>
   </div>
 </div>
 <div class="article-footer">

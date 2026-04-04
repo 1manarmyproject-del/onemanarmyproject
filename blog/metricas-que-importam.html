@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Métricas de produto digital: MRR, churn, LTV, CAC e North Star Metric para founders | OMA Blog</title>
-<meta name="description" content="Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. Entenda MRR, churn, LTV/CAC e North Star Metric.">
+<title>MRR, churn, LTV, CAC e North Star Metric: métricas essenciais para founders de produto digital | OMA Blog</title>
+<meta name="description" content="Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. MRR, churn, LTV/CAC e North Star Metric explicados.">
 <meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
-<meta property="og:title" content="Métricas de produto digital: MRR, churn, LTV, CAC e North Star Metric para founders">
-<meta property="og:description" content="Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. Entenda MRR, churn, LTV/CAC e North Star Metric.">
+<meta property="og:title" content="MRR, churn, LTV, CAC e North Star Metric: métricas essenciais para founders de produto digital">
+<meta property="og:description" content="Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. MRR, churn, LTV/CAC e North Star Metric explicados.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://onemanarmyproject.com.br/blog/metricas-que-importam">
 <meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
@@ -14,7 +14,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Métricas de produto digital: MRR, churn, LTV, CAC e North Star Metric para founders","description":"Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. Entenda MRR, churn, LTV/CAC e North Star Metric.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/metricas-que-importam"}
+{"@context":"https://schema.org","@type":"Article","headline":"MRR, churn, LTV, CAC e North Star Metric: métricas essenciais para founders de produto digital","description":"Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. MRR, churn, LTV/CAC e North Star Metric explicados.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/metricas-que-importam"}
 </script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -102,7 +102,7 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
     <a href="/academy?modulo=m29" class="article-academy-badge">🦞 OMA Academy</a>
   </div>
   <h1 class="article-title">Métricas que Importam — o painel de controle do seu produto</h1>
-  <div class="article-lead">Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. Entenda MRR, churn, LTV/CAC e North Star Metric.</div>
+  <div class="article-lead">Métricas são o painel de controle do avião. Você não precisa entender cada instrumento — mas precisa saber quais indicam perigo. MRR, churn, LTV/CAC e North Star Metric explicados.</div>
   <div class="article-author">
     <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
     <div>
@@ -111,25 +111,33 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
     </div>
   </div>
   <div class="article-content">
-<h2>O painel do avião</h2>
-<p>Pilotos não voam por sensação. Voam por instrumento. Altitude, velocidade, combustível, temperatura dos motores — dados em tempo real que permitem decisões precisas em condições de visibilidade zero.</p>
-<p>Founders que gerenciam produtos digitais sem métricas estão voando no escuro. A sensação de que "as coisas estão bem" pode mascarar um churn que está corroendo a base, um CAC que tornou o crescimento insustentável, ou uma North Star que está estagnada.</p>
-<div class="highlight-box"><div class="highlight-box-title">A hierarquia</div>
-<p>North Star Metric define a direção. MRR + churn indicam saúde financeira. LTV/CAC valida o modelo de aquisição. Retenção determina o futuro.</p></div>
+<h2>O painel de controle do avião</h2>
+<p>Piloto de avião não voa por sensação. Voa por instrumento: altitude, velocidade, combustível, pressão dos motores. Ele sabe quais indicadores são críticos, quais são informativos, e o que cada variação significa.</p>
+<p>Founder de produto digital precisa do mesmo: um conjunto mínimo de métricas que mostram se o produto está saudável, crescendo e lucrativo. Não dezenas de números — os que realmente importam.</p>
+<div class="highlight-box"><div class="highlight-box-title">A realidade sobre crescimento</div><p>Crescer com churn alto é encher balde furado. 5% de churn mensal significa perder metade da base em um ano. Retenção importa mais do que aquisição.</p></div>
 <h2>MRR — a métrica mais importante de SaaS</h2>
-<p>MRR (Monthly Recurring Revenue) é a receita mensal recorrente. A métrica mais importante para qualquer produto de assinatura.</p>
-<p>MRR cresce de três formas: novos clientes, expansão de clientes existentes (upgrade), e redução de churn. As melhores empresas crescem mais por expansão do que por aquisição — sinal de produto que entrega valor crescente.</p>
-<h2>Churn — o vazamento do balde</h2>
-<p>Churn é o percentual de receita ou clientes perdidos no período. Churn de 5%/mês parece pequeno. Significa perder metade da base em 12 meses.</p>
-<p>Crescer com churn alto é encher um balde furado. Você pode estar adicionando novos clientes mais rápido do que perde — mas o esforço é muito maior do que seria com churn baixo.</p>
-<h2>LTV e CAC — a eficiência do crescimento</h2>
-<p><strong>LTV</strong> (Lifetime Value) = quanto um cliente gera ao longo de toda a relação. Fórmula simples: MRR médio por cliente ÷ churn rate mensal.</p>
-<p><strong>CAC</strong> (Customer Acquisition Cost) = quanto você gasta para adquirir um cliente.</p>
-<p>A relação LTV:CAC deve ser maior que 3:1 para ser saudável. Abaixo disso, o custo de aquisição está alto demais relativo ao valor gerado.</p>
-<h2>North Star Metric — a bússola</h2>
-<p>A North Star Metric é a única métrica que captura o valor central que seu produto entrega. Spotify: minutos ouvidos por semana. Airbnb: noites reservadas. Produto de atendimento com IA: tickets resolvidos sem intervenção humana.</p>
-<p>Não é receita (consequência do valor). Não é usuários cadastrados (proxy do valor). É o valor real entregue, mensurável, que se crescer indica que tudo mais vai crescer junto.</p>
-<blockquote><p>"Métricas não existem para reportar ao board — existem para tomar decisões melhores mais rápido. Se uma métrica não muda uma decisão, ela não precisa existir no seu painel."</p></blockquote>
+<p><strong>MRR</strong> (Monthly Recurring Revenue) é a receita mensal recorrente. O número que resume a saúde financeira de um produto por assinatura.</p>
+<p>MRR cresce quando: novos clientes assinem (new MRR), clientes existentes upgrades (expansion MRR). MRR cai quando: clientes cancelam (churned MRR), clientes fazem downgrade (contraction MRR).</p>
+<p>MRR líquido = new + expansion − churned − contraction. Se esse número cresce todo mês, o negócio está saudável.</p>
+<h2>Churn — o buraco no balde</h2>
+<p><strong>Churn rate</strong> é o percentual de receita ou clientes perdidos num período. Churn de 5% ao mês parece pouco. Mas: 0,95^12 = 0,54. Em 12 meses, você retém 54% da base — perdeu 46%.</p>
+<p>Para crescer com churn de 5% ao mês, você precisa adquirir mais de 5% de novos clientes todo mês só para manter o mesmo tamanho. É corrida esteira.</p>
+<p>Churn saudável para SaaS B2B: abaixo de 2% ao mês. Abaixo de 1% é excelente.</p>
+<h2>LTV e CAC — a equação da viabilidade</h2>
+<p><strong>LTV</strong> (Lifetime Value) = quanto um cliente gera em média durante toda a vida como cliente. Cálculo simples: MRR médio por cliente ÷ churn rate mensal.</p>
+<p><strong>CAC</strong> (Customer Acquisition Cost) = quanto você gasta para adquirir um cliente. Marketing + vendas + tempo do time ÷ número de novos clientes.</p>
+<p>A relação LTV:CAC precisa ser maior que 3:1 para ser saudável. Abaixo disso, você está pagando mais para adquirir do que vai recuperar. O negócio não é viável em escala.</p>
+<h2>North Star Metric — a estrela guia</h2>
+<p>North Star é a única métrica que captura o valor central que seu produto entrega. Se ela cresce, tudo cresce junto.</p>
+<p>Não é receita (consequência). Não é usuários cadastrados (proxy). É o valor real entregue.</p>
+<ul>
+<li>Spotify: minutos ouvidos por usuário por semana</li>
+<li>Airbnb: noites reservadas</li>
+<li>Agente de atendimento: tickets resolvidos sem intervenção humana</li>
+<li>Academy: módulos completados por semana</li>
+</ul>
+<p>Com a North Star certa, toda decisão de produto se torna mais fácil: "isso aumenta ou diminui nossa North Star?"</p>
+<blockquote><p>"Métricas não são para impressionar investidores. São para você tomar decisões melhores. Um founder que sabe seu MRR, churn e LTV/CAC de cor tem vantagem sobre 90% da concorrência."</p></blockquote>
 </div>
   <div class="share-bar">
     <div class="share-label">Gostou? Compartilha 👇</div>
@@ -147,7 +155,7 @@ h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-
   </div>
   <div class="related-section">
     <div class="related-title">Artigos relacionados</div>
-    <div class="related-grid"><a href="/blog/precificacao-produtos-ia" class="related-card"><div class="related-tag">Negócio</div><div class="related-title-text">Precificação de Produtos de IA</div><div class="related-arrow">→</div></a><a href="/blog/escala-e-onboarding" class="related-card"><div class="related-tag">Construção</div><div class="related-title-text">Escala e Onboarding</div><div class="related-arrow">→</div></a><a href="/blog/founder-tecnico" class="related-card"><div class="related-tag">Negócio</div><div class="related-title-text">O Founder Técnico</div><div class="related-arrow">→</div></a></div>
+    <div class="related-grid"><a href="/blog/como-precificar-produto-ia" class="related-card"><div class="related-tag">Negócios</div><div class="related-title-text">Precificação de Produto de IA</div><div class="related-arrow">→</div></a><a href="/blog/escala-e-onboarding" class="related-card"><div class="related-tag">Negócios</div><div class="related-title-text">Escala e Onboarding</div><div class="related-arrow">→</div></a><a href="/blog/o-founder-tecnico" class="related-card"><div class="related-tag">Negócios</div><div class="related-title-text">O Founder Técnico</div><div class="related-arrow">→</div></a></div>
   </div>
 </div>
 <div class="article-footer">
