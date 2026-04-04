@@ -183,8 +183,16 @@ footer a{color:var(--ash);text-decoration:none;}
         <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f2-predict" placeholder="Ex: Como a população vai reagir? Como a imprensa vai cobrir? Quais grupos vão apoiar e quais vão criticar?" style="min-height:100px;"></textarea><div class="form-hint">Pode incluir múltiplas perguntas.</div></div>
       </div>
 
+      <div style="background:var(--iron);border-left:3px solid var(--blood);padding:14px 18px;margin:20px 0 16px;font-size:12px;color:var(--fog);line-height:1.7;">
+        <strong style="color:var(--bone);">⚠️ Aviso importante:</strong> O OMA Predictions utiliza inteligência artificial e simulação computacional para gerar cenários preditivos. 
+        Os resultados representam <strong style="color:var(--bone);">projeções baseadas em modelos</strong>, não garantias de resultados futuros. 
+        Variáveis externas, decisões humanas e eventos imprevisíveis podem alterar significativamente os cenários reais. 
+        Use este relatório como <strong style="color:var(--bone);">ferramenta de apoio à decisão</strong>, não como previsão determinística. 
+        Ao submeter, você concorda com nossos <a href="/termos" style="color:var(--fire);text-decoration:underline;">termos de uso</a>.
+      </div>
+
       <button class="form-submit" id="formSubmit" onclick="submitPrediction()">Solicitar Relatório Preditivo</button>
-      <div class="form-hint" style="text-align:center;margin-top:8px;">Relatório entregue em até 24h úteis.</div>
+      <div class="form-hint" style="text-align:center;margin-top:8px;">Relatório entregue em até 24h úteis por email.</div>
     </div>
 
     <div class="form-success" id="formSuccess">
@@ -254,7 +262,7 @@ async function submitPrediction() {
   }
 
   try {
-    await fetch('https://api.onemanarmyproject.com.br/predictions/submit', {
+    await fetch('/api/predictions', {
       method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
     }).catch(() => {});
   } catch(e) {}
