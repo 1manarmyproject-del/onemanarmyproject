@@ -666,12 +666,11 @@ function renderBackupData(data,history){
   html+='<div style="font-size:11px;color:var(--ash);margin-top:2px">'+lastRun+' · '+completedCount+' backups registrados · 4x/dia</div></div></div>';
 
   // Per-layer bars
+  // Camadas com barras de histórico (cada uma recebe backup do Mac Mini)
   var layers=[
     {key:'hd',name:'HD Externo',desc:'FX_BACKUP_S (ExFAT)',icon:'💾'},
     {key:'github',name:'GitHub',desc:'nanoclaw repo (privado)',icon:'🐙'},
-    {key:'gdrive',name:'Google Drive',desc:'fabio@onemanarmy.com.br',icon:'☁️'},
-    {key:'oracle_sp',name:'Oracle SP',desc:'163.176.167.148 · Always Free',icon:'🇧🇷'},
-    {key:'hetzner',name:'Hetzner Snapshots',desc:'Servidor CRM/API · Semanal',icon:'🇫🇮'}
+    {key:'gdrive',name:'Google Drive',desc:'fabio@onemanarmy.com.br',icon:'☁️'}
   ];
 
   layers.forEach(function(layer){
@@ -740,6 +739,17 @@ function renderBackupData(data,history){
     html+='<span>'+(f.getMonth()+1)+'/'+f.getDate()+' '+f.getHours().toString().padStart(2,'0')+':00</span>';
     html+='<span>'+(l.getMonth()+1)+'/'+l.getDate()+' '+l.getHours().toString().padStart(2,'0')+':00</span></div>';
   }
+
+  // Destinos de backup (recebem dados — não têm barra própria)
+  html+='<div style="font-size:10px;color:var(--ash);margin:14px 0 6px 0;font-family:Space Mono,monospace;letter-spacing:1px">SERVIDORES DE REDUNDÂNCIA</div>';
+  var oracleStatus='g';
+  var oracleLast='—';
+  if(data && data.layers && data.layers.oracle_sp){
+    oracleStatus=data.layers.oracle_sp.status==='ok'?'g':'r';
+    oracleLast=data.layers.oracle_sp.last_backup||'—';
+  }
+  html+='<div class="svc" style="margin-bottom:8px"><div class="svc-d '+oracleStatus+'"></div><div class="svc-n">🇧🇷 Oracle SP (Brasil)<small>163.176.167.148 · Recebe sync do Mac Mini</small></div><span style="font-size:10px;color:var(--ash);font-family:Space Mono,monospace;margin-left:auto">'+oracleLast+'</span></div>';
+  html+='<div class="svc"><div class="svc-d g"></div><div class="svc-n">🇫🇮 Hetzner (Helsinki)<small>Servidor CRM/API · Snapshots semanais</small></div></div>';
 
   // Security footer
   html+='<div style="margin-top:14px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ash);line-height:1.8;font-family:Space Mono,monospace;letter-spacing:.5px">';
