@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O que é um LLM? Guia para founders e executivos de PME | OMA Blog</title>
+<meta name="description" content="LLM é como um estagiário que leu toda a internet mas nunca viveu nada. Entenda o que são Large Language Models, como funcionam e por que isso muda como você usa IA no seu negócio.">
+<meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
+<meta property="og:title" content="O que é um LLM? Guia para founders e executivos de PME">
+<meta property="og:description" content="LLM é como um estagiário que leu toda a internet mas nunca viveu nada. Entenda o que são Large Language Models, como funcionam e por que isso muda como você usa IA no seu negócio.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/o-que-e-um-llm">
+<meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/o-que-e-um-llm">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"O que é um LLM? Guia para founders e executivos de PME","description":"LLM é como um estagiário que leu toda a internet mas nunca viveu nada. Entenda o que são Large Language Models, como funcionam e por que isso muda como você usa IA no seu negócio.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project","logo":{"@type":"ImageObject","url":"https://onemanarmyproject.com.br/lobster-logo.png"}},"url":"https://onemanarmyproject.com.br/blog/o-que-e-um-llm"}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--border2:#d0d0d0;--text:#111;--text2:#444;--text3:#777;--text4:#bbb;--green:#16a34a;}
+body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);line-height:1.7;}
+
+/* TOPBAR */
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
+.topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;transition:color .15s;}
+.topbar-link:hover{color:var(--fire);}
+.topbar-cta{background:var(--fire);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;transition:background .15s;}
+.topbar-cta:hover{background:var(--ember);}
+
+/* BREADCRUMB */
+.breadcrumb{max-width:780px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bc-item{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;text-transform:uppercase;}
+.bc-item:hover{color:var(--fire);}
+.bc-sep{color:var(--text4);font-size:10px;}
+.bc-back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--fire);text-decoration:none;padding:5px 10px;border:1px solid var(--fire-mid);border-radius:4px;background:var(--fire-light);margin-left:auto;transition:background .15s;}
+.bc-back-btn:hover{background:var(--fire-mid);}
+
+/* ARTICLE */
+.article-wrap{max-width:780px;margin:0 auto;padding:28px 24px 80px;}
+.article-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.article-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:4px 10px;border-radius:20px;font-weight:700;}
+.article-read{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
+.article-academy-badge{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--text3);background:var(--bg3);border:1px solid var(--border2);padding:4px 10px;border-radius:20px;text-decoration:none;transition:border-color .15s;}
+.article-academy-badge:hover{border-color:var(--fire);color:var(--fire);}
+h1.article-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(28px,5vw,46px);line-height:1.05;color:var(--text);margin-bottom:12px;}
+.article-lead{font-size:17px;color:var(--text3);line-height:1.7;margin-bottom:24px;border-left:4px solid var(--fire);padding-left:16px;background:var(--fire-light);padding:14px 16px;border-radius:0 8px 8px 0;}
+.article-author{display:flex;align-items:center;gap:10px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);}
+.author-name{font-weight:600;font-size:14px;color:var(--text);}
+.author-role{font-size:12px;color:var(--text3);}
+
+/* CONTENT */
+.article-content h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(20px,3vw,28px);color:var(--text);margin:36px 0 12px;line-height:1.2;}
+.article-content h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--text);margin:28px 0 10px;}
+.article-content p{font-size:16px;color:var(--text2);margin-bottom:16px;line-height:1.8;}
+.article-content strong{color:var(--text);font-weight:600;}
+.article-content em{color:var(--text3);}
+.article-content ul,
+.article-content ol{padding-left:22px;margin-bottom:16px;}
+.article-content li{font-size:15px;color:var(--text2);margin-bottom:8px;line-height:1.7;}
+.article-content blockquote{background:var(--fire-light);border-left:4px solid var(--fire);padding:16px 18px;margin:24px 0;border-radius:0 8px 8px 0;}
+.article-content blockquote p{color:var(--text2);font-style:italic;margin:0;font-size:15px;}
+.article-content code{font-family:'Space Mono',monospace;font-size:12px;background:var(--bg3);border:1px solid var(--border2);padding:2px 6px;border-radius:3px;color:var(--fire);}
+.highlight-box{background:var(--bg3);border-radius:8px;padding:18px 20px;margin:24px 0;border-left:4px solid var(--fire);}
+.highlight-box-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;font-weight:700;}
+.highlight-box p{margin:0;font-size:14px;color:var(--text2);}
+
+/* SHARE */
+.share-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.share-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;cursor:pointer;border:none;}
+.share-btn.wa{background:#25D366;color:#fff;}
+.share-btn.wa:hover{background:#1da851;}
+.share-btn.li{background:#0A66C2;color:#fff;}
+.share-btn.li:hover{background:#004182;}
+.share-btn.cp{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border2);}
+.share-btn.cp:hover{border-color:var(--fire);color:var(--fire);}
+
+/* CTA ACADEMY */
+.academy-cta{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:32px 0;text-align:center;box-shadow:0 4px 20px rgba(232,112,58,.25);}
+.academy-cta-eyebrow{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;}
+.academy-cta-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;color:#fff;margin-bottom:8px;}
+.academy-cta-sub{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:18px;}
+.academy-cta-btn{display:inline-block;background:#fff;color:var(--fire);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:12px 28px;border-radius:6px;text-decoration:none;transition:all .15s;}
+.academy-cta-btn:hover{background:var(--fire-light);}
+
+/* RELATED */
+.related-section{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);}
+.related-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.related-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;text-decoration:none;transition:box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:4px;}
+.related-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-2px);}
+.related-tag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);}
+.related-title-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.related-arrow{font-size:12px;color:var(--text4);margin-top:4px;}
+
+/* FOOTER */
+.article-footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px;}
+.article-footer a{color:var(--fire);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="/">
+    <img src="/lobster-logo.png" alt="OMA">
+    <div class="topbar-logo-name">OMA <span>Blog</span></div>
+  </a>
+  <div class="topbar-right">
+    <a href="/blog" class="topbar-link">← Blog</a>
+    <a href="/academy" class="topbar-cta">Academy grátis →</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="/" class="bc-item">OMA</a>
+  <span class="bc-sep">›</span>
+  <a href="/blog" class="bc-item">Blog</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-item" style="color:var(--text3);">O que é um LLM — o estagiário que leu tudo</span>
+  <a href="/academy?modulo=m13" class="bc-back-btn" id="backToAcademy">← Voltar à trilha</a>
+</div>
+
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="article-tag">Inteligência Artificial</span>
+    <span class="article-read">⏱ 8 min de leitura</span>
+    <a href="/academy?modulo=m13" class="article-academy-badge">🦞 OMA Academy · Módulo</a>
+  </div>
+
+  <h1 class="article-title">O que é um LLM — o estagiário que leu tudo</h1>
+
+  <div class="article-lead">LLM é como um estagiário que leu toda a internet mas nunca viveu nada. Entenda o que são Large Language Models, como funcionam e por que isso muda como você usa IA no seu negócio.</div>
+
+  <div class="article-author">
+    <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
+    <div>
+      <div class="author-name">Fabio Xavier</div>
+      <div class="author-role">Founder · OMA Project</div>
+    </div>
+  </div>
+
+  <div class="article-content">
+    
+<h2>O estagiário que leu tudo — mas nunca viveu nada</h2>
+<p>Existe uma analogia que, quando você entende, muda completamente como você usa IA no seu negócio. Imagine um estagiário extraordinário que, antes de começar a trabalhar com você, leu toda a internet, todos os livros, todos os artigos publicados nos últimos 20 anos.</p>
+<p>Ele tem um vocabulário imenso. Consegue escrever em qualquer estilo. Conhece os fundamentos de direito, medicina, marketing, engenharia, culinária. Sabe como empresas funcionam, como negociações acontecem, como clientes se comportam.</p>
+<p>Mas nunca viveu nada. Nunca fechou uma venda. Nunca gerenciou uma crise. Nunca conheceu você, sua empresa, seus clientes.</p>
+<p><strong>Esse é um LLM.</strong> E entender isso muda como você dá instruções para ele.</p>
+
+<h2>O que é um LLM, tecnicamente</h2>
+<p>LLM significa <strong>Large Language Model</strong> — modelo de linguagem de grande escala. São sistemas de IA treinados em quantidades massivas de texto para prever, com alta precisão, qual palavra vem depois de outra.</p>
+<p>Parece simples. Mas para prever bem, o modelo precisa compreender gramática, contexto, lógica, fatos históricos, relações entre conceitos. Esse entendimento emerge naturalmente do treinamento em escala.</p>
+<p>Claude, ChatGPT, Gemini, Llama — todos são LLMs. Diferentes tamanhos, diferentes especializações, diferentes comportamentos, mas a mesma arquitetura de base.</p>
+
+<div class="highlight-box">
+  <div class="highlight-box-title">Analogia do mundo real</div>
+  <p>LLM = estagiário que leu tudo mas não viveu nada. Poderoso com contexto claro. Perdido sem contexto.</p>
+</div>
+
+<h2>Como um LLM é treinado</h2>
+<p>O treinamento acontece em duas fases principais:</p>
+<p><strong>Pré-treino:</strong> O modelo lê bilhões de textos — livros, artigos, sites, código, conversas — e aprende a prever a próxima palavra. Nessa fase ele absorve conhecimento enciclopédico do mundo.</p>
+<p><strong>Fine-tuning com feedback humano (RLHF):</strong> Após o pré-treino, o modelo é ajustado com feedback de humanos para ser útil, seguro e seguir instruções. É aqui que o completador de texto vira assistente com personalidade e limites.</p>
+<p>Raciocínio, escrita criativa, programação — nada disso foi explicitamente programado. Emergiu como subproduto de aprender a prever texto em escala absurda.</p>
+
+<h2>O que são tokens e por que importam para o seu bolso</h2>
+<p>LLMs não processam palavras — processam <strong>tokens</strong>. Token é um pedaço de palavra. Em português, uma palavra média tem 1,5 a 2 tokens.</p>
+<p>Isso importa porque todo serviço de IA cobra por token. Você paga pelo que envia (input) e pelo que o modelo responde (output).</p>
+<ul>
+  <li>Uma conversa típica de atendimento: ~800 tokens = ~R$0,03</li>
+  <li>10.000 conversas por mês = ~R$300 só de tokens</li>
+  <li>Contexto longo (documentos grandes) = muito mais tokens = muito mais custo</li>
+</ul>
+<p>Entender tokens é entender o custo de operação de qualquer produto de IA.</p>
+
+<h2>A janela de contexto — a memória de curto prazo do modelo</h2>
+<p>O LLM não tem memória persistente entre conversas por padrão. Ele "vê" apenas o que está na <strong>janela de contexto</strong> atual — o conjunto de mensagens da conversa presente.</p>
+<p>Claude tem janela de 200.000 tokens. GPT-4o tem 128.000. Na prática, isso significa que você pode incluir documentos inteiros, históricos longos de conversa, e bases de conhecimento extensas.</p>
+<p>O problema: janela grande = mais custo + mais lentidão + possível degradação de atenção no meio do documento.</p>
+
+<blockquote>
+  <p>"Para usar IA bem, você não precisa saber como ela funciona por dentro. Precisa entender o que ela é: um especialista generalista sem memória, sem contexto da sua empresa, que responde com base apenas no que você coloca na conversa."</p>
+</blockquote>
+
+<h2>Por que founders precisam entender isso</h2>
+<p>Quando você entende que um LLM é um estagiário que leu tudo mas não sabe nada sobre você, a consequência é óbvia: <strong>você precisa dar contexto.</strong></p>
+<p>Briefing ruim = resposta genérica. Briefing preciso = resposta certeira.</p>
+<p>Empresas que estão ganhando vantagem com IA não têm modelos melhores. Têm processos melhores de dar contexto — system prompts bem construídos, bases de conhecimento organizadas, fluxos que injetam a informação certa no momento certo.</p>
+<p>Esse é o diferencial. E está acessível para PMEs hoje, sem precisar de equipe técnica grande.</p>
+
+<h2>Próximos passos</h2>
+<p>Entendeu o que é um LLM? O próximo passo natural é aprender como dar instruções claras — isso se chama <strong>Prompt Engineering</strong>, e é onde 80% dos resultados são ganhos ou perdidos.</p>
+
+  </div>
+
+  <div class="share-bar">
+    <div class="share-label">Gostou? Compartilha 👇</div>
+    <div class="share-btns">
+      <a href="https://wa.me/?text=Leia%20esse%20artigo%3A%20O que é um LLM — o estagiário que leu tudo%20https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-que-e-um-llm" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-que-e-um-llm" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
+    </div>
+  </div>
+
+  <div class="academy-cta">
+    <div class="academy-cta-eyebrow">Quer se aprofundar mais?</div>
+    <div class="academy-cta-title">Faça a OMA Academy — é gratuito</div>
+    <div class="academy-cta-sub">30 módulos sobre o universo técnico que todo founder precisa entender. Certificado no LinkedIn ao final.</div>
+    <a href="/academy" class="academy-cta-btn">Começar agora →</a>
+  </div>
+
+  <div class="related-section">
+    <div class="related-title">Artigos relacionados</div>
+    <div class="related-grid">
+      <a href="/blog/prompt-engineering" class="related-card">
+        <div class="related-tag">IA</div>
+        <div class="related-title">Prompt Engineering: a arte de dar instruções claras</div>
+        <div class="related-arrow">→</div>
+      </a>
+      <a href="/blog/modelos-de-ia-qual-usar" class="related-card">
+        <div class="related-tag">IA</div>
+        <div class="related-title">Modelos de IA: qual usar e quando</div>
+        <div class="related-arrow">→</div>
+      </a>
+      <a href="/blog/rag-bases-de-conhecimento" class="related-card">
+        <div class="related-tag">IA</div>
+        <div class="related-title">RAG: como dar memória ao seu agente</div>
+        <div class="related-arrow">→</div>
+      </a></div>
+  </div>
+</div>
+
+<div class="article-footer">
+  <a href="/">OMA Project</a> · <a href="/blog">Blog</a> · <a href="/academy">Academy</a> · <a href="/privacidade">Privacidade</a>
+</div>
+
+<script>
+// Detectar se veio da Academy e atualizar botão de volta
+const params = new URLSearchParams(window.location.search);
+const volta = params.get('volta');
+const backBtn = document.getElementById('backToAcademy');
+if(volta && backBtn){
+  backBtn.href = '/academy?modulo=' + volta;
+  backBtn.textContent = '← Voltar ao módulo ' + volta.toUpperCase();
+}
+</script>
+</body>
+</html>

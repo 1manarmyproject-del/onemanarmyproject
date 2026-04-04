@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O que é um Agente de IA? A diferença entre chatbot e agente autônomo | OMA Blog</title>
+<meta name="description" content="Chatbot segue um menu. Agente de IA recebe um objetivo, decide os passos e executa. Entenda a diferença e por que isso muda o que é possível automatizar no seu negócio.">
+<meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
+<meta property="og:title" content="O que é um Agente de IA? A diferença entre chatbot e agente autônomo">
+<meta property="og:description" content="Chatbot segue um menu. Agente de IA recebe um objetivo, decide os passos e executa. Entenda a diferença e por que isso muda o que é possível automatizar no seu negócio.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/o-que-e-um-agente-de-ia">
+<meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/o-que-e-um-agente-de-ia">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"O que é um Agente de IA? A diferença entre chatbot e agente autônomo","description":"Chatbot segue um menu. Agente de IA recebe um objetivo, decide os passos e executa. Entenda a diferença e por que isso muda o que é possível automatizar no seu negócio.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project"},"url":"https://onemanarmyproject.com.br/blog/o-que-e-um-agente-de-ia"}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--border2:#d0d0d0;--text:#111;--text2:#444;--text3:#777;--text4:#bbb;}
+body{background:var(--bg);font-family:"Barlow",sans-serif;color:var(--text);line-height:1.7;}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
+.topbar-logo-name{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-link{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;}
+.topbar-link:hover{color:var(--fire);}
+.topbar-cta{background:var(--fire);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
+.breadcrumb{max-width:780px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bc-item{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;text-transform:uppercase;}
+.bc-item:hover{color:var(--fire);}
+.bc-sep{color:var(--text4);font-size:10px;}
+.bc-back-btn{display:inline-flex;align-items:center;gap:6px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--fire);text-decoration:none;padding:5px 10px;border:1px solid var(--fire-mid);border-radius:4px;background:var(--fire-light);margin-left:auto;}
+.article-wrap{max-width:780px;margin:0 auto;padding:28px 24px 80px;}
+.article-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.article-tag{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:4px 10px;border-radius:20px;font-weight:700;}
+.article-read{font-family:"Space Mono",monospace;font-size:9px;color:var(--text3);}
+.article-academy-badge{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:1px;color:var(--text3);background:var(--bg3);border:1px solid var(--border2);padding:4px 10px;border-radius:20px;text-decoration:none;}
+h1.article-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(28px,5vw,46px);line-height:1.05;color:var(--text);margin-bottom:12px;}
+.article-lead{font-size:16px;color:var(--text3);line-height:1.7;margin-bottom:24px;border-left:4px solid var(--fire);padding:14px 16px;border-radius:0 8px 8px 0;background:var(--fire-light);}
+.article-author{display:flex;align-items:center;gap:10px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);}
+.author-name{font-weight:600;font-size:14px;color:var(--text);}
+.author-role{font-size:12px;color:var(--text3);}
+.article-content h2{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(20px,3vw,28px);color:var(--text);margin:36px 0 12px;}
+.article-content h3{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:20px;color:var(--text);margin:28px 0 10px;}
+.article-content p{font-size:16px;color:var(--text2);margin-bottom:16px;line-height:1.8;}
+.article-content strong{color:var(--text);font-weight:600;}
+.article-content ul,.article-content ol{padding-left:22px;margin-bottom:16px;}
+.article-content li{font-size:15px;color:var(--text2);margin-bottom:8px;line-height:1.7;}
+.article-content blockquote{background:var(--fire-light);border-left:4px solid var(--fire);padding:16px 18px;margin:24px 0;border-radius:0 8px 8px 0;}
+.article-content blockquote p{color:var(--text2);font-style:italic;margin:0;}
+.article-content code{font-family:"Space Mono",monospace;font-size:12px;background:var(--bg3);border:1px solid var(--border2);padding:2px 6px;border-radius:3px;color:var(--fire);}
+.highlight-box{background:var(--bg3);border-radius:8px;padding:18px 20px;margin:24px 0;border-left:4px solid var(--fire);}
+.highlight-box-title{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;font-weight:700;}
+.highlight-box p{margin:0;font-size:14px;color:var(--text2);}
+.share-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.share-label{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;color:var(--text);}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;cursor:pointer;border:none;}
+.share-btn.wa{background:#25D366;color:#fff;}
+.share-btn.li{background:#0A66C2;color:#fff;}
+.share-btn.cp{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border2);}
+.academy-cta{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:32px 0;text-align:center;}
+.academy-cta-eyebrow{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;}
+.academy-cta-title{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:26px;color:#fff;margin-bottom:8px;}
+.academy-cta-sub{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:18px;}
+.academy-cta-btn{display:inline-block;background:#fff;color:var(--fire);font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:12px 28px;border-radius:6px;text-decoration:none;}
+.related-section{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);}
+.related-title{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.related-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;text-decoration:none;transition:box-shadow .15s;display:flex;flex-direction:column;gap:4px;}
+.related-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);}
+.related-tag{font-family:"Space Mono",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);}
+.related-title-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.related-arrow{font-size:12px;color:var(--text4);margin-top:4px;}
+.article-footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px;}
+.article-footer a{color:var(--fire);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="/"><img src="/lobster-logo.png" alt="OMA"><div class="topbar-logo-name">OMA <span>Blog</span></div></a>
+  <div class="topbar-right">
+    <a href="/blog" class="topbar-link">← Blog</a>
+    <a href="/academy" class="topbar-cta">Academy grátis →</a>
+  </div>
+</div>
+<div class="breadcrumb">
+  <a href="/" class="bc-item">OMA</a><span class="bc-sep">›</span>
+  <a href="/blog" class="bc-item">Blog</a><span class="bc-sep">›</span>
+  <span class="bc-item" style="color:var(--text3);">O que é um Agente de IA — além do chatbot</span>
+  <a href="/academy?modulo=m19" class="bc-back-btn" id="backBtn">← Voltar à trilha</a>
+</div>
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="article-tag">Agentes e Automação</span>
+    <span class="article-read">⏱ 8 min de leitura</span>
+    <a href="/academy?modulo=m19" class="article-academy-badge">🦞 OMA Academy</a>
+  </div>
+  <h1 class="article-title">O que é um Agente de IA — além do chatbot</h1>
+  <div class="article-lead">Chatbot segue um menu. Agente de IA recebe um objetivo, decide os passos e executa. Entenda a diferença e por que isso muda o que é possível automatizar no seu negócio.</div>
+  <div class="article-author">
+    <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
+    <div><div class="author-name">Fabio Xavier</div><div class="author-role">Founder · OMA Project</div></div>
+  </div>
+  <div class="article-content">
+<h2>O caixa eletrônico vs o assistente pessoal</h2>
+<p>Quando você usa um caixa eletrônico, você navega por um menu. Saldo → Extrato → Transferência. Se o que você precisa não está no menu, o caixa eletrônico não consegue ajudar. Determinístico, previsível, limitado ao que foi programado.</p>
+<p>Quando você tem um assistente pessoal competente, você diz: "Agende uma reunião com o João para sexta de manhã." Ele verifica sua agenda, verifica a disponibilidade do João, propõe horários, envia o convite e confirma. Autonomia para decidir os passos e executar.</p>
+<p><strong>Chatbot tradicional = caixa eletrônico. Agente de IA = assistente pessoal.</strong></p>
+<div class="highlight-box">
+  <div class="highlight-box-title">A distinção fundamental</div>
+  <p>Chatbot = fluxo pré-definido. Você navega por menus. Agente = objetivo definido. Ele decide o caminho.</p>
+</div>
+<h2>O que faz um agente de IA</h2>
+<p>Um agente de IA é um sistema que usa um LLM como "cérebro" para:</p>
+<ul>
+  <li><strong>Perceber</strong> o ambiente — receber mensagens, eventos, dados</li>
+  <li><strong>Raciocinar</strong> — decidir qual próximo passo faz mais sentido</li>
+  <li><strong>Agir</strong> — executar ações usando ferramentas</li>
+  <li><strong>Observar</strong> — ver o resultado e adaptar</li>
+  <li><strong>Repetir</strong> — até o objetivo ser atingido</li>
+</ul>
+<p>Esse loop acontece de forma autônoma. Você define o objetivo, o agente decide como atingir.</p>
+<h2>As ferramentas são a capacidade do agente</h2>
+<p>Um agente sem ferramentas é só um LLM que conversa. As ferramentas são o que permitem o agente agir no mundo real:</p>
+<ul>
+  <li>Busca na web — pesquisar informação atual</li>
+  <li>APIs externas — enviar email, acessar banco, postar no Slack</li>
+  <li>Execução de código — calcular, processar dados</li>
+  <li>Memória — salvar e recuperar informações entre sessões</li>
+  <li>Calendário, CRM, WhatsApp — qualquer sistema com API</li>
+</ul>
+<p>Quanto mais ferramentas, mais capaz o agente. Mas também mais risco — ferramentas de "escrita" (enviar, deletar, publicar) exigem cuidado especial com ações irreversíveis.</p>
+<h2>Exemplos práticos para PMEs</h2>
+<p><strong>Atendimento comercial:</strong> cliente manda mensagem no WhatsApp às 2h da manhã perguntando sobre preço. Agente responde, qualifica o interesse, agenda uma reunião e notifica o vendedor. Tudo enquanto você dorme.</p>
+<p><strong>Triagem de leads:</strong> novo lead entra no CRM. Agente pesquisa a empresa, enriquece com dados públicos, classifica o perfil e sugere a abordagem. Vendedor começa a conversa já preparado.</p>
+<p><strong>Relatório semanal:</strong> toda sexta às 17h, agente coleta dados de vendas, compara com a semana anterior, identifica desvios e envia o resumo formatado para o time. Zero trabalho manual.</p>
+<h2>O que é Human in the Loop e por que importa</h2>
+<p>Autonomia total é poderosa e arriscada. Para ações de alto impacto — enviar comunicação para toda a base, executar transação financeira, publicar conteúdo em nome da empresa — o agente deve parar, apresentar o que vai fazer e aguardar aprovação humana.</p>
+<p>Isso se chama <strong>Human in the Loop</strong>. Não é limitação — é design inteligente. O agente faz o trabalho pesado, você faz a decisão final onde ela importa.</p>
+<blockquote><p>"O objetivo de um agente de IA não é substituir o fundador. É liberar o fundador para fazer o que só ele pode fazer — enquanto o agente cuida do que é repetitivo, previsível e volumoso."</p></blockquote>
+<h2>Por onde começar</h2>
+<p>O erro mais comum é tentar automatizar tudo de uma vez. Comece pelo processo mais repetitivo, mais volumoso e mais bem definido do seu negócio. Atendimento de FAQ, triagem inicial de leads, confirmação de agendamentos — processos com regras claras e baixo risco.</p>
+<p>Quando esse primeiro agente funcionar bem e você entender como gerenciá-lo, expande.</p>
+</div>
+  <div class="share-bar">
+    <div class="share-label">Gostou? Compartilha 👇</div>
+    <div class="share-btns">
+      <a href="https://wa.me/?text=Leia%20esse%20artigo%3A%20https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-que-e-um-agente-de-ia" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fo-que-e-um-agente-de-ia" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
+    </div>
+  </div>
+  <div class="academy-cta">
+    <div class="academy-cta-eyebrow">Quer se aprofundar mais?</div>
+    <div class="academy-cta-title">Faça a OMA Academy — é gratuito</div>
+    <div class="academy-cta-sub">30 módulos sobre o universo técnico que todo founder precisa entender. Certificado no LinkedIn ao final.</div>
+    <a href="/academy" class="academy-cta-btn">Começar agora →</a>
+  </div>
+  <div class="related-section">
+    <div class="related-title">Artigos relacionados</div>
+    <div class="related-grid">
+      <a href="/blog/mcp-model-context-protocol" class="related-card">
+        <div class="related-tag">Agentes</div>
+        <div class="related-title-text">MCP: o ramal interno dos agentes</div>
+        <div class="related-arrow">→</div>
+      </a>
+      <a href="/blog/o-que-e-um-llm" class="related-card">
+        <div class="related-tag">IA</div>
+        <div class="related-title-text">O que é um LLM</div>
+        <div class="related-arrow">→</div>
+      </a>
+      <a href="/blog/prompt-engineering" class="related-card">
+        <div class="related-tag">IA</div>
+        <div class="related-title-text">Prompt Engineering</div>
+        <div class="related-arrow">→</div>
+      </a></div>
+  </div>
+</div>
+<div class="article-footer">
+  <a href="/">OMA Project</a> · <a href="/blog">Blog</a> · <a href="/academy">Academy</a>
+</div>
+<script>
+const p=new URLSearchParams(window.location.search);
+const v=p.get('volta');
+const b=document.getElementById('backBtn');
+if(v&&b){b.href='/academy?modulo='+v;b.textContent='← Voltar ao módulo '+v.toUpperCase();}
+</script>
+</body></html>

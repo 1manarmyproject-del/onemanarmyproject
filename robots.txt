@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onemanarmyproject.com.br/sitemap.xml

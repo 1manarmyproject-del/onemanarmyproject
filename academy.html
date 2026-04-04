@@ -1010,6 +1010,24 @@ select.precert-input{cursor:pointer;}
 /* Error hint */
 .field-error{font-size:11px;color:var(--red);margin-top:3px;display:none;}
 
+
+/* ── BOTÃO APROFUNDAR ────────────────────────────────────── */
+.deepen-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:16px;
+  padding:9px 16px;border-radius:6px;
+  background:var(--bg3);border:1.5px solid var(--border2);
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:1px;text-transform:uppercase;
+  color:var(--text3);text-decoration:none;
+  transition:all .15s;
+}
+.deepen-btn:hover{
+  border-color:var(--fire);color:var(--fire);
+  background:var(--fire-light);
+}
+.deepen-btn-icon{font-size:12px;}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -2490,6 +2508,20 @@ function renderLesson(m){
     `<span class="lv-tag t-xp">+${m.xp} XP</span>`;
   document.getElementById('lvTitle').textContent=m.title+' — '+m.sub;
   document.getElementById('lvAnalogy').textContent=m.analogy;
+  // Botão de aprofundar — se tiver artigo no blog
+  const BLOG_MAP={'m13':'o-que-e-um-llm','m14':'prompt-engineering','m15':'modelos-de-ia-qual-usar','m16':'rag-bases-de-conhecimento','m19':'o-que-e-um-agente-de-ia','m20':'mcp-model-context-protocol'};
+  const blogSlug=BLOG_MAP[mid];
+  const existingDeepen=document.getElementById('deepenBtn');
+  if(existingDeepen)existingDeepen.remove();
+  if(blogSlug){
+    const btn=document.createElement('a');
+    btn.id='deepenBtn';
+    btn.href='/blog/'+blogSlug+'?volta='+mid;
+    btn.target='_blank';
+    btn.className='deepen-btn';
+    btn.innerHTML='<span class="deepen-btn-icon">📖</span>Aprofundar nesse tema';
+    document.getElementById('lvAnalogy').after(btn);
+  }
   // progress steps: 3 cards + quiz + challenge
   renderLessonProgress();
   // cards

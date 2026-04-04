@@ -1,6 +1,34 @@
 {
   "rewrites": [
     {
+      "source": "/blog/modelos-de-ia-qual-usar",
+      "destination": "/blog/modelos-de-ia-qual-usar.html"
+    },
+    {
+      "source": "/blog/rag-bases-de-conhecimento",
+      "destination": "/blog/rag-bases-de-conhecimento.html"
+    },
+    {
+      "source": "/blog/mcp-model-context-protocol",
+      "destination": "/blog/mcp-model-context-protocol.html"
+    },
+    {
+      "source": "/blog/o-que-e-um-agente-de-ia",
+      "destination": "/blog/o-que-e-um-agente-de-ia.html"
+    },
+    {
+      "source": "/blog/prompt-engineering",
+      "destination": "/blog/prompt-engineering.html"
+    },
+    {
+      "source": "/blog/o-que-e-um-llm",
+      "destination": "/blog/o-que-e-um-llm.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
       "source": "/termos",
       "destination": "/termos.html"
     },
