@@ -3089,6 +3089,56 @@ function updateProfileDropdown(){
   document.getElementById('pdLevelIcon').textContent=LEVEL_ICONS[lvIdx]||'🚀';
 }
 
+
+// ════════════════════════════════════════════════════════
+//  MÓDULO BÔNUS — LGPD
+// ════════════════════════════════════════════════════════
+MODS['lgpd'] = {
+  id:'lgpd', title:'LGPD na Prática', sub:'O que sua empresa precisa fazer agora',
+  phase:2, xp:60,
+  analogy:'LGPD é para dados pessoais o que o Código de Defesa do Consumidor é para produtos. Define direitos do cliente, obrigações da empresa, e punições pelo descumprimento. Não é opcional.',
+  cards:[
+    {
+      title:'O que é dado pessoal — e por que você já coleta',
+      body:'<p>Dado pessoal é qualquer informação que identifica ou pode identificar uma pessoa: nome, CPF, email, telefone, endereço, IP, localização.</p><p>Se você tem uma lista de clientes com email, você tem dados pessoais. Se você tem um formulário de cadastro no site, você coleta dados pessoais. <strong>A LGPD se aplica a você.</strong></p><p>A lei entrou em vigor em 2020. As sanções são aplicadas desde 2021. A ANPD (Autoridade Nacional de Proteção de Dados) já aplicou as primeiras multas em 2024.</p>',
+      highlight:'Se você coleta email de clientes, a LGPD já se aplica ao seu negócio. Não é lei só para grandes empresas.'
+    },
+    {
+      title:'Os 5 pontos que toda PME precisa ter',
+      body:'<p><strong>1. Política de Privacidade pública</strong> — página explicando quais dados você coleta, por que e como o cliente pode exercer seus direitos.</p><p><strong>2. Base legal para cada coleta</strong> — consentimento explícito (newsletter) ou legítimo interesse (execução de contrato). Cada coleta precisa de justificativa.</p><p><strong>3. Canal para atender direitos</strong> — email de privacidade com prazo de resposta de 15 dias úteis.</p><p><strong>4. Inventário mínimo de dados</strong> — saber o que você coleta, onde fica e quem tem acesso.</p><p><strong>5. Processo para incidentes</strong> — o que fazer se houver vazamento (notificação à ANPD em até 72h).</p>',
+      highlight:'Checklist mínimo: política pública + base legal + canal de atendimento + inventário + processo de incidente.'
+    },
+    {
+      title:'LGPD e IA — o que muda quando você usa agentes',
+      body:'<p>Com o uso crescente de IA, surgem obrigações específicas:</p><p><strong>Decisões automatizadas</strong> — se seu agente toma decisões que afetam clientes, o titular tem direito de solicitar revisão humana.</p><p><strong>Dados em prompts</strong> — ao enviar dados de clientes para APIs de IA (OpenAI, Anthropic), você está transferindo dados pessoais para terceiros. Isso exige base legal.</p><p><strong>Minimização</strong> — nunca envie mais dados do que o necessário. Se o agente precisa responder sobre um pedido, envie o número do pedido — não o CPF completo.</p><p><strong>Retenção</strong> — defina por quanto tempo históricos de conversas ficam armazenados.</p>',
+      highlight:'IA com dados de clientes = obrigações específicas de LGPD. Minimização e retenção são os pontos mais ignorados.'
+    }
+  ],
+  quiz:[
+    {
+      q:'Você envia dados de clientes (nome e email) para a API da OpenAI para gerar respostas personalizadas. O que isso implica pela LGPD?',
+      opts:['Nada — APIs externas são responsabilidade do fornecedor','Você está transferindo dados pessoais para terceiro, o que exige base legal e, idealmente, cláusula contratual com o fornecedor','Apenas empresas com mais de 50 funcionários precisam se preocupar','APIs de IA estão isentas da LGPD'],
+      c:1,
+      exp:'Dado pessoal enviado para terceiro = transferência que precisa de base legal. O fornecedor de IA precisa ter DPA (Data Processing Agreement).'
+    },
+    {
+      q:'Um cliente envia email pedindo para "apagar todos os meus dados" do seu sistema. O que você deve fazer?',
+      opts:['Ignorar — você precisa dos dados para operar','Atender em até 15 dias úteis — é um direito garantido pela LGPD','Cobrar uma taxa pelo processo de exclusão','Responder que não é possível por questões técnicas'],
+      c:1,
+      exp:'Direito à exclusão é garantido pela LGPD. Prazo: 15 dias úteis. Exceção: dados necessários para cumprimento de obrigação legal.'
+    },
+    {
+      q:'Qual a penalidade máxima por infração à LGPD?',
+      opts:['R$5 milhões','R$50 milhões por infração','R$500 mil para PMEs','Não há penalidade financeira, só advertência'],
+      c:1,
+      exp:'LGPD prevê multa de até 2% do faturamento do último exercício, limitada a R$50 milhões por infração. A ANPD já aplicou as primeiras multas em 2024.'
+    }
+  ],
+  challenge:'Acesse o site da sua empresa ou produto agora. Tem página de Política de Privacidade publicada e acessível? Tem campo de consentimento nos formulários de cadastro? Tem email de privacidade? Liste o que está faltando e estime o tempo para implementar cada item.'
+};
+
+// Adicionar LGPD ao BLOG_MAP
+
 // ════════════════════════════════════════════════════════
 //  BOOT
 // ════════════════════════════════════════════════════════

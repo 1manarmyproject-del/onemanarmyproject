@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swarm Intelligence — O que cardumes de peixe ensinam sobre decisões de negócio | OMA Blog</title>
+<meta name="description" content="Nenhum peixe lidera. Mas o cardume inteiro toma decisões melhores que a maioria dos comitês executivos. Entenda swarm intelligence e como ela está sendo aplicada a cenários de negócio e política.">
+<meta name="google-site-verification" content="x3B1kshUWHbSuw9ljzw2zr1KpztZgsRp4qK7PW7Ksok">
+<meta property="og:title" content="Swarm Intelligence — O que cardumes de peixe ensinam sobre decisões de negócio">
+<meta property="og:description" content="Nenhum peixe lidera. Mas o cardume inteiro toma decisões melhores que a maioria dos comitês executivos. Entenda swarm intelligence aplicada a cenários de negócio.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://onemanarmyproject.com.br/blog/swarm-intelligence">
+<meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://onemanarmyproject.com.br/blog/swarm-intelligence">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Swarm Intelligence — O que cardumes de peixe ensinam sobre decisões de negócio","description":"Nenhum peixe lidera. Mas o cardume inteiro toma decisões melhores que a maioria dos comitês executivos.","author":{"@type":"Person","name":"Fabio Xavier"},"publisher":{"@type":"Organization","name":"OMA Project","logo":{"@type":"ImageObject","url":"https://onemanarmyproject.com.br/lobster-logo.png"}},"url":"https://onemanarmyproject.com.br/blog/swarm-intelligence"}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--text:#111;--text2:#333;--text3:#666;--text4:#bbb;--blue:#2563eb;--blue-light:#dbeafe;}
+body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);line-height:1.7;}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
+.topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.topbar-logo-name span{color:var(--fire);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-decoration:none;}
+.topbar-link:hover{color:var(--fire);}
+.topbar-cta{background:var(--fire);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
+.breadcrumb{max-width:760px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bc-item{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;text-transform:uppercase;}
+.bc-item:hover{color:var(--fire);}
+.bc-sep{color:var(--text4);font-size:10px;}
+.article-wrap{max-width:760px;margin:0 auto;padding:28px 24px 80px;}
+.article-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.article-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:4px 10px;border-radius:20px;font-weight:700;}
+.article-tag-blue{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);background:var(--blue-light);border:1px solid #bfdbfe;padding:4px 10px;border-radius:20px;font-weight:700;}
+.article-read{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);}
+h1.article-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,5vw,50px);line-height:1.05;color:var(--text);margin-bottom:12px;}
+.article-lead{font-size:17px;color:var(--text3);line-height:1.7;margin-bottom:24px;border-left:4px solid var(--fire);padding:14px 16px;border-radius:0 8px 8px 0;background:var(--fire-light);}
+.article-author{display:flex;align-items:center;gap:10px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--fire-mid);}
+.author-name{font-weight:700;font-size:14px;color:var(--text);}
+.author-role{font-size:12px;color:var(--text3);}
+.article-content h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,3.5vw,30px);color:var(--text);margin:40px 0 12px;line-height:1.15;}
+.article-content h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--text);margin:28px 0 10px;}
+.article-content p{font-size:16px;color:var(--text2);margin-bottom:16px;line-height:1.85;}
+.article-content strong{color:var(--text);font-weight:600;}
+.article-content em{color:var(--text3);font-style:italic;}
+.article-content ul,.article-content ol{padding-left:22px;margin-bottom:16px;}
+.article-content li{font-size:15px;color:var(--text2);margin-bottom:8px;line-height:1.7;}
+.article-content blockquote{background:var(--fire-light);border-left:4px solid var(--fire);padding:16px 18px;margin:28px 0;border-radius:0 8px 8px 0;}
+.article-content blockquote p{color:var(--text2);font-style:italic;margin:0;font-size:15px;}
+.highlight-box{background:var(--bg3);border-radius:8px;padding:18px 20px;margin:24px 0;border-left:4px solid var(--fire);}
+.highlight-box-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;font-weight:700;}
+.highlight-box p{margin:0;font-size:14px;color:var(--text2);}
+
+/* Regras do cardume — visual especial */
+.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0;}
+@media(max-width:560px){.rules-grid{grid-template-columns:1fr;}}
+.rule-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:18px;text-align:center;}
+.rule-icon{font-size:28px;margin-bottom:10px;}
+.rule-num{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:6px;}
+.rule-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);margin-bottom:6px;}
+.rule-desc{font-size:12px;color:var(--text3);line-height:1.5;}
+
+/* Timeline científica */
+.sci-timeline{margin:28px 0;}
+.sci-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);}
+.sci-item:last-child{border-bottom:none;}
+.sci-year{font-family:'Space Mono',monospace;font-weight:700;font-size:11px;color:var(--fire);white-space:nowrap;padding-top:2px;min-width:52px;}
+.sci-content{}
+.sci-title{font-weight:700;font-size:14px;color:var(--text);margin-bottom:2px;}
+.sci-desc{font-size:13px;color:var(--text3);line-height:1.5;}
+
+/* Comparação pesquisa vs swarm */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0;}
+@media(max-width:480px){.compare-grid{grid-template-columns:1fr;}}
+.compare-card{border-radius:8px;padding:18px;}
+.compare-card.old{background:#f9f9f9;border:1px solid var(--border);}
+.compare-card.new{background:var(--fire-light);border:1px solid var(--fire-mid);}
+.compare-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700;}
+.compare-card.old .compare-label{color:var(--text3);}
+.compare-card.new .compare-label{color:var(--fire);}
+.compare-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);margin-bottom:8px;line-height:1.5;}
+.compare-item::before{flex-shrink:0;margin-top:1px;}
+.compare-card.old .compare-item::before{content:'✗';color:#dc2626;}
+.compare-card.new .compare-item::before{content:'✓';color:var(--fire);}
+
+/* CTA Predictions — especial */
+.predictions-cta{
+  background:linear-gradient(135deg,#0f0f1a 0%,#1a1008 50%,#0a1520 100%);
+  border-radius:12px;padding:36px;margin:40px 0;
+  border:1px solid #2a2a3a;
+  position:relative;overflow:hidden;
+}
+.predictions-cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top right, rgba(232,112,58,.15) 0%, transparent 60%);
+  pointer-events:none;
+}
+.pred-eyebrow{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(232,112,58,.8);text-transform:uppercase;margin-bottom:10px;}
+.pred-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,4vw,34px);color:#fff;margin-bottom:10px;line-height:1.1;}
+.pred-title span{color:#e8703a;}
+.pred-desc{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px;max-width:520px;}
+.pred-list{margin-bottom:24px;}
+.pred-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px;}
+.pred-item::before{content:'→';color:#e8703a;font-weight:700;flex-shrink:0;}
+.pred-btn{display:inline-flex;align-items:center;gap:8px;background:#e8703a;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:12px 24px;border-radius:6px;text-decoration:none;transition:background .15s;}
+.pred-btn:hover{background:#c05020;}
+.pred-note{margin-top:12px;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.35);}
+
+.share-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.share-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;cursor:pointer;border:none;}
+.share-btn.wa{background:#25D366;color:#fff;}
+.share-btn.li{background:#0A66C2;color:#fff;}
+.share-btn.cp{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border);}
+.academy-cta{background:linear-gradient(135deg,var(--fire),var(--ember));border-radius:12px;padding:28px 32px;margin:32px 0;text-align:center;}
+.academy-cta-eyebrow{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:8px;}
+.academy-cta-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;color:#fff;margin-bottom:8px;}
+.academy-cta-sub{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:18px;}
+.academy-cta-btn{display:inline-block;background:#fff;color:var(--fire);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:12px 28px;border-radius:6px;text-decoration:none;}
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px;}
+.footer a{color:var(--fire);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-logo" href="/"><img src="/lobster-logo.png" alt="OMA"><div class="topbar-logo-name">OMA <span>Blog</span></div></a>
+  <div class="topbar-right">
+    <a href="/blog" class="topbar-link">← Blog</a>
+    <a href="/academy" class="topbar-cta">Academy grátis →</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="/" class="bc-item">OMA</a><span class="bc-sep">›</span>
+  <a href="/blog" class="bc-item">Blog</a><span class="bc-sep">›</span>
+  <span class="bc-item" style="color:var(--text3);">Swarm Intelligence</span>
+</div>
+
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="article-tag">Inteligência Artificial</span>
+    <span class="article-tag-blue">✦ Em profundidade</span>
+    <span class="article-read">⏱ 9 min de leitura</span>
+  </div>
+
+  <h1 class="article-title">Swarm Intelligence — o que cardumes de peixe ensinam sobre decisões de negócio</h1>
+
+  <div class="article-lead">Nenhum peixe lidera. Nenhum peixe conhece o mapa completo. Mas o cardume inteiro se move como um organismo — desvia de predadores, encontra comida, reage a ameaças. A inteligência emerge do coletivo. E estamos aplicando esse princípio a cenários de negócio e política.</div>
+
+  <div class="article-author">
+    <img src="/lobster-logo.png" class="author-avatar" alt="Fabio Xavier">
+    <div><div class="author-name">Fabio Xavier</div><div class="author-role">Founder · OMA Project</div></div>
+  </div>
+
+  <div class="article-content">
+
+    <h2>Três regras. Zero liderança. Inteligência perfeita.</h2>
+
+    <p>Observe um cardume de peixes num documentário do National Geographic. Centenas — às vezes milhares — de peixes se movendo em perfeita sincronia. Viram juntos. Se expandem. Se contraem. Enganam predadores com movimentos que parecem coreografados.</p>
+
+    <p>Não são coreografados. Nenhum peixe deu ordem. Nenhum peixe viu o movimento completo. Cada peixe apenas seguiu três regras simples:</p>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-icon">↔️</div>
+        <div class="rule-num">Regra 01</div>
+        <div class="rule-title">Separação</div>
+        <div class="rule-desc">Mantenha distância mínima do vizinho mais próximo. Não colida.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">➡️</div>
+        <div class="rule-num">Regra 02</div>
+        <div class="rule-title">Alinhamento</div>
+        <div class="rule-desc">Alinhe sua direção com a direção média dos vizinhos próximos.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🎯</div>
+        <div class="rule-num">Regra 03</div>
+        <div class="rule-title">Coesão</div>
+        <div class="rule-desc">Mova-se em direção ao centro do grupo mais próximo.</div>
+      </div>
+    </div>
+
+    <p>Três regras individuais. Comportamento coletivo complexo. Inteligência que nenhum peixe individual possui, mas que o grupo inteiro manifesta.</p>
+
+    <p>Isso é <strong>swarm intelligence</strong> — inteligência de enxame. E é um dos princípios mais poderosos que a natureza descobriu para resolver problemas complexos.</p>
+
+    <h2>Não é só peixe. A natureza faz isso em escala</h2>
+
+    <p>Formigas não têm mapa. Cada formiga só sabe o que está imediatamente ao redor dela. Mas uma colônia de formigas encontra consistentemente o caminho mais curto entre o formigueiro e a fonte de comida — mesmo em ambientes complexos com obstáculos.</p>
+
+    <p>Como? Feromônio. Cada formiga deposita feromônio no caminho que percorre. Caminhos mais curtos recebem mais feromônio (porque as formigas os percorrem mais vezes no mesmo tempo). Mais feromônio atrai mais formigas. O ciclo converge para o caminho ótimo — sem nenhuma formiga saber que está fazendo isso.</p>
+
+    <p>Abelhas são ainda mais sofisticadas. Quando a colmeia precisa de um novo lar, abelhas batedoras saem em exploração. Quando encontram um local promissor, voltam e dançam — literalmente. A dança comunica direção, distância e qualidade do local. Outras batedoras vão verificar. Se concordarem, dançam também. O enxame converge para o melhor local por um processo de "votação" descentralizada — sem nenhuma abelha rainha decidindo.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">O princípio central</div>
+      <p>Swarm intelligence é o princípio de que agentes simples, seguindo regras individuais básicas, geram comportamento coletivo complexo e inteligente — sem nenhum controle central. A inteligência não está nos indivíduos. Está nas interações entre eles.</p>
+    </div>
+
+    <h2>Da natureza para a ciência — e para o mundo dos negócios</h2>
+
+    <p>Pesquisadores observaram esses padrões por décadas antes de conseguir formalizá-los computacionalmente. A virada aconteceu nos anos 80 e 90:</p>
+
+    <div class="sci-timeline">
+      <div class="sci-item">
+        <div class="sci-year">1986</div>
+        <div class="sci-content">
+          <div class="sci-title">Boids — Craig Reynolds</div>
+          <div class="sci-desc">Modelo computacional com as mesmas três regras do cardume. Simulou comportamento de bando de forma convincente pela primeira vez. Hoje usado em efeitos visuais e jogos.</div>
+        </div>
+      </div>
+      <div class="sci-item">
+        <div class="sci-year">1992</div>
+        <div class="sci-content">
+          <div class="sci-title">Ant Colony Optimization — Marco Dorigo</div>
+          <div class="sci-desc">Algoritmo inspirado em formigas para otimização de rotas. Hoje usado em logística, telecomunicações, design de circuitos e roteamento de redes.</div>
+        </div>
+      </div>
+      <div class="sci-item">
+        <div class="sci-year">1995</div>
+        <div class="sci-content">
+          <div class="sci-title">Particle Swarm Optimization — Kennedy & Eberhart</div>
+          <div class="sci-desc">Algoritmo inspirado em pássaros e peixes para encontrar ótimos em espaços de busca complexos. Usado em finanças, engenharia e treinamento de redes neurais.</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Esses algoritmos hoje rodam em sistemas que você usa todos os dias sem saber — otimização de rotas de delivery, alocação de banda em redes de telecomunicações, balanceamento de portfólios financeiros.</p>
+
+    <h2>A pergunta que muda tudo para negócios</h2>
+
+    <p>Se a natureza usa swarm intelligence para resolver problemas de otimização complexos — encontrar o melhor caminho, tomar a melhor decisão coletiva, reagir a ameaças imprevisíveis — por que não usar o mesmo princípio para simular como <em>mercados, consumidores e públicos</em> vão reagir a uma decisão de negócio?</p>
+
+    <p>Pesquisa de mercado tradicional faz as pessoas responderem isoladamente. Um questionário. Um focus group onde cada pessoa fala por vez. Um modelo estático que captura opinião, mas não dinâmica.</p>
+
+    <p>A vida real não funciona assim. Opiniões se formam em interação. Uma objeção levantada num grupo pode ser rebatida, amplificada, ou silenciada — dependendo da dinâmica social. Narrativas emergem de conversas, não de respostas individuais. Coalizões se formam. Consensos aparecem onde não eram esperados.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card old">
+        <div class="compare-label">Pesquisa tradicional</div>
+        <div class="compare-item">Pessoas respondem isoladamente</div>
+        <div class="compare-item">Sem interação entre participantes</div>
+        <div class="compare-item">Captura opinião estática</div>
+        <div class="compare-item">Não revela dinâmicas sociais</div>
+        <div class="compare-item">Resultado: médias e percentuais</div>
+      </div>
+      <div class="compare-card new">
+        <div class="compare-label">Swarm Intelligence</div>
+        <div class="compare-item">Agentes interagem entre si</div>
+        <div class="compare-item">Cada um influencia e é influenciado</div>
+        <div class="compare-item">Captura dinâmica emergente</div>
+        <div class="compare-item">Revela coalizões e narrativas</div>
+        <div class="compare-item">Resultado: padrões e previsões</div>
+      </div>
+    </div>
+
+    <blockquote>
+      <p>"Um cardume não tem CEO. Mas toma decisões melhores que a maioria dos comitês executivos — porque cada peixe processa informação local e o coletivo converge para o melhor caminho. É isso que fazemos com cenários de negócio."</p>
+    </blockquote>
+
+    <h2>Como funciona na prática — o modelo Mirofish</h2>
+
+    <p>Imagine um cenário: você está prestes a lançar um produto, aprovar uma comunicação de crise, ou entrar num novo mercado. Você precisa saber como diferentes públicos vão reagir — antes de agir.</p>
+
+    <p>No modelo de swarm intelligence aplicado a negócios, cada agente de IA é um "peixe" com personalidade, opinião, histórico e motivações próprias. Pode ser um consumidor cético. Um jornalista crítico. Um influenciador entusiasta. Um concorrente observando. Um regulador cauteloso.</p>
+
+    <p>Esses agentes não sabem o resultado final — assim como o peixe não sabe para onde o cardume vai. Eles apenas reagem ao que veem: posts, comentários, notícias, declarações. E interagem uns com os outros.</p>
+
+    <p>Em 15 rounds de interação — com 30 a 40 agentes — padrões emergem:</p>
+
+    <ul>
+      <li><strong>Coalizões se formam</strong> — quem vai defender, quem vai atacar, quem vai ficar em cima do muro</li>
+      <li><strong>Objeções se repetem</strong> — as que aparecem em múltiplos agentes independentemente são as que vão aparecer no mercado real</li>
+      <li><strong>Narrativas dominantes surgem</strong> — o frame pelo qual sua decisão será interpretada, mesmo que não seja o frame que você escolheu</li>
+      <li><strong>Pontos de inflexão aparecem</strong> — momentos onde o consenso poderia ter ido para outro lado com uma intervenção diferente</li>
+    </ul>
+
+    <p>O relatório captura essa inteligência emergente — exatamente como observar um cardume revela para onde o oceano está indo, antes que qualquer peixe individualmente saiba.</p>
+
+    <h2>Por que isso importa para founders e executivos de PME</h2>
+
+    <p>Decisões de negócio não acontecem no vácuo. Acontecem num ecossistema de stakeholders — clientes, concorrentes, imprensa, reguladores, funcionários — que vão reagir, interpretar, amplificar ou silenciar o que você faz.</p>
+
+    <p>Grandes empresas têm departamentos inteiros de pesquisa de mercado, inteligência competitiva e comunicação estratégica para mapear essas reações antes de agir. PMEs tomam decisões no escuro — ou baseadas na intuição do fundador, que pode ser brilhante ou completamente equivocada.</p>
+
+    <p>Swarm intelligence muda esse equilíbrio. Pela primeira vez, é possível simular a dinâmica social em torno de uma decisão — a um custo que PMEs conseguem pagar — antes de comprometer recursos, reputação ou capital.</p>
+
+    <p>Não é pesquisa de mercado. É simulação de mercado. A diferença é a mesma que existe entre perguntar para um peixe "você vai para a direita ou para a esquerda?" e observar o cardume inteiro se mover.</p>
+
+    <!-- CTA PREDICTIONS -->
+    <div class="predictions-cta">
+      <div class="pred-eyebrow">✦ Em breve · OMA Predictions</div>
+      <div class="pred-title">Simule o mercado<br>antes de <span>agir</span></div>
+      <div class="pred-desc">Estamos lançando o OMA Predictions — uma plataforma que aplica swarm intelligence a cenários reais de negócio e política. Você descreve a situação. Nossos agentes simulam a dinâmica social. Você recebe o mapa de como o mercado vai reagir — antes de decidir.</div>
+      <div class="pred-list">
+        <div class="pred-item">Lançamento de produto — como diferentes públicos vão reagir</div>
+        <div class="pred-item">Comunicação de crise — qual narrativa vai dominar</div>
+        <div class="pred-item">Entrada em novo mercado — onde estão as resistências reais</div>
+        <div class="pred-item">Cenários políticos e eleitorais — como coalizões vão se formar</div>
+      </div>
+      <a href="https://wa.me/5511966621506?text=Quero+saber+mais+sobre+o+OMA+Predictions" target="_blank" class="pred-btn">🦞 Quero acesso antecipado</a>
+      <div class="pred-note">Lista de espera aberta · Lançamento em breve · Vagas limitadas</div>
+    </div>
+
+  </div>
+
+  <div class="share-bar">
+    <div class="share-label">Achou relevante? Compartilha 👇</div>
+    <div class="share-btns">
+      <a href="https://wa.me/?text=Leia+esse+artigo+sobre+swarm+intelligence%3A+https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fswarm-intelligence" target="_blank" class="share-btn wa">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonemanarmyproject.com.br%2Fblog%2Fswarm-intelligence" target="_blank" class="share-btn li">💼 LinkedIn</a>
+      <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='🔗 Copiar link',2000)" class="share-btn cp">🔗 Copiar link</button>
+    </div>
+  </div>
+
+  <div class="academy-cta">
+    <div class="academy-cta-eyebrow">Quer entender mais sobre agentes de IA?</div>
+    <div class="academy-cta-title">OMA Academy — gratuito</div>
+    <div class="academy-cta-sub">30 módulos sobre IA, agentes e automação para founders. Do LLM ao multi-agentes. Com certificado no LinkedIn.</div>
+    <a href="/academy" class="academy-cta-btn">Começar agora →</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="/">OMA Project</a> · <a href="/blog">Blog</a> · <a href="/academy">Academy</a>
+</div>
+</body>
+</html>

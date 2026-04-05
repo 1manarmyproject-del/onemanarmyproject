@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/blog/lgpd-para-pmes",
+      "destination": "/blog/lgpd-para-pmes.html"
+    },
+    {
+      "source": "/blog/swarm-intelligence",
+      "destination": "/blog/swarm-intelligence.html"
+    },
+    {
       "source": "/predictions",
       "destination": "/predictions.html"
     },
