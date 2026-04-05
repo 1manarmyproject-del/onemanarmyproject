@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-05T00:36:22.234128Z",
-  "updated_at_brt": "21:36 BRT · 04/04/2026",
+  "updated_at": "2026-04-05T02:51:37.267541Z",
+  "updated_at_brt": "23:51 BRT · 04/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 3.1611,
+  "total_cost_usd": 3.1676,
   "services": {
     "system": {
       "name": "Sistema",
@@ -18,12 +18,12 @@
           "activity": "Aprendizado e memória",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.0955,
-          "runs": 88
+          "cost": 0.09659999999999999,
+          "runs": 89
         }
       ],
-      "total_cost": 0.2019,
-      "total_runs": 115
+      "total_cost": 0.20299999999999999,
+      "total_runs": 116
     },
     "ekhoa": {
       "name": "Ekhoa",
@@ -81,12 +81,12 @@
           "activity": "Auditoria técnica, monitoramento",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.0232,
-          "runs": 3
+          "cost": 0.0286,
+          "runs": 4
         }
       ],
-      "total_cost": 0.0232,
-      "total_runs": 3
+      "total_cost": 0.0286,
+      "total_runs": 4
     }
   },
   "products": {

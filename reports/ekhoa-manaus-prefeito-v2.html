@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Predictions — Transição de Poder na Prefeitura de Manaus</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,900&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&family=Black+Ops+One&display=swap" rel="stylesheet">
+<style>
+:root{--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;--ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;--red:#c44;--blue:#4a8fc4;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.7;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+@media print{body::after{display:none;}}
+.cover{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px 60px;position:relative;}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(232,112,58,.04) 0%,transparent 60%);}
+.cover-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:32px;position:relative;z-index:1;}
+.cover h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,5vw,48px);color:var(--white);line-height:1.08;margin-bottom:8px;position:relative;z-index:1;}
+.cover h1 em{color:var(--fire);font-style:italic;}
+.cover .sub{font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,22px);color:var(--fog);font-style:italic;position:relative;z-index:1;margin-bottom:12px;}
+.cover>p{font-size:14px;color:var(--ash);max-width:460px;position:relative;z-index:1;}
+.cover .client{font-family:'Space Mono',monospace;font-size:10px;color:var(--blood);letter-spacing:3px;margin-top:28px;position:relative;z-index:1;}
+.metrics{display:flex;gap:28px;justify-content:center;margin-top:28px;flex-wrap:wrap;position:relative;z-index:1;}
+.m{text-align:center;}.m-v{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}.m-l{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.sec{max-width:760px;margin:0 auto;padding:60px 32px;}
+.sec-num{font-family:'Black Ops One',cursive;font-size:56px;color:var(--iron);line-height:1;margin-bottom:4px;}
+.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--fire);text-transform:uppercase;margin-bottom:10px;}
+.sec h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:20px;line-height:1.2;}
+.sec h2 em{color:var(--fire);font-style:italic;}
+.sec h3{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin:28px 0 10px;}
+.sec p{font-size:14px;line-height:1.8;margin-bottom:12px;}
+.sec strong{color:var(--white);font-weight:600;}
+.quote{border-left:3px solid var(--blood);padding:14px 20px;margin:16px 0;background:rgba(122,34,4,.05);}
+.quote p{font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--bone);margin:0;}
+.quote cite{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);display:block;margin-top:6px;font-style:normal;}
+.finding{background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--fire);padding:20px;margin:12px 0;}
+.finding h4{font-size:14px;color:var(--white);margin-bottom:6px;}
+.finding p{font-size:13px;color:var(--fog);margin:0;line-height:1.7;}
+.risk{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--red);padding:20px;margin:12px 0;}
+.risk h4{font-size:14px;color:var(--white);margin-bottom:6px;}
+.risk p{font-size:13px;color:var(--fog);margin:0;line-height:1.7;}
+.opp{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--green);padding:20px;margin:12px 0;}
+.opp h4{font-size:14px;color:var(--white);margin-bottom:6px;}
+.opp p{font-size:13px;color:var(--fog);margin:0;line-height:1.7;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+.divider{display:flex;align-items:center;gap:16px;max-width:760px;margin:0 auto;padding:0 32px;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--iron);}
+.divider-gem{width:6px;height:6px;background:var(--blood);transform:rotate(45deg);}
+.timeline{display:flex;flex-direction:column;gap:0;margin:20px 0;}
+.tl-item{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--iron);}
+.tl-period{font-family:'Black Ops One',cursive;font-size:13px;color:var(--fire);white-space:nowrap;min-width:70px;}
+.tl-content{font-size:13px;color:var(--bone);}
+footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
+footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;margin-top:6px;}
+footer a{color:var(--fire);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <p class="cover-badge">🔮 OMA Predictions — Relatório Confidencial</p>
+  <h1>Transição de Poder na<br><em>Prefeitura de Manaus</em></h1>
+  <p class="sub">Gestão Renato Júnior — Cenário Preditivo 2026</p>
+  <p>Simulação com agentes autônomos de IA analisando reações da população, imprensa, Câmara Municipal e grupos sociais à nova liderança.</p>
+  <p class="client">PREPARADO PARA GRUPO EKHOA · DANIELA SALERNO</p>
+  <div class="metrics">
+    <div class="m"><div class="m-v">9</div><div class="m-l">Agentes</div></div>
+    <div class="m"><div class="m-v">96</div><div class="m-l">Interações</div></div>
+    <div class="m"><div class="m-v">15</div><div class="m-l">Rounds</div></div>
+    <div class="m"><div class="m-v">3</div><div class="m-l">Seções</div></div>
+    <div class="m"><div class="m-v">6 meses</div><div class="m-l">Horizonte</div></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- SECTION 1 -->
+<section class="sec">
+  <div class="sec-num">01</div>
+  <div class="sec-label">Reação Imediata</div>
+  <h2>Reações da população e <em>dinâmicas de grupo</em></h2>
+
+  <p>A simulação revela reações mistas entre as classes C, D e E de Manaus ao prefeito Renato Júnior. Há uma <strong>mistura de esperança e ceticismo</strong> em relação às primeiras medidas da nova gestão.</p>
+
+  <div class="quote">
+    <p>"A população das classes C, D e E demonstra esperança cautelosa, mas as preocupações imediatas giram em torno da continuidade de programas sociais e do combate à inflação dos alimentos."</p>
+    <cite>— Agente simulado: Representante Classes C/D/E</cite>
+  </div>
+
+  <h3>Grupos de Apoio</h3>
+  <div class="two-col">
+    <div class="finding"><h4>Associações de bairro</h4><p>Veem na nova administração oportunidade de renovação política e acesso direto ao poder executivo.</p></div>
+    <div class="finding"><h4>Sindicatos de trabalhadores formais</h4><p>Apoiam a continuidade administrativa e esperam manutenção de acordos coletivos em vigor.</p></div>
+    <div class="finding"><h4>Pequenos comerciantes</h4><p>Expectativa de desburocratização e programas de microcrédito anunciados na transição.</p></div>
+  </div>
+
+  <h3>Grupos Críticos</h3>
+  <div class="two-col">
+    <div class="risk"><h4>Movimentos por moradia</h4><p>Questionam a falta de detalhes sobre políticas habitacionais e regularização fundiária.</p></div>
+    <div class="risk"><h4>Entidades estudantis</h4><p>Pressão por transparência e participação jovem nas decisões — risco de mobilização em redes sociais.</p></div>
+    <div class="risk"><h4>Oposição na Câmara</h4><p>Posição de observação atenta, promovendo audiências públicas para mediar diálogos entre governo e sociedade civil.</p></div>
+  </div>
+
+  <h3>Riscos Imediatos Identificados</h3>
+  <div class="risk"><h4>⚡ Transporte público</h4><p>Frota defasada com risco de crise operacional. Paralisações possíveis se não houver sinalização de investimento nos primeiros 60 dias.</p></div>
+  <div class="risk"><h4>⚡ Atraso no pagamento de servidores</h4><p>Qualquer atraso, mesmo pontual, será amplificado em redes sociais como sinal de fragilidade da nova gestão.</p></div>
+  <div class="risk"><h4>⚡ Continuidade do sistema de saúde</h4><p>UBSs sobrecarregadas — a população associa diretamente qualidade de saúde à competência do prefeito.</p></div>
+
+  <h3>Vitórias Rápidas (Quick Wins)</h3>
+  <div class="opp"><h4>✅ Mutirões de serviços em comunidades</h4><p>Ações visíveis e presenciais em bairros periféricos geram impacto positivo imediato na percepção pública.</p></div>
+  <div class="opp"><h4>✅ Expansão de postos de saúde de bairro</h4><p>Investimento de baixo custo com alto retorno de imagem — a população "sente" a melhoria no cotidiano.</p></div>
+  <div class="opp"><h4>✅ Programa de regularização fundiária</h4><p>Atende diretamente a demanda dos movimentos por moradia, neutralizando a principal voz crítica.</p></div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- SECTION 2 -->
+<section class="sec">
+  <div class="sec-num">02</div>
+  <div class="sec-label">Imprensa e Imagem</div>
+  <h2>Cobertura da imprensa e <em>construção de imagem</em></h2>
+
+  <h3>Imprensa local vs nacional</h3>
+  <p>A simulação revela uma <strong>divergência clara</strong> entre como a mídia local e nacional enquadram a transição:</p>
+
+  <div class="two-col">
+    <div class="finding"><h4>📰 Imprensa local</h4><p>Foco em aspectos práticos: nomeação de secretários, ajustes orçamentários, cronograma de obras. Tom pragmático e fiscalizador.</p></div>
+    <div class="finding"><h4>📡 Imprensa nacional</h4><p>Enquadramento político: "continuidade ou ruptura?". Tendência a contextualizar no cenário político nacional. Risco de rotulação prematura.</p></div>
+  </div>
+
+  <div class="quote">
+    <p>"A imprensa nacional ainda não consolidou uma leitura definida sobre o novo prefeito — isso abre espaço para construção, mas também para enquadramento externo."</p>
+    <cite>— Agente simulado: Analista de Mídia</cite>
+  </div>
+
+  <h3>Estratégias de construção de imagem</h3>
+
+  <div class="finding"><h4>1. Engajamento direto com comunidades</h4><p>Visitas frequentes a bairros periféricos + lives em redes sociais. A simulação indica que <strong>presença física do prefeito</strong> em áreas carentes tem o maior impacto na percepção de liderança.</p></div>
+
+  <div class="finding"><h4>2. Posicionamento como gestor técnico</h4><p>Participação em fóruns sobre desenvolvimento sustentável da Amazônia urbana. Diferencia da gestão anterior e constrói identidade própria — evita a armadilha de "prefeito de transição".</p></div>
+
+  <div class="finding"><h4>3. Transparência como marca</h4><p>Ferramentas como o programa "De Olho na Obra" (cidadãos acompanham etapas via aplicativo) já mostram resultados positivos. A simulação sugere <strong>amplificar esse tipo de iniciativa</strong> como DNA da gestão.</p></div>
+
+  <h3>Manchetes prováveis vs ideais</h3>
+  <div class="two-col">
+    <div class="risk"><h4>Manchete provável</h4><p>"Renato Júnior herda desafios da gestão anterior e enfrenta pressão por resultados rápidos"</p></div>
+    <div class="opp"><h4>Manchete ideal</h4><p>"Novo prefeito de Manaus aposta em transparência digital e ações em periferia para construir identidade própria"</p></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- SECTION 3 -->
+<section class="sec">
+  <div class="sec-num">03</div>
+  <div class="sec-label">Riscos e Oportunidades</div>
+  <h2>O que pode dar errado — e <em>o que pode dar muito certo</em></h2>
+
+  <h3>Riscos Críticos</h3>
+
+  <div class="risk"><h4>⚡ Conflito com a Câmara Municipal</h4><p>Resquícios de políticas da administração anterior podem gerar resistência de vereadores aliados ao antecessor. Divergências orçamentárias são o gatilho mais provável.</p></div>
+
+  <div class="risk"><h4>⚡ Frustração por expectativas não atendidas</h4><p>A população tende a cobrar resultados concretos nos primeiros 90 dias. Qualquer percepção de "mais do mesmo" será amplificada em redes sociais e grupos de WhatsApp.</p></div>
+
+  <div class="risk"><h4>⚡ Crise sazonal (chuvas/saúde)</h4><p>Manaus é vulnerável a crises sazonais. Uma enchente ou surto de dengue nos primeiros meses pode definir a narrativa da gestão se a resposta não for imediata e visível.</p></div>
+
+  <h3>Oportunidades Estratégicas</h3>
+
+  <div class="opp"><h4>🎯 Governança digital como diferencial</h4><p>O programa "De Olho na Obra" já funciona. Expandir para outras áreas (saúde, transporte, segurança) criaria uma marca de transparência única entre capitais brasileiras.</p></div>
+
+  <div class="opp"><h4>🎯 Construção de consenso multipartidário</h4><p>Grupos de trabalho com vereadores de diferentes partidos + conselhos de participação comunitária. Transforma potencial conflito em base de apoio.</p></div>
+
+  <div class="opp"><h4>🎯 Identidade própria via sustentabilidade amazônica</h4><p>Posicionamento como o prefeito da "Amazônia urbana sustentável" dá projeção nacional e internacional, diferenciando completamente da gestão anterior.</p></div>
+
+  <h3>Plano de Ação por Período</h3>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-period">0-30 dias</div><div class="tl-content"><strong>Vitórias rápidas:</strong> Mutirões de serviços, visitas a comunidades, inauguração de UBSs. Comunicação focada em "ação, não promessa".</div></div>
+    <div class="tl-item"><div class="tl-period">30-90 dias</div><div class="tl-content"><strong>Consolidação:</strong> Publicar métricas de desempenho, lançar expansão do "De Olho na Obra", resolver pendências orçamentárias com a Câmara.</div></div>
+    <div class="tl-item"><div class="tl-period">90-180 dias</div><div class="tl-content"><strong>Identidade:</strong> Participação em fóruns nacionais, parcerias com governo federal, programas de regularização fundiária em escala. Narrativa: "o prefeito que entrega".</div></div>
+  </div>
+
+  <h3>Simulação de Cenários</h3>
+  <div class="two-col">
+    <div class="opp"><h4>🟢 Melhor cenário</h4><p>Entregas visíveis nos primeiros 60 dias + transparência digital + alinhamento com Câmara = consolidação de imagem de liderança competente. Aprovação acima de 55% em 6 meses.</p></div>
+    <div class="risk"><h4>🔴 Pior cenário</h4><p>Crise sazonal mal gerida + conflito com Câmara + percepção de "continuísmo sem identidade" = erosão rápida de apoio. Aprovação abaixo de 30% em 6 meses.</p></div>
+  </div>
+  <div class="finding"><h4>🟡 Cenário mais provável</h4><p>Gestão estável com avanços incrementais, pressão moderada da oposição, cobertura midiática mista. Aprovação entre 40-50% em 6 meses, com tendência de alta se houver entregas concretas em saúde e transporte.</p></div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- DISCLAIMER -->
+<div style="max-width:760px;margin:0 auto;padding:40px 32px;">
+  <div style="background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:20px;font-size:12px;color:var(--ash);line-height:1.7;">
+    <strong style="color:var(--bone);">⚠️ Aviso importante:</strong> Este relatório foi gerado por inteligência artificial utilizando simulação computacional com agentes autônomos. Os resultados são projeções baseadas em modelos de IA e NÃO constituem garantia de resultados futuros. Variáveis externas, decisões humanas e eventos imprevisíveis podem alterar significativamente os cenários reais. Use como ferramenta de apoio à decisão, não como previsão determinística.
+  </div>
+</div>
+
+<div style="max-width:760px;margin:0 auto;padding:0 32px 60px;text-align:center;">
+  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:1px;">Relatório gerado por OMA Predictions · MiroFish + DeepSeek V3</p>
+  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);margin-top:4px;">9 agentes · 96 interações · 15 rounds · Abril 2026</p>
+  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);margin-top:4px;">Confidencial — Preparado exclusivamente para Grupo Ekhoa</p>
+</div>
+
+<footer>
+  <p style="font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:3px;color:var(--steel);">ONE MAN <span style="color:var(--fire);">ARMY</span> PROJECT</p>
+  <p>Riva Labs Ltda · CNPJ 65.452.151/0001-26</p>
+</footer>
+</body>
+</html>

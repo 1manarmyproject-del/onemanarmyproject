@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-05T00:36:20Z",
-  "updated_at_brt": "21:36 BRT · 04/04/2026",
+  "updated_at": "2026-04-05T02:51:35Z",
+  "updated_at_brt": "23:51 BRT · 04/04/2026",
   "categories": [
     {
       "cat": "INFRAESTRUTURA & REDUNDÂNCIA",
@@ -68,9 +68,9 @@
         {
           "id": "backup",
           "title": "Backup multi-camada",
-          "current": "4x/dia. Último: 21:36 BRT · 04/04/2026",
-          "nota": 8,
-          "farol": "g",
+          "current": "4x/dia. Último: 23:51 BRT · 04/04/2026",
+          "nota": 6,
+          "farol": "y",
           "risk": "Perda de dados",
           "action": "Monitorar execução",
           "tag": "done",
@@ -251,7 +251,7 @@
         {
           "id": "or_balance",
           "title": "OpenRouter saldo",
-          "current": "US$ 3.88 disponível",
+          "current": "US$ 3.40 disponível",
           "nota": 5,
           "farol": "y",
           "risk": "Agentes param se zerar",
