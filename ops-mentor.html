@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA · Mentor Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#3d9e60;--blue:#3a7bd5;--yellow:#c8a456;--red:#c0392b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hdr-brand{display:flex;align-items:center;gap:10px;}
+.hdr-logo{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:3px;color:var(--fire);}
+.hdr-sub{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ash);margin-top:1px;}
+.hdr-nav{display:flex;gap:4px;}
+.nav-btn{padding:6px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);border:1px solid transparent;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;background:none;transition:all 0.15s;}
+.nav-btn:hover{color:var(--bone);border-color:var(--iron);}
+.nav-btn.active{color:var(--fire);border-color:var(--ember);}
+.hdr-time{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+
+.body{padding:28px;max-width:1400px;margin:0 auto;}
+.sec-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--ember);margin-bottom:6px;}
+.sec-title{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:2px;color:var(--bone);margin-bottom:6px;}
+.sec-sub{font-size:13px;color:var(--ash);margin-bottom:28px;}
+
+/* Cycle summary */
+.cycle-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:32px;}
+.cycle-card{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:16px 18px;text-align:center;}
+.cycle-num{font-family:'Black Ops One',cursive;font-size:26px;}
+.cycle-num.fire{color:var(--fire);}
+.cycle-num.green{color:var(--green);}
+.cycle-num.yellow{color:var(--yellow);}
+.cycle-num.blue{color:var(--blue);}
+.cycle-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-top:4px;}
+
+/* Pipeline per agent */
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px;margin-bottom:32px;}
+.agent-card{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;overflow:hidden;}
+.agent-card-hdr{padding:14px 18px;border-bottom:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;}
+.agent-name{font-weight:700;font-size:15px;color:var(--fire);}
+.agent-total{font-family:'Space Mono',monospace;font-size:12px;color:var(--ash);}
+.agent-bar{height:4px;display:flex;}
+.bar-ok{background:var(--green);}
+.bar-warn{background:var(--yellow);}
+.bar-new{background:var(--fire);}
+.agent-stats{display:grid;grid-template-columns:1fr 1fr 1fr;padding:12px 18px;gap:8px;border-bottom:1px solid var(--iron);}
+.stat-box{text-align:center;}
+.stat-num{font-family:'Space Mono',monospace;font-size:16px;}
+.stat-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-top:2px;}
+
+/* Pipeline steps */
+.pipeline{padding:14px 18px;}
+.pipeline-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:12px;}
+.step{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;}
+.step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px;}
+.step-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.step-dot.done{background:var(--green);}
+.step-dot.active{background:var(--fire);box-shadow:0 0 8px var(--fire);}
+.step-dot.wait{background:var(--iron);border:1px solid var(--ash);}
+.step-connector{width:1px;background:var(--iron);flex:1;min-height:16px;margin-top:2px;}
+.step-content{flex:1;}
+.step-name{font-size:12px;font-weight:600;color:var(--bone);}
+.step-detail{font-size:11px;color:var(--ash);margin-top:2px;line-height:1.4;}
+.step-time{font-size:10px;font-family:'Space Mono',monospace;color:var(--ash);margin-top:2px;}
+
+/* Recent logs */
+.log-table{width:100%;border-collapse:collapse;font-size:12px;}
+.log-table th{text-align:left;padding:8px 12px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);border-bottom:1px solid var(--iron);}
+.log-table td{padding:8px 12px;border-bottom:1px solid rgba(30,30,30,0.5);color:var(--bone);vertical-align:top;}
+.log-table tr:hover td{background:rgba(255,255,255,0.015);}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;letter-spacing:0.5px;}
+.tag.ok{background:rgba(61,158,96,0.15);color:var(--green);}
+.tag.warn{background:rgba(200,164,86,0.15);color:var(--yellow);}
+.tag.new{background:rgba(232,112,58,0.12);color:var(--fire);}
+
+/* Weekly chart */
+.chart-wrap{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:20px;margin-bottom:28px;}
+.chart-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:16px;}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:80px;}
+.chart-day{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.chart-bar-wrap{display:flex;flex-direction:column;justify-content:flex-end;height:70px;gap:1px;width:100%;}
+.chart-b{border-radius:2px 2px 0 0;min-height:2px;transition:height 0.3s;}
+.chart-b.ok{background:var(--green);}
+.chart-b.warn{background:var(--yellow);}
+.chart-b.new{background:var(--fire);}
+.chart-day-label{font-size:9px;color:var(--ash);letter-spacing:1px;}
+
+.loading{text-align:center;padding:40px;color:var(--ash);font-size:13px;}
+.spinning{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.refresh-info{font-size:10px;color:var(--ash);text-align:right;margin-top:8px;}
+
+/* Pending approvals */
+.approval-card{background:var(--carbon);border:1px solid var(--ember);border-radius:8px;padding:16px 18px;margin-bottom:12px;}
+.approval-file{font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);margin-bottom:6px;}
+.approval-justification{font-size:13px;color:var(--bone);margin-bottom:8px;}
+.approval-count{font-size:11px;color:var(--ash);}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <div>
+      <div class="hdr-logo">🧠 Mentor · Pipeline</div>
+      <div class="hdr-sub">Tracking de melhoria contínua</div>
+    </div>
+  </div>
+  <nav class="hdr-nav">
+    <a href="/ops"><button class="nav-btn">Sistema</button></a>
+    <a href="/ops/mentor"><button class="nav-btn active">Mentor · IA</button></a>
+    <a href="/skills.html"><button class="nav-btn">Skills Hub</button></a>
+  </nav>
+  <div class="hdr-time" id="clock">--:--:--</div>
+</header>
+
+<main class="body">
+
+  <p class="sec-eyebrow">Melhoria Contínua</p>
+  <h2 class="sec-title">Mentor · <span style="color:var(--fire)">Pipeline Completo</span></h2>
+  <p class="sec-sub">Tracking em tempo real de todos os agentes — do log de decisão até a skill atualizada.</p>
+
+  <!-- Cycle summary -->
+  <div class="cycle-bar" id="cycle-bar">
+    <div class="cycle-card"><div class="cycle-num fire" id="c-pending">—</div><div class="cycle-label">Logs pendentes</div></div>
+    <div class="cycle-card"><div class="cycle-num green" id="c-applied">—</div><div class="cycle-label">Updates aplicados</div></div>
+    <div class="cycle-card"><div class="cycle-num yellow" id="c-approval">—</div><div class="cycle-label">Aguardam Fabio</div></div>
+    <div class="cycle-card"><div class="cycle-num blue" id="c-total">—</div><div class="cycle-label">Total processados</div></div>
+    <div class="cycle-card">
+      <div class="cycle-num fire" id="c-next">—h</div>
+      <div class="cycle-label">Próximo ciclo</div>
+    </div>
+  </div>
+
+  <!-- Chart 7 dias -->
+  <div class="chart-wrap">
+    <div class="chart-title">Decisões registradas · últimos 7 dias</div>
+    <div class="chart-bars" id="weekly-chart"><div class="loading">Carregando...</div></div>
+    <div style="display:flex;gap:16px;margin-top:10px">
+      <span style="font-size:10px;color:var(--green)">■ Resolvido</span>
+      <span style="font-size:10px;color:var(--yellow)">■ Incerto</span>
+      <span style="font-size:10px;color:var(--fire)">■ Caso Novo</span>
+    </div>
+  </div>
+
+  <!-- Agents pipeline -->
+  <p class="sec-eyebrow" style="margin-bottom:12px">Por Agente</p>
+  <div class="agents-grid" id="agents-grid">
+    <div class="loading">Carregando...</div>
+  </div>
+
+  <!-- Pending approvals -->
+  <div id="approvals-section" style="display:none;margin-bottom:28px">
+    <p class="sec-eyebrow" style="margin-bottom:12px">Aguardando sua aprovação</p>
+    <div id="approvals-list"></div>
+  </div>
+
+  <!-- Recent log feed -->
+  <div style="background:var(--carbon);border:1px solid var(--iron);border-radius:8px;overflow:hidden;margin-bottom:28px">
+    <div style="padding:14px 18px;border-bottom:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);font-weight:600">Feed de Decisões · mais recentes</span>
+    </div>
+    <div style="padding:14px 18px">
+      <div id="log-feed"><div class="loading">Carregando...</div></div>
+    </div>
+  </div>
+
+  <div class="refresh-info" id="refresh-info">Atualizando a cada 30s</div>
+
+</main>
+
+<script>
+const BASE = window.location.origin;
+
+function clock() {
+  const el = document.getElementById('clock');
+  const brt = new Date().toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour12:false});
+  if (el) el.textContent = brt + ' BRT';
+}
+setInterval(clock, 1000); clock();
+
+function nextCycleStr() {
+  const brt = new Date(new Date().toLocaleString('en-US',{timeZone:'America/Sao_Paulo'}));
+  const next = new Date(brt); next.setHours(3,0,0,0);
+  if (brt.getHours() >= 3) next.setDate(next.getDate()+1);
+  const diff = next - brt;
+  const h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000);
+  return h + 'h' + m + 'm';
+}
+
+function buildPipelineSteps(agent, stats, ms) {
+  const total = stats?.total || 0;
+  const casoNovo = stats?.caso_novo || 0;
+  const processed = ms?.totalLogsProcessed || 0;
+  const applied = ms?.totalProposalsApplied || 0;
+  const pending = ms?.pendingApprovals?.length || 0;
+
+  // Step states
+  const s1 = total > 0 ? 'done' : 'wait';
+  const s2 = total > 0 ? 'done' : 'wait';
+  const s3 = processed > 0 ? 'done' : (total > 0 ? 'active' : 'wait');
+  const s4 = processed > 0 ? 'done' : 'wait';
+  const s5 = applied > 0 ? 'done' : (processed > 0 ? 'active' : 'wait');
+  const s6 = applied > 0 ? 'done' : 'wait';
+
+  const steps = [
+    { name: 'Agente opera', detail: total > 0 ? total + ' interações registradas hoje' : 'Aguardando primeiros logs', status: s1 },
+    { name: 'Registra decisão', detail: total > 0 ? total + ' logs no SQLite (' + casoNovo + ' casos novos)' : 'log_decision será chamada ao final de interações', status: s2 },
+    { name: 'Mentor coleta', detail: processed > 0 ? processed + ' logs processados no total' : 'Próximo ciclo às 03h BRT', status: s3, time: ms?.lastRun ? new Date(ms.lastRun).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}) : null },
+    { name: 'Claude analisa padrões', detail: processed > 0 ? ms.totalProposalsGenerated + ' propostas geradas' : 'Aguardando logs suficientes', status: s4 },
+    { name: 'Validador aprova', detail: applied > 0 ? applied + ' updates aplicados · ' + ms.totalProposalsRejected + ' rejeitados' : 'Nenhum update ainda', status: s5 },
+    { name: 'Skill atualizada', detail: pending > 0 ? pending + ' proposta(s) aguardam Fabio' : (applied > 0 ? applied + ' skills melhoradas' : 'Aguardando primeiro ciclo completo'), status: s6 },
+  ];
+
+  return steps.map((s, i) => `
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot ${s.status}"></div>
+        ${i < steps.length-1 ? '<div class="step-connector"></div>' : ''}
+      </div>
+      <div class="step-content">
+        <div class="step-name">${s.name}</div>
+        <div class="step-detail">${s.detail}</div>
+        ${s.time ? '<div class="step-time">'+s.time+'</div>' : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function load() {
+  const info = document.getElementById('refresh-info');
+  if (info) info.innerHTML = '<span class="spinning">↻</span> Atualizando...';
+
+  try {
+    const data = await fetch(BASE + '/api/ops/mentor').then(r => r.json());
+    render(data);
+    if (info) info.textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo'}) + ' · próximo em 30s';
+  } catch(e) {
+    if (info) info.textContent = 'Erro: ' + e.message;
+  }
+}
+
+function render(data) {
+  const ms = data.mentorState;
+  const stats = data.agentStats || [];
+  const pipeline7d = data.pipeline7d || [];
+  const recent = data.recentCases || [];
+  const pending = data.pendingLogs || 0;
+
+  // Cycle bar
+  document.getElementById('c-pending').textContent = pending;
+  document.getElementById('c-applied').textContent = ms?.totalProposalsApplied || 0;
+  document.getElementById('c-approval').textContent = ms?.pendingApprovals?.length || 0;
+  document.getElementById('c-total').textContent = ms?.totalLogsProcessed || 0;
+  document.getElementById('c-next').textContent = nextCycleStr();
+
+  // Weekly chart
+  renderChart(pipeline7d);
+
+  // Agent cards
+  const allAgents = ['bia', 'flavia', 'tiago', 'amanda', 'george'];
+  const statsMap = {};
+  stats.forEach(s => { statsMap[s.agent] = s; });
+
+  document.getElementById('agents-grid').innerHTML = allAgents.map(agent => {
+    const s = statsMap[agent];
+    const total = s?.total || 0;
+    const ok = s?.resolvido || 0;
+    const warn = s?.incerto || 0;
+    const novo = s?.caso_novo || 0;
+    const okPct = total > 0 ? (ok/total*100) : 0;
+    const warnPct = total > 0 ? (warn/total*100) : 0;
+    const newPct = total > 0 ? (novo/total*100) : 0;
+
+    return `
+      <div class="agent-card">
+        <div class="agent-card-hdr">
+          <span class="agent-name">${agent.charAt(0).toUpperCase()+agent.slice(1)}</span>
+          <span class="agent-total">${total} logs hoje</span>
+        </div>
+        <div class="agent-bar">
+          <div class="bar-ok" style="width:${okPct}%"></div>
+          <div class="bar-warn" style="width:${warnPct}%"></div>
+          <div class="bar-new" style="width:${newPct}%"></div>
+          ${total===0?'<div style="width:100%;background:var(--iron)"></div>':''}
+        </div>
+        <div class="agent-stats">
+          <div class="stat-box"><div class="stat-num" style="color:var(--green)">${ok}</div><div class="stat-label">Resolvido</div></div>
+          <div class="stat-box"><div class="stat-num" style="color:var(--yellow)">${warn}</div><div class="stat-label">Incerto</div></div>
+          <div class="stat-box"><div class="stat-num" style="color:var(--fire)">${novo}</div><div class="stat-label">Caso Novo</div></div>
+        </div>
+        <div class="pipeline">
+          <div class="pipeline-title">Pipeline de melhoria</div>
+          ${buildPipelineSteps(agent, s, ms)}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Pending approvals
+  const pendingApprovals = ms?.pendingApprovals || [];
+  if (pendingApprovals.length > 0) {
+    document.getElementById('approvals-section').style.display = 'block';
+    document.getElementById('approvals-list').innerHTML = pendingApprovals.map(p => `
+      <div class="approval-card">
+        <div class="approval-file">📄 ${p.target_file}</div>
+        <div class="approval-justification">${p.justification}</div>
+        <div class="approval-count">Baseado em ${p.pattern_count} ocorrências · Agentes: ${(p.agents_affected||[]).join(', ')}</div>
+        <div style="margin-top:10px;font-size:11px;color:var(--ash)">Responda ao George: <span style="color:var(--fire);font-family:'Space Mono',monospace">"aprovar mentor ${p.target_file.split('/').pop()}"</span></div>
+      </div>
+    `).join('');
+  } else {
+    document.getElementById('approvals-section').style.display = 'none';
+  }
+
+  // Log feed
+  document.getElementById('log-feed').innerHTML = recent.length ? `
+    <table class="log-table">
+      <thead><tr><th>Agente</th><th>Tipo</th><th>Contexto</th><th>Ação</th><th>Skill</th><th>Vertical</th><th>Confiança</th><th>Quando</th></tr></thead>
+      <tbody>
+        ${recent.map(r => `
+          <tr>
+            <td style="color:var(--fire);font-weight:600">${r.agent}</td>
+            <td><span class="tag ${r.classification==='RESOLVIDO'?'ok':r.classification==='RESOLVIDO_INCERTO'?'warn':'new'}">${r.classification}</span></td>
+            <td style="max-width:200px;font-size:11px">${(r.context||'').substring(0,80)}${r.context?.length>80?'...':''}</td>
+            <td style="max-width:160px;font-size:11px;color:var(--ash)">${(r.action_taken||'').substring(0,60)}${r.action_taken?.length>60?'...':''}</td>
+            <td style="font-family:'Space Mono',monospace;font-size:10px;color:var(--blue)">${r.skill_ref||'—'}</td>
+            <td style="font-size:11px;color:var(--ash)">${r.vertical||'—'}</td>
+            <td style="font-family:'Space Mono',monospace;font-size:11px;color:${r.confidence>=0.8?'var(--green)':r.confidence>=0.5?'var(--yellow)':'var(--red)'}">${r.confidence?.toFixed(1)||'—'}</td>
+            <td style="font-size:10px;color:var(--ash)">${r.timestamp?new Date(r.timestamp).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'}):''}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '<div style="color:var(--ash);font-size:12px;padding:8px 0">Nenhum log ainda. Os agentes começam a registrar a partir de agora.</div>';
+}
+
+function renderChart(pipeline7d) {
+  if (!pipeline7d.length) {
+    document.getElementById('weekly-chart').innerHTML = '<div style="color:var(--ash);font-size:12px">Sem dados ainda</div>';
+    return;
+  }
+
+  // Agrupar por dia
+  const days = {};
+  pipeline7d.forEach(r => {
+    if (!days[r.day]) days[r.day] = { ok:0, warn:0, new:0 };
+    if (r.classification==='RESOLVIDO') days[r.day].ok += r.cnt;
+    if (r.classification==='RESOLVIDO_INCERTO') days[r.day].warn += r.cnt;
+    if (r.classification==='CASO_NOVO') days[r.day].new += r.cnt;
+  });
+
+  const maxVal = Math.max(...Object.values(days).map(d => d.ok+d.warn+d.new), 1);
+
+  document.getElementById('weekly-chart').innerHTML = Object.entries(days).map(([day, d]) => {
+    const total = d.ok+d.warn+d.new;
+    const okH = Math.round((d.ok/maxVal)*60);
+    const warnH = Math.round((d.warn/maxVal)*60);
+    const newH = Math.round((d.new/maxVal)*60);
+    const label = new Date(day+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'}).replace('.','');
+    return `
+      <div class="chart-day">
+        <div class="chart-bar-wrap">
+          <div class="chart-b new" style="height:${newH}px"></div>
+          <div class="chart-b warn" style="height:${warnH}px"></div>
+          <div class="chart-b ok" style="height:${okH}px"></div>
+        </div>
+        <div class="chart-day-label">${label}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

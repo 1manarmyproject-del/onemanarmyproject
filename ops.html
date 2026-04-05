@@ -3,749 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="refresh" content="3600">
-<title>OMA Project — Agentes</title>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>OMA · OPS</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--red:#c0392b;--blue:#3a7bd5;}
+:root{--char:#080808;--carbon:#0f0f0f;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#3d9e60;--blue:#3a7bd5;--yellow:#c8a456;--red:#c0392b;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(122,34,4,.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(232,112,58,.04) 0%,transparent 50%);pointer-events:none;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
 
-/* HEADER */
-.hdr{padding:32px 48px 0;display:flex;align-items:center;justify-content:space-between;position:relative;}
-.hdr-brand{display:flex;align-items:baseline;gap:16px;}
-.hdr-logo{font-family:'Black Ops One',cursive;font-size:22px;letter-spacing:3px;color:var(--bone);}
-.hdr-logo span{color:var(--fire);}
-.hdr-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;}
-.hdr-time{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);text-align:right;}
-.hdr-time span{display:block;color:var(--fog);font-size:9px;margin-top:2px;letter-spacing:1px;}
-.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px;animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hdr-brand{display:flex;align-items:center;gap:10px;}
+.hdr-logo{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:3px;color:var(--fire);}
+.hdr-sub{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ash);margin-top:1px;}
+.hdr-nav{display:flex;gap:4px;}
+.nav-btn{padding:6px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);border:1px solid transparent;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;background:none;transition:all 0.15s;}
+.nav-btn:hover{color:var(--bone);border-color:var(--iron);}
+.nav-btn.active{color:var(--fire);border-color:var(--ember);}
+.hdr-time{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
 
-/* MAIN */
-.main{padding:40px 48px 48px;}
+.body{padding:28px;max-width:1400px;margin:0 auto;}
 
-/* SECTION TITLE */
-.sec-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
-.sec-title::after{content:'';flex:1;height:1px;background:var(--iron);}
+/* Status bar */
+.status-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:28px;}
+.status-card{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:16px 18px;display:flex;align-items:center;gap:14px;}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.status-dot.ok{background:var(--green);box-shadow:0 0 8px var(--green);}
+.status-dot.warn{background:var(--yellow);box-shadow:0 0 8px var(--yellow);}
+.status-dot.err{background:var(--red);box-shadow:0 0 8px var(--red);}
+.status-dot.idle{background:var(--ash);}
+.status-name{font-weight:600;font-size:13px;color:var(--bone);}
+.status-detail{font-size:11px;color:var(--ash);margin-top:2px;}
 
-/* TOP STATS */
-.top-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px;}
-.stat-card{background:var(--carbon);border:1px solid var(--iron);padding:24px;position:relative;overflow:hidden;}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.stat-card.fire::before{background:var(--fire);}
-.stat-card.gold::before{background:var(--gold);}
-.stat-card.green::before{background:var(--green);}
-.stat-card.blue::before{background:var(--blue);}
-.stat-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-bottom:12px;}
-.stat-value{font-family:'Black Ops One',cursive;font-size:36px;letter-spacing:1px;line-height:1;}
-.stat-card.fire .stat-value{color:var(--fire);}
-.stat-card.gold .stat-value{color:var(--gold);}
-.stat-card.green .stat-value{color:var(--green);}
-.stat-card.blue .stat-value{color:var(--bone);}
-.stat-delta{font-family:'Space Mono',monospace;font-size:10px;margin-top:8px;}
-.delta-up{color:var(--green);}
-.delta-down{color:var(--red);}
-.delta-neu{color:var(--ash);}
+/* Section */
+.sec-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--ember);margin-bottom:6px;}
+.sec-title{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:2px;color:var(--bone);margin-bottom:20px;}
 
-/* AGENTS GRID */
-.agents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;}
-.agent-card{background:var(--carbon);border:1px solid var(--iron);padding:24px;transition:border-color .2s;}
-.agent-card:hover{border-color:var(--steel);}
-.agent-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.agent-name{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:1px;}
-.agent-status{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;}
-.status-on{color:var(--green);}
-.status-off{color:var(--red);}
-.status-dot{width:6px;height:6px;border-radius:50%;}
-.dot-on{background:var(--green);animation:blink 2s infinite;}
-.dot-off{background:var(--red);}
-.agent-role{font-size:11px;color:var(--ash);margin-bottom:16px;letter-spacing:.5px;}
-.agent-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.astat{background:var(--graph);padding:10px 12px;}
-.astat-label{font-size:9px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
-.astat-value{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--bone);}
-.agent-bar{margin-top:16px;}
-.bar-label{display:flex;justify-content:space-between;font-size:9px;color:var(--ash);margin-bottom:6px;font-family:'Space Mono',monospace;}
-.bar-track{height:3px;background:var(--iron);overflow:hidden;}
-.bar-fill{height:100%;background:var(--fire);transition:width 1s ease;}
-.bar-fill.green{background:var(--green);}
-.bar-fill.gold{background:var(--gold);}
+/* Grid 2 col */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr;}}
 
-/* COST CHART */
-.cost-section{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px;}
-.cost-card{background:var(--carbon);border:1px solid var(--iron);padding:24px;}
-.cost-title{font-size:11px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;font-family:'Space Mono',monospace;}
-.cost-bars{display:flex;flex-direction:column;gap:12px;}
-.cost-row{display:flex;align-items:center;gap:12px;}
-.cost-name{font-size:11px;color:var(--fog);width:64px;flex-shrink:0;}
-.cost-track{flex:1;height:20px;background:var(--graph);position:relative;overflow:hidden;}
-.cost-fill{height:100%;background:var(--fire);opacity:.7;transition:width 1.2s ease;}
-.cost-fill.george{background:var(--fire);}
-.cost-fill.amanda{background:var(--gold);}
-.cost-fill.flavia{background:var(--blue);}
-.cost-fill.tiago{background:var(--green);}
-.cost-fill.bia{background:#9070d0;}
-.cost-val{font-family:'Space Mono',monospace;font-size:10px;color:var(--bone);width:48px;text-align:right;flex-shrink:0;}
+/* Panel */
+.panel{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;overflow:hidden;}
+.panel-hdr{padding:14px 18px;border-bottom:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);font-weight:600;}
+.panel-badge{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:600;}
+.panel-body{padding:14px 18px;}
 
-/* ACTIVITY */
-.activity-card{background:var(--carbon);border:1px solid var(--iron);padding:24px;}
-.activity-list{display:flex;flex-direction:column;gap:0;}
-.activity-item{display:flex;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid var(--iron);}
-.activity-item:last-child{border-bottom:none;}
-.act-time{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);width:48px;flex-shrink:0;}
-.act-agent{font-size:11px;font-weight:600;color:var(--fire);width:64px;flex-shrink:0;}
-.act-msg{font-size:12px;color:var(--fog);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* Metric row */
+.metric-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(30,30,30,0.6);}
+.metric-row:last-child{border-bottom:none;}
+.metric-label{font-size:12px;color:var(--fog);}
+.metric-val{font-family:'Space Mono',monospace;font-size:13px;color:var(--bone);}
+.metric-val.fire{color:var(--fire);}
+.metric-val.green{color:var(--green);}
+.metric-val.yellow{color:var(--yellow);}
 
-/* INTELLIGENCE MATRIX */
-.intel-matrix{margin-top:48px;}
-.intel-table{width:100%;border-collapse:collapse;font-size:12px;}
-.intel-table th{text-align:left;padding:10px 8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);font-weight:400;border-bottom:2px solid var(--iron);}
-.intel-table th.r{text-align:right;}
-.intel-table th.c{text-align:center;}
-.intel-table td{padding:8px;border-bottom:1px solid var(--iron);vertical-align:top;}
-.intel-table tr.svc-header td{background:rgba(255,255,255,.02);}
-.intel-svc{font-weight:600;font-size:13px;color:var(--bone);}
-.intel-act{color:var(--fog);font-size:12px;}
-.intel-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;}
-.intel-badge.anthropic{background:rgba(58,123,213,.15);color:#5b9aef;}
-.intel-badge.sonnet{background:rgba(122,95,255,.15);color:#9b85ff;}
-.intel-badge.groq{background:rgba(61,158,96,.15);color:#5bc47a;}
-.intel-badge.openrouter{background:rgba(200,164,86,.15);color:#d4b56a;}
-.intel-badge.other{background:rgba(85,85,85,.15);color:var(--ash);}
-.intel-cost{text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--fog);}
-.intel-cost .val{color:var(--bone);font-weight:600;}
-.intel-runs{text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
-.intel-sep td{padding:14px 8px 6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);border-bottom:1px solid var(--iron);}
-.intel-total{margin-top:12px;padding:12px;background:var(--carbon);border:1px solid var(--iron);border-radius:6px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:11px;color:var(--ash);font-family:'Space Mono',monospace;}
-.intel-legend{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px;font-size:10px;color:var(--ash);font-family:'Space Mono',monospace;}
-.intel-legend-item{display:flex;align-items:center;gap:4px;}
-.intel-legend-dot{width:8px;height:8px;border-radius:2px;}
+/* Agent table */
+.agent-table{width:100%;border-collapse:collapse;font-size:12px;}
+.agent-table th{text-align:left;padding:8px 12px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);border-bottom:1px solid var(--iron);}
+.agent-table td{padding:9px 12px;border-bottom:1px solid rgba(30,30,30,0.5);color:var(--bone);}
+.agent-table tr:last-child td{border-bottom:none;}
+.agent-table tr:hover td{background:rgba(255,255,255,0.015);}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;letter-spacing:0.5px;}
+.tag.ok{background:rgba(61,158,96,0.15);color:var(--green);}
+.tag.warn{background:rgba(200,164,86,0.15);color:var(--yellow);}
+.tag.new{background:rgba(232,112,58,0.12);color:var(--fire);}
 
-/* FOOTER */
-.ftr{padding:24px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;}
-.ftr-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
-.ftr-brand span{color:var(--fire);}
-.ftr-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:right;}
-.back-link{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-decoration:none;letter-spacing:1px;transition:color .2s;}
-.back-link:hover{color:var(--fire);}
+/* Darwin actions */
+.action-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(30,30,30,0.5);font-size:12px;}
+.action-item:last-child{border-bottom:none;}
+.action-check{color:var(--ash);width:120px;flex-shrink:0;}
+.action-finding{color:var(--bone);flex:1;}
+.action-tag{font-size:10px;padding:1px 6px;border-radius:3px;flex-shrink:0;}
+.action-tag.fixed{background:rgba(61,158,96,0.15);color:var(--green);}
+.action-tag.alert{background:rgba(200,164,86,0.15);color:var(--yellow);}
+.action-tag.none{background:rgba(85,85,85,0.2);color:var(--ash);}
 
-@media(max-width:900px){
-.top-stats{grid-template-columns:1fr 1fr;}
-.agents-grid{grid-template-columns:1fr;}
-.cost-section{grid-template-columns:1fr;}
-.hdr{padding:24px;}
-.main{padding:24px;}
-}
+/* Skills summary */
+.skills-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.skill-box{background:var(--iron);border-radius:6px;padding:12px 14px;text-align:center;}
+.skill-box-num{font-family:'Black Ops One',cursive;font-size:22px;color:var(--fire);}
+.skill-box-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-top:3px;}
 
-#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.15),transparent 65%);}
-.lb{width:100%;max-width:340px;padding:0 24px;text-align:center;}
-.ll{font-family:'Black Ops One',cursive;font-size:24px;letter-spacing:4px;color:var(--bone);margin-bottom:4px;}.ll span{color:var(--fire);}
-.ls{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:40px;}
-.linp{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:12px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:16px;outline:none;margin-bottom:28px;}
-.linp:focus{border-bottom-color:var(--fire);}
-.linp::placeholder{color:var(--ash);}
-.lbtn{width:100%;background:var(--fire);border:none;color:var(--char);padding:12px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;}
-.lbtn:hover{background:var(--ember);}
-.lerr{color:#ff6040;font-size:10px;margin-top:10px;font-family:'Space Mono',monospace;display:none;}
+/* Refresh */
+.refresh-info{font-size:10px;color:var(--ash);text-align:right;margin-top:8px;}
+.spinning{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* MODAL NOVO AGENTE */
-.modal-novo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;}
-.modal-novo.open{display:flex;}
-.modal-novo-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:28px;width:420px;max-width:94vw;}
-.modal-novo-box h3{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);margin-bottom:6px;}
-.modal-novo-box p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);margin-bottom:24px;}
-.mfield{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
-.mlbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
-.minput,.mselect{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;border-radius:2px;width:100%;}
-.minput:focus,.mselect:focus{border-color:var(--fire);}
-.mselect{cursor:pointer;}
-.mbadges{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-.mbadge{background:var(--graph);border:1px solid var(--steel);border-radius:2px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--ash);cursor:pointer;transition:all .15s;}
-.mbadge.sel{background:var(--fire);border-color:var(--fire);color:#000;}
-.mbtns{display:flex;gap:8px;margin-top:20px;}
-.mbtns button{flex:1;padding:9px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;border-radius:2px;cursor:pointer;border:1px solid var(--iron);background:none;color:var(--ash);transition:all .15s;}
-.mbtns button.mcreate{background:var(--fire);border-color:var(--fire);color:#000;}
-.mbtns button.mcreate:hover{opacity:.85;}
+/* Loading */
+.loading{text-align:center;padding:40px;color:var(--ash);font-size:13px;}
 </style>
-<!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
-
-
-
-
-</script>
 </head>
 <body>
 
-
-<div id="loginScreen">
-  <div class="lb">
-    <div class="ll">OMA <span>OPS</span></div>
-    <div class="ls">🦞 ACESSO RESTRITO</div>
-    <input class="linp" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="lbtn" onclick="doLogin()">ENTRAR</button>
-    <div class="lerr" id="lerr">Senha incorreta</div>
-  </div>
-</div>
-<div id="appContent" style="display:none"><header class="hdr">
-  <div class="hdr-brand" style="display:flex;align-items:center;gap:16px">
-    <a href="/hub" style="font-family:Space Mono,monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;border:1px solid var(--steel);padding:6px 12px;transition:color .15s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--ash)'">← HUB</a>
+<header class="hdr">
+  <div class="hdr-brand">
     <div>
-      <div class="hdr-logo">OMA <span>AGENTS</span></div>
-      <div class="hdr-sub">🦞 TIME DE AGENTES · OPERAÇÃO EM TEMPO REAL</div>
+      <div class="hdr-logo">🦞 OMA · OPS</div>
+      <div class="hdr-sub">Painel Operacional</div>
     </div>
   </div>
-  <div class="hdr-time">
-    <span id="clock"></span>
-    <span>ATUALIZADO A CADA HORA</span>
-  </div>
+  <nav class="hdr-nav">
+    <a href="/ops"><button class="nav-btn active">Sistema</button></a>
+    <a href="/ops/mentor"><button class="nav-btn">Mentor · IA</button></a>
+    <a href="/skills.html"><button class="nav-btn">Skills Hub</button></a>
+  </nav>
+  <div class="hdr-time" id="clock">--:--:--</div>
 </header>
 
-<main class="main">
+<main class="body">
 
-  <!-- TOP STATS -->
-  <div class="sec-title">Visão Geral — Hoje</div>
-  <div class="top-stats">
-    <div class="stat-card fire">
-      <div class="stat-label">Custo Hoje</div>
-      <div class="stat-value">R$47</div>
-      <div class="stat-delta delta-down">↑ +R$13 vs ontem (R$34)</div>
-    </div>
-    <div class="stat-card gold">
-      <div class="stat-label">Custo Semana</div>
-      <div class="stat-value">R$87</div>
-      <div class="stat-delta delta-neu">Últimos 7 dias</div>
-    </div>
-    <div class="stat-card green">
-      <div class="stat-label">Custo Mês</div>
-      <div class="stat-value">R$88</div>
-      <div class="stat-delta delta-neu">Março/2026</div>
-    </div>
-    <div class="stat-card blue">
-      <div class="stat-label">Tokens Reais Hoje</div>
-      <div class="stat-value" style="font-size:28px">374K</div>
-      <div class="stat-delta delta-neu">1.3M no mês · 120 runs</div>
+  <!-- Status bar -->
+  <div class="status-bar" id="status-bar">
+    <div class="loading">Carregando...</div>
+  </div>
+
+  <!-- Skills summary -->
+  <div style="margin-bottom:28px">
+    <p class="sec-eyebrow">Biblioteca</p>
+    <div class="skills-row" id="skills-row">
+      <div class="skill-box"><div class="skill-box-num" id="sk-total">—</div><div class="skill-box-label">Total arquivos</div></div>
+      <div class="skill-box"><div class="skill-box-num">9</div><div class="skill-box-label">Funções</div></div>
+      <div class="skill-box"><div class="skill-box-num">8</div><div class="skill-box-label">Verticais</div></div>
+      <div class="skill-box"><div class="skill-box-num">8</div><div class="skill-box-label">Universais</div></div>
+      <div class="skill-box"><div class="skill-box-num" id="sk-decisions">—</div><div class="skill-box-label">Logs 24h</div></div>
     </div>
   </div>
 
-  <!-- AGENTS -->
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-    <div class="sec-title" style="margin-bottom:0;flex:1">Agentes</div>
-    <button onclick="abrirModalNovoAgente()" style="background:none;border:1px solid var(--fire);color:var(--fire);padding:6px 16px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;transition:all .15s" onmouseover="this.style.background='var(--fire)';this.style.color='#000'" onmouseout="this.style.background='none';this.style.color='var(--fire)'">+ NOVO AGENTE</button>
-  </div>
-  <div class="agents-grid">
+  <div class="grid-2">
 
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-name">George</div>
-        <div class="agent-status status-on"><span class="status-dot dot-on"></span>Online</div>
+    <!-- Darwin -->
+    <div class="panel" id="panel-darwin">
+      <div class="panel-hdr">
+        <span class="panel-title">Darwin · Manutenção</span>
+        <span class="panel-badge" id="darwin-badge" style="background:rgba(85,85,85,0.2);color:var(--ash)">—</span>
       </div>
-      <div class="agent-role">Orquestrador Central · Telegram · <a href="/agent/george" style="color:var(--fire);text-decoration:none;font-size:9px;letter-spacing:1px">VER PAINEL →</a></div>
-      <div class="agent-stats">
-        <div class="astat"><div class="astat-label">Msgs hoje</div><div class="astat-value">86</div></div>
-        <div class="astat"><div class="astat-label">Msgs ontem</div><div class="astat-value">6</div></div>
-        <div class="astat"><div class="astat-label">Modelo</div><div class="astat-value" style="font-size:10px">Haiku</div></div>
-        
-      </div>
-      <div class="agent-bar">
-        <div class="bar-label"><span>Atividade relativa</span><span>86%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width:86%"></div></div>
-      </div>
+      <div class="panel-body" id="darwin-body"><div class="loading">Carregando...</div></div>
     </div>
 
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-name">Amanda</div>
-        <div class="agent-status status-on"><span class="status-dot dot-on"></span>Online</div>
+    <!-- Mentor -->
+    <div class="panel" id="panel-mentor">
+      <div class="panel-hdr">
+        <span class="panel-title">Mentor · Melhoria Contínua</span>
+        <span class="panel-badge" id="mentor-badge" style="background:rgba(85,85,85,0.2);color:var(--ash)">—</span>
       </div>
-      <div class="agent-role">Assistente Pessoal · WhatsApp + Telegram · <a href="/agent/amanda" style="color:var(--fire);text-decoration:none;font-size:9px;letter-spacing:1px">VER PAINEL →</a></div>
-      <div class="agent-stats">
-        <div class="astat"><div class="astat-label">Msgs hoje</div><div class="astat-value">71</div></div>
-        <div class="astat"><div class="astat-label">Msgs ontem</div><div class="astat-value">85</div></div>
-        <div class="astat"><div class="astat-label">Modelo</div><div class="astat-value" style="font-size:10px">Haiku</div></div>
-        
-      </div>
-      <div class="agent-bar">
-        <div class="bar-label"><span>Atividade relativa</span><span>71%</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width:71%"></div></div>
-      </div>
-    </div>
-
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-name">Bia</div>
-        <div class="agent-status status-on"><span class="status-dot dot-on"></span>Online</div>
-      </div>
-      <div class="agent-role">Comercial · WhatsApp Business · <a href="/agent/bia" style="color:var(--fire);text-decoration:none;font-size:9px;letter-spacing:1px">VER PAINEL →</a></div>
-      <div class="agent-stats">
-        <div class="astat"><div class="astat-label">Leads hoje</div><div class="astat-value">4</div></div>
-        <div class="astat"><div class="astat-label">Qualificados</div><div class="astat-value">1</div></div>
-        <div class="astat"><div class="astat-label">Modelo</div><div class="astat-value" style="font-size:10px">Haiku</div></div>
-        
-      </div>
-      <div class="agent-bar">
-        <div class="bar-label"><span>Taxa qualificação</span><span>25%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width:25%;background:#9070d0"></div></div>
-      </div>
-    </div>
-
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-name">Flávia</div>
-        <div class="agent-status status-on"><span class="status-dot dot-on"></span>Online</div>
-      </div>
-      <div class="agent-role">Marketing · @1manarmy_project · <a href="/agent/flavia" style="color:var(--fire);text-decoration:none;font-size:9px;letter-spacing:1px">VER PAINEL →</a></div>
-      <div class="agent-stats">
-        <div class="astat"><div class="astat-label">Msgs hoje</div><div class="astat-value">22</div></div>
-        <div class="astat"><div class="astat-label">Posts prod.</div><div class="astat-value">0</div></div>
-        <div class="astat"><div class="astat-label">Modelo</div><div class="astat-value" style="font-size:10px">Haiku</div></div>
-        
-      </div>
-      <div class="agent-bar">
-        <div class="bar-label"><span>Atividade relativa</span><span>22%</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--blue)"></div></div>
-      </div>
-    </div>
-
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-name">Tiago</div>
-        <div class="agent-status status-on"><span class="status-dot dot-on"></span>Online</div>
-      </div>
-      <div class="agent-role">Estratégia Comercial · Telegram · <a href="/agent/tiago" style="color:var(--fire);text-decoration:none;font-size:9px;letter-spacing:1px">VER PAINEL →</a></div>
-      <div class="agent-stats">
-        <div class="astat"><div class="astat-label">Msgs hoje</div><div class="astat-value">7</div></div>
-        <div class="astat"><div class="astat-label">Msgs ontem</div><div class="astat-value">4</div></div>
-        <div class="astat"><div class="astat-label">Modelo</div><div class="astat-value" style="font-size:10px">Haiku</div></div>
-        
-      </div>
-      <div class="agent-bar">
-        <div class="bar-label"><span>Atividade relativa</span><span>7%</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width:7%"></div></div>
-      </div>
-    </div>
-
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-name">Darwin</div>
-        <div class="agent-status status-on"><span class="status-dot dot-on"></span>Online</div>
-      </div>
-      <div class="agent-role">Monitoramento Autônomo · 24h · <a href="/agent/darwin" style="color:var(--fire);text-decoration:none;font-size:9px;letter-spacing:1px">VER PAINEL →</a></div>
-      <div class="agent-stats">
-        <div class="astat"><div class="astat-label">Checks hoje</div><div class="astat-value">24</div></div>
-        <div class="astat"><div class="astat-label">Alertas</div><div class="astat-value">0</div></div>
-        <div class="astat"><div class="astat-label">Modelo</div><div class="astat-value" style="font-size:10px">Haiku</div></div>
-        <div class="astat"><div class="astat-label">Status</div><div class="astat-value" style="color:var(--green);font-size:10px">Saudável</div></div>
-      </div>
-      <div class="agent-bar">
-        <div class="bar-label"><span>Sistemas monitorados</span><span>100%</span></div>
-        <div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div>
-      </div>
+      <div class="panel-body" id="mentor-body"><div class="loading">Carregando...</div></div>
     </div>
 
   </div>
 
-  <!-- BACKUP HEALTH -->
-  <div style="margin-bottom:24px;">
-    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#6a6a6a;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-      Saúde do backup
-      <span style="flex:1;height:1px;background:#1e1e1e;display:block;"></span>
-      <span style="font-size:8px;color:#6a6a6a;">atualiza às 03:00 BRT</span>
+  <!-- Agentes 24h -->
+  <div class="panel" style="margin-bottom:28px">
+    <div class="panel-hdr">
+      <span class="panel-title">Decisões por Agente · últimas 24h</span>
+      <a href="/ops/mentor" style="font-size:11px;color:var(--fire);">ver pipeline completo →</a>
     </div>
-    <div style="background:#111;border:1px solid #1e1e1e;padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-
-      <div style="border-right:1px solid #1e1e1e;padding-right:16px;">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;letter-spacing:1px;margin-bottom:10px;">HD EXTERNO</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="width:8px;height:8px;border-radius:50%;background:#3d9e60;flex-shrink:0;"></div>
-          <span style="font-size:12px;color:#e0d9cf;font-weight:500;">FX_BACKUP_S</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;store/</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;groups/</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;src/</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;.env</div>
-        </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;margin-top:10px;padding-top:8px;border-top:1px solid #1e1e1e;">último: 03:00 BRT · 26/03</div>
-      </div>
-
-      <div style="border-right:1px solid #1e1e1e;padding:0 16px;">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;letter-spacing:1px;margin-bottom:10px;">GITHUB</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="width:8px;height:8px;border-radius:50%;background:#3d9e60;flex-shrink:0;"></div>
-          <span style="font-size:12px;color:#e0d9cf;font-weight:500;">nanoclaw</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;código fonte</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;CLAUDE.md agentes</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;store/</div>
-          <div style="font-size:10px;color:#6a6a6a;">✗ &nbsp;.env (segurança)</div>
-        </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;margin-top:10px;padding-top:8px;border-top:1px solid #1e1e1e;">último: 03:00 BRT · 26/03</div>
-      </div>
-
-      <div style="padding-left:16px;">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;letter-spacing:1px;margin-bottom:10px;">GOOGLE DRIVE</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="width:8px;height:8px;border-radius:50%;background:#3d9e60;flex-shrink:0;"></div>
-          <span style="font-size:12px;color:#e0d9cf;font-weight:500;">onemanarmy.com.br</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;credentials/</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;.env</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;oma-project/</div>
-          <div style="font-size:10px;color:#6a6a6a;">✓ &nbsp;users/</div>
-        </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;margin-top:10px;padding-top:8px;border-top:1px solid #1e1e1e;">último: 16:47 BRT · 26/03</div>
-      </div>
-
-    </div>
-    <div style="margin-top:6px;font-family:'Space Mono',monospace;font-size:9px;color:#4a4a4a;text-align:right;">
-      ⚠ HD externo precisa estar conectado ao Mac Mini para o backup funcionar
+    <div class="panel-body">
+      <div id="agents-table"><div class="loading">Carregando...</div></div>
     </div>
   </div>
 
-  <!-- CUSTO + ATIVIDADE -->
-  <div class="cost-section">
-
-    
-
-    <div class="activity-card">
-      <div class="cost-title">Atividade recente</div>
-      <div class="activity-list" id="activityList">
-        <div class="activity-item"><span class="act-time">17:49</span><span class="act-agent">George</span><span class="act-msg">Dashboard de status gerado e publicado no site</span></div>
-        <div class="activity-item"><span class="act-time">17:36</span><span class="act-agent">Bia</span><span class="act-msg">Novo lead qualificado — advocacia · funil em andamento</span></div>
-        <div class="activity-item"><span class="act-time">17:20</span><span class="act-agent">George</span><span class="act-msg">Token GitHub configurado · push do site concluído</span></div>
-        <div class="activity-item"><span class="act-time">16:53</span><span class="act-agent">Bia</span><span class="act-msg">Lead inbound — Instagram · funil iniciado</span></div>
-        <div class="activity-item"><span class="act-time">15:58</span><span class="act-agent">George</span><span class="act-msg">NanoClaw reiniciado · learned-patterns otimizado</span></div>
-        <div class="activity-item"><span class="act-time">14:22</span><span class="act-agent">George</span><span class="act-msg">CRM publicado em onemanarmyproject.com.br/crm</span></div>
-        <div class="activity-item"><span class="act-time">11:47</span><span class="act-agent">George</span><span class="act-msg">Site atualizado · widget Bia adicionado</span></div>
-        <div class="activity-item"><span class="act-time">09:00</span><span class="act-agent">Darwin</span><span class="act-msg">Check matinal · todos os sistemas operacionais</span></div>
-      </div>
+  <!-- Task scheduler -->
+  <div class="panel" style="margin-bottom:28px">
+    <div class="panel-hdr">
+      <span class="panel-title">Últimas execuções agendadas</span>
     </div>
-
+    <div class="panel-body">
+      <div id="tasks-table"><div class="loading">Carregando...</div></div>
+    </div>
   </div>
 
-  <!-- INTELLIGENCE MATRIX -->
-  <div class="intel-matrix">
-    <div class="sec-title">Matriz de Inteligências</div>
-    <div id="intel-matrix-content">Carregando...</div>
-  </div>
+  <div class="refresh-info" id="refresh-info">Atualizando a cada 30s</div>
 
 </main>
 
-<footer class="ftr">
-  <div>
-    <div class="ftr-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
-    <div style="margin-top:4px"><a href="/" class="back-link">← VOLTAR AO SITE</a></div>
-  </div>
-  <div class="ftr-meta">
-    <div>NanoClaw · georgejetson · Mac Mini M4</div>
-    <div style="margin-top:4px">Atualizado a cada hora pelo George</div>
-    <div id="lastUpdate" style="margin-top:2px;color:var(--fire)"></div>
-  </div>
-</footer>
+<script>
+const BASE = window.location.origin;
+let refreshTimer;
 
-<!-- MODAL NOVO AGENTE — 2 ETAPAS -->
-<div class="modal-novo" id="modal-novo" onclick="if(event.target===this)fecharModal()">
-  <div class="modal-novo-box">
+function clock() {
+  const el = document.getElementById('clock');
+  const brt = new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour12: false });
+  if (el) el.textContent = brt + ' BRT';
+}
+setInterval(clock, 1000); clock();
 
-    <!-- ETAPA 1 — dados basicos -->
-    <div id="m-etapa1">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <h3 style="margin:0">NOVO AGENTE</h3>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash)">ETAPA 1 / 2</span>
-      </div>
-      <p>Dados basicos — voce configura o restante na pagina do agente.</p>
-      <div class="mfield">
-        <span class="mlbl">Nome do Agente</span>
-        <input class="minput" id="m-nome" type="text" placeholder="Ex: Onboarder, Suporte, Financeiro..." onkeydown="if(event.key==='Enter')irEtapa2()">
-      </div>
-      <div class="mfield">
-        <span class="mlbl">Funcao Principal</span>
-        <select class="mselect" id="m-funcao">
-          <option value="assistente">Assistente Pessoal</option>
-          <option value="comercial">Comercial / Vendas</option>
-          <option value="operacional" selected>Operacional</option>
-          <option value="onboarding">Onboarding</option>
-          <option value="marketing">Marketing / Conteudo</option>
-          <option value="monitoramento">Monitoramento</option>
-          <option value="financeiro">Financeiro / Cobranca</option>
-          <option value="suporte">Suporte / SAC</option>
-        </select>
-      </div>
-      <div class="mfield">
-        <span class="mlbl">Canal Principal</span>
-        <div class="mbadges" id="m-canais">
-          <span class="mbadge sel" onclick="selCanal(this)">WhatsApp</span>
-          <span class="mbadge" onclick="selCanal(this)">Telegram</span>
-          <span class="mbadge" onclick="selCanal(this)">E-mail</span>
-          <span class="mbadge" onclick="selCanal(this)">Webchat</span>
-          <span class="mbadge" onclick="selCanal(this)">Instagram</span>
-        </div>
-      </div>
-      <div class="mfield">
-        <span class="mlbl">Modelo de IA</span>
-        <select class="mselect" id="m-modelo">
-          <option value="haiku">Claude Haiku — rapido e economico</option>
-          <option value="sonnet" selected>Claude Sonnet — balanceado</option>
-          <option value="opus">Claude Opus — maxima qualidade</option>
-        </select>
-      </div>
-      <div class="mbtns">
-        <button onclick="fecharModal()">CANCELAR</button>
-        <button class="mcreate" onclick="irEtapa2()">PROXIMO →</button>
+async function load() {
+  const info = document.getElementById('refresh-info');
+  if (info) info.innerHTML = '<span class="spinning">↻</span> Atualizando...';
+
+  try {
+    const [sys, mentor] = await Promise.all([
+      fetch(BASE + '/api/ops/system').then(r => r.json()),
+      fetch(BASE + '/api/ops/mentor').then(r => r.json()),
+    ]);
+    renderSystem(sys);
+    renderMentorSummary(mentor);
+    renderAgents(mentor.agentStats || []);
+    if (info) info.textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }) + ' · próximo em 30s';
+  } catch(e) {
+    if (info) info.textContent = 'Erro ao carregar: ' + e.message;
+  }
+}
+
+function renderSystem(sys) {
+  // Status bar
+  const darwin = sys.darwinState;
+  const mentor = sys.mentorState;
+  const darwinLast = darwin?.lastRun ? new Date(darwin.lastRun).toLocaleTimeString('pt-BR', {timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'}) : 'nunca';
+  const mentorLast = mentor?.lastRun ? new Date(mentor.lastRun).toLocaleTimeString('pt-BR', {timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'}) : 'nunca';
+
+  document.getElementById('status-bar').innerHTML = [
+    { name: 'NanoClaw', detail: 'Sistema operacional', status: 'ok' },
+    { name: 'Darwin', detail: 'Último: ' + darwinLast, status: 'ok' },
+    { name: 'Mentor', detail: mentor ? 'Ativo · ' + mentorLast : 'Aguardando 1º ciclo', status: mentor ? 'ok' : 'idle' },
+    { name: 'Auditor', detail: '4x/dia', status: 'ok' },
+    { name: 'Agentes', detail: 'Bia · Flávia · Tiago · Amanda · George', status: 'ok' },
+    { name: 'Skills Library', detail: sys.skillsCount + ' arquivos', status: 'ok' },
+  ].map(s => `
+    <div class="status-card">
+      <div class="status-dot ${s.status}"></div>
+      <div>
+        <div class="status-name">${s.name}</div>
+        <div class="status-detail">${s.detail}</div>
       </div>
     </div>
+  `).join('');
 
-    <!-- ETAPA 2 — confirmacao + preview -->
-    <div id="m-etapa2" style="display:none">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <h3 style="margin:0">CONFIRMAR</h3>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash)">ETAPA 2 / 2</span>
-      </div>
-      <p>Revise e confirme. Voce vai configurar Setup e Fluxos na pagina do agente.</p>
+  // Skills numbers
+  document.getElementById('sk-total').textContent = sys.skillsCount || '61';
+  document.getElementById('sk-decisions').textContent = sys.decisions24h || '0';
 
-      <!-- Preview do agente -->
-      <div id="m-preview" style="background:var(--graph);border:1px solid var(--iron);border-radius:4px;padding:16px;margin-bottom:16px">
-        <div style="font-family:'Black Ops One',cursive;font-size:22px;letter-spacing:2px;color:var(--fire);margin-bottom:4px" id="prev-nome">—</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px" id="prev-funcao">—</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span id="prev-canal" style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 9px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px">—</span>
-          <span id="prev-modelo" style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 9px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px">—</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 9px;border:1px solid var(--steel);color:var(--gold);letter-spacing:1px">CONFIGURANDO</span>
-        </div>
+  // Darwin panel
+  const da = sys.darwinState;
+  if (da) {
+    const recent = (da.actions || []).slice(-5).reverse();
+    document.getElementById('darwin-badge').textContent = 'Ativo';
+    document.getElementById('darwin-badge').style.cssText = 'background:rgba(61,158,96,0.15);color:#3d9e60';
+    document.getElementById('darwin-body').innerHTML = `
+      <div class="metric-row"><span class="metric-label">Último ciclo</span><span class="metric-val">${da.lastRun ? new Date(da.lastRun).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}) : '—'}</span></div>
+      <div class="metric-row"><span class="metric-label">Ações totais</span><span class="metric-val fire">${(da.actions||[]).length}</span></div>
+      <div style="margin-top:12px">
+        ${recent.map(a => `
+          <div class="action-item">
+            <span class="action-check">${a.check}</span>
+            <span class="action-finding">${a.finding}</span>
+            <span class="action-tag ${a.action==='auto_fixed'?'fixed':a.action==='alerted'?'alert':'none'}">${a.action}</span>
+          </div>
+        `).join('') || '<div style="color:var(--ash);font-size:12px">Nenhuma ação recente</div>'}
       </div>
+    `;
+  } else {
+    document.getElementById('darwin-body').innerHTML = '<div class="loading">Sem dados ainda</div>';
+  }
 
-      <!-- O que vem pre-configurado -->
-      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);margin-bottom:8px">O QUE VIRA PRONTO:</div>
-      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:18px">
-        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Overview com stats e instrucao direta ao George</div>
-        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Setup completo — canais, tom, atividades, escalacao, memoria</div>
-        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Fluxos — jobs, gatilhos, entrada, processamento, saida, SLA</div>
-        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--green)">✓</span> Botao GERAR CLAUDE.MD — ativa o agente no Mac Mini</div>
-        <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--bone)"><span style="color:var(--fire)">→</span> Abre direto na aba SETUP para voce configurar</div>
-      </div>
+  // Task runs
+  const runs = sys.recentTaskRuns || [];
+  document.getElementById('tasks-table').innerHTML = runs.length ? `
+    <table class="agent-table">
+      <thead><tr><th>Task</th><th>Status</th><th>Executado</th><th>Duração</th><th>Erro</th></tr></thead>
+      <tbody>
+        ${runs.map(r => `
+          <tr>
+            <td style="font-family:'Space Mono',monospace;font-size:11px">${r.task_id}</td>
+            <td><span class="tag ${r.status==='success'?'ok':r.status==='running'?'warn':'new'}">${r.status}</span></td>
+            <td style="color:var(--ash)">${r.run_at ? new Date(r.run_at).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}) : '—'}</td>
+            <td style="font-family:'Space Mono',monospace">${r.duration_ms ? r.duration_ms+'ms' : '—'}</td>
+            <td style="color:var(--red);font-size:11px">${r.error ? r.error.substring(0,40)+'...' : '—'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '<div style="color:var(--ash);font-size:12px;padding:8px 0">Nenhuma execução recente</div>';
+}
 
-      <div id="m-feedback" style="display:none;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:1px;text-align:center"></div>
-      <div class="mbtns">
-        <button onclick="voltarEtapa1()">← VOLTAR</button>
-        <button class="mcreate" onclick="criarAgente()">CRIAR E CONFIGURAR →</button>
-      </div>
+function renderMentorSummary(data) {
+  const ms = data.mentorState;
+  const pending = data.pendingLogs || 0;
+
+  // Próximo ciclo
+  const brt = new Date(new Date().toLocaleString('en-US',{timeZone:'America/Sao_Paulo'}));
+  const next = new Date(brt); next.setHours(3,0,0,0);
+  if (brt.getHours() >= 3) next.setDate(next.getDate()+1);
+  const diff = next - brt;
+  const h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000);
+
+  document.getElementById('mentor-badge').textContent = ms ? 'Ativo' : 'Aguardando';
+  document.getElementById('mentor-badge').style.cssText = ms
+    ? 'background:rgba(232,112,58,0.12);color:#e8703a'
+    : 'background:rgba(85,85,85,0.2);color:#555';
+
+  document.getElementById('mentor-body').innerHTML = `
+    <div class="metric-row"><span class="metric-label">Próximo ciclo</span><span class="metric-val fire">03:00 BRT (em ${h}h${m}m)</span></div>
+    <div class="metric-row"><span class="metric-label">Logs pendentes</span><span class="metric-val ${pending>0?'yellow':'green'}">${pending}</span></div>
+    <div class="metric-row"><span class="metric-label">Total processados</span><span class="metric-val">${ms?.totalLogsProcessed || 0}</span></div>
+    <div class="metric-row"><span class="metric-label">Updates aplicados</span><span class="metric-val green">${ms?.totalProposalsApplied || 0}</span></div>
+    <div class="metric-row"><span class="metric-label">Propostas rejeitadas</span><span class="metric-val">${ms?.totalProposalsRejected || 0}</span></div>
+    <div class="metric-row"><span class="metric-label">Aguardando Fabio</span><span class="metric-val ${(ms?.pendingApprovals||[]).length>0?'yellow':'green'}">${(ms?.pendingApprovals||[]).length}</span></div>
+    <div style="margin-top:12px">
+      <a href="/ops/mentor" style="font-size:11px;color:var(--fire);letter-spacing:1px">VER PIPELINE COMPLETO →</a>
     </div>
+  `;
+}
 
-  </div>
-</div>
-
-
-</div>
-<script>
-const PWD='omaproject2026';
-function doLogin(){
-  if(document.getElementById('pw').value===PWD){
-    ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
-    sessionStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('appContent').style.display='block';
-  }else{
-    document.getElementById('lerr').style.display='block';
-    document.getElementById('pw').value='';
+function renderAgents(stats) {
+  if (!stats.length) {
+    document.getElementById('agents-table').innerHTML = '<div style="color:var(--ash);font-size:12px;padding:8px 0">Nenhum log registrado ainda. Os agentes começam a registrar a partir de agora.</div>';
+    return;
   }
+  document.getElementById('agents-table').innerHTML = `
+    <table class="agent-table">
+      <thead><tr><th>Agente</th><th>Total</th><th>Resolvido</th><th>Incerto</th><th>Caso Novo</th><th>Último log</th></tr></thead>
+      <tbody>
+        ${stats.map(s => `
+          <tr>
+            <td style="font-weight:600;color:var(--fire)">${s.agent}</td>
+            <td style="font-family:'Space Mono',monospace">${s.total}</td>
+            <td><span class="tag ok">${s.resolvido}</span></td>
+            <td><span class="tag warn">${s.incerto}</span></td>
+            <td><span class="tag new">${s.caso_novo}</span></td>
+            <td style="color:var(--ash);font-size:11px">${s.last_log ? new Date(s.last_log).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}) : '—'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
 }
-function dL(){doLogin();}
-function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.removeItem(k);});location.reload();}
-// Auto-login se sessao ativa
-(function(){
-  if(sessionStorage.getItem('oma_auth')==='1'){
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('appContent').style.display='block';
-  }
-})();
-function tick(){var el=document.getElementById('ck');if(el)el.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
-setInterval(tick,1000);tick();
-function toast(m,t){var e=document.getElementById('ts');if(!e)return;e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
-function abrirModalNovoAgente(){
-  document.getElementById('m-etapa1').style.display='block';
-  document.getElementById('m-etapa2').style.display='none';
-  document.getElementById('modal-novo').classList.add('open');
-  document.getElementById('m-nome').focus();
-}
-function fecharModal(){
-  document.getElementById('modal-novo').classList.remove('open');
-  var fb=document.getElementById('m-feedback');if(fb)fb.style.display='none';
-}
-function selCanal(el){
-  el.closest('.mbadges').querySelectorAll('.mbadge').forEach(function(b){b.classList.remove('sel');});
-  el.classList.add('sel');
-}
-function irEtapa2(){
-  var nome=document.getElementById('m-nome').value.trim();
-  if(!nome){document.getElementById('m-nome').focus();document.getElementById('m-nome').style.borderColor='var(--fire)';return;}
-  document.getElementById('m-nome').style.borderColor='';
-  var funcaoEl=document.getElementById('m-funcao');
-  var funcao=funcaoEl.options[funcaoEl.selectedIndex].text;
-  var canalEl=document.querySelector('#m-canais .mbadge.sel');
-  var canal=canalEl?canalEl.textContent.trim():'WhatsApp';
-  var modeloEl=document.getElementById('m-modelo');
-  var modelo=modeloEl.options[modeloEl.selectedIndex].text;
-  document.getElementById('prev-nome').textContent=nome.toUpperCase();
-  document.getElementById('prev-funcao').textContent=funcao.toUpperCase();
-  document.getElementById('prev-canal').textContent=canal;
-  document.getElementById('prev-modelo').textContent=modelo;
-  document.getElementById('m-etapa1').style.display='none';
-  document.getElementById('m-etapa2').style.display='block';
-}
-function voltarEtapa1(){
-  document.getElementById('m-etapa2').style.display='none';
-  document.getElementById('m-etapa1').style.display='block';
-  document.getElementById('m-nome').focus();
-}
-async function criarAgente(){
-  var nome=document.getElementById('m-nome').value.trim();
-  if(!nome){alert('Digite o nome do agente.');return;}
-  var funcaoEl=document.getElementById('m-funcao');
-  var funcao=funcaoEl.options[funcaoEl.selectedIndex].text;
-  var canalEl=document.querySelector('#m-canais .mbadge.sel');
-  var canal=canalEl?canalEl.textContent.trim():'WhatsApp';
-  var modeloEl=document.getElementById('m-modelo');
-  var modelo=modeloEl.options[modeloEl.selectedIndex].text;
-  var slug=nome.toLowerCase().replace(/[^a-z0-9]/g,'');
-  var filename='agent-'+slug+'.html';
-  var fb=document.getElementById('m-feedback');
-  fb.style.display='block';fb.textContent='Criando...';fb.style.color='var(--green)';
-  var agentData={slug:slug,nome:nome,funcao:funcao,canal:canal,modelo:modelo,
-    filename:filename,criado_em:new Date().toISOString(),status:'configurando'};
-  try{
-    var ex=JSON.parse(localStorage.getItem('oma-agentes-criados')||'[]');
-    ex=ex.filter(function(a){return a.slug!==slug;});
-    ex.push(agentData);
-    localStorage.setItem('oma-agentes-criados',JSON.stringify(ex));
-    localStorage.setItem('oma-setup-'+slug,JSON.stringify(agentData));
-  }catch(e){}
-  var key=sessionStorage.getItem('oma_api_key')||'';
-  if(key){try{await fetch('https://api.onemanarmyproject.com.br/agentes',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key},body:JSON.stringify(agentData)});}catch(e){}}
-  var html=gerarHTMLAgente(nome,funcao,canal,modelo,slug);
-  fb.style.display='block';
-  fb.textContent='Subindo agente para o servidor...';
-  fb.style.color='var(--green)';
 
-  // Envia para o servidor Hetzner
-  try{
-    var res2 = await fetch('https://api.onemanarmyproject.com.br/criar-agente',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':(sessionStorage.getItem('oma_api_key')||'')},
-      body:JSON.stringify({filename:filename,html:html,nome:nome,funcao:funcao,canal:canal,modelo:modelo,slug:slug})
-    });
-    var data = await res2.json();
-    if(data.ok && data.url){
-      fb.textContent='Agente criado! Abrindo...';
-      setTimeout(function(){
-        fecharModal();
-        window.open('https://www.onemanarmyproject.com.br'+data.url+'?setup=1&t='+sessionStorage.getItem('oma_api_key'), '_blank');
-      }, 800);
-    } else {
-      fb.textContent='Erro: '+(data.error||'tente novamente');
-      fb.style.color='var(--red)';
-    }
-  }catch(e){
-    fb.textContent='Erro de conexao: '+e.message;
-    fb.style.color='var(--red)';
-  }
-}
-</script>
-<script src="/gerar-agente.js?v=1774927035"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-OMA2026PROJ');
-</script>
-<script>
-// Intelligence Matrix — dynamic from intelligence-matrix.json
-(function(){
-  fetch('/intelligence-matrix.json?t='+Date.now())
-    .then(function(r){return r.json();})
-    .then(function(data){renderIntelMatrix(data);})
-    .catch(function(){document.getElementById('intel-matrix-content').innerHTML='<div style="color:var(--ash);font-size:12px">Dados não disponíveis</div>';});
-
-  function renderIntelMatrix(data){
-    var html='';
-    
-    // Table header
-    html+='<table class="intel-table">';
-    html+='<tr><th>SERVIÇO</th><th>ATIVIDADE</th><th class="c">LLM</th><th class="c">RUNS</th><th class="r">CUSTO (ABR)</th></tr>';
-
-    // Agent services
-    var order=['george','flavia','bia','amanda','ekhoa','darwin','tiago','system'];
-    order.forEach(function(key){
-      var svc=data.services[key];
-      if(!svc)return;
-      var acts=svc.activities||[];
-      acts.forEach(function(act,i){
-        html+='<tr'+(i===0?' class="svc-header"':'')+'>';
-        if(i===0) html+='<td rowspan="'+acts.length+'"><span class="intel-svc">'+svc.name+'</span></td>';
-        html+='<td class="intel-act">'+act.activity+'</td>';
-        html+='<td style="text-align:center"><span class="intel-badge '+(act.llm.indexOf('Sonnet')>=0?'sonnet':act.llm_color)+'">'+act.llm+'</span></td>';
-        html+='<td class="intel-runs">'+(act.runs||'—')+'</td>';
-        html+='<td class="intel-cost">'+(act.cost>0?'<span class="val">$'+act.cost.toFixed(4)+'</span>':'—')+'</td>';
-        html+='</tr>';
-      });
-    });
-
-    // Separator
-    html+='<tr class="intel-sep"><td colspan="5">PRODUTOS / SERVIÇOS</td></tr>';
-
-    // Products
-    ['ziptalk','smartnoter','mirofish'].forEach(function(key){
-      var p=data.products[key];
-      if(!p)return;
-      var acts=p.activities||[];
-      acts.forEach(function(act,i){
-        html+='<tr>';
-        if(i===0) html+='<td rowspan="'+acts.length+'"><span class="intel-svc">'+p.name+'</span></td>';
-        html+='<td class="intel-act">'+act.activity+'</td>';
-        html+='<td style="text-align:center"><span class="intel-badge '+act.llm_color+'">'+act.llm+'</span></td>';
-        html+='<td class="intel-runs">'+(act.runs||'—')+'</td>';
-        html+='<td class="intel-cost">'+(act.cost>0?'<span class="val">$'+act.cost.toFixed(4)+'</span>':'grátis')+'</td>';
-        html+='</tr>';
-      });
-    });
-
-    // Separator
-    html+='<tr class="intel-sep"><td colspan="5">FAILOVER</td></tr>';
-
-    // Failover
-    (data.failover||[]).forEach(function(f){
-      html+='<tr>';
-      html+='<td><span class="intel-svc">'+f.name+'</span></td>';
-      html+='<td class="intel-act">'+f.activity+'</td>';
-      html+='<td style="text-align:center"><span class="intel-badge '+f.llm_color+'">'+f.llm+'</span></td>';
-      html+='<td class="intel-runs">—</td>';
-      html+='<td class="intel-cost">sob demanda</td>';
-      html+='</tr>';
-    });
-
-    html+='</table>';
-
-    // Total + legend
-    html+='<div class="intel-total">';
-    html+='<span>Mês: '+data.month+'</span>';
-    html+='<span>Total Anthropic: <span style="color:var(--bone);font-weight:700">$'+data.total_cost_usd.toFixed(2)+'</span></span>';
-    html+='<span>Atualizado: '+data.updated_at_brt+'</span>';
-    html+='</div>';
-
-    html+='<div class="intel-legend">';
-    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#5b9aef"></div>Anthropic Haiku</div>';
-    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#9b85ff"></div>Anthropic Sonnet</div>';
-    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#5bc47a"></div>Groq (grátis)</div>';
-    html+='<div class="intel-legend-item"><div class="intel-legend-dot" style="background:#d4b56a"></div>OpenRouter</div>';
-    html+='</div>';
-
-    document.getElementById('intel-matrix-content').innerHTML=html;
-  }
-})();
+load();
+refreshTimer = setInterval(load, 30000);
 </script>
 </body>
 </html>

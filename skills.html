@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA · Skills Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#3d9e60;--blue:#3a7bd5;--yellow:#c8a456;--red:#c0392b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+
+/* Header */
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hdr-brand{display:flex;align-items:center;gap:12px;}
+.hdr-logo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:3px;color:var(--fire);}
+.hdr-sub{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ash);margin-top:1px;}
+.hdr-nav{display:flex;gap:4px;}
+.nav-btn{padding:6px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);border:1px solid transparent;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;background:none;transition:all 0.15s;}
+.nav-btn:hover{color:var(--bone);border-color:var(--iron);}
+.nav-btn.active{color:var(--fire);border-color:var(--ember);}
+.hdr-right{display:flex;align-items:center;gap:16px;}
+.hdr-time{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+
+/* Body */
+.body{padding:28px;max-width:1400px;margin:0 auto;}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:28px;}
+.stat-card{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:14px 16px;text-align:center;}
+.stat-num{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}
+.stat-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-top:3px;}
+
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--iron);margin-bottom:28px;overflow-x:auto;}
+.tab{padding:14px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--ash);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:'Barlow',sans-serif;}
+.tab:hover{color:var(--bone);}
+.tab.active{color:var(--fire);border-bottom-color:var(--fire);}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.filter-btn{padding:5px 13px;border-radius:20px;border:1px solid var(--iron);background:none;color:var(--ash);font-size:12px;font-family:'Barlow',sans-serif;cursor:pointer;transition:all 0.2s;}
+.filter-btn:hover{border-color:var(--ash);color:var(--bone);}
+.filter-btn.active{border-color:var(--fire);color:var(--fire);background:rgba(232,112,58,0.08);}
+
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
+.skill-card{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s;}
+.skill-card:hover{border-color:var(--ash);transform:translateY(-1px);}
+.skill-card.open{border-color:var(--fire);}
+.card-hdr{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.card-title{font-weight:700;font-size:14px;color:var(--bone);margin-bottom:3px;}
+.card-desc{font-size:12px;color:var(--ash);line-height:1.4;}
+.card-agent{background:var(--steel);color:var(--fog);font-size:10px;font-weight:600;letter-spacing:1px;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+.card-tags{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:5px;}
+.vtag{font-size:10px;padding:2px 7px;border-radius:3px;background:var(--steel);color:var(--fog);}
+.vtag.new{background:rgba(232,112,58,0.15);color:var(--fire);}
+.card-expand{display:none;border-top:1px solid var(--iron);background:rgba(0,0,0,0.15);}
+.skill-card.open .card-expand{display:block;}
+.expand-body{padding:14px 16px;}
+.expand-section{margin-bottom:14px;}
+.expand-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);margin-bottom:8px;}
+.skill-item{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;color:var(--bone);}
+.skill-dot{color:var(--fire);font-size:9px;}
+.skill-dot.u{color:var(--blue);}
+.expand-footer{padding:10px 16px;border-top:1px solid var(--iron);font-size:10px;color:var(--ash);text-align:center;}
+
+/* Universais */
+.univ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.univ-card{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;}
+.univ-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.univ-name{font-weight:600;font-size:13px;color:var(--bone);margin-bottom:4px;}
+.univ-desc{font-size:12px;color:var(--ash);line-height:1.5;}
+.univ-badge{margin-top:8px;display:inline-block;background:rgba(58,123,213,0.12);color:var(--blue);font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px;}
+.univ-date{font-size:10px;color:var(--ash);margin-top:4px;font-family:'Space Mono',monospace;}
+
+/* Matriz */
+.matrix-wrap{overflow-x:auto;}
+.matrix-table{width:100%;border-collapse:collapse;font-size:11px;}
+.matrix-table th{text-align:left;padding:9px 12px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ash);border-bottom:1px solid var(--iron);white-space:nowrap;}
+.matrix-table td{padding:9px 12px;border-bottom:1px solid rgba(30,30,30,0.6);color:var(--bone);}
+.matrix-table tr:hover td{background:rgba(255,255,255,0.015);}
+.m-check{color:var(--fire);font-size:14px;}
+.m-empty{color:var(--iron);font-size:14px;}
+
+/* Feed */
+.feed-list{display:flex;flex-direction:column;gap:10px;}
+.feed-item{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;}
+.feed-icon{font-size:16px;flex-shrink:0;margin-top:2px;}
+.feed-date{font-size:10px;color:var(--ash);font-family:'Space Mono',monospace;margin-bottom:3px;}
+.feed-file{font-family:'Space Mono',monospace;font-size:12px;color:var(--fire);margin-bottom:3px;}
+.feed-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:3px;margin-top:4px;}
+.feed-badge.funcao{background:rgba(232,112,58,0.12);color:var(--fire);}
+.feed-badge.vertical{background:rgba(58,123,213,0.12);color:var(--blue);}
+.feed-badge.universal{background:rgba(61,158,96,0.12);color:var(--green);}
+.feed-badge.mentor{background:rgba(200,164,86,0.12);color:var(--yellow);}
+
+/* Mentor panel */
+.mentor-panel{background:var(--carbon);border:1px solid var(--iron);border-radius:8px;padding:20px;margin-bottom:24px;}
+.mentor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
+.mentor-metric{text-align:center;}
+.mentor-num{font-family:'Black Ops One',cursive;font-size:26px;color:var(--fire);}
+.mentor-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-top:3px;}
+.gov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px;}
+.gov-card{background:var(--iron);border-radius:6px;padding:14px 16px;}
+.gov-title{font-weight:600;font-size:12px;margin-bottom:6px;}
+.gov-desc{font-size:11px;color:var(--ash);line-height:1.5;}
+
+/* Approvals */
+.approval-card{background:var(--carbon);border:1px solid var(--ember);border-radius:8px;padding:14px 16px;margin-bottom:10px;}
+
+/* Loading */
+.loading{text-align:center;padding:48px;color:var(--ash);font-size:13px;}
+.spinning{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.refresh-info{font-size:10px;color:var(--ash);text-align:right;margin-top:10px;}
+
+/* Views */
+.view{display:none;}
+.view.active{display:block;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <div>
+      <div class="hdr-logo">🦞 OMA · SKILLS HUB</div>
+      <div class="hdr-sub">Biblioteca de conhecimento · ao vivo</div>
+    </div>
+  </div>
+  <nav class="hdr-nav">
+    <a href="/ops"><button class="nav-btn">OPS</button></a>
+    <a href="/ops/mentor"><button class="nav-btn">Mentor</button></a>
+  </nav>
+  <div class="hdr-right">
+    <div class="hdr-time" id="clock">--:--:--</div>
+  </div>
+</header>
+
+<main class="body">
+
+  <!-- Stats -->
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-card"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total arquivos</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-funcoes">—</div><div class="stat-label">Funções</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-verticais">—</div><div class="stat-label">Verticais</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-universais">—</div><div class="stat-label">Universais</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-pending">—</div><div class="stat-label">Aprovações pendentes</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('funcoes',this)">Por Função</button>
+    <button class="tab" onclick="switchTab('universais',this)">Universais</button>
+    <button class="tab" onclick="switchTab('matriz',this)">Matriz</button>
+    <button class="tab" onclick="switchTab('mentor',this)">Mentor · IA</button>
+    <button class="tab" onclick="switchTab('feed',this)">Feed de Updates</button>
+  </div>
+
+  <!-- VIEW: Funções -->
+  <div class="view active" id="view-funcoes">
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" onclick="setFilter('todos',this)">Todas</button>
+    </div>
+    <div class="cards-grid" id="cards-funcoes"><div class="loading"><span class="spinning">↻</span> Carregando...</div></div>
+  </div>
+
+  <!-- VIEW: Universais -->
+  <div class="view" id="view-universais">
+    <div class="univ-grid" id="grid-univ"><div class="loading"><span class="spinning">↻</span> Carregando...</div></div>
+  </div>
+
+  <!-- VIEW: Matriz -->
+  <div class="view" id="view-matriz">
+    <div class="matrix-wrap"><table class="matrix-table" id="table-matriz"><tr><td class="loading">Carregando...</td></tr></table></div>
+  </div>
+
+  <!-- VIEW: Mentor -->
+  <div class="view" id="view-mentor">
+    <div class="mentor-panel" id="mentor-panel"><div class="loading"><span class="spinning">↻</span> Carregando...</div></div>
+    <div id="approvals-block"></div>
+  </div>
+
+  <!-- VIEW: Feed -->
+  <div class="view" id="view-feed">
+    <div class="feed-list" id="feed-list"><div class="loading"><span class="spinning">↻</span> Carregando...</div></div>
+  </div>
+
+  <div class="refresh-info" id="refresh-info">Atualizando a cada 60s</div>
+
+</main>
+
+<script>
+const BASE = window.location.origin;
+let DATA = null;
+let activeFilter = 'todos';
+let openCard = null;
+
+// Metadados dos agentes (o que não vem do arquivo)
+const AGENT_META = {
+  'sac-atendimento':      { agente:'Bia',              desc:'Atendimento WhatsApp 24h, triagem, qualificação, escalação' },
+  'agenda-gestao':        { agente:'Amanda/Bia',        desc:'Confirmação, reagendamento, lembretes, encaixes' },
+  'analista-financeiro':  { agente:'Novo por cliente',  desc:'Conciliação, cobranças, fluxo de caixa, relatórios' },
+  'analista-vendas':      { agente:'Tiago/Novo',        desc:'Ranking diário, pipeline, forecast, follow-up de meta' },
+  'analista-marketing':   { agente:'Flávia',            desc:'Planejamento, copy, agendamento, performance' },
+  'analista-operacoes':   { agente:'Novo por cliente',  desc:'Estoque, chamados, SLA, contratos, fornecedores' },
+  'analista-logistica':   { agente:'Novo por cliente',  desc:'Roteirização, rastreamento, confirmação, devoluções' },
+  'consultor-processos':  { agente:'Novo por cliente',  desc:'Manual vivo, onboarding, compliance' },
+  'analista-rh':          { agente:'Novo por cliente',  desc:'Triagem, onboarding, benefícios, pesquisa de clima' },
+};
+
+const UNIV_META = {
+  'leitura-pdf':       { icon:'📄', desc:'Extrair e processar documentos PDF recebidos via WhatsApp ou Telegram' },
+  'transcricao-audio': { icon:'🎙️', desc:'Transcrever mensagens de voz via Whisper e processar como texto' },
+  'envio-whatsapp':    { icon:'💬', desc:'Formatação, tom e regras de envio adequadas ao canal' },
+  'agendamento':       { icon:'📅', desc:'Criar, confirmar e gerenciar eventos no calendário' },
+  'web-search':        { icon:'🔍', desc:'Buscar informações atualizadas para responder com dados recentes' },
+  'relatorio-semanal': { icon:'📊', desc:'Gerar e enviar relatório de performance toda segunda às 08h' },
+  'escalacao-humano':  { icon:'🆘', desc:'Identificar limite do agente e acionar responsável com contexto completo' },
+  'log-decisao':       { icon:'🧠', desc:'Alimentar o Mentor com logs estruturados para melhoria contínua' },
+};
+
+const VTAG_LABELS = {
+  'distribuidora':'🍺 Distribuidora','otica-varejo':'👓 Ótica','consultorio-clinica':'🏥 Clínica',
+  'advocacia-contabilidade':'⚖️ Advocacia','administradora-condominio':'🏢 Condomínio',
+  'industria-servicos':'🏭 Indústria','shopping':'🛍️ Shopping','franquia':'🔗 Franquia',
+};
+
+// ── Clock ──────────────────────────────────────────────────────────────────
+function clock(){
+  document.getElementById('clock').textContent =
+    new Date().toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour12:false})+' BRT';
+}
+setInterval(clock,1000); clock();
+
+// ── Load data ──────────────────────────────────────────────────────────────
+async function load(){
+  const info = document.getElementById('refresh-info');
+  info.innerHTML = '<span class="spinning">↻</span> Atualizando...';
+  try {
+    DATA = await fetch(BASE+'/api/ops/skills').then(r=>r.json());
+    renderAll();
+    info.textContent = 'Atualizado às '+new Date().toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo'})+' · próximo em 60s';
+  } catch(e){
+    info.textContent = 'Erro: '+e.message;
+  }
+}
+
+function renderAll(){
+  if(!DATA) return;
+  renderStats();
+  renderFilters();
+  renderFuncoes();
+  renderUniversais();
+  renderMatriz();
+  renderMentor();
+  renderFeed();
+}
+
+// ── Stats ──────────────────────────────────────────────────────────────────
+function renderStats(){
+  const funcoes = Object.keys(DATA.funcoes || {});
+  const totalVerticais = funcoes.reduce((a,f)=>a+(DATA.funcoes[f].verticais?.length||0),0);
+  document.getElementById('s-total').textContent    = DATA.totalFiles || '—';
+  document.getElementById('s-funcoes').textContent  = funcoes.length;
+  document.getElementById('s-verticais').textContent= totalVerticais;
+  document.getElementById('s-universais').textContent=(DATA.universais||[]).length;
+  document.getElementById('s-pending').textContent  =(DATA.pendingApprovals||[]).length;
+}
+
+// ── Filters ────────────────────────────────────────────────────────────────
+function renderFilters(){
+  // Coletar todas as verticais únicas
+  const allV = new Set();
+  Object.values(DATA.funcoes||{}).forEach(f=>f.verticais?.forEach(v=>allV.add(v)));
+  const bar = document.getElementById('filter-bar');
+  bar.innerHTML = '<button class="filter-btn'+(activeFilter==='todos'?' active':'')+'" onclick="setFilter(\'todos\',this)">Todas</button>'
+    + [...allV].sort().map(v=>`<button class="filter-btn${activeFilter===v?' active':''}" onclick="setFilter('${v}',this)">${VTAG_LABELS[v]||v}</button>`).join('');
+}
+
+function setFilter(v,btn){
+  activeFilter=v;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFuncoes();
+}
+
+// ── Funções ────────────────────────────────────────────────────────────────
+function renderFuncoes(){
+  if(!DATA) return;
+  const all = Object.entries(DATA.funcoes||{});
+  const filtered = activeFilter==='todos' ? all : all.filter(([,f])=>f.verticais?.includes(activeFilter));
+  document.getElementById('cards-funcoes').innerHTML = filtered.map(([id,f])=>{
+    const meta = AGENT_META[id]||{agente:'Agente',desc:'—'};
+    const vTags = (f.verticais||[]).map(v=>`<span class="vtag">${VTAG_LABELS[v]||v}</span>`).join('');
+    const updAt = f.updated_at ? new Date(f.updated_at).toLocaleDateString('pt-BR') : '—';
+    return `<div class="skill-card" id="card-${id}" onclick="toggleCard('${id}')">
+      <div class="card-hdr">
+        <div><div class="card-title">${fmtName(id)}</div><div class="card-desc">${meta.desc}</div></div>
+        <div class="card-agent">${meta.agente}</div>
+      </div>
+      <div class="card-tags">${vTags}</div>
+      <div class="card-expand">
+        <div class="expand-body">
+          <div class="expand-section">
+            <div class="expand-label">Verticais configuradas</div>
+            ${(f.verticais||[]).map(v=>`<div class="skill-item"><span class="skill-dot">◆</span>${VTAG_LABELS[v]||v}</div>`).join('')}
+          </div>
+          <div class="expand-section">
+            <div class="expand-label">Skills universais incluídas</div>
+            ${Object.keys(UNIV_META).map(u=>`<div class="skill-item"><span class="skill-dot u">◆</span>${u}</div>`).join('')}
+          </div>
+        </div>
+        <div class="expand-footer">SKILL.md · atualizado ${updAt} · clique para fechar</div>
+      </div>
+    </div>`;
+  }).join('') || '<div class="loading">Nenhuma função para este filtro</div>';
+}
+
+function toggleCard(id){
+  const c=document.getElementById('card-'+id);
+  if(openCard&&openCard!==id) document.getElementById('card-'+openCard)?.classList.remove('open');
+  c.classList.toggle('open');
+  openCard=c.classList.contains('open')?id:null;
+}
+
+function fmtName(id){
+  return id.split('-').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+}
+
+// ── Universais ─────────────────────────────────────────────────────────────
+function renderUniversais(){
+  const univs = DATA.universais||[];
+  document.getElementById('grid-univ').innerHTML = univs.map(u=>{
+    const meta = UNIV_META[u.nome]||{icon:'🔧',desc:'Skill universal do sistema'};
+    const dt = u.updated_at ? new Date(u.updated_at).toLocaleDateString('pt-BR') : '—';
+    return `<div class="univ-card">
+      <div class="univ-icon">${meta.icon}</div>
+      <div>
+        <div class="univ-name">${fmtName(u.nome)}</div>
+        <div class="univ-desc">${meta.desc}</div>
+        <span class="univ-badge">UNIVERSAL</span>
+        <div class="univ-date">${dt}</div>
+      </div>
+    </div>`;
+  }).join('') || '<div class="loading">Nenhuma skill universal encontrada</div>';
+}
+
+// ── Matriz ─────────────────────────────────────────────────────────────────
+function renderMatriz(){
+  const funcoes = Object.keys(DATA.funcoes||{});
+  const allV = [...new Set(funcoes.flatMap(f=>DATA.funcoes[f].verticais||[]))].sort();
+  let html='<thead><tr><th>Função</th>';
+  allV.forEach(v=>{ html+=`<th style="text-align:center">${VTAG_LABELS[v]?.split(' ')[0]||v}<br><span style="font-size:8px;letter-spacing:0">${(VTAG_LABELS[v]||v).slice(2).trim()}</span></th>`; });
+  html+='</tr></thead><tbody>';
+  funcoes.forEach(f=>{
+    html+=`<tr><td><strong style="color:var(--bone)">${fmtName(f)}</strong><br><span style="color:var(--ash);font-size:10px">${AGENT_META[f]?.agente||''}</span></td>`;
+    allV.forEach(v=>{ html+=`<td style="text-align:center">${(DATA.funcoes[f].verticais||[]).includes(v)?'<span class="m-check">●</span>':'<span class="m-empty">·</span>'}</td>`; });
+    html+='</tr>';
+  });
+  html+='</tbody>';
+  document.getElementById('table-matriz').innerHTML=html;
+}
+
+// ── Mentor ─────────────────────────────────────────────────────────────────
+function renderMentor(){
+  const m=DATA.mentor;
+  const pending=(DATA.pendingApprovals||[]);
+  const brt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Sao_Paulo'}));
+  const next=new Date(brt); next.setHours(3,0,0,0);
+  if(brt.getHours()>=3) next.setDate(next.getDate()+1);
+  const diff=next-brt, h=Math.floor(diff/3600000), mn=Math.floor((diff%3600000)/60000);
+
+  document.getElementById('mentor-panel').innerHTML=`
+    <p style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ember);margin-bottom:12px">Agente de Melhoria Contínua</p>
+    <div class="mentor-grid">
+      <div class="mentor-metric"><div class="mentor-num" style="color:var(--fire)">${h}h${mn}m</div><div class="mentor-label">Próximo ciclo</div></div>
+      <div class="mentor-metric"><div class="mentor-num" style="color:var(--green)">${m?'Ativo':'Aguardando'}</div><div class="mentor-label">Status</div></div>
+      <div class="mentor-metric"><div class="mentor-num">${pending.length}</div><div class="mentor-label">Aprovações pendentes</div></div>
+      <div class="mentor-metric"><div class="mentor-num">${DATA.totalFiles||0}</div><div class="mentor-label">Skills na biblioteca</div></div>
+    </div>
+    <div class="gov-grid" style="margin-top:18px">
+      <div class="gov-card"><div class="gov-title" style="color:var(--green)">🟢 Autônomo</div><div class="gov-desc">Updates em verticais e CLAUDE.md de agente. Validador aprova antes de aplicar.</div></div>
+      <div class="gov-card"><div class="gov-title" style="color:var(--yellow)">🟡 Requer aprovação</div><div class="gov-desc">Updates em SKILL.md de função. Mentor propõe, Fabio aprova via George no Telegram.</div></div>
+      <div class="gov-card"><div class="gov-title" style="color:var(--red)">🔴 Nunca toca</div><div class="gov-desc">SKILL.md do próprio Mentor e do Validador. Só Fabio atualiza manualmente.</div></div>
+    </div>
+    <div style="margin-top:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--fog)">
+      <span style="background:var(--steel);padding:5px 10px;border-radius:5px;color:var(--bone)">Agente opera</span>
+      <span>→</span><span style="background:var(--steel);padding:5px 10px;border-radius:5px;color:var(--bone)">Registra log</span>
+      <span>→</span><span style="background:var(--steel);padding:5px 10px;border-radius:5px;color:var(--bone)">Mentor coleta</span>
+      <span>→</span><span style="background:var(--steel);padding:5px 10px;border-radius:5px;color:var(--bone)">Claude analisa</span>
+      <span>→</span><span style="background:var(--steel);padding:5px 10px;border-radius:5px;color:var(--bone)">Validador aprova</span>
+      <span>→</span><span style="background:rgba(232,112,58,0.15);padding:5px 10px;border-radius:5px;color:var(--fire)">Skill melhora</span>
+    </div>
+  `;
+
+  // Pending approvals
+  const ab=document.getElementById('approvals-block');
+  if(pending.length>0){
+    ab.innerHTML=`<p style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ember);margin-bottom:12px">Aguardando sua aprovação</p>`
+      +pending.map(p=>`<div class="approval-card">
+        <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);margin-bottom:6px">📄 ${p.target_file}</div>
+        <div style="font-size:13px;color:var(--bone);margin-bottom:6px">${p.justification}</div>
+        <div style="font-size:11px;color:var(--ash)">Baseado em ${p.pattern_count} ocorrências</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--ash)">Responda ao George: <span style="color:var(--fire);font-family:'Space Mono',monospace">"aprovar mentor ${p.target_file.split('/').pop()}"</span></div>
+      </div>`).join('');
+  } else {
+    ab.innerHTML='';
+  }
+}
+
+// ── Feed ───────────────────────────────────────────────────────────────────
+function renderFeed(){
+  const feed=DATA.feed||[];
+  const icons={'funcao':'⚡','vertical':'🗂️','universal':'🔧','mentor':'🧠'};
+  document.getElementById('feed-list').innerHTML=feed.map(item=>{
+    const dt=new Date(item.updated_at).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    return `<div class="feed-item">
+      <div class="feed-icon">${icons[item.type]||'📄'}</div>
+      <div>
+        <div class="feed-date">${dt}</div>
+        <div class="feed-file">${item.file}</div>
+        <span class="feed-badge ${item.type}">${item.type.toUpperCase()}</span>
+      </div>
+    </div>`;
+  }).join('') || '<div class="loading">Nenhum update ainda</div>';
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────
+function switchTab(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+load();
+setInterval(load,60000);
+</script>
+</body>
+</html>
