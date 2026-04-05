@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<title>Agentes OMA — Sistema de Agentes como Operação</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Conheça o sistema de agentes OMA — como funciona, verticais atendidas, frentes operacionais e por que confiar.">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:ital,wght@0,300;0,400;0,600;0,700&family=Barlow+Condensed:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
+  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
+  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
+  --light-bg:#f7f4ef;--light-surface:#ffffff;--light-border:#e8e2d9;
+  --dark-text:#1a1612;--mid-text:#4a4035;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);}
+.nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);}
+.nav-name span{color:var(--fire);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
+.nav-links a:hover,.nav-links a.hl{color:var(--fire);}
+.nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
+.nav-cta:hover{background:var(--ember);}
+@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
+.page-hero{padding:140px 32px 80px;text-align:center;position:relative;}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.07) 0%,transparent 60%);pointer-events:none;}
+.sec{max-width:1020px;margin:0 auto;padding:80px 32px;}
+.sec-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:14px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,4vw,46px);color:var(--white);line-height:1.15;margin-bottom:20px;}
+.sec-title span{color:var(--fire);font-style:italic;}
+.sec-body{font-size:15px;line-height:1.9;color:var(--fog);}
+.div{display:flex;align-items:center;gap:16px;max-width:1020px;margin:0 auto;padding:0 32px;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--iron);}
+.div-gem{width:7px;height:7px;background:var(--blood);transform:rotate(45deg);}
+/* PROOF */
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px;}
+@media(max-width:700px){.proof-grid{grid-template-columns:repeat(2,1fr);}}
+.proof-card{background:var(--light-bg);border:1px solid var(--light-border);padding:28px 24px;}
+.proof-num{font-family:'Black Ops One',cursive;font-size:44px;color:var(--fire);line-height:1;margin-bottom:8px;}
+.proof-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--mid-text);letter-spacing:2px;text-transform:uppercase;line-height:1.5;}
+.proof-note{font-size:13px;color:var(--mid-text);margin-top:8px;}
+/* AGENTES */
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:48px;}
+.agent-card{background:var(--coal);border:1px solid var(--iron);padding:28px 24px;position:relative;overflow:hidden;transition:border-color .2s;}
+.agent-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.agent-card:hover{border-color:var(--steel);}.agent-card:hover::after{transform:scaleX(1);}
+.agent-dot{position:absolute;top:20px;right:20px;width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.agent-id{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:14px;}
+.agent-name{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);margin-bottom:4px;}
+.agent-role{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--iron);}
+.agent-desc{font-size:12px;color:var(--fog);line-height:1.65;}
+/* VERTICAIS */
+.vert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
+@media(max-width:700px){.vert-grid{grid-template-columns:1fr;}}
+.vert-card{background:var(--light-surface);border:1px solid var(--light-border);border-top:3px solid var(--fire);padding:24px 22px;}
+.vert-ico{font-size:26px;margin-bottom:14px;}
+.vert-name{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--dark-text);margin-bottom:8px;}
+.vert-dor{font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);letter-spacing:1px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--light-border);}
+.vert-res{font-size:12px;color:var(--mid-text);line-height:1.65;}
+/* MÓDULOS */
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
+@media(max-width:700px){.mod-grid{grid-template-columns:1fr;}}
+.mod-card{background:var(--coal);border:1px solid var(--iron);border-top:3px solid transparent;padding:24px 22px;transition:border-top-color .2s;}
+.mod-card:hover{border-top-color:var(--fire);}
+.mod-ico{font-size:26px;margin-bottom:14px;}
+.mod-name{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:1px;color:var(--bone);margin-bottom:8px;}
+.mod-dor{font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);letter-spacing:1px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--iron);}
+.mod-res{font-size:12px;color:var(--fog);line-height:1.65;}
+/* PRINCÍPIOS */
+.princ-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:48px;}
+@media(max-width:600px){.princ-grid{grid-template-columns:1fr;}}
+.princ-card{background:var(--coal);border:1px solid var(--iron);padding:32px 28px;}
+.princ-num{font-family:'Black Ops One',cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px;}
+.princ-title{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--bone);margin-bottom:10px;}
+.princ-desc{font-size:12px;color:var(--ash);line-height:1.7;}
+/* CTA */
+.cta-band{background:var(--blood);padding:72px 32px;text-align:center;}
+.cta-band-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,4vw,44px);color:var(--white);margin-bottom:16px;line-height:1.2;}
+.cta-band a{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;background:var(--white);color:var(--blood);border:none;padding:18px 48px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
+.cta-band a:hover{background:var(--bone);transform:translateY(-2px);}
+footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
+.footer-brand span{color:var(--fire);}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:9px;color:#2a2a2a;text-decoration:none;letter-spacing:1px;transition:color .15s;}
+.footer-links a:hover{color:var(--fire);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media(max-width:480px){
+  .page-hero{padding:100px 20px 60px;}
+  .sec{padding:48px 20px;}
+  .proof-grid{grid-template-columns:repeat(2,1fr);}
+  .vert-grid,.mod-grid,.princ-grid{grid-template-columns:1fr;}
+  footer{padding:28px 20px;}.footer-links{flex-direction:column;gap:10px;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" style="text-decoration:none"><span class="nav-name">ONE MAN <span>ARMY</span></span></a>
+  <div class="nav-links">
+    <a href="/agentes" class="hl">Agentes</a>
+    <a href="/solutions">Soluções</a>
+    <a href="/academy">Academy</a>
+    <a href="/blog">Blog</a>
+  </div>
+  <a href="/" onclick="if(window.oT)oT();return true;" class="nav-cta">Falar com a Bia</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--blood);margin-bottom:20px;animation:up .6s ease both;">SISTEMA DE AGENTES</p>
+  <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,6vw,72px);line-height:.95;color:var(--white);margin-bottom:16px;animation:up .8s .1s ease both;">Uma equipe digital com<br><em style="color:var(--fire)">função, contexto e responsabilidade.</em></h1>
+  <p style="font-size:clamp(14px,1.8vw,17px);color:var(--fog);max-width:540px;margin:0 auto;line-height:1.75;animation:up .9s .2s ease both;">Não é chatbot. É operação. Cada agente tem nome, papel definido e responde por uma parte do negócio — 24 horas por dia.</p>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- POR QUE CONFIAR -->
+<section style="background:var(--light-bg);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);">
+  <div class="sec">
+    <p class="sec-lbl">Por que confiar</p>
+    <h2 class="sec-title" style="color:var(--dark-text)">Usamos os mesmos agentes<br><span>para operar o nosso negócio.</span></h2>
+    <p class="sec-body" style="max-width:580px;color:var(--mid-text)">O OMA não nasceu como apresentação. Nasceu como operação real. Os mesmos agentes que oferecemos aos clientes já rodam o nosso dia a dia — e é por isso que evoluímos rápido, corrigimos ao vivo e mostramos o que funciona com transparência.</p>
+    <div class="proof-grid">
+      <div class="proof-card"><div class="proof-num">7</div><div class="proof-label">Agentes em produção</div><div class="proof-note">George, Bia, Amanda, Tiago, Flávia, Darwin e mais operando rotinas reais</div></div>
+      <div class="proof-card"><div class="proof-num">24/7</div><div class="proof-label">Monitoramento contínuo</div><div class="proof-note">Operação com supervisão, alertas e revisão de falhas antes de virarem problema</div></div>
+      <div class="proof-card"><div class="proof-num">48h</div><div class="proof-label">Para entrar em operação</div><div class="proof-note">Diagnóstico rápido, setup enxuto e onboarding sem complexidade para o cliente</div></div>
+      <div class="proof-card"><div class="proof-num">100%</div><div class="proof-label">Construído a partir da dor real</div><div class="proof-note">Desenvolvido por quem viveu o peso da operação manual e transformou em sistema</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- O TIME -->
+<section class="sec" id="time">
+  <p class="sec-lbl">O time</p>
+  <h2 class="sec-title">Cada agente tem nome,<br><span>função e responsabilidade operacional.</span></h2>
+  <p class="sec-body" style="max-width:560px">Quando você contrata, não recebe um agente isolado. Recebe uma estrutura com papéis claros, comunicação organizada e acompanhamento contínuo.</p>
+  <div class="agents-grid">
+    <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-001 · ORQUESTRADOR</div><div class="agent-name">George</div><div class="agent-role">Coordenação Central</div><div class="agent-desc">Orquestra a operação, acompanha prioridades, consolida relatórios e garante que nada crítico se perca.</div></div>
+    <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-002 · COMERCIAL</div><div class="agent-name">Bia</div><div class="agent-role">Diagnóstico e Captação</div><div class="agent-desc">Faz o diagnóstico operacional, entende a dor e desenha o agente e o fluxo certo para cada negócio.</div></div>
+    <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-003 · ATENDIMENTO</div><div class="agent-name">Amanda</div><div class="agent-role">Operação e Agenda</div><div class="agent-desc">Opera atendimento, agenda, confirmações e rotinas de suporte com consistência e sem interrupção.</div></div>
+    <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-004 · ESTRATÉGIA</div><div class="agent-name">Tiago</div><div class="agent-role">Proposta Comercial</div><div class="agent-desc">Transforma diagnóstico e reuniões em propostas estruturadas e personalizadas para cada cliente.</div></div>
+    <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-005 · MONITORAMENTO</div><div class="agent-name">Darwin</div><div class="agent-role">Qualidade 24/7</div><div class="agent-desc">Monitora a operação 24/7, identifica falhas, desvios e gargalos antes que virem problema para o cliente.</div></div>
+    <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-006 · MARKETING</div><div class="agent-name">Flávia</div><div class="agent-role">Operação de Conteúdo</div><div class="agent-desc">Coordena calendário, briefing, produção e publicação de conteúdo com operação contínua.</div></div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- VERTICAIS -->
+<section style="background:var(--light-bg);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);">
+  <div class="sec" id="verticais">
+    <p class="sec-lbl">Verticais</p>
+    <h2 class="sec-title" style="color:var(--dark-text)">Dores diferentes,<br><span>mesma lógica operacional.</span></h2>
+    <p class="sec-body" style="max-width:580px;color:var(--mid-text)">Cada segmento tem suas próprias rotinas críticas. O agente é configurado para entender o contexto específico do negócio — não uma solução genérica.</p>
+    <div class="vert-grid">
+      <div class="vert-card"><div class="vert-ico">⚖️</div><div class="vert-name">Advocacia</div><div class="vert-dor">"Perco 3h por dia em controle de prazos"</div><div class="vert-res">Opera controle de prazos, cobrança de documentos e agendamento com menos dependência do time.</div></div>
+      <div class="vert-card"><div class="vert-ico">🏥</div><div class="vert-name">Clínicas e Hospitais</div><div class="vert-dor">"5 faltas por semana sem aviso"</div><div class="vert-res">Confirma consultas, reage a faltas, reorganiza agenda e recupera encaixes ociosos.</div></div>
+      <div class="vert-card"><div class="vert-ico">🍺</div><div class="vert-name">Distribuidores</div><div class="vert-dor">"Meu time vende menos porque responde WhatsApp"</div><div class="vert-res">Assume atendimento operacional e pedidos para liberar o time comercial para vender.</div></div>
+      <div class="vert-card"><div class="vert-ico">🏢</div><div class="vert-name">Administradoras</div><div class="vert-dor">"42 condomínios, backoffice manual"</div><div class="vert-res">Centraliza comunicação, cobrança e rotina operacional por unidade com mais previsibilidade.</div></div>
+      <div class="vert-card"><div class="vert-ico">👓</div><div class="vert-name">Varejo e Óticas</div><div class="vert-dor">"Perco clientes fora do horário"</div><div class="vert-res">Opera atendimento, follow-up e recuperação de oportunidades dentro e fora do horário comercial.</div></div>
+      <div class="vert-card"><div class="vert-ico">🍽️</div><div class="vert-name">Restaurantes</div><div class="vert-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div><div class="vert-res">Organiza reservas, pedidos, repasses e confirmações para tirar o dono do gargalo operacional.</div></div>
+      <div class="vert-card"><div class="vert-ico">⚽</div><div class="vert-name">Clubes</div><div class="vert-dor">"Centenas de associados, time pequeno"</div><div class="vert-res">Atende associados, controla mensalidades e organiza comunicação por categoria.</div></div>
+      <div class="vert-card"><div class="vert-ico">📊</div><div class="vert-name">Contabilidade</div><div class="vert-dor">"Fico mais tempo coletando do que analisando"</div><div class="vert-res">Coleta, organiza, cobra pendências e reduz o tempo consumido em tarefas que não geram valor.</div></div>
+      <div class="vert-card"><div class="vert-ico">🏗️</div><div class="vert-name">Outros segmentos</div><div class="vert-dor">"Tenho uma operação diferente"</div><div class="vert-res">Se existe dor operacional recorrente, existe fluxo para um agente assumir. A Bia faz o diagnóstico.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- MÓDULOS -->
+<section class="sec" id="modulos">
+  <p class="sec-lbl">Frentes operacionais</p>
+  <h2 class="sec-title">8 frentes que empresas grandes<br><span>já tratam como sistema.</span></h2>
+  <p class="sec-body" style="max-width:560px">Agora qualquer negócio pode operar assim — sem a complexidade, o custo e o headcount. Cada módulo resolve uma dor operacional específica. Sozinho já gera ganho. Combinado, vira uma camada operacional completa.</p>
+  <div class="mod-grid">
+    <div class="mod-card"><div class="mod-ico">🎧</div><div class="mod-name">SAC 24h</div><div class="mod-dor">"Sou eu que respondo às 23h"</div><div class="mod-res">Resolve a maior parte dos atendimentos sozinho e entrega as exceções com contexto completo.</div></div>
+    <div class="mod-card"><div class="mod-ico">📋</div><div class="mod-name">Consultor de Processos</div><div class="mod-dor">"Ninguém lê o manual"</div><div class="mod-res">Transforma manuais e rotinas em resposta útil, imediata e acessível para o time.</div></div>
+    <div class="mod-card"><div class="mod-ico">📅</div><div class="mod-name">Gestão de Agenda</div><div class="mod-dor">"5 faltas por semana sem aviso"</div><div class="mod-res">Confirma, reage, reorganiza e ocupa espaços ociosos sem depender de controle humano constante.</div></div>
+    <div class="mod-card"><div class="mod-ico">💰</div><div class="mod-name">Cobrança e Follow-up</div><div class="mod-dor">"Odeio cobrar cliente"</div><div class="mod-res">Mantém a cadência da cobrança com registro, timing certo e persistência — sem você entrar na conversa.</div></div>
+    <div class="mod-card"><div class="mod-ico">📊</div><div class="mod-name">Relatórios e Indicadores</div><div class="mod-dor">"Não sei o que está acontecendo"</div><div class="mod-res">Consolida KPIs e envia o que importa no momento certo, sem você precisar puxar.</div></div>
+    <div class="mod-card"><div class="mod-ico">🛒</div><div class="mod-name">Vendedor Digital</div><div class="mod-dor">"Perco venda fora do horário"</div><div class="mod-res">Qualifica, apresenta, responde, acompanha e mantém oportunidades vivas fora do horário comercial.</div></div>
+    <div class="mod-card"><div class="mod-ico">🗂️</div><div class="mod-name">Assistente Operacional</div><div class="mod-dor">"Metade do meu dia é execução sem decisão"</div><div class="mod-res">Assume tarefas repetitivas e formais para liberar o time para o que exige decisão.</div></div>
+    <div class="mod-card"><div class="mod-ico">🔢</div><div class="mod-name">Conciliador de Dados</div><div class="mod-dor">"Todo mês passo dias conciliando — e ainda erro"</div><div class="mod-res">Compara, organiza, valida e reduz erro em rotinas que hoje consomem dias inteiros.</div></div>
+    <div class="mod-card"><div class="mod-ico">📱</div><div class="mod-name">Social Mídia Express</div><div class="mod-dor">"Não tenho tempo nem equipe para postar"</div><div class="mod-res">Briefing, copy, curadoria, publicação e sequência editorial com operação contínua.</div></div>
+  </div>
+  <div style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+    <div style="background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:32px 28px">
+      <p style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(18px,2.5vw,28px);color:var(--white);margin-bottom:16px;line-height:1.2">Não é só executar.<br><em style="color:var(--fire)">É aprender operando.</em></p>
+      <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,.75)">Cada agente não apenas executa tarefas — ele observa padrões, identifica anomalias e ajuda a melhorar a rotina com base no que acontece na operação real.</p>
+    </div>
+    <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px">
+      <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);margin-bottom:16px;text-transform:uppercase">Produtos customizáveis</p>
+      <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,.75)">Se existe dor operacional recorrente, existe fluxo para um agente assumir. Se a sua dor não está listada aqui, a Bia faz o diagnóstico e propõe a arquitetura certa para o seu caso.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- PRINCÍPIOS -->
+<section style="background:var(--light-bg);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);">
+  <div class="sec" id="principios">
+    <p class="sec-lbl">Princípios</p>
+    <h2 class="sec-title" style="color:var(--dark-text)">5 princípios que garantem<br><span>que a operação funcione no mundo real.</span></h2>
+    <p class="sec-body" style="max-width:560px;color:var(--mid-text);margin-bottom:0">Não são frases de parede. São as regras que orientam como desenhamos, colocamos no ar e evoluímos cada agente em produção.</p>
+    <div class="princ-grid">
+      <div class="princ-card"><div class="princ-num">P1</div><div class="princ-title">Execução antes de perfeição</div><div class="princ-desc">Colocamos no ar rápido, aprendemos com uso real e encurtamos o caminho entre diagnóstico e resultado. O erro ensina mais do que o planejamento.</div></div>
+      <div class="princ-card"><div class="princ-num">P2</div><div class="princ-title">Transparência radical</div><div class="princ-desc">Você vê o que funciona, o que falhou, o que foi ajustado e onde está o ganho real. Construímos ao vivo — erros, custos e resultados incluídos.</div></div>
+      <div class="princ-card"><div class="princ-num">P3</div><div class="princ-title">Agente como operação, não ferramenta</div><div class="princ-desc">Você não compra software para clicar. Você adiciona capacidade operacional ao negócio. Nome, função, responsabilidade — como qualquer pessoa do time.</div></div>
+      <div class="princ-card"><div class="princ-num">P4</div><div class="princ-title">Resultado antes de tecnologia</div><div class="princ-desc">A tecnologia só importa quando reduz gargalo, aumenta ritmo e gera resultado concreto. Começamos sempre pela dor do negócio — nunca pela solução técnica.</div></div>
+      <div class="princ-card" style="grid-column:1/-1"><div class="princ-num">P5</div><div class="princ-title">Escala sem headcount</div><div class="princ-desc" style="max-width:560px">Crescer não deveria significar empilhar trabalho operacional em cima do dono ou do time. Um negócio pode ganhar ritmo, atender mais e responder melhor — sem precisar contratar para isso.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2 class="cta-band-title">Diagnóstico operacional gratuito<br><em>com a Bia.</em></h2>
+  <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7">Em menos de 30 minutos, você entende onde um agente pode gerar resultado no seu negócio.</p>
+  <a href="https://onemanarmyproject.com.br/#" onclick="if(window.oT)oT();return false;">Quero falar com a Bia</a>
+  <p style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.75);margin-top:20px;letter-spacing:1px">Vagas limitadas para os primeiros clientes · Diagnóstico gratuito via WhatsApp</p>
+</section>
+
+<footer>
+  <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/solutions">Soluções</a>
+    <a href="/academy">Academy</a>
+    <a href="/hub">Hub</a>
+    <a href="/status">◉ Status</a>
+  </div>
+</footer>
+
+</body>
+</html>

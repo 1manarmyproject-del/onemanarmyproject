@@ -7,145 +7,11 @@
 <link rel="shortcut icon" href="/favicon.png">
 <title>One Man Army — Agents as a Service</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Man Army Project — Agentes de IA para o seu negócio</title>
 <meta name="description" content="Agents as a Service. Foque no seu core. Delegue a operação. Agentes de IA trabalhando 24h por você.">
 <meta property="og:title" content="One Man Army — Agents as a Service">
 <meta property="og:description" content="Agents as a Service. Foque no seu core. Delegue a operação. Agentes de IA trabalhando 24h por você.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://onemanarmyproject.com.br">
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
-  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
-  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
-  /* Paleta clara */
-  --light-bg:#f7f4ef;--light-surface:#ffffff;--light-border:#e8e2d9;
-  --dark-text:#1a1612;--mid-text:#4a4035;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
-nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);}
-.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);}
-.nav-name span{color:var(--fire);}
-.nav-links{display:flex;align-items:center;gap:32px;}
-.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
-.nav-links a:hover{color:var(--bone);}
-.nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
-.nav-cta:hover{background:var(--ember);}
-@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 80px;position:relative;overflow:hidden;}
-.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(122,34,4,.08) 0%,transparent 60%);pointer-events:none;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%);pointer-events:none;}
-.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--ash);margin-bottom:44px;animation:up .7s ease both;}
-.hero-badge em{color:var(--fire);font-style:normal;}
-
-.hero-scratch{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--fire);margin-bottom:16px;animation:up .8s .1s ease both;}
-.hero-h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(38px,7.5vw,92px);line-height:.93;letter-spacing:-1px;color:var(--white);animation:up .9s .15s ease both;margin-bottom:12px;}
-.hero-h1 em{font-style:italic;color:var(--fire);}
-.hero-h2{font-family:'Black Ops One',cursive;font-size:clamp(13px,2vw,20px);letter-spacing:3px;color:var(--bone);opacity:.6;animation:up .9s .18s ease both;margin-bottom:28px;}
-.hero-sub{font-size:clamp(14px,1.8vw,17px);color:var(--fog);max-width:520px;line-height:1.75;animation:up .9s .22s ease both;margin-bottom:52px;}
-.hero-sub strong{color:var(--bone);font-weight:600;}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:up .9s .28s ease both;}
-.btn-fire{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:3px;background:var(--fire);color:var(--char);border:none;padding:17px 40px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
-.btn-fire:hover{background:var(--ember);transform:translateY(-2px);}
-.btn-ghost{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:3px;color:var(--fire);background:transparent;border:1px solid var(--blood);padding:17px 40px;cursor:pointer;text-decoration:none;transition:border-color .2s,transform .15s;display:inline-block;}
-.btn-ghost:hover{border-color:var(--fire);transform:translateY(-2px);}
-.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:3px;animation:pulse 2.5s infinite;}
-@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.8}}
-.ticker{background:var(--blood);padding:10px 0;overflow:hidden;}
-.ticker-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite;}
-.tick-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.65);padding:0 36px;}
-.tick-item::after{content:'✦';margin-left:36px;color:rgba(255,255,255,.75);}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.sec{max-width:1020px;margin:0 auto;padding:96px 32px;}
-.sec-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:14px;}
-.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,4vw,46px);letter-spacing:0px;color:var(--white);line-height:1.15;margin-bottom:22px;text-transform:none;}
-.sec-title span{color:var(--fire);font-style:italic;}
-.sec-body{font-size:16px;line-height:1.9;color:var(--mid-text);}
-.sec-body strong{color:var(--bone);font-weight:600;}
-.div{display:flex;align-items:center;gap:16px;max-width:1020px;margin:0 auto;padding:0 32px;}
-.div::before,.div::after{content:'';flex:1;height:1px;background:var(--iron);}
-.div-gem{width:7px;height:7px;background:var(--blood);transform:rotate(45deg);}
-.segs{background:var(--light-bg);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);}
-.segs-inner{max-width:1020px;margin:0 auto;padding:96px 32px;}
-.segs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
-@media(max-width:700px){.segs-grid{grid-template-columns:1fr;}}
-.seg-card{background:var(--light-surface);border:1px solid var(--light-border);border-top:3px solid var(--fire);padding:20px 22px;transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden;}
-.seg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
-.seg-card:hover{border-color:var(--steel);}.seg-card:hover::before{transform:scaleX(1);}
-.seg-ico{font-size:24px;margin-bottom:18px;}
-.seg-name{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;color:var(--bone);margin-bottom:8px;}
-.seg-dor{font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);letter-spacing:1px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--iron);}
-.seg-res{font-size:12px;color:var(--ash);line-height:1.65;}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;}
-@media(max-width:700px){.steps{grid-template-columns:1fr;}}
-.step{background:var(--coal);border:1px solid var(--iron);padding:36px 28px;}
-.step-num{font-family:'Black Ops One',cursive;font-size:52px;color:var(--iron);line-height:1;margin-bottom:20px;}
-.step-title{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;color:var(--bone);margin-bottom:12px;}
-.step-desc{font-size:13px;color:var(--ash);line-height:1.7;}
-.step-tag{color:var(--bone);display:inline-block;font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);background:rgba(232,112,58,.1);padding:3px 8px;letter-spacing:1px;margin-top:16px;}
-.proof{background:var(--light-surface);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);}
-.proof-inner{max-width:1020px;margin:0 auto;padding:96px 32px;}
-.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;}
-@media(max-width:700px){.proof-grid{grid-template-columns:1fr;}}
-.proof-card{background:var(--light-bg);border:1px solid var(--light-border);padding:32px 28px;}
-.proof-num{font-family:'Black Ops One',cursive;font-size:48px;color:var(--fire);line-height:1;margin-bottom:8px;}
-.proof-label{font-family:'Space Mono',monospace;font-size:11px;color:var(--mid-text);letter-spacing:2px;text-transform:uppercase;line-height:1.5;}
-.proof-note{font-size:13px;color:var(--mid-text);margin-top:8px;}
-.agents-bg{background:var(--coal);border-top:1px solid var(--iron);}
-.agents-inner{max-width:1020px;margin:0 auto;padding:96px 32px;}
-.agents-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin-top:48px;}
-.agent-card{background:var(--char);border:1px solid var(--iron);padding:28px 24px;position:relative;overflow:hidden;transition:border-color .2s;}
-.agent-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
-.agent-card:hover{border-color:var(--steel);}.agent-card:hover::after{transform:scaleX(1);}
-.agent-dot{position:absolute;top:20px;right:20px;width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
-.agent-id{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:14px;}
-.agent-name{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);margin-bottom:4px;}
-.agent-role{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--iron);}
-.agent-desc{font-size:12px;color:var(--fog);line-height:1.65;}
-.manifesto{max-width:760px;margin:0 auto;padding:112px 32px;text-align:center;}
-.manifesto-q{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(23px,3.5vw,41px);letter-spacing:0px;color:#e8703a;line-height:1.3;margin-bottom:28px;text-shadow:0 0 40px rgba(232,112,58,.18),1px 1px 0 rgba(0,0,0,.4);}
-.manifesto-q span{color:var(--fire);}
-.manifesto-p{font-size:14px;line-height:1.9;color:rgba(255,255,255,.85);max-width:580px;margin:0 auto;}
-.cta-band{background:var(--blood);padding:72px 32px;text-align:center;}
-.cta-band-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,4vw,44px);letter-spacing:0px;color:var(--white);margin-bottom:16px;line-height:1.2;}
-.cta-band-sub{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;}
-.cta-band a{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;background:var(--white);color:var(--blood);border:none;padding:18px 48px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
-.cta-band a:hover{background:var(--bone);transform:translateY(-2px);}
-.cta-band-note{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.75);margin-top:20px;letter-spacing:1px;}
-footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.footer-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
-.footer-brand span{color:var(--fire);}
-.footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
-.footer-link:hover{color:var(--fire)}
-.footer-links{display:flex;gap:20px;}
-.footer-links a{font-family:'Space Mono',monospace;font-size:9px;color:#2a2a2a;text-decoration:none;letter-spacing:1px;transition:color .15s;}
-.footer-links a:hover{color:var(--fire);}
-
-/* Auto-trigger webchat */
-#oma-bubble.pulse{animation:bubblePulse 1s ease-out 3;}
-@keyframes bubblePulse{0%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}50%{transform:scale(1.15);box-shadow:0 4px 32px rgba(232,112,58,.7);}100%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}}
-#oma-preview{position:fixed;bottom:92px;right:24px;background:var(--carbon,#0f0f0f);border:1px solid rgba(232,112,58,.3);border-radius:12px 12px 0 12px;padding:12px 16px;max-width:260px;z-index:8999;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
-#oma-preview.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
-#oma-preview p{font-family:'Barlow',sans-serif;font-size:13px;color:#e0d9cf;line-height:1.5;margin:0 0 10px 0;}
-#oma-preview .prev-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:14px;line-height:1;}
-#oma-preview .prev-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:#e8703a;cursor:pointer;background:none;border:none;padding:0;}
-@media(max-width:600px){#oma-preview{bottom:80px;right:16px;max-width:220px;}}
-</style>
-<!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-OMA2026PROJ');
-</script>
 <meta property="og:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -154,431 +20,147 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <meta name="twitter:description" content="Agentes de IA trabalhando 24h pelo seu negócio. Construído por um founder, para founders.">
 <meta name="twitter:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
 <link rel="canonical" href="https://onemanarmyproject.com.br/">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"One Man Army Project","url":"https://onemanarmyproject.com.br","logo":"https://onemanarmyproject.com.br/lobster-logo.png","description":"Agents as a Service — agentes de IA trabalhando 24h pelo seu negócio","founder":{"@type":"Person","name":"Fabio Xavier"},"sameAs":["https://instagram.com/1manarmy_project","https://instagram.com/fabio_xavier_br"]}
 </script>
-</head>
-<body>
-<nav id="nav">
-  <a href="/" class="nav-brand" style="flex-direction:column;align-items:flex-start;gap:3px;">
-    <div style="display:flex;align-items:center;gap:8px">
-      <span class="nav-name">ONE MAN <span>ARMY</span></span><img src="/lobster-nav.png" alt="OMA" style="width:28px;height:28px;margin-left:6px;flex-shrink:0;border-radius:4px">
-    </div>
-    <div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:3px;color:var(--blood);line-height:1">FROM THE SCRATCH · 2026</div>
-    <a href="/status" style="display:inline-flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#3d9e60;text-decoration:none;text-transform:uppercase">
-      <span style="width:5px;height:5px;border-radius:50%;background:#3d9e60;display:inline-block;animation:livepulse 1.5s infinite;flex-shrink:0"></span>
-      Acompanhe LIVE
-    </a>
-  </a>
-  <div class="nav-links">
-    <a href="#para-quem">Para quem</a>
-    <a href="/solutions" style="color:var(--fire)">Soluções</a>        <a href="/academy" style="color:var(--fire)">Academy</a>
-        <a href="/blog" style="color:var(--fire)">Blog</a>
-    <a href="#como-funciona">Como funciona</a>
-    <a href="#time">O time</a>
-  </div>
-  <a href="#" onclick="oT();return false;" class="nav-cta">Falar com a Bia</a>
-</nav>
-
-
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-grid"></div>
-  <p class="hero-scratch" style="margin-bottom:8px;">Agents As a Service</p>
-  <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;animation:up .6s ease both;">ONE MAN <span style="color:var(--fire)">ARMY</span><span style="color:var(--fire);opacity:.7">.AI</span></p>
-  <p class="hero-badge">🦞 &nbsp; Lançamento <em>02 de abril</em> · Lista de interesse aberta</p>
-  
-  <h1 class="hero-h1">Sua empresa não precisa<br>de mais um chatbot.<br><em>Precisa de execução.</em></h1>
-  
-  <p class="hero-sub">Coloque agentes para operar rotinas reais do negócio com método, contexto e controle — <strong>sem depender de você para tudo.</strong></p>
-  <div class="hero-cta">
-    <a href="#" onclick="oT();return false;" class="btn-fire">Quero entrar na lista</a>
-    <a href="#como-funciona" class="btn-ghost">Como funciona</a>
-  </div>
-  <p class="hero-scroll">▼ scroll</p>
-</section>
-
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="tick-item">Atendimento 24h</span><span class="tick-item">Gestão de agenda</span><span class="tick-item">Qualificação de leads</span><span class="tick-item">Controle financeiro</span><span class="tick-item">Follow-up automático</span><span class="tick-item">Relatórios semanais</span><span class="tick-item">Sem encargos</span><span class="tick-item">Sem turnover</span><span class="tick-item">Atendimento 24h</span><span class="tick-item">Gestão de agenda</span><span class="tick-item">Qualificação de leads</span><span class="tick-item">Controle financeiro</span><span class="tick-item">Follow-up automático</span><span class="tick-item">Relatórios semanais</span><span class="tick-item">Sem encargos</span><span class="tick-item">Sem turnover</span>
-  </div>
-</div>
-
-<section class="segs" id="para-quem">
-  <div class="segs-inner">
-    <p class="sec-lbl">Para quem é</p>
-    <h2 class="sec-title" style="color:var(--dark-text)">Você é bom no que faz.<br><span style="color:var(--fire)">Mas quanto do seu dia é realmente isso?</span></h2>
-    <p class="sec-body" style="max-width:580px;color:var(--mid-text)">Toda empresa tem trabalho necessário que não deveria continuar concentrado no dono ou em um time já sobrecarregado. Se a sua rotina depende demais de resposta, follow-up, confirmação, cobrança e controle manual, o OMA começa a fazer sentido.</p>
-    <div class="segs-grid">
-      <div class="seg-card"><div class="seg-ico">⚖️</div><div class="seg-name">Advocacia</div><div class="seg-dor">"Perco 3h por dia em controle de prazos"</div><div class="seg-res">Opera controle de prazos, cobrança de documentos e agendamento com menos dependência do time.</div></div>
-      <div class="seg-card"><div class="seg-ico">🏥</div><div class="seg-name">Clínicas e Hospitais</div><div class="seg-dor">"5 faltas por semana sem aviso"</div><div class="seg-res">Confirma consultas, reage a faltas, reorganiza agenda e recupera encaixes ociosos.</div></div>
-      <div class="seg-card"><div class="seg-ico">🍺</div><div class="seg-name">Distribuidores</div><div class="seg-dor">"Meu time vende menos porque responde WhatsApp"</div><div class="seg-res">Assume atendimento operacional e pedidos para liberar o time comercial para vender.</div></div>
-      <div class="seg-card"><div class="seg-ico">🏢</div><div class="seg-name">Administradoras</div><div class="seg-dor">"42 condomínios, backoffice manual"</div><div class="seg-res">Centraliza comunicação, cobrança e rotina operacional por unidade com mais previsibilidade.</div></div>
-      <div class="seg-card"><div class="seg-ico">👓</div><div class="seg-name">Varejo e Óticas</div><div class="seg-dor">"Perco clientes fora do horário"</div><div class="seg-res">Opera atendimento, follow-up e recuperação de oportunidades dentro e fora do horário comercial.</div></div>
-      <div class="seg-card"><div class="seg-ico">🍽️</div><div class="seg-name">Restaurantes</div><div class="seg-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div><div class="seg-res">Organiza reservas, pedidos, repasses e confirmações para tirar o dono do gargalo operacional.</div></div>
-      <div class="seg-card"><div class="seg-ico">⚽</div><div class="seg-name">Clubes</div><div class="seg-dor">"Centenas de associados, time pequeno"</div><div class="seg-res">Atende associados, controla mensalidades e organiza comunicação por categoria.</div></div>
-      <div class="seg-card"><div class="seg-ico">📊</div><div class="seg-name">Contabilidade</div><div class="seg-dor">"Fico mais tempo coletando do que analisando"</div><div class="seg-res">Coleta, organiza, cobra pendências e reduz o tempo consumido em tarefas que não geram valor.</div></div>
-      <div class="seg-card"><div class="seg-ico">🏗️</div><div class="seg-name">Outros segmentos</div><div class="seg-dor">"Tenho uma operação diferente"</div><div class="seg-res">Se existe dor operacional recorrente, existe fluxo para um agente assumir. A Bia faz o diagnóstico.</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="como-funciona" style="background:var(--light-bg);padding:96px 32px;">
-  <p class="sec-lbl">Como funciona</p>
-  <h2 class="sec-title" style="color:var(--dark-text)">Do diagnóstico à operação<br><span style="color:var(--fire)">em até 1 semana.</span></h2>
-  <p class="sec-body" style="max-width:540px">Você não contrata "uma IA". Você entra com um agente em rotina, função definida e fluxo operacional claro.<br><small style="font-size:11px;color:#999;font-family:Space Mono,monospace">*A depender do escopo. Sempre mais rápido do que contratar.</small></p>
-  <div class="steps">
-    <div class="step"><div class="step-num" style="color:#e8703a;opacity:1">01</div><div class="step-title">Diagnóstico operacional</div><div class="step-desc">A Bia entende a sua rotina, identifica gargalos e define onde um agente gera resultado real primeiro. Sem compromisso.</div><span class="step-tag">Bia · WhatsApp · Gratuito</span></div>
-    <div class="step"><div class="step-num" style="color:#e8703a;opacity:1">02</div><div class="step-title">Desenho do agente e setup</div><div class="step-desc">Estruturamos o agente, o contexto, as permissões e o fluxo operacional em que ele vai atuar. Aprovando, em até 48h no ar.</div><span class="step-tag">Tiago · George · 48h</span></div>
-    <div class="step"><div class="step-num" style="color:#e8703a;opacity:1">03</div><div class="step-title">Operação contínua</div><div class="step-desc">O agente entra em produção com acompanhamento, melhoria contínua e revisão periódica de performance.</div><span class="step-tag">Darwin · Relatório semanal · Evolução contínua</span></div>
-  </div>
-</section>
-
-<div class="div"><div class="div-gem"></div></div>
-
-<section class="proof">
-  <div class="proof-inner">
-    <p class="sec-lbl">Por que confiar</p>
-    <h2 class="sec-title" style="color:var(--dark-text)">Usamos os mesmos agentes<br><span style="color:var(--fire)">para operar o nosso negócio.</span></h2>
-    <p class="sec-body" style="max-width:580px;margin-bottom:0">O OMA não nasceu como apresentação. Nasceu como operação real. Os mesmos agentes que oferecemos aos clientes já rodam o nosso dia a dia — e é por isso que evoluímos rápido, corrigimos ao vivo e mostramos o que funciona com transparência.</p>
-    <div class="proof-grid">
-      <div class="proof-card"><div class="proof-num">7</div><div class="proof-label">Agentes em produção</div><div class="proof-note">George, Bia, Amanda, Tiago, Flávia, Darwin e mais operando rotinas reais</div></div>
-      <div class="proof-card"><div class="proof-num">24/7</div><div class="proof-label">Monitoramento contínuo</div><div class="proof-note">Operação com supervisão, alertas e revisão de falhas antes de virarem problema</div></div>
-      <div class="proof-card"><div class="proof-num">48h</div><div class="proof-label">Para entrar em operação</div><div class="proof-note">Diagnóstico rápido, setup enxuto e onboarding sem complexidade para o cliente</div></div>
-      <div class="proof-card"><div class="proof-num">100%</div><div class="proof-label">Construído a partir da dor real</div><div class="proof-note">Desenvolvido por quem viveu o peso da operação manual e transformou isso em sistema</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="agents-bg" id="time">
-  <div class="agents-inner">
-    <p class="sec-lbl">O time</p>
-    <h2 class="sec-title">Uma equipe digital com<br><span>função, contexto e responsabilidade operacional.</span></h2>
-    <p class="sec-body" style="max-width:560px">Quando você contrata, não recebe apenas um agente isolado. Recebe uma estrutura operacional com papéis claros, comunicação organizada e acompanhamento contínuo.</p>
-    <div class="agents-grid">
-      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-001 · ORQUESTRADOR</div><div class="agent-name">George</div><div class="agent-role">Coordenação Central</div><div class="agent-desc">Orquestra a operação, acompanha prioridades, consolida relatórios e garante que nada crítico se perca.</div></div>
-      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-002 · COMERCIAL</div><div class="agent-name">Bia</div><div class="agent-role">Diagnóstico e Captação</div><div class="agent-desc">Faz o diagnóstico operacional, entende a dor e desenha o agente e o fluxo certo para cada negócio.</div></div>
-      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-003 · ATENDIMENTO</div><div class="agent-name">Amanda</div><div class="agent-role">Operação e Agenda</div><div class="agent-desc">Opera atendimento, agenda, confirmações e rotinas de suporte com consistência e sem interrupção.</div></div>
-      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-004 · ESTRATÉGIA</div><div class="agent-name">Tiago</div><div class="agent-role">Proposta Comercial</div><div class="agent-desc">Transforma o diagnóstico e as reuniões em propostas estruturadas e personalizadas para cada cliente.</div></div>
-      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-005 · MONITORAMENTO</div><div class="agent-name">Darwin</div><div class="agent-role">Qualidade 24/7</div><div class="agent-desc">Monitora a operação 24/7, identifica falhas, desvios e gargalos antes que virem problema para o cliente.</div></div>
-      <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-006 · MARKETING</div><div class="agent-name">Flávia</div><div class="agent-role">Operação de Conteúdo</div><div class="agent-desc">Coordena calendário, briefing, produção e publicação de conteúdo com operação contínua.</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="div"><div class="div-gem"></div></div>
-
-
-<!-- PRINCÍPIOS -->
-<section class="sec" id="principios" style="background:var(--light-bg);padding:96px 32px;">
-  <p class="sec-lbl">Princípios</p>
-  <h2 class="sec-title" style="color:var(--dark-text)">5 princípios que garantem<br><span style="color:var(--fire)">que a operação funcione no mundo real.</span></h2>
-  <p class="sec-body" style="max-width:560px;margin-bottom:48px">Não são frases de parede. São as regras que orientam como desenhamos, colocamos no ar e evoluímos cada agente em produção.</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
-    <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px">
-      <div style="font-family:Black Ops One,cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px">P1</div>
-      <div style="font-family:Black Ops One,cursive;font-size:14px;letter-spacing:2px;color:var(--bone);margin-bottom:10px">Execução antes de perfeição</div>
-      <div style="font-size:12px;color:var(--ash);line-height:1.7">Colocamos no ar rápido, aprendemos com uso real e encurtamos o caminho entre diagnóstico e resultado. O erro ensina mais do que o planejamento.</div>
-    </div>
-    <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px">
-      <div style="font-family:Black Ops One,cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px">P2</div>
-      <div style="font-family:Black Ops One,cursive;font-size:14px;letter-spacing:2px;color:var(--bone);margin-bottom:10px">Transparência radical</div>
-      <div style="font-size:12px;color:var(--ash);line-height:1.7">Você vê o que funciona, o que falhou, o que foi ajustado e onde está o ganho real. Construímos ao vivo — erros, custos e resultados incluídos.</div>
-    </div>
-    <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px">
-      <div style="font-family:Black Ops One,cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px">P3</div>
-      <div style="font-family:Black Ops One,cursive;font-size:14px;letter-spacing:2px;color:var(--bone);margin-bottom:10px">Agente como operação, não ferramenta</div>
-      <div style="font-size:12px;color:var(--ash);line-height:1.7">Você não compra software para clicar. Você adiciona capacidade operacional ao negócio. Nome, função, responsabilidade — como qualquer pessoa do time.</div>
-    </div>
-    <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px">
-      <div style="font-family:Black Ops One,cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px">P4</div>
-      <div style="font-family:Black Ops One,cursive;font-size:14px;letter-spacing:2px;color:var(--bone);margin-bottom:10px">Resultado antes de tecnologia</div>
-      <div style="font-size:12px;color:var(--ash);line-height:1.7">A tecnologia só importa quando reduz gargalo, aumenta ritmo e gera resultado concreto. Começamos sempre pela dor do negócio — nunca pela solução técnica.</div>
-    </div>
-    <div style="background:var(--coal);border:1px solid var(--iron);padding:32px 28px;grid-column:1/-1">
-      <div style="font-family:Black Ops One,cursive;font-size:40px;color:var(--fire);line-height:1;margin-bottom:16px">P5</div>
-      <div style="font-family:Black Ops One,cursive;font-size:14px;letter-spacing:2px;color:var(--bone);margin-bottom:10px">Escala sem headcount</div>
-      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--steel)">
-        <p style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--blood);margin-bottom:12px">FALE COM O FUNDADOR</p>
-        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
-          <a href="mailto:fabio@onemanarmy.com.br" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);text-decoration:none;letter-spacing:1px;transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">fabio@onemanarmy.com.br</a>
-          <a href="https://instagram.com/fabio_xavier_br" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">@fabio_xavier_br</a>
-          <a href="https://www.linkedin.com/in/fabio-riva-de-paula-xavier-29123b29/" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">LinkedIn</a>
-        </div>
-      </div>
-      </div>
-        <div style="font-size:12px;color:var(--ash);line-height:1.7;max-width:560px">Crescer não deveria significar empilhar trabalho operacional em cima do dono ou do time. Um negócio pode ganhar ritmo, atender mais e responder melhor — sem precisar contratar para isso.</div>
-    </div>
-  </div>
-</section>
-
-<div class="div"><div class="div-gem"></div></div>
-
-<!-- MÓDULOS NOVOS -->
-<section class="segs">
-  <div cla<p class="sec-lbl">Módulos</p>
-    <h2 class="sec-title" style="color:var(--dark-text);text-align:center;font-size:clamp(20px,3.5vw,46px);text-transform:none">8 frentes operacionais que<br><span style="color:var(--fire)">empresas grandes já tratam como sistema.</span></h2>
-    <p class="sec-body" style="max-width:580px;color:var(--mid-text);text-align:center;margin-left:auto;margin-right:auto;padding:0 16px">Agora qualquer negócio pode operar assim — sem a complexidade, o custo e o headcount. Cada módulo resolve uma dor operacional específica. Sozinho, já gera ganho. Combinado, vira uma camada operacional completa.</p>
-    <div class="segs-grid" style="margin-top:48px;grid-template-columns:repeat(3,1fr);max-width:960px;margin-left:auto;margin-right:auto">
-      <div class="seg-card"><div class="seg-ico">🎧</div><div class="seg-name">SAC 24h</div><div class="seg-dor">"Sou eu que respondo às 23h"</div><div class="seg-res">Resolve a maior parte dos atendimentos sozinho e entrega as exceções com contexto completo.</div></div>
-      <div class="seg-card"><div class="seg-ico">📋</div><div class="seg-name">Consultor de Processos</div><div class="seg-dor">"Ninguém lê o manual"</div><div class="seg-res">Transforma manuais e rotinas em resposta útil, imediata e acessível para o time.</div></div>
-      <div class="seg-card"><div class="seg-ico">📅</div><div class="seg-name">Gestão de Agenda</div><div class="seg-dor">"5 faltas por semana sem aviso"</div><div class="seg-res">Confirma, reage, reorganiza e ocupa espaços ociosos sem depender de controle humano constante.</div></div>
-      <div class="seg-card"><div class="seg-ico">💰</div><div class="seg-name">Cobrança e Follow-up</div><div class="seg-dor">"Odeio cobrar cliente"</div><div class="seg-res">Mantém a cadência da cobrança com registro, timing certo e persistência — sem você entrar na conversa.</div></div>
-      <div class="seg-card"><div class="seg-ico">📊</div><div class="seg-name">Relatórios e Indicadores</div><div class="seg-dor">"Não sei o que está acontecendo"</div><div class="seg-res">Consolida KPIs e envia o que importa no momento certo, sem você precisar puxar.</div></div>
-      <div class="seg-card"><div class="seg-ico">🛒</div><div class="seg-name">Vendedor Digital</div><div class="seg-dor">"Perco venda fora do horário"</div><div class="seg-res">Qualifica, apresenta, responde, acompanha e mantém oportunidades vivas fora do horário comercial.</div></div>
-      <div class="seg-card"><div class="seg-ico">🗂️</div><div class="seg-name">Assistente Operacional</div><div class="seg-dor">"Metade do meu dia é execução sem decisão"</div><div class="seg-res">Assume tarefas repetitivas e formais para liberar o time para o que exige decisão.</div></div>
-      <div class="seg-card"><div class="seg-ico">🔢</div><div class="seg-name">Conciliador de Dados</div><div class="seg-dor">"Todo mês passo dias conciliando — e ainda erro"</div><div class="seg-res">Compara, organiza, valida e reduz erro em rotinas que hoje consomem dias inteiros.</div></div>
-      <div class="seg-card"><div class="seg-ico">📱</div><div class="seg-name">Social Mídia Express</div><div class="seg-dor">"Não tenho tempo — nem equipe — para postar"</div><div class="seg-res">Briefing, copy, curadoria, publicação e sequência editorial com operação contínua.</div></div>
-    </div>
-    <div style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--iron)" class="modulos-bottom-grid">
-      <div style="padding:44px;background:var(--coal);border-left:3px solid var(--blood)">
-        <p style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(20px,3vw,32px);letter-spacing:0px;color:var(--white);margin-bottom:20px;line-height:1.15;text-transform:none">Não é só executar.<br><span style="color:var(--fire);font-style:italic">É aprender operando.</span></p>
-        <p style="font-size:15px;line-height:1.9;color:rgba(255,255,255,.8);margin-bottom:16px">Cada agente não apenas executa tarefas. Ele observa padrões, identifica anomalias e ajuda a melhorar a rotina com base no que acontece na operação real.</p>
-        <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,.65)">Perceber que certos clientes atrasam sempre na mesma janela. Que segunda-feira concentra mais faltas. Sinalizar exceções antes que virem prejuízo.</p>
-      </div>
-      <div style="padding:44px;background:var(--coal);border-left:1px solid var(--iron)">
-        <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);margin-bottom:20px;text-transform:uppercase">Produtos customizáveis</p>
-        <p style="font-size:15px;line-height:1.9;color:rgba(255,255,255,.8);margin-bottom:24px">Se existe dor operacional recorrente, existe fluxo para um agente assumir. Tudo que hoje depende de rotina digital, repetição, acompanhamento, triagem ou controle pode ser desenhado como operação.</p>
-        <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,.65);font-style:italic">Se a sua dor não está listada aqui, a Bia faz o diagnóstico e propõe a arquitetura certa para o seu caso.</p>
-      </div>
-    </div>
-    <div style="margin-top:28px"><a href="#" onclick="oT();return false;" class="btn-fire" style="font-size:11px;padding:13px 28px">Desenhar com a Bia →</a></div>
-
-</section><!-- fecha segs-modulos -->
-
-<div class="div"><div class="div-gem"></div></div>
-<section class="manifesto" data-ok id="manifesto" style="background:var(--char);">
-  <p style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(14px,2vw,18px);letter-spacing:6px;color:var(--fire);margin-bottom:48px">MANIFESTO</p>
-
-  <p class="manifesto-p" style="font-size:clamp(16px,2vw,20px);color:#ffffff;line-height:1.85;margin-bottom:28px;font-weight:700">Os negócios cresceram. E junto com eles, cresceu uma pilha de trabalho que ninguém deveria fazer — mas que parou na mesa do dono.</p>
-
-  <p class="manifesto-p" style="margin-bottom:28px;color:rgba(255,255,255,.88)">Todo negócio tem um core. O médico sabe curar. O advogado sabe defender. O distribuidor sabe vender. É nesse core que mora o valor real. O problema é que grande parte do tempo vai para o resto: organizar, responder, confirmar, controlar, cobrar. Trabalho necessário — que não deveria ser seu.</p>
-
-  <p class="manifesto-p" style="font-size:clamp(15px,2vw,19px);color:#ffffff;margin-bottom:28px;font-weight:600">Isso tem solução agora.</p>
-
-  <p class="manifesto-p" style="margin-bottom:48px;color:rgba(255,255,255,.88)">Não como chatbot. Como operação real — com agentes que executam rotinas, aprendem com o uso e operam com método. Quem entra agora constrói vantagem real. Quem espera, chega quando já for commodity.</p>
-
-  <div style="height:1px;background:var(--iron);margin:48px 0;width:120px;margin-left:auto;margin-right:auto"></div>
-
-  <h2 class="manifesto-q" style="color:#ffffff">"Volte para o que só você faz.<br>O resto, <span style="color:var(--fire)">a gente opera."</span></h2>
-</section>
-
-<div class="div"><div class="div-gem"></div></div>
-
-
-<!-- FUNDADOR -->
-<section style="max-width:760px;margin:0 auto;padding:80px 32px;text-align:center" id="fundador">
-  <div class="div"><div class="div-gem"></div></div>
-  <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin:40px 0 32px">PALAVRA DO FUNDADOR</p>
-  <div style="background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:40px 48px;text-align:left">
-    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:var(--bone);line-height:1.85;font-style:italic;margin-bottom:16px">"Passei por diferentes negócios e vi o mesmo padrão se repetir: quando a operação consome o espaço do que realmente importa, o negócio começa a perder dinheiro, foco e velocidade.</p>
-    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:var(--bone);line-height:1.85;font-style:italic;margin-bottom:16px">Foi dessa dor que nasceu o OMA: transformar atividades operacionais em uma camada digital organizada, para que empresários e times possam voltar ao que gera valor real.</p>
-    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:var(--fire);line-height:1.85;font-style:italic">Se a gente conseguir fazer isso junto, já valeu a construção."</p>
-    <div style="margin-top:32px;display:flex;align-items:center;gap:16px;">
-      <div style="width:40px;height:40px;border-radius:50%;background:var(--fire);display:flex;align-items:center;justify-content:center;font-family:Black Ops One,cursive;font-size:16px;color:var(--char);flex-shrink:0">F</div>
-      <div>
-        <div style="font-family:'Barlow',sans-serif;font-size:14px;font-weight:600;color:var(--bone)">Fabio Xavier</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;margin-top:2px">FUNDADOR · ONE MAN ARMY PROJECT</div>
-        <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
-          <a href="mailto:fabio@onemanarmy.com.br" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);text-decoration:none;letter-spacing:1px;transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">fabio@onemanarmy.com.br</a>
-          <a href="https://instagram.com/fabio_xavier_br" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">@fabio_xavier_br</a>
-          <a href="https://www.linkedin.com/in/fabio-riva-de-paula-xavier-29123b29/" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">LinkedIn</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="div" style="margin-top:40px"><div class="div-gem"></div></div>
-</section>
-
-
-<!-- FAQ -->
-<section style="background:var(--light-bg);padding:80px 32px;" id="faq">
-  <div style="max-width:760px;margin:0 auto;">
-    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:20px;text-align:center">PERGUNTAS FREQUENTES</p>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,38px);color:var(--dark-text);text-align:center;line-height:1.1;margin-bottom:48px">As perguntas que você já tem.<br><span style="color:var(--fire)">Respondidas antes de precisar perguntar.</span></h2>
-
-    <div id="faq-list">
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">O WhatsApp Business já tem agente de IA da Meta. Por que pagar pelo OMA? <span class="faq-arrow">↓</span></div>
-        <div class="faq-a">O agente da Meta ajuda a responder. O OMA estrutura uma operação. A diferença não é tecnológica — é o que está por trás: contexto do negócio, função definida, fluxo operacional, prioridade, aprovação, rastreabilidade e acompanhamento contínuo. É a diferença entre usar IA como recurso isolado e ter uma equipe digital operando uma parte do negócio com método.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">E os meus dados? Estão seguros? <span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Seus dados ficam em servidor dedicado — isolado dos demais clientes, criptografado e com backup automático diário. Cada permissão do agente é registrada, você vê tudo que foi feito e pode revogar em segundos. Nenhum colaborador humano entrega esse nível de rastreabilidade.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Preciso saber de tecnologia para contratar? <span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Não. O OMA foi construído por um executivo sem background técnico — para empresários como você. Você passa o briefing, a gente configura tudo. O agente opera no seu WhatsApp ou Telegram. Você acompanha tudo em tempo real pelo painel de gestão — sem precisar entender de tecnologia para isso.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">O agente pode errar e prejudicar meu cliente? <span class="faq-arrow">↓</span></div>
-        <div class="faq-a">O agente executa — não decide sozinho. Tudo que está fora do escopo configurado chega para você com contexto completo. Você valida e aprova o agente antes de ele ir ao ar. Os 80% operacionais ele resolve; os 20% que precisam de você chegam com todo o histórico da conversa.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Quanto tempo leva para o agente entrar em operação? <span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Do contrato ao agente funcionando em até 7 dias. D+0 contrato assinado, D+1 briefing de 1h, D+2 configuração, D+5 testes, D+7 operação. Sempre mais rápido do que contratar e treinar um colaborador.</div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">E se eu quiser cancelar? <span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Contrato mínimo de 6 meses. Após esse período, aviso de 30 dias por escrito. Seus dados ficam disponíveis por 90 dias após o cancelamento — você pode solicitar exportação completa antes da exclusão.</div>
-      </div>
-
-    </div>
-  </div>
-</section>
 <style>
-.faq-item{border-bottom:1px solid var(--mid-text);padding:20px 0;cursor:pointer;transition:padding .2s}
-.faq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--dark-text);display:flex;justify-content:space-between;align-items:center;gap:16px;line-height:1.3}
-.faq-arrow{color:var(--fire);font-size:16px;transition:transform .2s;flex-shrink:0}
-.faq-a{font-size:14px;color:var(--mid-text);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s;padding-top:0}
-.faq-item.open .faq-a{max-height:200px;padding-top:14px}
-.faq-item.open .faq-arrow{transform:rotate(180deg)}
-.faq-item.open .faq-q{color:var(--fire)}
-</style>
-<script>
-function toggleFaq(el){
-  document.querySelectorAll('.faq-item').forEach(i=>{ if(i!==el) i.classList.remove('open'); });
-  el.classList.toggle('open');
+:root{
+  --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
+  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
+  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
+  --light-bg:#f7f4ef;--light-surface:#ffffff;--light-border:#e8e2d9;
+  --dark-text:#1a1612;--mid-text:#4a4035;
 }
-</script>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
 
-<section style="background:var(--char);padding:80px 32px;" id="seguranca">
-  <div style="max-width:900px;margin:0 auto;">
-    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:24px;text-align:center">SEGURANÇA</p>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,42px);color:var(--white);text-align:center;line-height:1.1;margin-bottom:16px">Tão seguro quanto um colaborador de confiança.<br><span style="color:var(--fire)">E mais controlável do que qualquer um.</span></h2>
-    <p style="font-size:14px;color:rgba(255,255,255,.7);text-align:center;max-width:640px;margin:0 auto 48px;line-height:1.8">Seu colaborador tem a senha do sistema, acesso ao WhatsApp da empresa e vê tudo que passa. O agente também tem acesso — mas com uma diferença: cada permissão é registrada, auditável e você revoga em segundos. Sem sentimento. Sem risco de levar os dados embora.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
-      <div style="background:var(--iron);padding:32px 24px;border-left:3px solid var(--blood);">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);margin-bottom:12px">CRIPTOGRAFIA</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--white);margin-bottom:10px">Comunicação criptografada</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7">Toda troca de dados entre o agente e os canais do cliente usa criptografia de ponta a ponta — a mesma tecnologia do seu banco.</div>
-      </div>
-      <div style="background:var(--iron);padding:32px 24px;border-left:3px solid var(--blood);">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);margin-bottom:12px">CONTROLE</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--white);margin-bottom:10px">Acesso por permissão</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7">O agente acessa só o que precisa para operar. Cada permissão é definida por você, revisável a qualquer momento e revogável em segundos.</div>
-      </div>
-      <div style="background:var(--iron);padding:32px 24px;border-left:3px solid var(--blood);">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);margin-bottom:12px">RASTREABILIDADE</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--white);margin-bottom:10px">Log de tudo que fez</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7">Cada ação do agente é registrada. Você vê o que foi respondido, quando, para quem — com rastreabilidade completa. Nenhum colaborador entrega isso.</div>
-      </div>
-    </div>
-    <div style="margin-top:2px;background:var(--iron);padding:22px 32px;border-left:3px solid var(--fire);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);white-space:nowrap">SERVIDOR DEDICADO</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.6">Seus dados ficam em servidor dedicado na nuvem — não compartilhado com outros clientes. Acesso restrito, backups automáticos, monitoramento 24h. Você não divide infraestrutura com ninguém.</div>
-    </div>
-  </div>
-</section>
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);}
+.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;flex-direction:column;align-items:flex-start;gap:3px;}
+.nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);}
+.nav-name span{color:var(--fire);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
+.nav-links a:hover,.nav-links a.hl{color:var(--fire);}
+.nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
+.nav-cta:hover{background:var(--ember);}
+@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
 
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 80px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(122,34,4,.08) 0%,transparent 60%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%);pointer-events:none;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--ash);margin-bottom:44px;animation:up .7s ease both;}
+.hero-badge em{color:var(--fire);font-style:normal;}
+.hero-scratch{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--fire);margin-bottom:16px;animation:up .8s .1s ease both;}
+.hero-h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(38px,7.5vw,92px);line-height:.93;letter-spacing:-1px;color:var(--white);animation:up .9s .15s ease both;margin-bottom:12px;}
+.hero-h1 em{font-style:italic;color:var(--fire);}
+.hero-sub{font-size:clamp(14px,1.8vw,17px);color:var(--fog);max-width:520px;line-height:1.75;animation:up .9s .22s ease both;margin-bottom:52px;}
+.hero-sub strong{color:var(--bone);font-weight:600;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:up .9s .28s ease both;}
+.btn-fire{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:3px;background:var(--fire);color:var(--char);border:none;padding:17px 40px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
+.btn-fire:hover{background:var(--ember);transform:translateY(-2px);}
+.btn-ghost{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:3px;color:var(--fire);background:transparent;border:1px solid var(--blood);padding:17px 40px;cursor:pointer;text-decoration:none;transition:border-color .2s,transform .15s;display:inline-block;}
+.btn-ghost:hover{border-color:var(--fire);transform:translateY(-2px);}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:3px;animation:pulse 2.5s infinite;}
 
-<section style="background:#080808;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;padding:80px 32px;">
-  <div style="max-width:1020px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+/* TICKER */
+.ticker{background:var(--blood);padding:10px 0;overflow:hidden;}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite;}
+.tick-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.65);padding:0 36px;}
+.tick-item::after{content:'✦';margin-left:36px;color:rgba(255,255,255,.75);}
 
-      <!-- Texto -->
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--fire);margin-bottom:16px;">Novo</div>
-        <h2 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,3.5vw,42px);color:var(--white);line-height:1.1;margin-bottom:16px;">OMA <em style="color:var(--fire)">Academy</em></h2>
-        <p style="font-size:15px;color:#888;line-height:1.8;margin-bottom:12px;">Uma trilha de 12 semanas para founders e executivos que querem entender de verdade o que está acontecendo com IA — sem jargão, sem teoria, com exemplos reais do OMA.</p>
-        <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:32px;">84 lições práticas. XP, badges, quiz de fixação. Conteúdo gerado em tempo real pelo Claude, personalizado para o contexto do seu negócio.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="/academy/login" style="font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:3px;background:var(--fire);color:#080808;padding:15px 32px;text-decoration:none;display:inline-block;transition:background .2s;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">Acessar Academy</a>
-          <a href="/academy/login" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:#555;padding:15px 20px;text-decoration:none;display:inline-block;border:1px solid #222;transition:color .2s,border-color .2s;" onmouseover="this.style.color='#e8703a';this.style.borderColor='#e8703a'" onmouseout="this.style.color='#555';this.style.borderColor='#222'">É gratuito →</a>
-        </div>
-      </div>
+/* SECTIONS */
+.sec{max-width:1020px;margin:0 auto;padding:96px 32px;}
+.sec-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:14px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,4vw,46px);color:var(--white);line-height:1.15;margin-bottom:22px;}
+.sec-title span{color:var(--fire);font-style:italic;}
+.sec-body{font-size:16px;line-height:1.9;color:var(--mid-text);}
+.sec-body strong{color:var(--bone);font-weight:600;}
+.div{display:flex;align-items:center;gap:16px;max-width:1020px;margin:0 auto;padding:0 32px;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--iron);}
+.div-gem{width:7px;height:7px;background:var(--blood);transform:rotate(45deg);}
 
-      <!-- Pills de módulos -->
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#444;text-transform:uppercase;margin-bottom:4px;">6 fases · 84 lições</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid #1e1e1e;color:#555;background:#0f0f0f;">01 · Linguagem</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid #1e1e1e;color:#555;background:#0f0f0f;">02 · Infraestrutura</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid #1e1e1e;color:#555;background:#0f0f0f;">03 · Inteligência</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid #1e1e1e;color:#555;background:#0f0f0f;">04 · Memória</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid #1e1e1e;color:#555;background:#0f0f0f;">05 · Execução</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid rgba(232,112,58,.3);color:var(--fire);background:rgba(232,112,58,.05);">06 · Escala</span>
-        </div>
-        <div style="margin-top:20px;background:#0f0f0f;border:1px solid #1a1a1a;border-left:3px solid var(--fire);padding:16px 18px;">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:8px;">Mecânica</div>
-          <div style="font-size:13px;color:#666;line-height:1.8;">
-            <span style="color:#888;">XP por lição</span> · <span style="color:#888;">Streak diário</span> · <span style="color:#888;">8 badges</span><br>
-            <span style="color:#888;">Quiz após cada módulo</span> · <span style="color:#888;">Boss fight semanal</span>
-          </div>
-        </div>
-        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
-          <span style="font-family:'Space Mono',monospace;font-size:9px;color:#333;">Login com</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid #1e1e1e;color:#444;background:#0f0f0f;">Google</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid #1e1e1e;color:#444;background:#0f0f0f;">Facebook</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid #1e1e1e;color:#444;background:#0f0f0f;">Email</span>
-        </div>
-      </div>
+/* VERTICAIS — cards leves */
+.segs{background:var(--light-bg);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);}
+.segs-inner{max-width:1020px;margin:0 auto;padding:80px 32px;}
+.segs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px;}
+@media(max-width:700px){.segs-grid{grid-template-columns:1fr;}}
+.seg-card{background:var(--light-surface);border:1px solid var(--light-border);border-top:3px solid var(--fire);padding:18px 20px;display:flex;align-items:center;gap:14px;}
+.seg-ico{font-size:22px;flex-shrink:0;}
+.seg-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:1px;color:var(--dark-text);}
+.seg-dor{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:3px;line-height:1.4;}
 
-    </div>
-  </div>
-</section>
+/* COMO FUNCIONA */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;}
+@media(max-width:700px){.steps{grid-template-columns:1fr;}}
+.step{background:var(--coal);border:1px solid var(--iron);padding:36px 28px;}
+.step-num{font-family:'Black Ops One',cursive;font-size:52px;color:var(--fire);line-height:1;margin-bottom:20px;}
+.step-title{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;color:var(--bone);margin-bottom:12px;}
+.step-desc{font-size:13px;color:var(--ash);line-height:1.7;}
+.step-tag{color:var(--bone);display:inline-block;font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);background:rgba(232,112,58,.1);padding:3px 8px;letter-spacing:1px;margin-top:16px;}
 
-<section class="cta-band">
-  <h2 class="cta-band-title">Diagnóstico operacional gratuito<br><em>com a Bia.</em></h2>
-  <p class="cta-band-sub" style="max-width:480px;margin-left:auto;margin-right:auto;">Em menos de 30 minutos, você entende onde um agente pode gerar resultado no seu negócio — sem compromisso, sem jargão e sem precisar entender tecnologia.</p>
-  <a href="#" onclick="oT();return false;">Quero falar com a Bia</a>
-  <p class="cta-band-note">Vagas limitadas para os primeiros clientes · Diagnóstico gratuito via WhatsApp</p>
-</section>
+/* ECOSSISTEMA */
+.eco{background:var(--coal);border-top:1px solid var(--iron);border-bottom:1px solid var(--iron);}
+.eco-inner{max-width:1020px;margin:0 auto;padding:80px 32px;}
+.eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:40px;}
+@media(max-width:860px){.eco-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.eco-grid{grid-template-columns:1fr;}}
+.eco-card{background:var(--char);border:1px solid var(--iron);padding:32px 24px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s;position:relative;overflow:hidden;}
+.eco-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.eco-card:hover{border-color:var(--steel);}.eco-card:hover::after{transform:scaleX(1);}
+.eco-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--blood);text-transform:uppercase;}
+.eco-name{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);}
+.eco-desc{font-size:12px;color:var(--fog);line-height:1.65;flex:1;}
+.eco-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--fire);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:gap .2s;margin-top:4px;}
+.eco-cta:hover{gap:8px;}
 
-<!-- NEWSLETTER -->
-<section style="background:var(--iron);padding:64px 32px;border-top:1px solid #222;">
-  <div style="max-width:600px;margin:0 auto;text-align:center;">
-    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:16px">NEWSLETTER</p>
-    <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,3.5vw,34px);color:var(--white);line-height:1.1;margin-bottom:12px">Os bastidores da operação do OMA.<br><span style="color:var(--fire)">Toda semana na sua caixa.</span></h3>
-    <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px;line-height:1.7">O que colocamos no ar, o que quebrou, o que aprendemos e o que estamos vendo na prática — operando agentes em negócio real.</p>
-    <form id="newsletter-form" onsubmit="submitNewsletter(event)" style="display:flex;gap:8px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center;">
-      <input type="email" id="nl-email" placeholder="seu@email.com" required
-        style="flex:1;min-width:220px;background:#0f0f0f;border:1px solid #333;padding:12px 16px;font-family:'Space Mono',monospace;font-size:11px;color:var(--bone);border-radius:4px;outline:none;letter-spacing:1px;">
-      <button type="submit"
-        style="background:var(--fire);color:#000;border:none;padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;border-radius:4px;cursor:pointer;white-space:nowrap;">
-        INSCREVER →
-      </button>
-    </form>
-    <p id="nl-success" style="display:none;font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);margin-top:16px;letter-spacing:1px">✓ Inscrito! Te vejo na caixa de entrada.</p>
-    <p style="font-size:11px;color:var(--ash);margin-top:16px">Sem spam. Cancelamento em 1 clique.</p>
-  </div>
-</section>
-<script>
-function submitNewsletter(e){
-  e.preventDefault();
-  fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('nl-email').value})}).catch(()=>{});
-  document.getElementById('newsletter-form').style.display='none';
-  document.getElementById('nl-success').style.display='block';
-}
-</script>
+/* MÓDULOS — cards leves */
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px;}
+@media(max-width:700px){.mod-grid{grid-template-columns:1fr;}}
+.mod-card{background:var(--coal);border:1px solid var(--iron);padding:16px 18px;display:flex;align-items:center;gap:12px;}
+.mod-ico{font-size:20px;flex-shrink:0;}
+.mod-name{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:1px;color:var(--bone);}
+.mod-dor{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:3px;line-height:1.4;}
 
-<footer>
-  <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
-  <div class="footer-links">
-      <a href="/privacidade.html" class="footer-link">Privacidade</a>
-      <a href="/termos.html" class="footer-link">Termos de Uso</a>
-    <a href="https://instagram.com/onemanarmy.ai" target="_blank">@onemanarmy.ai</a>
-    <a href="#" onclick="oT();return false;">💬 Webchat</a>
-    <a href="/status">◉ Status</a>
-    <a href="/hub">⬛ Hub</a>
-  </div>
-</footer>
+/* MANIFESTO */
+.manifesto{max-width:760px;margin:0 auto;padding:112px 32px;text-align:center;}
+.manifesto-q{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(23px,3.5vw,41px);color:#e8703a;line-height:1.3;margin-bottom:28px;text-shadow:0 0 40px rgba(232,112,58,.18),1px 1px 0 rgba(0,0,0,.4);}
+.manifesto-q span{color:var(--fire);}
+.manifesto-p{font-size:14px;line-height:1.9;color:rgba(255,255,255,.85);max-width:580px;margin:0 auto;}
 
-<script>
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
-</script>
+/* CTA BAND */
+.cta-band{background:var(--blood);padding:72px 32px;text-align:center;}
+.cta-band-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,4vw,44px);color:var(--white);margin-bottom:16px;line-height:1.2;}
+.cta-band-sub{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;}
+.cta-band a{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;background:var(--white);color:var(--blood);border:none;padding:18px 48px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;display:inline-block;}
+.cta-band a:hover{background:var(--bone);transform:translateY(-2px);}
+.cta-band-note{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.75);margin-top:20px;letter-spacing:1px;}
 
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--mid-text);padding:20px 0;cursor:pointer;}
+.faq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--dark-text);display:flex;justify-content:space-between;align-items:center;gap:16px;line-height:1.3;}
+.faq-arrow{color:var(--fire);font-size:16px;transition:transform .2s;flex-shrink:0;}
+.faq-a{font-size:14px;color:var(--mid-text);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s;padding-top:0;}
+.faq-item.open .faq-a{max-height:200px;padding-top:14px;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-item.open .faq-q{color:var(--fire);}
 
+/* FOOTER */
+footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--ash);}
+.footer-brand span{color:var(--fire);}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:9px;color:#2a2a2a;text-decoration:none;letter-spacing:1px;transition:color .15s;}
+.footer-links a:hover{color:var(--fire);}
 
-<!-- WEBCHAT WIDGET OMA -->
-<style>
+/* WEBCHAT */
 #oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
 #oma-bubble:hover{transform:scale(1.08);}
 #oma-bubble svg{width:26px;height:26px;fill:white;}
@@ -595,8 +177,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 #oma-x:hover{background:#1e1e1e;color:#e0d9cf;}
 #oma-ml{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;}
 .wm{max-width:82%;display:flex;flex-direction:column;gap:2px;}
-.wm.wa{align-self:flex-start;}
-.wm.wu{align-self:flex-end;}
+.wm.wa{align-self:flex-start;}.wm.wu{align-self:flex-end;}
 .wb{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;word-break:break-word;font-family:-apple-system,sans-serif;}
 .wm.wa .wb{background:#1e1e1e;color:#e0d9cf;border-radius:4px 12px 12px 12px;}
 .wm.wu .wb{background:#e8703a;color:white;border-radius:12px 4px 12px 12px;}
@@ -615,67 +196,305 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 #oma-btn:disabled{background:#2a2a2a;cursor:not-allowed;}
 #oma-btn svg{width:16px;height:16px;fill:white;}
 #oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
-@media(max-width:600px){
-  .modulos-bottom-grid{grid-template-columns:1fr !important;}
-  .modulos-bottom-grid > div{padding:28px 20px !important;}
-}
-@media(max-width:480px){
-  #seguranca div[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr !important;}}
+#oma-preview{position:fixed;bottom:92px;right:24px;background:var(--coal);border:1px solid rgba(232,112,58,.3);border-radius:12px 12px 0 12px;padding:12px 16px;max-width:260px;z-index:8999;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
+#oma-preview.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+#oma-preview p{font-family:'Barlow',sans-serif;font-size:13px;color:#e0d9cf;line-height:1.5;margin:0 0 10px 0;}
+#oma-preview .prev-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:14px;line-height:1;}
+#oma-preview .prev-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:#e8703a;cursor:pointer;background:none;border:none;padding:0;}
 
-/* ══════════════════════ MOBILE ══════════════════════ */
+/* KEYFRAMES */
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.8}}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes bubblePulse{0%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}50%{transform:scale(1.15);box-shadow:0 4px 32px rgba(232,112,58,.7);}100%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}}
+#oma-bubble.pulse{animation:bubblePulse 1s ease-out 3;}
+
+/* MOBILE */
 @media(max-width:480px){
   nav{padding:12px 16px;}
   .nav-name{font-size:10px;letter-spacing:2px;}
   .nav-cta{font-size:9px;padding:8px 14px;letter-spacing:1px;}
   .hero{padding:100px 20px 60px;}
   .hero-h1{font-size:clamp(32px,9vw,52px);line-height:.95;}
-  .hero-h2{font-size:12px;letter-spacing:2px;}
   .hero-sub{font-size:13px;max-width:100%;}
   .hero-cta{flex-direction:column;gap:10px;width:100%;}
-  .hero-cta a{width:100%;text-align:center;box-sizing:border-box;}
-  .btn-fire,.btn-ghost{padding:15px 20px;font-size:11px;width:100%;box-sizing:border-box;}
-  .segs-inner,.proof-inner,.agents-inner{padding:48px 20px;}
-  .sec{padding:48px 20px !important;}
-  .manifesto{padding:48px 20px;}
-  .sec-title{font-size:clamp(22px,6vw,32px);line-height:1.1;}
-  .segs-grid{grid-template-columns:1fr !important;gap:2px;}
-  .seg-card{padding:18px 16px;}
-  .steps{grid-template-columns:1fr !important;gap:10px;}
+  .hero-cta a,.btn-fire,.btn-ghost{width:100%;text-align:center;box-sizing:border-box;padding:15px 20px;font-size:11px;}
+  .segs-inner,.sec,.eco-inner{padding:48px 20px;}
+  .sec-title{font-size:clamp(22px,6vw,32px);}
+  .segs-grid,.mod-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr;gap:10px;}
   .step-num{font-size:44px;}
-  .proof-grid{grid-template-columns:1fr !important;}
-  .proof-card{padding:22px 18px;}
-  .proof-num{font-size:34px;}
-  .agents-grid{grid-template-columns:1fr !important;}
+  .manifesto{padding:48px 20px;}
   .manifesto-q{font-size:clamp(18px,5vw,26px);}
   .manifesto-p{font-size:13px;}
   .cta-band{padding:48px 20px;}
   .cta-band-title{font-size:clamp(18px,5vw,28px);}
   .cta-band a{padding:16px 24px;font-size:11px;}
   footer{padding:28px 20px;}
-  .footer-link{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-decoration:none;margin-right:20px;transition:color .2s}
-.footer-link:hover{color:var(--fire)}
-.footer-links{flex-direction:column;gap:10px;align-items:center;}
-  #oma-window{
-    width: calc(100vw - 24px) !important;
-    left: 12px !important;
-    right: 12px !important;
-    bottom: 72px !important;
-    height: auto !important;
-    max-height: calc(100vh - 100px) !important;
-  }
-  .sec-body{font-size:13px !important;line-height:1.75 !important;}
+  .footer-links{flex-direction:column;gap:10px;align-items:center;}
+  #oma-window{width:calc(100vw - 24px)!important;left:12px!important;right:12px!important;bottom:72px!important;height:auto!important;max-height:calc(100vh - 100px)!important;}
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
 @media(max-width:768px) and (min-width:481px){
-  .segs-grid{grid-template-columns:repeat(2,1fr) !important;}
-  .steps{grid-template-columns:1fr !important;}
-  .proof-grid{grid-template-columns:1fr !important;}
-  .agents-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .segs-grid,.mod-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .steps{grid-template-columns:1fr!important;}
 }
 </style>
+</head>
+<body>
 
+<nav id="nav">
+  <a href="/" class="nav-brand">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="nav-name">ONE MAN <span>ARMY</span></span>
+      <img src="/lobster-nav.png" alt="OMA" style="width:28px;height:28px;margin-left:6px;flex-shrink:0;border-radius:4px">
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:3px;color:var(--blood);line-height:1">FROM THE SCRATCH · 2026</div>
+    <a href="/status" style="display:inline-flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#3d9e60;text-decoration:none;text-transform:uppercase">
+      <span style="width:5px;height:5px;border-radius:50%;background:#3d9e60;display:inline-block;animation:livepulse 1.5s infinite;flex-shrink:0"></span>
+      Acompanhe LIVE
+    </a>
+  </a>
+  <div class="nav-links">
+    <a href="/agentes">Agentes</a>
+    <a href="/solutions" class="hl">Soluções</a>
+    <a href="/academy" class="hl">Academy</a>
+    <a href="/blog">Blog</a>
+    <a href="#como-funciona">Como funciona</a>
+  </div>
+  <a href="#" onclick="oT();return false;" class="nav-cta">Falar com a Bia</a>
+</nav>
 
-<!-- Webchat auto-trigger preview -->
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <p class="hero-scratch" style="margin-bottom:8px;">Agents As a Service</p>
+  <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;animation:up .6s ease both;">ONE MAN <span style="color:var(--fire)">ARMY</span><span style="color:var(--fire);opacity:.7">.AI</span></p>
+  <p class="hero-badge">🦞 &nbsp; No ar desde <em>02 de abril de 2026</em></p>
+  <h1 class="hero-h1">Sua empresa não precisa<br>de mais um chatbot.<br><em>Precisa de execução.</em></h1>
+  <p class="hero-sub">Coloque agentes para operar rotinas reais do negócio com método, contexto e controle — <strong>sem depender de você para tudo.</strong></p>
+  <div class="hero-cta">
+    <a href="#" onclick="oT();return false;" class="btn-fire">Falar com a Bia</a>
+    <a href="#como-funciona" class="btn-ghost">Como funciona</a>
+  </div>
+  <p class="hero-scroll">▼ scroll</p>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick-item">Atendimento 24h</span><span class="tick-item">Gestão de agenda</span><span class="tick-item">Qualificação de leads</span><span class="tick-item">Controle financeiro</span><span class="tick-item">Follow-up automático</span><span class="tick-item">Relatórios semanais</span><span class="tick-item">Sem encargos</span><span class="tick-item">Sem turnover</span><span class="tick-item">Atendimento 24h</span><span class="tick-item">Gestão de agenda</span><span class="tick-item">Qualificação de leads</span><span class="tick-item">Controle financeiro</span><span class="tick-item">Follow-up automático</span><span class="tick-item">Relatórios semanais</span><span class="tick-item">Sem encargos</span><span class="tick-item">Sem turnover</span>
+  </div>
+</div>
+
+<!-- VERTICAIS -->
+<section class="segs" id="verticais">
+  <div class="segs-inner">
+    <p class="sec-lbl">Verticais</p>
+    <h2 class="sec-title" style="color:var(--dark-text)">Você é bom no que faz.<br><span style="color:var(--fire)">Mas quanto do seu dia é realmente isso?</span></h2>
+    <p class="sec-body" style="max-width:580px;color:var(--mid-text);margin-bottom:0">Toda empresa tem trabalho necessário que não deveria continuar concentrado no dono ou num time sobrecarregado.</p>
+    <div class="segs-grid">
+      <div class="seg-card"><div class="seg-ico">⚖️</div><div><div class="seg-name">Advocacia</div><div class="seg-dor">"Perco 3h por dia em controle de prazos"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">🏥</div><div><div class="seg-name">Clínicas</div><div class="seg-dor">"5 faltas por semana sem aviso"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">🍺</div><div><div class="seg-name">Distribuidores</div><div class="seg-dor">"Meu time vende menos porque responde WhatsApp"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">🏢</div><div><div class="seg-name">Administradoras</div><div class="seg-dor">"42 condomínios, backoffice manual"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">👓</div><div><div class="seg-name">Varejo e Óticas</div><div class="seg-dor">"Perco clientes fora do horário"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">🍽️</div><div><div class="seg-name">Restaurantes</div><div class="seg-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">⚽</div><div><div class="seg-name">Clubes</div><div class="seg-dor">"Centenas de associados, time pequeno"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">📊</div><div><div class="seg-name">Contabilidade</div><div class="seg-dor">"Fico mais tempo coletando do que analisando"</div></div></div>
+      <div class="seg-card"><div class="seg-ico">🏗️</div><div><div class="seg-name">Outros segmentos</div><div class="seg-dor">"Tenho uma operação diferente"</div></div></div>
+    </div>
+    <div style="margin-top:32px">
+      <a href="/agentes" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--fire);text-decoration:none;border-bottom:1px solid var(--blood);padding-bottom:2px;">Ver como funciona para o seu segmento →</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="sec" id="como-funciona" style="background:var(--light-bg);padding:96px 32px;">
+  <p class="sec-lbl">Como funciona</p>
+  <h2 class="sec-title" style="color:var(--dark-text)">Do diagnóstico à operação<br><span>em até 1 semana.</span></h2>
+  <p class="sec-body" style="max-width:540px;color:var(--mid-text)">Você não contrata "uma IA". Você entra com um agente em rotina, função definida e fluxo operacional claro.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Diagnóstico operacional</div><div class="step-desc">A Bia entende a sua rotina, identifica gargalos e define onde um agente gera resultado real primeiro. Sem compromisso.</div><span class="step-tag">Bia · WhatsApp · Gratuito</span></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Desenho e setup</div><div class="step-desc">Estruturamos o agente, o contexto, as permissões e o fluxo operacional. Aprovando, em até 48h no ar.</div><span class="step-tag">Tiago · George · 48h</span></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Operação contínua</div><div class="step-desc">O agente entra em produção com acompanhamento, melhoria contínua e revisão periódica de performance.</div><span class="step-tag">Darwin · Relatório semanal</span></div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- ECOSSISTEMA -->
+<section class="eco">
+  <div class="eco-inner">
+    <p class="sec-lbl">Ecossistema OMA</p>
+    <h2 class="sec-title">Um conjunto de produtos<br><span>construídos para operar junto.</span></h2>
+    <p class="sec-body" style="max-width:520px;color:var(--fog)">Do agente que executa ao relatório que antecipa — cada produto do OMA resolve uma camada diferente do negócio.</p>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <div class="eco-tag">Core</div>
+        <div class="eco-name">Agentes</div>
+        <div class="eco-desc">Equipe digital especializada operando 24h nos canais do seu negócio. SAC, agenda, cobrança, vendas e mais.</div>
+        <a href="/agentes" class="eco-cta">Conhecer agentes →</a>
+      </div>
+      <div class="eco-card">
+        <div class="eco-tag">Novo</div>
+        <div class="eco-name">Academy</div>
+        <div class="eco-desc">12 semanas para entender IA de verdade — sem jargão, com exemplos reais do OMA. 84 lições, gratuito.</div>
+        <a href="/academy" class="eco-cta">Acessar grátis →</a>
+      </div>
+      <div class="eco-card">
+        <div class="eco-tag">Produtos</div>
+        <div class="eco-name">Solutions</div>
+        <div class="eco-desc">Predictions, Scribe e Recap — produtos prontos para verticais específicas. Inteligência de mercado com IA.</div>
+        <a href="/solutions" class="eco-cta">Ver soluções →</a>
+      </div>
+      <div class="eco-card">
+        <div class="eco-tag">Em breve</div>
+        <div class="eco-name">Hub</div>
+        <div class="eco-desc">Painel centralizado para acompanhar tudo em tempo real — agentes, operação, métricas e alertas.</div>
+        <a href="/hub" class="eco-cta">Acessar hub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- MÓDULOS -->
+<section class="segs">
+  <div class="segs-inner">
+    <p class="sec-lbl">Frentes operacionais</p>
+    <h2 class="sec-title" style="color:var(--dark-text)">8 frentes que empresas grandes<br><span>já tratam como sistema.</span></h2>
+    <p class="sec-body" style="max-width:560px;color:var(--mid-text)">Agora qualquer negócio pode operar assim — sem a complexidade, o custo e o headcount.</p>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mod-ico">🎧</div><div><div class="mod-name">SAC 24h</div><div class="mod-dor">"Sou eu que respondo às 23h"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">📋</div><div><div class="mod-name">Consultor de Processos</div><div class="mod-dor">"Ninguém lê o manual"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">📅</div><div><div class="mod-name">Gestão de Agenda</div><div class="mod-dor">"5 faltas por semana sem aviso"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">💰</div><div><div class="mod-name">Cobrança e Follow-up</div><div class="mod-dor">"Odeio cobrar cliente"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">📊</div><div><div class="mod-name">Relatórios e Indicadores</div><div class="mod-dor">"Não sei o que está acontecendo"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">🛒</div><div><div class="mod-name">Vendedor Digital</div><div class="mod-dor">"Perco venda fora do horário"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">🗂️</div><div><div class="mod-name">Assistente Operacional</div><div class="mod-dor">"Metade do meu dia é execução sem decisão"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">🔢</div><div><div class="mod-name">Conciliador de Dados</div><div class="mod-dor">"Todo mês passo dias conciliando — e ainda erro"</div></div></div>
+      <div class="mod-card"><div class="mod-ico">📱</div><div><div class="mod-name">Social Mídia Express</div><div class="mod-dor">"Não tenho tempo nem equipe para postar"</div></div></div>
+    </div>
+    <div style="margin-top:32px">
+      <a href="/agentes" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--fire);text-decoration:none;border-bottom:1px solid var(--blood);padding-bottom:2px;">Ver detalhes de cada frente →</a>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto" style="background:var(--char);">
+  <p style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(14px,2vw,18px);letter-spacing:6px;color:var(--fire);margin-bottom:48px">MANIFESTO</p>
+  <p class="manifesto-p" style="font-size:clamp(16px,2vw,20px);color:#ffffff;line-height:1.85;margin-bottom:28px;font-weight:700">Os negócios cresceram. E junto com eles, cresceu uma pilha de trabalho que ninguém deveria fazer — mas que parou na mesa do dono.</p>
+  <p class="manifesto-p" style="margin-bottom:28px;color:rgba(255,255,255,.88)">Todo negócio tem um core. O médico sabe curar. O advogado sabe defender. O distribuidor sabe vender. É nesse core que mora o valor real. O problema é que grande parte do tempo vai para o resto: organizar, responder, confirmar, controlar, cobrar. Trabalho necessário — que não deveria ser seu.</p>
+  <p class="manifesto-p" style="font-size:clamp(15px,2vw,19px);color:#ffffff;margin-bottom:28px;font-weight:600">Isso tem solução agora.</p>
+  <p class="manifesto-p" style="margin-bottom:48px;color:rgba(255,255,255,.88)">Não como chatbot. Como operação real — com agentes que executam rotinas, aprendem com o uso e operam com método. Quem entra agora constrói vantagem real. Quem espera, chega quando já for commodity.</p>
+  <div style="height:1px;background:var(--iron);margin:48px 0;width:120px;margin-left:auto;margin-right:auto"></div>
+  <h2 class="manifesto-q" style="color:#ffffff">"Volte para o que só você faz.<br>O resto, <span style="color:var(--fire)">a gente opera."</span></h2>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- FUNDADOR -->
+<section style="max-width:760px;margin:0 auto;padding:80px 32px;text-align:center" id="fundador">
+  <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:32px">PALAVRA DO FUNDADOR</p>
+  <div style="background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:40px 48px;text-align:left">
+    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:var(--bone);line-height:1.85;font-style:italic;margin-bottom:16px">"Passei por diferentes negócios e vi o mesmo padrão se repetir: quando a operação consome o espaço do que realmente importa, o negócio começa a perder dinheiro, foco e velocidade.</p>
+    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:var(--bone);line-height:1.85;font-style:italic;margin-bottom:16px">Foi dessa dor que nasceu o OMA: transformar atividades operacionais em uma camada digital organizada, para que empresários e times possam voltar ao que gera valor real.</p>
+    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:var(--fire);line-height:1.85;font-style:italic">Se a gente conseguir fazer isso junto, já valeu a construção."</p>
+    <div style="margin-top:32px;display:flex;align-items:center;gap:16px;">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--fire);display:flex;align-items:center;justify-content:center;font-family:'Black Ops One',cursive;font-size:16px;color:var(--char);flex-shrink:0">F</div>
+      <div>
+        <div style="font-family:'Barlow',sans-serif;font-size:14px;font-weight:600;color:var(--bone)">Fabio Xavier</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;margin-top:2px">FUNDADOR · ONE MAN ARMY PROJECT</div>
+        <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+          <a href="mailto:fabio@onemanarmy.com.br" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);text-decoration:none;letter-spacing:1px;">fabio@onemanarmy.com.br</a>
+          <a href="https://instagram.com/fabio_xavier_br" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">@fabio_xavier_br</a>
+          <a href="https://www.linkedin.com/in/fabio-riva-de-paula-xavier-29123b29/" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fog);text-decoration:none;letter-spacing:1px;transition:color .2s" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--fog)'">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="div-gem"></div></div>
+
+<!-- FAQ -->
+<section style="background:var(--light-bg);padding:80px 32px;" id="faq">
+  <div style="max-width:760px;margin:0 auto;">
+    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:20px;text-align:center">PERGUNTAS FREQUENTES</p>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(24px,4vw,38px);color:var(--dark-text);text-align:center;line-height:1.1;margin-bottom:48px">As perguntas que você já tem.<br><span style="color:var(--fire)">Respondidas antes de precisar perguntar.</span></h2>
+    <div id="faq-list">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">O WhatsApp Business já tem agente de IA da Meta. Por que pagar pelo OMA? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">O agente da Meta ajuda a responder. O OMA estrutura uma operação. A diferença não é tecnológica — é o que está por trás: contexto do negócio, função definida, fluxo operacional, prioridade, aprovação, rastreabilidade e acompanhamento contínuo.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">E os meus dados? Estão seguros? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Seus dados ficam em servidor dedicado — isolado dos demais clientes, criptografado e com backup automático diário. Cada permissão do agente é registrada, você vê tudo que foi feito e pode revogar em segundos.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Preciso saber de tecnologia para contratar? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Não. O OMA foi construído por um executivo sem background técnico — para empresários como você. Você passa o briefing, a gente configura tudo. O agente opera no seu WhatsApp ou Telegram.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">O agente pode errar e prejudicar meu cliente? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">O agente executa — não decide sozinho. Tudo que está fora do escopo configurado chega para você com contexto completo. Os 80% operacionais ele resolve; os 20% que precisam de você chegam com todo o histórico da conversa.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Quanto tempo leva para o agente entrar em operação? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Do contrato ao agente funcionando em até 7 dias. D+0 contrato, D+1 briefing de 1h, D+2 configuração, D+5 testes, D+7 operação. Sempre mais rápido do que contratar e treinar um colaborador.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">E se eu quiser cancelar? <span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Contrato mínimo de 6 meses. Após esse período, aviso de 30 dias por escrito. Seus dados ficam disponíveis por 90 dias após o cancelamento — você pode solicitar exportação completa.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2 class="cta-band-title">Diagnóstico operacional gratuito<br><em>com a Bia.</em></h2>
+  <p class="cta-band-sub">Em menos de 30 minutos, você entende onde um agente pode gerar resultado no seu negócio — sem compromisso, sem jargão.</p>
+  <a href="#" onclick="oT();return false;">Quero falar com a Bia</a>
+  <p class="cta-band-note">Vagas limitadas para os primeiros clientes · Diagnóstico gratuito via WhatsApp</p>
+</section>
+
+<!-- NEWSLETTER -->
+<section style="background:var(--iron);padding:64px 32px;border-top:1px solid #222;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:16px">NEWSLETTER</p>
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,3.5vw,34px);color:var(--white);line-height:1.1;margin-bottom:12px">Os bastidores da operação do OMA.<br><span style="color:var(--fire)">Toda semana na sua caixa.</span></h3>
+    <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px;line-height:1.7">O que colocamos no ar, o que quebrou, o que aprendemos — operando agentes em negócio real.</p>
+    <form id="newsletter-form" onsubmit="submitNewsletter(event)" style="display:flex;gap:8px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center;">
+      <input type="email" id="nl-email" placeholder="seu@email.com" required style="flex:1;min-width:220px;background:#0f0f0f;border:1px solid #333;padding:12px 16px;font-family:'Space Mono',monospace;font-size:11px;color:var(--bone);border-radius:4px;outline:none;letter-spacing:1px;">
+      <button type="submit" style="background:var(--fire);color:#000;border:none;padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;border-radius:4px;cursor:pointer;white-space:nowrap;">INSCREVER →</button>
+    </form>
+    <p id="nl-success" style="display:none;font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);margin-top:16px;letter-spacing:1px">✓ Inscrito! Te vejo na caixa de entrada.</p>
+    <p style="font-size:11px;color:var(--ash);margin-top:16px">Sem spam. Cancelamento em 1 clique.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
+  <div class="footer-links">
+    <a href="/privacidade.html">Privacidade</a>
+    <a href="/termos.html">Termos de Uso</a>
+    <a href="https://instagram.com/1manarmy_project" target="_blank">@1manarmy_project</a>
+    <a href="#" onclick="oT();return false;">💬 Webchat</a>
+    <a href="/status">◉ Status</a>
+    <a href="/hub">⬛ Hub</a>
+  </div>
+</footer>
+
+<!-- WEBCHAT -->
 <div id="oma-preview">
   <button class="prev-close" onclick="dismissPreview()">✕</button>
   <p>Olá! Posso te ajudar a entender como o OMA funciona para o seu negócio?</p>
@@ -688,10 +507,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 <div id="oma-window">
   <div id="oma-hdr">
     <div id="oma-av">B</div>
-    <div style="flex:1">
-      <div id="oma-hn">Bia · One Man Army</div>
-      <div id="oma-hs"><div id="oma-sd"></div>Online agora</div>
-    </div>
+    <div style="flex:1"><div id="oma-hn">Bia · One Man Army</div><div id="oma-hs"><div id="oma-sd"></div>Online agora</div></div>
     <button id="oma-x" onclick="oT()">&#x2715;</button>
   </div>
   <div id="oma-ml"></div>
@@ -703,140 +519,38 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 </div>
 
 <script>
+function toggleFaq(el){document.querySelectorAll('.faq-item').forEach(i=>{if(i!==el)i.classList.remove('open');});el.classList.toggle('open');}
+function submitNewsletter(e){e.preventDefault();fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('nl-email').value})}).catch(()=>{});document.getElementById('newsletter-form').style.display='none';document.getElementById('nl-success').style.display='block';}
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
+</script>
+
+<script>
 (function(){
 const API='https://api.onemanarmyproject.com.br';
 let sid=null,lid=0,pi=null,op=false,un=0;
 function ft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
-function aM(r,c,ts,id){
-  const ml=document.getElementById('oma-ml');
-  const d=document.createElement('div');d.className='wm '+r;
-  d.innerHTML='<div class="wb">'+c.replace(/\n/g,'<br>')+'</div><div class="wt">'+ft(ts)+'</div>';
-  ml.appendChild(d);ml.scrollTop=ml.scrollHeight;
-  if(id)lid=Math.max(lid,id);
-  if(r==='wa'&&!op){un++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=un>9?'9+':un;}
-}
+function aM(r,c,ts,id){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm '+r;d.innerHTML='<div class="wb">'+c.replace(/\n/g,'<br>')+'</div><div class="wt">'+ft(ts)+'</div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;if(id)lid=Math.max(lid,id);if(r==='wa'&&!op){un++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=un>9?'9+':un;}}
 function sT(){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm wa wtyp';d.id='wtyp';d.innerHTML='<div class="wb"><div class="wd"></div><div class="wd"></div><div class="wd"></div></div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;}
 function hT(){const t=document.getElementById('wtyp');if(t)t.remove();}
-async function wI(){
-  try{
-    const r=await fetch(API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});
-    const d=await r.json();sid=d.session_id;
-    const h=await fetch(API+'/webchat/history/'+sid);
-    const hd=await h.json();
-    hd.messages.forEach(m=>aM(m.role==='agent'?'wa':'wu',m.content,m.ts,m.id));
-    pi=setInterval(wP,1500);
-  }catch(e){aM('wa','Olá! Sou a Bia, do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}
-}
-async function wP(){
-  if(!sid)return;
-  try{const r=await fetch(API+'/webchat/poll/'+sid+'?since='+lid);const d=await r.json();if(d.messages&&d.messages.length>0){hT();d.messages.forEach(m=>aM('wa',m.content,m.ts,m.id));}}catch{}
-}
-async function oS(){
-  const inp=document.getElementById('oma-inp');
-  const c=inp.value.trim();if(!c)return;
-  if(!sid){await wI();}
-  inp.value='';inp.style.height='auto';
-  aM('wu',c,new Date().toISOString(),null);sT();
-  try{
-    document.getElementById('oma-btn').disabled=true;
-    await fetch(API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid,content:c})});
-  }catch{}finally{document.getElementById('oma-btn').disabled=false;}
-}
-function oT(){
-  op=!op;const w=document.getElementById('oma-window');
-  if(op){
-    w.classList.add('wopen');
-    // Fix universal mobile: qualquer tela < 600px calcula altura real
-    if(window.innerWidth < 600){
-      var bh = 76; // altura do bubble + margem
-      var safeH = window.innerHeight - bh - 20; // 20px margem segura do topo
-      if(safeH < 280) safeH = 280;
-      if(safeH > 620) safeH = 620;
-      w.style.position = 'fixed';
-      w.style.width = (window.innerWidth - 24) + 'px';
-      w.style.left = '12px';
-      w.style.right = '12px';
-      w.style.bottom = bh + 'px';
-      w.style.height = safeH + 'px';
-      w.style.maxHeight = safeH + 'px';
-      w.style.top = 'auto';
-    }
-    un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();
-  }
-  else{
-    w.classList.remove('wopen');
-    // Reset estilos inline ao fechar
-    w.style.cssText = '';
-  }
-}
+async function wI(){try{const r=await fetch(API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});const d=await r.json();sid=d.session_id;const h=await fetch(API+'/webchat/history/'+sid);const hd=await h.json();hd.messages.forEach(m=>aM(m.role==='agent'?'wa':'wu',m.content,m.ts,m.id));pi=setInterval(wP,1500);}catch(e){aM('wa','Olá! Sou a Bia, do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}}
+async function wP(){if(!sid)return;try{const r=await fetch(API+'/webchat/poll/'+sid+'?since='+lid);const d=await r.json();if(d.messages&&d.messages.length>0){hT();d.messages.forEach(m=>aM('wa',m.content,m.ts,m.id));}}catch{}}
+async function oS(){const inp=document.getElementById('oma-inp');const c=inp.value.trim();if(!c)return;if(!sid){await wI();}inp.value='';inp.style.height='auto';aM('wu',c,new Date().toISOString(),null);sT();try{document.getElementById('oma-btn').disabled=true;await fetch(API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid,content:c})});}catch{}finally{document.getElementById('oma-btn').disabled=false;}}
+function oT(){op=!op;const w=document.getElementById('oma-window');if(op){w.classList.add('wopen');if(window.innerWidth<600){var bh=76;var safeH=window.innerHeight-bh-20;if(safeH<280)safeH=280;if(safeH>620)safeH=620;w.style.cssText='position:fixed;width:'+(window.innerWidth-24)+'px;left:12px;right:12px;bottom:'+bh+'px;height:'+safeH+'px;max-height:'+safeH+'px;top:auto;'}un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();}else{w.classList.remove('wopen');w.style.cssText='';}}
 document.getElementById('oma-inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
 window.oT=oT;window.oS=oS;
-
-// AUTO-TRIGGER WEBCHAT
-(function(){
-  var triggered = false;
-  var dismissed = false;
-  var previewShown = false;
-
-  function showPreview(){
-    if(dismissed || previewShown || op) return;
-    previewShown = true;
-    var prev = document.getElementById('oma-preview');
-    var bubble = document.getElementById('oma-bubble');
-    if(prev) prev.classList.add('show');
-    if(bubble) bubble.classList.add('pulse');
-    // Auto-fecha o preview após 12s se não interagiu
-    setTimeout(function(){
-      if(!op) hidePreview();
-    }, 12000);
-  }
-
-  function hidePreview(){
-    var prev = document.getElementById('oma-preview');
-    if(prev) prev.classList.remove('show');
-  }
-
-  window.dismissPreview = function(){
-    dismissed = true;
-    hidePreview();
-  };
-
-  window.openFromPreview = function(){
-    hidePreview();
-    oT();
-  };
-
-  // Trigger 1 — tempo: 8 segundos na página
-  setTimeout(function(){
-    if(!triggered && !op){
-      triggered = true;
-      showPreview();
-    }
-  }, 8000);
-
-  // Trigger 2 — scroll: 40% da página
-  window.addEventListener('scroll', function(){
-    if(triggered || op) return;
-    var scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    if(scrolled >= 0.4){
-      triggered = true;
-      showPreview();
-    }
-  }, {passive: true});
-
-  // Trigger 3 — exit intent (desktop): mouse sai pelo topo
-  document.addEventListener('mouseleave', function(e){
-    if(triggered || op || dismissed) return;
-    if(e.clientY <= 0){
-      triggered = true;
-      showPreview();
-    }
-  });
+(function(){var triggered=false,dismissed=false,previewShown=false;
+function showPreview(){if(dismissed||previewShown||op)return;previewShown=true;var prev=document.getElementById('oma-preview');var bubble=document.getElementById('oma-bubble');if(prev)prev.classList.add('show');if(bubble)bubble.classList.add('pulse');setTimeout(function(){if(!op)hidePreview();},12000);}
+function hidePreview(){var prev=document.getElementById('oma-preview');if(prev)prev.classList.remove('show');}
+window.dismissPreview=function(){dismissed=true;hidePreview();};
+window.openFromPreview=function(){hidePreview();oT();};
+setTimeout(function(){if(!triggered&&!op){triggered=true;showPreview();}},8000);
+window.addEventListener('scroll',function(){if(triggered||op)return;var scrolled=window.scrollY/(document.body.scrollHeight-window.innerHeight);if(scrolled>=0.4){triggered=true;showPreview();}},{passive:true});
+document.addEventListener('mouseleave',function(e){if(triggered||op||dismissed)return;if(e.clientY<=0){triggered=true;showPreview();}});
 })();
-
 })();
 </script>
 
 </body>
 </html>
-<!-- rebuild 1774991025 -->
+<!-- rebuild 1774991026 -->
