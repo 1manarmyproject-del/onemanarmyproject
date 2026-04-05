@@ -211,96 +211,98 @@ footer a:hover{color:var(--bone);}
   <!-- PREDICTIONS -->
   <div class="product product-predictions" id="predictions">
     <div class="product-visual">
-      <svg width="300" height="220" viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px;position:relative;z-index:1;">
+      <svg width="380" height="320" viewBox="0 0 380 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:8px;position:relative;z-index:1;max-width:100%;">
         <defs>
-          <radialGradient id="glow1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e8703a" stop-opacity=".12"/><stop offset="100%" stop-color="#e8703a" stop-opacity="0"/></radialGradient>
-          <linearGradient id="fishG1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8703a"/><stop offset="100%" stop-color="#ff9a5c"/></linearGradient>
-          <linearGradient id="fishG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c05020"/><stop offset="100%" stop-color="#e8703a"/></linearGradient>
-          <linearGradient id="fishG3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7a2204"/><stop offset="100%" stop-color="#c05020"/></linearGradient>
-          <linearGradient id="fishG4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b3d"/><stop offset="100%" stop-color="#ffb088"/></linearGradient>
-          <linearGradient id="fishG5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3d9e60"/><stop offset="100%" stop-color="#6fd68c"/></linearGradient>
-          <linearGradient id="fishG6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4a90d9"/><stop offset="100%" stop-color="#7bb8f5"/></linearGradient>
+          <radialGradient id="glow1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e8703a" stop-opacity=".14"/><stop offset="100%" stop-color="#e8703a" stop-opacity="0"/></radialGradient>
+          <linearGradient id="fA" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8703a"/><stop offset="100%" stop-color="#ff9a5c"/></linearGradient>
+          <linearGradient id="fB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c05020"/><stop offset="100%" stop-color="#e8703a"/></linearGradient>
+          <linearGradient id="fC" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7a2204"/><stop offset="100%" stop-color="#c05020"/></linearGradient>
+          <linearGradient id="fD" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b3d"/><stop offset="100%" stop-color="#ffb088"/></linearGradient>
+          <linearGradient id="fE" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3d9e60"/><stop offset="100%" stop-color="#6fd68c"/></linearGradient>
+          <linearGradient id="fF" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4a90d9"/><stop offset="100%" stop-color="#7bb8f5"/></linearGradient>
+          <linearGradient id="fG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9b59b6"/><stop offset="100%" stop-color="#c49dde"/></linearGradient>
+          <linearGradient id="fH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e74c3c"/><stop offset="100%" stop-color="#f1948a"/></linearGradient>
         </defs>
         <!-- Background glow -->
-        <circle cx="150" cy="110" r="100" fill="url(#glow1)"/>
-        <!-- Connection lines (swarm links) -->
-        <line x1="80" y1="55" x2="130" y2="80" stroke="#e8703a" stroke-opacity=".15" stroke-width=".7"/>
-        <line x1="130" y1="80" x2="190" y2="60" stroke="#e8703a" stroke-opacity=".12" stroke-width=".7"/>
-        <line x1="130" y1="80" x2="150" y2="130" stroke="#e8703a" stroke-opacity=".1" stroke-width=".7"/>
-        <line x1="60" y1="120" x2="130" y2="80" stroke="#e8703a" stroke-opacity=".08" stroke-width=".7"/>
-        <line x1="150" y1="130" x2="220" y2="110" stroke="#e8703a" stroke-opacity=".1" stroke-width=".7"/>
-        <line x1="220" y1="110" x2="250" y2="150" stroke="#e8703a" stroke-opacity=".08" stroke-width=".7"/>
-        <line x1="100" y1="160" x2="150" y2="130" stroke="#e8703a" stroke-opacity=".1" stroke-width=".7"/>
-        <line x1="190" y1="60" x2="250" y2="50" stroke="#e8703a" stroke-opacity=".08" stroke-width=".7"/>
-        <!-- Fish (each = an agent) - main swarm moving right -->
-        <!-- Leader fish -->
-        <g transform="translate(125,75) rotate(-8)">
-          <path d="M0,0 L-18,-7 L-14,0 L-18,7 Z" fill="url(#fishG1)" opacity=".95"/><circle cx="-5" cy="-2" r="1.2" fill="#fff" opacity=".9"/>
+        <circle cx="190" cy="150" r="140" fill="url(#glow1)"/>
+        <circle cx="120" cy="100" r="60" fill="#e8703a" opacity=".03"/>
+        <circle cx="270" cy="180" r="50" fill="#4a90d9" opacity=".02"/>
+        <!-- Connection lines (swarm network) -->
+        <g stroke-opacity=".1" stroke-width=".6" stroke="#e8703a">
+          <line x1="95" y1="65" x2="155" y2="90"/><line x1="155" y1="90" x2="210" y2="70"/>
+          <line x1="155" y1="90" x2="170" y2="150"/><line x1="70" y1="130" x2="155" y2="90"/>
+          <line x1="170" y1="150" x2="250" y2="125"/><line x1="250" y1="125" x2="300" y2="170"/>
+          <line x1="120" y1="185" x2="170" y2="150"/><line x1="210" y1="70" x2="290" y2="55"/>
+          <line x1="60" y1="195" x2="120" y2="185"/><line x1="170" y1="150" x2="200" y2="220"/>
+          <line x1="300" y1="170" x2="330" y2="200"/><line x1="200" y1="220" x2="260" y2="240"/>
+          <line x1="85" y1="240" x2="140" y2="225"/><line x1="140" y1="225" x2="200" y2="220"/>
+          <line x1="250" y1="125" x2="280" y2="90"/><line x1="120" y1="100" x2="95" y2="65"/>
+          <line x1="330" y1="110" x2="290" y2="55"/><line x1="45" y1="160" x2="70" y2="130"/>
         </g>
-        <!-- Cluster 1 (top) -->
-        <g transform="translate(78,50) rotate(-12)">
-          <path d="M0,0 L-14,-5.5 L-11,0 L-14,5.5 Z" fill="url(#fishG2)" opacity=".85"/><circle cx="-4" cy="-1.5" r="1" fill="#fff" opacity=".8"/>
-        </g>
-        <g transform="translate(95,42) rotate(-5)">
-          <path d="M0,0 L-12,-4.5 L-9,0 L-12,4.5 Z" fill="url(#fishG4)" opacity=".8"/><circle cx="-3.5" cy="-1.3" r=".9" fill="#fff" opacity=".8"/>
-        </g>
-        <g transform="translate(110,58) rotate(-15)">
-          <path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fishG5)" opacity=".75"/><circle cx="-3" cy="-1.2" r=".8" fill="#fff" opacity=".7"/>
-        </g>
-        <!-- Cluster 2 (middle-left) -->
-        <g transform="translate(55,115) rotate(5)">
-          <path d="M0,0 L-15,-6 L-12,0 L-15,6 Z" fill="url(#fishG6)" opacity=".8"/><circle cx="-4" cy="-1.5" r="1" fill="#fff" opacity=".8"/>
-        </g>
-        <g transform="translate(72,105) rotate(-3)">
-          <path d="M0,0 L-13,-5 L-10,0 L-13,5 Z" fill="url(#fishG1)" opacity=".7"/><circle cx="-3.5" cy="-1.3" r=".9" fill="#fff" opacity=".7"/>
-        </g>
-        <g transform="translate(65,130) rotate(10)">
-          <path d="M0,0 L-10,-3.5 L-7,0 L-10,3.5 Z" fill="url(#fishG3)" opacity=".65"/><circle cx="-3" cy="-1" r=".7" fill="#fff" opacity=".6"/>
-        </g>
-        <!-- Cluster 3 (right) -->
-        <g transform="translate(190,55) rotate(-10)">
-          <path d="M0,0 L-16,-6 L-12,0 L-16,6 Z" fill="url(#fishG4)" opacity=".85"/><circle cx="-4.5" cy="-1.5" r="1" fill="#fff" opacity=".8"/>
-        </g>
-        <g transform="translate(215,70) rotate(-2)">
-          <path d="M0,0 L-12,-4.5 L-9,0 L-12,4.5 Z" fill="url(#fishG2)" opacity=".7"/><circle cx="-3.5" cy="-1.3" r=".9" fill="#fff" opacity=".7"/>
-        </g>
-        <g transform="translate(225,48) rotate(-18)">
-          <path d="M0,0 L-10,-3.5 L-7,0 L-10,3.5 Z" fill="url(#fishG5)" opacity=".6"/><circle cx="-3" cy="-1" r=".7" fill="#fff" opacity=".6"/>
-        </g>
-        <g transform="translate(250,55) rotate(-6)">
-          <path d="M0,0 L-9,-3 L-6,0 L-9,3 Z" fill="url(#fishG6)" opacity=".55"/><circle cx="-2.5" cy="-.9" r=".6" fill="#fff" opacity=".5"/>
-        </g>
-        <!-- Cluster 4 (bottom) -->
-        <g transform="translate(145,130) rotate(4)">
-          <path d="M0,0 L-16,-6 L-12,0 L-16,6 Z" fill="url(#fishG1)" opacity=".8"/><circle cx="-4.5" cy="-1.5" r="1" fill="#fff" opacity=".8"/>
-        </g>
-        <g transform="translate(170,140) rotate(8)">
-          <path d="M0,0 L-13,-5 L-10,0 L-13,5 Z" fill="url(#fishG3)" opacity=".75"/><circle cx="-3.5" cy="-1.3" r=".9" fill="#fff" opacity=".7"/>
-        </g>
-        <g transform="translate(100,155) rotate(12)">
-          <path d="M0,0 L-14,-5.5 L-11,0 L-14,5.5 Z" fill="url(#fishG4)" opacity=".7"/><circle cx="-4" cy="-1.5" r=".9" fill="#fff" opacity=".7"/>
-        </g>
-        <g transform="translate(125,165) rotate(6)">
-          <path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fishG6)" opacity=".6"/><circle cx="-3" cy="-1.2" r=".8" fill="#fff" opacity=".6"/>
-        </g>
-        <!-- Outliers -->
-        <g transform="translate(220,108) rotate(-5)">
-          <path d="M0,0 L-15,-5.5 L-11,0 L-15,5.5 Z" fill="url(#fishG2)" opacity=".75"/><circle cx="-4" cy="-1.5" r=".9" fill="#fff" opacity=".7"/>
-        </g>
-        <g transform="translate(245,148) rotate(15)">
-          <path d="M0,0 L-12,-4.5 L-9,0 L-12,4.5 Z" fill="url(#fishG5)" opacity=".6"/><circle cx="-3.5" cy="-1.3" r=".8" fill="#fff" opacity=".6"/>
-        </g>
-        <g transform="translate(42,85) rotate(-20)">
-          <path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fishG3)" opacity=".5"/><circle cx="-3" cy="-1.2" r=".7" fill="#fff" opacity=".5"/>
-        </g>
-        <!-- Tiny scattered fish (distant) -->
-        <g transform="translate(35,55) rotate(-25)"><path d="M0,0 L-7,-2.5 L-5,0 L-7,2.5 Z" fill="#c05020" opacity=".35"/></g>
-        <g transform="translate(260,90) rotate(3)"><path d="M0,0 L-8,-3 L-6,0 L-8,3 Z" fill="#e8703a" opacity=".3"/></g>
-        <g transform="translate(45,170) rotate(18)"><path d="M0,0 L-7,-2.5 L-5,0 L-7,2.5 Z" fill="#4a90d9" opacity=".3"/></g>
-        <g transform="translate(270,165) rotate(-8)"><path d="M0,0 L-6,-2 L-4,0 L-6,2 Z" fill="#3d9e60" opacity=".25"/></g>
-        <!-- Methodology text below -->
-        <text x="150" y="200" text-anchor="middle" font-family="Space Mono,monospace" font-size="7" fill="#888" letter-spacing="2">SWARM INTELLIGENCE · AGENT-BASED SIMULATION</text>
-        <text x="150" y="212" text-anchor="middle" font-family="Space Mono,monospace" font-size="6" fill="#555" letter-spacing="1.5">cada peixe = um agente autônomo</text>
+        <!-- === FISH SWARM (40+ fish) === -->
+        <!-- LEADER CLUSTER (center-top, large fish) -->
+        <g transform="translate(155,85) rotate(-8)"><path d="M0,0 L-22,-8.5 L-17,0 L-22,8.5 Z" fill="url(#fA)" opacity=".95"/><circle cx="-6" cy="-2.5" r="1.5" fill="#fff" opacity=".9"/></g>
+        <g transform="translate(175,78) rotate(-12)"><path d="M0,0 L-20,-7.5 L-15,0 L-20,7.5 Z" fill="url(#fD)" opacity=".9"/><circle cx="-5.5" cy="-2.2" r="1.3" fill="#fff" opacity=".85"/></g>
+        <g transform="translate(140,95) rotate(-3)"><path d="M0,0 L-19,-7 L-14,0 L-19,7 Z" fill="url(#fB)" opacity=".88"/><circle cx="-5" cy="-2" r="1.3" fill="#fff" opacity=".85"/></g>
+        <!-- TOP-LEFT cluster -->
+        <g transform="translate(90,60) rotate(-15)"><path d="M0,0 L-17,-6.5 L-13,0 L-17,6.5 Z" fill="url(#fE)" opacity=".82"/><circle cx="-4.5" cy="-2" r="1.1" fill="#fff" opacity=".8"/></g>
+        <g transform="translate(110,50) rotate(-8)"><path d="M0,0 L-15,-5.5 L-11,0 L-15,5.5 Z" fill="url(#fF)" opacity=".78"/><circle cx="-4" cy="-1.7" r="1" fill="#fff" opacity=".75"/></g>
+        <g transform="translate(75,75) rotate(-20)"><path d="M0,0 L-14,-5 L-10,0 L-14,5 Z" fill="url(#fA)" opacity=".7"/><circle cx="-3.5" cy="-1.5" r=".9" fill="#fff" opacity=".7"/></g>
+        <g transform="translate(105,72) rotate(-6)"><path d="M0,0 L-13,-4.5 L-9,0 L-13,4.5 Z" fill="url(#fG)" opacity=".75"/><circle cx="-3.5" cy="-1.4" r=".9" fill="#fff" opacity=".7"/></g>
+        <g transform="translate(65,50) rotate(-22)"><path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fB)" opacity=".6"/><circle cx="-3" cy="-1.2" r=".7" fill="#fff" opacity=".6"/></g>
+        <g transform="translate(50,65) rotate(-18)"><path d="M0,0 L-10,-3.5 L-7,0 L-10,3.5 Z" fill="url(#fH)" opacity=".5"/><circle cx="-2.5" cy="-1" r=".6" fill="#fff" opacity=".5"/></g>
+        <!-- TOP-RIGHT cluster -->
+        <g transform="translate(215,65) rotate(-10)"><path d="M0,0 L-18,-7 L-14,0 L-18,7 Z" fill="url(#fD)" opacity=".85"/><circle cx="-5" cy="-2" r="1.2" fill="#fff" opacity=".8"/></g>
+        <g transform="translate(245,55) rotate(-5)"><path d="M0,0 L-15,-5.5 L-11,0 L-15,5.5 Z" fill="url(#fE)" opacity=".75"/><circle cx="-4" cy="-1.7" r="1" fill="#fff" opacity=".75"/></g>
+        <g transform="translate(270,60) rotate(-14)"><path d="M0,0 L-13,-4.5 L-9,0 L-13,4.5 Z" fill="url(#fC)" opacity=".68"/><circle cx="-3.5" cy="-1.4" r=".9" fill="#fff" opacity=".65"/></g>
+        <g transform="translate(295,50) rotate(-8)"><path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fF)" opacity=".55"/><circle cx="-3" cy="-1.2" r=".7" fill="#fff" opacity=".55"/></g>
+        <g transform="translate(235,78) rotate(-2)"><path d="M0,0 L-12,-4.5 L-9,0 L-12,4.5 Z" fill="url(#fA)" opacity=".7"/><circle cx="-3.5" cy="-1.3" r=".8" fill="#fff" opacity=".65"/></g>
+        <g transform="translate(330,65) rotate(-12)"><path d="M0,0 L-9,-3 L-6,0 L-9,3 Z" fill="url(#fG)" opacity=".4"/><circle cx="-2.5" cy="-.9" r=".5" fill="#fff" opacity=".4"/></g>
+        <!-- LEFT cluster -->
+        <g transform="translate(65,125) rotate(5)"><path d="M0,0 L-17,-6.5 L-13,0 L-17,6.5 Z" fill="url(#fF)" opacity=".82"/><circle cx="-4.5" cy="-2" r="1.1" fill="#fff" opacity=".8"/></g>
+        <g transform="translate(85,115) rotate(-3)"><path d="M0,0 L-15,-5.5 L-11,0 L-15,5.5 Z" fill="url(#fA)" opacity=".72"/><circle cx="-4" cy="-1.7" r="1" fill="#fff" opacity=".7"/></g>
+        <g transform="translate(50,140) rotate(12)"><path d="M0,0 L-13,-4.5 L-9,0 L-13,4.5 Z" fill="url(#fC)" opacity=".65"/><circle cx="-3.5" cy="-1.4" r=".9" fill="#fff" opacity=".6"/></g>
+        <g transform="translate(40,155) rotate(8)"><path d="M0,0 L-10,-3.5 L-7,0 L-10,3.5 Z" fill="url(#fH)" opacity=".5"/><circle cx="-2.5" cy="-1" r=".6" fill="#fff" opacity=".5"/></g>
+        <!-- CENTER cluster -->
+        <g transform="translate(170,145) rotate(3)"><path d="M0,0 L-19,-7 L-14,0 L-19,7 Z" fill="url(#fB)" opacity=".85"/><circle cx="-5" cy="-2" r="1.2" fill="#fff" opacity=".82"/></g>
+        <g transform="translate(195,135) rotate(-6)"><path d="M0,0 L-16,-6 L-12,0 L-16,6 Z" fill="url(#fE)" opacity=".78"/><circle cx="-4.5" cy="-1.8" r="1" fill="#fff" opacity=".75"/></g>
+        <g transform="translate(150,160) rotate(8)"><path d="M0,0 L-14,-5 L-10,0 L-14,5 Z" fill="url(#fG)" opacity=".72"/><circle cx="-3.5" cy="-1.5" r=".9" fill="#fff" opacity=".7"/></g>
+        <!-- RIGHT cluster -->
+        <g transform="translate(255,120) rotate(-5)"><path d="M0,0 L-18,-7 L-14,0 L-18,7 Z" fill="url(#fD)" opacity=".8"/><circle cx="-5" cy="-2" r="1.2" fill="#fff" opacity=".78"/></g>
+        <g transform="translate(280,105) rotate(-10)"><path d="M0,0 L-14,-5 L-10,0 L-14,5 Z" fill="url(#fB)" opacity=".7"/><circle cx="-3.5" cy="-1.5" r=".9" fill="#fff" opacity=".68"/></g>
+        <g transform="translate(305,130) rotate(2)"><path d="M0,0 L-13,-4.5 L-9,0 L-13,4.5 Z" fill="url(#fF)" opacity=".62"/><circle cx="-3.5" cy="-1.4" r=".8" fill="#fff" opacity=".6"/></g>
+        <g transform="translate(335,115) rotate(-8)"><path d="M0,0 L-10,-3.5 L-7,0 L-10,3.5 Z" fill="url(#fA)" opacity=".48"/><circle cx="-2.5" cy="-1" r=".6" fill="#fff" opacity=".45"/></g>
+        <!-- BOTTOM-LEFT cluster -->
+        <g transform="translate(80,200) rotate(10)"><path d="M0,0 L-16,-6 L-12,0 L-16,6 Z" fill="url(#fD)" opacity=".75"/><circle cx="-4.5" cy="-1.8" r="1" fill="#fff" opacity=".72"/></g>
+        <g transform="translate(110,215) rotate(6)"><path d="M0,0 L-14,-5 L-10,0 L-14,5 Z" fill="url(#fE)" opacity=".68"/><circle cx="-3.5" cy="-1.5" r=".9" fill="#fff" opacity=".65"/></g>
+        <g transform="translate(60,220) rotate(15)"><path d="M0,0 L-12,-4.5 L-9,0 L-12,4.5 Z" fill="url(#fC)" opacity=".58"/><circle cx="-3" cy="-1.3" r=".8" fill="#fff" opacity=".55"/></g>
+        <g transform="translate(95,235) rotate(4)"><path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fH)" opacity=".55"/><circle cx="-3" cy="-1.2" r=".7" fill="#fff" opacity=".52"/></g>
+        <g transform="translate(45,195) rotate(18)"><path d="M0,0 L-9,-3 L-6,0 L-9,3 Z" fill="url(#fG)" opacity=".42"/><circle cx="-2.5" cy="-.9" r=".5" fill="#fff" opacity=".4"/></g>
+        <!-- BOTTOM-CENTER cluster -->
+        <g transform="translate(195,220) rotate(5)"><path d="M0,0 L-17,-6.5 L-13,0 L-17,6.5 Z" fill="url(#fA)" opacity=".78"/><circle cx="-4.5" cy="-2" r="1.1" fill="#fff" opacity=".75"/></g>
+        <g transform="translate(165,235) rotate(10)"><path d="M0,0 L-15,-5.5 L-11,0 L-15,5.5 Z" fill="url(#fF)" opacity=".68"/><circle cx="-4" cy="-1.7" r="1" fill="#fff" opacity=".65"/></g>
+        <g transform="translate(220,240) rotate(2)"><path d="M0,0 L-13,-4.5 L-9,0 L-13,4.5 Z" fill="url(#fB)" opacity=".6"/><circle cx="-3.5" cy="-1.4" r=".8" fill="#fff" opacity=".58"/></g>
+        <g transform="translate(140,250) rotate(14)"><path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fD)" opacity=".52"/><circle cx="-3" cy="-1.2" r=".7" fill="#fff" opacity=".5"/></g>
+        <!-- BOTTOM-RIGHT cluster -->
+        <g transform="translate(290,175) rotate(6)"><path d="M0,0 L-16,-6 L-12,0 L-16,6 Z" fill="url(#fG)" opacity=".72"/><circle cx="-4.5" cy="-1.8" r="1" fill="#fff" opacity=".7"/></g>
+        <g transform="translate(315,195) rotate(12)"><path d="M0,0 L-14,-5 L-10,0 L-14,5 Z" fill="url(#fE)" opacity=".62"/><circle cx="-3.5" cy="-1.5" r=".9" fill="#fff" opacity=".6"/></g>
+        <g transform="translate(335,210) rotate(8)"><path d="M0,0 L-11,-4 L-8,0 L-11,4 Z" fill="url(#fA)" opacity=".5"/><circle cx="-3" cy="-1.2" r=".7" fill="#fff" opacity=".48"/></g>
+        <g transform="translate(260,250) rotate(3)"><path d="M0,0 L-12,-4.5 L-9,0 L-12,4.5 Z" fill="url(#fH)" opacity=".55"/><circle cx="-3.5" cy="-1.3" r=".8" fill="#fff" opacity=".52"/></g>
+        <!-- SCATTERED DISTANT FISH (edges) -->
+        <g transform="translate(25,90) rotate(-25)"><path d="M0,0 L-8,-3 L-6,0 L-8,3 Z" fill="#c05020" opacity=".32"/></g>
+        <g transform="translate(355,85) rotate(5)"><path d="M0,0 L-8,-3 L-6,0 L-8,3 Z" fill="#e8703a" opacity=".28"/></g>
+        <g transform="translate(30,250) rotate(20)"><path d="M0,0 L-7,-2.5 L-5,0 L-7,2.5 Z" fill="#4a90d9" opacity=".25"/></g>
+        <g transform="translate(350,250) rotate(-5)"><path d="M0,0 L-7,-2.5 L-5,0 L-7,2.5 Z" fill="#3d9e60" opacity=".22"/></g>
+        <g transform="translate(190,30) rotate(-15)"><path d="M0,0 L-9,-3 L-6,0 L-9,3 Z" fill="#9b59b6" opacity=".3"/></g>
+        <g transform="translate(30,30) rotate(-28)"><path d="M0,0 L-6,-2 L-4,0 L-6,2 Z" fill="#e74c3c" opacity=".2"/></g>
+        <g transform="translate(360,155) rotate(10)"><path d="M0,0 L-7,-2.5 L-5,0 L-7,2.5 Z" fill="#ff6b3d" opacity=".25"/></g>
+        <g transform="translate(15,170) rotate(22)"><path d="M0,0 L-6,-2 L-4,0 L-6,2 Z" fill="#7a2204" opacity=".2"/></g>
+        <g transform="translate(310,35) rotate(-18)"><path d="M0,0 L-7,-2.5 L-5,0 L-7,2.5 Z" fill="#e8703a" opacity=".25"/></g>
+        <g transform="translate(120,275) rotate(16)"><path d="M0,0 L-8,-3 L-6,0 L-8,3 Z" fill="#4a90d9" opacity=".28"/></g>
+        <g transform="translate(280,270) rotate(5)"><path d="M0,0 L-6,-2 L-4,0 L-6,2 Z" fill="#3d9e60" opacity=".2"/></g>
+        <!-- Methodology labels -->
+        <text x="190" y="295" text-anchor="middle" font-family="Space Mono,monospace" font-size="8" fill="#888" letter-spacing="2.5">SWARM INTELLIGENCE · AGENT-BASED SIMULATION</text>
+        <text x="190" y="310" text-anchor="middle" font-family="Space Mono,monospace" font-size="7" fill="#555" letter-spacing="1.5">cada peixe = um agente autônomo</text>
       </svg>
       <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;line-height:1.7;max-width:260px;text-align:center;margin:0 auto 16px;">
         Dezenas de agentes com personalidades únicas interagem em redes sociais simuladas — como um cardume, onde cada peixe decide sozinho mas o grupo revela padrões coletivos.
