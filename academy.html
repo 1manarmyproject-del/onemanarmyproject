@@ -2946,8 +2946,10 @@ async function completeModule(){
   if(isDone(ST.currentModule))return;
   const mid=ST.currentModule;
   const m=MODS[mid];
-  const ph=PHASES[m.phase-1];
+  // Buscar a fase real pelo array PHASES (não pelo m.phase que pode divergir)
+  const ph=PHASES.find(p=>p.modules.includes(mid));
   const isLastInPhase=ph&&ph.modules[ph.modules.length-1]===mid;
+  const realPhaseId=ph?ph.id:0;
   const btn=document.querySelector('#lessonActions .btn-primary');
   if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> Salvando...';}
   try{
@@ -2968,7 +2970,7 @@ async function completeModule(){
     renderLessonActions();
     // Se era o último da fase, mostrar checkpoint após 1.5s
     if(isLastInPhase && m.phase >= 1 && m.phase <= 5){
-      setTimeout(()=>showCheckpoint(m.phase), 1500);
+      setTimeout(()=>showCheckpoint(realPhaseId), 1500);
       return;
     }
     if(doneCount()===30){
