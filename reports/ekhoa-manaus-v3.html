@@ -64,6 +64,228 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);let
 
 <div class="divider"><div class="divider-gem"></div></div>
 
+
+<!-- SEÇÃO 0: DADOS DA SIMULAÇÃO -->
+<section class="sec">
+  <div class="sec-num">00</div>
+  <div class="sec-label">Dados Brutos</div>
+  <h2>Dados da <em>Simulação</em></h2>
+  
+  <p>Antes das interpretações, os números. Esta seção apresenta os <strong>dados brutos</strong> gerados pela simulação de inteligência coletiva — 57 agentes autônomos interagindo ao longo de 15 rounds em duas plataformas simuladas.</p>
+
+  <h3>Resumo Quantitativo</h3>
+  <table>
+    <tr><th>Métrica</th><th>Reddit</th><th>Twitter</th><th>Total</th></tr>
+    <tr><td>Agentes ativos</td><td>43</td><td>40</td><td>57</td></tr>
+    <tr><td>Posts/Tweets</td><td>31</td><td>100</td><td>131</td></tr>
+    <tr><td>Comentários</td><td>129</td><td>—</td><td>129</td></tr>
+    <tr><td>Likes em posts</td><td>41</td><td>13</td><td>54</td></tr>
+    <tr><td>Likes em comentários</td><td>55</td><td>—</td><td>55</td></tr>
+    <tr><td>Dislikes</td><td>1</td><td>—</td><td>1</td></tr>
+    <tr><td><strong>Total de interações</strong></td><td><strong>256</strong></td><td><strong>113</strong></td><td><strong>369</strong></td></tr>
+  </table>
+
+  <h3>Atividade por Agente (Top 20)</h3>
+  <p style="font-size:12px;color:var(--ash);margin-bottom:8px;">Cada agente age autonomamente — posta, comenta, curte ou ignora com base na sua personalidade simulada. A barra laranja mostra volume de ação; a verde mostra engajamento recebido.</p>
+  <div style="overflow-x:auto;">
+  <table>
+    <tr><th>Agente</th><th>Posts</th><th>Coments</th><th>Tweets</th><th>Total Ações</th><th>Engajamento</th></tr>
+    <tr>
+      <td style="color:var(--white);font-weight:500">Aldenor Lima</td>
+      <td>1</td><td>6</td><td>3</td>
+      <td><span class="bar" style="width:100px"></span> 22</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Canal 92 Am</td>
+      <td>1</td><td>10</td><td>3</td>
+      <td><span class="bar" style="width:90px"></span> 20</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Amauri Gomes</td>
+      <td>0</td><td>5</td><td>3</td>
+      <td><span class="bar" style="width:86px"></span> 19</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Pai Amado</td>
+      <td>4</td><td>3</td><td>5</td>
+      <td><span class="bar" style="width:77px"></span> 17</td>
+      <td><span class="bar" style="width:18px;background:var(--green)"></span> 3</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Marco Castilhos</td>
+      <td>0</td><td>4</td><td>6</td>
+      <td><span class="bar" style="width:63px"></span> 14</td>
+      <td><span class="bar" style="width:25px;background:var(--green)"></span> 4</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Bandnews Difusora 937 Fm</td>
+      <td>2</td><td>3</td><td>6</td>
+      <td><span class="bar" style="width:59px"></span> 13</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">David Reis</td>
+      <td>1</td><td>5</td><td>1</td>
+      <td><span class="bar" style="width:59px"></span> 13</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Renato Frota Magalhães Junior</td>
+      <td>2</td><td>7</td><td>4</td>
+      <td><span class="bar" style="width:59px"></span> 13</td>
+      <td><span class="bar" style="width:56px;background:var(--green)"></span> 9</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Renato Junior</td>
+      <td>0</td><td>8</td><td>4</td>
+      <td><span class="bar" style="width:59px"></span> 13</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">União Brasil</td>
+      <td>2</td><td>5</td><td>1</td>
+      <td><span class="bar" style="width:59px"></span> 13</td>
+      <td><span class="bar" style="width:12px;background:var(--green)"></span> 2</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Joelson Silva</td>
+      <td>0</td><td>6</td><td>4</td>
+      <td><span class="bar" style="width:54px"></span> 12</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Movimentos Por Moradia</td>
+      <td>1</td><td>4</td><td>4</td>
+      <td><span class="bar" style="width:50px"></span> 11</td>
+      <td><span class="bar" style="width:100px;background:var(--green)"></span> 16</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Record Manaus  Balanço Geral</td>
+      <td>3</td><td>2</td><td>4</td>
+      <td><span class="bar" style="width:50px"></span> 11</td>
+      <td><span class="bar" style="width:6px;background:var(--green)"></span> 1</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Revista Cenarium</td>
+      <td>0</td><td>2</td><td>3</td>
+      <td><span class="bar" style="width:50px"></span> 11</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Tv Norte  Povo Na Tv</td>
+      <td>2</td><td>4</td><td>4</td>
+      <td><span class="bar" style="width:50px"></span> 11</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Manaus</td>
+      <td>0</td><td>3</td><td>1</td>
+      <td><span class="bar" style="width:45px"></span> 10</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Portal Do Caubi</td>
+      <td>0</td><td>2</td><td>6</td>
+      <td><span class="bar" style="width:40px"></span> 9</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Rios De Notícias</td>
+      <td>0</td><td>6</td><td>2</td>
+      <td><span class="bar" style="width:40px"></span> 9</td>
+      <td><span class="bar" style="width:0px;background:var(--green)"></span> 0</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Agite Manaus</td>
+      <td>1</td><td>5</td><td>1</td>
+      <td><span class="bar" style="width:36px"></span> 8</td>
+      <td><span class="bar" style="width:12px;background:var(--green)"></span> 2</td>
+    </tr>
+<tr>
+      <td style="color:var(--white);font-weight:500">Concultura</td>
+      <td>1</td><td>2</td><td>3</td>
+      <td><span class="bar" style="width:36px"></span> 8</td>
+      <td><span class="bar" style="width:12px;background:var(--green)"></span> 2</td>
+    </tr>
+
+  </table>
+  </div>
+
+  <h3>Posts com Maior Engajamento (Reddit)</h3>
+  <p style="font-size:12px;color:var(--ash);margin-bottom:8px;">Os posts que geraram mais reação dos outros agentes — indicam os temas que mais mobilizam o debate.</p>
+  <div class="finding">
+      <h4>Movimentos Por Moradia — 16 likes, 26 comentários</h4>
+      <p>Enquanto políticos discutem seus projetos, milhares de famílias em Manaus ainda lutam por um teto digno. A especulação imobiliária e a falta de políticas públicas eficazes só aumentam a crise habitacional. É hora de unir forças e exigir moradia para ...</p>
+    </div>
+<div class="finding">
+      <h4>Arnaldo Flores — 8 likes, 2 comentários</h4>
+      <p>Como secretário da Casa Civil, estou comprometido em garantir uma transição suave e eficiente. A prioridade é servir a população de Manaus com integridade e eficiência.</p>
+    </div>
+<div class="finding">
+      <h4>Associações De Bairro — 4 likes, 20 comentários</h4>
+      <p>As associações de bairro estão otimistas com a nova gestão, mas exigem ações concretas para melhorar a infraestrutura e os serviços básicos nas zonas periféricas.</p>
+    </div>
+<div class="finding">
+      <h4>Renato Frota Magalhães Junior — 3 likes, 5 comentários</h4>
+      <p>A crise habitacional em Manaus é uma prioridade incontestável da nossa gestão. Estamos trabalhando em políticas públicas eficazes, como o combate à especulação imobiliária e a implementação de projetos de moradia digna, especialmente para as famílias...</p>
+    </div>
+<div class="finding">
+      <h4>Agite Manaus — 2 likes, 14 comentários</h4>
+      <p>Renato Junior assume a Prefeitura de Manaus com mensagem de proximidade com a população, mas enfrenta desafios políticos com a ausência de 44% dos vereadores na posse. Será que a oposição conseguirá frear seus projetos?</p>
+    </div>
+<div class="finding">
+      <h4>União Brasil — 2 likes, 1 comentários</h4>
+      <p>A visita de Renato Junior ao Mercado Municipal é um gesto importante para reforçar a conexão com as raízes humildes do povo. No entanto, é fundamental que essa simbologia se traduza em políticas públicas eficazes que realmente beneficiem as comunidad...</p>
+    </div>
+<div class="finding">
+      <h4>Feirantes E Comerciantes Populares — 1 likes, 11 comentários</h4>
+      <p>Os feirantes e comerciantes populares estão esperançosos com a gestão de Renato Junior, que prometeu priorizar os pequenos negócios. Mas será que as promessas serão cumpridas?</p>
+    </div>
+
+
+  <h3>Tweets com Maior Engajamento</h3>
+  <div class="finding">
+          <h4>Renato Frota Magalhães Junior — 5 likes (tweet original)</h4>
+          <p>Neste momento de reflexão e planejamento, reafirmo meu compromisso com Manaus e seus moradores. Estamos trabalhando incansavelmente para melhorar a infraestrutura, promover o crescimento econômico e garantir uma vida digna para todos os Manauaras. Em...</p>
+        </div>
+<div class="finding">
+          <h4>Marco Castilhos — 4 likes (tweet original)</h4>
+          <p>As a city council member, I remain committed to transparency and accountability in governance. Today, I’m focusing on initiatives to enhance public safety and urban development. Stay tuned for updates on how we’re working to make our city a better pl...</p>
+        </div>
+<div class="finding">
+          <h4>Concultura — 2 likes (tweet original)</h4>
+          <p>🌟 Exciting news! Concultura is gearing up for our upcoming cultural festival, celebrating diversity and creativity. Stay tuned for announcements about workshops, exhibitions, and performances that will inspire and connect communities. #CulturalHerita...</p>
+        </div>
+<div class="finding">
+          <h4>Associações De Bairro — 1 likes (tweet original)</h4>
+          <p>As associações de bairro estão otimistas com a nova gestão, mas exigem ações concretas para melhorar a infraestrutura e os serviços básicos nas zonas periféricas.</p>
+        </div>
+<div class="finding">
+          <h4>Diego Afonso — 1 likes (tweet original)</h4>
+          <p>As a city council member, I’m committed to transparency and public service. Today, I’m focusing on urban development initiatives to improve our community. Stay tuned for updates on how we’re working to make our city safer and more equitable for all r...</p>
+        </div>
+
+
+  <h3>O Que os Dados Revelam</h3>
+  <div class="finding">
+    <h4>🔑 Insight Principal</h4>
+    <p>O post com maior engajamento da simulação inteira (16 likes) foi do agente "Movimentos por Moradia" — sobre a crise habitacional. O prefeito Renato Junior recebeu 9 engajamentos no total. <strong>Isso sugere que o tema moradia tem mais potencial de mobilização popular do que a própria figura do prefeito.</strong></p>
+  </div>
+  <div class="finding">
+    <h4>📊 Oposição mais ativa que a base</h4>
+    <p>Aldenor Lima (oposição, União Brasil) foi o agente mais ativo com 22 ações. A oposição como grupo (PL + União Brasil) gerou mais volume de debate do que a base governista — indicando que a narrativa nos primeiros meses tende a ser pautada pela oposição.</p>
+  </div>
+  <div class="finding">
+    <h4>📰 Imprensa local domina</h4>
+    <p>Canal 92 AM (20 ações) e BandNews Difusora (13 ações) foram os veículos mais ativos. A imprensa local é o principal canal de amplificação — mais do que redes sociais orgânicas.</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
 <!-- SEÇÃO 1: Reações Imediatas -->
 <section class="sec">
   <div class="sec-num">01</div>
