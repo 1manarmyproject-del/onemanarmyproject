@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/portal",
+      "destination": "/portal.html"
+    },
+    {
+      "source": "/predictions/portal/:path*",
+      "destination": "https://predictions-api.pipeeyewear.com.br/portal/:path*"
+    },
+    {
       "source": "/agentes",
       "destination": "/agentes.html"
     },

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<title>OMA Portal — Meu Espaço</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
+  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
+  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+nav{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(8px);}
+.nav-brand{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);text-decoration:none;}
+.nav-brand span{color:var(--fire);}
+.nav-user{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:1px;}
+@media(max-width:600px){nav{padding:14px 20px;}}
+.screen{display:none;min-height:calc(100vh - 57px);}
+.screen.active{display:flex;flex-direction:column;}
+/* LOGIN */
+#screen-login{align-items:center;justify-content:center;padding:40px 20px;}
+.login-box{width:100%;max-width:420px;text-align:center;}
+.login-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(24px,4vw,36px);color:var(--white);line-height:1.1;margin-bottom:10px;}
+.login-title em{color:var(--fire);font-style:italic;}
+.login-sub{font-size:14px;color:var(--fog);margin-bottom:36px;line-height:1.7;}
+.login-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:block;margin-bottom:6px;text-align:left;}
+.login-input{width:100%;background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;padding:14px 16px;outline:none;transition:border-color .2s;margin-bottom:12px;}
+.login-input:focus{border-color:var(--fire);}
+.login-btn{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:16px;cursor:pointer;transition:background .2s;width:100%;}
+.login-btn:hover{background:var(--ember);}
+.login-btn:disabled{background:var(--steel);cursor:not-allowed;}
+.login-msg{font-family:'Space Mono',monospace;font-size:11px;text-align:center;margin-top:10px;min-height:18px;}
+.login-msg.ok{color:var(--green);}
+.login-msg.err{color:#e85a5a;}
+/* PORTAL */
+.portal-header{background:var(--coal);border-bottom:1px solid var(--iron);padding:32px 48px;}
+.portal-greeting{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);text-transform:uppercase;margin-bottom:8px;}
+.portal-name{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(20px,3vw,32px);color:var(--white);}
+.portal-company{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:4px;letter-spacing:1px;}
+@media(max-width:600px){.portal-header{padding:24px 20px;}}
+.portal-body{max-width:1020px;margin:0 auto;padding:48px 32px;}
+@media(max-width:600px){.portal-body{padding:24px 16px;}}
+.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:20px;}
+/* PRODUTOS */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;margin-bottom:48px;}
+.product-card{background:var(--coal);border:1px solid var(--iron);padding:28px 24px;position:relative;overflow:hidden;transition:border-color .2s;}
+.product-card:hover{border-color:var(--steel);}
+.product-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.product-card:hover::after{transform:scaleX(1);}
+.product-type{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;margin-bottom:12px;}
+.product-name{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:var(--fire);margin-bottom:6px;}
+.product-company{font-size:12px;color:var(--fog);margin-bottom:16px;}
+.product-status{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:4px 10px;}
+.status-processing{background:rgba(232,112,58,.1);color:var(--fire);border:1px solid rgba(232,112,58,.2);}
+.status-ready{background:rgba(61,158,96,.1);color:var(--green);border:1px solid rgba(61,158,96,.2);}
+.status-pending{background:rgba(85,85,85,.2);color:var(--ash);border:1px solid var(--iron);}
+.status-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.status-processing .status-dot{background:var(--fire);animation:sdot 1.5s infinite;}
+.status-ready .status-dot{background:var(--green);}
+.status-pending .status-dot{background:var(--ash);}
+.product-action{margin-top:20px;}
+.product-action a{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);text-decoration:none;transition:opacity .2s;}
+.product-action a:hover{opacity:.7;}
+.product-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:12px;}
+/* EMPTY */
+.empty-state{background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:40px 32px;text-align:center;max-width:520px;}
+.empty-state h3{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--white);margin-bottom:10px;}
+.empty-state p{font-size:13px;color:var(--fog);line-height:1.7;margin-bottom:24px;}
+.empty-state a{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:13px 28px;text-decoration:none;display:inline-block;}
+/* ECO */
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+@media(max-width:700px){.eco-grid{grid-template-columns:1fr;}}
+.eco-card{background:var(--iron);border:1px solid var(--steel);padding:24px 20px;}
+.eco-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--ash);margin-bottom:10px;text-transform:uppercase;}
+.eco-name{font-family:'Black Ops One',cursive;font-size:15px;letter-spacing:2px;color:var(--bone);margin-bottom:8px;}
+.eco-desc{font-size:12px;color:var(--fog);line-height:1.6;margin-bottom:16px;}
+.eco-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--fire);text-decoration:none;transition:opacity .2s;}
+.eco-cta:hover{opacity:.7;}
+/* LOADING */
+#screen-loading{align-items:center;justify-content:center;}
+.ldots{display:flex;gap:8px;margin-top:20px;justify-content:center;}
+.ldot{width:8px;height:8px;border-radius:50%;background:var(--fire);animation:ldot .8s infinite;}
+.ldot:nth-child(2){animation-delay:.15s;}
+.ldot:nth-child(3){animation-delay:.3s;}
+@keyframes ldot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+@keyframes sdot{0%,100%{opacity:1}50%{opacity:.3}}
+footer{text-align:center;padding:32px;border-top:1px solid var(--iron);margin-top:auto;}
+footer p{font-family:'Space Mono',monospace;font-size:8px;color:var(--steel);letter-spacing:2px;}
+footer a{color:var(--ash);text-decoration:none;}
+footer a:hover{color:var(--fire);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">ONE MAN <span>ARMY</span></a>
+  <div class="nav-user" id="nav-user" style="display:none;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:1px;"></div>
+</nav>
+
+<!-- LOADING -->
+<div class="screen active" id="screen-loading">
+  <div style="text-align:center">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash)">CARREGANDO</div>
+    <div class="ldots"><div class="ldot"></div><div class="ldot"></div><div class="ldot"></div></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="screen" id="screen-login">
+  <div class="login-box">
+    <div style="font-size:48px;margin-bottom:20px;">🦞</div>
+    <h1 class="login-title">Seu espaço no<br><em>ecossistema OMA.</em></h1>
+    <p class="login-sub">Acompanhe seus produtos, acesse relatórios e explore o ecossistema. Digite seu e-mail para receber o link de acesso.</p>
+    <label class="login-label">E-mail</label>
+    <input type="email" class="login-input" id="login-email" placeholder="seu@email.com" autocomplete="email">
+    <button class="login-btn" id="login-btn" onclick="requestMagicLink()">Receber link de acesso →</button>
+    <div class="login-msg" id="login-msg"></div>
+    <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);margin-top:28px;line-height:1.6">Sem senha. Sem cadastro.<br>Link enviado por e-mail — expira em 24h.</p>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div class="screen" id="screen-portal">
+  <div class="portal-header">
+    <div class="portal-greeting">OMA Portal</div>
+    <div class="portal-name" id="portal-name">Olá!</div>
+    <div class="portal-company" id="portal-company"></div>
+  </div>
+  <div class="portal-body">
+
+    <div id="products-section">
+      <div class="sec-label">Seus produtos</div>
+      <div class="products-grid" id="products-grid"></div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <div class="sec-label">Explorar o ecossistema</div>
+      <div class="eco-grid">
+        <div class="eco-card">
+          <div class="eco-tag">Análise Preditiva</div>
+          <div class="eco-name">Predictions</div>
+          <div class="eco-desc">Como seu mercado vai reagir nos próximos 6 meses. Swarm Intelligence com dezenas de agentes simulados.</div>
+          <a href="/predictions" class="eco-cta">Solicitar relatório →</a>
+        </div>
+        <div class="eco-card">
+          <div class="eco-tag">Em breve</div>
+          <div class="eco-name">Scribe</div>
+          <div class="eco-desc">Transcrição, síntese e estruturação automática de reuniões, entrevistas e conteúdos em áudio.</div>
+          <span class="eco-cta" style="color:var(--ash);cursor:default">Em breve</span>
+        </div>
+        <div class="eco-card">
+          <div class="eco-tag">Em breve</div>
+          <div class="eco-name">Recap</div>
+          <div class="eco-desc">Relatórios de inteligência periódicos sobre seu setor, concorrentes e tendências relevantes.</div>
+          <span class="eco-cta" style="color:var(--ash);cursor:default">Em breve</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:32px 28px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--blood);margin-bottom:10px;">AGENTS AS A SERVICE</div>
+        <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(16px,2.5vw,22px);color:var(--white);line-height:1.2;">Precisa de um agente operando<br>no seu negócio 24h?</div>
+      </div>
+      <a href="/agentes" style="font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:14px 28px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Conhecer agentes →</a>
+    </div>
+
+  </div>
+  <footer><p><a href="/">onemanarmyproject.com.br</a> · <a href="/privacidade.html">privacidade</a></p></footer>
+</div>
+
+<script>
+const API = 'https://predictions-api.pipeeyewear.com.br';
+const SK = 'oma_portal_session';
+const STATUS_LABELS = {pending:'Aguardando',processing:'Em processamento',ready:'Pronto',delivered:'Entregue'};
+const ICONS = {predictions:'🔮',scribe:'🎙️',recap:'📊',agentes:'🤖'};
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function renderProducts(products){
+  const section = document.getElementById('products-section');
+  if(!products||products.length===0){
+    section.innerHTML=`<div class="sec-label">Seus produtos</div>
+    <div class="empty-state">
+      <h3>Nenhum produto ainda.</h3>
+      <p>Explore o ecossistema abaixo e solicite seu primeiro relatório.</p>
+      <a href="/predictions">Solicitar Predictions →</a>
+    </div>`;
+    return;
+  }
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = products.map(p=>{
+    const icon=ICONS[p.product_type]||'📦';
+    const sc=p.status==='ready'||p.status==='delivered'?'status-ready':p.status==='processing'?'status-processing':'status-pending';
+    const sl=STATUS_LABELS[p.status]||p.status;
+    const meta=JSON.parse(p.metadata||'{}');
+    const dt=p.created_at?new Date(p.created_at.replace(' ','T')+'Z').toLocaleDateString('pt-BR'):'';
+    const action=(p.status==='ready'||p.status==='delivered')
+      ?`<div class="product-action"><a href="/solutions">Ver relatório →</a></div>`
+      :p.status==='processing'
+      ?`<div class="product-action" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">Você será notificado quando estiver pronto.</div>`:'';
+    return `<div class="product-card">
+      <div class="product-type">${icon} ${p.product_type.toUpperCase()}</div>
+      <div class="product-name">${p.product_name||'OMA '+p.product_type}</div>
+      <div class="product-company">${meta.company||''}</div>
+      <div class="product-status ${sc}"><div class="status-dot"></div>${sl}</div>
+      ${action}
+      <div class="product-meta">${dt?'Solicitado em '+dt:''}</div>
+    </div>`;
+  }).join('');
+}
+
+async function requestMagicLink(){
+  const email=document.getElementById('login-email').value.trim();
+  const btn=document.getElementById('login-btn');
+  const msg=document.getElementById('login-msg');
+  if(!email||!email.includes('@')){msg.textContent='Digite um e-mail válido.';msg.className='login-msg err';return;}
+  btn.disabled=true;btn.textContent='Enviando...';msg.textContent='';
+  try{
+    await fetch(API+'/portal/magic-link',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+    msg.textContent='Link enviado! Verifique seu e-mail.';msg.className='login-msg ok';
+    btn.textContent='Link enviado ✓';
+  }catch(e){
+    msg.textContent='Erro ao enviar. Tente novamente.';msg.className='login-msg err';
+    btn.disabled=false;btn.textContent='Receber link de acesso →';
+  }
+}
+
+async function validateToken(token){
+  try{const r=await fetch(API+'/portal/auth?token='+token);if(!r.ok)return null;return await r.json();}catch{return null;}
+}
+async function validateSession(token){
+  try{const r=await fetch(API+'/portal/session?token='+token);if(!r.ok)return null;return await r.json();}catch{return null;}
+}
+
+function renderPortal(client,products){
+  document.getElementById('portal-name').textContent='Olá, '+(client.name||client.email.split('@')[0])+'.';
+  document.getElementById('portal-company').textContent=client.company||'';
+  document.getElementById('nav-user').textContent=client.email;
+  document.getElementById('nav-user').style.display='block';
+  renderProducts(products);
+  showScreen('screen-portal');
+}
+
+async function init(){
+  const params=new URLSearchParams(window.location.search);
+  const urlToken=params.get('token');
+  const saved=localStorage.getItem(SK);
+  if(urlToken){
+    const data=await validateToken(urlToken);
+    if(data&&data.ok){
+      localStorage.setItem(SK,data.session);
+      window.history.replaceState({},'','/portal');
+      renderPortal(data.client,data.products);
+      return;
+    }
+    showScreen('screen-login');
+    const m=document.getElementById('login-msg');
+    m.textContent='Link inválido ou expirado. Solicite um novo.';m.className='login-msg err';
+    return;
+  }
+  if(saved){
+    const data=await validateSession(saved);
+    if(data&&data.ok){renderPortal(data.client,data.products);return;}
+    localStorage.removeItem(SK);
+  }
+  showScreen('screen-login');
+}
+
+document.getElementById('login-email').addEventListener('keydown',e=>{if(e.key==='Enter')requestMagicLink();});
+init();
+</script>
+</body>
+</html>
