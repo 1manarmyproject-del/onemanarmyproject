@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-04T20:50:55.785647Z",
-  "updated_at_brt": "17:50 BRT · 04/04/2026",
+  "updated_at": "2026-04-05T00:21:20.467692Z",
+  "updated_at_brt": "21:21 BRT · 04/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 2.7493,
+  "total_cost_usd": 3.1611,
   "services": {
     "system": {
       "name": "Sistema",
@@ -11,19 +11,19 @@
           "activity": "Compactação de sessões",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.10079999999999999,
-          "runs": 25
+          "cost": 0.1064,
+          "runs": 27
         },
         {
           "activity": "Aprendizado e memória",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.0945,
-          "runs": 87
+          "cost": 0.0955,
+          "runs": 88
         }
       ],
-      "total_cost": 0.19529999999999997,
-      "total_runs": 112
+      "total_cost": 0.2019,
+      "total_runs": 115
     },
     "ekhoa": {
       "name": "Ekhoa",
@@ -46,19 +46,19 @@
           "activity": "Orquestração, email, agenda, tarefas",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 2.402,
-          "runs": 22
+          "cost": 2.7962000000000002,
+          "runs": 27
         },
         {
           "activity": "Diagnóstico diário",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.0252,
-          "runs": 3
+          "cost": 0.0314,
+          "runs": 4
         }
       ],
-      "total_cost": 2.4272,
-      "total_runs": 25
+      "total_cost": 2.8276000000000003,
+      "total_runs": 31
     },
     "bia": {
       "name": "Bia",
@@ -67,12 +67,12 @@
           "activity": "Relatórios comerciais",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.0194,
-          "runs": 3
+          "cost": 0.0242,
+          "runs": 4
         }
       ],
-      "total_cost": 0.0194,
-      "total_runs": 3
+      "total_cost": 0.0242,
+      "total_runs": 4
     },
     "darwin": {
       "name": "Darwin",
