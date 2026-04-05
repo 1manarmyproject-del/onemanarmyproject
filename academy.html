@@ -1013,20 +1013,22 @@ select.precert-input{cursor:pointer;}
 
 /* ── BOTÃO APROFUNDAR ────────────────────────────────────── */
 .deepen-btn{
-  display:inline-flex;align-items:center;gap:6px;
+  display:inline-flex;align-items:center;gap:8px;
   margin-top:16px;
-  padding:9px 16px;border-radius:6px;
-  background:var(--bg3);border:1.5px solid var(--border2);
+  padding:10px 18px;border-radius:6px;
+  background:var(--fire);border:none;
   font-family:'Space Mono',monospace;font-size:9px;
   letter-spacing:1px;text-transform:uppercase;
-  color:var(--text3);text-decoration:none;
+  color:#fff;text-decoration:none;
   transition:all .15s;
+  box-shadow:0 2px 8px rgba(232,112,58,.3);
 }
 .deepen-btn:hover{
-  border-color:var(--fire);color:var(--fire);
-  background:var(--fire-light);
+  background:var(--ember);
+  box-shadow:0 4px 14px rgba(232,112,58,.4);
+  transform:translateY(-1px);
 }
-.deepen-btn-icon{font-size:12px;}
+.deepen-btn-icon{font-size:13px;}
 
 
 /* ── DIAGRAMAS DE MÓDULO ─────────────────────────────────── */
