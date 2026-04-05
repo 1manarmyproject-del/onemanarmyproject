@@ -2961,14 +2961,16 @@ async function completeModule(){
     showXpToast('+'+m.xp+' XP');
     showMascot(m.xp);
     launchConfetti();
+    // Reabilitar botão e atualizar UI sempre
+    if(btn){btn.disabled=false;btn.textContent='Concluir módulo ✓';}
+    updateTopBar();
+    renderSidebar();
+    renderLessonActions();
     // Se era o último da fase, mostrar checkpoint após 1.5s
     if(isLastInPhase && m.phase >= 1 && m.phase <= 5){
       setTimeout(()=>showCheckpoint(m.phase), 1500);
       return;
     }
-    updateTopBar();
-    renderSidebar();
-    renderLessonActions();
     if(doneCount()===30){
       setTimeout(()=>goToPrecert(),1200);
     }
