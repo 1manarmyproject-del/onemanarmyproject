@@ -1028,6 +1028,82 @@ select.precert-input{cursor:pointer;}
 }
 .deepen-btn-icon{font-size:12px;}
 
+
+/* ── DIAGRAMAS DE MÓDULO ─────────────────────────────────── */
+.module-diagram{
+  border:1.5px solid var(--fire-mid);border-radius:10px;
+  padding:18px 16px;margin-bottom:14px;background:#fff;
+  box-shadow:0 1px 6px rgba(232,112,58,.08);position:relative;
+}
+.diagram-badge{
+  position:absolute;top:-10px;left:16px;
+  background:var(--fire);color:#fff;
+  font-family:'Space Mono',monospace;font-size:7px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:3px 10px;border-radius:10px;
+}
+.diagram-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:16px;color:var(--text);margin-bottom:14px;margin-top:6px;
+}
+.diagram-title span{color:var(--fire);}
+.diagram-insight{
+  margin-top:12px;background:var(--fire-light);border:1px solid var(--fire-mid);
+  border-radius:6px;padding:9px 12px;
+  font-size:12px;color:var(--text2);line-height:1.5;
+  display:flex;gap:8px;align-items:flex-start;
+}
+/* Pipeline */
+.dg-pipe{display:flex;flex-direction:column;gap:0;}
+.dg-step{display:flex;gap:10px;align-items:flex-start;}
+.dg-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.dg-circle{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--fire-light);border:1.5px solid var(--fire-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:9px;font-weight:700;
+  color:var(--fire);flex-shrink:0;
+}
+.dg-circle.g{background:var(--green-light,#dcfce7);border-color:#86efac;color:#16a34a;}
+.dg-line{width:1px;height:16px;background:var(--fire-mid);margin-top:2px;}
+.dg-content{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:7px;padding:9px 12px;flex:1;margin-bottom:3px;
+}
+.dg-content.g{background:#dcfce7;border-color:#86efac;}
+.dg-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--fire);margin-bottom:2px;}
+.dg-content.g .dg-label{color:#16a34a;}
+.dg-ex{font-size:11px;color:var(--text3);line-height:1.4;font-style:italic;}
+/* Before/After */
+.dg-ba{display:grid;grid-template-columns:1fr 1fr;gap:0;position:relative;}
+.dg-ba-div{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border);transform:translateX(-50%);}
+.dg-ba-div::after{content:'VS';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:var(--text4);font-family:'Space Mono',monospace;font-size:8px;padding:3px 5px;border:1px solid var(--border);border-radius:3px;}
+.dg-col{padding:0 10px;}
+.dg-col-tag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:10px;}
+.dg-col-tag.bad{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;}
+.dg-col-tag.good{background:#dcfce7;color:#16a34a;border:1px solid #86efac;}
+.dg-col-tag.blue{background:#dbeafe;color:#2563eb;border:1px solid #bfdbfe;}
+.dg-col-tag.purple{background:#f3e8ff;color:#7c3aed;border:1px solid #ddd6fe;}
+.dg-item{font-size:11px;color:var(--text2);display:flex;gap:5px;margin-bottom:5px;line-height:1.4;}
+.dg-item .x{color:#dc2626;flex-shrink:0;}
+.dg-item .ok{color:#16a34a;flex-shrink:0;}
+/* Flow */
+.dg-flow{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding:4px 0 8px;}
+.dg-fstep{display:flex;flex-direction:column;align-items:center;flex:1;min-width:54px;}
+.dg-ficon{width:40px;height:40px;border-radius:8px;background:var(--fire-light);border:1.5px solid var(--fire-mid);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.dg-ficon.g{background:#dcfce7;border-color:#86efac;}
+.dg-fname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;color:var(--fire);margin-top:6px;text-align:center;}
+.dg-ficon.g+.dg-fname{color:#16a34a;}
+.dg-fsub{font-size:9px;color:var(--text3);text-align:center;margin-top:1px;line-height:1.3;}
+.dg-arrow{display:flex;align-items:center;padding-top:20px;flex:0 0 20px;}
+.dg-arrow svg{width:20px;height:10px;}
+/* Compare */
+.dg-cmp{display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;align-items:start;}
+.dg-cmp-vs{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;color:var(--text4);text-align:center;padding-top:14px;}
+.dg-cmp-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;}
+.dg-cmp-box.red{border-color:#fca5a5;background:#fff8f8;}
+.dg-cmp-box.grn{border-color:#86efac;background:#f0fdf4;}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -2523,6 +2599,18 @@ function renderLesson(m){
     btn.innerHTML='<span class="deepen-btn-icon">📖</span>Aprofundar nesse tema';
     document.getElementById('lvAnalogy').after(btn);
   }
+  // Diagrama — inserido entre card 1 e card 2
+  const existingDiagram = document.getElementById('moduleDiagram');
+  if(existingDiagram) existingDiagram.remove();
+  if(DIAGRAM_MAP && DIAGRAM_MAP[mid]){
+    const diagEl = document.createElement('div');
+    diagEl.id = 'moduleDiagram';
+    diagEl.innerHTML = DIAGRAM_MAP[mid];
+    // Inserir após o card1, antes do card2
+    const card2El = document.getElementById('card2');
+    if(card2El) card2El.before(diagEl);
+  }
+
   // progress steps: 3 cards + quiz + challenge
   renderLessonProgress();
   // cards
@@ -3138,6 +3226,492 @@ MODS['lgpd'] = {
 };
 
 // Adicionar LGPD ao BLOG_MAP
+
+
+// ════════════════════════════════════════════════════════
+//  DIAGRAM MAP — HTML inline por módulo
+// ════════════════════════════════════════════════════════
+const DIAGRAM_MAP = {
+
+'m01': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Servidor físico vs <span>Cloud</span></div>
+<div class="dg-cmp">
+  <div class="dg-cmp-box red">
+    <div class="dg-col-tag bad" style="margin-bottom:8px;">Servidor físico</div>
+    <div class="dg-item"><span class="x">×</span>Compra o hardware (R$50k+)</div>
+    <div class="dg-item"><span class="x">×</span>Sala climatizada, energia</div>
+    <div class="dg-item"><span class="x">×</span>Escala lenta e cara</div>
+    <div class="dg-item"><span class="x">×</span>Se quebrar, você resolve</div>
+  </div>
+  <div class="dg-cmp-vs">VS</div>
+  <div class="dg-cmp-box grn">
+    <div class="dg-col-tag good" style="margin-bottom:8px;">Cloud ✓</div>
+    <div class="dg-item"><span class="ok">✓</span>Paga pelo uso ($/h)</div>
+    <div class="dg-item"><span class="ok">✓</span>Zero hardware para gerenciar</div>
+    <div class="dg-item"><span class="ok">✓</span>Escala em minutos</div>
+    <div class="dg-item"><span class="ok">✓</span>Datacenter cuida da infra</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🏪</span><span>É como sair de <strong>loja própria</strong> para <strong>loja em shopping</strong>. Mais caro por metro, mas sem reforma, manutenção ou risco de ativo parado.</span></div>
+</div>`,
+
+'m02': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Como o <span>DNS</span> resolve um endereço</div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">🧑</div><div class="dg-fname">Você</div><div class="dg-fsub">digita google.com</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">📖</div><div class="dg-fname">DNS</div><div class="dg-fsub">traduz o nome</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🔢</div><div class="dg-fname">IP</div><div class="dg-fsub">142.250.78.46</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">🌐</div><div class="dg-fname" style="color:#16a34a;">Site</div><div class="dg-fsub">carregado ✓</div></div>
+</div>
+<div class="diagram-insight"><span>⏱</span><span>Todo esse processo leva <strong>menos de 50ms</strong> — antes de qualquer conteúdo aparecer na tela.</span></div>
+</div>`,
+
+'m03': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Ciclo <span>requisição → resposta</span></div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">🧑</div><div class="dg-fname">Cliente</div><div class="dg-fsub">browser/app</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">📤</div><div class="dg-fname">GET/POST</div><div class="dg-fsub">a requisição</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🖥</div><div class="dg-fname">Servidor</div><div class="dg-fsub">processa</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">✅</div><div class="dg-fname" style="color:#16a34a;">200 OK</div><div class="dg-fsub">ou 404 / 500</div></div>
+</div>
+<div class="diagram-insight"><span>💡</span><span><strong>GET</strong> = pedir o cardápio. <strong>POST</strong> = fazer o pedido. <strong>200</strong> = funcionou. <strong>404</strong> = não existe. <strong>500</strong> = servidor quebrou.</span></div>
+</div>`,
+
+'m04': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">HTTP vs <span>HTTPS</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">HTTP</div>
+    <div class="dg-item"><span class="x">×</span>Senha viaja em texto puro</div>
+    <div class="dg-item"><span class="x">×</span>Qualquer um na rede lê</div>
+    <div class="dg-item"><span class="x">×</span>Sem cadeado no browser</div>
+    <div style="margin-top:8px;font-size:20px;text-align:center;">📭</div>
+    <div style="font-size:10px;color:#dc2626;text-align:center;margin-top:3px;">carta aberta</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">HTTPS ✓</div>
+    <div class="dg-item"><span class="ok">✓</span>Tudo criptografado</div>
+    <div class="dg-item"><span class="ok">✓</span>Indecifrável no meio</div>
+    <div class="dg-item"><span class="ok">✓</span>Cadeado verde no browser</div>
+    <div style="margin-top:8px;font-size:20px;text-align:center;">🔒</div>
+    <div style="font-size:10px;color:#16a34a;text-align:center;margin-top:3px;">envelope lacrado</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>⚠️</span><span>Em redes Wi-Fi públicas (café, aeroporto), HTTP expõe tudo. <strong>Sempre HTTPS</strong> — especialmente para login e pagamento.</span></div>
+</div>`,
+
+'m05': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">IaaS → PaaS → <span>SaaS</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">I</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">IaaS — Infraestrutura como serviço</div><div class="dg-ex">Servidor puro. Você instala tudo. Ex: AWS EC2, Hetzner VPS. Máximo controle, máxima responsabilidade.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">P</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">PaaS — Plataforma como serviço</div><div class="dg-ex">Você sobe só o código. A plataforma gerencia o resto. Ex: Vercel, Railway, Render.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">S</div></div><div class="dg-content g"><div class="dg-label">SaaS — Software como serviço</div><div class="dg-ex">Produto pronto, você usa. Ex: Notion, Slack, Google Docs. Zero gerenciamento.</div></div></div>
+</div>
+<div class="diagram-insight"><span>📐</span><span>Mais controle = mais responsabilidade. Mais abstração = menos dor de cabeça. Escolha baseado no que sua equipe consegue gerenciar.</span></div>
+</div>`,
+
+'m06': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">SQL vs <span>NoSQL</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag blue">SQL</div>
+    <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:8px;">Tabela com colunas fixas</div>
+    <div style="background:var(--bg3);border-radius:4px;padding:6px;font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">id | nome | email<br>1  | João | j@oma<br>2  | Ana  | a@oma</div>
+    <div class="dg-item" style="margin-top:8px;"><span class="ok">✓</span>Dados estruturados</div>
+    <div class="dg-item"><span class="ok">✓</span>Relações entre tabelas</div>
+    <div class="dg-item"><span class="x">×</span>Rígido para mudanças</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag purple">NoSQL</div>
+    <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:8px;">Documento flexível</div>
+    <div style="background:var(--bg3);border-radius:4px;padding:6px;font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">{nome:"João",<br> tags:["vip"],<br> score:9.2}</div>
+    <div class="dg-item" style="margin-top:8px;"><span class="ok">✓</span>Schema flexível</div>
+    <div class="dg-item"><span class="ok">✓</span>Escala horizontal</div>
+    <div class="dg-item"><span class="x">×</span>Menos consistência</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>💡</span><span>Para a maioria das PMEs: <strong>SQL resolve</strong>. Use NoSQL quando precisar de flexibilidade de schema ou escala massiva.</span></div>
+</div>`,
+
+'m07': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Do código ao <span>produto</span></div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">✍️</div><div class="dg-fname">Escrever</div><div class="dg-fsub">código em texto</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">📦</div><div class="dg-fname">Git</div><div class="dg-fsub">versiona tudo</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🔨</div><div class="dg-fname">Build</div><div class="dg-fsub">compila</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">🚀</div><div class="dg-fname" style="color:#16a34a;">Deploy</div><div class="dg-fsub">no ar ✓</div></div>
+</div>
+<div class="diagram-insight"><span>💡</span><span>Cada passo pode dar errado. Entender o fluxo permite perguntar: "onde está agora — no build ou já em produção?"</span></div>
+</div>`,
+
+'m08': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Sem Docker vs <span>Com Docker</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">Sem Docker</div>
+    <div class="dg-item"><span class="x">×</span>"Funciona no meu PC"</div>
+    <div class="dg-item"><span class="x">×</span>Versões diferentes</div>
+    <div class="dg-item"><span class="x">×</span>Configuração manual</div>
+    <div class="dg-item"><span class="x">×</span>Horas de debug</div>
+    <div style="margin-top:10px;font-size:22px;text-align:center;">😤</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Com Docker ✓</div>
+    <div class="dg-item"><span class="ok">✓</span>Funciona em qualquer lugar</div>
+    <div class="dg-item"><span class="ok">✓</span>Dependências empacotadas</div>
+    <div class="dg-item"><span class="ok">✓</span>Ambiente idêntico sempre</div>
+    <div class="dg-item"><span class="ok">✓</span>Deploy previsível</div>
+    <div style="margin-top:10px;font-size:22px;text-align:center;">📦</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🏪</span><span>Docker é o <strong>sistema de franquia do software</strong> — entrega o kit completo. Abre igual em São Paulo ou Manaus.</span></div>
+</div>`,
+
+'m09': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Segredo no código vs <span>.env file</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">❌ Errado</div>
+    <div style="background:#fee2e2;border-radius:5px;padding:8px;margin-bottom:8px;font-family:'Space Mono',monospace;font-size:8px;color:#dc2626;line-height:1.6;">const key =<br>"sk-abc123..." ← no código</div>
+    <div class="dg-item"><span class="x">×</span>Sobe no GitHub</div>
+    <div class="dg-item"><span class="x">×</span>Bots encontram em minutos</div>
+    <div class="dg-item"><span class="x">×</span>Fatura de R$50k na AWS</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">✓ Certo</div>
+    <div style="background:#dcfce7;border-radius:5px;padding:8px;margin-bottom:8px;font-family:'Space Mono',monospace;font-size:8px;color:#16a34a;line-height:1.6;">API_KEY=sk-abc123<br>← só no .env (gitignore)</div>
+    <div class="dg-item"><span class="ok">✓</span>Nunca vai pro Git</div>
+    <div class="dg-item"><span class="ok">✓</span>Cada ambiente tem o seu</div>
+    <div class="dg-item"><span class="ok">✓</span>Rotação fácil se vazar</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🔑</span><span>Segredo no código = chave embaixo do tapete. Qualquer um que vê o repositório tem acesso.</span></div>
+</div>`,
+
+'m10': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Síncrono vs <span>Assíncrono</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">Síncrono</div>
+    <div class="dg-pipe" style="gap:4px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">→ usuário pede relatório</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#dc2626;">⏳ tela trava 30s...</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#dc2626;">❌ usuário abandona</div>
+    </div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Assíncrono ✓</div>
+    <div class="dg-pipe" style="gap:4px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">→ usuário pede relatório</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#16a34a;">✓ "processando..." (imediato)</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#16a34a;">📬 notificado quando pronto</div>
+    </div>
+  </div>
+</div>
+<div class="diagram-insight"><span>⏱</span><span>Qualquer operação que leva mais de <strong>2 segundos</strong> deve ser assíncrona. Usuário não pode esperar com a tela travada.</span></div>
+</div>`,
+
+'m11': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Níveis de <span>log</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle" style="font-size:8px;background:#f0f9ff;border-color:#bae6fd;color:#0369a1;">D</div><div class="dg-line"></div></div><div class="dg-content" style="background:#f0f9ff;border-color:#bae6fd;"><div class="dg-label" style="color:#0369a1;">DEBUG</div><div class="dg-ex">Tudo, muito detalhado. Só em desenvolvimento — nunca em produção.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle" style="font-size:8px;background:#f0fdf4;border-color:#86efac;color:#16a34a;">I</div><div class="dg-line"></div></div><div class="dg-content" style="background:#f0fdf4;border-color:#86efac;"><div class="dg-label" style="color:#16a34a;">INFO</div><div class="dg-ex">Eventos normais: login realizado, pedido criado, email enviado.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle" style="font-size:8px;background:#fffbeb;border-color:#fde68a;color:#d97706;">W</div><div class="dg-line"></div></div><div class="dg-content" style="background:#fffbeb;border-color:#fde68a;"><div class="dg-label" style="color:#d97706;">WARNING</div><div class="dg-ex">Algo suspeito mas não quebrou: 3 tentativas de login falhas.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle" style="font-size:8px;background:#fff1f2;border-color:#fca5a5;color:#dc2626;">E</div><div class="dg-line"></div></div><div class="dg-content" style="background:#fff1f2;border-color:#fca5a5;"><div class="dg-label" style="color:#dc2626;">ERROR</div><div class="dg-ex">Algo quebrou: pagamento falhou, API não respondeu.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle" style="font-size:8px;background:#fee2e2;border-color:#f87171;color:#991b1b;">C</div></div><div class="dg-content" style="background:#fee2e2;border-color:#f87171;"><div class="dg-label" style="color:#991b1b;">CRITICAL 🚨</div><div class="dg-ex">Sistema em risco: banco inacessível, servidor sem espaço.</div></div></div>
+</div>
+<div class="diagram-insight"><span>📟</span><span>Configure alertas no nível <strong>ERROR</strong> ou acima. Você precisa saber que algo quebrou — antes do cliente reclamar.</span></div>
+</div>`,
+
+'m13': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Como um <span>LLM</span> é criado</div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">📚</div><div class="dg-fname">Pré-treino</div><div class="dg-fsub">bilhões de textos</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🧠</div><div class="dg-fname">Modelo base</div><div class="dg-fsub">prevê próxima palavra</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">👤</div><div class="dg-fname">RLHF</div><div class="dg-fsub">feedback humano</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">🤖</div><div class="dg-fname" style="color:#16a34a;">Assistente</div><div class="dg-fsub">Claude, GPT...</div></div>
+</div>
+<div class="diagram-insight"><span>💡</span><span>O raciocínio <strong>emergiu</strong> como subproduto da previsão em escala — não foi programado explicitamente. Isso é o que torna LLMs surpreendentes.</span></div>
+</div>`,
+
+'m14': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">A estrutura do <span>prompt perfeito</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">R</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Role — Quem é o modelo</div><div class="dg-ex">"Você é especialista em vendas B2B para PMEs brasileiras."</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">C</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Context — O que ele precisa saber</div><div class="dg-ex">"Produto: R$3.000/mês. Cliente: donos de restaurante."</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">T</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Task — O que fazer</div><div class="dg-ex">"Escreva um email de prospecção frio para donos de restaurante."</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">F</div></div><div class="dg-content g"><div class="dg-label">Format — Como entregar ✓</div><div class="dg-ex">"Máximo 150 palavras. 3 parágrafos. Sem jargão. CTA claro."</div></div></div>
+</div>
+<div class="diagram-insight"><span>🎯</span><span>Briefing ruim = resultado ruim — independente do modelo. <strong>R + C + T + F</strong> elimina 80% das frustrações com IA.</span></div>
+</div>`,
+
+'m15': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Modelo caro vs <span>Modelo econômico</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">Modelo topo</div>
+    <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:6px;">Opus / GPT-4</div>
+    <div class="dg-item"><span class="ok">✓</span>Análise complexa</div>
+    <div class="dg-item"><span class="ok">✓</span>Raciocínio profundo</div>
+    <div class="dg-item"><span class="ok">✓</span>Código crítico</div>
+    <div class="dg-item"><span class="x">×</span>10–20× mais caro</div>
+    <div class="dg-item"><span class="x">×</span>Mais lento</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Modelo econômico ✓</div>
+    <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:6px;">Haiku / GPT-4o mini</div>
+    <div class="dg-item"><span class="ok">✓</span>FAQ e triagem</div>
+    <div class="dg-item"><span class="ok">✓</span>Classificação em volume</div>
+    <div class="dg-item"><span class="ok">✓</span>Respostas simples</div>
+    <div class="dg-item"><span class="ok">✓</span>Rápido e barato</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>💰</span><span>Volume alto + tarefa simples = modelo econômico. Reserve o caro para onde a qualidade realmente importa.</span></div>
+</div>`,
+
+'m16': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Pipeline do <span>RAG</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">1</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Pergunta chega</div><div class="dg-ex">"Como cancelo minha assinatura?" → vira vetor matemático</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">2</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Busca semântica</div><div class="dg-ex">Banco vetorial encontra os chunks mais relevantes dos seus documentos</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">3</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Contexto injetado</div><div class="dg-ex">Chunks + pergunta original entram juntos no prompt do LLM</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">4</div></div><div class="dg-content g"><div class="dg-label">Resposta baseada em fatos ✓</div><div class="dg-ex">LLM responde com os seus documentos reais — não da memória de treino</div></div></div>
+</div>
+<div class="diagram-insight"><span>📌</span><span>Sem RAG: modelo responde da memória (pode alucinar). Com RAG: responde dos seus documentos. Essa diferença é enorme em produção.</span></div>
+</div>`,
+
+'m17': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Prompt → RAG → <span>Fine-tuning</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">1º</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Prompt Engineering</div><div class="dg-ex">Tente primeiro. Resolve 80% dos casos. Zero custo adicional.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">2º</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">RAG</div><div class="dg-ex">Quando a base de conhecimento é específica e muda frequentemente.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">3º</div></div><div class="dg-content g"><div class="dg-label">Fine-tuning ← último recurso</div><div class="dg-ex">Só quando: volume alto + tarefa repetitiva + 100s de exemplos disponíveis.</div></div></div>
+</div>
+<div class="diagram-insight"><span>💡</span><span>Complexidade e custo crescem na mesma direção. <strong>Só suba a escada quando o degrau anterior não resolver.</strong></span></div>
+</div>`,
+
+'m19': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Chatbot vs <span>Agente de IA</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">Chatbot</div>
+    <div class="dg-item"><span class="x">×</span>Segue fluxo pré-definido</div>
+    <div class="dg-item"><span class="x">×</span>Resposta de menu fixo</div>
+    <div class="dg-item"><span class="x">×</span>Limitado ao programado</div>
+    <div class="dg-item"><span class="x">×</span>Não executa tarefas</div>
+    <div style="margin-top:8px;font-size:20px;text-align:center;">🏧</div>
+    <div style="font-size:10px;color:#dc2626;text-align:center;margin-top:3px;">caixa eletrônico</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Agente ✓</div>
+    <div class="dg-item"><span class="ok">✓</span>Recebe objetivo</div>
+    <div class="dg-item"><span class="ok">✓</span>Decide os passos</div>
+    <div class="dg-item"><span class="ok">✓</span>Usa ferramentas</div>
+    <div class="dg-item"><span class="ok">✓</span>Executa e observa</div>
+    <div style="margin-top:8px;font-size:20px;text-align:center;">🤝</div>
+    <div style="font-size:10px;color:#16a34a;text-align:center;margin-top:3px;">assistente pessoal</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🎯</span><span>"Agende uma reunião com João para sexta." Chatbot pede dados em menu fixo. Agente consulta calendário, verifica disponibilidade e confirma.</span></div>
+</div>`,
+
+'m20': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Sem MCP vs <span>Com MCP</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">Sem MCP</div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:8px;">3 apps × 3 ferramentas</div>
+    <div style="text-align:center;font-size:11px;color:#dc2626;font-family:'Space Mono',monospace;line-height:2;">= 9 integrações<br>para manter 😤</div>
+    <div class="dg-item" style="margin-top:8px;"><span class="x">×</span>Cada integração diferente</div>
+    <div class="dg-item"><span class="x">×</span>Manutenção multiplicada</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Com MCP ✓</div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:8px;">3 apps + 3 ferramentas</div>
+    <div style="text-align:center;font-size:11px;color:#16a34a;font-family:'Space Mono',monospace;line-height:2;">= 6 conexões<br>padronizadas ✓</div>
+    <div class="dg-item" style="margin-top:8px;"><span class="ok">✓</span>1 protocolo universal</div>
+    <div class="dg-item"><span class="ok">✓</span>Plug-and-play</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🔌</span><span>MCP é o <strong>USB da IA</strong>. Antes do USB, cada dispositivo tinha conector diferente. Depois, uma porta serve para tudo.</span></div>
+</div>`,
+
+'m21': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Anatomia de uma <span>automação</span></div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">⚡</div><div class="dg-fname">Trigger</div><div class="dg-fsub">tempo, evento, dado</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🔀</div><div class="dg-fname">Lógica</div><div class="dg-fsub">condições</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🤖</div><div class="dg-fname">Ação</div><div class="dg-fsub">email, API, tarefa</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">📊</div><div class="dg-fname" style="color:#16a34a;">Monitor</div><div class="dg-fsub" style="color:#dc2626;font-weight:700;">obrigatório</div></div>
+</div>
+<div class="diagram-insight"><span>⚠️</span><span>Automação sem monitoramento <strong>não existe</strong>. Quando parar de funcionar — e vai parar — você precisa saber antes do cliente.</span></div>
+</div>`,
+
+'m22': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">1 agente vs <span>Sistema multi-agente</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">1 agente só</div>
+    <div class="dg-item"><span class="x">×</span>Contexto enorme e caro</div>
+    <div class="dg-item"><span class="x">×</span>Instrução confusa</div>
+    <div class="dg-item"><span class="x">×</span>Bug derruba tudo</div>
+    <div class="dg-item"><span class="x">×</span>Difícil de testar</div>
+    <div style="margin-top:8px;font-size:20px;text-align:center;">😵</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Multi-agente ✓</div>
+    <div class="dg-item"><span class="ok">✓</span>Orquestrador + especialistas</div>
+    <div class="dg-item"><span class="ok">✓</span>Cada um faz 1 coisa bem</div>
+    <div class="dg-item"><span class="ok">✓</span>Falha isolada</div>
+    <div class="dg-item"><span class="ok">✓</span>Modelo certo por tarefa</div>
+    <div style="margin-top:8px;font-size:20px;text-align:center;">🏢</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🏢</span><span>Pense como uma empresa: <strong>CEO orquestra</strong>, gerentes especializados executam. Vendas não precisa saber de finanças.</span></div>
+</div>`,
+
+'m23': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Os 3 tipos de <span>memória</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">💾</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Contexto da conversa = RAM</div><div class="dg-ex">Histórico desta sessão. Automático, temporário — some quando a conversa termina.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">🗄</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Memória persistente = HD</div><div class="dg-ex">Salva em banco, recuperada nas próximas sessões. "Usuário prefere resposta em tópicos."</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">📚</div></div><div class="dg-content g"><div class="dg-label">Base de conhecimento = Biblioteca</div><div class="dg-ex">Documentos indexados via RAG. Consultada quando relevante — não carregada inteira.</div></div></div>
+</div>
+<div class="diagram-insight"><span>⚠️</span><span>Contextos separados por agente evitam bugs bizarros — a Bia não deve saber o que o George conversou com você.</span></div>
+</div>`,
+
+'m24': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Como o <span>prompt injection</span> funciona</div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">📧</div><div class="dg-fname">Dado externo</div><div class="dg-fsub">email, formulário</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#dc2626" stroke-width="1.5" opacity=".6"/><polygon points="14,1 20,5 14,9" fill="#dc2626" opacity=".6"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon" style="background:#fee2e2;border-color:#fca5a5;">☠️</div><div class="dg-fname" style="color:#dc2626;">Instrução oculta</div><div class="dg-fsub">"ignore seu system prompt"</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#dc2626" stroke-width="1.5" opacity=".6"/><polygon points="14,1 20,5 14,9" fill="#dc2626" opacity=".6"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon" style="background:#fee2e2;border-color:#fca5a5;">😵</div><div class="dg-fname" style="color:#dc2626;">Agente executa</div><div class="dg-fsub">sem validação</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">🛡</div><div class="dg-fname" style="color:#16a34a;">Validação</div><div class="dg-fsub">bloqueia ✓</div></div>
+</div>
+<div class="diagram-insight"><span>🔐</span><span>Agentes que leem inputs externos (emails, formulários, sites) estão em risco. <strong>Separe dados de instruções</strong> e valide ações sensíveis.</span></div>
+</div>`,
+
+'m25': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Monolito vs <span>Microsserviços</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag blue">Monolito</div>
+    <div style="background:var(--bg3);border-radius:5px;padding:8px;margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+      <div style="background:#dbeafe;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#2563eb;">Auth</div>
+      <div style="background:#dbeafe;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#2563eb;">API</div>
+      <div style="background:#dbeafe;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#2563eb;">DB</div>
+      <div style="background:#dbeafe;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#2563eb;">UI</div>
+    </div>
+    <div class="dg-item"><span class="ok">✓</span>Simples de começar</div>
+    <div class="dg-item"><span class="x">×</span>Escala tudo junto</div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">Microsserviços</div>
+    <div style="background:var(--bg3);border-radius:5px;padding:8px;margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+      <div style="background:#dcfce7;border:1px solid #86efac;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#16a34a;">Auth↗</div>
+      <div style="background:#dcfce7;border:1px solid #86efac;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#16a34a;">API↗</div>
+      <div style="background:#dcfce7;border:1px solid #86efac;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#16a34a;">DB↗</div>
+      <div style="background:#dcfce7;border:1px solid #86efac;border-radius:3px;padding:4px;text-align:center;font-family:'Space Mono',monospace;font-size:7px;color:#16a34a;">UI↗</div>
+    </div>
+    <div class="dg-item"><span class="ok">✓</span>Escala independente</div>
+    <div class="dg-item"><span class="x">×</span>Complexidade alta</div>
+  </div>
+</div>
+<div class="diagram-insight"><span>💡</span><span><strong>Comece monolito.</strong> A maioria das startups que começa com microsserviços se arrepende. Extraia quando a dor for real.</span></div>
+</div>`,
+
+'m26': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Deploy manual vs <span>CI/CD</span></div>
+<div class="dg-ba">
+  <div class="dg-ba-div"></div>
+  <div class="dg-col">
+    <div class="dg-col-tag bad">Manual</div>
+    <div class="dg-pipe" style="gap:3px;margin-top:4px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">→ escreve código</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">→ FTP manual</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#dc2626;">🙏 reza</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#dc2626;">→ espera reclamação</div>
+    </div>
+  </div>
+  <div class="dg-col">
+    <div class="dg-col-tag good">CI/CD ✓</div>
+    <div class="dg-pipe" style="gap:3px;margin-top:4px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">→ push no Git</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);">→ testes automáticos</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#16a34a;">✓ deploy automático</div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#16a34a;">✓ rollback fácil</div>
+    </div>
+  </div>
+</div>
+<div class="diagram-insight"><span>🏭</span><span>CI/CD = esteira de qualidade automática. <strong>Só sobe para produção o que passou nos testes.</strong></span></div>
+</div>`,
+
+'m27': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Custo real por <span>sessão de IA</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">1</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Tokens de input</div><div class="dg-ex">System prompt + histórico + mensagem ≈ 2.000 tokens = $0,006</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">2</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Tokens de output</div><div class="dg-ex">Resposta do agente ≈ 500 tokens = $0,007</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">3</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Infraestrutura</div><div class="dg-ex">Servidor, banco, CDN ≈ $0,002 por sessão</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">≈</div></div><div class="dg-content g"><div class="dg-label">~$0,015 por sessão</div><div class="dg-ex">10.000 sessões/mês = $150. Usuário intensivo (100 sessões) = $1,50. Precifique para cobrir.</div></div></div>
+</div>
+<div class="diagram-insight"><span>⚠️</span><span>Calcule o custo por sessão <strong>antes</strong> de definir o preço. Super-usuário pode virar prejuízo sem que você perceba.</span></div>
+</div>`,
+
+'m28': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Como o <span>multi-tenancy</span> funciona</div>
+<div class="dg-flow">
+  <div class="dg-fstep"><div class="dg-ficon">🏢</div><div class="dg-fname">Cliente A</div><div class="dg-fsub">tenant_id: 1</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">⚙️</div><div class="dg-fname">1 sistema</div><div class="dg-fsub">infra compartilhada</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#e8703a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#e8703a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon">🔒</div><div class="dg-fname">Isolamento</div><div class="dg-fsub">dados separados</div></div>
+  <div class="dg-arrow"><svg viewBox="0 0 20 10"><line x1="0" y1="5" x2="14" y2="5" stroke="#16a34a" stroke-width="1.5" opacity=".5"/><polygon points="14,1 20,5 14,9" fill="#16a34a" opacity=".5"/></svg></div>
+  <div class="dg-fstep"><div class="dg-ficon g">🏢</div><div class="dg-fname" style="color:#16a34a;">Cliente B</div><div class="dg-fsub">tenant_id: 2</div></div>
+</div>
+<div class="diagram-insight"><span>🔐</span><span>Isolamento de dados é <strong>obrigação</strong>, não opcional. Vazamento entre tenants é desastre reputacional e legal.</span></div>
+</div>`,
+
+'m29': `<div class="module-diagram"><div class="diagram-badge">📊 visual</div>
+<div class="diagram-title">Framework <span>AARRR</span></div>
+<div class="dg-pipe">
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">A</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Aquisição</div><div class="dg-ex">Quantos chegam? (tráfego, leads, cadastros)</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">A</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Ativação</div><div class="dg-ex">Quantos tiveram o "momento aha"? (1ª ação de valor)</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">R</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Retenção ← a mais importante</div><div class="dg-ex">Quantos voltam em 7, 30, 90 dias? Churn alto = balde furado.</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle">R</div><div class="dg-line"></div></div><div class="dg-content"><div class="dg-label">Receita</div><div class="dg-ex">MRR, churn de receita, LTV/CAC</div></div></div>
+  <div class="dg-step"><div class="dg-left"><div class="dg-circle g">R</div></div><div class="dg-content g"><div class="dg-label">Indicação ✓</div><div class="dg-ex">Usuários recomendam? NPS > 50 = produto forte.</div></div></div>
+</div>
+<div class="diagram-insight"><span>💡</span><span><strong>Retenção > Aquisição.</strong> Crescer com churn alto é encher balde furado. Corrija a retenção antes de escalar aquisição.</span></div>
+</div>`,
+
+};
 
 // ════════════════════════════════════════════════════════
 //  BOOT
