@@ -59,6 +59,12 @@ body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);}
 .footer a{color:var(--fire);text-decoration:none;font-size:12px;}
 
 /* ── WEBCHAT BIA ── */
+#oma-preview{position:fixed;bottom:92px;right:24px;background:var(--carbon,#0f0f0f);border:1px solid rgba(232,112,58,.3);border-radius:12px 12px 0 12px;padding:12px 16px;max-width:260px;z-index:8999;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
+#oma-preview.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+#oma-preview p{font-family:'Barlow',sans-serif;font-size:13px;color:#e0d9cf;line-height:1.5;margin:0 0 10px 0;}
+#oma-preview .prev-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:14px;line-height:1;}
+#oma-preview .prev-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:#e8703a;cursor:pointer;background:none;border:none;padding:0;}
+@media(max-width:600px){#oma-preview{bottom:80px;right:16px;max-width:220px;}}
 #oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
 #oma-bubble:hover{transform:scale(1.08);}
 #oma-bubble svg{width:26px;height:26px;fill:white;}
