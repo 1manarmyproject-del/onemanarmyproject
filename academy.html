@@ -2944,20 +2944,22 @@ function showChallenge(){
 // ════════════════════════════════════════════════════════
 async function completeModule(){
   if(isDone(ST.currentModule))return;
+  const mid=ST.currentModule;
+  const m=MODS[mid];
+  const ph=PHASES[m.phase-1];
+  const isLastInPhase=ph&&ph.modules[ph.modules.length-1]===mid;
   const btn=document.querySelector('#lessonActions .btn-primary');
   if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> Salvando...';}
   try{
-    const r=await apiFetch('/academy/progress',{method:'POST',body:JSON.stringify({lesson_id:ST.currentModule,xp_earned:MODS[ST.currentModule]?.xp||60,self_rating:5})});
+    const r=await apiFetch('/academy/progress',{method:'POST',body:JSON.stringify({lesson_id:mid,xp_earned:m?.xp||60,self_rating:5})});
     const d=await r.json();
-    ST.progress[ST.currentModule]=true;
+    ST.progress[mid]=true;
     ST.stats=d.stats;
-    // check new badges
-    const prevBadges=ST.stats.badges||[];
     if(d.new_badges&&d.new_badges.length>0){
       d.new_badges.forEach(bid=>showBadgeToast(bid));
     }
-    showXpToast('+'+MODS[ST.currentModule].xp+' XP');
-    showMascot(MODS[ST.currentModule].xp);
+    showXpToast('+'+m.xp+' XP');
+    showMascot(m.xp);
     launchConfetti();
     // Se era o último da fase, mostrar checkpoint após 1.5s
     if(isLastInPhase && m.phase >= 1 && m.phase <= 5){
@@ -2967,7 +2969,6 @@ async function completeModule(){
     updateTopBar();
     renderSidebar();
     renderLessonActions();
-    // check if all done
     if(doneCount()===30){
       setTimeout(()=>goToPrecert(),1200);
     }
