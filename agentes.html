@@ -101,6 +101,55 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   footer{padding:28px 20px;}.footer-links{flex-direction:column;gap:10px;align-items:center;}
 }
 </style>
+
+<style>
+#oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#oma-bubble:hover{transform:scale(1.08);}
+#oma-bubble svg{width:26px;height:26px;fill:white;}
+#oma-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#dc2626;color:white;font-size:10px;font-weight:600;display:none;align-items:center;justify-content:center;}
+#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;max-height:calc(100vh - 110px);background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9001;display:none;flex-direction:column;overflow:hidden;box-sizing:border-box;}
+#oma-window.wopen{display:flex;}
+#oma-hdr{background:#111;border-bottom:1px solid #1e1e1e;padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#oma-av{width:36px;height:36px;border-radius:50%;background:#e8703a;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:600;flex-shrink:0;}
+#oma-hn{font-size:13px;font-weight:500;color:#e0d9cf;font-family:-apple-system,sans-serif;}
+#oma-hs{font-size:10px;color:#3d9e60;display:flex;align-items:center;gap:4px;margin-top:2px;font-family:-apple-system,sans-serif;}
+#oma-sd{width:6px;height:6px;border-radius:50%;background:#3d9e60;animation:wbl 2s infinite;}
+@keyframes wbl{0%,100%{opacity:1}50%{opacity:.4}}
+#oma-x{width:28px;height:28px;border:none;background:transparent;color:#6a6a6a;cursor:pointer;font-size:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;line-height:1;}
+#oma-x:hover{background:#1e1e1e;color:#e0d9cf;}
+#oma-ml{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;}
+.wm{max-width:82%;display:flex;flex-direction:column;gap:2px;}
+.wm.wa{align-self:flex-start;}.wm.wu{align-self:flex-end;}
+.wb{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;word-break:break-word;font-family:-apple-system,sans-serif;}
+.wm.wa .wb{background:#1e1e1e;color:#e0d9cf;border-radius:4px 12px 12px 12px;}
+.wm.wu .wb{background:#e8703a;color:white;border-radius:12px 4px 12px 12px;}
+.wt{font-size:9px;color:#4a4a4a;padding:0 4px;font-family:-apple-system,sans-serif;}
+.wm.wu .wt{text-align:right;}
+.wtyp .wb{display:flex;gap:4px;align-items:center;padding:12px 16px;}
+.wd{width:6px;height:6px;border-radius:50%;background:#6a6a6a;animation:wtp .8s infinite;}
+.wd:nth-child(2){animation-delay:.15s;}.wd:nth-child(3){animation-delay:.3s;}
+@keyframes wtp{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+#oma-ia{border-top:1px solid #1e1e1e;padding:12px;display:flex;gap:8px;align-items:flex-end;background:#111;flex-shrink:0;}
+#oma-inp{flex:1;background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:9px 14px;color:#e0d9cf;font-size:13px;resize:none;max-height:80px;outline:none;line-height:1.4;font-family:-apple-system,sans-serif;}
+#oma-inp::placeholder{color:#4a4a4a;}
+#oma-inp:focus{border-color:#e8703a;}
+#oma-btn{width:36px;height:36px;border-radius:50%;background:#e8703a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#oma-btn:hover{background:#c05020;}
+#oma-btn:disabled{background:#2a2a2a;cursor:not-allowed;}
+#oma-btn svg{width:16px;height:16px;fill:white;}
+#oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
+#oma-preview{position:fixed;bottom:92px;right:24px;background:#0f0f0f;border:1px solid rgba(232,112,58,.3);border-radius:12px 12px 0 12px;padding:12px 16px;max-width:260px;z-index:8999;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
+#oma-preview.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+#oma-preview p{font-family:'Barlow',sans-serif;font-size:13px;color:#e0d9cf;line-height:1.5;margin:0 0 10px 0;}
+#oma-preview .prev-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:14px;line-height:1;}
+#oma-preview .prev-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:#e8703a;cursor:pointer;background:none;border:none;padding:0;}
+@keyframes bubblePulse{0%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}50%{transform:scale(1.15);box-shadow:0 4px 32px rgba(232,112,58,.7);}100%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}}
+#oma-bubble.pulse{animation:bubblePulse 1s ease-out 3;}
+@media(max-width:480px){
+  #oma-window{width:calc(100vw - 24px)!important;left:12px!important;right:12px!important;bottom:72px!important;height:auto!important;max-height:calc(100vh - 100px)!important;}
+  #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
+}
+</style>
 </head>
 <body>
 
@@ -263,5 +312,54 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   </div>
 </footer>
 
+
+<!-- WEBCHAT -->
+<div id="oma-preview">
+  <button class="prev-close" onclick="dismissPreview()">✕</button>
+  <p>Olá! Posso te ajudar a entender como o OMA funciona para o seu negócio?</p>
+  <button class="prev-cta" onclick="openFromPreview()">Conversar com a Bia →</button>
+</div>
+<div id="oma-bubble" onclick="oT()">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <div id="oma-badge"></div>
+</div>
+<div id="oma-window">
+  <div id="oma-hdr">
+    <div id="oma-av">B</div>
+    <div style="flex:1"><div id="oma-hn">Bia · One Man Army</div><div id="oma-hs"><div id="oma-sd"></div>Online agora</div></div>
+    <button id="oma-x" onclick="oT()">&#x2715;</button>
+  </div>
+  <div id="oma-ml"></div>
+  <div id="oma-ia">
+    <textarea id="oma-inp" placeholder="Digite sua mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oS();}"></textarea>
+    <button id="oma-btn" onclick="oS()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+  </div>
+  <div id="oma-pw">ONE MAN ARMY PROJECT</div>
+</div>
+<script>
+(function(){
+const API='https://api.onemanarmyproject.com.br';
+let sid=null,lid=0,pi=null,op=false,un=0;
+function ft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
+function aM(r,c,ts,id){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm '+r;d.innerHTML='<div class="wb">'+c.replace(/\n/g,'<br>')+'</div><div class="wt">'+ft(ts)+'</div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;if(id)lid=Math.max(lid,id);if(r==='wa'&&!op){un++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=un>9?'9+':un;}}
+function sT(){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm wa wtyp';d.id='wtyp';d.innerHTML='<div class="wb"><div class="wd"></div><div class="wd"></div><div class="wd"></div></div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;}
+function hT(){const t=document.getElementById('wtyp');if(t)t.remove();}
+async function wI(){try{const r=await fetch(API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});const d=await r.json();sid=d.session_id;const h=await fetch(API+'/webchat/history/'+sid);const hd=await h.json();hd.messages.forEach(m=>aM(m.role==='agent'?'wa':'wu',m.content,m.ts,m.id));pi=setInterval(wP,1500);}catch(e){aM('wa','Olá! Sou a Bia, do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}}
+async function wP(){if(!sid)return;try{const r=await fetch(API+'/webchat/poll/'+sid+'?since='+lid);const d=await r.json();if(d.messages&&d.messages.length>0){hT();d.messages.forEach(m=>aM('wa',m.content,m.ts,m.id));}}catch{}}
+async function oS(){const inp=document.getElementById('oma-inp');const c=inp.value.trim();if(!c)return;if(!sid){await wI();}inp.value='';inp.style.height='auto';aM('wu',c,new Date().toISOString(),null);sT();try{document.getElementById('oma-btn').disabled=true;await fetch(API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid,content:c})});}catch{}finally{document.getElementById('oma-btn').disabled=false;}}
+function oT(){op=!op;const w=document.getElementById('oma-window');if(op){w.classList.add('wopen');if(window.innerWidth<600){var bh=76;var safeH=window.innerHeight-bh-20;if(safeH<280)safeH=280;if(safeH>620)safeH=620;w.style.cssText='position:fixed;width:'+(window.innerWidth-24)+'px;left:12px;right:12px;bottom:'+bh+'px;height:'+safeH+'px;max-height:'+safeH+'px;top:auto;'}un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();}else{w.classList.remove('wopen');w.style.cssText='';}}
+document.getElementById('oma-inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
+window.oT=oT;window.oS=oS;
+(function(){var triggered=false,dismissed=false,previewShown=false;
+function showPreview(){if(dismissed||previewShown||op)return;previewShown=true;var prev=document.getElementById('oma-preview');var bubble=document.getElementById('oma-bubble');if(prev)prev.classList.add('show');if(bubble)bubble.classList.add('pulse');setTimeout(function(){if(!op)hidePreview();},12000);}
+function hidePreview(){var prev=document.getElementById('oma-preview');if(prev)prev.classList.remove('show');}
+window.dismissPreview=function(){dismissed=true;hidePreview();};
+window.openFromPreview=function(){hidePreview();oT();};
+setTimeout(function(){if(!triggered&&!op){triggered=true;showPreview();}},8000);
+window.addEventListener('scroll',function(){if(triggered||op)return;var scrolled=window.scrollY/(document.body.scrollHeight-window.innerHeight);if(scrolled>=0.4){triggered=true;showPreview();}},{passive:true});
+document.addEventListener('mouseleave',function(e){if(triggered||op||dismissed)return;if(e.clientY<=0){triggered=true;showPreview();}});
+})();
+})();
+</script>
 </body>
 </html>
