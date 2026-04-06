@@ -82,7 +82,8 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--iron);border:1px solid var(--steel);padding:12px 20px;font-family:'Space Mono',monospace;font-size:11px;color:var(--bone);opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;}
 .toast.show{opacity:1;} .toast.ok{border-color:var(--green);color:var(--green);}
 </style>
-<!-- cache:1774963124 -->
+
+<!-- cache:1775450892 -->
 </head>
 <body>
 <div id="ls"><div class="lb">
@@ -422,21 +423,33 @@ var crmTimer = null;
 function debounceCRM(v){ clearTimeout(crmTimer); if(v.length>3) crmTimer=setTimeout(function(){buscarCRM();},800); }
 
 async function buscarCRM(){
-  document.getElementById('crm-status').textContent = 'Carregando CRM...';
+  document.getElementById('crm-status').textContent = 'Carregando contatos...';
   document.getElementById('crm-btn').disabled = true;
   try {
-    var r = await fetch(CLIENTES_API+'/api/crm/list', {headers:{'x-api-key':CLIENTES_KEY}});
-    var lista = await r.json();
-    if(!Array.isArray(lista) || lista.length === 0){
-      document.getElementById('crm-status').textContent = 'CRM vazio';
-      document.getElementById('crm-btn').disabled = false;
-      return;
+    // Busca em paralelo: clientes OMA + CRM Amanda
+    var [omaR, amandaR] = await Promise.all([
+      fetch(CLIENTES_API+'/clientes', {headers:{'x-api-key':CLIENTES_KEY}}).then(function(r){return r.json();}).catch(function(){return [];}),
+      fetch(CLIENTES_API+'/api/crm/list', {headers:{'x-api-key':CLIENTES_KEY}}).then(function(r){return r.json();}).catch(function(){return [];})
+    ]);
+    var omaClientes = Array.isArray(omaR) ? omaR : [];
+    var amandaCRM = Array.isArray(amandaR) ? amandaR : [];
+
+    var opts = '';
+    if(omaClientes.length > 0){
+      opts += '<optgroup label="Clientes OMA">';
+      opts += omaClientes.map(function(c){ return '<option value="oma_'+c.id+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.whatsapp||'')+'" data-empresa="'+(c.nome||'')+'">'+c.nome+(c.email?' — '+c.email:'')+'</option>'; }).join('');
+      opts += '</optgroup>';
     }
-    // Montar dropdown de seleção
-    var opts = lista.map(function(c){ return '<option value="'+c.id+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.telefone||'')+'" data-empresa="'+(c.empresa||'')+'">'+c.nome+(c.empresa?' — '+c.empresa:'')+'</option>'; }).join('');
-    document.getElementById('crm-status').innerHTML = '<select id="crm-select" style="background:var(--graph);border:1px solid var(--fire);color:var(--bone);padding:5px 8px;font-size:11px;margin-top:4px;width:100%;" onchange="preencherDoCRM(this)"><option value="">Selecione um contato...</option>'+opts+'</select>';
+    if(amandaCRM.length > 0){
+      opts += '<optgroup label="CRM Amanda (novos)">';
+      opts += amandaCRM.map(function(c){ return '<option value="amanda_'+c.id+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.telefone||'')+'" data-empresa="'+(c.empresa||'')+'">'+c.nome+(c.empresa?' — '+c.empresa:'')+'</option>'; }).join('');
+      opts += '</optgroup>';
+    }
+    if(!opts){ document.getElementById('crm-status').textContent = 'Nenhum contato encontrado'; document.getElementById('crm-btn').disabled=false; return; }
+
+    document.getElementById('crm-status').innerHTML = '<select id="crm-select" style="background:var(--graph);border:1px solid var(--fire);color:var(--bone);padding:5px 8px;font-size:11px;margin-top:4px;width:100%;" onchange="preencherDoCRM(this)"><option value="">Selecione...</option>'+opts+'</select>';
   } catch(e) {
-    document.getElementById('crm-status').textContent = 'Erro ao carregar CRM';
+    document.getElementById('crm-status').textContent = 'Erro ao carregar';
   }
   document.getElementById('crm-btn').disabled = false;
 }
@@ -449,10 +462,9 @@ function preencherDoCRM(sel){
   var fone = opt.getAttribute('data-fone');
   var empresa = opt.getAttribute('data-empresa');
   if(email) document.getElementById('f-email').value = email;
-  if(nome && !document.getElementById('f-nome').value) document.getElementById('f-nome').value = empresa || nome;
+  if(!document.getElementById('f-nome').value) document.getElementById('f-nome').value = empresa || nome || '';
   if(fone) document.getElementById('f-whatsapp').value = fone;
-  document.getElementById('crm-status').textContent = '✅ Dados preenchidos do CRM da Amanda';
-  document.getElementById('crm-status').style.color = 'var(--green)';
+  document.getElementById('crm-status').innerHTML = '<span style="color:var(--green);font-size:9px">✅ Dados preenchidos</span>';
 }
 
 // ── AÇÕES POR CLIENTE ─────────────────────────────────
