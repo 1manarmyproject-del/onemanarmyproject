@@ -160,6 +160,8 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
       <div class="cd-stat"><div class="cd-stat-val" id="d-setup">—</div><div class="cd-stat-lbl">Setup Fee</div></div>
       <div class="cd-stat"><div class="cd-stat-val" id="d-custo">—</div><div class="cd-stat-lbl">Custo/mês</div></div>
       <div class="cd-stat"><div class="cd-stat-val" id="d-margem">—</div><div class="cd-stat-lbl">Margem</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="d-forma-pgto" style="font-size:11px">—</div><div class="cd-stat-lbl">Pagamento</div></div>
+      <div class="cd-stat"><div class="cd-stat-val" id="d-vencimento">—</div><div class="cd-stat-lbl">Vencimento</div></div>
     </div>
     <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
       <div id="d-modulos" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;flex:1;"></div>
@@ -238,6 +240,18 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
           <option value="encerrado">Encerrado</option>
         </select>
       </div>
+    </div>
+    <div class="frow">
+      <div class="field">
+        <span class="flabel">Forma de Pagamento</span>
+        <select class="fselect" id="f-forma-pgto">
+          <option value="pix">PIX</option>
+          <option value="boleto">Boleto</option>
+          <option value="cartao">Cartão de Crédito</option>
+          <option value="transferencia">Transferência</option>
+        </select>
+      </div>
+      <div class="field"><span class="flabel">Dia Vencimento</span><input class="finput" id="f-vencimento" type="number" min="1" max="31" placeholder="10"></div>
     </div>
     <div class="frow full">
       <div class="field"><span class="flabel">Modulos Contratados</span><input class="finput" id="f-modulos" type="text" placeholder="Ex: Atendimento, Agendamento, Cobranca"></div>
@@ -448,6 +462,8 @@ function abrirModal(){
     var el=document.getElementById(id); if(el) el.value='';
   });
   setProdutosNoModal([]);
+  document.getElementById('f-forma-pgto').value='pix';
+  document.getElementById('f-vencimento').value='';
   document.getElementById('modal').classList.add('open');
 }
 
@@ -469,6 +485,8 @@ function editarCliente(i, e){
   document.getElementById('f-origem').value=c.origem||'manual';
   document.getElementById('f-contato').value=c.contato||'';
   document.getElementById('f-inicio').value=c.inicio_contrato||c.inicio||'';
+  document.getElementById('f-forma-pgto').value=c.forma_pagamento||'pix';
+  document.getElementById('f-vencimento').value=c.dia_vencimento||'';
   try{ setProdutosNoModal(JSON.parse(c.produtos||'[]')); }catch(e){ setProdutosNoModal([]); }
   document.getElementById('f-warroom').value=c.warroom_link||c.warroom||'';
   document.getElementById('f-notas').value=c.notas||'';
@@ -496,6 +514,8 @@ async function salvarCliente(){
     contato:document.getElementById('f-contato').value,
     inicio:document.getElementById('f-inicio').value,
     warroom_link:document.getElementById('f-warroom').value,
+    forma_pagamento:document.getElementById('f-forma-pgto').value,
+    dia_vencimento:document.getElementById('f-vencimento').value,
     notas:document.getElementById('f-notas').value
   };
   var editIdx = document.getElementById('edit-id').value;

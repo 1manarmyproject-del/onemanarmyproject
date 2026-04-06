@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-06T05:54:34.954273Z",
-  "updated_at_brt": "02:54 BRT · 06/04/2026",
+  "updated_at": "2026-04-06T06:09:36.673472Z",
+  "updated_at_brt": "03:09 BRT · 06/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 3.42,
+  "total_cost_usd": 3.4227,
   "services": {
     "system": {
       "name": "Sistema",
@@ -11,8 +11,8 @@
           "activity": "Compactação de sessões",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.10909999999999999,
-          "runs": 28
+          "cost": 0.11179999999999998,
+          "runs": 29
         },
         {
           "activity": "Aprendizado e memória",
@@ -22,8 +22,8 @@
           "runs": 110
         }
       ],
-      "total_cost": 0.22869999999999996,
-      "total_runs": 138
+      "total_cost": 0.23139999999999997,
+      "total_runs": 139
     },
     "ekhoa": {
       "name": "Ekhoa",
