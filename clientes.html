@@ -164,7 +164,7 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
         <span class="flabel">Email</span>
         <div style="display:flex;gap:6px;">
           <input class="finput" id="f-email" type="email" placeholder="cliente@empresa.com.br" style="flex:1;" oninput="debounceCRM(this.value)">
-          <button onclick="buscarCRM()" style="background:var(--iron);border:1px solid var(--steel);color:var(--ash);padding:0 12px;font-family:Space Mono,monospace;font-size:8px;letter-spacing:1px;cursor:pointer;white-space:nowrap;" id="crm-btn">🔍 CRM</button>
+          <button onclick="buscarCRM()" style="background:var(--iron);border:1px solid var(--steel);color:var(--ash);padding:0 12px;font-family:Space Mono,monospace;font-size:8px;letter-spacing:1px;cursor:pointer;white-space:nowrap;" id="crm-btn">👥 Buscar CRM</button>
         </div>
         <span id="crm-status" style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-top:3px;display:block;height:12px;"></span>
       </div>
@@ -403,7 +403,7 @@ async function salvarCliente(){
   // Salva na API Hetzner
   var isEdit = editIdx!=='';
   var cId = isEdit ? clientes[parseInt(editIdx)].id : null;
-  var url = 'https://api.onemanarmyproject.com.br/clientes'+(cId?'/'+cId:'');
+  var url = CLIENTES_API+'/clientes'+(cId?'/'+cId:'');
   try{
     var r = await fetch(url, {
       method: cId?'PATCH':'POST',
@@ -422,29 +422,37 @@ var crmTimer = null;
 function debounceCRM(v){ clearTimeout(crmTimer); if(v.length>3) crmTimer=setTimeout(function(){buscarCRM();},800); }
 
 async function buscarCRM(){
-  var email = document.getElementById('f-email')?.value.trim();
-  if(!email){ toast('Digite um e-mail para buscar',''); return; }
-  document.getElementById('crm-status').textContent = 'Buscando no CRM...';
+  document.getElementById('crm-status').textContent = 'Carregando CRM...';
   document.getElementById('crm-btn').disabled = true;
   try {
-    var r = await fetch(CLIENTES_API+'/api/crm/search?email='+encodeURIComponent(email), {headers:{'x-api-key':CLIENTES_KEY}});
-    var d = await r.json();
-    if(d.found && d.data){
-      var c = d.data;
-      if(c.nome && !document.getElementById('f-nome').value) document.getElementById('f-nome').value = c.nome||'';
-      if(c.empresa && !document.getElementById('f-nome').value) document.getElementById('f-nome').value = c.empresa||'';
-      if(c.telefone) document.getElementById('f-whatsapp').value = c.telefone||'';
-      if(c.empresa) document.getElementById('f-nome').value = document.getElementById('f-nome').value || c.empresa;
-      document.getElementById('crm-status').textContent = '✅ Dados encontrados no CRM da Amanda';
-      document.getElementById('crm-status').style.color = 'var(--green)';
-    } else {
-      document.getElementById('crm-status').textContent = 'Não encontrado no CRM — preencha manualmente';
-      document.getElementById('crm-status').style.color = 'var(--ash)';
+    var r = await fetch(CLIENTES_API+'/api/crm/list', {headers:{'x-api-key':CLIENTES_KEY}});
+    var lista = await r.json();
+    if(!Array.isArray(lista) || lista.length === 0){
+      document.getElementById('crm-status').textContent = 'CRM vazio';
+      document.getElementById('crm-btn').disabled = false;
+      return;
     }
+    // Montar dropdown de seleção
+    var opts = lista.map(function(c){ return '<option value="'+c.id+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.telefone||'')+'" data-empresa="'+(c.empresa||'')+'">'+c.nome+(c.empresa?' — '+c.empresa:'')+'</option>'; }).join('');
+    document.getElementById('crm-status').innerHTML = '<select id="crm-select" style="background:var(--graph);border:1px solid var(--fire);color:var(--bone);padding:5px 8px;font-size:11px;margin-top:4px;width:100%;" onchange="preencherDoCRM(this)"><option value="">Selecione um contato...</option>'+opts+'</select>';
   } catch(e) {
-    document.getElementById('crm-status').textContent = 'Erro na busca';
+    document.getElementById('crm-status').textContent = 'Erro ao carregar CRM';
   }
   document.getElementById('crm-btn').disabled = false;
+}
+
+function preencherDoCRM(sel){
+  var opt = sel.options[sel.selectedIndex];
+  if(!opt || !opt.value) return;
+  var email = opt.getAttribute('data-email');
+  var nome = opt.getAttribute('data-nome');
+  var fone = opt.getAttribute('data-fone');
+  var empresa = opt.getAttribute('data-empresa');
+  if(email) document.getElementById('f-email').value = email;
+  if(nome && !document.getElementById('f-nome').value) document.getElementById('f-nome').value = empresa || nome;
+  if(fone) document.getElementById('f-whatsapp').value = fone;
+  document.getElementById('crm-status').textContent = '✅ Dados preenchidos do CRM da Amanda';
+  document.getElementById('crm-status').style.color = 'var(--green)';
 }
 
 // ── AÇÕES POR CLIENTE ─────────────────────────────────
