@@ -435,17 +435,22 @@ async function buscarCRM(){
     var omaClientes = Array.isArray(omaR) ? omaR : [];
     var amandaCRM = Array.isArray(amandaR) ? amandaR : [];
 
+    // crmList já é o CRM OMA consolidado (hub + portal + bia)
+    var allContacts = omaClientes.concat(amandaCRM.filter(function(a){ 
+      return !omaClientes.find(function(o){ return o.email && o.email===a.email; }); 
+    }));
+    // Separar por origem
+    var hubClientes = allContacts.filter(function(c){ return c.status==='ativo' || c.status==='lead' || c.origem==='manual' || c.origem==='hub'; });
+    var portalClientes = allContacts.filter(function(c){ return c.origem==='portal' || c.status==='predictions'; });
+    var biaLeads = allContacts.filter(function(c){ return c.origem==='bia'; });
+    var outros = allContacts.filter(function(c){ return !hubClientes.includes(c) && !portalClientes.includes(c) && !biaLeads.includes(c); });
+
     var opts = '';
-    if(omaClientes.length > 0){
-      opts += '<optgroup label="Clientes OMA">';
-      opts += omaClientes.map(function(c){ return '<option value="oma_'+c.id+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.whatsapp||'')+'" data-empresa="'+(c.nome||'')+'">'+c.nome+(c.email?' — '+c.email:'')+'</option>'; }).join('');
-      opts += '</optgroup>';
-    }
-    if(amandaCRM.length > 0){
-      opts += '<optgroup label="CRM Amanda (novos)">';
-      opts += amandaCRM.map(function(c){ return '<option value="amanda_'+c.id+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.telefone||'')+'" data-empresa="'+(c.empresa||'')+'">'+c.nome+(c.empresa?' — '+c.empresa:'')+'</option>'; }).join('');
-      opts += '</optgroup>';
-    }
+    function makeOpt(c){ return '<option value="'+(c.id||'')+'" data-email="'+(c.email||'')+'" data-nome="'+(c.nome||'')+'" data-fone="'+(c.telefone||c.whatsapp||'')+'" data-empresa="'+(c.empresa||c.nome||'')+'">'+c.nome+(c.email?' — '+c.email:c.telefone?' — '+c.telefone:'')+'</option>'; }
+    if(hubClientes.length){opts+='<optgroup label="Clientes Hub">'+hubClientes.map(makeOpt).join('')+'</optgroup>';}
+    if(portalClientes.length){opts+='<optgroup label="Predictions">'+portalClientes.map(makeOpt).join('')+'</optgroup>';}
+    if(biaLeads.length){opts+='<optgroup label="Leads Bia">'+biaLeads.map(makeOpt).join('')+'</optgroup>';}
+    if(outros.length){opts+='<optgroup label="Outros">'+outros.map(makeOpt).join('')+'</optgroup>';}
     if(!opts){ document.getElementById('crm-status').textContent = 'Nenhum contato encontrado'; document.getElementById('crm-btn').disabled=false; return; }
 
     document.getElementById('crm-status').innerHTML = '<select id="crm-select" style="background:var(--graph);border:1px solid var(--fire);color:var(--bone);padding:5px 8px;font-size:11px;margin-top:4px;width:100%;" onchange="preencherDoCRM(this)"><option value="">Selecione...</option>'+opts+'</select>';
