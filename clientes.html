@@ -588,7 +588,7 @@ async function dispararMagicLink(i, e){
       body: JSON.stringify({email: c.email, name: c.nome})
     });
     var d = await r.json();
-    toast(d.ok ? '✅ Magic link enviado para '+c.email : '⚠️ '+d.error, d.ok?'ok':'');
+    var ok = d.ok || d.success; toast(ok ? '✅ Link enviado para '+c.email : '⚠️ '+(d.error||d.message||'Erro'), ok?'ok':'');
   } catch(e2){ toast('Erro ao enviar magic link',''); }
 }
 
@@ -606,15 +606,22 @@ async function dispararCobranca(i, e){
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':CLIENTES_KEY},
       body: JSON.stringify({
-        email: c.email, nome: c.nome, valor: parseFloat(valor),
-        descricao: descricao, clientId: c.id
+        email: c.email, nome: c.nome, cnpj: c.cnpj||'',
+        valor: parseFloat(valor), descricao: descricao, clientId: c.id
       })
     });
     var d = await r.json();
-    if(d.ok && d.url){ 
+    if(d.ok && d.url){
       toast('✅ Cobrança criada!','ok');
-      if(confirm('Cobrança criada! Copiar link?')) navigator.clipboard?.writeText(d.url);
-    } else { toast('Erro: '+(d.error||'falha'),''); }
+      var _cp = await showConfirm('COBRANÇA CRIADA', 'Link: '+d.url, '📋 COPIAR LINK');
+      if(_cp) navigator.clipboard?.writeText(d.url).then(function(){ toast('Link copiado!','ok'); });
+    } else {
+      var errMsg = d.error || 'Falha';
+      if(errMsg.includes('CPF') || errMsg.includes('CNPJ')){
+        errMsg = 'CPF/CNPJ obrigatório no Asaas. Edite o cliente e preencha o CNPJ primeiro.';
+      }
+      toast('⚠️ '+errMsg, '');
+    }
   } catch(e2){ toast('Erro ao criar cobrança',''); }
 }
 
