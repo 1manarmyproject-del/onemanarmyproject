@@ -92,6 +92,23 @@ nav{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);padding:16px 
 @keyframes ldot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
 @keyframes sdot{0%,100%{opacity:1}50%{opacity:.3}}
 footer{text-align:center;padding:32px;border-top:1px solid var(--iron);margin-top:auto;}
+/* BRIEFING */
+.briefing-card{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--fire);padding:32px 28px;margin-top:32px;}
+.briefing-title{font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--white);margin-bottom:8px;}
+.briefing-sub{font-size:13px;color:var(--fog);margin-bottom:24px;line-height:1.7;}
+.b-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;display:block;margin-bottom:6px;}
+.b-input,.b-textarea,.b-select{width:100%;background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;padding:11px 14px;outline:none;transition:border-color .2s;margin-bottom:16px;}
+.b-input:focus,.b-textarea:focus,.b-select:focus{border-color:var(--fire);}
+.b-textarea{min-height:80px;resize:vertical;line-height:1.6;}
+.b-select{appearance:none;cursor:pointer;}
+.b-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.b-row{grid-template-columns:1fr;}}
+.b-submit{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:15px 32px;cursor:pointer;width:100%;transition:background .2s;}
+.b-submit:hover{background:var(--ember);}
+.b-submit:disabled{opacity:.5;cursor:not-allowed;}
+.b-msg{font-family:'Space Mono',monospace;font-size:10px;text-align:center;margin-top:10px;min-height:16px;}
+.b-msg.ok{color:var(--green);}
+.b-msg.err{color:#e85a5a;}
 footer p{font-family:'Space Mono',monospace;font-size:8px;color:var(--steel);letter-spacing:2px;}
 footer a{color:var(--ash);text-decoration:none;}
 footer a:hover{color:var(--fire);}
@@ -249,7 +266,115 @@ function renderPortal(client,products){
   document.getElementById('nav-user').textContent=client.email;
   document.getElementById('nav-user').style.display='block';
   renderProducts(products);
+
+  // Injetar briefing se tiver produto Predictions sem briefing
+  const predProduct = products && products.find(p => p.product_type === 'predictions');
+  const savedSess = localStorage.getItem(SK);
+  if (predProduct) {
+    const existing = document.getElementById('briefing-section');
+    if (!existing) {
+      const briefingHtml = renderBriefing(predProduct, savedSess || data.session || '');
+      if (briefingHtml) {
+        const section = document.getElementById('products-section');
+        if (section) section.insertAdjacentHTML('afterend', briefingHtml);
+      }
+    }
+  }
   showScreen('screen-portal');
+}
+
+function renderBriefing(product, session) {
+  // Só mostra se produto é Predictions e não tem briefing ainda
+  if (!product || product.product_type !== 'predictions') return '';
+  try {
+    const meta = JSON.parse(product.metadata || '{}');
+    if (meta.briefing_submitted) return ''; // já enviou
+  } catch(e) {}
+
+  return `
+  <div class="briefing-card" id="briefing-section">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:12px;">Próximo passo</div>
+    <div class="briefing-title">Preencha o briefing do seu cenário.</div>
+    <p class="briefing-sub">Quanto mais detalhes você fornecer, mais precisa será a simulação. Leva cerca de 5 minutos.</p>
+
+    <div class="b-row">
+      <div><label class="b-label">Empresa *</label><input type="text" class="b-input" id="b-company" placeholder="Nome da empresa ou projeto"></div>
+      <div>
+        <label class="b-label">Segmento *</label>
+        <select class="b-select" id="b-segment">
+          <option value="">Selecione</option>
+          <option value="advocacia">Escritório de Advocacia</option>
+          <option value="consultorio">Consultório / Clínica</option>
+          <option value="otica">Ótica</option>
+          <option value="condominio">Administradora de Condomínio</option>
+          <option value="distribuidor">Distribuidor / Atacadista</option>
+          <option value="restaurante">Restaurante / Food Service</option>
+          <option value="comunicacao">Comunicação / RP</option>
+          <option value="governo">Governo / Política</option>
+          <option value="tech">Startup / Tech</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+    </div>
+    <label class="b-label">Descreva seu negócio ou contexto *</label>
+    <textarea class="b-textarea" id="b-business" placeholder="O que sua empresa faz, tamanho, há quanto tempo existe, principais produtos/serviços..."></textarea>
+    <label class="b-label">Principais dores ou desafios *</label>
+    <textarea class="b-textarea" id="b-pain" placeholder="O que consome seu tempo, onde perde dinheiro, quais problemas quer resolver..."></textarea>
+    <label class="b-label">O que você quer prever? *</label>
+    <textarea class="b-textarea" style="min-height:100px;" id="b-question" placeholder="Como meus clientes reagiriam se eu...? Como meu mercado vai evoluir em...? O que acontece se...?"></textarea>
+    <label class="b-label">Concorrentes principais</label>
+    <input type="text" class="b-input" id="b-competitors" placeholder="Nome dos principais concorrentes (opcional)">
+    <button class="b-submit" id="b-btn" onclick="submitBriefing('${product.id}', '${session}')">Enviar briefing →</button>
+    <div class="b-msg" id="b-msg"></div>
+  </div>`;
+}
+
+async function submitBriefing(productId, session) {
+  const btn = document.getElementById('b-btn');
+  const msg = document.getElementById('b-msg');
+  const company = document.getElementById('b-company')?.value.trim();
+  const segment = document.getElementById('b-segment')?.value;
+  const business = document.getElementById('b-business')?.value.trim();
+  const pain = document.getElementById('b-pain')?.value.trim();
+  const question = document.getElementById('b-question')?.value.trim();
+  const competitors = document.getElementById('b-competitors')?.value.trim();
+
+  if (!company || !segment || !business || !pain || !question) {
+    msg.textContent = 'Preencha todos os campos obrigatórios.';
+    msg.className = 'b-msg err';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  msg.textContent = '';
+
+  try {
+    const r = await fetch(API + '/portal/briefing', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ session, productId, company, segment, business, pain, question, competitors })
+    });
+    const d = await r.json();
+    if (d.ok) {
+      document.getElementById('briefing-section').innerHTML = `
+        <div style="text-align:center;padding:32px;">
+          <div style="font-size:32px;margin-bottom:16px;">🐟</div>
+          <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--white);margin-bottom:10px;">Briefing recebido!</div>
+          <p style="font-size:13px;color:var(--fog);line-height:1.7;">Seu relatório estará pronto em até 24h úteis.<br>Você receberá uma notificação por e-mail quando estiver disponível aqui no portal.</p>
+        </div>`;
+    } else {
+      msg.textContent = d.error || 'Erro ao enviar. Tente novamente.';
+      msg.className = 'b-msg err';
+      btn.disabled = false;
+      btn.textContent = 'Enviar briefing →';
+    }
+  } catch(e) {
+    msg.textContent = 'Erro de conexão. Tente novamente.';
+    msg.className = 'b-msg err';
+    btn.disabled = false;
+    btn.textContent = 'Enviar briefing →';
+  }
 }
 
 async function init(){

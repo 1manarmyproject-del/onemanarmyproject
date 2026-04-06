@@ -212,96 +212,73 @@ footer a{color:var(--ash);text-decoration:none;}
 
 <!-- FORM -->
 <section class="sec" id="formulario">
-  <div class="sec-label">Solicitar Relatório</div>
-  <div class="sec-title">Conte o seu cenário.<br><em>Tome decisões melhores.</em></div>
+  <div class="sec-label">Próximo passo</div>
+  <div class="sec-title">Pronto para antecipar<br><em>o futuro do seu cenário?</em></div>
+  <p style="font-size:15px;color:var(--fog);max-width:560px;line-height:1.8;margin-bottom:40px;">
+    Escolha seu plano, efetue o pagamento e você receberá acesso ao portal onde preenche o briefing completo do seu cenário. O relatório é entregue em até 24h úteis após o briefing.
+  </p>
 
-  <div class="form-card">
-    <div id="formContent">
-
-      <div class="form-tabs">
-        <div class="form-tab active" onclick="switchTab('business',this)">🏢 Meu negócio</div>
-        <div class="form-tab" onclick="switchTab('scenario',this)">🔮 Cenário livre</div>
-      </div>
-
-      <!-- BUSINESS -->
-      <div class="form-pane active" id="pane-business">
-        <p class="form-sub">Para empresas que querem prever como o mercado reagiria a uma mudança.</p>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Seu nome *</label><input type="text" class="form-input" id="f-name" placeholder="Ex: Maria Silva"></div>
-          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="f-email" placeholder="Ex: maria@empresa.com.br"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">WhatsApp</label><input type="text" class="form-input" id="f-whatsapp" placeholder="11 99999-9999"></div>
-          <div class="form-group"><label class="form-label">Empresa *</label><input type="text" class="form-input" id="f-company" placeholder="Ex: Clínica Vida Plena"></div>
-        </div>
-        <div class="form-group"><label class="form-label">Segmento *</label>
-          <select class="form-select" id="f-segment">
-            <option value="">Selecione</option>
-            <option value="advocacia">Escritório de Advocacia</option>
-            <option value="consultorio">Consultório / Clínica</option>
-            <option value="otica">Ótica</option>
-            <option value="condominio">Administradora de Condomínio</option>
-            <option value="shopping">Shopping Center</option>
-            <option value="distribuidor">Distribuidor / Atacadista</option>
-            <option value="franquia">Franquia / Rede de Varejo</option>
-            <option value="restaurante">Restaurante / Food Service</option>
-            <option value="consultoria">Consultoria Empresarial</option>
-            <option value="comunicacao">Comunicação / RP</option>
-            <option value="governo">Governo / Política</option>
-            <option value="tech">Startup / Tech</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
-        <div class="form-group"><label class="form-label">Descreva seu negócio *</label><textarea class="form-textarea" id="f-business" placeholder="O que sua empresa faz, tamanho, há quanto tempo existe..."></textarea></div>
-        <div class="form-group"><label class="form-label">Maiores dores operacionais *</label><textarea class="form-textarea" id="f-pain" placeholder="O que consome seu tempo, onde perde dinheiro..."></textarea></div>
-        <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f-question" placeholder="Ex: Como meus clientes reagiriam se eu automatizasse o atendimento?"></textarea></div>
-      </div>
-
-      <!-- SCENARIO -->
-      <div class="form-pane" id="pane-scenario">
-        <p class="form-sub">Para situações abertas — política, mercado, lançamentos, crises, tendências.</p>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Seu nome *</label><input type="text" class="form-input" id="f2-name" placeholder="Ex: João Silva"></div>
-          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="f2-email" placeholder="Ex: joao@email.com"></div>
-        </div>
-        <div class="form-group"><label class="form-label">WhatsApp</label><input type="text" class="form-input" id="f2-whatsapp" placeholder="11 99999-9999"></div>
-        
-        <div class="form-group"><label class="form-label">Conte o contexto *</label><textarea class="form-textarea" id="f2-context" placeholder="Descreva a situação em detalhes. O que está acontecendo, qual o cenário atual, como chegou até aqui..." style="min-height:120px;"></textarea><div class="form-hint">Quanto mais detalhes, mais precisa a simulação.</div></div>
-        
-        <div class="form-group"><label class="form-label">Quem são os atores principais? *</label><textarea class="form-textarea" id="f2-actors" placeholder="Liste as pessoas, grupos, instituições ou organizações envolvidas. Inclua nomes, cargos, partidos, relações entre eles..." style="min-height:80px;"></textarea><div class="form-hint">Ex: "Prefeito Renato Júnior (MDB), Câmara Municipal, sindicato dos professores, imprensa local (A Crítica, BandNews Manaus)"</div></div>
-        
-        <div class="form-group"><label class="form-label">Onde isso acontece? *</label><input type="text" class="form-input" id="f2-where" placeholder="Ex: Manaus, Amazonas, Brasil"></div>
-
-        <div class="form-group"><label class="form-label">Quem é o público afetado? *</label><textarea class="form-textarea" id="f2-audience" placeholder="Quem sente o impacto direto dessa situação? Qual o perfil demográfico, classe social, faixa etária?" style="min-height:60px;"></textarea><div class="form-hint">Ex: "População de Manaus, principalmente classes C/D/E, 18-50 anos, dependentes de transporte público e saúde pública"</div></div>
-
-        <div class="form-group"><label class="form-label">O que você quer prever? *</label><textarea class="form-textarea" id="f2-predict" placeholder="Quais perguntas específicas quer que a simulação responda?" style="min-height:100px;"></textarea><div class="form-hint">Ex: "Como a população vai reagir? A imprensa vai cobrir positiva ou negativamente? Quais grupos vão apoiar e criticar?"</div></div>
-        
-        <div class="form-group"><label class="form-label">Qual o pior cenário que quer evitar?</label><textarea class="form-textarea" id="f2-fear" placeholder="O que NÃO pode acontecer? Qual crise quer antecipar?" style="min-height:60px;"></textarea><div class="form-hint">Isso ajuda a simulação a testar cenários de risco específicos.</div></div>
-      </div>
-
-      <div style="background:var(--iron);border-left:3px solid var(--blood);padding:14px 18px;margin:20px 0 16px;font-size:12px;color:var(--fog);line-height:1.7;">
-        <strong style="color:var(--bone);">⚠️ Aviso importante:</strong> O OMA Predictions utiliza inteligência artificial e simulação computacional para gerar cenários preditivos. 
-        Os resultados representam <strong style="color:var(--bone);">projeções baseadas em modelos</strong>, não garantias de resultados futuros. 
-        Variáveis externas, decisões humanas e eventos imprevisíveis podem alterar significativamente os cenários reais. 
-        Use este relatório como <strong style="color:var(--bone);">ferramenta de apoio à decisão</strong>, não como previsão determinística. 
-        Ao submeter, você concorda com nossos <a href="/termos" style="color:var(--fire);text-decoration:underline;">termos de uso</a>.
-      </div>
-
-      <button class="form-submit" id="formSubmit" onclick="submitPrediction()">Solicitar Relatório Preditivo</button>
-      <div class="form-hint" style="text-align:center;margin-top:8px;">Relatório entregue em até 24h úteis por email.</div>
+  <!-- COMO FUNCIONA -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:48px;">
+    <div style="background:var(--coal);border:1px solid var(--iron);padding:24px 20px;">
+      <div style="font-family:'Black Ops One',cursive;font-size:28px;color:var(--fire);margin-bottom:12px;">01</div>
+      <div style="font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:1px;color:var(--bone);margin-bottom:8px;">Escolha e pague</div>
+      <div style="font-size:12px;color:var(--ash);line-height:1.65;">PIX, boleto ou cartão em até 4x. Confirmação imediata.</div>
     </div>
-
-    <div class="form-success" id="formSuccess">
-      <h3>🐟 Recebemos seu briefing!</h3>
-      <p>Nosso algoritmo vai simular <strong>43+ agentes autônomos</strong> debatendo sobre o seu cenário.</p>
-      <p>Relatório completo em até <strong>24 horas úteis</strong>.</p>
-      <p>Você receberá um <strong>email de confirmação</strong> com o resumo da solicitação.</p>
-      <p style="color:var(--fire);margin-top:16px;font-family:'Space Mono',monospace;font-size:11px;">Entraremos em contato para confirmar.</p>
-      <p style="margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);">
-        📧 <a href="mailto:atendimento@onemanarmy.com.br" style="color:var(--bone);text-decoration:underline;">atendimento@onemanarmy.com.br</a>
-      </p>
+    <div style="background:var(--coal);border:1px solid var(--iron);padding:24px 20px;">
+      <div style="font-family:'Black Ops One',cursive;font-size:28px;color:var(--fire);margin-bottom:12px;">02</div>
+      <div style="font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:1px;color:var(--bone);margin-bottom:8px;">Acesse o portal</div>
+      <div style="font-size:12px;color:var(--ash);line-height:1.65;">Você recebe um link de acesso por e-mail. Preenche o briefing do seu cenário.</div>
+    </div>
+    <div style="background:var(--coal);border:1px solid var(--iron);padding:24px 20px;">
+      <div style="font-family:'Black Ops One',cursive;font-size:28px;color:var(--fire);margin-bottom:12px;">03</div>
+      <div style="font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:1px;color:var(--bone);margin-bottom:8px;">Receba o relatório</div>
+      <div style="font-size:12px;color:var(--ash);line-height:1.65;">Em até 24h úteis o relatório chega no seu portal e por e-mail.</div>
     </div>
   </div>
+
+  <!-- PRICING AQUI TAMBÉM -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:700px;margin:0 auto;">
+    <div class="pricing-box" style="max-width:none;">
+      <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
+      <div class="pricing-old">De R$ 2.599,00</div>
+      <div class="pricing-new">R$ 1.299<span>,00</span></div>
+      <div class="pricing-detail">5 relatórios · R$260 cada</div>
+      <ul class="pricing-list">
+        <li>5 relatórios OMA Predictions</li>
+        <li>100 min Scribe by OMA</li>
+        <li>10 atas OMA Recap</li>
+        <li>Suporte via WhatsApp</li>
+      </ul>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;">
+        <a href="https://www.asaas.com/c/g6ac2ags7z676f82" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:var(--fire);color:var(--char);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">PIX / Boleto →</a>
+        <a href="https://www.asaas.com/c/8nu9xkg9fpim3rf8" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='var(--fire)';this.style.color='var(--char)'" onmouseout="this.style.background='transparent';this.style.color='var(--fire)'">Cartão 4x →</a>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
+    </div>
+    <div class="pricing-box" style="max-width:none;border:1px solid var(--fire);">
+      <div class="pricing-badge" style="background:var(--green);">⚡ Plano Profissional</div>
+      <div class="pricing-old">De R$ 7.999,00</div>
+      <div class="pricing-new">R$ 3.999<span>,00</span></div>
+      <div class="pricing-detail">30 relatórios · 1 por dia · R$133 cada</div>
+      <ul class="pricing-list">
+        <li>30 relatórios OMA Predictions</li>
+        <li>500 min Scribe by OMA</li>
+        <li>30 atas OMA Recap</li>
+        <li>Suporte prioritário</li>
+        <li>Relatórios em até 12h</li>
+      </ul>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;">
+        <a href="https://www.asaas.com/c/uh43vdgmm5mmz8lt" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:var(--fire);color:var(--char);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">PIX / Boleto →</a>
+        <a href="https://www.asaas.com/c/v6xhiz3ixfv38no5" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='var(--fire)';this.style.color='var(--char)'" onmouseout="this.style.background='transparent';this.style.color='var(--fire)'">Cartão 4x →</a>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
+    </div>
+  </div>
+
+  <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-align:center;margin-top:24px;line-height:1.8;">
+    Já tem acesso? <a href="/portal" style="color:var(--fire);text-decoration:none;">Acesse seu portal →</a>
+  </p>
 </section>
 
 <footer>
