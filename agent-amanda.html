@@ -224,7 +224,7 @@ function openGerar(slug){
 function closeGerar(){document.getElementById('gerar-modal').classList.remove('open');}
 
 async function gerarClaudeMd(){
-  var key = sessionStorage.getItem('oma_api_key') || '';
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || '';
   if(!key){ setGerarStatus('Faca login primeiro.','err'); return; }
   setGerarStatus('Salvando Setup e gerando CLAUDE.md...','loading');
 
@@ -377,7 +377,7 @@ function uTom(el){
 var SK='oma-setup-amanda';
 
 function syncSetupToAPI(slug, data){
-  var key = sessionStorage.getItem('oma_api_key') || '';
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || '';
   if(!key) return;
   fetch('https://api.onemanarmyproject.com.br/agentes', {
     method:'POST',

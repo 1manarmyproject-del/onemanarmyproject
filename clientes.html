@@ -407,7 +407,7 @@ async function salvarCliente(){
   try{
     var r = await fetch(url, {
       method: cId?'PATCH':'POST',
-      headers: {'Content-Type':'application/json','x-api-key':(sessionStorage.getItem('oma_api_key')||'')},
+      headers: {'Content-Type':'application/json','x-api-key':((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'')},
       body: JSON.stringify(cliente)
     });
     var res = await r.json();

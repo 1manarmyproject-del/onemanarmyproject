@@ -255,7 +255,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ">
 // INTEGRAÇÕES
 var INTEG_API = 'https://api.onemanarmyproject.com.br';
-var INTEG_KEY = (sessionStorage.getItem('oma_api_key')||'');
+var INTEG_KEY = ((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'');
 var INTEG_AGENTE_SLUG = 'bia'; // ajustado dinamicamente
 
 var INTEG_TIPO_LABELS = {
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 <script>
 // RÉGUA DE CRM
-var REGUA_KEY = (sessionStorage.getItem('oma_api_key')||'');
+var REGUA_KEY = ((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'');
 var reguaConfig = [];
 
 var ETAPA_LABELS = {
@@ -388,7 +388,7 @@ var ETAPA_LABELS = {
 };
 
 async function loadRegua(){
-  var key = sessionStorage.getItem('oma_api_key') || REGUA_KEY;
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || REGUA_KEY;
   try{
     var [cfgRes, filaRes] = await Promise.all([
       fetch('https://api.onemanarmyproject.com.br/regua/config', {headers:{'x-api-key':key}}),
@@ -471,7 +471,7 @@ function renderFila(fila){
 }
 
 async function salvarRegua(){
-  var key = sessionStorage.getItem('oma_api_key') || REGUA_KEY;
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || REGUA_KEY;
   var updates = reguaConfig.map(async function(e){
     var ativo = document.getElementById('etapa-'+e.etapa)?.querySelector('.tog2')?.classList.contains('on') ? 1 : 0;
     var delay_horas = parseInt(document.getElementById('delay-'+e.etapa)?.value || e.delay_horas);
@@ -488,7 +488,7 @@ async function salvarRegua(){
 }
 
 async function executarAcao(id){
-  var key = sessionStorage.getItem('oma_api_key') || REGUA_KEY;
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || REGUA_KEY;
   await fetch('https://api.onemanarmyproject.com.br/regua/'+id,{
     method:'PATCH',
     headers:{'Content-Type':'application/json','x-api-key':key},
@@ -571,7 +571,7 @@ function openGerar(slug){
 function closeGerar(){document.getElementById('gerar-modal').classList.remove('open');}
 
 async function gerarClaudeMd(){
-  var key = sessionStorage.getItem('oma_api_key') || '';
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || '';
   if(!key){ setGerarStatus('Faca login primeiro.','err'); return; }
   setGerarStatus('Salvando Setup e gerando CLAUDE.md...','loading');
 
@@ -636,7 +636,7 @@ function setGerarStatus(msg, type){
 
 // AGENDA
 var AGENDA_API = 'https://api.onemanarmyproject.com.br';
-var AGENDA_KEY = (sessionStorage.getItem('oma_api_key')||'');
+var AGENDA_KEY = ((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'');
 
 function openSlotModal(){
   var today = new Date();
@@ -648,7 +648,7 @@ function openSlotModal(){
 function closeSlotModal(){document.getElementById('slot-modal').classList.remove('open');}
 
 async function loadAgenda(){
-  var key=sessionStorage.getItem('oma_api_key')||AGENDA_KEY;
+  var key=(localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||AGENDA_KEY;
   try{
     var r=await fetch(AGENDA_API+'/agenda/all',{headers:{'x-api-key':key}});
     var slots=await r.json();
@@ -686,7 +686,7 @@ async function addSlot(){
     var meses=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
     label=dias[d.getDay()]+' '+d.getDate()+'/'+d.toISOString().split('T')[0].split('-')[1]+' às '+hora;
   }
-  var key=sessionStorage.getItem('oma_api_key')||AGENDA_KEY;
+  var key=(localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||AGENDA_KEY;
   try{
     var r=await fetch(AGENDA_API+'/agenda',{
       method:'POST',
@@ -701,7 +701,7 @@ async function addSlot(){
 
 async function delSlot(id){
   if(!confirm('Remover este horário?'))return;
-  var key=sessionStorage.getItem('oma_api_key')||AGENDA_KEY;
+  var key=(localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||AGENDA_KEY;
   try{
     await fetch(AGENDA_API+'/agenda/'+id,{method:'DELETE',headers:{'x-api-key':key}});
     loadAgenda();
@@ -812,7 +812,7 @@ function uTom(el){
 var SK='oma-setup-bia';
 
 function syncSetupToAPI(slug, data){
-  var key = sessionStorage.getItem('oma_api_key') || '';
+  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || '';
   if(!key) return;
   fetch('https://api.onemanarmyproject.com.br/agentes', {
     method:'POST',

@@ -202,7 +202,7 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
 <script>
 var cards = [];
 var PMO_API = "https://api.onemanarmyproject.com.br";
-var PMO_KEY = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+var PMO_KEY = (localStorage.getItem('oma_api_key')||(localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
 var PMO_HDR = {"Content-Type":"application/json","x-api-key":PMO_KEY};
 var dragging = null;
 var filt = "all";

@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-05T03:21:38Z",
-  "updated_at_brt": "00:21 BRT · 05/04/2026",
+  "updated_at": "2026-04-06T03:39:21Z",
+  "updated_at_brt": "00:39 BRT · 06/04/2026",
   "categories": [
     {
       "cat": "INFRAESTRUTURA & REDUNDÂNCIA",
@@ -68,9 +68,9 @@
         {
           "id": "backup",
           "title": "Backup multi-camada",
-          "current": "4x/dia. Último: 00:21 BRT · 05/04/2026",
-          "nota": 6,
-          "farol": "y",
+          "current": "4x/dia. Último: 00:39 BRT · 06/04/2026",
+          "nota": 3,
+          "farol": "r",
           "risk": "Perda de dados",
           "action": "Monitorar execução",
           "tag": "done",
