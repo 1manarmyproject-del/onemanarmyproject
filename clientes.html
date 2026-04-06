@@ -497,27 +497,29 @@ async function salvarCliente(){
     warroom:document.getElementById('f-warroom').value,
     notas:document.getElementById('f-notas').value
   };
-  var editIdx=document.getElementById('edit-id').value;
-  if(editIdx!==''){
-    clientes[parseInt(editIdx)]=cliente;
-  }else{
-    clientes.push(cliente);
-  }
-  // Salva na API Hetzner
-  var isEdit = editIdx!=='';
-  var cId = isEdit ? clientes[parseInt(editIdx)].id : null;
+  var editIdx = document.getElementById('edit-id').value;
+  var isEdit = editIdx !== '';
+  // Pegar o ID ANTES de sobrescrever o objeto
+  var cId = isEdit ? (clientes[parseInt(editIdx)]?.id || null) : null;
   var url = CLIENTES_API+'/clientes'+(cId?'/'+cId:'');
   try{
     var r = await fetch(url, {
       method: cId?'PATCH':'POST',
-      headers: {'Content-Type':'application/json','x-api-key':((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'')},
+      headers: {'Content-Type':'application/json','x-api-key': CLIENTES_KEY},
       body: JSON.stringify(cliente)
     });
+    if(!r.ok){ var err = await r.json(); toast('Erro: '+(err.error||r.status),''); return; }
     var res = await r.json();
+    // Atualizar array local com dados retornados da API (inclui id)
+    if(isEdit && parseInt(editIdx) < clientes.length){
+      clientes[parseInt(editIdx)] = res;
+    } else {
+      clientes.unshift(res);
+    }
     await init();
     fecharModal();
     toast('Cliente salvo!','ok');
-  }catch(e){ toast('Erro de conexão',''); }
+  }catch(e){ toast('Erro de conexão: '+e.message,''); }
 }
 
 // ── BUSCA CRM AMANDA ─────────────────────────────────
