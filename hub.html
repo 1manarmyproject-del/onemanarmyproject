@@ -213,6 +213,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
         <div class="sb-label">Negócio</div>
         <div class="sb-item" data-tab="onboarding"><span class="icon">🚀</span><span class="label">Onboarding</span></div>
         <div class="sb-item" data-tab="clientes"><span class="icon">👥</span><span class="label">Clientes</span></div>
+        <div class="sb-item" data-tab="produtos"><span class="icon">📦</span><span class="label">Produtos</span></div>
         <div class="sb-item" data-tab="financeiro"><span class="icon">💰</span><span class="label">Financeiro</span></div>
       </div>
       <div class="sb-section">
@@ -318,6 +319,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
       <div class="page" id="page-mktinsights"><iframe class="iframe-page" id="ifr-mktinsights" src="about:blank"></iframe></div>
       <div class="page" id="page-onboarding"><iframe class="iframe-page" id="ifr-onboarding" src="about:blank"></iframe></div>
       <div class="page" id="page-clientes"><iframe class="iframe-page" id="ifr-clientes" src="about:blank"></iframe></div>
+      <div class="page" id="page-produtos"><iframe class="iframe-page" id="ifr-produtos" src="about:blank"></iframe></div>
       <div class="page" id="page-financeiro"><iframe class="iframe-page" id="ifr-financeiro" src="about:blank"></iframe></div>
       <div class="page" id="page-warroom"><iframe class="iframe-page" id="ifr-warroom" src="about:blank"></iframe></div>
       <div class="page" id="page-ops"><iframe class="iframe-page" id="ifr-ops" src="about:blank"></iframe></div>
@@ -329,7 +331,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
 </div>
 
 <script>
-var SRCS={audit:'/audit.html',squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',mktinsights:'/mkt-insights',monitor:'/monitor'};
+var SRCS={audit:'/audit.html',squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',produtos:'/produtos',mktinsights:'/mkt-insights',monitor:'/monitor'};
 var loaded={};
 var PMO_API='https://api.onemanarmyproject.com.br';
 var PMO_KEY=(sessionStorage.getItem('oma_api_key')||'');
