@@ -56,6 +56,25 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
 .ac.ac-fire{border-color:rgba(232,112,58,.3);color:var(--fire);}
 .ac.ac-fire:hover{background:var(--fire);color:#000;}
 .ac-wrap{display:flex;flex-wrap:wrap;gap:4px;}
+/* Filtros */
+.filtros{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+.flt{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 14px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+.flt:hover,.flt.active{border-color:var(--fire);color:var(--fire);}
+.flt.active{background:rgba(232,112,58,.1);}
+.flt.f-ativo.active{border-color:var(--green);color:var(--green);background:rgba(61,158,96,.1);}
+.flt.f-pausado.active{border-color:var(--gold);color:var(--gold);background:rgba(200,164,86,.1);}
+.flt.f-enc.active{border-color:var(--red);color:var(--red);background:rgba(226,75,74,.1);}
+/* Flags de produtos */
+.prod-flags{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.pflag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 6px;border-radius:2px;border:1px solid;}
+.pflag.p-agentes{color:#3a7bd5;border-color:rgba(58,123,213,.3);background:rgba(58,123,213,.1);}
+.pflag.p-predictions{color:#c8a456;border-color:rgba(200,164,86,.3);background:rgba(200,164,86,.1);}
+.pflag.p-academy{color:#3d9e60;border-color:rgba(61,158,96,.3);background:rgba(61,158,96,.1);}
+.pflag.p-webchat{color:#e8703a;border-color:rgba(232,112,58,.3);background:rgba(232,112,58,.1);}
+/* Checkboxes de produtos no modal */
+.prod-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.prod-check{display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);cursor:pointer;}
+.prod-check input{cursor:pointer;accent-color:var(--fire);}
 /* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;}
 .modal-bg.open{display:flex;}
@@ -149,9 +168,19 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
     <div id="d-notas" style="margin-top:12px;font-family:'Barlow',sans-serif;font-size:12px;color:var(--fog);line-height:1.7;"></div>
   </div>
 
+  <!-- FILTROS -->
+  <div class="filtros">
+    <span style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;">FILTRAR:</span>
+    <button class="flt active" data-f="todos" onclick="setFiltro('todos',this)">TODOS</button>
+    <button class="flt f-ativo" data-f="ativo" onclick="setFiltro('ativo',this)">ATIVOS</button>
+    <button class="flt" data-f="lead" onclick="setFiltro('lead',this)">LEADS</button>
+    <button class="flt f-pausado" data-f="pausado" onclick="setFiltro('pausado',this)">PAUSADOS</button>
+    <button class="flt f-enc" data-f="encerrado" onclick="setFiltro('encerrado',this)">ENCERRADOS</button>
+  </div>
+
   <!-- TABELA -->
   <div class="section-title">
-    <span>Carteira de Clientes</span>
+    <span id="table-count">Carteira de Clientes</span>
     <button class="add-btn" onclick="abrirModal()">+ NOVO CLIENTE</button>
   </div>
   <div class="table-wrap">
@@ -212,6 +241,17 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
     </div>
     <div class="frow full">
       <div class="field"><span class="flabel">Modulos Contratados</span><input class="finput" id="f-modulos" type="text" placeholder="Ex: Atendimento, Agendamento, Cobranca"></div>
+    </div>
+    <div class="frow full">
+      <div class="field">
+        <span class="flabel">Produtos OMA</span>
+        <div class="prod-checks">
+          <label class="prod-check"><input type="checkbox" id="p-agentes" value="agentes"> 🤖 Agentes</label>
+          <label class="prod-check"><input type="checkbox" id="p-predictions" value="predictions"> 🔮 Predictions</label>
+          <label class="prod-check"><input type="checkbox" id="p-academy" value="academy"> 🎓 Academy</label>
+          <label class="prod-check"><input type="checkbox" id="p-webchat" value="webchat"> 💬 Webchat</label>
+        </div>
+      </div>
     </div>
     <div class="frow">
       <div class="field"><span class="flabel">Contato Principal</span><input class="finput" id="f-contato" type="text" placeholder="Nome do responsável"></div>
@@ -298,10 +338,30 @@ async function init(){
   render();
 }
 
+var filtroAtual = 'todos';
+function setFiltro(f, el){
+  filtroAtual = f;
+  document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('active');});
+  if(el) el.classList.add('active');
+  render();
+}
+
+function getProdutos(c){
+  try{ return JSON.parse(c.produtos||'[]'); }catch(e){ return []; }
+}
+
+function renderProdFlags(prods){
+  var map = {agentes:'p-agentes',predictions:'p-predictions',academy:'p-academy',webchat:'p-webchat'};
+  var labels = {agentes:'🤖 Agentes',predictions:'🔮 Predictions',academy:'🎓 Academy',webchat:'💬 Webchat'};
+  return '<div class="prod-flags">'+prods.map(function(p){
+    return '<span class="pflag '+(map[p]||'')+'">'+( labels[p]||p)+'</span>';
+  }).join('')+'</div>';
+}
+
 function render(){
   var ativos = clientes.filter(function(c){return c.status==='ativo';});
   var mrr = ativos.reduce(function(s,c){return s+(parseFloat(c.mrr)||0);},0);
-  var custo = ativos.reduce(function(s,c){return s+(parseFloat(c.custo)||0);},0);
+  var custo = ativos.reduce(function(s,c){return s+(parseFloat(c.custo_mensal||c.custo)||0);},0);
   var margem = mrr>0 ? Math.round(((mrr-custo)/mrr)*100) : 0;
 
   document.getElementById('s-ativos').textContent = ativos.length;
@@ -309,12 +369,18 @@ function render(){
   document.getElementById('s-custo').textContent = 'R$'+custo.toLocaleString('pt-BR');
   document.getElementById('s-margem').textContent = margem+'%';
 
-  if(clientes.length===0){
+  // Aplicar filtro
+  var visíveis = filtroAtual==='todos' ? clientes : clientes.filter(function(c){return c.status===filtroAtual;});
+  var tc = document.getElementById('table-count');
+  if(tc) tc.textContent = 'Carteira de Clientes ('+visíveis.length+')';
+
+  if(visíveis.length===0){
     document.getElementById('tbody').innerHTML = '<tr><td colspan="10" style="text-align:center;padding:48px;color:var(--ash);font-family:Space Mono,monospace;font-size:10px;letter-spacing:2px;">Nenhum cliente ainda.<br><span style="color:var(--fire)">Clique em + NOVO CLIENTE.</span></td></tr>';
     return;
   }
 
-  document.getElementById('tbody').innerHTML = clientes.map(function(c,i){
+  document.getElementById('tbody').innerHTML = visíveis.map(function(c,i){
+    var i = clientes.indexOf(c); // índice real para ações
     var mrr = parseFloat(c.mrr)||0;
     var cst = parseFloat(c.custo)||0;
     var mg = mrr>0 ? Math.round(((mrr-cst)/mrr)*100) : 0;
@@ -331,7 +397,7 @@ function render(){
                 c.status==='pausado'?'<span class="badge-pause">PAUSADO</span>':
                 '<span class="badge-enc">ENCERRADO</span>';
     return '<tr onclick="verDetalhe('+i+')">'
-      +'<td><b>'+esc(c.nome)+'</b><br><span style="font-size:10px;color:var(--ash)">'+esc(c.email||'—')+'</span></td>'
+      +'<td><b>'+esc(c.nome)+'</b><br><span style="font-size:10px;color:var(--ash)">'+esc(c.email||'—')+'</span>'+renderProdFlags(getProdutos(c))+'</td>'
       +'<td style="color:var(--ash);font-size:11px">'+esc(c.segmento||c.seg||'—')+'</td>'
       +'<td style="color:var(--green)">R$'+(parseFloat(c.mrr)||0).toLocaleString('pt-BR')+'/mês</td>'
       +'<td>'+badge+'</td>'
@@ -343,6 +409,7 @@ function render(){
           +'<button class="ac" onclick="dispararVoucher('+i+',event)" title="Voucher R$5">🎟️ Teste</button>'
           +'<button class="ac" onclick="dispararContrato('+i+',event)" title="Contrato DS Sign">📄 Contrato</button>'
           +'<button class="ac" onclick="editarCliente('+i+',event)" title="Editar">✎ Editar</button>'
+          +'<button class="ac" style="border-color:rgba(226,75,74,.4);color:var(--red)" onclick="deletarCliente('+i+',event)" title="Deletar">✕ Deletar</button>'
         +'</div>'
       +'</td>'
     +'</tr>';
@@ -376,9 +443,10 @@ function fecharDetalhe(){document.getElementById('detalhe').classList.remove('op
 function abrirModal(){
   document.getElementById('modal-title').textContent='NOVO CLIENTE';
   document.getElementById('edit-id').value='';
-  ['f-nome','f-mrr','f-setup','f-custo','f-modulos','f-contato','f-warroom','f-notas'].forEach(function(id){
+  ['f-nome','f-mrr','f-setup','f-custo','f-modulos','f-contato','f-warroom','f-notas','f-email','f-whatsapp','f-cnpj'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value='';
   });
+  setProdutosNoModal([]);
   document.getElementById('modal').classList.add('open');
 }
 
@@ -400,6 +468,7 @@ function editarCliente(i, e){
   document.getElementById('f-origem').value=c.origem||'manual';
   document.getElementById('f-contato').value=c.contato||'';
   document.getElementById('f-inicio').value=c.inicio_contrato||c.inicio||'';
+  try{ setProdutosNoModal(JSON.parse(c.produtos||'[]')); }catch(e){ setProdutosNoModal([]); }
   document.getElementById('f-warroom').value=c.warroom||'';
   document.getElementById('f-notas').value=c.notas||'';
   document.getElementById('modal').classList.add('open');
@@ -413,6 +482,7 @@ async function salvarCliente(){
   var cliente={
     nome:nome,
     email:document.getElementById('f-email').value.trim(),
+    produtos:getProdutosDoModal(),
     whatsapp:document.getElementById('f-whatsapp').value.trim(),
     cnpj:document.getElementById('f-cnpj').value.trim(),
     origem:document.getElementById('f-origem').value,
@@ -612,6 +682,41 @@ function showPrompt(title, msg, placeholder, defaultVal){
     document.getElementById('cfm-ok').textContent = 'CONFIRMAR';
     document.getElementById('cfm-bg').classList.add('open');
     setTimeout(function(){ inp.focus(); }, 100);
+  });
+}
+
+// ── DELETAR CLIENTE ──────────────────────────────────────────────────────────
+async function deletarCliente(i, e){
+  e.stopPropagation();
+  var c = clientes[i];
+  if(!c) return;
+  var ok = await showConfirm('DELETAR CLIENTE', 'Deletar '+c.nome+' permanentemente? Esta ação não pode ser desfeita.', '⚠️ DELETAR');
+  if(!ok) return;
+  try {
+    var r = await fetch(CLIENTES_API+'/clientes/'+c.id, {
+      method: 'DELETE',
+      headers: {'x-api-key': CLIENTES_KEY}
+    });
+    var d = await r.json();
+    if(d.ok){ toast('Cliente deletado','ok'); await init(); }
+    else { toast('Erro: '+(d.error||'falha'),''); }
+  } catch(e2){ toast('Erro ao deletar',''); }
+}
+
+// ── PRODUTOS — ler/salvar checkboxes ─────────────────────────────────────────
+function getProdutosDoModal(){
+  var prods = [];
+  ['p-agentes','p-predictions','p-academy','p-webchat'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el && el.checked) prods.push(el.value);
+  });
+  return prods;
+}
+
+function setProdutosNoModal(prods){
+  ['p-agentes','p-predictions','p-academy','p-webchat'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.checked = prods.includes(el.value);
   });
 }
 </script>
