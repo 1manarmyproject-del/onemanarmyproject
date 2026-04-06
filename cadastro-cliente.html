@@ -107,6 +107,33 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
       </div>
     </div>
 
+    <!-- PAGAMENTO -->
+    <div class="section">
+      <div class="section-title">Preferência de Pagamento</div>
+      <div class="frow">
+        <div class="field">
+          <span class="flabel">Forma de Pagamento</span>
+          <select class="fselect" id="f-forma-pgto">
+            <option value="pix">PIX</option>
+            <option value="boleto">Boleto Bancário</option>
+            <option value="cartao">Cartão de Crédito</option>
+            <option value="transferencia">Transferência (TED)</option>
+          </select>
+        </div>
+        <div class="field" id="campo-vencimento">
+          <span class="flabel">Melhor dia para vencimento</span>
+          <select class="fselect" id="f-vencimento">
+            <option value="">Selecione...</option>
+            <option value="5">Dia 5</option>
+            <option value="10">Dia 10</option>
+            <option value="15">Dia 15</option>
+            <option value="20">Dia 20</option>
+            <option value="25">Dia 25</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
     <div class="err-msg" id="err-msg">Preencha os campos obrigatórios.</div>
     <button class="btn-submit" id="btn-submit" onclick="enviar()">ENVIAR CADASTRO →</button>
   </div>
@@ -123,6 +150,12 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
 </div>
 
 <script>
+// Mostrar dia de vencimento só para boleto/transferência
+document.getElementById('f-forma-pgto').addEventListener('change', function(){
+  var mostrar = ['boleto','transferencia'].includes(this.value);
+  document.getElementById('campo-vencimento').style.opacity = mostrar ? '1' : '0.3';
+});
+
 // Pré-preencher nome do lead via query string
 var params = new URLSearchParams(window.location.search);
 var leadNome = params.get('lead') || '';
@@ -158,6 +191,8 @@ async function enviar(){
     cargo: document.getElementById('f-cargo').value.trim(),
     dor: document.getElementById('f-dor').value.trim(),
     origem: document.getElementById('f-origem').value || 'formulario',
+    forma_pagamento: document.getElementById('f-forma-pgto').value || 'pix',
+    dia_vencimento: document.getElementById('f-vencimento').value || '',
     prazo: document.getElementById('f-prazo').value,
     status: 'lead',
     notas: 'Cadastro via formulário digital'
