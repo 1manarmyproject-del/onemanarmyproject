@@ -247,6 +247,10 @@ function dL(){
 }
 function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){localStorage.removeItem(k);});location.reload();}
 
+// API config — DEVE vir antes do auto-login
+var CLIENTES_API = 'https://alexa.pipeeyewear.com.br';
+var CLIENTES_KEY = localStorage.getItem('oma_api_key') || '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
+
 // Auto-login — executa direto (script está no final do body, DOM já existe)
 if(localStorage.getItem('oma_auth')==='1'){
   document.getElementById('ls').style.display='none';
@@ -255,9 +259,6 @@ if(localStorage.getItem('oma_auth')==='1'){
 }
 
 function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
-
-var CLIENTES_API = 'https://alexa.pipeeyewear.com.br';
-var CLIENTES_KEY = localStorage.getItem('oma_api_key') || '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
 
 async function init(){
   try{

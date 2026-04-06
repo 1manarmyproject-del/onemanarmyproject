@@ -291,6 +291,18 @@
     {
       "source": "/onboarding/:slug",
       "destination": "https://api.onemanarmyproject.com.br/onboarding/:slug"
+    },
+    {
+      "source": "/ops/mentor",
+      "destination": "/ops-mentor.html"
+    },
+    {
+      "source": "/skills",
+      "destination": "/skills.html"
+    },
+    {
+      "source": "/audit",
+      "destination": "/audit.html"
     }
   ],
   "redirects": [
