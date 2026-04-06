@@ -205,6 +205,15 @@ function showScreen(id){
 }
 
 function renderProducts(products){
+  // Deduplicar: mostrar só o produto mais recente por tipo
+  if (products && products.length > 0) {
+    const seen = {};
+    products = products.filter(p => {
+      if (seen[p.product_type]) return false;
+      seen[p.product_type] = true;
+      return true;
+    });
+  }
   const section = document.getElementById('products-section');
   if(!products||products.length===0){
     section.innerHTML=`<div class="sec-label">Seus produtos</div>
@@ -291,42 +300,160 @@ function renderBriefing(product, session) {
     if (meta.briefing_submitted) return ''; // já enviou
   } catch(e) {}
 
+  const pid = product.id;
+  const sess = session;
   return `
   <div class="briefing-card" id="briefing-section">
     <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:12px;">Próximo passo</div>
     <div class="briefing-title">Preencha o briefing do seu cenário.</div>
-    <p class="briefing-sub">Quanto mais detalhes você fornecer, mais precisa será a simulação. Leva cerca de 5 minutos.</p>
+    <p class="briefing-sub">Leva cerca de 5 minutos. Quanto mais detalhes, mais precisa a simulação.</p>
 
-    <div class="b-row">
-      <div><label class="b-label">Empresa *</label><input type="text" class="b-input" id="b-company" placeholder="Nome da empresa ou projeto"></div>
-      <div>
-        <label class="b-label">Segmento *</label>
-        <select class="b-select" id="b-segment">
-          <option value="">Selecione</option>
-          <option value="advocacia">Escritório de Advocacia</option>
-          <option value="consultorio">Consultório / Clínica</option>
-          <option value="otica">Ótica</option>
-          <option value="condominio">Administradora de Condomínio</option>
-          <option value="distribuidor">Distribuidor / Atacadista</option>
-          <option value="restaurante">Restaurante / Food Service</option>
-          <option value="comunicacao">Comunicação / RP</option>
-          <option value="governo">Governo / Política</option>
-          <option value="tech">Startup / Tech</option>
-          <option value="outro">Outro</option>
-        </select>
-      </div>
+    <div style="display:flex;gap:0;margin-bottom:24px;">
+      <button onclick="switchBriefingTab('business')" id="btab-business" style="flex:1;padding:12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:var(--fire);color:var(--char);border:none;cursor:pointer;">🏢 Meu negócio</button>
+      <button onclick="switchBriefingTab('scenario')" id="btab-scenario" style="flex:1;padding:12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:var(--iron);color:var(--ash);border:none;cursor:pointer;">🔮 Cenário livre</button>
     </div>
-    <label class="b-label">Descreva seu negócio ou contexto *</label>
-    <textarea class="b-textarea" id="b-business" placeholder="O que sua empresa faz, tamanho, há quanto tempo existe, principais produtos/serviços..."></textarea>
-    <label class="b-label">Principais dores ou desafios *</label>
-    <textarea class="b-textarea" id="b-pain" placeholder="O que consome seu tempo, onde perde dinheiro, quais problemas quer resolver..."></textarea>
-    <label class="b-label">O que você quer prever? *</label>
-    <textarea class="b-textarea" style="min-height:100px;" id="b-question" placeholder="Como meus clientes reagiriam se eu...? Como meu mercado vai evoluir em...? O que acontece se...?"></textarea>
-    <label class="b-label">Concorrentes principais</label>
-    <input type="text" class="b-input" id="b-competitors" placeholder="Nome dos principais concorrentes (opcional)">
-    <button class="b-submit" id="b-btn" onclick="submitBriefing('${product.id}', '${session}')">Enviar briefing →</button>
+
+    <div id="bpane-business">
+      <p style="font-size:12px;color:var(--fog);margin-bottom:16px;">Para empresas que querem prever como o mercado reagiria a uma mudança.</p>
+      <div class="b-row">
+        <div><label class="b-label">Seu nome *</label><input type="text" class="b-input" id="b-name" placeholder="Maria Silva"></div>
+        <div><label class="b-label">WhatsApp</label><input type="text" class="b-input" id="b-whatsapp" placeholder="11 99999-9999"></div>
+      </div>
+      <div class="b-row">
+        <div><label class="b-label">Empresa *</label><input type="text" class="b-input" id="b-company" placeholder="Nome da empresa"></div>
+        <div><label class="b-label">Segmento *</label>
+          <select class="b-select" id="b-segment">
+            <option value="">Selecione</option>
+            <option value="advocacia">Escritório de Advocacia</option>
+            <option value="consultorio">Consultório / Clínica</option>
+            <option value="otica">Ótica</option>
+            <option value="condominio">Administradora de Condomínio</option>
+            <option value="shopping">Shopping Center</option>
+            <option value="distribuidor">Distribuidor / Atacadista</option>
+            <option value="franquia">Franquia / Rede de Varejo</option>
+            <option value="restaurante">Restaurante / Food Service</option>
+            <option value="comunicacao">Comunicação / RP</option>
+            <option value="governo">Governo / Política</option>
+            <option value="tech">Startup / Tech</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+      </div>
+      <label class="b-label">Descreva seu negócio *</label>
+      <textarea class="b-textarea" id="b-business" placeholder="O que sua empresa faz, tamanho, há quanto tempo existe..."></textarea>
+      <label class="b-label">Maiores dores operacionais *</label>
+      <textarea class="b-textarea" id="b-pain" placeholder="O que consome seu tempo, onde perde dinheiro..."></textarea>
+      <label class="b-label">O que você quer prever? *</label>
+      <textarea class="b-textarea" style="min-height:80px;" id="b-question" placeholder="Ex: Como meus clientes reagiriam se eu automatizasse o atendimento?"></textarea>
+      <label class="b-label">Concorrentes principais</label>
+      <input type="text" class="b-input" id="b-competitors" placeholder="Principais concorrentes (opcional)">
+    </div>
+
+    <div id="bpane-scenario" style="display:none;">
+      <p style="font-size:12px;color:var(--fog);margin-bottom:16px;">Para situações abertas — política, mercado, lançamentos, crises, tendências.</p>
+      <div class="b-row">
+        <div><label class="b-label">Seu nome *</label><input type="text" class="b-input" id="b2-name" placeholder="João Silva"></div>
+        <div><label class="b-label">WhatsApp</label><input type="text" class="b-input" id="b2-whatsapp" placeholder="11 99999-9999"></div>
+      </div>
+      <label class="b-label">Conte o contexto *</label>
+      <textarea class="b-textarea" style="min-height:120px;" id="b2-context" placeholder="Descreva a situação em detalhes. O que está acontecendo, qual o cenário atual, como chegou até aqui..."></textarea>
+      <label class="b-label">Quem são os atores principais? *</label>
+      <textarea class="b-textarea" style="min-height:80px;" id="b2-actors" placeholder="Pessoas, grupos, instituições. Inclua nomes, cargos, relações entre eles..."></textarea>
+      <label class="b-label">Onde isso acontece? *</label>
+      <input type="text" class="b-input" id="b2-where" placeholder="Ex: Manaus, Amazonas, Brasil">
+      <label class="b-label">Quem é o público afetado? *</label>
+      <textarea class="b-textarea" style="min-height:60px;" id="b2-audience" placeholder="Perfil demográfico, classe social, faixa etária..."></textarea>
+      <label class="b-label">O que você quer prever? *</label>
+      <textarea class="b-textarea" style="min-height:100px;" id="b2-predict" placeholder="Quais perguntas específicas quer que a simulação responda?"></textarea>
+      <label class="b-label">Qual o pior cenário que quer evitar?</label>
+      <textarea class="b-textarea" style="min-height:60px;" id="b2-fear" placeholder="O que NÃO pode acontecer? Qual crise quer antecipar?"></textarea>
+    </div>
+
+    <div style="background:var(--char);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:14px 18px;margin:20px 0 16px;font-size:12px;color:var(--fog);line-height:1.7;">
+      <strong style="color:var(--bone);">⚠️</strong> O OMA Predictions utiliza IA e simulação computacional para gerar cenários preditivos. Os resultados representam <strong style="color:var(--bone);">projeções</strong>, não garantias de resultados futuros.
+    </div>
+
+    <button class="b-submit" id="b-btn" onclick="submitBriefingFull('${pid}', '${sess}')">Enviar briefing →</button>
     <div class="b-msg" id="b-msg"></div>
-  </div>`;
+  </div>\`;
+}
+
+}
+
+function switchBriefingTab(tab) {
+  const isBusiness = tab === 'business';
+  document.getElementById('bpane-business').style.display = isBusiness ? 'block' : 'none';
+  document.getElementById('bpane-scenario').style.display = isBusiness ? 'none' : 'block';
+  document.getElementById('btab-business').style.background = isBusiness ? 'var(--fire)' : 'var(--iron)';
+  document.getElementById('btab-business').style.color = isBusiness ? 'var(--char)' : 'var(--ash)';
+  document.getElementById('btab-scenario').style.background = isBusiness ? 'var(--iron)' : 'var(--fire)';
+  document.getElementById('btab-scenario').style.color = isBusiness ? 'var(--ash)' : 'var(--char)';
+}
+
+async function submitBriefingFull(productId, session) {
+  const btn = document.getElementById('b-btn');
+  const msg = document.getElementById('b-msg');
+
+  // Detectar aba ativa
+  const isScenario = document.getElementById('bpane-scenario').style.display === 'block';
+
+  let data;
+  if (!isScenario) {
+    // Aba negócio
+    const company  = document.getElementById('b-company')?.value.trim();
+    const segment  = document.getElementById('b-segment')?.value;
+    const business = document.getElementById('b-business')?.value.trim();
+    const pain     = document.getElementById('b-pain')?.value.trim();
+    const question = document.getElementById('b-question')?.value.trim();
+    const competitors = document.getElementById('b-competitors')?.value.trim();
+    const name     = document.getElementById('b-name')?.value.trim();
+    const whatsapp = document.getElementById('b-whatsapp')?.value.trim();
+    if (!company || !segment || !business || !pain || !question) {
+      msg.textContent = 'Preencha todos os campos obrigatórios.';
+      msg.className = 'b-msg err'; return;
+    }
+    data = { type: 'business', company, segment, business, pain, question, competitors, name, whatsapp };
+  } else {
+    // Aba cenário livre
+    const context  = document.getElementById('b2-context')?.value.trim();
+    const actors   = document.getElementById('b2-actors')?.value.trim();
+    const where    = document.getElementById('b2-where')?.value.trim();
+    const audience = document.getElementById('b2-audience')?.value.trim();
+    const predict  = document.getElementById('b2-predict')?.value.trim();
+    const fear     = document.getElementById('b2-fear')?.value.trim();
+    const name     = document.getElementById('b2-name')?.value.trim();
+    const whatsapp = document.getElementById('b2-whatsapp')?.value.trim();
+    if (!context || !actors || !where || !predict) {
+      msg.textContent = 'Preencha todos os campos obrigatórios.';
+      msg.className = 'b-msg err'; return;
+    }
+    data = { type: 'scenario', context, actors, where, audience, predict, fear, name, whatsapp,
+             company: where, segment: 'scenario', business: context, pain: audience, question: predict, competitors: actors };
+  }
+
+  btn.disabled = true; btn.textContent = 'Enviando...'; msg.textContent = '';
+  try {
+    const r = await fetch(API + '/portal/briefing', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ session, productId, ...data })
+    });
+    const d = await r.json();
+    if (d.ok) {
+      document.getElementById('briefing-section').innerHTML = \`
+        <div style="text-align:center;padding:32px;">
+          <div style="font-size:32px;margin-bottom:16px;">🐟</div>
+          <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--white);margin-bottom:10px;">Briefing recebido!</div>
+          <p style="font-size:13px;color:var(--fog);line-height:1.7;">Seu relatório estará pronto em até 24h úteis.<br>Você receberá uma notificação por e-mail quando estiver disponível.</p>
+        </div>\`;
+    } else {
+      msg.textContent = d.error || 'Erro ao enviar.';
+      msg.className = 'b-msg err'; btn.disabled = false; btn.textContent = 'Enviar briefing →';
+    }
+  } catch(e) {
+    msg.textContent = 'Erro de conexão.';
+    msg.className = 'b-msg err'; btn.disabled = false; btn.textContent = 'Enviar briefing →';
+  }
 }
 
 async function submitBriefing(productId, session) {
@@ -404,6 +531,15 @@ async function init(){
 
 document.getElementById('login-email').addEventListener('keydown',e=>{if(e.key==='Enter')requestMagicLink();});
 init();
+</script>
+<!-- Webchat Bia -->
+<script>
+  window.addEventListener('load', function() {
+    var s = document.createElement('script');
+    s.src = 'https://onemanarmyproject.com.br/webchat.js';
+    s.defer = true;
+    document.body.appendChild(s);
+  });
 </script>
 </body>
 </html>
