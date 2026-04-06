@@ -144,6 +144,7 @@ td{padding:10px 14px;vertical-align:middle;}
 <button class="ma pr" style="width:100%;justify-content:flex-start;padding:12px 16px;font-size:13px" onclick="triggerBia('followup')">🔄 Follow-up — retomar conversa</button>
 <button class="ma pr" style="width:100%;justify-content:flex-start;padding:12px 16px;font-size:13px" onclick="triggerBia('diagnostico')">📋 Enviar diagnóstico</button>
 <button class="ma pr" style="width:100%;justify-content:flex-start;padding:12px 16px;font-size:13px" onclick="triggerBia('reengajar')">💬 Reengajar lead frio</button>
+<button class="ma pr" style="width:100%;justify-content:flex-start;padding:12px 16px;font-size:13px;background:#3a7bd5;border-color:#3a7bd5" onclick="triggerBia('cadastro')">📝 Enviar formulário de cadastro</button>
 <button class="ma pr" style="width:100%;justify-content:flex-start;padding:12px 16px;font-size:13px" onclick="triggerBia('custom')">✍️ Mensagem personalizada</button>
 <button class="ma pr" style="width:100%;justify-content:flex-start;padding:12px 16px;font-size:13px;background:#3d9e60;border-color:#3d9e60" onclick="triggerBia('onboarding')">📋 Enviar Onboarding</button>
 </div>
@@ -287,6 +288,7 @@ function openBiaTrigger(){
 }
 function triggerBia(action){
   if(action==='custom'){document.getElementById('biaCustom').style.display='block';return;}
+  if(action==='cadastro'){enviarFormCadastro();return;}
   const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;
   const st=document.getElementById('biaStatus');
   st.textContent='⏳ Enviando para Bia...';
@@ -295,6 +297,35 @@ function triggerBia(action){
   fetch(API+'/bia/trigger',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(payload)}).then(r=>r.json()).then(d=>{
     if(d.ok){st.innerHTML='✅ <strong>Bia acionada!</strong> Ação: '+action;toast('Bia acionada para '+l.nome,'ok');}
     else{st.textContent='⚠️ Erro: '+(d.error||'tente novamente');}
+  }).catch(e=>{st.textContent='⚠️ Falha na conexão';});
+}
+
+function enviarFormCadastro(){
+  const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;
+  if(!l.wa&&!l.email){
+    document.getElementById('biaStatus').textContent='⚠️ Lead sem WhatsApp cadastrado';
+    return;
+  }
+  const st=document.getElementById('biaStatus');
+  st.textContent='⏳ Gerando link de cadastro...';
+  // Gerar token de cadastro e enviar via Bia
+  fetch(API+'/bia/trigger',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':API_KEY},
+    body:JSON.stringify({
+      lead_id:l.id, nome:l.nome, empresa:l.empresa||'',
+      whatsapp:l.wa||'', email:l.email||'',
+      segmento:l.seg||'', action:'cadastro',
+      custom_message:'Olá '+l.nome.split(' ')[0]+'! Chegou a hora de formalizarmos seu cadastro como cliente OMA. Clique no link abaixo para preencher suas informações — leva menos de 2 minutos. 🦞',
+      dor:l.dor||'', diagnostico:l.diag||''
+    })
+  }).then(r=>r.json()).then(d=>{
+    if(d.ok){
+      st.innerHTML='✅ <strong>Formulário enviado via Bia!</strong><br><span style="font-size:10px;color:#888">Quando o lead preencher, aparece automaticamente em Clientes.</span>';
+      toast('Formulário enviado para '+l.nome,'ok');
+    } else {
+      st.textContent='⚠️ Erro: '+(d.error||'tente novamente');
+    }
   }).catch(e=>{st.textContent='⚠️ Falha na conexão';});
 }
 function dL2(){
