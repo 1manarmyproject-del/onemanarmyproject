@@ -51,6 +51,11 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
 .badge-enc{background:rgba(226,75,74,.15);color:var(--red);border:1px solid rgba(226,75,74,.3);padding:2px 8px;border-radius:2px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;}
 .war-link{color:var(--fire);text-decoration:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;}
 .war-link:hover{text-decoration:underline;}
+.ac{display:inline-flex;align-items:center;gap:4px;background:var(--graph);border:1px solid var(--steel);color:var(--ash);padding:4px 8px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;cursor:pointer;transition:all .15s;text-transform:uppercase;white-space:nowrap;}
+.ac:hover{border-color:var(--fire);color:var(--fire);}
+.ac.ac-fire{border-color:rgba(232,112,58,.3);color:var(--fire);}
+.ac.ac-fire:hover{background:var(--fire);color:#000;}
+.ac-wrap{display:flex;flex-wrap:wrap;gap:4px;}
 /* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;}
 .modal-bg.open{display:flex;}
@@ -307,12 +312,14 @@ function render(){
       +'<td style="color:var(--green)">R$'+(parseFloat(c.mrr)||0).toLocaleString('pt-BR')+'/mês</td>'
       +'<td>'+badge+'</td>'
       +'<td style="color:var(--ash);font-size:11px">'+esc(c.inicio_contrato||c.inicio||'—')+'</td>'
-      +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
-        +'<button onclick="dispararMagicLink('+i+',event)" title="Enviar magic link" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;" title="Magic Link">🔗</button>'
-        +'<button onclick="dispararCobranca('+i+',event)" title="Criar cobrança Asaas" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;">💰</button>'
-        +'<button onclick="dispararVoucher('+i+',event)" title="Criar voucher R$5" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;">🎟️</button>'
-        +'<button onclick="dispararContrato('+i+',event)" title="Enviar contrato (DS Sign)" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;">📄</button>'
-        +'<button onclick="editarCliente('+i+',event)" title="Editar" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;">✎</button>'
+      +'<td onclick="event.stopPropagation()">'
+        +'<div class="ac-wrap">'
+          +'<button class="ac ac-fire" onclick="dispararMagicLink('+i+',event)" title="Magic Link">🔗 Link</button>'
+          +'<button class="ac" onclick="dispararCobranca('+i+',event)" title="Cobrança Asaas">💰 Cobrar</button>'
+          +'<button class="ac" onclick="dispararVoucher('+i+',event)" title="Voucher R$5">🎟️ Teste</button>'
+          +'<button class="ac" onclick="dispararContrato('+i+',event)" title="Contrato DS Sign">📄 Contrato</button>'
+          +'<button class="ac" onclick="editarCliente('+i+',event)" title="Editar">✎ Editar</button>'
+        +'</div>'
       +'</td>'
     +'</tr>';
   }).join('');
