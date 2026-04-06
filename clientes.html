@@ -140,9 +140,7 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>Cliente</th><th>Segmento</th><th>Módulos</th>
-        <th>MRR</th><th>Setup</th><th>Custo</th><th>Margem</th>
-        <th>Complexidade</th><th>Setup</th><th>Status</th><th>Desde</th><th></th>
+        <th>Cliente</th><th>Segmento</th><th>MRR</th><th>Status</th><th>Desde</th><th>Ações</th>
       </tr></thead>
       <tbody id="tbody">
         <tr><td colspan="10" style="text-align:center;padding:48px;color:var(--ash);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;">
@@ -161,6 +159,16 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
   <div class="modal-box">
     <h3 id="modal-title">NOVO CLIENTE</h3>
     <input type="hidden" id="edit-id">
+    <div class="frow full" style="margin-bottom:8px;">
+      <div class="field">
+        <span class="flabel">Email</span>
+        <div style="display:flex;gap:6px;">
+          <input class="finput" id="f-email" type="email" placeholder="cliente@empresa.com.br" style="flex:1;" oninput="debounceCRM(this.value)">
+          <button onclick="buscarCRM()" style="background:var(--iron);border:1px solid var(--steel);color:var(--ash);padding:0 12px;font-family:Space Mono,monospace;font-size:8px;letter-spacing:1px;cursor:pointer;white-space:nowrap;" id="crm-btn">🔍 CRM</button>
+        </div>
+        <span id="crm-status" style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-top:3px;display:block;height:12px;"></span>
+      </div>
+    </div>
     <div class="frow">
       <div class="field"><span class="flabel">Nome / Empresa</span><input class="finput" id="f-nome" type="text" placeholder="Ex: Cervus Consultoria"></div>
       <div class="field"><span class="flabel">Segmento</span>
@@ -188,8 +196,20 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
     <div class="frow full">
       <div class="field"><span class="flabel">Modulos Contratados</span><input class="finput" id="f-modulos" type="text" placeholder="Ex: Atendimento, Agendamento, Cobranca"></div>
     </div>
-    <div class="frow full">
-      <div class="field"><span class="flabel">Contato Principal</span><input class="finput" id="f-contato" type="text" placeholder="Nome · WhatsApp · Email"></div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Contato Principal</span><input class="finput" id="f-contato" type="text" placeholder="Nome do responsável"></div>
+      <div class="field"><span class="flabel">WhatsApp</span><input class="finput" id="f-whatsapp" type="text" placeholder="11 99999-9999"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">CNPJ</span><input class="finput" id="f-cnpj" type="text" placeholder="00.000.000/0001-00"></div>
+      <div class="field"><span class="flabel">Origem</span>
+        <select class="fselect" id="f-origem">
+          <option value="manual">Manual</option>
+          <option value="onboarding">Onboarding</option>
+          <option value="asaas">Asaas / Pagamento</option>
+          <option value="bia">Bia / WhatsApp</option>
+        </select>
+      </div>
     </div>
     <div class="frow">
       <div class="field"><span class="flabel">Inicio do Contrato</span><input class="finput" id="f-inicio" type="date"></div>
@@ -235,8 +255,8 @@ if(localStorage.getItem('oma_auth')==='1'){
 
 function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
 
-var CLIENTES_API = 'https://api.onemanarmyproject.com.br';
-var CLIENTES_KEY = (sessionStorage.getItem('oma_api_key')||'');
+var CLIENTES_API = 'https://alexa.pipeeyewear.com.br';
+var CLIENTES_KEY = localStorage.getItem('oma_api_key') || '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
 
 async function init(){
   try{
@@ -280,18 +300,18 @@ function render(){
                 c.status==='pausado'?'<span class="badge-pause">PAUSADO</span>':
                 '<span class="badge-enc">ENCERRADO</span>';
     return '<tr onclick="verDetalhe('+i+')">'
-      +'<td><b>'+esc(c.nome)+'</b></td>'
-      +'<td style="color:var(--ash)">'+esc(c.seg||'—')+'</td>'
-      +'<td style="font-size:11px;color:var(--fog)">'+esc(c.modulos||'—')+'</td>'
-      +'<td style="color:var(--green)">R$'+(parseFloat(c.mrr)||0).toLocaleString('pt-BR')+'</td>'
-      +'<td style="color:var(--ash)">R$'+(parseFloat(c.setup)||0).toLocaleString('pt-BR')+'</td>'
-      +'<td style="color:var(--fog)">R$'+(parseFloat(c.custo)||0).toLocaleString('pt-BR')+'</td>'
-      +'<td style="color:'+mgColor+'">'+mg+'%</td>'
-      +'<td>'+complexBadge+'</td>'
-      +'<td>'+setupBadge+'</td>'
+      +'<td><b>'+esc(c.nome)+'</b><br><span style="font-size:10px;color:var(--ash)">'+esc(c.email||'—')+'</span></td>'
+      +'<td style="color:var(--ash);font-size:11px">'+esc(c.segmento||c.seg||'—')+'</td>'
+      +'<td style="color:var(--green)">R$'+(parseFloat(c.mrr)||0).toLocaleString('pt-BR')+'/mês</td>'
       +'<td>'+badge+'</td>'
-      +'<td style="color:var(--ash);font-size:11px">'+esc(c.inicio||'—')+'</td>'
-      +'<td><button onclick="editarCliente('+i+',event)" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 8px;font-family:Space Mono,monospace;font-size:8px;cursor:pointer;">✎</button></td>'
+      +'<td style="color:var(--ash);font-size:11px">'+esc(c.inicio_contrato||c.inicio||'—')+'</td>'
+      +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
+        +'<button onclick="dispararMagicLink('+i+',event)" title="Enviar magic link" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;" title="Magic Link">🔗</button>'
+        +'<button onclick="dispararCobranca('+i+',event)" title="Criar cobrança Asaas" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;">💰</button>'
+        +'<button onclick="dispararVoucher('+i+',event)" title="Criar voucher R$5" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;">🎟️</button>'
+        +'<button onclick="dispararContrato('+i+',event)" title="Enviar contrato (DS Sign)" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;margin-right:3px;">📄</button>'
+        +'<button onclick="editarCliente('+i+',event)" title="Editar" style="background:none;border:1px solid var(--steel);color:var(--ash);padding:3px 7px;font-family:Space Mono,monospace;font-size:9px;cursor:pointer;">✎</button>'
+      +'</td>'
     +'</tr>';
   }).join('');
 }
@@ -341,8 +361,12 @@ function editarCliente(i, e){
   document.getElementById('f-custo').value=c.custo||'';
   document.getElementById('f-status').value=c.status||'ativo';
   document.getElementById('f-modulos').value=c.modulos||'';
+  document.getElementById('f-email').value=c.email||'';
+  document.getElementById('f-whatsapp').value=c.whatsapp||'';
+  document.getElementById('f-cnpj').value=c.cnpj||'';
+  document.getElementById('f-origem').value=c.origem||'manual';
   document.getElementById('f-contato').value=c.contato||'';
-  document.getElementById('f-inicio').value=c.inicio||'';
+  document.getElementById('f-inicio').value=c.inicio_contrato||c.inicio||'';
   document.getElementById('f-warroom').value=c.warroom||'';
   document.getElementById('f-notas').value=c.notas||'';
   document.getElementById('modal').classList.add('open');
@@ -355,6 +379,10 @@ async function salvarCliente(){
   if(!nome){alert('Digite o nome do cliente.');return;}
   var cliente={
     nome:nome,
+    email:document.getElementById('f-email').value.trim(),
+    whatsapp:document.getElementById('f-whatsapp').value.trim(),
+    cnpj:document.getElementById('f-cnpj').value.trim(),
+    origem:document.getElementById('f-origem').value,
     seg:document.getElementById('f-seg').value,
     mrr:document.getElementById('f-mrr').value,
     setup:document.getElementById('f-setup').value,
@@ -364,8 +392,7 @@ async function salvarCliente(){
     contato:document.getElementById('f-contato').value,
     inicio:document.getElementById('f-inicio').value,
     warroom:document.getElementById('f-warroom').value,
-    notas:document.getElementById('f-notas').value,
-    criado_em:new Date().toISOString()
+    notas:document.getElementById('f-notas').value
   };
   var editIdx=document.getElementById('edit-id').value;
   if(editIdx!==''){
@@ -389,6 +416,107 @@ async function salvarCliente(){
     toast('Cliente salvo!','ok');
   }catch(e){ toast('Erro de conexão',''); }
 }
+
+// ── BUSCA CRM AMANDA ─────────────────────────────────
+var crmTimer = null;
+function debounceCRM(v){ clearTimeout(crmTimer); if(v.length>3) crmTimer=setTimeout(function(){buscarCRM();},800); }
+
+async function buscarCRM(){
+  var email = document.getElementById('f-email')?.value.trim();
+  if(!email){ toast('Digite um e-mail para buscar',''); return; }
+  document.getElementById('crm-status').textContent = 'Buscando no CRM...';
+  document.getElementById('crm-btn').disabled = true;
+  try {
+    var r = await fetch(CLIENTES_API+'/api/crm/search?email='+encodeURIComponent(email), {headers:{'x-api-key':CLIENTES_KEY}});
+    var d = await r.json();
+    if(d.found && d.data){
+      var c = d.data;
+      if(c.nome && !document.getElementById('f-nome').value) document.getElementById('f-nome').value = c.nome||'';
+      if(c.empresa && !document.getElementById('f-nome').value) document.getElementById('f-nome').value = c.empresa||'';
+      if(c.telefone) document.getElementById('f-whatsapp').value = c.telefone||'';
+      if(c.empresa) document.getElementById('f-nome').value = document.getElementById('f-nome').value || c.empresa;
+      document.getElementById('crm-status').textContent = '✅ Dados encontrados no CRM da Amanda';
+      document.getElementById('crm-status').style.color = 'var(--green)';
+    } else {
+      document.getElementById('crm-status').textContent = 'Não encontrado no CRM — preencha manualmente';
+      document.getElementById('crm-status').style.color = 'var(--ash)';
+    }
+  } catch(e) {
+    document.getElementById('crm-status').textContent = 'Erro na busca';
+  }
+  document.getElementById('crm-btn').disabled = false;
+}
+
+// ── AÇÕES POR CLIENTE ─────────────────────────────────
+
+async function dispararMagicLink(i, e){
+  e.stopPropagation();
+  var c = clientes[i];
+  if(!c || !c.email){ toast('Cliente sem e-mail cadastrado',''); return; }
+  if(!confirm('Enviar magic link de acesso para '+c.email+'?')) return;
+  try {
+    var r = await fetch(CLIENTES_API+'/portal/magic-link', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email: c.email, name: c.nome})
+    });
+    var d = await r.json();
+    toast(d.ok ? '✅ Magic link enviado para '+c.email : '⚠️ '+d.error, d.ok?'ok':'');
+  } catch(e2){ toast('Erro ao enviar magic link',''); }
+}
+
+async function dispararCobranca(i, e){
+  e.stopPropagation();
+  var c = clientes[i];
+  if(!c){ return; }
+  var valor = prompt('Valor da cobrança (R$):', c.mrr || '');
+  if(!valor) return;
+  var descricao = prompt('Descrição:', 'OMA Project — '+c.nome) || 'OMA Project';
+  if(!c.email){ toast('Cliente sem e-mail — informe o e-mail primeiro',''); return; }
+  toast('⏳ Criando cobrança no Asaas...','');
+  try {
+    var r = await fetch(CLIENTES_API+'/hub/cobranca', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':CLIENTES_KEY},
+      body: JSON.stringify({
+        email: c.email, nome: c.nome, valor: parseFloat(valor),
+        descricao: descricao, clientId: c.id
+      })
+    });
+    var d = await r.json();
+    if(d.ok && d.url){ 
+      toast('✅ Cobrança criada!','ok');
+      if(confirm('Cobrança criada! Copiar link?')) navigator.clipboard?.writeText(d.url);
+    } else { toast('Erro: '+(d.error||'falha'),''); }
+  } catch(e2){ toast('Erro ao criar cobrança',''); }
+}
+
+async function dispararVoucher(i, e){
+  e.stopPropagation();
+  var c = clientes[i];
+  if(!c){ return; }
+  if(!confirm('Criar voucher de teste (R$5) e enviar para '+c.email+'?')) return;
+  try {
+    var r = await fetch(CLIENTES_API+'/hub/voucher', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':CLIENTES_KEY},
+      body: JSON.stringify({email: c.email, nome: c.nome, clientId: c.id})
+    });
+    var d = await r.json();
+    if(d.ok && d.url){
+      toast('✅ Voucher criado: '+d.url,'ok');
+      navigator.clipboard?.writeText(d.url);
+    } else { toast('Erro: '+(d.error||'falha'),''); }
+  } catch(e2){ toast('Erro ao criar voucher',''); }
+}
+
+function dispararContrato(i, e){
+  e.stopPropagation();
+  var c = clientes[i];
+  toast('📄 DS Sign — em breve. Email: '+(c.email||'—'),'');
+}
+
+// ── MODAL — salvar com campos extras ─────────────────
 </script>
 </body>
 </html>
