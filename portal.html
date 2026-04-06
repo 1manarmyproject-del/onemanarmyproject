@@ -269,7 +269,7 @@ async function validateSession(token){
   try{const r=await fetch(API+'/portal/session?token='+token);if(!r.ok)return null;return await r.json();}catch{return null;}
 }
 
-function renderPortal(client,products){
+function renderPortal(client,products,currentSession){
   document.getElementById('portal-name').textContent='Olá, '+(client.name||client.email.split('@')[0])+'.';
   document.getElementById('portal-company').textContent=client.company||'';
   document.getElementById('nav-user').textContent=client.email;
@@ -282,7 +282,7 @@ function renderPortal(client,products){
   if (predProduct) {
     const existing = document.getElementById('briefing-section');
     if (!existing) {
-      const briefingHtml = renderBriefing(predProduct, savedSess || data.session || '');
+      const briefingHtml = renderBriefing(predProduct, currentSession || savedSess || '');
       if (briefingHtml) {
         const section = document.getElementById('products-section');
         if (section) section.insertAdjacentHTML('afterend', briefingHtml);
@@ -511,9 +511,9 @@ async function init(){
   if(urlToken){
     const data=await validateToken(urlToken);
     if(data&&data.ok){
+      window.history.replaceState({},'','/portal'); // limpa token da URL imediatamente
       localStorage.setItem(SK,data.session);
-      window.history.replaceState({},'','/portal');
-      renderPortal(data.client,data.products);
+      renderPortal(data.client,data.products,data.session);
       return;
     }
     showScreen('screen-login');
@@ -523,7 +523,7 @@ async function init(){
   }
   if(saved){
     const data=await validateSession(saved);
-    if(data&&data.ok){renderPortal(data.client,data.products);return;}
+    if(data&&data.ok){renderPortal(data.client,data.products,saved);return;}
     localStorage.removeItem(SK);
   }
   showScreen('screen-login');
