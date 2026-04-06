@@ -292,7 +292,7 @@ const PWD='omaproject2026';
 function dL(){
   if(document.getElementById('pw').value===PWD){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
-    sessionStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
+    sessionStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw=='));
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
   }else{

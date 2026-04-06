@@ -368,7 +368,7 @@ var prods=[],acoes=[],linha='todos',_ct=[],_bt=[];
 function dL(){
   if(document.getElementById('pw').value==='omaproject2026'){
     localStorage.setItem('oma_hub','1');
-    localStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
+    localStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw=='));
     KEY=localStorage.getItem('oma_api_key');
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
@@ -376,6 +376,23 @@ function dL(){
   }
 }
 function lo(){localStorage.removeItem('oma_hub');location.reload();}
+
+// ── Auto-auth quando carregado dentro do Hub (iframe) ──────────────────────
+window.addEventListener('message', function(e){
+  if(e.data && e.data.type === 'oma_auth'){
+    if(e.data.oma_hub) localStorage.setItem('oma_hub', e.data.oma_hub);
+    if(e.data.oma_api_key) localStorage.setItem('oma_api_key', e.data.oma_api_key);
+    // Se ainda está na tela de login, avançar automaticamente
+    var ls = document.getElementById('ls');
+    var app = document.getElementById('app');
+    if(ls && ls.style.display !== 'none' && app){
+      ls.style.display = 'none';
+      app.style.display = 'block';
+      if(typeof init === 'function') init();
+      else if(typeof initApp === 'function') initApp();
+    }
+  }
+});
 if(localStorage.getItem('oma_hub')==='1'){
   KEY=localStorage.getItem('oma_api_key')||KEY;
   document.getElementById('ls').style.display='none';

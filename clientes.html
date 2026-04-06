@@ -346,7 +346,7 @@ var SK = 'oma-clientes-v1';
 function dL(){
   if(document.getElementById('pw').value===PW){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){localStorage.setItem(k,'1');});
-    localStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
+    localStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw=='));
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='block';
     init();
@@ -362,6 +362,22 @@ var CLIENTES_API = 'https://alexa.pipeeyewear.com.br';
 var CLIENTES_KEY = localStorage.getItem('oma_api_key') || '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
 
 // Auto-login — executa direto (script está no final do body, DOM já existe)
+
+// Auto-auth via postMessage do Hub
+window.addEventListener('message', function(e){
+  if(e.data && e.data.type === 'oma_auth'){
+    if(e.data.oma_api_key) localStorage.setItem('oma_api_key', e.data.oma_api_key);
+    localStorage.setItem('oma_hub','1');
+    localStorage.setItem('oma_auth','1');
+    var ls=document.getElementById('ls');
+    var app=document.getElementById('app');
+    if(ls && app && ls.style.display!=='none'){
+      ls.style.display='none';
+      app.style.display='block';
+      if(typeof init==='function') init();
+    }
+  }
+});
 if(localStorage.getItem('oma_auth')==='1'){
   document.getElementById('ls').style.display='none';
   document.getElementById('app').style.display='block';

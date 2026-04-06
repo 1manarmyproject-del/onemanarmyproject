@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-06T06:39:39.295412Z",
-  "updated_at_brt": "03:39 BRT · 06/04/2026",
+  "updated_at": "2026-04-06T11:55:11.946320Z",
+  "updated_at_brt": "08:55 BRT · 06/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 3.4227,
+  "total_cost_usd": 3.44,
   "services": {
     "system": {
       "name": "Sistema",
@@ -18,12 +18,12 @@
           "activity": "Aprendizado e memória",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.11959999999999998,
-          "runs": 110
+          "cost": 0.12249999999999998,
+          "runs": 112
         }
       ],
-      "total_cost": 0.23139999999999997,
-      "total_runs": 139
+      "total_cost": 0.23429999999999995,
+      "total_runs": 141
     },
     "ekhoa": {
       "name": "Ekhoa",
@@ -32,12 +32,12 @@
           "activity": "Análise contextual / temática",
           "llm": "Sonnet 4",
           "llm_color": "anthropic",
-          "cost": 0.0924,
-          "runs": 5
+          "cost": 0.10679999999999999,
+          "runs": 6
         }
       ],
-      "total_cost": 0.0924,
-      "total_runs": 5
+      "total_cost": 0.10679999999999999,
+      "total_runs": 6
     },
     "george": {
       "name": "George",

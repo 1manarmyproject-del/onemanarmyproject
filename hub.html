@@ -377,7 +377,20 @@ function goTab(id){
   if(pg)pg.classList.add('active');
   if(SRCS[id]&&!loaded[id]){
     var ifr=document.getElementById('ifr-'+id);
-    if(ifr){ifr.src=SRCS[id];loaded[id]=true;}
+    if(ifr){
+      ifr.src=SRCS[id];
+      loaded[id]=true;
+      // Injetar auth quando o iframe carregar
+      ifr.onload=function(){
+        try{
+          ifr.contentWindow.postMessage({
+            type:'oma_auth',
+            oma_hub:'1',
+            oma_api_key:localStorage.getItem('oma_api_key')||'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'
+          },'*');
+        }catch(e){}
+      };
+    }
   }
 }
 
