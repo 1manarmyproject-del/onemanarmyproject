@@ -468,6 +468,7 @@ function rP(){
             +(p.asaas_link_pix?'<button class="pac fire" data-link="'+esc(p.asaas_link_pix)+'" onclick="cL(this.dataset.link)">PIX</button>':'')
             +(p.asaas_link_cartao?'<button class="pac" data-link="'+esc(p.asaas_link_cartao)+'" onclick="cL(this.dataset.link)">CC</button>':'')
             +'<button class="pac" onclick="eP('+p.id+')">Editar</button>'
+            +'<button class="pac" style="border-color:rgba(226,75,74,.4);color:var(--red)" onclick="dP('+p.id+',event)">Deletar</button>'
           +'</div>'
         +'</div>'
       +'</div>'
@@ -500,6 +501,7 @@ function rA(){
       +'<div class="acao-btns">'
         +'<span class="stxt" style="color:'+(ia?'var(--green)':'var(--ash)')+'">'+(a.status||'').toUpperCase()+'</span>'
         +'<button class="pac" onclick="eA('+a.id+')">Editar</button>'
+        +'<button class="pac" style="border-color:rgba(226,75,74,.4);color:var(--red)" onclick="dA('+a.id+',event)">Deletar</button>'
         +(!ia&&a.status!=='encerrada'?'<button class="pac fire" onclick="atA('+a.id+',\'ativa\')">Ativar</button>':'')
         +(ia?'<button class="pac" onclick="atA('+a.id+',\'pausada\')">Pausar</button>':'')
         +(ia?'<button class="pac fire" onclick="distA('+a.id+')">Distribuir</button>':'')
@@ -666,6 +668,40 @@ async function distA(id){
   var cn=[];try{cn=JSON.parse(a.canais||'[]');}catch(e){}
   if(cn.includes('bia'))toast('Bia: em breve - disparar para leads do CRM','ok');
   if(cn.includes('manual')){navigator.clipboard?.writeText(a.nome+' | Desconto: '+(a.desconto_pct?a.desconto_pct+'%':fmt(a.desconto_fixo)));toast('Info copiada: '+a.nome,'ok');}
+}
+
+async function dP(id, e){
+  if(e) e.stopPropagation();
+  var p = prods.find(function(x){return x.id==id;});
+  if(!p) return;
+  if(!confirm('Deletar produto "'+p.nome+'"? Esta acao nao pode ser desfeita.')) return;
+  try{
+    var r = await fetch(API+'/produtos/'+id, {method:'DELETE', headers:{'x-api-key':KEY}});
+    var d = await r.json();
+    if(d.ok || d.deleted){
+      toast('Produto deletado','ok');
+      await lP();
+    } else {
+      toast('Erro: '+(d.error||'falha'),'');
+    }
+  } catch(err){ toast('Erro de conexao',''); }
+}
+
+async function dA(id, e){
+  if(e) e.stopPropagation();
+  var a = acoes.find(function(x){return x.id==id;});
+  if(!a) return;
+  if(!confirm('Deletar acao "'+a.nome+'"?')) return;
+  try{
+    var r = await fetch(API+'/acoes/'+id, {method:'DELETE', headers:{'x-api-key':KEY}});
+    var d = await r.json();
+    if(d.ok || d.deleted){
+      toast('Acao deletada','ok');
+      await lA();
+    } else {
+      toast('Erro: '+(d.error||'falha'),'');
+    }
+  } catch(err){ toast('Erro de conexao',''); }
 }
 function cL(l){navigator.clipboard?.writeText(l.startsWith('http')?l:'https://'+l);toast('Link copiado!','ok');}
 </script>
