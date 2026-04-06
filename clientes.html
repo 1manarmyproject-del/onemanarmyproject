@@ -56,6 +56,8 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
 .ac.ac-fire{border-color:rgba(232,112,58,.3);color:var(--fire);}
 .ac.ac-fire:hover{background:var(--fire);color:#000;}
 .ac-wrap{display:flex;flex-wrap:wrap;gap:4px;}
+.btn-bia-action{width:100%;background:var(--fire);border:1px solid var(--fire);color:#000;padding:11px 16px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;cursor:pointer;text-align:left;transition:opacity .15s;}
+.btn-bia-action:hover{opacity:.85;}
 /* Filtros */
 .filtros{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
 .flt{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 14px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
@@ -297,6 +299,31 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
 </div>
 
 <div class="toast" id="ts"></div>
+<!-- Modal Acionar Bia -->
+<div class="modal-bg" id="bia-modal" onclick="if(event.target===this)fecharBiaModal()">
+  <div class="modal-box" style="max-width:440px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="margin:0">🚀 ACIONAR BIA</h3>
+      <button onclick="fecharBiaModal()" style="background:none;border:none;color:var(--ash);cursor:pointer;font-size:18px;">✕</button>
+    </div>
+    <div id="bia-lead-info" style="margin-bottom:16px;padding:12px;background:var(--graph);border-radius:3px;font-size:12px;color:var(--bone);line-height:1.6;"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <button class="btn-bia-action" onclick="acionarBia('agendar')">📅 Agendar reunião com Fabio</button>
+      <button class="btn-bia-action" onclick="acionarBia('followup')">🔄 Follow-up — retomar conversa</button>
+      <button class="btn-bia-action" onclick="acionarBia('diagnostico')">📋 Enviar diagnóstico</button>
+      <button class="btn-bia-action" onclick="acionarBia('reengajar')">💬 Reengajar lead frio</button>
+      <button class="btn-bia-action" onclick="acionarBia('cadastro')" style="background:var(--blue,#3a7bd5);border-color:var(--blue,#3a7bd5);">📝 Enviar formulário de cadastro</button>
+      <button class="btn-bia-action" onclick="acionarBia('onboarding')" style="background:var(--green);border-color:var(--green);">📋 Enviar Onboarding</button>
+      <button class="btn-bia-action" onclick="mostrarCustom()">✍️ Mensagem personalizada</button>
+    </div>
+    <div id="bia-custom" style="display:none;margin-top:12px;">
+      <textarea class="ftarea" id="bia-custom-msg" rows="3" placeholder="O que a Bia deve dizer?"></textarea>
+      <button class="btn-bia-action" style="margin-top:8px;width:100%" onclick="acionarBia('custom')">Enviar mensagem</button>
+    </div>
+    <div id="bia-status" style="margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);min-height:20px;"></div>
+  </div>
+</div>
+
 
 <!-- Modal de confirmação -->
 <div class="confirm-bg" id="cfm-bg">
@@ -421,7 +448,7 @@ function render(){
           +'<button class="ac ac-fire" onclick="dispararMagicLink('+i+',event)" title="Magic Link">🔗 Link</button>'
           +'<button class="ac" onclick="dispararCobranca('+i+',event)" title="Cobrança Asaas">💰 Cobrar</button>'
           +'<button class="ac" onclick="dispararVoucher('+i+',event)" title="Voucher R$5">🎟️ Teste</button>'
-          +'<button class="ac" onclick="dispararOnboarding('+i+',event)" title="Enviar link de onboarding">🚀 Onboarding</button>'
+          +'<button class="ac" onclick="abrirMenuBia('+i+',event)" title="Acionar Bia" style="border-color:rgba(232,112,58,.4);color:var(--fire)">🚀 Bia</button>'
           +'<button class="ac" onclick="dispararContrato('+i+',event)" title="Contrato DS Sign">📄 Contrato</button>'
           +'<button class="ac" onclick="editarCliente('+i+',event)" title="Editar">✎ Editar</button>'
           +'<button class="ac" style="border-color:rgba(226,75,74,.4);color:var(--red)" onclick="deletarCliente('+i+',event)" title="Deletar">✕ Deletar</button>'
@@ -799,6 +826,75 @@ async function dispararOnboarding(i, e){
     // Sem WhatsApp — copiar link
     navigator.clipboard?.writeText(link);
     toast('✅ Link copiado: '+link,'ok');
+  }
+}
+
+var _biaClienteIdx = null;
+
+function abrirMenuBia(i, e){
+  e.stopPropagation();
+  _biaClienteIdx = i;
+  var c = clientes[i];
+  if(!c) return;
+  document.getElementById('bia-lead-info').innerHTML =
+    '<strong>'+esc(c.nome)+'</strong>'+(c.nome!==c.email&&c.email?' — '+esc(c.email):'')+'<br>'+
+    (c.whatsapp?'📱 '+esc(c.whatsapp)+'<br>':'<span style="color:var(--red)">⚠️ Sem WhatsApp</span><br>')+
+    '📊 Status: '+esc(c.status||'—')+(c.segmento?' · '+esc(c.segmento):'');
+  document.getElementById('bia-custom').style.display='none';
+  document.getElementById('bia-status').textContent='';
+  document.getElementById('bia-modal').classList.add('open');
+}
+
+function fecharBiaModal(){
+  document.getElementById('bia-modal').classList.remove('open');
+  _biaClienteIdx = null;
+}
+
+function mostrarCustom(){
+  document.getElementById('bia-custom').style.display='block';
+}
+
+async function acionarBia(action){
+  if(_biaClienteIdx === null) return;
+  var c = clientes[_biaClienteIdx];
+  if(!c) return;
+  if(!c.whatsapp && action !== 'custom'){
+    document.getElementById('bia-status').innerHTML = '<span style="color:var(--red)">⚠️ Cliente sem WhatsApp cadastrado. Edite e adicione o número.</span>';
+    return;
+  }
+  var st = document.getElementById('bia-status');
+  st.textContent = '⏳ Enviando para Bia...';
+  var customMsg = action==='custom' ? document.getElementById('bia-custom-msg').value : '';
+
+  // Para onboarding: gerar slug
+  if(action==='onboarding'){
+    var slug = (c.nome||'cliente').toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g,'')
+      .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,30);
+    customMsg = 'https://api.onemanarmyproject.com.br/onboarding/'+slug;
+  }
+
+  try {
+    var r = await fetch(CLIENTES_API+'/bia/trigger', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':CLIENTES_KEY},
+      body: JSON.stringify({
+        nome: c.nome, empresa: c.nome,
+        whatsapp: c.whatsapp||'', email: c.email||'',
+        segmento: c.segmento||'', action: action,
+        custom_message: customMsg,
+        dor: c.notas||'', diagnostico: ''
+      })
+    });
+    var d = await r.json();
+    if(d.ok){
+      st.innerHTML = '✅ <strong>Bia acionada!</strong> Ação: '+action;
+      toast('✅ Bia acionada para '+c.nome,'ok');
+    } else {
+      st.textContent = '⚠️ Erro: '+(d.error||'falha');
+    }
+  } catch(e2){
+    st.textContent = '⚠️ Falha na conexão';
   }
 }
 </script>

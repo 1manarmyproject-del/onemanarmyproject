@@ -303,6 +303,10 @@
     {
       "source": "/audit",
       "destination": "/audit.html"
+    },
+    {
+      "source": "/cadastro-cliente",
+      "destination": "/cadastro-cliente.html"
     }
   ],
   "redirects": [

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA — Cadastro de Cliente</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;}
+.wrap{width:100%;max-width:520px;}
+.header{text-align:center;margin-bottom:36px;}
+.logo{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:4px;color:var(--fire);margin-bottom:6px;}
+.title{font-family:'Black Ops One',cursive;font-size:28px;letter-spacing:2px;color:var(--bone);margin-bottom:8px;}
+.sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;}
+.card{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:28px;}
+.section{margin-bottom:24px;}
+.section-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--iron);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.frow.full{grid-template-columns:1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.flabel{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.flabel .req{color:var(--fire);}
+.finput,.fselect,.ftarea{background:var(--graph);border:1px solid var(--steel);padding:9px 12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:14px;outline:none;border-radius:2px;width:100%;}
+.finput:focus,.fselect:focus,.ftarea:focus{border-color:var(--fire);}
+.ftarea{resize:vertical;min-height:80px;line-height:1.6;}
+.btn-submit{width:100%;background:var(--fire);border:none;color:#000;padding:14px;font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;cursor:pointer;margin-top:8px;transition:opacity .2s;}
+.btn-submit:hover{opacity:.85;}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed;}
+.success{display:none;text-align:center;padding:48px 24px;}
+.success-icon{font-size:48px;margin-bottom:16px;}
+.success-title{font-family:'Black Ops One',cursive;font-size:22px;letter-spacing:2px;color:var(--fire);margin-bottom:10px;}
+.success-msg{font-family:'Barlow',sans-serif;font-size:14px;color:var(--ash);line-height:1.7;}
+.err-msg{color:#ff6040;font-family:'Space Mono',monospace;font-size:10px;margin-top:10px;display:none;}
+@media(max-width:480px){.frow{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="logo">🦞 ONE MAN ARMY PROJECT</div>
+    <div class="title">Cadastro de Cliente</div>
+    <div class="sub">Preencha os dados abaixo para formalizarmos sua conta</div>
+  </div>
+
+  <div class="card" id="form-card">
+    <!-- DADOS PESSOAIS -->
+    <div class="section">
+      <div class="section-title">Dados Pessoais</div>
+      <div class="frow">
+        <div class="field"><span class="flabel">Nome completo <span class="req">*</span></span><input class="finput" id="f-nome" type="text" placeholder="Seu nome completo"></div>
+        <div class="field"><span class="flabel">Cargo / Função</span><input class="finput" id="f-cargo" type="text" placeholder="CEO, Sócio, Gerente..."></div>
+      </div>
+      <div class="frow">
+        <div class="field"><span class="flabel">WhatsApp <span class="req">*</span></span><input class="finput" id="f-whatsapp" type="tel" placeholder="11 99999-9999"></div>
+        <div class="field"><span class="flabel">E-mail</span><input class="finput" id="f-email" type="email" placeholder="email@empresa.com.br"></div>
+      </div>
+    </div>
+
+    <!-- DADOS DA EMPRESA -->
+    <div class="section">
+      <div class="section-title">Dados da Empresa</div>
+      <div class="frow">
+        <div class="field"><span class="flabel">Nome da Empresa <span class="req">*</span></span><input class="finput" id="f-empresa" type="text" placeholder="Razão social ou nome fantasia"></div>
+        <div class="field"><span class="flabel">CNPJ / CPF</span><input class="finput" id="f-cnpj" type="text" placeholder="00.000.000/0001-00"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><span class="flabel">Segmento</span>
+          <select class="fselect" id="f-segmento">
+            <option value="">Selecione...</option>
+            <option>Advocacia</option><option>Consultoria</option><option>Saúde / Clínica</option>
+            <option>Ótica / Varejo</option><option>Condomínio</option><option>Distribuidor de Bebidas</option>
+            <option>Contabilidade</option><option>Educação</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="field"><span class="flabel">Cidade / Estado</span><input class="finput" id="f-cidade" type="text" placeholder="São Paulo / SP"></div>
+      </div>
+    </div>
+
+    <!-- SOBRE O PROJETO -->
+    <div class="section">
+      <div class="section-title">Sobre o Projeto OMA</div>
+      <div class="frow full">
+        <div class="field"><span class="flabel">Principal dor / desafio</span><textarea class="ftarea" id="f-dor" placeholder="O que mais te toma tempo no dia a dia? O que você gostaria de automatizar?"></textarea></div>
+      </div>
+      <div class="frow">
+        <div class="field"><span class="flabel">Como chegou até nós?</span>
+          <select class="fselect" id="f-origem">
+            <option value="">Selecione...</option>
+            <option value="whatsapp">WhatsApp / Bia</option>
+            <option value="academy">OMA Academy</option>
+            <option value="indicacao">Indicação</option>
+            <option value="site">Site</option>
+            <option value="instagram">Instagram</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="field"><span class="flabel">Expectativa de início</span>
+          <select class="fselect" id="f-prazo">
+            <option value="">Selecione...</option>
+            <option value="imediato">Imediato</option>
+            <option value="30dias">Até 30 dias</option>
+            <option value="60dias">30 a 60 dias</option>
+            <option value="explorando">Ainda explorando</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="err-msg" id="err-msg">Preencha os campos obrigatórios.</div>
+    <button class="btn-submit" id="btn-submit" onclick="enviar()">ENVIAR CADASTRO →</button>
+  </div>
+
+  <div class="success" id="success-card">
+    <div class="success-icon">🦞</div>
+    <div class="success-title">Cadastro Enviado!</div>
+    <div class="success-msg">
+      Seus dados foram recebidos com sucesso.<br>
+      Em breve nossa equipe entrará em contato para dar continuidade ao seu onboarding.<br><br>
+      <span style="color:var(--fire);font-family:'Space Mono',monospace;font-size:11px;">ONE MAN ARMY PROJECT</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Pré-preencher nome do lead via query string
+var params = new URLSearchParams(window.location.search);
+var leadNome = params.get('lead') || '';
+var leadWa = params.get('wa') || '';
+if(leadNome) document.getElementById('f-nome').value = decodeURIComponent(leadNome);
+if(leadWa) document.getElementById('f-whatsapp').value = decodeURIComponent(leadWa);
+
+async function enviar(){
+  var nome = document.getElementById('f-nome').value.trim();
+  var whatsapp = document.getElementById('f-whatsapp').value.trim();
+  var empresa = document.getElementById('f-empresa').value.trim();
+  var err = document.getElementById('err-msg');
+
+  if(!nome || !whatsapp || !empresa){
+    err.style.display = 'block';
+    err.textContent = 'Preencha os campos obrigatórios: Nome, WhatsApp e Empresa.';
+    return;
+  }
+  err.style.display = 'none';
+
+  var btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'ENVIANDO...';
+
+  var dados = {
+    nome: nome,
+    whatsapp: whatsapp.replace(/\D/g,''),
+    email: document.getElementById('f-email').value.trim(),
+    empresa: empresa,
+    cnpj: document.getElementById('f-cnpj').value.trim(),
+    segmento: document.getElementById('f-segmento').value,
+    cidade: document.getElementById('f-cidade').value.trim(),
+    cargo: document.getElementById('f-cargo').value.trim(),
+    dor: document.getElementById('f-dor').value.trim(),
+    origem: document.getElementById('f-origem').value || 'formulario',
+    prazo: document.getElementById('f-prazo').value,
+    status: 'lead',
+    notas: 'Cadastro via formulário digital'
+  };
+
+  try {
+    var r = await fetch('https://alexa.pipeeyewear.com.br/clientes', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', 'x-api-key':'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'},
+      body: JSON.stringify(dados)
+    });
+    var d = await r.json();
+    if(d.id || d.nome){
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'ENVIAR CADASTRO →';
+      err.style.display = 'block';
+      err.textContent = 'Erro ao enviar. Tente novamente.';
+    }
+  } catch(e){
+    btn.disabled = false;
+    btn.textContent = 'ENVIAR CADASTRO →';
+    err.style.display = 'block';
+    err.textContent = 'Erro de conexão. Tente novamente.';
+  }
+}
+</script>
+</body>
+</html>
