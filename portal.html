@@ -375,9 +375,7 @@ function renderBriefing(product, session) {
 
     <button class="b-submit" id="b-btn" onclick="submitBriefingFull('${pid}', '${sess}')">Enviar briefing →</button>
     <div class="b-msg" id="b-msg"></div>
-  </div>\`;
-}
-
+  </div>`;
 }
 
 function switchBriefingTab(tab) {
@@ -440,12 +438,7 @@ async function submitBriefingFull(productId, session) {
     });
     const d = await r.json();
     if (d.ok) {
-      document.getElementById('briefing-section').innerHTML = \`
-        <div style="text-align:center;padding:32px;">
-          <div style="font-size:32px;margin-bottom:16px;">🐟</div>
-          <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--white);margin-bottom:10px;">Briefing recebido!</div>
-          <p style="font-size:13px;color:var(--fog);line-height:1.7;">Seu relatório estará pronto em até 24h úteis.<br>Você receberá uma notificação por e-mail quando estiver disponível.</p>
-        </div>\`;
+      document.getElementById('briefing-section').innerHTML = '<div style="text-align:center;padding:32px"><div style="font-size:32px;margin-bottom:16px">🐟</div><div style="font-weight:900;font-size:20px;color:#f5f0e8;margin-bottom:10px">Briefing recebido!</div><p style="font-size:13px;color:#888;line-height:1.7">Seu relatório estará pronto em até 24h úteis.<br>Você receberá um e-mail quando estiver disponível.</p></div>';
     } else {
       msg.textContent = d.error || 'Erro ao enviar.';
       msg.className = 'b-msg err'; btn.disabled = false; btn.textContent = 'Enviar briefing →';
@@ -484,12 +477,7 @@ async function submitBriefing(productId, session) {
     });
     const d = await r.json();
     if (d.ok) {
-      document.getElementById('briefing-section').innerHTML = `
-        <div style="text-align:center;padding:32px;">
-          <div style="font-size:32px;margin-bottom:16px;">🐟</div>
-          <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--white);margin-bottom:10px;">Briefing recebido!</div>
-          <p style="font-size:13px;color:var(--fog);line-height:1.7;">Seu relatório estará pronto em até 24h úteis.<br>Você receberá uma notificação por e-mail quando estiver disponível aqui no portal.</p>
-        </div>`;
+      document.getElementById('briefing-section').innerHTML = '<div style="text-align:center;padding:32px"><div style="font-size:32px;margin-bottom:16px">🐟</div><div style="font-weight:900;font-size:20px;color:#f5f0e8;margin-bottom:10px">Briefing recebido!</div><p style="font-size:13px;color:#888;line-height:1.7">Seu relatório estará pronto em até 24h úteis.<br>Você receberá um e-mail quando estiver disponível.</p></div>';
     } else {
       msg.textContent = d.error || 'Erro ao enviar. Tente novamente.';
       msg.className = 'b-msg err';
