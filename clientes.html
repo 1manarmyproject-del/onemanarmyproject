@@ -407,6 +407,7 @@ function render(){
           +'<button class="ac ac-fire" onclick="dispararMagicLink('+i+',event)" title="Magic Link">🔗 Link</button>'
           +'<button class="ac" onclick="dispararCobranca('+i+',event)" title="Cobrança Asaas">💰 Cobrar</button>'
           +'<button class="ac" onclick="dispararVoucher('+i+',event)" title="Voucher R$5">🎟️ Teste</button>'
+          +'<button class="ac" onclick="dispararOnboarding('+i+',event)" title="Enviar link de onboarding">🚀 Onboarding</button>'
           +'<button class="ac" onclick="dispararContrato('+i+',event)" title="Contrato DS Sign">📄 Contrato</button>'
           +'<button class="ac" onclick="editarCliente('+i+',event)" title="Editar">✎ Editar</button>'
           +'<button class="ac" style="border-color:rgba(226,75,74,.4);color:var(--red)" onclick="deletarCliente('+i+',event)" title="Deletar">✕ Deletar</button>'
@@ -458,8 +459,8 @@ function editarCliente(i, e){
   document.getElementById('f-nome').value=c.nome||'';
   document.getElementById('f-seg').value=c.seg||'Consultoria';
   document.getElementById('f-mrr').value=c.mrr||'';
-  document.getElementById('f-setup').value=c.setup||'';
-  document.getElementById('f-custo').value=c.custo||'';
+  document.getElementById('f-setup').value=c.setup_fee||c.setup||'';
+  document.getElementById('f-custo').value=c.custo_mensal||c.custo||'';
   document.getElementById('f-status').value=c.status||'ativo';
   document.getElementById('f-modulos').value=c.modulos||'';
   document.getElementById('f-email').value=c.email||'';
@@ -469,7 +470,7 @@ function editarCliente(i, e){
   document.getElementById('f-contato').value=c.contato||'';
   document.getElementById('f-inicio').value=c.inicio_contrato||c.inicio||'';
   try{ setProdutosNoModal(JSON.parse(c.produtos||'[]')); }catch(e){ setProdutosNoModal([]); }
-  document.getElementById('f-warroom').value=c.warroom||'';
+  document.getElementById('f-warroom').value=c.warroom_link||c.warroom||'';
   document.getElementById('f-notas').value=c.notas||'';
   document.getElementById('modal').classList.add('open');
 }
@@ -488,13 +489,13 @@ async function salvarCliente(){
     origem:document.getElementById('f-origem').value,
     seg:document.getElementById('f-seg').value,
     mrr:document.getElementById('f-mrr').value,
-    setup:document.getElementById('f-setup').value,
-    custo:document.getElementById('f-custo').value,
+    setup_fee:document.getElementById('f-setup').value,
+    custo_mensal:document.getElementById('f-custo').value,
     status:document.getElementById('f-status').value,
     modulos:document.getElementById('f-modulos').value,
     contato:document.getElementById('f-contato').value,
     inicio:document.getElementById('f-inicio').value,
-    warroom:document.getElementById('f-warroom').value,
+    warroom_link:document.getElementById('f-warroom').value,
     notas:document.getElementById('f-notas').value
   };
   var editIdx = document.getElementById('edit-id').value;
@@ -727,6 +728,58 @@ function setProdutosNoModal(prods){
     var el = document.getElementById(id);
     if(el) el.checked = prods.includes(el.value);
   });
+}
+
+// ── ONBOARDING ─────────────────────────────────────────────────────────────
+async function dispararOnboarding(i, e){
+  e.stopPropagation();
+  var c = clientes[i];
+  if(!c){ return; }
+  // Gerar slug a partir do nome da empresa
+  var slug = (c.nome||'cliente')
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'')
+    .slice(0,30);
+  var link = 'https://api.onemanarmyproject.com.br/onboarding/'+slug;
+  var _ok = await showConfirm(
+    '🚀 ONBOARDING',
+    'Enviar link de onboarding para '+c.nome+'?\n\nLink: '+link,
+    'ENVIAR VIA BIA'
+  );
+  if(!_ok) return;
+  // Dispara via Bia se tiver WhatsApp, senão copia o link
+  if(c.whatsapp){
+    try {
+      var r = await fetch(CLIENTES_API+'/bia/trigger', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json','x-api-key':CLIENTES_KEY},
+        body: JSON.stringify({
+          nome: c.nome, empresa: c.nome,
+          whatsapp: c.whatsapp, email: c.email||'',
+          segmento: c.segmento||'', action: 'onboarding',
+          custom_message: '',
+          dor: c.notas||''
+        })
+      });
+      var d = await r.json();
+      if(d.ok){
+        toast('🚀 Onboarding enviado via Bia para '+c.nome,'ok');
+      } else {
+        // Fallback: copiar link
+        navigator.clipboard?.writeText(link);
+        toast('✅ Link copiado: '+link,'ok');
+      }
+    } catch(e2){
+      navigator.clipboard?.writeText(link);
+      toast('✅ Link copiado para área de transferência','ok');
+    }
+  } else {
+    // Sem WhatsApp — copiar link
+    navigator.clipboard?.writeText(link);
+    toast('✅ Link copiado: '+link,'ok');
+  }
 }
 </script>
 </body>
