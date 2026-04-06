@@ -307,6 +307,10 @@
     {
       "source": "/cadastro-cliente",
       "destination": "/cadastro-cliente.html"
+    },
+    {
+      "source": "/produtos",
+      "destination": "/produtos.html"
     }
   ],
   "redirects": [

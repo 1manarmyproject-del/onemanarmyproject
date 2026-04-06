@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA - Produtos</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ESQUELETO - ajustar depois */
+:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--red:#e24b4a;--purple:#9b59b6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:Barlow,sans-serif;min-height:100vh;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{max-width:300px;width:100%;padding:0 24px;text-align:center;}
+.ll{font-family:Black Ops One,cursive;font-size:18px;letter-spacing:4px;color:var(--fire);margin-bottom:4px;}
+.lsub{font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:32px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-size:15px;outline:none;margin-bottom:20px;}
+.li:focus{border-bottom-color:var(--fire);}
+.lbtn{width:100%;background:var(--fire);border:none;color:#000;padding:11px;font-family:Black Ops One,cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+#app{display:none;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hback{font-family:Space Mono,monospace;font-size:10px;color:var(--ash);text-decoration:none;}
+.hback:hover{color:var(--fire);}
+.htitle{font-family:Black Ops One,cursive;font-size:16px;letter-spacing:2px;color:var(--fire);}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:4px 12px;font-size:11px;cursor:pointer;}
+.tabs{display:flex;border-bottom:1px solid var(--iron);background:var(--carbon);padding:0 32px;}
+.tab{font-family:Space Mono,monospace;font-size:9px;letter-spacing:2px;padding:14px 20px;cursor:pointer;color:var(--ash);border-bottom:2px solid transparent;text-transform:uppercase;}
+.tab.active{color:var(--fire);border-bottom-color:var(--fire);}
+.wrap{padding:28px 32px;max-width:1300px;}
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px;}
+.stat{background:var(--carbon);border:1px solid var(--iron);border-radius:3px;padding:16px;position:relative;overflow:hidden;}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.stat.s-fire::before{background:var(--fire);}.stat.s-green::before{background:var(--green);}.stat.s-gold::before{background:var(--gold);}.stat.s-blue::before{background:var(--blue);}.stat.s-purple::before{background:var(--purple);}
+.stat-val{font-family:Black Ops One,cursive;font-size:26px;margin-bottom:4px;}
+.stat.s-fire .stat-val{color:var(--fire);}.stat.s-green .stat-val{color:var(--green);}.stat.s-gold .stat-val{color:var(--gold);}.stat.s-blue .stat-val{color:var(--blue);}.stat.s-purple .stat-val{color:var(--purple);}
+.stat-lbl{font-family:Space Mono,monospace;font-size:7px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-family:Space Mono,monospace;font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;}
+.add-btn{background:none;border:1px solid var(--fire);color:var(--fire);padding:5px 14px;font-family:Space Mono,monospace;font-size:8px;letter-spacing:2px;cursor:pointer;}
+.add-btn:hover{background:var(--fire);color:#000;}
+.produtos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:32px;}
+.pcard{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;overflow:hidden;cursor:pointer;}
+.pcard:hover{border-color:var(--steel);}
+.pcard.destaque{border-color:rgba(232,112,58,.4);}
+.pcard-top{padding:16px 18px 12px;border-bottom:1px solid var(--iron);}
+.pcard-linha{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.linha-badge{font-family:Space Mono,monospace;font-size:7px;letter-spacing:2px;padding:2px 7px;border-radius:2px;text-transform:uppercase;}
+.lb-solutions{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3);}
+.lb-academy{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,96,.3);}
+.lb-predictions{background:rgba(200,164,86,.15);color:var(--gold);border:1px solid rgba(200,164,86,.3);}
+.lb-bundle{background:rgba(155,89,182,.15);color:var(--purple);border:1px solid rgba(155,89,182,.3);}
+.pcard-nome{font-family:Black Ops One,cursive;font-size:15px;letter-spacing:1px;color:var(--bone);margin-bottom:4px;}
+.pcard-desc{font-size:12px;color:var(--fog);line-height:1.5;}
+.pcard-body{padding:14px 18px;}
+.pcard-preco{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+.preco-cheio{font-family:Black Ops One,cursive;font-size:22px;color:var(--green);}
+.preco-desc{font-family:Space Mono,monospace;font-size:11px;color:var(--ash);text-decoration:line-through;}
+.preco-periodo{font-family:Space Mono,monospace;font-size:8px;color:var(--ash);}
+.pcard-metas{display:flex;gap:16px;margin-bottom:10px;}
+.meta-item{display:flex;flex-direction:column;gap:2px;}
+.meta-val{font-family:Space Mono,monospace;font-size:12px;}
+.meta-lbl{font-family:Space Mono,monospace;font-size:7px;color:var(--ash);}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.ptag{font-family:Space Mono,monospace;font-size:7px;padding:2px 6px;background:var(--graph);border:1px solid var(--steel);color:var(--ash);border-radius:2px;}
+.pcard-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.sdot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px;}
+.sdot.ativo{background:var(--green);}.sdot.pausado{background:var(--gold);}.sdot.rascunho{background:var(--ash);}
+.stxt{font-family:Space Mono,monospace;font-size:8px;color:var(--ash);letter-spacing:1px;text-transform:uppercase;}
+.pac-wrap{display:flex;gap:4px;}
+.pac{background:none;border:1px solid var(--steel);color:var(--ash);padding:4px 10px;font-family:Space Mono,monospace;font-size:7px;cursor:pointer;}
+.pac:hover,.pac.fire{border-color:var(--fire);color:var(--fire);}
+.acao-card{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:18px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;}
+.acao-card.ativa{border-color:rgba(61,158,96,.3);}
+.acao-nome{font-family:Black Ops One,cursive;font-size:14px;color:var(--bone);margin-bottom:4px;}
+.acao-desc{font-size:12px;color:var(--fog);margin-bottom:8px;}
+.acao-meta{display:flex;flex-wrap:wrap;gap:12px;}
+.ami{font-family:Space Mono,monospace;font-size:9px;color:var(--ash);}
+.ami span{color:var(--bone);}
+.acao-canais{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+.cb{font-family:Space Mono,monospace;font-size:7px;padding:2px 8px;border-radius:2px;border:1px solid;}
+.cb-bia{color:var(--fire);border-color:rgba(232,112,58,.3);background:rgba(232,112,58,.1);}
+.cb-site{color:var(--blue);border-color:rgba(58,123,213,.3);background:rgba(58,123,213,.1);}
+.cb-email{color:var(--green);border-color:rgba(61,158,96,.3);background:rgba(61,158,96,.1);}
+.cb-manual{color:var(--ash);border-color:var(--steel);background:var(--graph);}
+.acao-btns{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto;}
+.modal-bg.open{display:flex;}
+.modal-box{background:var(--carbon);border:1px solid var(--iron);border-radius:6px;padding:28px;width:680px;max-width:96vw;}
+.modal-box h3{font-family:Black Ops One,cursive;font-size:15px;letter-spacing:2px;color:var(--fire);margin-bottom:6px;}
+.msub{font-family:Space Mono,monospace;font-size:8px;color:var(--ash);margin-bottom:22px;}
+.msec{margin-bottom:20px;}
+.msec-title{font-family:Space Mono,monospace;font-size:8px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--iron);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.frow.full{grid-template-columns:1fr;}.frow.tri{grid-template-columns:1fr 1fr 1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.flabel{font-family:Space Mono,monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
+.finput,.fselect,.ftarea{background:var(--graph);border:1px solid var(--steel);padding:8px 11px;color:var(--bone);font-family:Barlow,sans-serif;font-size:13px;outline:none;border-radius:2px;width:100%;}
+.finput:focus,.fselect:focus,.ftarea:focus{border-color:var(--fire);}
+.ftarea{resize:vertical;min-height:64px;line-height:1.6;}
+.mp{background:var(--graph);border:1px solid var(--iron);border-radius:3px;padding:12px;margin-top:4px;}
+.mp-row{display:flex;justify-content:space-between;font-family:Space Mono,monospace;font-size:10px;margin-bottom:4px;}
+.mp-row:last-child{margin-bottom:0;padding-top:6px;border-top:1px solid var(--iron);}
+.mp-row .l{color:var(--ash);}.mp-row .v{color:var(--bone);}
+.mp-row.ok .v{color:var(--green);}.mp-row.warn .v{color:var(--gold);}.mp-row.bad .v{color:var(--red);}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:4px;background:var(--graph);border:1px solid var(--steel);padding:6px 8px;min-height:38px;align-items:center;}
+.tags-wrap:focus-within{border-color:var(--fire);}
+.tag{background:var(--iron);border:1px solid var(--steel);color:var(--bone);font-size:11px;padding:2px 8px;display:flex;align-items:center;gap:4px;border-radius:2px;}
+.tag button{background:none;border:none;color:var(--ash);cursor:pointer;font-size:10px;padding:0;}
+.tags-wrap input{background:transparent;border:none;outline:none;color:var(--bone);font-family:Barlow,sans-serif;font-size:13px;flex:1;min-width:80px;}
+.ccheck{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+.ccheck label{display:flex;align-items:center;gap:5px;font-family:Space Mono,monospace;font-size:9px;color:var(--ash);cursor:pointer;}
+.ccheck input{accent-color:var(--fire);}
+.modal-btns{display:flex;gap:8px;margin-top:24px;}
+.modal-btns button{flex:1;padding:10px;font-family:Black Ops One,cursive;font-size:10px;letter-spacing:2px;cursor:pointer;border:1px solid var(--steel);background:none;color:var(--ash);border-radius:2px;}
+.modal-btns .save{background:var(--fire);border-color:var(--fire);color:#000;}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--iron);border:1px solid var(--steel);padding:12px 20px;font-family:Space Mono,monospace;font-size:11px;color:var(--bone);opacity:0;transition:opacity .3s;pointer-events:none;z-index:300;}
+.toast.show{opacity:1;}.toast.ok{border-color:var(--green);color:var(--green);}
+.empty{text-align:center;padding:48px;color:var(--ash);font-family:Space Mono,monospace;font-size:10px;letter-spacing:2px;}
+.empty span{color:var(--fire);}
+.filtros{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+@media(max-width:600px){.wrap{padding:16px;}.stats-row{grid-template-columns:1fr 1fr;}.frow.tri{grid-template-columns:1fr;}.acao-card{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">PRODUTOS</div>
+  <div class="lsub">ONE MAN ARMY PROJECT</div>
+  <input class="li" type="password" id="pw" placeholder="senha" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+</div></div>
+
+<div id="app">
+<header class="hdr">
+  <a href="/hub" class="hback">&larr; HUB</a>
+  <span class="htitle">PRODUTOS &amp; COMERCIAL</span>
+  <button class="hout" onclick="lo()">Sair</button>
+</header>
+<div class="tabs">
+  <div class="tab active" onclick="setTab('catalogo',this)">Catalogo</div>
+  <div class="tab" onclick="setTab('acoes',this)">Acoes Comerciais</div>
+</div>
+<div class="wrap">
+  <!-- TAB CATALOGO -->
+  <div id="tab-catalogo">
+    <div class="stats-row">
+      <div class="stat s-fire"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">Produtos Ativos</div></div>
+      <div class="stat s-green"><div class="stat-val" id="s-mrr">R$0</div><div class="stat-lbl">MRR Potencial</div></div>
+      <div class="stat s-gold"><div class="stat-val" id="s-ticket">R$0</div><div class="stat-lbl">Ticket Medio</div></div>
+      <div class="stat s-blue"><div class="stat-val" id="s-mg">0%</div><div class="stat-lbl">Margem Media</div></div>
+      <div class="stat s-purple"><div class="stat-val" id="s-bundles">0</div><div class="stat-lbl">Bundles</div></div>
+    </div>
+    <div class="filtros">
+      <span style="font-family:Space Mono,monospace;font-size:8px;color:var(--ash);">LINHA:</span>
+      <button class="add-btn" style="border-color:var(--fire);color:var(--fire)" data-l="todos" onclick="setL('todos',this)">TODOS</button>
+      <button class="add-btn" data-l="solutions" onclick="setL('solutions',this)">SOLUTIONS</button>
+      <button class="add-btn" data-l="academy" onclick="setL('academy',this)">ACADEMY</button>
+      <button class="add-btn" data-l="predictions" onclick="setL('predictions',this)">PREDICTIONS</button>
+    </div>
+    <div class="section-hdr">
+      <span class="section-title">Produtos Cadastrados</span>
+      <button class="add-btn" onclick="abrirProd()">+ NOVO PRODUTO</button>
+    </div>
+    <div class="produtos-grid" id="pgrid"><div class="empty">Carregando...</div></div>
+  </div>
+  <!-- TAB ACOES -->
+  <div id="tab-acoes" style="display:none">
+    <div class="section-hdr" style="margin-bottom:20px;">
+      <span class="section-title">Acoes Comerciais</span>
+      <button class="add-btn" onclick="abrirAcao()">+ NOVA ACAO</button>
+    </div>
+    <div id="alist"><div class="empty">Nenhuma acao ainda.<br><span>Crie acoes para ativar descontos e distribuir para os canais.</span></div></div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL PRODUTO -->
+<div class="modal-bg" id="mp" onclick="if(event.target===this)fp()">
+<div class="modal-box">
+  <h3 id="mp-title">NOVO PRODUTO</h3>
+  <div class="msub">Ficha completa — margens calculadas automaticamente</div>
+  <input type="hidden" id="p-id">
+  <div class="msec">
+    <div class="msec-title">Identidade</div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Nome *</span><input class="finput" id="p-nome" type="text" placeholder="Ex: OMA Agentes Pro"></div>
+      <div class="field"><span class="flabel">Linha</span>
+        <select class="fselect" id="p-linha">
+          <option value="solutions">Solutions (Agentes)</option>
+          <option value="academy">Academy</option>
+          <option value="predictions">Predictions</option>
+          <option value="custom">Customizado</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow full">
+      <div class="field"><span class="flabel">Descricao Curta</span><input class="finput" id="p-desc" type="text" placeholder="Resumo em 1 linha para catalogo e propostas"></div>
+    </div>
+    <div class="frow full">
+      <div class="field"><span class="flabel">Caracteristicas (Enter para adicionar)</span>
+        <div class="tags-wrap" id="ctags" onclick="document.getElementById('ctag-inp').focus()">
+          <input id="ctag-inp" placeholder="Ex: Atendimento 24/7, Integracao CRM..." onkeydown="addTag(event,'c')">
+        </div>
+      </div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Suporte incluso</span>
+        <select class="fselect" id="p-suporte">
+          <option value="email">Email</option>
+          <option value="email+whatsapp">Email + WhatsApp</option>
+          <option value="dedicado">Gerente dedicado</option>
+          <option value="nenhum">Sem suporte</option>
+        </select>
+      </div>
+      <div class="field"><span class="flabel">SLA de resposta</span><input class="finput" id="p-sla" type="text" placeholder="Ex: 4h uteis, 24h, imediato"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Limite Agentes (0=ilimitado)</span><input class="finput" id="p-lag" type="number" placeholder="0"></div>
+      <div class="field"><span class="flabel">Limite Relatorios/mes (0=ilimitado)</span><input class="finput" id="p-lrel" type="number" placeholder="0"></div>
+    </div>
+    <div class="frow">
+      <div class="field" style="flex-direction:row;align-items:center;gap:10px;padding-top:8px;">
+        <input type="checkbox" id="p-dest" style="accent-color:var(--fire);width:16px;height:16px;">
+        <span class="flabel" style="margin:0;cursor:pointer" onclick="document.getElementById('p-dest').click()">Produto em Destaque</span>
+      </div>
+      <div class="field" style="flex-direction:row;align-items:center;gap:10px;padding-top:8px;">
+        <input type="checkbox" id="p-bund" onchange="tgBundle(this)" style="accent-color:var(--purple);width:16px;height:16px;">
+        <span class="flabel" style="margin:0;cursor:pointer" onclick="document.getElementById('p-bund').click()">E um Bundle</span>
+      </div>
+    </div>
+    <div id="bsec" style="display:none">
+      <div class="frow full">
+        <div class="field"><span class="flabel">Itens do Bundle (Enter para adicionar)</span>
+          <div class="tags-wrap" id="btags" onclick="document.getElementById('btag-inp').focus()">
+            <input id="btag-inp" placeholder="Ex: OMA Agentes Starter + Webchat..." onkeydown="addTag(event,'b')">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="msec">
+    <div class="msec-title">Precificacao e Margens</div>
+    <div class="frow tri">
+      <div class="field"><span class="flabel">Preco Cheio (R$/mes)</span><input class="finput" id="p-pc" type="number" placeholder="1299" oninput="cM()"></div>
+      <div class="field"><span class="flabel">Preco Desconto (R$/mes)</span><input class="finput" id="p-pd" type="number" placeholder="0=sem desconto" oninput="cM()"></div>
+      <div class="field"><span class="flabel">Periodo</span>
+        <select class="fselect" id="p-per">
+          <option value="mensal">Mensal</option>
+          <option value="anual">Anual (cobrado mensalmente)</option>
+          <option value="unico">Pagamento unico</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Setup Fee (R$)</span><input class="finput" id="p-sf" type="number" placeholder="2500" oninput="cM()"></div>
+      <div class="field"><span class="flabel">Custo Operacional/mes (R$)</span><input class="finput" id="p-co" type="number" placeholder="150 (API, infra, tempo)" oninput="cM()"></div>
+    </div>
+    <div class="mp">
+      <div class="mp-row"><span class="l">Preco cheio</span><span class="v" id="mc">R$0</span></div>
+      <div class="mp-row"><span class="l">Preco c/ desconto</span><span class="v" id="md">-</span></div>
+      <div class="mp-row"><span class="l">Custo operacional</span><span class="v" id="mcu">R$0/mes</span></div>
+      <div class="mp-row"><span class="l">Setup fee</span><span class="v" id="mse">R$0</span></div>
+      <div class="mp-row ok" id="mmr"><span class="l">Margem (preco cheio)</span><span class="v" id="mm">-%</span></div>
+      <div class="mp-row" id="mmdr"><span class="l">Margem (c/ desconto)</span><span class="v" id="mmd">-%</span></div>
+      <div class="mp-row"><span class="l">Break-even setup (meses)</span><span class="v" id="mbe">-</span></div>
+    </div>
+  </div>
+  <div class="msec">
+    <div class="msec-title">Links Asaas</div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Link PIX / Boleto</span><input class="finput" id="p-lpix" type="text" placeholder="asaas.com/c/..."></div>
+      <div class="field"><span class="flabel">Link Cartao 4x</span><input class="finput" id="p-lcc" type="text" placeholder="asaas.com/c/..."></div>
+    </div>
+  </div>
+  <div class="msec">
+    <div class="msec-title">Status e Notas Internas</div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Status</span>
+        <select class="fselect" id="p-st">
+          <option value="ativo">Ativo - disponivel para venda</option>
+          <option value="rascunho">Rascunho - em construcao</option>
+          <option value="pausado">Pausado</option>
+          <option value="descontinuado">Descontinuado</option>
+        </select>
+      </div>
+      <div class="field"><span class="flabel">Notas Internas</span><input class="finput" id="p-notas" type="text" placeholder="Observacoes, proximos passos..."></div>
+    </div>
+  </div>
+  <div class="modal-btns">
+    <button onclick="fp()">CANCELAR</button>
+    <button class="save" onclick="sP()">SALVAR PRODUTO</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL ACAO -->
+<div class="modal-bg" id="ma" onclick="if(event.target===this)fa()">
+<div class="modal-box">
+  <h3 id="ma-title">NOVA ACAO COMERCIAL</h3>
+  <div class="msub">Defina desconto, validade e canais de distribuicao</div>
+  <input type="hidden" id="a-id">
+  <div class="msec">
+    <div class="msec-title">Identificacao</div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Nome *</span><input class="finput" id="a-nome" type="text" placeholder="Ex: Black Friday OMA, Lancamento Q2"></div>
+      <div class="field"><span class="flabel">Status</span>
+        <select class="fselect" id="a-st">
+          <option value="rascunho">Rascunho</option>
+          <option value="ativa">Ativa</option>
+          <option value="pausada">Pausada</option>
+          <option value="encerrada">Encerrada</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow full">
+      <div class="field"><span class="flabel">Descricao / Argumento de Venda</span>
+        <textarea class="ftarea" id="a-desc" placeholder="O que comunicar — a Bia usa este contexto ao abordar os leads"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="msec">
+    <div class="msec-title">Desconto e Validade</div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Desconto (%)</span><input class="finput" id="a-pct" type="number" placeholder="20"></div>
+      <div class="field"><span class="flabel">ou Desconto Fixo (R$)</span><input class="finput" id="a-fix" type="number" placeholder="300"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><span class="flabel">Inicio da Acao</span><input class="finput" id="a-ini" type="date"></div>
+      <div class="field"><span class="flabel">Fim da Acao</span><input class="finput" id="a-fim" type="date"></div>
+    </div>
+  </div>
+  <div class="msec">
+    <div class="msec-title">Produtos Incluidos</div>
+    <div id="ap-checks" class="ccheck"></div>
+  </div>
+  <div class="msec">
+    <div class="msec-title">Canais de Distribuicao</div>
+    <div class="ccheck">
+      <label><input type="checkbox" id="c-bia" value="bia"> Bia - WhatsApp (leads CRM)</label>
+      <label><input type="checkbox" id="c-site" value="site"> Site (banner)</label>
+      <label><input type="checkbox" id="c-email" value="email"> Email Marketing</label>
+      <label><input type="checkbox" id="c-manual" value="manual"> Manual (copiar link)</label>
+    </div>
+    <div id="bia-cfg" style="display:none;margin-top:12px;padding:12px;background:var(--graph);border-radius:3px;">
+      <div class="flabel" style="margin-bottom:8px;">Publico-alvo Bia</div>
+      <div class="ccheck">
+        <label><input type="checkbox" value="todos"> Todos os leads</label>
+        <label><input type="checkbox" value="advocacia"> Advocacia</label>
+        <label><input type="checkbox" value="consultoria"> Consultoria</label>
+        <label><input type="checkbox" value="saude"> Saude</label>
+        <label><input type="checkbox" value="otica"> Otica</label>
+        <label><input type="checkbox" value="condominio"> Condominio</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-btns">
+    <button onclick="fa()">CANCELAR</button>
+    <button class="save" onclick="sA()">SALVAR ACAO</button>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="ts"></div>
+
+<script>
+var API='https://alexa.pipeeyewear.com.br';
+var KEY=localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'';
+var prods=[],acoes=[],linha='todos',_ct=[],_bt=[];
+
+function dL(){
+  if(document.getElementById('pw').value==='omaproject2026'){
+    localStorage.setItem('oma_hub','1');
+    localStorage.setItem('oma_api_key',atob('MzU0NDk2MTgyODcxZmJhMzk0ZTA5Y2ZiYjhkNjk5ZjFiYzY4NTlmNGUzNDE3Zjg0YjA5OTNlZTM2YmNkMDI3Mw==').slice(0,-1));
+    KEY=localStorage.getItem('oma_api_key');
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+    init();
+  }
+}
+function lo(){localStorage.removeItem('oma_hub');location.reload();}
+if(localStorage.getItem('oma_hub')==='1'){
+  KEY=localStorage.getItem('oma_api_key')||KEY;
+  document.getElementById('ls').style.display='none';
+  document.getElementById('app').style.display='block';
+  setTimeout(init,100);
+}
+
+function toast(m,t){var e=document.getElementById('ts');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(function(){e.className='toast';},3000);}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmt(v){return 'R$'+(parseFloat(v)||0).toLocaleString('pt-BR');}
+
+async function init(){await Promise.all([lP(),lA()]);}
+
+async function lP(){
+  try{var r=await fetch(API+'/produtos',{headers:{'x-api-key':KEY}});prods=await r.json();if(!Array.isArray(prods))prods=[];rP();}catch(e){console.error(e);}
+}
+async function lA(){
+  try{var r=await fetch(API+'/acoes',{headers:{'x-api-key':KEY}});acoes=await r.json();if(!Array.isArray(acoes))acoes=[];rA();}catch(e){console.error(e);}
+}
+
+function setTab(t,el){
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+  el.classList.add('active');
+  document.getElementById('tab-catalogo').style.display=t==='catalogo'?'block':'none';
+  document.getElementById('tab-acoes').style.display=t==='acoes'?'block':'none';
+}
+function setL(l,el){
+  linha=l;
+  document.querySelectorAll('[data-l]').forEach(function(b){b.style.borderColor='';b.style.color='';});
+  el.style.borderColor='var(--fire)';el.style.color='var(--fire)';
+  rP();
+}
+
+function rP(){
+  var vis=linha==='todos'?prods:prods.filter(function(p){return p.linha===linha;});
+  var at=prods.filter(function(p){return p.status==='ativo';});
+  var ps=at.map(function(p){return parseFloat(p.preco_cheio)||0;});
+  var tk=ps.length?Math.round(ps.reduce(function(a,b){return a+b;},0)/ps.length):0;
+  var mgs=at.filter(function(p){return p.custo_op>0;}).map(function(p){return (p.preco_cheio-p.custo_op)/p.preco_cheio*100;});
+  var mgm=mgs.length?Math.round(mgs.reduce(function(a,b){return a+b;},0)/mgs.length):0;
+  var mrr=at.reduce(function(s,p){return s+(parseFloat(p.preco_cheio)||0);},0);
+  document.getElementById('s-total').textContent=at.length;
+  document.getElementById('s-mrr').textContent=fmt(mrr);
+  document.getElementById('s-ticket').textContent=fmt(tk);
+  document.getElementById('s-mg').textContent=mgm+'%';
+  document.getElementById('s-bundles').textContent=prods.filter(function(p){return p.bundle;}).length;
+  if(!vis.length){document.getElementById('pgrid').innerHTML='<div class="empty">Nenhum produto.<br><span>+ NOVO PRODUTO</span></div>';return;}
+  document.getElementById('pgrid').innerHTML=vis.map(function(p){
+    var pc=parseFloat(p.preco_cheio)||0,pd=parseFloat(p.preco_desconto)||0,cu=parseFloat(p.custo_op)||0;
+    var mg=pc>0&&cu>0?Math.round(((pc-cu)/pc)*100):null;
+    var mgc=mg===null?'var(--ash)':mg>=70?'var(--green)':mg>=50?'var(--gold)':'var(--red)';
+    var lbc={'solutions':'lb-solutions','academy':'lb-academy','predictions':'lb-predictions','custom':'lb-solutions'}[p.linha]||'lb-solutions';
+    var lbl={'solutions':'Solutions','academy':'Academy','predictions':'Predictions','custom':'Custom'}[p.linha]||p.linha;
+    var st=p.status||'rascunho';
+    var ct=[];try{ct=JSON.parse(p.caracteristicas||'[]');}catch(e){}
+    var ctags=ct.slice(0,3).map(function(c){return '<span class="ptag">'+esc(c)+'</span>';}).join('');
+    if(ct.length>3)ctags+='<span class="ptag">+'+(ct.length-3)+'</span>';
+    var sfx=parseFloat(p.setup_fee)>0?' + '+fmt(p.setup_fee)+' setup':'';
+    var be=cu>0&&parseFloat(p.setup_fee)>0?Math.ceil(parseFloat(p.setup_fee)/(pc-cu)):null;
+    return '<div class="pcard'+(p.destaque?' destaque':'')+'" onclick="eP('+p.id+')">'
+      +'<div class="pcard-top">'
+        +'<div class="pcard-linha"><span class="linha-badge '+lbc+'">'+lbl+'</span>'+(p.bundle?'<span class="linha-badge lb-bundle">Bundle</span>':'')+'</div>'
+        +'<div class="pcard-nome">'+esc(p.nome)+'</div>'
+        +'<div class="pcard-desc">'+esc(p.descricao||'&mdash;')+'</div>'
+      +'</div>'
+      +'<div class="pcard-body">'
+        +'<div class="pcard-preco"><span class="preco-cheio">'+fmt(pc)+'</span>'+(pd>0&&pd<pc?'<span class="preco-desc">'+fmt(pd)+'</span>':'')+'<span class="preco-periodo">/'+esc(p.periodo||'mes')+sfx+'</span></div>'
+        +(mg!==null?'<div class="pcard-metas"><div class="meta-item"><span class="meta-val" style="color:'+mgc+'">'+mg+'%</span><span class="meta-lbl">Margem</span></div>'+(cu>0?'<div class="meta-item"><span class="meta-val" style="color:var(--ash)">'+fmt(cu)+'</span><span class="meta-lbl">Custo/mes</span></div>':'')+(be?'<div class="meta-item"><span class="meta-val" style="color:var(--ash)">'+be+'m</span><span class="meta-lbl">Break-even</span></div>':'')+'</div>':'')
+        +(ctags?'<div class="pcard-tags">'+ctags+'</div>':'')
+        +'<div class="pcard-footer">'
+          +'<span><span class="sdot '+st+'"></span><span class="stxt">'+esc(st)+'</span></span>'
+          +'<div class="pac-wrap" onclick="event.stopPropagation()">'
+            +(p.asaas_link_pix?'<button class="pac fire" onclick="cL(''+esc(p.asaas_link_pix)+'')">PIX</button>':'')
+            +(p.asaas_link_cartao?'<button class="pac" onclick="cL(''+esc(p.asaas_link_cartao)+'')">CC</button>':'')
+            +'<button class="pac" onclick="eP('+p.id+')">Editar</button>'
+          +'</div>'
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+
+function rA(){
+  if(!acoes.length){document.getElementById('alist').innerHTML='<div class="empty">Nenhuma acao ainda.<br><span>+ NOVA ACAO para comecar.</span></div>';return;}
+  document.getElementById('alist').innerHTML=acoes.map(function(a){
+    var cn=[];try{cn=JSON.parse(a.canais||'[]');}catch(e){}
+    var pi=[];try{pi=JSON.parse(a.produtos_ids||'[]');}catch(e){}
+    var pn=pi.map(function(id){var p=prods.find(function(x){return x.id==id;});return p?p.nome:'?';}).join(', ');
+    var ia=a.status==='ativa';
+    var cm={'bia':'cb-bia','site':'cb-site','email':'cb-email','manual':'cb-manual'};
+    var cl={'bia':'Bia','site':'Site','email':'Email','manual':'Manual'};
+    var cbg=cn.map(function(c){return '<span class="cb '+(cm[c]||'cb-manual')+'">'+(cl[c]||c)+'</span>';}).join('');
+    return '<div class="acao-card'+(ia?' ativa':'')+'">'
+      +'<div><div class="acao-nome">'+esc(a.nome)+'</div>'
+        +(a.descricao?'<div class="acao-desc">'+esc(a.descricao)+'</div>':'')
+        +'<div class="acao-meta">'
+          +(a.desconto_pct>0?'<div class="ami">Desconto: <span>'+a.desconto_pct+'%</span></div>':'')
+          +(a.desconto_fixo>0?'<div class="ami">Fixo: <span>'+fmt(a.desconto_fixo)+'</span></div>':'')
+          +(a.validade_fim?'<div class="ami">Ate: <span>'+esc(a.validade_fim)+'</span></div>':'')
+          +(pn?'<div class="ami">Produtos: <span>'+esc(pn)+'</span></div>':'')
+          +(a.conversoes>0?'<div class="ami">Conversoes: <span>'+a.conversoes+'</span></div>':'')
+        +'</div>'
+        +(cbg?'<div class="acao-canais">'+cbg+'</div>':'')
+      +'</div>'
+      +'<div class="acao-btns">'
+        +'<span class="stxt" style="color:'+(ia?'var(--green)':'var(--ash)')+'">'+(a.status||'').toUpperCase()+'</span>'
+        +'<button class="pac" onclick="eA('+a.id+')">Editar</button>'
+        +(!ia&&a.status!=='encerrada'?'<button class="pac fire" onclick="atA('+a.id+','ativa')">Ativar</button>':'')
+        +(ia?'<button class="pac" onclick="atA('+a.id+','pausada')">Pausar</button>':'')
+        +(ia?'<button class="pac fire" onclick="distA('+a.id+')">Distribuir</button>':'')
+      +'</div></div>';
+  }).join('');
+}
+
+function addTag(e,t){
+  if(e.key!=='Enter'&&e.key!==',')return;
+  e.preventDefault();
+  var inp=document.getElementById(t==='c'?'ctag-inp':'btag-inp');
+  var v=inp.value.trim();if(!v)return;
+  if(t==='c')_ct.push(v);else _bt.push(v);
+  inp.value='';rT(t);
+}
+function rmTag(t,i){if(t==='c')_ct.splice(i,1);else _bt.splice(i,1);rT(t);}
+function rT(t){
+  var arr=t==='c'?_ct:_bt;
+  var wrap=document.getElementById(t==='c'?'ctags':'btags');
+  var inp=document.getElementById(t==='c'?'ctag-inp':'btag-inp');
+  wrap.querySelectorAll('.tag').forEach(function(x){x.remove();});
+  arr.forEach(function(v,i){
+    var d=document.createElement('div');d.className='tag';
+    d.innerHTML=esc(v)+'<button onclick="rmTag(''+t+'','+i+')" type="button">&times;</button>';
+    wrap.insertBefore(d,inp);
+  });
+}
+function tgBundle(cb){document.getElementById('bsec').style.display=cb.checked?'block':'none';}
+
+function cM(){
+  var c=parseFloat(document.getElementById('p-pc').value)||0;
+  var d=parseFloat(document.getElementById('p-pd').value)||0;
+  var cu=parseFloat(document.getElementById('p-co').value)||0;
+  var s=parseFloat(document.getElementById('p-sf').value)||0;
+  document.getElementById('mc').textContent=fmt(c);
+  document.getElementById('md').textContent=d>0?fmt(d):'-';
+  document.getElementById('mcu').textContent=fmt(cu)+'/mes';
+  document.getElementById('mse').textContent=fmt(s);
+  if(c>0){
+    var mg=Math.round(((c-cu)/c)*100);
+    var r=document.getElementById('mmr');
+    document.getElementById('mm').textContent=mg+'%';
+    r.className='mp-row '+(mg>=70?'ok':mg>=50?'warn':'bad');
+    if(d>0&&d<c){
+      document.getElementById('mmd').textContent=Math.round(((d-cu)/d)*100)+'%';
+      document.getElementById('mmdr').style.display='flex';
+    }else{document.getElementById('mmdr').style.display='none';}
+    document.getElementById('mbe').textContent=s>0&&c-cu>0?Math.ceil(s/(c-cu))+'m':'-';
+  }
+}
+
+function abrirProd(){
+  document.getElementById('mp-title').textContent='NOVO PRODUTO';
+  document.getElementById('p-id').value='';
+  ['p-nome','p-desc','p-sla','p-lpix','p-lcc','p-notas','p-pc','p-pd','p-sf','p-co','p-lag','p-lrel'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('p-linha').value='solutions';
+  document.getElementById('p-per').value='mensal';
+  document.getElementById('p-suporte').value='email';
+  document.getElementById('p-st').value='ativo';
+  document.getElementById('p-dest').checked=false;
+  document.getElementById('p-bund').checked=false;
+  document.getElementById('bsec').style.display='none';
+  _ct=[];_bt=[];rT('c');rT('b');cM();
+  document.getElementById('mp').classList.add('open');
+}
+function eP(id){
+  var p=prods.find(function(x){return x.id==id;});if(!p)return;
+  document.getElementById('mp-title').textContent='EDITAR PRODUTO';
+  document.getElementById('p-id').value=p.id;
+  document.getElementById('p-nome').value=p.nome||'';
+  document.getElementById('p-desc').value=p.descricao||'';
+  document.getElementById('p-linha').value=p.linha||'solutions';
+  document.getElementById('p-per').value=p.periodo||'mensal';
+  document.getElementById('p-suporte').value=p.suporte||'email';
+  document.getElementById('p-sla').value=p.sla||'';
+  document.getElementById('p-st').value=p.status||'ativo';
+  document.getElementById('p-pc').value=p.preco_cheio||'';
+  document.getElementById('p-pd').value=p.preco_desconto||'';
+  document.getElementById('p-sf').value=p.setup_fee||'';
+  document.getElementById('p-co').value=p.custo_op||'';
+  document.getElementById('p-lag').value=p.limite_agentes||'';
+  document.getElementById('p-lrel').value=p.limite_relatorios||'';
+  document.getElementById('p-lpix').value=p.asaas_link_pix||'';
+  document.getElementById('p-lcc').value=p.asaas_link_cartao||'';
+  document.getElementById('p-notas').value=p.notas||'';
+  document.getElementById('p-dest').checked=!!p.destaque;
+  document.getElementById('p-bund').checked=!!p.bundle;
+  document.getElementById('bsec').style.display=p.bundle?'block':'none';
+  try{_ct=JSON.parse(p.caracteristicas||'[]');}catch(e){_ct=[];}
+  try{_bt=JSON.parse(p.bundle_itens||'[]');}catch(e){_bt=[];}
+  rT('c');rT('b');cM();
+  document.getElementById('mp').classList.add('open');
+}
+function fp(){document.getElementById('mp').classList.remove('open');}
+
+async function sP(){
+  var nome=document.getElementById('p-nome').value.trim();
+  if(!nome){toast('Nome obrigatorio','');return;}
+  var id=document.getElementById('p-id').value;
+  var d={nome:nome,descricao:document.getElementById('p-desc').value,linha:document.getElementById('p-linha').value,periodo:document.getElementById('p-per').value,suporte:document.getElementById('p-suporte').value,sla:document.getElementById('p-sla').value,status:document.getElementById('p-st').value,preco_cheio:document.getElementById('p-pc').value,preco_desconto:document.getElementById('p-pd').value,setup_fee:document.getElementById('p-sf').value,custo_op:document.getElementById('p-co').value,limite_agentes:document.getElementById('p-lag').value,limite_relatorios:document.getElementById('p-lrel').value,asaas_link_pix:document.getElementById('p-lpix').value,asaas_link_cartao:document.getElementById('p-lcc').value,notas:document.getElementById('p-notas').value,destaque:document.getElementById('p-dest').checked,bundle:document.getElementById('p-bund').checked,caracteristicas:_ct,bundle_itens:_bt};
+  try{
+    var r=await fetch(API+'/produtos'+(id?'/'+id:''),{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify(d)});
+    var res=await r.json();
+    if(res.id||res.nome){toast('Produto salvo!','ok');fp();await lP();}
+    else{toast('Erro: '+(res.error||'falha'),'');}
+  }catch(e){toast('Erro de conexao','');}
+}
+
+function abrirAcao(){
+  document.getElementById('ma-title').textContent='NOVA ACAO COMERCIAL';
+  document.getElementById('a-id').value='';
+  ['a-nome','a-desc','a-pct','a-fix','a-ini','a-fim'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('a-st').value='rascunho';
+  ['c-bia','c-site','c-email','c-manual'].forEach(function(id){var el=document.getElementById(id);if(el)el.checked=false;});
+  document.getElementById('bia-cfg').style.display='none';
+  rpC([]);
+  document.getElementById('ma').classList.add('open');
+}
+function eA(id){
+  var a=acoes.find(function(x){return x.id==id;});if(!a)return;
+  document.getElementById('ma-title').textContent='EDITAR ACAO';
+  document.getElementById('a-id').value=a.id;
+  document.getElementById('a-nome').value=a.nome||'';
+  document.getElementById('a-desc').value=a.descricao||'';
+  document.getElementById('a-pct').value=a.desconto_pct||'';
+  document.getElementById('a-fix').value=a.desconto_fixo||'';
+  document.getElementById('a-ini').value=a.validade_inicio||'';
+  document.getElementById('a-fim').value=a.validade_fim||'';
+  document.getElementById('a-st').value=a.status||'rascunho';
+  var cn=[];try{cn=JSON.parse(a.canais||'[]');}catch(e){}
+  ['c-bia','c-site','c-email','c-manual'].forEach(function(id){var el=document.getElementById(id);if(el)el.checked=cn.includes(el.value);});
+  document.getElementById('bia-cfg').style.display=cn.includes('bia')?'block':'none';
+  var pi=[];try{pi=JSON.parse(a.produtos_ids||'[]');}catch(e){}
+  rpC(pi);
+  document.getElementById('ma').classList.add('open');
+}
+function rpC(sel){
+  document.getElementById('ap-checks').innerHTML=prods.map(function(p){
+    return '<label class="ccheck" style="display:flex;align-items:center;gap:5px"><input type="checkbox" name="ap" value="'+p.id+'"'+((sel.includes(p.id)||sel.includes(String(p.id)))?' checked':'')+'>'+esc(p.nome)+'</label>';
+  }).join('');
+}
+document.getElementById('c-bia').addEventListener('change',function(){document.getElementById('bia-cfg').style.display=this.checked?'block':'none';});
+function fa(){document.getElementById('ma').classList.remove('open');}
+
+async function sA(){
+  var nome=document.getElementById('a-nome').value.trim();
+  if(!nome){toast('Nome obrigatorio','');return;}
+  var id=document.getElementById('a-id').value;
+  var cn=['c-bia','c-site','c-email','c-manual'].filter(function(c){return document.getElementById(c).checked;}).map(function(c){return document.getElementById(c).value;});
+  var pi=Array.from(document.querySelectorAll('[name="ap"]:checked')).map(function(c){return parseInt(c.value);});
+  var d={nome:nome,descricao:document.getElementById('a-desc').value,desconto_pct:document.getElementById('a-pct').value,desconto_fixo:document.getElementById('a-fix').value,validade_inicio:document.getElementById('a-ini').value,validade_fim:document.getElementById('a-fim').value,status:document.getElementById('a-st').value,canais:cn,produtos_ids:pi};
+  try{
+    var r=await fetch(API+'/acoes'+(id?'/'+id:''),{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify(d)});
+    var res=await r.json();
+    if(res.id||res.nome){toast('Acao salva!','ok');fa();await lA();}
+    else{toast('Erro: '+(res.error||'falha'),'');}
+  }catch(e){toast('Erro de conexao','');}
+}
+async function atA(id,st){
+  try{var r=await fetch(API+'/acoes/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify({status:st})});var d=await r.json();if(d.id){toast('Status: '+st,'ok');await lA();}}catch(e){toast('Erro','');}
+}
+async function distA(id){
+  var a=acoes.find(function(x){return x.id==id;});if(!a)return;
+  var cn=[];try{cn=JSON.parse(a.canais||'[]');}catch(e){}
+  if(cn.includes('bia'))toast('Bia: em breve - disparar para leads do CRM','ok');
+  if(cn.includes('manual')){navigator.clipboard?.writeText(a.nome+' | Desconto: '+(a.desconto_pct?a.desconto_pct+'%':fmt(a.desconto_fixo)));toast('Info copiada: '+a.nome,'ok');}
+}
+function cL(l){navigator.clipboard?.writeText(l.startsWith('http')?l:'https://'+l);toast('Link copiado!','ok');}
+</script>
+</body>
+</html>
