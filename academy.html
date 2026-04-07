@@ -1174,6 +1174,33 @@ select.precert-input{cursor:pointer;}
 .cp-btn-advance{width:100%;background:var(--fire);color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;text-transform:uppercase;padding:13px;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(232,112,58,.3);margin-bottom:8px;}
 .cp-btn-retry{width:100%;background:var(--bg2);color:var(--text2);border:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:10px;border-radius:8px;cursor:pointer;}
 
+
+/* ── MODAL WAITLIST ──────────────────────────────────────── */
+.wl-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9100;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.wl-overlay.open{display:flex;}
+.wl-modal{background:#fff;border-radius:14px;padding:28px 24px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:wlIn .25s ease;}
+@keyframes wlIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.wl-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;}
+.wl-close{background:none;border:none;font-size:18px;color:var(--text3);cursor:pointer;padding:2px;line-height:1;}
+.wl-badge{display:inline-block;background:var(--fire-light);border:1px solid var(--fire-mid);border-radius:20px;padding:3px 10px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;}
+.wl-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--text);line-height:1.1;margin-bottom:6px;}
+.wl-sub{font-size:12px;color:var(--text3);line-height:1.5;margin-bottom:18px;}
+.wl-trilhas{display:flex;flex-direction:column;gap:5px;margin-bottom:20px;}
+.wl-trilha{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;}
+.wl-trilha-dot{width:6px;height:6px;border-radius:50%;background:var(--fire);flex-shrink:0;}
+.wl-form{display:flex;flex-direction:column;gap:10px;}
+.wl-input{width:100%;padding:11px 14px;border:1.5px solid var(--border2);border-radius:7px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .15s;}
+.wl-input:focus{border-color:var(--fire);}
+.wl-select{width:100%;padding:11px 14px;border:1.5px solid var(--border2);border-radius:7px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--text);outline:none;background:#fff;transition:border-color .15s;appearance:none;}
+.wl-select:focus{border-color:var(--fire);}
+.wl-btn{width:100%;background:var(--fire);color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;padding:13px;border-radius:7px;cursor:pointer;box-shadow:0 3px 10px rgba(232,112,58,.3);transition:all .15s;margin-top:4px;}
+.wl-btn:hover{background:var(--ember);}
+.wl-btn:disabled{opacity:.5;pointer-events:none;}
+.wl-success{text-align:center;padding:10px 0;}
+.wl-success-icon{font-size:40px;margin-bottom:12px;}
+.wl-success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--text);margin-bottom:6px;}
+.wl-success-sub{font-size:13px;color:var(--text3);line-height:1.6;}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1944,6 +1971,55 @@ select.precert-input{cursor:pointer;}
 
 
 
+
+
+<!-- MODAL: Lista de espera Academy -->
+<div class="wl-overlay" id="wlOverlay" onclick="if(event.target===this)closeWaitlist()">
+  <div class="wl-modal">
+    <div class="wl-header">
+      <div>
+        <div class="wl-badge">Lista de espera</div>
+        <div class="wl-title">Ser avisado<br>primeiro.</div>
+      </div>
+      <button class="wl-close" onclick="closeWaitlist()">✕</button>
+    </div>
+
+    <div id="wlFormWrap">
+      <p class="wl-sub">Informe seus dados e entraremos em contato assim que as trilhas abrirem.</p>
+
+      <div class="wl-trilhas">
+        <div class="wl-trilha"><div class="wl-trilha-dot"></div><strong>Gestor Comercial</strong> · One Man Army</div>
+        <div class="wl-trilha"><div class="wl-trilha-dot"></div><strong>Escritório Jurídico</strong> · One Man Army</div>
+        <div class="wl-trilha" style="opacity:.6"><div class="wl-trilha-dot" style="background:var(--text4)"></div>+ Clínica · Ótica · Academia · Financeiro · RH</div>
+      </div>
+
+      <div class="wl-form">
+        <input class="wl-input" id="wlNome" type="text" placeholder="Seu nome" autocomplete="off">
+        <input class="wl-input" id="wlEmail" type="email" placeholder="E-mail profissional" autocomplete="off">
+        <input class="wl-input" id="wlWhatsapp" type="tel" placeholder="WhatsApp (com DDD)" autocomplete="off">
+        <select class="wl-select" id="wlInteresse">
+          <option value="">Qual trilha te interessa mais?</option>
+          <option value="Gestor Comercial">Gestor Comercial</option>
+          <option value="Escritório Jurídico">Escritório Jurídico</option>
+          <option value="Clínica">Clínica</option>
+          <option value="Ótica">Ótica</option>
+          <option value="Academia de Ginástica">Academia de Ginástica</option>
+          <option value="Gestor Financeiro">Gestor Financeiro</option>
+          <option value="Gestor de RH">Gestor de RH</option>
+          <option value="Gestor de Marketing">Gestor de Marketing</option>
+          <option value="Outra">Outra</option>
+        </select>
+        <button class="wl-btn" id="wlBtn" onclick="submitWaitlist()">Entrar na lista →</button>
+      </div>
+    </div>
+
+    <div id="wlSuccess" class="wl-success" style="display:none;">
+      <div class="wl-success-icon">🎯</div>
+      <div class="wl-success-title">Na lista!</div>
+      <div class="wl-success-sub">Você será avisado assim que as trilhas abrirem.<br>A Bia pode entrar em contato para entender melhor o que você precisa.</div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html><script>
@@ -4342,22 +4418,65 @@ const DIAGRAM_MAP = {
 
 };
 
+
+// ════════════════════════════════════════════════════════
+//  WAITLIST ACADEMY
+// ════════════════════════════════════════════════════════
+function openWaitlist(){
+  document.getElementById('wlOverlay').classList.add('open');
+  document.getElementById('wlFormWrap').style.display='';
+  document.getElementById('wlSuccess').style.display='none';
+  document.getElementById('wlNome').focus();
+}
+function closeWaitlist(){
+  document.getElementById('wlOverlay').classList.remove('open');
+}
+async function submitWaitlist(){
+  const nome = document.getElementById('wlNome').value.trim();
+  const email = document.getElementById('wlEmail').value.trim();
+  const whatsapp = document.getElementById('wlWhatsapp').value.trim();
+  const interesse = document.getElementById('wlInteresse').value;
+
+  if(!nome){ document.getElementById('wlNome').focus(); return; }
+  if(!email || !email.includes('@')){ document.getElementById('wlEmail').focus(); return; }
+
+  const btn = document.getElementById('wlBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    const API = 'https://api.onemanarmyproject.com.br';
+    await fetch(API + '/leads', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        nome,
+        email,
+        whatsapp: whatsapp || '',
+        origem: 'academy_waitlist',
+        dor: interesse ? 'Interesse na trilha: ' + interesse : 'Lista de espera Academy',
+        segmento: interesse || 'Academy Waitlist',
+        empresa: '',
+        cargo: '',
+        cidade: '',
+        faturamento: ''
+      })
+    });
+    // Sucesso
+    document.getElementById('wlFormWrap').style.display='none';
+    document.getElementById('wlSuccess').style.display='';
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Entrar na lista →';
+    alert('Erro ao enviar. Tente novamente.');
+  }
+}
+
 // ════════════════════════════════════════════════════════
 //  TRILHAS GUIADAS — Waitlist / Enterprise
 // ════════════════════════════════════════════════════════
 function openEnterpriseOrWaitlist(){
-  // Por enquanto abre a Bia com contexto de lista de espera
-  // Quando trilhas estiverem prontas, redireciona para página de compra
-  if(typeof oT === 'function'){
-    oT();
-    setTimeout(()=>{
-      const inp = document.getElementById('oma-inp');
-      if(inp){
-        inp.value = 'Quero entrar na lista de espera das trilhas guiadas da Academy';
-        if(typeof oS === 'function') oS();
-      }
-    }, 600);
-  }
+  openWaitlist();
 }
 
 // ════════════════════════════════════════════════════════
