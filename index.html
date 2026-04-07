@@ -71,10 +71,10 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);back
 .hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:3px;animation:pulse 2.5s infinite;}
 
 /* TICKER */
-.ticker{background:var(--blood);padding:10px 0;overflow:hidden;}
+.ticker{background:var(--fire);padding:10px 0;overflow:hidden;}
 .ticker-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite;}
-.tick-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.65);padding:0 36px;}
-.tick-item::after{content:'✦';margin-left:36px;color:rgba(255,255,255,.75);}
+.tick-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(0,0,0,.75);padding:0 36px;}
+.tick-item::after{content:'✦';margin-left:36px;color:rgba(0,0,0,.5);}
 
 /* SECTIONS */
 .sec{max-width:1020px;margin:0 auto;padding:96px 32px;}
@@ -268,21 +268,134 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <a href="#" onclick="oT();return false;" class="nav-cta">Falar com a Bia</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
+<!-- HERO CARROSSEL -->
+<section class="hero" style="padding:0;overflow:hidden;position:relative;min-height:100vh;" id="hero-section">
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
-  <p class="hero-scratch" style="margin-bottom:8px;">Agents As a Service</p>
-  <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;animation:up .6s ease both;">ONE MAN <span style="color:var(--fire)">ARMY</span><span style="color:var(--fire);opacity:.7">.AI</span></p>
-  <p class="hero-badge">🦞 &nbsp; No ar desde <em>02 de abril de 2026</em></p>
-  <h1 class="hero-h1">Sua empresa não precisa<br>de mais um chatbot.<br><em>Precisa de execução.</em></h1>
-  <p class="hero-sub">Coloque agentes para operar rotinas reais do negócio com método, contexto e controle — <strong>sem depender de você para tudo.</strong></p>
-  <div class="hero-cta">
-    <a href="#" onclick="oT();return false;" class="btn-fire">Falar com a Bia</a>
-    <a href="#como-funciona" class="btn-ghost">Como funciona</a>
+
+  <!-- VIEWPORT -->
+  <div style="position:relative;width:100%;min-height:100vh;overflow:hidden;">
+    <!-- TRACK — 3 slides lado a lado -->
+    <div id="hero-track" style="display:flex;width:300%;min-height:100vh;transition:transform .7s cubic-bezier(.77,0,.18,1);transform:translateX(0);will-change:transform;">
+
+      <!-- SLIDE 0: OMA Agentes (SEMPRE PRIMEIRO) -->
+      <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
+        <p class="hero-scratch" style="margin-bottom:8px;">Agents As a Service</p>
+        <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">ONE MAN <span style="color:var(--fire)">ARMY</span><span style="color:var(--fire);opacity:.7">.AI</span></p>
+        <p class="hero-badge">🦞 &nbsp; No ar desde <em>02 de abril de 2026</em></p>
+        <h1 class="hero-h1">Sua empresa não precisa<br>de mais um chatbot.<br><em>Precisa de execução.</em></h1>
+        <p class="hero-sub">Coloque agentes para operar rotinas reais do negócio com método, contexto e controle — <strong>sem depender de você para tudo.</strong></p>
+        <div class="hero-cta">
+          <a href="#" onclick="oT();return false;" class="btn-fire">Falar com a Bia</a>
+          <a href="#como-funciona" class="btn-ghost">Como funciona</a>
+        </div>
+      </div>
+
+      <!-- SLIDE 1: Solutions / ROI -->
+      <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
+        <p class="hero-scratch" style="margin-bottom:8px;">OMA Solutions</p>
+        <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">AUTOMATION <span style="color:var(--fire)">INTELLIGENCE</span></p>
+        <p class="hero-badge">⚡ &nbsp; <em>Diagnóstico gratuito disponível agora</em></p>
+        <h1 class="hero-h1">Descubra quanto custa<br>seu trabalho<br><em>manual.</em></h1>
+        <p class="hero-sub">Mapeie as tarefas repetitivas da sua operação e veja em minutos o custo real — e o que automatizar primeiro. <strong>100% gratuito.</strong></p>
+        <div class="hero-cta">
+          <a href="/roi" class="btn-fire">Fazer diagnóstico grátis</a>
+          <a href="/solutions" class="btn-ghost">Ver todos os produtos</a>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Academy -->
+      <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;position:relative;">
+
+        <!-- Card escuro premium -->
+        <div style="background:#0a0a0a;border:1px solid rgba(232,112,58,.25);border-radius:16px;padding:36px 28px;max-width:440px;width:100%;position:relative;box-shadow:0 8px 40px rgba(0,0,0,.5),0 0 0 1px rgba(232,112,58,.08);">
+
+          <!-- Badge topo -->
+          <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(232,112,58,.12);border:1px solid rgba(232,112,58,.3);border-radius:20px;padding:5px 14px;margin-bottom:22px;">
+            <img src="/lobster-logo.png" style="width:16px;height:16px;border-radius:50%;object-fit:cover;" alt="OMA">
+            <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);">OMA Academy</span>
+          </div>
+
+          <!-- Headline -->
+          <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(26px,3vw,38px);color:#f0ebe3;line-height:1.05;margin-bottom:14px;">
+            Construa seu sistema<br>operacional<br><span style="color:var(--fire);">com IA.</span>
+          </h2>
+
+          <!-- Sub -->
+          <p style="font-size:clamp(13px,1.1vw,15px);color:rgba(240,235,227,.6);line-height:1.65;margin-bottom:22px;">
+            Fundamentos gratuitos, trilhas guiadas e o mesmo método que o OMA usa para transformar entendimento em operação real.
+          </p>
+
+          <!-- OS Builder Method pills -->
+          <div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:24px;">
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,235,227,.5);">Destravar</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,235,227,.5);">Enxergar</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,235,227,.5);">Investigar</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,235,227,.5);">Escolher</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,235,227,.5);">Desenhar</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,235,227,.5);">Ativar</span>
+            <span style="background:rgba(232,112,58,.15);border:1px solid rgba(232,112,58,.4);border-radius:20px;padding:3px 9px;font-family:'Space Mono',monospace;font-size:7px;color:var(--fire);">Evoluir</span>
+          </div>
+
+          <!-- Divisor -->
+          <div style="border-top:1px solid rgba(255,255,255,.08);margin-bottom:22px;"></div>
+
+          <!-- CTAs -->
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="/academy" style="display:block;background:var(--fire);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;padding:13px 20px;border-radius:7px;text-decoration:none;box-shadow:0 4px 16px rgba(232,112,58,.35);">Conhecer a Academy →</a>
+            <a href="/academy#trilhas" onclick="setTimeout(()=>document.querySelector('.intro-cta-area .btn-intro-start') && null,100)" style="display:block;background:rgba(255,255,255,.06);color:rgba(240,235,227,.7);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:11px 20px;border-radius:7px;text-decoration:none;border:1px solid rgba(255,255,255,.1);">Explorar trilhas guiadas</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /track -->
+  </div><!-- /viewport -->
+
+  <!-- INDICADORES -->
+  <div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;">
+    <button class="hdot" id="hdot-0" onclick="heroGo(0)" aria-label="Slide 1"></button>
+    <button class="hdot" id="hdot-1" onclick="heroGo(1)" aria-label="Slide 2"></button>
+    <button class="hdot" id="hdot-2" onclick="heroGo(2)" aria-label="Slide 3"></button>
   </div>
-  <p class="hero-scroll">▼ scroll</p>
+
+  <!-- SETAS -->
+  <button onclick="heroGo((heroCurrent-1+3)%3)" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid #3a3a3a;color:#6a6a6a;width:44px;height:44px;cursor:pointer;font-size:22px;z-index:10;line-height:1;" onmouseover="this.style.borderColor='#e8703a';this.style.color='#e8703a'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#6a6a6a'">‹</button>
+  <button onclick="heroGo((heroCurrent+1)%3)" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid #3a3a3a;color:#6a6a6a;width:44px;height:44px;cursor:pointer;font-size:22px;z-index:10;line-height:1;" onmouseover="this.style.borderColor='#e8703a';this.style.color='#e8703a'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#6a6a6a'">›</button>
+
 </section>
+
+<script>
+(function(){
+  var cur = 0;
+  var timer = null;
+
+  // estilo dos dots
+  var style = document.createElement('style');
+  style.textContent = '.hdot{width:10px;height:10px;border-radius:50%;border:none;background:#3a3a3a;cursor:pointer;padding:0;transition:all .3s;} .hdot.on{background:#e8703a;transform:scale(1.3);}';
+  document.head.appendChild(style);
+
+  function go(n) {
+    cur = n;
+    document.getElementById('hero-track').style.transform = 'translateX(-' + (n * 33.333333) + '%)';
+    document.querySelectorAll('.hdot').forEach(function(d,i){
+      d.classList.toggle('on', i===n);
+    });
+    clearInterval(timer);
+    timer = setInterval(function(){ go((cur+1)%3); }, 6000);
+  }
+
+  // expor globalmente
+  window.heroGo = go;
+  window.heroCurrent = 0;
+  Object.defineProperty(window, 'heroCurrent', { get: function(){ return cur; } });
+
+  // inicializar
+  document.addEventListener('DOMContentLoaded', function(){ go(0); });
+  // fallback imediato
+  go(0);
+})();
+</script>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -342,11 +455,11 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
         <a href="/agentes" class="eco-cta">Conhecer agentes →</a>
       </div>
       <div class="eco-card">
-        <div class="eco-badge-free">Formação Gratuita</div>
-        <div class="eco-tag">Educação</div>
+        <div class="eco-badge-free">Fundamentos Gratuitos</div>
+        <div class="eco-tag">Plataforma</div>
         <div class="eco-name">Academy</div>
-        <div class="eco-desc">12 semanas, 30+ módulos 100% gratuitos para entender IA de verdade — sem jargão, com exemplos reais do OMA.</div>
-        <a href="/academy" class="eco-cta">Acessar grátis →</a>
+        <div class="eco-desc">Construa seu sistema operacional com IA. Fundamentos gratuitos, trilhas guiadas por especialidade e vertical — o mesmo método do OMA.</div>
+        <a href="/academy" class="eco-cta">Conhecer a Academy →</a>
       </div>
       <div class="eco-card">
         <div class="eco-tag">Produtos</div>
@@ -461,6 +574,27 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <p class="cta-band-sub">Em menos de 30 minutos, você entende onde um agente pode gerar resultado no seu negócio — sem compromisso, sem jargão.</p>
   <a href="#" onclick="oT();return false;">Quero falar com a Bia</a>
   <p class="cta-band-note">Vagas limitadas para os primeiros clientes · Diagnóstico gratuito via WhatsApp</p>
+</section>
+
+<!-- ROI MAGNET -->
+<section style="padding:60px 48px;background:#111;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;">
+  <div style="max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#e8703a;margin-bottom:12px;">⚡ DIAGNÓSTICO GRATUITO</div>
+      <h2 style="font-family:'Black Ops One',cursive;font-size:clamp(22px,3vw,30px);letter-spacing:1px;color:#e0d9cf;line-height:1.2;margin-bottom:12px;">Quanto custa seu<br>trabalho manual?</h2>
+      <p style="font-size:14px;color:#6a6a6a;line-height:1.7;margin-bottom:24px;">Mapeie as tarefas repetitivas da sua operação e descubra em minutos o custo real — e o que automatizar primeiro.</p>
+      <a href="/roi" style="display:inline-block;background:#e8703a;color:#000;padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;transition:background .2s;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='#e8703a'">FAZER DIAGNÓSTICO GRÁTIS →</a>
+      <p style="font-size:11px;color:#4a4a4a;margin-top:10px;">Sem cadastro · Resultado em 2 minutos · 100% gratuito</p>
+    </div>
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:28px;text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#888;margin-bottom:20px;border-bottom:1px solid #2a2a2a;padding-bottom:12px;">📊 EXEMPLO REAL DE RESULTADO</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;">
+        <div style="background:#1c1c1e;padding:16px 12px;"><div style="font-size:9px;color:#4a4a4a;margin-bottom:4px;">HORAS/SEMANA</div><div style="font-family:'Black Ops One',cursive;font-size:24px;color:#e8703a;">12,4h</div></div>
+        <div style="background:#1c1c1e;padding:16px 12px;"><div style="font-size:9px;color:#4a4a4a;margin-bottom:4px;">CUSTO/ANO</div><div style="font-family:'Black Ops One',cursive;font-size:24px;color:#e8703a;">R$47k</div></div>
+      </div>
+      <div style="background:#1c1c1e;padding:16px 12px;"><div style="font-size:9px;color:#4a4a4a;margin-bottom:4px;">ECONOMIA POTENCIAL</div><div style="font-family:'Black Ops One',cursive;font-size:24px;color:#3d9e60;">R$19k/ano</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- NEWSLETTER -->
