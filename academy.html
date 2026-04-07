@@ -540,24 +540,27 @@ textarea.ch-input::placeholder{color:var(--text4);}
 }
 .intro-pillar-desc{font-size:11px;color:var(--text3);line-height:1.5;}
 .intro-what{
-  background:var(--bg3);border-radius:8px;padding:20px;
-  margin:24px 0;
+  background:#0f0f0f;border:1px solid rgba(232,112,58,.2);
+  border-radius:12px;padding:20px 18px;margin:24px 0;
+  box-shadow:0 4px 20px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.04);
 }
 .intro-what-title{
-  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
-  color:var(--text3);text-transform:uppercase;margin-bottom:12px;
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;
+  color:var(--fire);text-transform:uppercase;margin-bottom:14px;
+  opacity:.8;
 }
 .intro-what-list{
-  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  display:grid;grid-template-columns:1fr;gap:0;
 }
 @media(max-width:480px){.intro-what-list{grid-template-columns:1fr;}}
 .intro-what-item{
-  display:flex;align-items:flex-start;gap:8px;
-  font-size:13px;color:var(--text2);line-height:1.5;
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:rgba(240,235,227,.75);line-height:1.55;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);
 }
+.intro-what-item:last-child{border-bottom:none;padding-bottom:0;}
 .intro-what-item::before{
-  content:'→';color:var(--fire);font-weight:700;
-  flex-shrink:0;margin-top:1px;
+  content:'';display:none;
 }
 .intro-cta-area{margin-top:32px;text-align:center;}
 .intro-cta-label{
@@ -1405,11 +1408,11 @@ select.precert-input{cursor:pointer;}
           <div class="intro-what">
             <div class="intro-what-title">A jornada da Academy</div>
             <div class="intro-what-list">
-              <div class="intro-what-item">⬇️ <strong>Fundamentos gratuitos</strong> — 30 módulos para dominar o vocabulário e entender o jogo</div>
-              <div class="intro-what-item">⬇️ <strong>Trilhas por especialidade</strong> — construa o sistema operacional da sua função com IA</div>
-              <div class="intro-what-item">⬇️ <strong>Trilhas por vertical</strong> — redesenhe a operação do seu negócio com profundidade setorial</div>
-              <div class="intro-what-item">⬇️ <strong>Implementação</strong> — saia do blueprint e entre em go-live</div>
-              <div class="intro-what-item">⬇️ <strong>Enterprise</strong> — handoff para o OMA executar por você</div>
+              <div class="intro-what-item"><span style="color:var(--fire);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;">01</span><span><strong style="color:#f0ebe3;">Fundamentos gratuitos</strong> <span style="color:rgba(240,235,227,.45);">—</span> 30 módulos para dominar o vocabulário e entender o jogo</span></div>
+              <div class="intro-what-item"><span style="color:var(--fire);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;">02</span><span><strong style="color:#f0ebe3;">Trilhas por especialidade</strong> <span style="color:rgba(240,235,227,.45);">—</span> construa o sistema operacional da sua função com IA</span></div>
+              <div class="intro-what-item"><span style="color:var(--fire);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;">03</span><span><strong style="color:#f0ebe3;">Trilhas por vertical</strong> <span style="color:rgba(240,235,227,.45);">—</span> redesenhe a operação do seu negócio com profundidade setorial</span></div>
+              <div class="intro-what-item"><span style="color:var(--fire);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;">04</span><span><strong style="color:#f0ebe3;">Implementação</strong> <span style="color:rgba(240,235,227,.45);">—</span> saia do blueprint e entre em go-live</span></div>
+              <div class="intro-what-item"><span style="color:var(--fire);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;">05</span><span><strong style="color:#f0ebe3;">Enterprise</strong> <span style="color:rgba(240,235,227,.45);">—</span> handoff para o OMA executar por você</span></div>
             </div>
           </div>
 
