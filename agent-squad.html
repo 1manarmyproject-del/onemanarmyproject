@@ -200,10 +200,18 @@ header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;alig
   </div>
 </div>
 <script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+function init(){if(typeof load==='function')load();}
 var cards = [];
 var PMO_API = "https://api.onemanarmyproject.com.br";
 var PMO_KEY = (localStorage.getItem('oma_api_key')||(localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
-var PMO_HDR = {"Content-Type":"application/json","x-api-key":PMO_KEY};
+// PMO_HDR removido — usar getAuthHeaders() em todos os fetches
 var dragging = null;
 var filt = "all";
 var editId = null;
@@ -216,7 +224,7 @@ function save(){} // migrado para API Hetzner
 function syncCards(){ load(); }
 
 function load(){
-  fetch(PMO_API+"/pmo",{headers:{"x-api-key":PMO_KEY}})
+  fetch(PMO_API+"/pmo",{headers:getAuthHeaders()})
     .then(function(r){return r.json();})
     .then(function(data){
       cards=Array.isArray(data)?data:[];
@@ -224,7 +232,7 @@ function load(){
       // Enrich cards that have activity (started_at or completed_at) with execution_log
       var active=cards.filter(function(c){return c.started_at||c.completed_at;});
       active.forEach(function(card){
-        fetch(PMO_API+"/pmo/"+card.id+"/detail",{headers:{"x-api-key":PMO_KEY}})
+        fetch(PMO_API+"/pmo/"+card.id+"/detail",{headers:getAuthHeaders()})
           .then(function(r){return r.json();})
           .then(function(detail){
             if(detail.execution_log){
@@ -330,7 +338,7 @@ function cp(id,e){
   if(!c) return;
   var cy = ["","alta","media","baixa"];
   c.prio = cy[(cy.indexOf(c.prio||"")+1)%cy.length];
-  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
+  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:getAuthHeaders(),body:JSON.stringify(c)}); render();
 }
 function ds(e,id){
   dragging = id;
@@ -347,12 +355,12 @@ function dp(e,col){
   document.querySelectorAll(".col").forEach(function(c){c.classList.remove("drag-over");});
   if(!dragging) return;
   var c = cards.find(function(x){return x.id===dragging;});
-  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render(); }
+  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:getAuthHeaders(),body:JSON.stringify(c)}); render(); }
   dragging = null;
 }
 function mv(id,col){
   var c = cards.find(function(x){return x.id===id;});
-  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render(); }
+  if(c){ c.col=col; fetch(PMO_API+"/pmo/"+id,{method:"PATCH",headers:getAuthHeaders(),body:JSON.stringify(c)}); render(); }
 }
 function mup(id,col){
   var g = cards.filter(function(c){return c.col===col;});
@@ -375,7 +383,7 @@ function mdn(id,col){
 function rm(id){
   if(!confirm("Remover?")) return;
   cards = cards.filter(function(x){return x.id!==id;});
-  fetch(PMO_API+"/pmo/"+id,{method:"DELETE",headers:PMO_HDR}); render();
+  fetch(PMO_API+"/pmo/"+id,{method:"DELETE",headers:getAuthHeaders()}); render();
 }
 function setF(btn,area){
   filt = area;
@@ -444,7 +452,7 @@ function saveEdit(){
       permanent: document.getElementById("edit-permanent").checked ? 1 : 0
     };
     cards.push(nc);
-    fetch(PMO_API+"/pmo",{method:"POST",headers:PMO_HDR,body:JSON.stringify(nc)});
+    fetch(PMO_API+"/pmo",{method:"POST",headers:getAuthHeaders(),body:JSON.stringify(nc)});
     render();
     document.getElementById("modal-bg").classList.remove("open");
     return;
@@ -462,7 +470,7 @@ function saveEdit(){
   c.url_ref = document.getElementById("edit-url-ref").value;
   c.autonomy_level = document.getElementById("edit-autonomy").value;
   c.permanent = document.getElementById("edit-permanent").checked ? 1 : 0;
-  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:PMO_HDR,body:JSON.stringify(c)}); render();
+  fetch(PMO_API+"/pmo/"+c.id,{method:"PATCH",headers:getAuthHeaders(),body:JSON.stringify(c)}); render();
   document.getElementById("modal-bg").classList.remove("open");
 }
 function resetBoard(){

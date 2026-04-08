@@ -153,6 +153,14 @@ td{padding:10px 14px;vertical-align:middle;}
 </div></div></div>
 
 <script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -220,8 +228,8 @@ const API_KEY=(localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_
 const STS=[{id:'novo',l:'Novo',c:'sn'},{id:'qualificado',l:'Qualificado',c:'sq'},{id:'conversa',l:'Em Conversa',c:'sc'},{id:'agendado',l:'Agendado',c:'sa'},{id:'proposta',l:'Proposta',c:'sp2'},{id:'cliente',l:'Cliente',c:'sk'},{id:'perdido',l:'Perdido',c:'sx'}];
 const SCC={'Sócio / Dono':80,'CEO / Presidente':80,'Diretor':60,'Gerente':40,'Outro':25};
 let S={workspaces:[{id:'oma',name:'OMA Project',desc:'Leads da plataforma'}],currentWS:'oma',leads:[]},F=[],aid=null;
-async function apiGet(p){try{const r=await fetch(API+p,{headers:{'x-api-key':API_KEY}});return await r.json();}catch(e){return null;}}
-async function apiPost(p,b){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
+async function apiGet(p){try{const r=await fetch(API+p,{headers:getAuthHeaders()});return await r.json();}catch(e){return null;}}
+async function apiPost(p,b){try{const r=await fetch(API+p,{method:'POST',headers:getAuthHeaders(),body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
 async function apiPatch(p,b){try{const r=await fetch(API+p,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});return await r.json();}catch(e){return null;}}
 function mapL(l){
   // Score por cargo — aceita variantes
@@ -276,7 +284,7 @@ function tbl(){const tb=document.getElementById('lt');document.getElementById('l
 function cltbl(){const tb=document.getElementById('ct');const c=wl().filter(l=>l.stage==='cliente');tb.innerHTML=c.map(l=>`<tr onclick="oD(${l.id})"><td class="fw">${x(l.nome)}</td><td class="dm">${x(l.empresa||'—')}</td><td><span class="tg ts">${x(ss(l.seg))}</span></td><td class="dm">${x(l.modulos||'—')}</td><td class="go">${x(l.ticket||'—')}</td><td class="mo" style="color:var(--fog)">${x(l.setup||'—')}</td><td class="mo" style="color:var(--ash)">${x(l.time||'—')}</td></tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--ash)">Nenhum cliente ativo</td></tr>';}
 function stats(){const all=wl(),hot=all.filter(l=>(l.score||0)>=70&&l.stage!=='perdido'),cli=all.filter(l=>l.stage==='cliente');let p=0;all.filter(l=>l.stage!=='perdido').forEach(l=>{if(l.ticket){const m=l.ticket.match(/[\d.]+/);if(m)p+=parseFloat(m[0].replace('.','')||0);}});document.getElementById('hT').textContent=all.length;document.getElementById('hQ').textContent=hot.length;document.getElementById('hP').textContent=p>=1000?`R$${Math.round(p/1000)}k`:`R$${p}`;document.getElementById('hC').textContent=cli.length;document.getElementById('nP').textContent=all.filter(l=>l.stage!=='perdido').length;document.getElementById('nA').textContent=all.length;document.getElementById('nC').textContent=cli.length;document.getElementById('nW').textContent=all.filter(l=>l.canal==='WhatsApp').length;document.getElementById('nI').textContent=all.filter(l=>l.canal==='Instagram').length;document.getElementById('nS').textContent=all.filter(l=>l.canal==='Site').length;document.getElementById('nIn').textContent=all.filter(l=>l.canal==='Indicação').length;}
 function oD(id){const l=(S.leads||[]).find(z=>z.id===id);if(!l)return;aid=id;const s=l.score||0;document.getElementById('dn').textContent=l.nome;document.getElementById('dco').textContent=l.empresa||'—';document.getElementById('dsg').textContent=l.seg||'—';document.getElementById('dpo').innerHTML=`<span class="pi ${l.porte==='Enterprise'?'pent':'ppme'}">${l.porte||'PME'}</span>`;document.getElementById('dca').textContent=l.canal||'—';document.getElementById('dsc').innerHTML=`<span class="${s>=70?'hi':s>=50?'mi':'lo'}">${s} pts</span>`;document.getElementById('dst').innerHTML=pl(l.stage);document.getElementById('ds').innerHTML=pl(l.stage);document.getElementById('dwa').textContent=l.wa||'—';document.getElementById('dem').textContent=l.email||'—';document.getElementById('dcg').textContent=l.cargo||'—';document.getElementById('dtk').textContent=l.ticket||'—';document.getElementById('dsp').textContent=l.setup||'—';document.getElementById('dmd').textContent=l.modulos||'—';document.getElementById('ddr').textContent=l.dor||'—';document.getElementById('ddg').innerHTML=l.diag?`<b>Diagnóstico:</b><br>${x(l.diag)}`:'—';document.getElementById('od').classList.add('op');}
-function mS(d){const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;const i=STS.findIndex(s=>s.id===l.stage);l.stage=STS[Math.max(0,Math.min(STS.length-1,i+d))].id;l.time=new Date().toLocaleDateString('pt-BR');sv();F=wl();render();oD(aid);toast('Stage atualizado','ok');fetch(API+'/leads/'+l.id,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify({status:l.stage})}).catch(e=>console.warn('Erro PATCH stage:',e));}
+function mS(d){const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;const i=STS.findIndex(s=>s.id===l.stage);l.stage=STS[Math.max(0,Math.min(STS.length-1,i+d))].id;l.time=new Date().toLocaleDateString('pt-BR');sv();F=wl();render();oD(aid);toast('Stage atualizado','ok');fetch(API+'/leads/'+l.id,{method:'PATCH',headers:getAuthHeaders(),body:JSON.stringify({status:l.stage})}).catch(e=>console.warn('Erro PATCH stage:',e));}
 function gW(){const l=(S.leads||[]).find(z=>z.id===aid);if(l?.wa)window.open(`https://wa.me/${l.wa.replace(/\D/g,'')}`);}
 function openBiaTrigger(){
   const l=(S.leads||[]).find(z=>z.id===aid);
@@ -294,7 +302,7 @@ function triggerBia(action){
   st.textContent='⏳ Enviando para Bia...';
   const customMsg=action==='custom'?document.getElementById('biaCustomMsg').value:'';
   const payload={lead_id:l.id,nome:l.nome,empresa:l.empresa||'',whatsapp:l.wa||'',segmento:l.seg||'',status:l.stage||'novo',action:action,custom_message:customMsg,dor:l.dor||'',diagnostico:l.diag||''};
-  fetch(API+'/bia/trigger',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(payload)}).then(r=>r.json()).then(d=>{
+  fetch(API+'/bia/trigger',{method:'POST',headers:getAuthHeaders(),body:JSON.stringify(payload)}).then(r=>r.json()).then(d=>{
     if(d.ok){st.innerHTML='✅ <strong>Bia acionada!</strong> Ação: '+action;toast('Bia acionada para '+l.nome,'ok');}
     else{st.textContent='⚠️ Erro: '+(d.error||'tente novamente');}
   }).catch(e=>{st.textContent='⚠️ Falha na conexão';});
@@ -311,7 +319,7 @@ function enviarFormCadastro(){
   // Gerar token de cadastro e enviar via Bia
   fetch(API+'/bia/trigger',{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':API_KEY},
+    headers:getAuthHeaders(),
     body:JSON.stringify({
       lead_id:l.id, nome:l.nome, empresa:l.empresa||'',
       whatsapp:l.wa||'', email:l.email||'',
@@ -328,13 +336,23 @@ function enviarFormCadastro(){
     }
   }).catch(e=>{st.textContent='⚠️ Falha na conexão';});
 }
-function dL2(){
+async function dL2(){
   if(!confirm('Excluir este lead? Esta ação não pode ser desfeita.'))return;
-  S.leads=(S.leads||[]).filter(l=>l.id!==aid);
-  sv();F=wl();render();cM('od');toast('Excluído');
-  const cid = aid;
-  fetch(API+'/leads/'+cid,{method:'DELETE',headers:{'Content-Type':'application/json','x-api-key':API_KEY}}).catch(e=>console.warn('Erro DELETE lead:',e));
-  fetch(API+'/clientes/'+cid,{method:'DELETE',headers:{'Content-Type':'application/json','x-api-key':API_KEY}}).catch(e=>{});
+  const l=(S.leads||[]).find(z=>z.id===aid);
+  const apiId=l?(l._apiId||l.id):aid;
+  // Remove local primeiro
+  S.leads=(S.leads||[]).filter(x=>x.id!==aid);
+  sv();F=wl();render();cM('od');
+  // Deleta na API com auth correta
+  try{
+    const r=await fetch(API+'/leads/'+apiId,{method:'DELETE',headers:getAuthHeaders()});
+    if(r.ok||r.status===404){toast('Excluído','ok');}
+    else{toast('Erro ao excluir na API ('+r.status+')','er');console.warn('DELETE leads falhou:',r.status);}
+  }catch(e){toast('Excluído localmente (sem conexão)','ok');console.warn('DELETE leads erro:',e);}
+  // Tenta também em /clientes se tiver _apiId diferente
+  if(l?._apiId){
+    fetch(API+'/clientes/'+l._apiId,{method:'DELETE',headers:getAuthHeaders()}).catch(()=>{});
+  }
 }
 function eL(){const l=(S.leads||[]).find(z=>z.id===aid);if(!l)return;cM('od');oAdd(l.stage,l);}
 function oAdd(st,lead){document.getElementById('ft').textContent=lead?'EDITAR LEAD':'NOVO LEAD';document.getElementById('fId').value=lead?.id||'';document.getElementById('fN').value=lead?.nome||'';document.getElementById('fE').value=lead?.empresa||'';document.getElementById('fW').value=lead?.wa||'';document.getElementById('fM').value=lead?.email||'';document.getElementById('fSg2').value=lead?.seg||'';document.getElementById('fPo2').value=lead?.porte||'PME';document.getElementById('fCn').value=lead?.canal||'WhatsApp';document.getElementById('fCg').value=lead?.cargo||'Sócio / Dono';document.getElementById('fT').value=lead?.ticket||'';document.getElementById('fSp').value=lead?.setup||'';document.getElementById('fMd').value=lead?.modulos||'';document.getElementById('fDr').value=lead?.dor||'';document.getElementById('fDg').value=lead?.diag||'';document.getElementById('fSt2').value=lead?.stage||st||'novo';cSc();document.getElementById('of').classList.add('op');}
@@ -345,12 +363,12 @@ function sL(){const n=document.getElementById('fN').value.trim();if(!n){toast('N
     try{
       var apiPayload={nome:l.nome,empresa:l.empresa||'',whatsapp:l.wa||'',email:l.email||'',segmento:l.seg||'',status:l.stage||'novo',mrr:parseFloat(l.ticket)||0,setup_fee:parseFloat(l.setup)||0,modulos:l.modulos||'',contato:l.cargo||'',notas:l.dor||'',origem:l.canal||'manual'};
       if(eid&&l._apiId){
-        var r=await fetch(API+'/clientes/'+l._apiId,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(apiPayload)});
+        var r=await fetch(API+'/clientes/'+l._apiId,{method:'PATCH',headers:getAuthHeaders(),body:JSON.stringify(apiPayload)});
         var d=await r.json();
         if(d.id){var idx=(S.leads||[]).findIndex(x=>x.id===parseInt(eid));if(idx>=0){S.leads[idx]._apiId=d.id;sv();}}
         toast('Atualizado','ok');
       }else if(!eid){
-        var r=await fetch(API+'/clientes',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify(apiPayload)});
+        var r=await fetch(API+'/clientes',{method:'POST',headers:getAuthHeaders(),body:JSON.stringify(apiPayload)});
         var d=await r.json();
         if(d.id){var idx=(S.leads||[]).findIndex(x=>x.id===l.id);if(idx>=0){S.leads[idx]._apiId=d.id;sv();}}
         toast('Lead salvo','ok');

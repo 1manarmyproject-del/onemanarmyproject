@@ -10,8 +10,8 @@
 <style>
 :root{
   --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
-  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
-  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
+  --char:#1a1a1a;--coal:#242424;--iron:#2e2e2e;--steel:#252525;
+  --ash:#6a6a6a;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
   --light-bg:#f7f4ef;--light-surface:#ffffff;--light-border:#e8e2d9;
   --dark-text:#1a1612;--mid-text:#4a4035;
 }
@@ -175,54 +175,40 @@ footer a:hover{color:var(--bone);}
 .case-dl a:hover{background:var(--fire);color:var(--char);}
 @media(max-width:600px){.case-card{flex-direction:column;text-align:center;}.case-dl{margin-top:12px;}}
 
+
+#sara-bubble{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:#2d5a8e;box-shadow:0 4px 20px rgba(45,90,142,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#sara-bubble:hover{transform:scale(1.08);}
+#sara-bubble svg{width:24px;height:24px;fill:white;}
+#sara-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#e8703a;border-radius:50%;font-size:9px;color:#000;font-family:monospace;font-weight:700;display:none;align-items:center;justify-content:center;}
+#sara-widget{position:fixed;bottom:88px;right:24px;width:340px;max-height:480px;background:#111;border:1px solid #222;display:none;flex-direction:column;z-index:9001;box-shadow:0 8px 40px rgba(0,0,0,.7);}
+#sara-hdr{background:#0d1f35;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2d45;}
+.sara-hdr-l{display:flex;align-items:center;gap:10px;}
+.sara-av{width:32px;height:32px;border-radius:50%;background:#2d5a8e;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;color:#fff;font-weight:700;flex-shrink:0;}
+.sara-nm{font-family:monospace;font-size:10px;color:#e0d9cf;letter-spacing:1px;}
+.sara-st{font-family:monospace;font-size:8px;color:#3d9e60;letter-spacing:1px;}
+#sara-x{background:none;border:none;color:#555;font-size:18px;cursor:pointer;padding:0;line-height:1;}
+#sara-x:hover{color:#e0d9cf;}
+#sara-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:200px;}
+#sara-msgs .sma{background:#1a1a1a;border:1px solid #2a2a2a;padding:10px 14px;border-radius:3px;font-size:13px;color:#e0d9cf;line-height:1.6;align-self:flex-start;max-width:85%;white-space:pre-wrap;}
+#sara-msgs .smu{background:#2d5a8e;padding:10px 14px;border-radius:3px;font-size:13px;color:#fff;line-height:1.6;align-self:flex-end;max-width:85%;}
+#sara-msgs .smt{display:flex;gap:5px;padding:10px 14px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:3px;align-self:flex-start;width:50px;}
+#sara-msgs .smt span{width:6px;height:6px;border-radius:50%;background:#555;animation:sb 1.2s infinite;}
+#sara-msgs .smt span:nth-child(2){animation-delay:.2s;}
+#sara-msgs .smt span:nth-child(3){animation-delay:.4s;}
+@keyframes sb{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sara-inp-area{padding:12px;border-top:1px solid #222;display:flex;gap:8px;}
+#sara-inp{flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:8px 12px;font-family:sans-serif;font-size:13px;outline:none;resize:none;height:36px;border-radius:2px;}
+#sara-inp:focus{border-color:#2d5a8e;}
+#sara-snd{background:#2d5a8e;border:none;color:#fff;width:36px;height:36px;cursor:pointer;font-size:16px;border-radius:2px;flex-shrink:0;}
+#sara-snd:disabled{opacity:.4;cursor:not-allowed;}
+@media(max-width:480px){#sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}#sara-bubble{right:16px;bottom:16px;}}
+
 </style>
 
 <style>
-#oma-bubble{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#e8703a;box-shadow:0 4px 20px rgba(232,112,58,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
-#oma-bubble:hover{transform:scale(1.08);}
-#oma-bubble svg{width:26px;height:26px;fill:white;}
-#oma-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#dc2626;color:white;font-size:10px;font-weight:600;display:none;align-items:center;justify-content:center;}
-#oma-window{position:fixed;bottom:90px;right:24px;width:360px;height:540px;max-height:calc(100vh - 110px);background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:9001;display:none;flex-direction:column;overflow:hidden;box-sizing:border-box;}
-#oma-window.wopen{display:flex;}
-#oma-hdr{background:#111;border-bottom:1px solid #1e1e1e;padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-#oma-av{width:36px;height:36px;border-radius:50%;background:#e8703a;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:600;flex-shrink:0;}
-#oma-hn{font-size:13px;font-weight:500;color:#e0d9cf;font-family:-apple-system,sans-serif;}
-#oma-hs{font-size:10px;color:#3d9e60;display:flex;align-items:center;gap:4px;margin-top:2px;font-family:-apple-system,sans-serif;}
-#oma-sd{width:6px;height:6px;border-radius:50%;background:#3d9e60;animation:wbl 2s infinite;}
-@keyframes wbl{0%,100%{opacity:1}50%{opacity:.4}}
-#oma-x{width:28px;height:28px;border:none;background:transparent;color:#6a6a6a;cursor:pointer;font-size:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;line-height:1;}
-#oma-x:hover{background:#1e1e1e;color:#e0d9cf;}
-#oma-ml{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;}
-.wm{max-width:82%;display:flex;flex-direction:column;gap:2px;}
-.wm.wa{align-self:flex-start;}.wm.wu{align-self:flex-end;}
-.wb{padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5;word-break:break-word;font-family:-apple-system,sans-serif;}
-.wm.wa .wb{background:#1e1e1e;color:#e0d9cf;border-radius:4px 12px 12px 12px;}
-.wm.wu .wb{background:#e8703a;color:white;border-radius:12px 4px 12px 12px;}
-.wt{font-size:9px;color:#4a4a4a;padding:0 4px;font-family:-apple-system,sans-serif;}
-.wm.wu .wt{text-align:right;}
-.wtyp .wb{display:flex;gap:4px;align-items:center;padding:12px 16px;}
-.wd{width:6px;height:6px;border-radius:50%;background:#6a6a6a;animation:wtp .8s infinite;}
-.wd:nth-child(2){animation-delay:.15s;}.wd:nth-child(3){animation-delay:.3s;}
-@keyframes wtp{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
-#oma-ia{border-top:1px solid #1e1e1e;padding:12px;display:flex;gap:8px;align-items:flex-end;background:#111;flex-shrink:0;}
-#oma-inp{flex:1;background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:9px 14px;color:#e0d9cf;font-size:13px;resize:none;max-height:80px;outline:none;line-height:1.4;font-family:-apple-system,sans-serif;}
-#oma-inp::placeholder{color:#4a4a4a;}
-#oma-inp:focus{border-color:#e8703a;}
-#oma-btn{width:36px;height:36px;border-radius:50%;background:#e8703a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-#oma-btn:hover{background:#c05020;}
-#oma-btn:disabled{background:#2a2a2a;cursor:not-allowed;}
-#oma-btn svg{width:16px;height:16px;fill:white;}
-#oma-pw{text-align:center;padding:6px;font-size:9px;color:#2a2a2a;letter-spacing:1px;border-top:1px solid #1e1e1e;background:#0a0a0a;font-family:-apple-system,sans-serif;flex-shrink:0;}
-#oma-preview{position:fixed;bottom:92px;right:24px;background:#0f0f0f;border:1px solid rgba(232,112,58,.3);border-radius:12px 12px 0 12px;padding:12px 16px;max-width:260px;z-index:8999;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
-#oma-preview.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
-#oma-preview p{font-family:'Barlow',sans-serif;font-size:13px;color:#e0d9cf;line-height:1.5;margin:0 0 10px 0;}
-#oma-preview .prev-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:14px;line-height:1;}
-#oma-preview .prev-cta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:#e8703a;cursor:pointer;background:none;border:none;padding:0;}
-@keyframes bubblePulse{0%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}50%{transform:scale(1.15);box-shadow:0 4px 32px rgba(232,112,58,.7);}100%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}}
-#oma-bubble.pulse{animation:bubblePulse 1s ease-out 3;}
+50%{transform:scale(1.15);box-shadow:0 4px 32px rgba(232,112,58,.7);}100%{transform:scale(1);box-shadow:0 4px 20px rgba(232,112,58,.4);}}
 @media(max-width:480px){
   #oma-window{width:calc(100vw - 24px)!important;left:12px!important;right:12px!important;bottom:72px!important;height:auto!important;max-height:calc(100vh - 100px)!important;}
-  #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
 </style>
 </head>
@@ -244,7 +230,6 @@ footer a:hover{color:var(--bone);}
     <a href="/blog">Blog</a>
   </div>
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
-  <a href="/#" onclick="window.location='/#como-funciona';return false;" class="nav-cta">Falar com a Bia</a>
 </nav>
 
 <!-- HERO -->
@@ -252,11 +237,213 @@ footer a:hover{color:var(--bone);}
   <div class="hero-glow"></div>
   <p class="hero-badge">OMA Solutions</p>
   <h1>Ferramentas que pensam,<br>analisam e <em>executam</em></h1>
-  <p>Três produtos de inteligência artificial construídos para dar superpoderes ao seu negócio — do relatório preditivo à ata de reunião.</p>
+  <p>Seis produtos de inteligência artificial construídos para o gestor que não tem tempo a perder — do diagnóstico de automação ao relatório preditivo.</p>
 </section>
 
 <!-- PRODUCTS -->
 <div class="products">
+
+  <!-- LINHA: AUTOMATION INTELLIGENCE -->
+  <div style="max-width:860px;margin:0 auto 16px;padding:0 32px;">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:8px;">Nova linha</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,26px);font-weight:900;color:var(--white);margin-bottom:4px;">Automation Intelligence</div>
+    <div style="font-size:14px;color:var(--fog);max-width:560px;">Descubra quanto custa seu trabalho manual, priorize o que automatizar e monte um plano de execução.</div>
+  </div>
+
+  <div class="product" id="roi" style="max-width:860px;margin:0 auto 2px;padding:32px;background:var(--iron);border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--green);margin-bottom:12px;border:1px solid rgba(61,158,96,.3);display:inline-block;padding:4px 12px;">✅ GRATUITO — SEM CADASTRO</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">OMA Automation ROI</h2>
+      <p style="font-size:14px;color:var(--fog);line-height:1.7;margin-bottom:20px;">Quantifique o tempo e o dinheiro escondidos no trabalho manual da sua operação. Em minutos, você vê o custo real e a economia potencial.</p>
+      <ul style="list-style:none;padding:0;margin-bottom:24px;">
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">⚡ Diagnóstico gratuito e instantâneo</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">📊 Custo anual estimado do trabalho manual</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;">💡 Interpretação personalizada por IA</li>
+      </ul>
+      <a href="/roi" style="display:inline-block;background:var(--fire);color:#000;padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">FAZER DIAGNÓSTICO GRÁTIS →</a>
+    </div>
+    <div style="background:linear-gradient(145deg,var(--coal) 0%,rgba(232,112,58,.08) 100%);padding:32px;border:1px solid var(--border);text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:20px;">EXEMPLO DE RESULTADO</div>
+      <div style="font-size:10px;color:var(--ash);letter-spacing:1px;font-family:'Space Mono',monospace;margin-bottom:6px;">CUSTO ESTIMADO NA OPERAÇÃO</div>
+      <div style="font-family:'Black Ops One',cursive;font-size:36px;color:var(--fire);margin-bottom:20px;">R$ 47.840</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px;">
+        <div style="font-size:10px;color:var(--ash);letter-spacing:1px;font-family:'Space Mono',monospace;">ECONOMIA POTENCIAL NA OPERAÇÃO</div>
+        <div style="background:rgba(45,138,80,.15);border:1px solid rgba(45,138,80,.3);padding:3px 10px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);font-weight:700;">40%</div>
+      </div>
+      <div style="font-family:'Black Ops One',cursive;font-size:36px;color:var(--green);margin-bottom:16px;">R$ 19.136</div>
+      <div style="font-size:11px;color:var(--ash);">8 tarefas manuais · 12,4h/semana</div>
+    </div>
+  </div>
+
+  <div class="product" id="priority" style="max-width:860px;margin:0 auto 2px;padding:32px;background:var(--iron);border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--fire);margin-bottom:12px;">💳 R$ 97,00 — Pague apenas uma vez pelo relatório</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">OMA Priority Map</h2>
+      <p style="font-size:14px;color:var(--fog);line-height:1.7;margin-bottom:12px;">Veja exatamente o que atacar primeiro. Lista priorizada por impacto × esforço, quick wins, recomendações por tarefa — e um <strong style="color:var(--bone);">relatório PDF completo</strong> enviado no seu email.</p>
+      <div style="background:rgba(232,112,58,.08);border:1px solid rgba(232,112,58,.2);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--fog);">📄 Quer ver como é o relatório antes de comprar? <a href="/context/priority-map-exemplo.pdf" target="_blank" download style="color:var(--fire);text-decoration:none;font-weight:700;">Baixe um exemplo aqui →</a></div>
+      <ul style="list-style:none;padding:0;margin-bottom:24px;">
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">🎯 Priorização automática por impacto e esforço</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">⚡ Quick wins identificados em segundos</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;">📋 Recomendação por tarefa gerada por IA</li>
+      </ul>
+      <a href="/roi" style="display:inline-block;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">COMECE GRATUITAMENTE PELO DIAGNÓSTICO →</a>
+    </div>
+    <div style="background:linear-gradient(145deg,var(--coal) 0%,rgba(232,112,58,.06) 100%);padding:24px;border:1px solid var(--border);">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px;">EXEMPLO DE PRIORITY MAP</div>
+      <div style="background:rgba(61,158,96,.1);border-left:3px solid var(--green);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);">⚡ <strong style="color:var(--green);">QUICK WIN</strong> — Triagem de emails</div>
+      <div style="background:rgba(61,158,96,.1);border-left:3px solid var(--green);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);">⚡ <strong style="color:var(--green);">QUICK WIN</strong> — Agendamento de reuniões</div>
+      <div style="background:rgba(200,164,86,.1);border-left:3px solid var(--gold);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);">📋 <strong style="color:var(--gold);">PLANEJAR</strong> — Relatório semanal</div>
+      <div style="background:rgba(106,106,106,.1);border-left:3px solid var(--ash);padding:10px 12px;font-size:12px;color:var(--fog);">⏸ <strong style="color:var(--ash);">IGNORAR</strong> — Arquivo de documentos</div>
+    </div>
+  </div>
+
+  <div class="product" id="roadmap" style="max-width:860px;margin:0 auto 48px;padding:32px;background:var(--iron);border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--fire);margin-bottom:12px;">💳 R$ 297,00 — Entrega única e imediata</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">OMA Automation Roadmap</h2>
+      <p style="font-size:14px;color:var(--fog);line-height:1.7;margin-bottom:20px;">Transforme seu Priority Map em um <strong style="color:var(--bone);">plano de execução real</strong>. 30/60/90 dias estruturados com ações, ferramentas sugeridas e resultado esperado por fase — tudo personalizado para o seu setor e operação.</p>
+      <ul style="list-style:none;padding:0;margin-bottom:24px;">
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">🗓 Plano 30/60/90 dias personalizado</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">🔧 Ferramentas sugeridas por fase</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">👤 Responsável e resultado esperado por ação</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;">📧 Entregue por email imediatamente</li>
+      </ul>
+      <a href="/roi" style="display:inline-block;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">COMECE GRATUITAMENTE PELO DIAGNÓSTICO →</a>
+    </div>
+    <div style="background:linear-gradient(145deg,var(--coal) 0%,rgba(232,112,58,.06) 100%);padding:24px;border:1px solid var(--border);">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px;">EXEMPLO DE ROADMAP</div>
+      <div style="border-left:3px solid var(--fire);padding:12px 14px;margin-bottom:10px;background:rgba(232,112,58,.06);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);margin-bottom:4px;">FASE 1 · DIAS 1–30</div>
+        <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px;">Quick Wins</div>
+        <div style="font-size:11px;color:var(--fog);">Automatizar triagem de emails e agendamentos · Ferramenta: Make</div>
+      </div>
+      <div style="border-left:3px solid var(--gold);padding:12px 14px;margin-bottom:10px;background:rgba(200,164,86,.06);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--gold);margin-bottom:4px;">FASE 2 · DIAS 31–60</div>
+        <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px;">Processos Core</div>
+        <div style="font-size:11px;color:var(--fog);">Relatórios e cobranças automáticas · Ferramenta: n8n + Asaas</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding:12px 14px;background:rgba(61,158,96,.06);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);margin-bottom:4px;">FASE 3 · DIAS 61–90</div>
+        <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px;">Otimização</div>
+        <div style="font-size:11px;color:var(--fog);">Ajustar, medir e escalar · Resultado: −40% trabalho manual</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVISOR -->
+  <div style="max-width:860px;margin:0 auto 32px;padding:0 32px;display:flex;align-items:center;gap:16px;">
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);">CONVERSATION INTELLIGENCE</div>
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+  </div>
+
+
+
+  <!-- SCRIBE -->
+  <div class="product product-scribe" id="scribe">
+    <div class="product-content" style="order:2;">
+      <div class="product-tag">Transcrição de áudio ao vivo</div>
+      <h2 class="product-h2">Fale. O Scribe <em>escreve.</em><br>Em tempo real.</h2>
+      <p class="product-desc">
+        Manda o áudio no <strong>WhatsApp</strong> e recebe a transcrição na mesma conversa. Reunião, call, recado — tudo transcrito com tecnologia Whisper. Sem app extra, sem instalação. Conecta uma vez e funciona para sempre.
+      </p>
+      <ul class="product-features">
+        <li>Funciona no seu WhatsApp atual — sem trocar de app</li>
+        <li>30 minutos grátis para testar · planos a partir de R$19,90/mês</li>
+        <li>Português com alta precisão (Groq Whisper)</li>
+        <li>Controle de uso direto no portal</li>
+      </ul>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="/scribe" class="btn-product btn-green">Começar grátis</a>
+        <a href="#predictions" class="btn-product btn-ghost">Ver no pacote</a>
+      </div>
+    </div>
+    <div class="product-visual" style="order:1;">
+      <svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:16px;position:relative;z-index:1;">
+        <!-- Audio waveform -->
+        <rect x="18" y="38" width="4" height="24" rx="2" fill="#3d9e60" opacity=".4"/>
+        <rect x="26" y="28" width="4" height="44" rx="2" fill="#3d9e60" opacity=".5"/>
+        <rect x="34" y="18" width="4" height="64" rx="2" fill="#3d9e60" opacity=".7"/>
+        <rect x="42" y="30" width="4" height="40" rx="2" fill="#3d9e60" opacity=".6"/>
+        <rect x="50" y="22" width="4" height="56" rx="2" fill="#3d9e60"/>
+        <rect x="58" y="35" width="4" height="30" rx="2" fill="#3d9e60" opacity=".5"/>
+        <rect x="66" y="15" width="4" height="70" rx="2" fill="#3d9e60"/>
+        <rect x="74" y="25" width="4" height="50" rx="2" fill="#3d9e60" opacity=".8"/>
+        <rect x="82" y="32" width="4" height="36" rx="2" fill="#3d9e60" opacity=".6"/>
+        <rect x="90" y="20" width="4" height="60" rx="2" fill="#3d9e60" opacity=".9"/>
+        <rect x="98" y="28" width="4" height="44" rx="2" fill="#3d9e60" opacity=".7"/>
+        <rect x="106" y="38" width="4" height="24" rx="2" fill="#3d9e60" opacity=".4"/>
+        <rect x="114" y="22" width="4" height="56" rx="2" fill="#3d9e60" opacity=".8"/>
+        <rect x="122" y="30" width="4" height="40" rx="2" fill="#3d9e60" opacity=".6"/>
+        <rect x="130" y="18" width="4" height="64" rx="2" fill="#3d9e60"/>
+        <rect x="138" y="35" width="4" height="30" rx="2" fill="#3d9e60" opacity=".5"/>
+        <rect x="146" y="25" width="4" height="50" rx="2" fill="#3d9e60" opacity=".7"/>
+        <rect x="154" y="40" width="4" height="20" rx="2" fill="#3d9e60" opacity=".3"/>
+        <!-- Live indicator -->
+        <circle cx="90" cy="88" r="4" fill="#3d9e60" opacity=".8"/>
+        <circle cx="90" cy="88" r="7" fill="none" stroke="#3d9e60" stroke-width="1" opacity=".4"/>
+        <circle cx="90" cy="88" r="11" fill="none" stroke="#3d9e60" stroke-width=".5" opacity=".2"/>
+      </svg>
+      <div class="product-name">SCRIBE</div>
+      <div class="product-by">by OMA</div>
+    </div>
+  </div>
+
+  <!-- RECAP -->
+  <div class="product product-recap" id="recap">
+    <div class="product-visual">
+      <svg width="160" height="130" viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:16px;position:relative;z-index:1;">
+        <!-- Document -->
+        <rect x="25" y="5" width="110" height="120" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1.5"/>
+        <!-- Header -->
+        <rect x="25" y="5" width="110" height="18" rx="4" fill="#252525"/>
+        <rect x="33" y="11" width="30" height="3" rx="1" fill="#4a8fc4"/>
+        <rect x="33" y="16" width="18" height="2" rx="1" fill="#555"/>
+        <!-- Checklist items -->
+        <rect x="37" y="32" width="10" height="10" rx="2" fill="none" stroke="#3d9e60" stroke-width="1.5"/>
+        <path d="M39 37L42 40L46 34" stroke="#3d9e60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="52" y="34" width="60" height="2.5" rx="1" fill="#444"/>
+        <rect x="52" y="39" width="40" height="2" rx="1" fill="#333"/>
+        <rect x="37" y="52" width="10" height="10" rx="2" fill="none" stroke="#3d9e60" stroke-width="1.5"/>
+        <path d="M39 57L42 60L46 54" stroke="#3d9e60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="52" y="54" width="55" height="2.5" rx="1" fill="#444"/>
+        <rect x="52" y="59" width="35" height="2" rx="1" fill="#333"/>
+        <rect x="37" y="72" width="10" height="10" rx="2" fill="none" stroke="#e8703a" stroke-width="1.5"/>
+        <rect x="52" y="74" width="65" height="2.5" rx="1" fill="#444"/>
+        <rect x="52" y="79" width="45" height="2" rx="1" fill="#333"/>
+        <rect x="37" y="92" width="10" height="10" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
+        <rect x="52" y="94" width="50" height="2.5" rx="1" fill="#444"/>
+        <rect x="52" y="99" width="30" height="2" rx="1" fill="#333"/>
+        <!-- Arrow from audio to doc -->
+        <circle cx="80" cy="122" r="3" fill="#4a8fc4" opacity=".4"/>
+      </svg>
+      <div class="product-name">RECAP</div>
+      <div class="product-by">by OMA</div>
+    </div>
+    <div class="product-content">
+      <div class="product-tag">Atas inteligentes · pós-reunião</div>
+      <h2 class="product-h2">Reunião acabou?<br><em>A ata já está pronta.</em></h2>
+      <p class="product-desc">
+        O Scribe transcreve. O Recap <strong>entende</strong>. 
+        A IA lê toda a transcrição e extrai automaticamente: o que foi decidido, quem ficou responsável por cada ação, e qual o prazo. 
+        Você recebe um documento estruturado — não uma transcrição bruta, mas um <strong>plano de ação pronto para executar</strong>.
+      </p>
+      <ul class="product-features">
+        <li>Lê a transcrição e extrai decisões, ações e prazos</li>
+        <li>Identifica quem é responsável por cada item</li>
+        <li>Gera documento pronto — não texto bruto</li>
+        <li>Follow-up automático via WhatsApp se integrado ao OMA</li>
+        <li>10 atas incluídas no pacote Predictions</li>
+      </ul>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="#predictions" class="btn-product btn-fire">Ver no pacote</a>
+        <a href="#" class="btn-product btn-ghost" onclick="alert('Em breve! Entre em contato com a Bia.');return false;">Avulso — em breve</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVISOR CONVERSATION / STRATEGIC -->
+  <div style="max-width:860px;margin:32px auto;padding:0 32px;display:flex;align-items:center;gap:16px;"><div style="flex:1;height:1px;background:var(--border);"></div><div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);">STRATEGIC INTELLIGENCE</div><div style="flex:1;height:1px;background:var(--border);"></div></div>
 
   <!-- PREDICTIONS -->
   <div class="product product-predictions" id="predictions">
@@ -397,110 +584,6 @@ footer a:hover{color:var(--bone);}
     </div>
   </div>
 
-  <!-- SCRIBE -->
-  <div class="product product-scribe" id="scribe">
-    <div class="product-content" style="order:2;">
-      <div class="product-tag">Transcrição de áudio ao vivo</div>
-      <h2 class="product-h2">Fale. O Scribe <em>escreve.</em><br>Em tempo real.</h2>
-      <p class="product-desc">
-        Abra no navegador, aperte gravar, e veja o texto aparecer enquanto você fala. 
-        <strong>Reunião, call, brainstorm, atendimento</strong> — tudo transcrito palavra por palavra com tecnologia Whisper. 
-        Sem instalar nada. Sem criar conta. Abre e usa. Português e inglês com precisão profissional.
-      </p>
-      <ul class="product-features">
-        <li>Transcrição ao vivo — o texto aparece enquanto você fala</li>
-        <li>Funciona direto no navegador — zero instalação</li>
-        <li>Português e inglês com alta precisão (Groq Whisper)</li>
-        <li>Gratuito para testar · 100 minutos no pacote Predictions</li>
-      </ul>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="/qr-ziptalk.html" class="btn-product btn-green">Usar grátis</a>
-        <a href="#predictions" class="btn-product btn-ghost">Ver no pacote</a>
-      </div>
-    </div>
-    <div class="product-visual" style="order:1;">
-      <svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:16px;position:relative;z-index:1;">
-        <!-- Audio waveform -->
-        <rect x="18" y="38" width="4" height="24" rx="2" fill="#3d9e60" opacity=".4"/>
-        <rect x="26" y="28" width="4" height="44" rx="2" fill="#3d9e60" opacity=".5"/>
-        <rect x="34" y="18" width="4" height="64" rx="2" fill="#3d9e60" opacity=".7"/>
-        <rect x="42" y="30" width="4" height="40" rx="2" fill="#3d9e60" opacity=".6"/>
-        <rect x="50" y="22" width="4" height="56" rx="2" fill="#3d9e60"/>
-        <rect x="58" y="35" width="4" height="30" rx="2" fill="#3d9e60" opacity=".5"/>
-        <rect x="66" y="15" width="4" height="70" rx="2" fill="#3d9e60"/>
-        <rect x="74" y="25" width="4" height="50" rx="2" fill="#3d9e60" opacity=".8"/>
-        <rect x="82" y="32" width="4" height="36" rx="2" fill="#3d9e60" opacity=".6"/>
-        <rect x="90" y="20" width="4" height="60" rx="2" fill="#3d9e60" opacity=".9"/>
-        <rect x="98" y="28" width="4" height="44" rx="2" fill="#3d9e60" opacity=".7"/>
-        <rect x="106" y="38" width="4" height="24" rx="2" fill="#3d9e60" opacity=".4"/>
-        <rect x="114" y="22" width="4" height="56" rx="2" fill="#3d9e60" opacity=".8"/>
-        <rect x="122" y="30" width="4" height="40" rx="2" fill="#3d9e60" opacity=".6"/>
-        <rect x="130" y="18" width="4" height="64" rx="2" fill="#3d9e60"/>
-        <rect x="138" y="35" width="4" height="30" rx="2" fill="#3d9e60" opacity=".5"/>
-        <rect x="146" y="25" width="4" height="50" rx="2" fill="#3d9e60" opacity=".7"/>
-        <rect x="154" y="40" width="4" height="20" rx="2" fill="#3d9e60" opacity=".3"/>
-        <!-- Live indicator -->
-        <circle cx="90" cy="88" r="4" fill="#3d9e60" opacity=".8"/>
-        <circle cx="90" cy="88" r="7" fill="none" stroke="#3d9e60" stroke-width="1" opacity=".4"/>
-        <circle cx="90" cy="88" r="11" fill="none" stroke="#3d9e60" stroke-width=".5" opacity=".2"/>
-      </svg>
-      <div class="product-name">SCRIBE</div>
-      <div class="product-by">by OMA</div>
-    </div>
-  </div>
-
-  <!-- RECAP -->
-  <div class="product product-recap" id="recap">
-    <div class="product-visual">
-      <svg width="160" height="130" viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:16px;position:relative;z-index:1;">
-        <!-- Document -->
-        <rect x="25" y="5" width="110" height="120" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1.5"/>
-        <!-- Header -->
-        <rect x="25" y="5" width="110" height="18" rx="4" fill="#252525"/>
-        <rect x="33" y="11" width="30" height="3" rx="1" fill="#4a8fc4"/>
-        <rect x="33" y="16" width="18" height="2" rx="1" fill="#555"/>
-        <!-- Checklist items -->
-        <rect x="37" y="32" width="10" height="10" rx="2" fill="none" stroke="#3d9e60" stroke-width="1.5"/>
-        <path d="M39 37L42 40L46 34" stroke="#3d9e60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="52" y="34" width="60" height="2.5" rx="1" fill="#444"/>
-        <rect x="52" y="39" width="40" height="2" rx="1" fill="#333"/>
-        <rect x="37" y="52" width="10" height="10" rx="2" fill="none" stroke="#3d9e60" stroke-width="1.5"/>
-        <path d="M39 57L42 60L46 54" stroke="#3d9e60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="52" y="54" width="55" height="2.5" rx="1" fill="#444"/>
-        <rect x="52" y="59" width="35" height="2" rx="1" fill="#333"/>
-        <rect x="37" y="72" width="10" height="10" rx="2" fill="none" stroke="#e8703a" stroke-width="1.5"/>
-        <rect x="52" y="74" width="65" height="2.5" rx="1" fill="#444"/>
-        <rect x="52" y="79" width="45" height="2" rx="1" fill="#333"/>
-        <rect x="37" y="92" width="10" height="10" rx="2" fill="none" stroke="#555" stroke-width="1.5"/>
-        <rect x="52" y="94" width="50" height="2.5" rx="1" fill="#444"/>
-        <rect x="52" y="99" width="30" height="2" rx="1" fill="#333"/>
-        <!-- Arrow from audio to doc -->
-        <circle cx="80" cy="122" r="3" fill="#4a8fc4" opacity=".4"/>
-      </svg>
-      <div class="product-name">RECAP</div>
-      <div class="product-by">by OMA</div>
-    </div>
-    <div class="product-content">
-      <div class="product-tag">Atas inteligentes · pós-reunião</div>
-      <h2 class="product-h2">Reunião acabou?<br><em>A ata já está pronta.</em></h2>
-      <p class="product-desc">
-        O Scribe transcreve. O Recap <strong>entende</strong>. 
-        A IA lê toda a transcrição e extrai automaticamente: o que foi decidido, quem ficou responsável por cada ação, e qual o prazo. 
-        Você recebe um documento estruturado — não uma transcrição bruta, mas um <strong>plano de ação pronto para executar</strong>.
-      </p>
-      <ul class="product-features">
-        <li>Lê a transcrição e extrai decisões, ações e prazos</li>
-        <li>Identifica quem é responsável por cada item</li>
-        <li>Gera documento pronto — não texto bruto</li>
-        <li>Follow-up automático via WhatsApp se integrado ao OMA</li>
-        <li>10 atas incluídas no pacote Predictions</li>
-      </ul>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="#predictions" class="btn-product btn-fire">Ver no pacote</a>
-        <a href="#" class="btn-product btn-ghost" onclick="alert('Em breve! Entre em contato com a Bia.');return false;">Avulso — em breve</a>
-      </div>
-    </div>
-  </div>
 </div>
 
 
@@ -561,11 +644,11 @@ footer a:hover{color:var(--bone);}
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2>Pronto para ver o <em>futuro</em><br>do seu negócio?</h2>
-  <p>Comece com o pacote Predictions ou experimente o Scribe gratuitamente.</p>
+  <h2>Comece pelo <em>diagnóstico</em><br>gratuito</h2>
+  <p>Descubra quanto custa seu trabalho manual em minutos. Sem cartão, sem cadastro — só responda as perguntas.</p>
   <div class="cta-buttons">
-    <a href="/predictions" class="btn-product btn-fire" style="padding:17px 40px;font-size:12px;">Solicitar Predictions — R$1.299</a>
-    <a href="/qr-ziptalk.html" class="btn-product btn-ghost" style="padding:17px 40px;font-size:12px;">Scribe grátis</a>
+    <a href="/roi" class="btn-product btn-fire" style="padding:17px 40px;font-size:12px;">FAZER DIAGNÓSTICO GRÁTIS →</a>
+    <a href="/predictions" class="btn-product btn-ghost" style="padding:17px 40px;font-size:12px;">Ver Predictions</a>
   </div>
 </section>
 
@@ -577,58 +660,97 @@ footer a:hover{color:var(--bone);}
 </footer>
 
 
-
-
-
-
-
-<!-- WEBCHAT -->
-<div id="oma-preview">
-  <button class="prev-close" onclick="dismissPreview()">✕</button>
-  <p>Olá! Posso te ajudar a entender como o OMA funciona para o seu negócio?</p>
-  <button class="prev-cta" onclick="openFromPreview()">Conversar com a Bia →</button>
-</div>
-<div id="oma-bubble" onclick="oT()">
-  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-  <div id="oma-badge"></div>
-</div>
-<div id="oma-window">
-  <div id="oma-hdr">
-    <div id="oma-av">B</div>
-    <div style="flex:1"><div id="oma-hn">Bia · One Man Army</div><div id="oma-hs"><div id="oma-sd"></div>Online agora</div></div>
-    <button id="oma-x" onclick="oT()">&#x2715;</button>
-  </div>
-  <div id="oma-ml"></div>
-  <div id="oma-ia">
-    <textarea id="oma-inp" placeholder="Digite sua mensagem..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oS();}"></textarea>
-    <button id="oma-btn" onclick="oS()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
-  </div>
-  <div id="oma-pw">ONE MAN ARMY PROJECT</div>
-</div>
 <script>
-(function(){
-const API='https://api.onemanarmyproject.com.br';
-let sid=null,lid=0,pi=null,op=false,un=0;
-function ft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
-function aM(r,c,ts,id){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm '+r;d.innerHTML='<div class="wb">'+c.replace(/\n/g,'<br>')+'</div><div class="wt">'+ft(ts)+'</div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;if(id)lid=Math.max(lid,id);if(r==='wa'&&!op){un++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=un>9?'9+':un;}}
-function sT(){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm wa wtyp';d.id='wtyp';d.innerHTML='<div class="wb"><div class="wd"></div><div class="wd"></div><div class="wd"></div></div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;}
-function hT(){const t=document.getElementById('wtyp');if(t)t.remove();}
-async function wI(){try{const r=await fetch(API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({segmento:'site'})});const d=await r.json();sid=d.session_id;const h=await fetch(API+'/webchat/history/'+sid);const hd=await h.json();hd.messages.forEach(m=>aM(m.role==='agent'?'wa':'wu',m.content,m.ts,m.id));pi=setInterval(wP,1500);}catch(e){aM('wa','Olá! Sou a Bia, do One Man Army Project. Como posso ajudar?',new Date().toISOString(),0);}}
-async function wP(){if(!sid)return;try{const r=await fetch(API+'/webchat/poll/'+sid+'?since='+lid);const d=await r.json();if(d.messages&&d.messages.length>0){hT();d.messages.forEach(m=>aM('wa',m.content,m.ts,m.id));}}catch{}}
-async function oS(){const inp=document.getElementById('oma-inp');const c=inp.value.trim();if(!c)return;if(!sid){await wI();}inp.value='';inp.style.height='auto';aM('wu',c,new Date().toISOString(),null);sT();try{document.getElementById('oma-btn').disabled=true;await fetch(API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid,content:c})});}catch{}finally{document.getElementById('oma-btn').disabled=false;}}
-function oT(){op=!op;const w=document.getElementById('oma-window');if(op){w.classList.add('wopen');if(window.innerWidth<600){var bh=76;var safeH=window.innerHeight-bh-20;if(safeH<280)safeH=280;if(safeH>620)safeH=620;w.style.cssText='position:fixed;width:'+(window.innerWidth-24)+'px;left:12px;right:12px;bottom:'+bh+'px;height:'+safeH+'px;max-height:'+safeH+'px;top:auto;'}un=0;document.getElementById('oma-badge').style.display='none';document.getElementById('oma-ml').scrollTop=999999;document.getElementById('oma-inp').focus();if(!sid)wI();}else{w.classList.remove('wopen');w.style.cssText='';}}
-document.getElementById('oma-inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
-window.oT=oT;window.oS=oS;
-(function(){var triggered=false,dismissed=false,previewShown=false;
-function showPreview(){if(dismissed||previewShown||op)return;previewShown=true;var prev=document.getElementById('oma-preview');var bubble=document.getElementById('oma-bubble');if(prev)prev.classList.add('show');if(bubble)bubble.classList.add('pulse');setTimeout(function(){if(!op)hidePreview();},12000);}
-function hidePreview(){var prev=document.getElementById('oma-preview');if(prev)prev.classList.remove('show');}
-window.dismissPreview=function(){dismissed=true;hidePreview();};
-window.openFromPreview=function(){hidePreview();oT();};
-setTimeout(function(){if(!triggered&&!op){triggered=true;showPreview();}},8000);
-window.addEventListener('scroll',function(){if(triggered||op)return;var scrolled=window.scrollY/(document.body.scrollHeight-window.innerHeight);if(scrolled>=0.4){triggered=true;showPreview();}},{passive:true});
-document.addEventListener('mouseleave',function(e){if(triggered||op||dismissed)return;if(e.clientY<=0){triggered=true;showPreview();}});
-})();
-})();
+var saraOpen=false,saraSid=null,saraLid=0,saraPollT=null;
+var SARA_API='https://api.onemanarmyproject.com.br';
+
+function saraShow(){var b=document.getElementById('sara-bubble');if(b)b.style.display='flex';}
+function saraHide(){var b=document.getElementById('sara-bubble');if(b)b.style.display='none';if(saraOpen)saraToggle();}
+function saraInit(ctx){saraShow();}
+
+async function saraToggle(){
+  var w=document.getElementById('sara-widget');if(!w)return;
+  saraOpen=!saraOpen;w.style.display=saraOpen?'flex':'none';
+  var b=document.getElementById('sara-badge');if(b)b.style.display='none';
+  if(saraOpen&&!saraSid)await saraStart();
+}
+
+async function saraStart(){
+  try{
+    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({segmento:'suporte',produto:'solutions'})});
+    var d=await r.json();saraSid=d.session_id;
+    var h=await fetch(SARA_API+'/webchat/history/'+saraSid);
+    var hd=await h.json();
+    hd.messages.forEach(function(m){saraAdd(m.role==='agent'?'sma':'smu',m.content,m.id);});
+    saraPollT=setInterval(saraPoll,2000);
+  }catch(e){saraAdd('sma','Ola! Sou a Sara, suporte OMA. Como posso ajudar?',0);}
+}
+
+async function saraPoll(){
+  if(!saraSid)return;
+  try{
+    var r=await fetch(SARA_API+'/webchat/poll/'+saraSid+'?since='+saraLid);
+    var d=await r.json();
+    if(d.messages&&d.messages.length){
+      d.messages.forEach(function(m){saraAdd('sma',m.content,m.id);});
+      if(!saraOpen){var b=document.getElementById('sara-badge');if(b){b.style.display='flex';b.textContent='!';}}
+    }
+  }catch(e){}
+}
+
+async function saraSend(){
+  var inp=document.getElementById('sara-inp');var txt=inp.value.trim();
+  if(!txt||!saraSid)return;
+  inp.value='';inp.style.height='36px';
+  document.getElementById('sara-snd').disabled=true;
+  saraAdd('smu',txt,null);
+  var t=document.createElement('div');t.className='smt';t.id='sara-t';
+  t.innerHTML='<span></span><span></span><span></span>';
+  saraMsgs().appendChild(t);saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({session_id:saraSid,content:txt})});}catch(e){}
+  document.getElementById('sara-snd').disabled=false;
+}
+
+function saraAdd(cls,txt,id){
+  var t=document.getElementById('sara-t');if(t)t.remove();
+  var d=document.createElement('div');d.className=cls;d.textContent=txt;
+  saraMsgs().appendChild(d);saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  if(id)saraLid=Math.max(saraLid,id);
+}
+
+function saraMsgs(){return document.getElementById('sara-msgs');}
+
+// Auto-abre após 5s
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('sara-inp');
+  if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}});
+  if(!sessionStorage.getItem('sara_visto_solutions')){
+    setTimeout(function(){if(!saraOpen){saraToggle();sessionStorage.setItem('sara_visto_solutions','1');}},5000);
+  }
+  saraShow();
+});
 </script>
+
+<div id="sara-bubble" onclick="saraToggle()" title="Dúvidas? Fale com a Sara">
+  <div id="sara-badge"></div>
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+</div>
+<div id="sara-widget">
+  <div id="sara-hdr">
+    <div class="sara-hdr-l">
+      <div class="sara-av">SA</div>
+      <div><div class="sara-nm">SARA · SUPORTE OMA</div><div class="sara-st">online agora</div></div>
+    </div>
+    <button id="sara-x" onclick="saraToggle()">x</button>
+  </div>
+  <div id="sara-msgs"></div>
+  <div id="sara-inp-area">
+    <textarea id="sara-inp" placeholder="Duvida sobre os produtos?" rows="1"></textarea>
+    <button id="sara-snd" onclick="saraSend()">></button>
+  </div>
+</div>
+
 </body>
 </html>

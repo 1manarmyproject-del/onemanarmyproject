@@ -339,6 +339,13 @@ tr:hover td{background:rgba(255,255,255,.02);cursor:pointer;}
 </div>
 
 <script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
 const PW='omaproject2026';
 var clientes = [];
 var SK = 'oma-clientes-v1';
@@ -358,7 +365,8 @@ function dL(){
 function lo(){['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){localStorage.removeItem(k);});location.reload();}
 
 // API config — DEVE vir antes do auto-login
-var CLIENTES_API = 'https://alexa.pipeeyewear.com.br';
+var CLIENTES_API = 'https://api.onemanarmyproject.com.br';
+var API = CLIENTES_API;
 var CLIENTES_KEY = localStorage.getItem('oma_api_key') || '354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273';
 
 // Auto-login — executa direto (script está no final do body, DOM já existe)
