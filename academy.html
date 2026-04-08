@@ -61,8 +61,8 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 .s-nav{padding:8px 0 24px;}
 .s-phase-label{
   padding:14px 20px 6px;
-  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;
-  text-transform:uppercase;color:#555;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;color:#666;
   display:flex;align-items:center;gap:8px;
 }
 .s-phase-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -83,9 +83,9 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
   transition:background .2s,color .2s;
 }
 .s-module.active .s-mod-icon{background:var(--fire);color:#fff;}
-.s-mod-label{font-size:12px;color:#888;line-height:1.3;}
-.s-module.active .s-mod-label,.s-module:hover .s-mod-label{color:#ccc;}
-.s-module.done .s-mod-label{color:#666;}
+.s-mod-label{font-size:13px;color:#aaa;line-height:1.3;}
+.s-module.active .s-mod-label,.s-module:hover .s-mod-label{color:#e0d9cf;}
+.s-module.done .s-mod-label{color:#777;}
 
 /* ── TOPNAV ─────────────────────────────────────────────── */
 .topnav{
@@ -95,6 +95,12 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
   display:flex;align-items:center;justify-content:space-between;
   padding:0 24px;height:56px;
 }
+
+.topnav-logo{display:flex;align-items:center;text-decoration:none;gap:0;}
+.topnav-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#ccc;transition:color .15s;}
+.topnav-logo-name span{color:var(--fire);}
+.topnav-logo:hover .topnav-logo-name{color:#fff;}
+.topnav-divider-v{width:1px;height:18px;background:#333;margin:0 14px;}
 .topnav-left{display:flex;align-items:center;gap:14px;}
 .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
 @media(max-width:960px){.hamburger{display:flex;}}
@@ -138,10 +144,10 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 }
 .stat-tile-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;line-height:1;margin-bottom:4px;}
 .stat-tile.t1 .stat-tile-val{color:var(--fire);}
-.stat-tile.t2 .stat-tile-val{color:var(--green);}
-.stat-tile.t3 .stat-tile-val{color:var(--blue);}
-.stat-tile.t4 .stat-tile-val{color:var(--yellow);}
-.stat-tile-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;}
+.stat-tile.t2 .stat-tile-val{color:var(--char);}
+.stat-tile.t3 .stat-tile-val{color:var(--char);}
+.stat-tile.t4 .stat-tile-val{color:var(--char);}
+.stat-tile-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-top:2px;}
 
 /* Level card */
 .level-card{
@@ -1234,11 +1240,11 @@ select.precert-input{cursor:pointer;}
 .tg-card-badge.especialidade{background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;}
 .tg-card-badge.vertical{background:var(--fire-light);color:var(--fire);border:1px solid var(--fire-mid);}
 .tg-card-badge.purchased-badge{background:var(--green-light);color:var(--green);border:1px solid #86efac;}
-.tg-card-icon{font-size:22px;margin-bottom:6px;}
+.tg-card-icon{width:36px;height:36px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border-radius:8px;color:var(--text2);}
 .tg-card-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);line-height:1.2;margin-bottom:4px;}
 .tg-card-promise{font-size:11px;color:var(--text3);line-height:1.4;margin-bottom:10px;}
-.tg-card-price{font-family:'Space Mono',monospace;font-size:10px;color:var(--text2);margin-bottom:8px;}
-.tg-card-price strong{color:var(--text);font-size:13px;}
+.tg-card-price{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:8px;}
+.tg-card-price strong{color:var(--fire);font-size:15px;font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.5px;}
 .tg-card-cta{width:100%;border:none;padding:9px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:5px;transition:all .15s;}
 .tg-card-cta.buy{background:var(--fire);color:#fff;}
 .tg-card-cta.buy:hover{background:var(--ember);}
@@ -1329,9 +1335,9 @@ select.precert-input{cursor:pointer;}
 .s-tg-item.active{background:var(--fire-light);border-left-color:var(--fire);}
 .s-tg-item.locked{opacity:.5;cursor:not-allowed;}
 .s-tg-item.locked:hover{background:transparent;}
-.s-tg-icon{font-size:14px;flex-shrink:0;}
+.s-tg-icon{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#888;}
 .s-tg-info{flex:1;min-width:0;}
-.s-tg-name{font-size:12px;color:var(--text2);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-tg-name{font-size:13px;color:#bbb;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .s-tg-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:1px 5px;border-radius:2px;text-transform:uppercase;}
 .s-tg-badge.especialidade{background:#eef2ff;color:#4338ca;}
 .s-tg-badge.vertical{background:var(--fire-light);color:var(--fire);}
@@ -1864,6 +1870,115 @@ select.precert-input{cursor:pointer;}
   <div id="drawerNav" class="s-nav"></div>
 </div>
 
+    <!-- SCREEN: Home Pública (sem login) -->
+    <div class="screen" id="screenPublic">
+      <div class="pub-wrap">
+        <div class="pub-hero">
+          <div class="pub-hero-eyebrow">OMA Academy</div>
+          <h1>Construa seu<br>sistema operacional<br><em>com IA</em></h1>
+          <div class="pub-hero-sub">Não é um curso sobre IA. É um método para transformar como você e seu negócio operam — com fluência, construção guiada e agentes que trabalham por você.</div>
+          <div class="pub-hero-actions">
+            <a href="/academy/login?cadastro=1" class="pub-btn-primary">Começar grátis →</a>
+            <a href="/academy/login" class="pub-btn-ghost">Já tenho conta</a>
+          </div>
+          <div class="pub-hero-cut"></div>
+        </div>
+        <div class="pub-body">
+
+          <!-- 3 caminhos -->
+          <div class="pub-paths-label">Escolha seu caminho</div>
+          <div class="pub-paths">
+
+            <div class="pub-path path-free">
+              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+              <div class="pub-path-tag">Gratuito</div>
+              <h3>Fundamentos</h3>
+              <p>O vocabulário e a lógica que todo gestor precisa dominar para operar com IA.</p>
+              <ul class="pub-path-items">
+                <li>30 módulos organizados em 5 fases</li>
+                <li>Do básico ao avançado operacional</li>
+                <li>Quizzes, Field Tests e certificado</li>
+                <li>Sem custo, sem prazo</li>
+              </ul>
+              <a href="/academy/login?cadastro=1" class="pub-path-cta">Começar grátis →</a>
+            </div>
+
+            <div class="pub-path path-esp">
+              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 14l-4 8h16l-4-8"/></svg></div>
+              <div class="pub-path-tag">Especialidade</div>
+              <h3>Por Função</h3>
+              <p>Para gestores que querem transformar uma área com IA — independente do setor.</p>
+              <ul class="pub-path-items">
+                <li>Gestor Comercial OMA</li>
+                <li>Gestor Financeiro OMA</li>
+                <li>Gestor de RH OMA</li>
+              </ul>
+              <a href="/academy/login?cadastro=1" class="pub-path-cta">Ver trilhas →</a>
+            </div>
+
+            <div class="pub-path path-vert">
+              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+              <div class="pub-path-tag">Vertical</div>
+              <h3>Por Negócio</h3>
+              <p>Para donos e gestores que querem redesenhar a operação do próprio setor.</p>
+              <ul class="pub-path-items">
+                <li>Petshop · Ótica · Clínica</li>
+                <li>Escritório Jurídico</li>
+                <li>Distribuidora</li>
+              </ul>
+              <a href="/academy/login?cadastro=1" class="pub-path-cta">Ver trilhas →</a>
+            </div>
+
+          </div>
+
+          <!-- OMA OS Builder Method -->
+          <div class="pub-method">
+            <div class="pub-method-tag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> OMA OS Builder Method</div>
+            <h2>Não é um curso.<br><em>É um método de construção.</em></h2>
+            <div class="pub-method-sub">Cada trilha guiada segue 7 etapas — do diagnóstico da operação atual até o plano de piloto com agente ativo. Você entra com um problema. Sai com um sistema.</div>
+            <div class="pub-method-steps">
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">01</div><div class="pub-step-name">Shift</div><div class="pub-step-sub">Destravar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">02</div><div class="pub-step-name">Scan</div><div class="pub-step-sub">Enxergar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">03</div><div class="pub-step-name">Mine</div><div class="pub-step-sub">Investigar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">04</div><div class="pub-step-name">Decide</div><div class="pub-step-sub">Escolher</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">05</div><div class="pub-step-name">Design</div><div class="pub-step-sub">Desenhar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">06</div><div class="pub-step-name">Launch</div><div class="pub-step-sub">Ativar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">07</div><div class="pub-step-name">Scale</div><div class="pub-step-sub">Evoluir</div></div>
+                <div class="pub-step-arrow"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA final -->
+          <div class="pub-final-cta">
+            <h2>Você não precisa de mais teoria.<br><em>Precisa de um sistema.</em></h2>
+            <p>Comece pelos fundamentos gratuitos e avance para trilhas guiadas quando estiver pronto para construir.</p>
+            <a href="/academy/login?cadastro=1" class="pub-btn-primary">Começar agora — é grátis →</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 <div class="layout">
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -1889,16 +2004,16 @@ select.precert-input{cursor:pointer;}
     <div class="topnav">
       <div class="topnav-left">
         <div class="hamburger" onclick="openDrawer()"><span></span><span></span><span></span></div>
-        <div onclick="goScreen('dash')" style="cursor:pointer;display:flex;align-items:center;gap:8px;" title="Voltar ao início">
-          <img src="/lobster-logo.png" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);flex-shrink:0;" alt="OMA">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;text-transform:uppercase;">OMA <span style="color:var(--fire);">ACADEMY</span></span>
-        </div>
+        <a href="/academy" style="cursor:pointer;display:flex;align-items:center;gap:8px;text-decoration:none;" title="Home Academy">
+          <img src="/lobster-logo.png" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(232,112,58,.3);flex-shrink:0;" alt="OMA">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;text-transform:uppercase;color:#ccc;">OMA <span style="color:var(--fire);">ACADEMY</span></span>
+        </a>
         <div class="topnav-name" id="topName" style="font-size:13px;color:var(--text3);display:none;"></div>
         <div id="topTitle" style="display:none;"></div>
       </div>
       <div class="topnav-right">
         <a href="/" title="Site OMA" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text4);text-decoration:none;padding:6px 8px;border-radius:4px;transition:color .15s;" onmouseover="this.style.color='var(--fire)'" onmouseout="this.style.color='var(--text4)'">OMA ↗</a>
-        <div class="streak-badge" title="Sequência de dias">&#x1F525; <span id="streakVal">0</span>d</div>
+        <div class="streak-badge" title="Sequência de dias">🔥 <span id="streakVal">0</span>d</div>
         <div class="profile-wrap" id="profileWrap">
           <div class="user-avatar" id="userAvatar" onclick="toggleProfileDropdown()" title="Minha conta">F</div>
           <div class="profile-dropdown" id="profileDropdown">
@@ -2085,115 +2200,6 @@ select.precert-input{cursor:pointer;}
     </div>
 
 
-    <!-- SCREEN: Home Pública (sem login) -->
-    <div class="screen" id="screenPublic">
-      <div class="pub-wrap">
-        <div class="pub-hero">
-          <div class="pub-hero-eyebrow">OMA Academy</div>
-          <h1>Construa seu<br>sistema operacional<br><em>com IA</em></h1>
-          <div class="pub-hero-sub">Não é um curso sobre IA. É um método para transformar como você e seu negócio operam — com fluência, construção guiada e agentes que trabalham por você.</div>
-          <div class="pub-hero-actions">
-            <a href="/academy/login?cadastro=1" class="pub-btn-primary">Começar grátis →</a>
-            <a href="/academy/login" class="pub-btn-ghost">Já tenho conta</a>
-          </div>
-          <div class="pub-hero-cut"></div>
-        </div>
-        <div class="pub-body">
-
-          <!-- 3 caminhos -->
-          <div class="pub-paths-label">Escolha seu caminho</div>
-          <div class="pub-paths">
-
-            <div class="pub-path path-free">
-              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-              <div class="pub-path-tag">Gratuito</div>
-              <h3>Fundamentos</h3>
-              <p>O vocabulário e a lógica que todo gestor precisa dominar para operar com IA.</p>
-              <ul class="pub-path-items">
-                <li>30 módulos organizados em 5 fases</li>
-                <li>Do básico ao avançado operacional</li>
-                <li>Quizzes, Field Tests e certificado</li>
-                <li>Sem custo, sem prazo</li>
-              </ul>
-              <a href="/academy/login?cadastro=1" class="pub-path-cta">Começar grátis →</a>
-            </div>
-
-            <div class="pub-path path-esp">
-              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 14l-4 8h16l-4-8"/></svg></div>
-              <div class="pub-path-tag">Especialidade</div>
-              <h3>Por Função</h3>
-              <p>Para gestores que querem transformar uma área com IA — independente do setor.</p>
-              <ul class="pub-path-items">
-                <li>Gestor Comercial OMA</li>
-                <li>Gestor Financeiro OMA</li>
-                <li>Gestor de RH OMA</li>
-              </ul>
-              <a href="/academy/login?cadastro=1" class="pub-path-cta">Ver trilhas →</a>
-            </div>
-
-            <div class="pub-path path-vert">
-              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-              <div class="pub-path-tag">Vertical</div>
-              <h3>Por Negócio</h3>
-              <p>Para donos e gestores que querem redesenhar a operação do próprio setor.</p>
-              <ul class="pub-path-items">
-                <li>Petshop · Ótica · Clínica</li>
-                <li>Escritório Jurídico</li>
-                <li>Distribuidora</li>
-              </ul>
-              <a href="/academy/login?cadastro=1" class="pub-path-cta">Ver trilhas →</a>
-            </div>
-
-          </div>
-
-          <!-- OMA OS Builder Method -->
-          <div class="pub-method">
-            <div class="pub-method-tag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> OMA OS Builder Method</div>
-            <h2>Não é um curso.<br><em>É um método de construção.</em></h2>
-            <div class="pub-method-sub">Cada trilha guiada segue 7 etapas — do diagnóstico da operação atual até o plano de piloto com agente ativo. Você entra com um problema. Sai com um sistema.</div>
-            <div class="pub-method-steps">
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">01</div><div class="pub-step-name">Shift</div><div class="pub-step-sub">Destravar</div></div>
-                <div class="pub-step-arrow">›</div>
-              </div>
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">02</div><div class="pub-step-name">Scan</div><div class="pub-step-sub">Enxergar</div></div>
-                <div class="pub-step-arrow">›</div>
-              </div>
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">03</div><div class="pub-step-name">Mine</div><div class="pub-step-sub">Investigar</div></div>
-                <div class="pub-step-arrow">›</div>
-              </div>
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">04</div><div class="pub-step-name">Decide</div><div class="pub-step-sub">Escolher</div></div>
-                <div class="pub-step-arrow">›</div>
-              </div>
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">05</div><div class="pub-step-name">Design</div><div class="pub-step-sub">Desenhar</div></div>
-                <div class="pub-step-arrow">›</div>
-              </div>
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">06</div><div class="pub-step-name">Launch</div><div class="pub-step-sub">Ativar</div></div>
-                <div class="pub-step-arrow">›</div>
-              </div>
-              <div class="pub-method-step">
-                <div class="pub-step-item"><div class="pub-step-num">07</div><div class="pub-step-name">Scale</div><div class="pub-step-sub">Evoluir</div></div>
-                <div class="pub-step-arrow"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CTA final -->
-          <div class="pub-final-cta">
-            <h2>Você não precisa de mais teoria.<br><em>Precisa de um sistema.</em></h2>
-            <p>Comece pelos fundamentos gratuitos e avance para trilhas guiadas quando estiver pronto para construir.</p>
-            <a href="/academy/login?cadastro=1" class="pub-btn-primary">Começar agora — é grátis →</a>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
     <!-- SCREEN: Dashboard -->
     <div class="screen active" id="screenDash">
       <div class="dash fadein">
@@ -2242,7 +2248,7 @@ select.precert-input{cursor:pointer;}
           <!-- Especialidades -->
           <div class="tg-type-block">
             <div class="tg-type-header especialidade">
-              <div class="tg-type-icon" style="font-size:16px;color:#4338ca;">◎</div>
+              <div class="tg-type-icon" style="color:#4338ca;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></div>
               <div>
                 <div class="tg-type-label">Por Especialidade — sua função, qualquer setor</div>
                 <div class="tg-type-desc">Para gestores que querem transformar uma área com IA, independente do segmento</div>
@@ -2253,7 +2259,7 @@ select.precert-input{cursor:pointer;}
           <!-- Verticais -->
           <div class="tg-type-block">
             <div class="tg-type-header vertical">
-              <div class="tg-type-icon" style="font-size:16px;color:var(--fire);">▣</div>
+              <div class="tg-type-icon" style="color:var(--fire);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
               <div>
                 <div class="tg-type-label">Por Vertical — seu negócio, sua linguagem</div>
                 <div class="tg-type-desc">Para donos e gestores que querem redesenhar a operação do próprio setor</div>
@@ -5321,7 +5327,7 @@ const TRAILS = {
   'sales-manager': {
     id: 'sales-manager',
     type: 'especialidade',
-    icon: '◎',
+    icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>`,
     name: 'Gestor Comercial OMA',
     shortName: 'Gestor Comercial',
     promise: 'Construa o sistema operacional do seu comercial com IA, automação e agentes.',
@@ -5396,7 +5402,7 @@ const TRAILS = {
     ]
   },
   'finance-manager': {
-    id: 'finance-manager', type: 'especialidade', icon: '▲',
+    id: 'finance-manager', type: 'especialidade', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
     name: 'Gestor Financeiro OMA', shortName: 'Gestor Financeiro',
     promise: 'Construa o sistema operacional do seu financeiro com IA, automação e agentes.',
     audience: 'CFOs, controllers e gestores financeiros de PMEs',
@@ -5404,7 +5410,7 @@ const TRAILS = {
     stages: [] // conteúdo em breve
   },
   'hr-manager': {
-    id: 'hr-manager', type: 'especialidade', icon: '◈',
+    id: 'hr-manager', type: 'especialidade', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
     name: 'Gestor de RH OMA', shortName: 'Gestor de RH',
     promise: 'Construa o sistema operacional do seu RH com IA, automação e agentes.',
     audience: 'HRBPs, heads de pessoas e gestores de RH em PMEs',
@@ -5412,7 +5418,7 @@ const TRAILS = {
     stages: []
   },
   'legal-office': {
-    id: 'legal-office', type: 'vertical', icon: '⊖',
+    id: 'legal-office', type: 'vertical', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
     name: 'Escritório Jurídico OMA', shortName: 'Escritório Jurídico',
     promise: 'Mapeie e redesenhe a operação do seu escritório com IA, automação e agentes.',
     audience: 'Sócios e gestores de escritórios de advocacia (2-20 advogados)',
@@ -5420,7 +5426,7 @@ const TRAILS = {
     stages: []
   },
   'clinic': {
-    id: 'clinic', type: 'vertical', icon: '⊕',
+    id: 'clinic', type: 'vertical', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
     name: 'Clínica OMA', shortName: 'Clínica',
     promise: 'Mapeie e redesenhe a operação da sua clínica com IA, automação e agentes.',
     audience: 'Donos de clínicas médicas, odontológicas, veterinárias e de psicologia',
@@ -5428,7 +5434,7 @@ const TRAILS = {
     stages: []
   },
   'optical': {
-    id: 'optical', type: 'vertical', icon: '◇',
+    id: 'optical', type: 'vertical', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>`,
     name: 'Ótica OMA', shortName: 'Ótica',
     promise: 'Mapeie e redesenhe a operação da sua ótica com IA, automação e agentes.',
     audience: 'Donos de óticas independentes ou pequenas redes (1-5 lojas)',
@@ -5436,7 +5442,7 @@ const TRAILS = {
     stages: []
   },
   'petshop': {
-    id: 'petshop', type: 'vertical', icon: '◆',
+    id: 'petshop', type: 'vertical', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.344-2.5"/><path d="M8 14v.5A3.5 3.5 0 0 0 11.5 18h1a3.5 3.5 0 0 0 3.5-3.5V14a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2z"/><path d="M9.5 10.5 Q12 8 14.5 10.5"/></svg>`,
     name: 'Petshop OMA', shortName: 'Petshop',
     promise: 'Mapeie e redesenhe a operação do seu petshop com IA, automação e agentes.',
     audience: 'Donos e gestores de petshops com agenda, banho/tosa e atendimento recorrente',
@@ -5444,7 +5450,7 @@ const TRAILS = {
     stages: []
   },
   'distributor': {
-    id: 'distributor', type: 'vertical', icon: '▦',
+    id: 'distributor', type: 'vertical', icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
     name: 'Distribuidora OMA', shortName: 'Distribuidora',
     promise: 'Mapeie e redesenhe a operação da sua distribuidora com IA, automação e agentes.',
     audience: 'Donos e gestores de distribuidoras com ruído entre comercial, operação e financeiro',
