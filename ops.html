@@ -180,6 +180,14 @@ a{color:inherit;text-decoration:none;}
 </main>
 
 <script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof load==='function')load();else if(typeof loadData==='function')loadData();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+function init(){if(typeof load==='function')load();}
 const BASE = 'https://alexa.pipeeyewear.com.br';
 let refreshTimer;
 
@@ -340,25 +348,30 @@ function downloadContexto() {
   var orig = btn.textContent;
   btn.textContent = '⏳ GERANDO...';
   btn.style.opacity = '0.7';
-  try {
-    var KEY = localStorage.getItem('oma_api_key') || sessionStorage.getItem('oma_api_key') || '';
-    var dt = new Date().toISOString().split('T')[0];
-    // Abre direto como link com a key na query string (evita CORS no fetch+blob)
-    var url = 'https://alexa.pipeeyewear.com.br/hub/contexto?key=' + encodeURIComponent(KEY);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'OMA-CONTEXTO-' + dt + '.md';
-    a.target = '_blank';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    btn.textContent = '✅ BAIXADO';
-    setTimeout(function(){ btn.textContent = orig; btn.style.opacity = '1'; }, 2000);
-  } catch(e) {
-    btn.textContent = '❌ ERRO';
-    btn.style.opacity = '1';
-    setTimeout(function(){ btn.textContent = orig; }, 2000);
-  }
+  fetch('https://alexa.pipeeyewear.com.br/api/ops/nanoclaw-contexto')
+    .then(function(r) {
+      if (!r.ok) throw new Error('status ' + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      var dt = new Date().toISOString().split('T')[0];
+      var blob = new Blob([text], { type: 'text/markdown' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'nanoclaw-contexto-' + dt + '.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      btn.textContent = '✅ BAIXADO';
+      btn.style.opacity = '1';
+      setTimeout(function(){ btn.textContent = orig; }, 2000);
+    })
+    .catch(function(e) {
+      btn.textContent = '❌ ERRO';
+      btn.style.opacity = '1';
+      setTimeout(function(){ btn.textContent = orig; }, 2000);
+    });
 }
 </script>
 </body>

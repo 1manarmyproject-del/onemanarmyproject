@@ -11,7 +11,7 @@
 <title>OMA Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0a;--card:#111;--coal:#0f0f0f;--iron:#1a1a1a;--border:#222;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#3d9e60;--yellow:#f5a623;--red:#e24b4a;--blue:#378add;--purple:#8b5cf6}
+:root{--bg:#1c1c1e;--card:#111;--coal:#242424;--iron:#2e2e2e;--border:#333333;--steel:#3a3a3a;--ash:#6a6a6a;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#3d9e60;--yellow:#f5a623;--red:#e24b4a;--blue:#378add;--purple:#8b5cf6}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 
@@ -202,6 +202,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
         <div class="sb-item" data-tab="squad"><span class="icon">⬛</span><span class="label">Agent Squad</span></div>
         <div class="sb-item" data-tab="monitor"><span class="icon">📱</span><span class="label">Monitor WA</span></div>
         <div class="sb-item" data-tab="crm"><span class="icon">📋</span><span class="label">CRM</span></div>
+        <div class="sb-item" data-tab="listas"><span class="icon">📌</span><span class="label">Listas</span></div>
       </div>
       <div class="sb-section">
         <div class="sb-label">Marketing</div>
@@ -213,6 +214,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
         <div class="sb-label">Negócio</div>
         <div class="sb-item" data-tab="onboarding"><span class="icon">🚀</span><span class="label">Onboarding</span></div>
         <div class="sb-item" data-tab="clientes"><span class="icon">👥</span><span class="label">Clientes</span></div>
+        <div class="sb-item" data-tab="suporte"><span class="icon">🎧</span><span class="label">Suporte</span></div>
         <div class="sb-item" data-tab="produtos"><span class="icon">📦</span><span class="label">Produtos</span></div>
         <div class="sb-item" data-tab="financeiro"><span class="icon">💰</span><span class="label">Financeiro</span></div>
       </div>
@@ -221,6 +223,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
         <div class="sb-item" data-tab="audit"><span class="icon">🔍</span><span class="label">Auditoria</span></div>
         <div class="sb-item" data-tab="warroom"><span class="icon">🗺️</span><span class="label">War Room</span></div>
         <div class="sb-item" data-tab="ops"><span class="icon">⚙️</span><span class="label">OPS</span></div>
+        <div class="sb-item" data-tab="seguranca"><span class="icon">🔒</span><span class="label">Segurança</span></div>
         <div class="sb-item" data-tab="traffic"><span class="icon">📡</span><span class="label">Traffic</span></div>
       </div>
       <div class="sb-toggle" onclick="toggleSidebar()">☰</div>
@@ -241,6 +244,11 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
 
           <!-- OMA View -->
           <div id="sv-oma">
+            <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+              <button onclick="downloadHubContexto()" style="background:#2a2a2a;border:1px solid #444;color:#ccc;padding:7px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:Space Mono,monospace;display:flex;align-items:center;gap:6px">
+                ⬇ hub-contexto.md
+              </button>
+            </div>
             <div class="st-banner ok" id="st-banner">
               <div class="st-dot g" id="st-dot"></div>
               <div><div class="st-title" id="st-title">Verificando sistemas...</div><div class="st-sub" id="st-sub"></div></div>
@@ -296,7 +304,18 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
               <div><div class="st-title">Customer Status — Em breve</div><div class="st-sub">Dashboard individual por cliente</div></div>
             </div>
             <div class="sec">
-              <div class="sec-title">VISÃO FUTURA</div>
+              <div class="sec-title">VISÃO FUTURA
+          <!-- Download contexto -->
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);">
+            <a href="/hub-contexto.md" download="OMA-Hub-Contexto.md"
+               style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);border:1px solid var(--border);padding:8px 16px;text-decoration:none;"
+               onmouseover="this.style.borderColor='var(--fire)'"
+               onmouseout="this.style.borderColor='var(--border)'">
+              &#8595; BAIXAR CONTEXTO DO HUB
+            </a>
+            <span style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);margin-left:12px;letter-spacing:1px;">MAPA · ARQUITETURA · HISTÓRICO</span>
+          </div>
+</div>
               <p style="color:var(--ash);line-height:1.7;font-size:13px">
                 Cada cliente OMA terá acesso ao seu próprio dashboard:<br><br>
                 • Status dos agentes contratados<br>
@@ -314,6 +333,7 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
       <div class="page" id="page-monitor"><iframe class="iframe-page" id="ifr-monitor" src="about:blank"></iframe></div>
       <div class="page" id="page-squad"><iframe class="iframe-page" id="ifr-squad" src="about:blank"></iframe></div>
       <div class="page" id="page-crm"><iframe class="iframe-page" id="ifr-crm" src="about:blank"></iframe></div>
+      <div class="page" id="page-listas"><iframe class="iframe-page" id="ifr-listas" src="about:blank"></iframe></div>
       <div class="page" id="page-mkt"><iframe class="iframe-page" id="ifr-mkt" src="about:blank"></iframe></div>
       <div class="page" id="page-mktjobs"><iframe class="iframe-page" id="ifr-mktjobs" src="about:blank"></iframe></div>
       <div class="page" id="page-mktinsights"><iframe class="iframe-page" id="ifr-mktinsights" src="about:blank"></iframe></div>
@@ -322,7 +342,47 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
       <div class="page" id="page-produtos"><iframe class="iframe-page" id="ifr-produtos" src="about:blank"></iframe></div>
       <div class="page" id="page-financeiro"><iframe class="iframe-page" id="ifr-financeiro" src="about:blank"></iframe></div>
       <div class="page" id="page-warroom"><iframe class="iframe-page" id="ifr-warroom" src="about:blank"></iframe></div>
-      <div class="page" id="page-ops"><iframe class="iframe-page" id="ifr-ops" src="about:blank"></iframe></div>
+      <div class="page" id="page-suporte"><iframe class="iframe-page" id="ifr-suporte" src="about:blank"></iframe></div>
+      <div class="page" id="page-seguranca" style="padding:32px;max-width:600px;overflow-y:auto;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);">🔒 SEGURANÇA DO HUB</div>
+    <a href="/OMA_Seguranca_Hub_2026.docx" download style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);border:1px solid var(--border);padding:6px 14px;text-decoration:none;">⬇ BAIXAR DOCUMENTAÇÃO</a>
+  </div>
+
+  <!-- Status da sessão -->
+  <div style="background:var(--card);border:1px solid var(--border);padding:20px;margin-bottom:24px;border-radius:4px;">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;">STATUS DA SESSÃO</div>
+    <div id="sec-session-info" style="font-size:13px;color:var(--bone);line-height:1.8;">Carregando...</div>
+  </div>
+
+  <!-- Troca de senha -->
+  <div style="background:var(--card);border:1px solid var(--border);padding:20px;margin-bottom:24px;border-radius:4px;">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:16px;">ALTERAR SENHA DO HUB</div>
+    <div style="margin-bottom:12px;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:6px;">SENHA ATUAL</div>
+      <input type="password" id="sec-current" placeholder="••••••••" style="width:100%;background:var(--coal);border:1px solid var(--border);color:var(--bone);padding:10px 12px;font-size:14px;outline:none;font-family:'Barlow',sans-serif;" />
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:6px;">NOVA SENHA (mínimo 8 caracteres)</div>
+      <input type="password" id="sec-new" placeholder="••••••••" style="width:100%;background:var(--coal);border:1px solid var(--border);color:var(--bone);padding:10px 12px;font-size:14px;outline:none;font-family:'Barlow',sans-serif;" />
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:6px;">CONFIRMAR NOVA SENHA</div>
+      <input type="password" id="sec-confirm" placeholder="••••••••" style="width:100%;background:var(--coal);border:1px solid var(--border);color:var(--bone);padding:10px 12px;font-size:14px;outline:none;font-family:'Barlow',sans-serif;" />
+    </div>
+    <button onclick="trocarSenha()" style="background:var(--fire);border:none;color:#000;padding:10px 24px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;font-weight:700;">ALTERAR SENHA</button>
+    <div id="sec-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;display:none;"></div>
+  </div>
+
+  <!-- Encerrar sessão -->
+  <div style="background:var(--card);border:1px solid var(--border);padding:20px;border-radius:4px;">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;">SESSÃO ATIVA</div>
+    <p style="font-size:12px;color:var(--fog);margin-bottom:16px;line-height:1.6;">A sessão expira automaticamente em 8 horas. Para encerrar antes disso:</p>
+    <button onclick="logout()" style="background:transparent;border:1px solid rgba(226,75,74,.5);color:#e24b4a;padding:8px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;">ENCERRAR SESSÃO AGORA</button>
+  </div>
+</div>
+
+<div class="page" id="page-ops"><iframe class="iframe-page" id="ifr-ops" src="about:blank"></iframe></div>
       <div class="page" id="page-audit"><iframe class="iframe-page" id="ifr-audit" src="about:blank"></iframe></div>
       <div class="page" id="page-traffic"><iframe class="iframe-page" id="ifr-traffic" src="about:blank"></iframe></div>
 
@@ -331,26 +391,27 @@ body{background:var(--bg);color:var(--bone);font-family:Barlow,sans-serif;height
 </div>
 
 <script>
-var SRCS={audit:'/audit.html',squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',warroom:'/war-room',clientes:'/clientes',produtos:'/produtos',mktinsights:'/mkt-insights',monitor:'/monitor'};
+var SRCS={seguranca:'__inline__',listas:'/listas',audit:'/audit.html',squad:'/agent-squad.html',crm:'/crm',mkt:'/mkt',mktjobs:'/mkt/jobs',financeiro:'/financeiro',onboarding:'/onboarding',traffic:'/traffic',ops:'/ops',suporte:'/agent-suporte',warroom:'/war-room',clientes:'/clientes',produtos:'/produtos',mktinsights:'/mkt-insights',monitor:'/monitor'};
 var loaded={};
 var PMO_API='https://api.onemanarmyproject.com.br';
-var PMO_KEY=(sessionStorage.getItem('oma_api_key')||'');
+// PMO_KEY removido — usa getAuthHeaders()
 
-// Auth
+// Auth — segura via JWT
 function login(){
   var p=document.getElementById('pw').value;
-  if(p==='omaproject2026'){
-    localStorage.setItem('oma_hub','1');
-    localStorage.setItem('oma_api_key','354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273');
+  if(!p){ document.getElementById('lerr').style.display='block'; return; }
+  document.getElementById('lerr').style.display='none';
+  doLogin(p).then(function(){
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='flex';
     initStatus();
-  } else {
+  }).catch(function(e){
+    document.getElementById('lerr').textContent = e.message;
     document.getElementById('lerr').style.display='block';
-  }
+  });
 }
 function logout(){localStorage.removeItem('oma_hub');location.reload();}
-if(localStorage.getItem('oma_hub')){
+if (getToken()) {
   document.getElementById('ls').style.display='none';
   document.getElementById('app').style.display='flex';
   setTimeout(initStatus,100);
@@ -367,6 +428,27 @@ document.querySelectorAll('.sb-item').forEach(function(item){
   item.addEventListener('click',function(){goTab(this.dataset.tab);});
 });
 
+// Download hub-contexto.md
+function downloadHubContexto(){
+  fetch('https://alexa.pipeeyewear.com.br/api/ops/hub-contexto')
+    .then(function(r){
+      if(!r.ok) throw new Error('status '+r.status);
+      return r.text();
+    })
+    .then(function(text){
+      var blob=new Blob([text],{type:'text/markdown'});
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='hub-contexto.md';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch(function(){
+      // fallback: abre direto
+      window.open('https://alexa.pipeeyewear.com.br/api/ops/hub-contexto','_blank');
+    });
+}
+
 // Navigation
 function goTab(id){
   document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active');});
@@ -376,20 +458,25 @@ function goTab(id){
   var pg=document.getElementById('page-'+id);
   if(pg)pg.classList.add('active');
   if(SRCS[id]&&!loaded[id]){
-    var ifr=document.getElementById('ifr-'+id);
-    if(ifr){
-      ifr.src=SRCS[id];
-      loaded[id]=true;
-      // Injetar auth quando o iframe carregar
-      ifr.onload=function(){
-        try{
-          ifr.contentWindow.postMessage({
-            type:'oma_auth',
-            oma_hub:'1',
-            oma_api_key:localStorage.getItem('oma_api_key')||'354496182871fba394e09cfbb8d699f1bc6859f4e3417f84b0993ee36bcd0273'
-          },'*');
-        }catch(e){}
-      };
+    loaded[id]=true;
+    // Inline (sem iframe) — chama função local
+    if(SRCS[id]==='__inline__'){
+      if(id==='seguranca' && typeof carregarSeguranca==='function') carregarSeguranca();
+    } else {
+      var ifr=document.getElementById('ifr-'+id);
+      if(ifr){
+        ifr.src=SRCS[id];
+        ifr.onload=function(){
+          try{
+            ifr.contentWindow.postMessage({
+              type:'oma_auth',
+              oma_hub:'1',
+              token: getToken()||'',
+              oma_api_key: getToken()||''
+            },'*');
+          }catch(e){}
+        };
+      }
     }
   }
 }
@@ -505,7 +592,7 @@ function renderMetrics(){
   var agents=['george','flavia','bia','tiago'];
   var totalCards=0;var pending=agents.length;
   agents.forEach(function(a){
-    fetch(PMO_API+'/pmo/agent/'+a,{headers:{'x-api-key':PMO_KEY}})
+    fetch(PMO_API+'/pmo/agent/'+a,{headers: getAuthHeaders()})
       .then(function(r){return r.json();})
       .then(function(cards){if(Array.isArray(cards))totalCards+=cards.length;})
       .catch(function(){})
@@ -549,7 +636,7 @@ function loadSquadIndicators(){
   var pending=agents.length;
 
   agents.forEach(function(agent){
-    fetch(PMO_API+'/pmo/agent/'+agent,{headers:{'x-api-key':PMO_KEY}})
+    fetch(PMO_API+'/pmo/agent/'+agent,{headers: getAuthHeaders()})
       .then(function(r){return r.json();})
       .then(function(cards){if(Array.isArray(cards))results[agent]=cards;})
       .catch(function(){})
@@ -834,6 +921,104 @@ function renderBackupData(data,history){
 }
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
+
+// ── AUTH SEGURA — não armazena senha ou API key no frontend ──────────────
+var OMA_TOKEN_KEY = 'oma_hub_token';
+var OMA_TOKEN_EXP = 'oma_hub_token_exp';
+
+function getToken() {
+  var token = localStorage.getItem(OMA_TOKEN_KEY) || sessionStorage.getItem(OMA_TOKEN_KEY);
+  var exp = parseInt(localStorage.getItem(OMA_TOKEN_EXP) || '0');
+  if (!token || Date.now() > exp) {
+    clearAuth();
+    return null;
+  }
+  return token;
+}
+
+function clearAuth() {
+  localStorage.removeItem(OMA_TOKEN_KEY);
+  localStorage.removeItem(OMA_TOKEN_EXP);
+  localStorage.removeItem('oma_hub');
+  sessionStorage.removeItem(OMA_TOKEN_KEY);
+  sessionStorage.removeItem('oma_api_key');
+  localStorage.removeItem('oma_api_key');
+}
+
+function getAuthHeaders() {
+  var token = getToken();
+  if (!token) return {};
+  return { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+}
+
+async function doLogin(password) {
+  var r = await fetch('https://api.onemanarmyproject.com.br/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password })
+  });
+  var d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Senha incorreta');
+  var expMs = Date.now() + (d.expiresIn * 1000);
+  localStorage.setItem(OMA_TOKEN_KEY, d.token);
+  localStorage.setItem(OMA_TOKEN_EXP, expMs.toString());
+  localStorage.setItem('oma_hub', '1');
+  return d.token;
+}
+
+
+function carregarSeguranca() {
+  var pg=document.getElementById('page-seguranca');
+  if(pg)pg.style.display='block';
+
+  var token = getToken();
+  if (!token) return;
+  var exp = parseInt(localStorage.getItem('oma_hub_token_exp')||'0');
+  var minutos = Math.max(0, Math.round((exp - Date.now()) / 60000));
+  var horas = Math.floor(minutos / 60);
+  var mins = minutos % 60;
+  document.getElementById('sec-session-info').innerHTML =
+    '<span style="color:var(--green)">● Sessão ativa</span><br>' +
+    'Expira em: <strong>' + horas + 'h ' + mins + 'min</strong><br>' +
+    'Token JWT — renovado automaticamente no login';
+}
+
+async function trocarSenha() {
+  var cur = document.getElementById('sec-current').value;
+  var nw  = document.getElementById('sec-new').value;
+  var cf  = document.getElementById('sec-confirm').value;
+  var msg = document.getElementById('sec-msg');
+
+  if (!cur || !nw || !cf) { showSecMsg('Preencha todos os campos.', 'red'); return; }
+  if (nw !== cf) { showSecMsg('Novas senhas não coincidem.', 'red'); return; }
+  if (nw.length < 8) { showSecMsg('Mínimo 8 caracteres.', 'red'); return; }
+
+  try {
+    var token = getToken();
+    var r = await fetch('https://api.onemanarmyproject.com.br/auth/change-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ currentPassword: cur, newPassword: nw })
+    });
+    var d = await r.json();
+    if (!r.ok) { showSecMsg(d.error || 'Erro.', 'red'); return; }
+    showSecMsg('✓ Senha alterada! Faça login novamente com a nova senha.', 'green');
+    document.getElementById('sec-current').value = '';
+    document.getElementById('sec-new').value = '';
+    document.getElementById('sec-confirm').value = '';
+    setTimeout(function(){ logout(); }, 2500);
+  } catch(e) {
+    showSecMsg('Erro de conexão.', 'red');
+  }
+}
+
+function showSecMsg(txt, color) {
+  var el = document.getElementById('sec-msg');
+  el.textContent = txt;
+  el.style.color = color === 'green' ? 'var(--green)' : '#e24b4a';
+  el.style.display = 'block';
+}
+
 </script>
 </body>
 </html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Listas de Interesse</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#080808;color:#e0d9cf;font-family:'Barlow',sans-serif;font-size:14px;}
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root{--fire:#e8703a;--bone:#e0d9cf;--ash:#888;--card:#111;--border:#1e1e1e;}
+
+.wrap{padding:24px 32px;max-width:1100px;}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
+.top-title{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;}
+.top-count{font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);margin-left:8px;}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.fbtn{background:#1a1a1a;border:1px solid #2a2a2a;color:var(--ash);padding:5px 12px;border-radius:4px;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:1px;cursor:pointer;transition:all .15s;}
+.fbtn:hover{border-color:#444;color:var(--bone);}
+.fbtn.active{background:rgba(232,112,58,.12);border-color:var(--fire);color:var(--fire);}
+
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+thead{background:#0d0d0d;}
+th{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:10px 14px;border-bottom:1px solid #151515;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#141414;}
+
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.tag-academy{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3);}
+.tag-pro{background:rgba(100,180,100,.12);color:#6db86d;border:1px solid rgba(100,180,100,.25);}
+.tag-other{background:#1a1a1a;color:var(--ash);border:1px solid #2a2a2a;}
+
+.nome{font-weight:600;color:var(--bone);}
+.sub{font-size:11px;color:var(--ash);margin-top:2px;}
+.wa{color:#25d366;font-size:12px;}
+.date{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+
+.empty{text-align:center;padding:60px 20px;color:var(--ash);}
+.empty-icon{font-size:32px;margin-bottom:12px;}
+.empty-txt{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;}
+
+.loading{text-align:center;padding:40px;color:var(--ash);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;}
+
+.interesse{font-size:12px;color:#aaa;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.export-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:var(--ash);padding:6px 14px;border-radius:4px;font-size:10px;font-family:'Space Mono',monospace;letter-spacing:1px;cursor:pointer;transition:all .15s;}
+.export-btn:hover{border-color:#444;color:var(--bone);}
+</style>
+</head>
+<body>
+
+<script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+</script>
+
+<div id="app" style="display:none">
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <span class="top-title">Listas de Interesse</span>
+      <span class="top-count" id="total-count"></span>
+    </div>
+    <button class="export-btn" onclick="exportCSV()">⬇ exportar CSV</button>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="fbtn active" data-origem="all" onclick="setFiltro('all',this)">Todas</button>
+    <button class="fbtn" data-origem="academy_waitlist" onclick="setFiltro('academy_waitlist',this)">Academy Waitlist</button>
+    <button class="fbtn" data-origem="academy_pro_waitlist" onclick="setFiltro('academy_pro_waitlist',this)">Academy Pro</button>
+  </div>
+
+  <div class="table-wrap">
+    <div class="loading" id="loading">Carregando...</div>
+    <table id="tbl" style="display:none">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Contato</th>
+          <th>Interesse</th>
+          <th>Lista</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">
+      <div class="empty-icon">📋</div>
+      <div class="empty-txt">Nenhuma entrada nesta lista</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+var API = 'https://api.onemanarmyproject.com.br';
+var allLeads = [];
+var filtroAtivo = 'all';
+
+// Origens que são listas de interesse (não leads comerciais)
+var ORIGENS_LISTA = ['academy_waitlist','academy_pro_waitlist','lista','waitlist','interest'];
+
+function isLista(origem) {
+  if (!origem) return false;
+  var o = origem.toLowerCase();
+  return ORIGENS_LISTA.some(function(p){ return o.indexOf(p) >= 0; });
+}
+
+function tagClass(origem) {
+  if (!origem) return 'tag-other';
+  if (origem.indexOf('academy') >= 0) return 'tag-academy';
+  if (origem.indexOf('pro') >= 0) return 'tag-pro';
+  return 'tag-other';
+}
+
+function tagLabel(origem) {
+  var map = {
+    'academy_waitlist': 'Academy',
+    'academy_pro_waitlist': 'Academy Pro'
+  };
+  return map[origem] || origem;
+}
+
+function fmtDate(str) {
+  if (!str) return '—';
+  try {
+    var d = new Date(str.replace(' ','T'));
+    return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  } catch(e){ return str.substring(0,10); }
+}
+
+function render(leads) {
+  var tbody = document.getElementById('tbody');
+  var tbl = document.getElementById('tbl');
+  var empty = document.getElementById('empty');
+
+  if (!leads || leads.length === 0) {
+    tbl.style.display = 'none';
+    empty.style.display = '';
+    return;
+  }
+
+  tbl.style.display = '';
+  empty.style.display = 'none';
+
+  tbody.innerHTML = leads.map(function(l) {
+    var interesse = l.dor || l.segmento || '—';
+    if (interesse.indexOf('Interesse na trilha:') >= 0) {
+      interesse = interesse.replace('Interesse na trilha:', '').trim();
+    }
+    var wa = l.whatsapp ? '<div class="wa">📱 ' + l.whatsapp + '</div>' : '';
+    return '<tr>' +
+      '<td><div class="nome">' + esc(l.nome||'—') + '</div><div class="sub">' + esc(l.email||'') + '</div></td>' +
+      '<td>' + wa + '</td>' +
+      '<td><div class="interesse" title="' + esc(interesse) + '">' + esc(interesse) + '</div></td>' +
+      '<td><span class="tag ' + tagClass(l.origem) + '">' + tagLabel(l.origem) + '</span></td>' +
+      '<td><div class="date">' + fmtDate(l.created_at) + '</div></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function setFiltro(origem, btn) {
+  filtroAtivo = origem;
+  document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var filtered = origem === 'all' ? allLeads : allLeads.filter(function(l){ return l.origem === origem; });
+  document.getElementById('total-count').textContent = '(' + filtered.length + ')';
+  render(filtered);
+}
+
+function exportCSV() {
+  var filtered = filtroAtivo === 'all' ? allLeads : allLeads.filter(function(l){ return l.origem === filtroAtivo; });
+  var rows = [['Nome','Email','WhatsApp','Interesse','Lista','Data']];
+  filtered.forEach(function(l) {
+    var interesse = l.dor || l.segmento || '';
+    if (interesse.indexOf('Interesse na trilha:') >= 0) interesse = interesse.replace('Interesse na trilha:','').trim();
+    rows.push([l.nome||'',l.email||'',l.whatsapp||'',interesse,l.origem||'',l.created_at||'']);
+  });
+  var csv = rows.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob = new Blob([csv], {type:'text/csv'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'listas-interesse-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function init() {
+  try {
+    var r = await fetch(API + '/leads', { headers: getAuthHeaders() });
+    var data = await r.json();
+    var todos = Array.isArray(data) ? data : [];
+    // Filtra apenas leads de listas de interesse
+    allLeads = todos.filter(function(l){ return isLista(l.origem); });
+    // Ordena mais recente primeiro
+    allLeads.sort(function(a,b){ return new Date(b.created_at||0) - new Date(a.created_at||0); });
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('total-count').textContent = '(' + allLeads.length + ')';
+    render(allLeads);
+
+    // Atualiza contadores dos filtros
+    document.querySelectorAll('.fbtn[data-origem]').forEach(function(btn) {
+      var origem = btn.getAttribute('data-origem');
+      if (origem === 'all') return;
+      var n = allLeads.filter(function(l){ return l.origem === origem; }).length;
+      if (n > 0) btn.textContent = btn.textContent + ' (' + n + ')';
+    });
+
+  } catch(e) {
+    document.getElementById('loading').textContent = 'Erro ao carregar. Verifique conexão.';
+    console.error('Listas erro:', e);
+  }
+}
+</script>
+</body>
+</html>
