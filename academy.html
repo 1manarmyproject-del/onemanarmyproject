@@ -5830,7 +5830,7 @@ function isStageComplete(trailId, stageId) {
 async function verifyTrailAccess(trailId) {
   if (isTrailPurchased(trailId)) return true;
   try {
-    const user = getUser();
+    const user = ST.user;
     if (!user || !user.email) return false;
     const r = await fetch('https://api.onemanarmyproject.com.br/academy/trail-access', {
       method: 'POST',
