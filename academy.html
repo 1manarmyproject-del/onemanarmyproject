@@ -1797,6 +1797,13 @@ select.precert-input{cursor:pointer;}
   max-width:480px;margin:0 auto 28px;line-height:1.7;
 }
 
+
+.tg-card-price-wrap{margin-bottom:10px;}
+.tg-card-price-de{font-family:'Space Mono',monospace;font-size:10px;color:#666;margin-bottom:2px;}
+.tg-card-price-de span{text-decoration:line-through;color:#555;}
+.tg-card-price-por{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;color:var(--fire);letter-spacing:.5px;line-height:1;margin-bottom:3px;}
+.tg-card-price-cond{font-family:'Space Mono',monospace;font-size:9px;color:#666;letter-spacing:.5px;}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -5673,8 +5680,8 @@ const TRAILS = {
     shortName: 'Gestor Comercial',
     promise: 'Construa o sistema operacional do seu comercial com IA, automação e agentes.',
     audience: 'Gestores comerciais, founders e líderes de receita com operação ativa',
-    priceBeta: 497,
-    priceFull: 697,
+    priceBeta: 397,
+    priceFull: 799,
     product: 'trail_sales_manager',
     stages: [
       {
@@ -5857,7 +5864,12 @@ function renderTrailCards() {
       const bought = purchased.includes(id);
       const hasContent = (t.stages && t.stages.length > 0) || (typeof TRL_STAGES_DATA !== 'undefined' && TRL_STAGES_DATA[id] && TRL_STAGES_DATA[id].length > 0);
       const typeCls = t.type;
-      const priceStr = bought ? '' : `<div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong></div>`;
+      const priceStr = bought ? '' : `
+        <div class="tg-card-price-wrap">
+          <div class="tg-card-price-de">De <span>R$ ${t.priceFull}</span></div>
+          <div class="tg-card-price-por">R$ ${t.priceBeta}</div>
+          <div class="tg-card-price-cond">Lançamento · 3x no cartão</div>
+        </div>`;
       let ctaHtml = '';
       if (bought) {
         const prog = getTrailProgress(id);
