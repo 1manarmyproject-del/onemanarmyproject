@@ -1201,6 +1201,327 @@ select.precert-input{cursor:pointer;}
 .wl-success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--text);margin-bottom:6px;}
 .wl-success-sub{font-size:13px;color:var(--text3);line-height:1.6;}
 
+/* ══════════════════════════════════════════════════════════
+   TRILHAS GUIADAS — CSS
+   ══════════════════════════════════════════════════════════ */
+
+/* Dashboard — bloco trilhas guiadas */
+.tg-section{margin-top:28px;margin-bottom:28px;}
+.tg-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.tg-section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);}
+.tg-method-badge{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:3px 9px;border-radius:20px;}
+.tg-intro-banner{background:linear-gradient(135deg,var(--fire-light) 0%,#fff 100%);border:1px solid var(--fire-mid);border-radius:10px;padding:16px 18px;margin-bottom:16px;}
+.tg-intro-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:4px;}
+.tg-intro-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;color:var(--text);line-height:1.2;margin-bottom:6px;}
+.tg-intro-sub{font-size:12px;color:var(--text2);line-height:1.6;}
+.tg-type-block{margin-bottom:20px;}
+.tg-type-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:8px 12px;border-radius:7px;}
+.tg-type-header.especialidade{background:#eef2ff;border:1px solid #c7d2fe;}
+.tg-type-header.vertical{background:var(--fire-light);border:1px solid var(--fire-mid);}
+.tg-type-icon{font-size:16px;}
+.tg-type-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+.tg-type-header.especialidade .tg-type-label{color:#4338ca;}
+.tg-type-header.vertical .tg-type-label{color:var(--fire);}
+.tg-type-desc{font-size:11px;color:var(--text3);margin-top:1px;}
+.tg-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.tg-card{background:#fff;border:1px solid var(--border);border-radius:9px;padding:14px;cursor:pointer;transition:box-shadow .15s,transform .15s,border-color .15s;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+.tg-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.tg-card.locked{cursor:default;}
+.tg-card.locked:hover{transform:none;box-shadow:var(--shadow);}
+.tg-card.purchased{border-color:#86efac;border-left:3px solid var(--green);}
+.tg-card-badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 8px;margin-bottom:8px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;}
+.tg-card-badge.especialidade{background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;}
+.tg-card-badge.vertical{background:var(--fire-light);color:var(--fire);border:1px solid var(--fire-mid);}
+.tg-card-badge.purchased-badge{background:var(--green-light);color:var(--green);border:1px solid #86efac;}
+.tg-card-icon{font-size:22px;margin-bottom:6px;}
+.tg-card-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text);line-height:1.2;margin-bottom:4px;}
+.tg-card-promise{font-size:11px;color:var(--text3);line-height:1.4;margin-bottom:10px;}
+.tg-card-price{font-family:'Space Mono',monospace;font-size:10px;color:var(--text2);margin-bottom:8px;}
+.tg-card-price strong{color:var(--text);font-size:13px;}
+.tg-card-cta{width:100%;border:none;padding:9px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:5px;transition:all .15s;}
+.tg-card-cta.buy{background:var(--fire);color:#fff;}
+.tg-card-cta.buy:hover{background:var(--ember);}
+.tg-card-cta.open{background:var(--green);color:#fff;}
+.tg-card-cta.open:hover{background:#15803d;}
+.tg-card-cta.preview{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.tg-card-cta.preview:hover{background:var(--bg4);}
+.tg-card-lock{position:absolute;top:10px;right:10px;font-size:14px;opacity:.35;}
+/* Screen de trilha */
+.trail-screen{padding:0 0 80px;}
+.trail-hero{padding:28px 32px;color:#fff;position:relative;overflow:hidden;}
+.trail-hero.especialidade-hero{background:linear-gradient(135deg,#4338ca 0%,#312e81 100%);}
+.trail-hero.vertical-hero{background:linear-gradient(135deg,var(--fire) 0%,var(--ember) 100%);}
+.trail-hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;}
+.trail-hero-back{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.7);cursor:pointer;margin-bottom:14px;display:inline-flex;align-items:center;gap:5px;transition:color .15s;position:relative;z-index:1;}
+.trail-hero-back:hover{color:#fff;}
+.trail-hero-type{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 10px;margin-bottom:10px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.9);position:relative;z-index:1;}
+.trail-hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,4vw,32px);color:#fff;line-height:1.1;margin-bottom:6px;position:relative;z-index:1;}
+.trail-hero-promise{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6;max-width:560px;position:relative;z-index:1;}
+.trail-hero-meta{display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap;position:relative;z-index:1;}
+.trail-meta-pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:5px;}
+.trail-progress-bar{height:4px;background:rgba(255,255,255,.2);}
+.trail-progress-fill{height:100%;background:#fff;transition:width .5s ease;}
+.trail-body{padding:24px 32px 0;max-width:760px;}
+@media(max-width:600px){.trail-body{padding:16px 16px 0;}}
+.trail-stages{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.trail-stage{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .15s;}
+.trail-stage.locked{opacity:.55;}
+.trail-stage.active{border-color:var(--fire);box-shadow:0 0 0 2px var(--fire-mid),var(--shadow-md);}
+.trail-stage.done{border-left:3px solid var(--green);}
+.trail-stage.preview-open{border-color:var(--fire);}
+.ts-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;}
+.trail-stage.locked .ts-header{cursor:not-allowed;}
+.ts-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;}
+.trail-stage.done .ts-num{background:var(--green-light);color:var(--green);}
+.trail-stage.active .ts-num,.trail-stage.preview-open .ts-num{background:var(--fire);color:#fff;}
+.trail-stage.locked .ts-num{background:var(--bg4);color:var(--text4);}
+.trail-stage:not(.done):not(.active):not(.locked):not(.preview-open) .ts-num{background:var(--bg3);color:var(--text3);}
+.ts-info{flex:1;}
+.ts-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text4);margin-bottom:2px;}
+.trail-stage.active .ts-label,.trail-stage.preview-open .ts-label{color:var(--fire);}
+.ts-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--text);line-height:1.2;}
+.ts-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.ts-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.ts-xp{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);background:var(--fire-light);border:1px solid var(--fire-mid);padding:2px 7px;border-radius:10px;}
+.ts-status{font-size:14px;}
+.ts-chevron{font-size:10px;color:var(--text4);transition:transform .2s;}
+.trail-stage.open .ts-chevron{transform:rotate(180deg);}
+.ts-preview-badge{display:inline-flex;align-items:center;gap:4px;background:var(--green-light);border:1px solid #86efac;border-radius:3px;padding:2px 7px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-left:6px;}
+.ts-body{display:none;padding:0 16px 16px;}
+.trail-stage.open .ts-body{display:block;}
+.ts-concept{background:var(--bg2);border-left:3px solid var(--fire);padding:12px 14px;border-radius:0 6px 6px 0;margin-bottom:14px;}
+.ts-concept-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:5px;}
+.ts-concept-text{font-size:13px;color:var(--text2);line-height:1.7;}
+.ts-provocacao{background:#fffbf5;border:1px solid #fde8cc;border-radius:7px;padding:12px 14px;margin-bottom:14px;}
+.ts-provocacao-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#b45309;margin-bottom:5px;}
+.ts-provocacao-text{font-size:13px;color:#78350f;line-height:1.7;font-style:italic;}
+.ts-acao{margin-bottom:14px;}
+.ts-acao-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;}
+.ts-acao-items{display:flex;flex-direction:column;gap:6px;}
+.ts-acao-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);line-height:1.5;}
+.ts-acao-item::before{content:"›";color:var(--fire);font-size:16px;line-height:1.2;flex-shrink:0;}
+.ts-entregavel{background:var(--green-light);border:1px solid #86efac;border-radius:7px;padding:12px 14px;margin-bottom:16px;}
+.ts-entregavel-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+.ts-entregavel-text{font-size:13px;color:#14532d;line-height:1.6;font-weight:500;}
+.ts-btn-complete{width:100%;background:var(--fire);color:#fff;border:none;padding:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:6px;transition:all .15s;box-shadow:0 2px 8px rgba(232,112,58,.3);}
+.ts-btn-complete:hover{background:var(--ember);}
+.ts-btn-complete.done-btn{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,.25);}
+.ts-lock-wall{text-align:center;padding:20px 16px;}
+.ts-lock-icon{font-size:32px;margin-bottom:10px;}
+.ts-lock-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--text);margin-bottom:6px;}
+.ts-lock-sub{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:14px;}
+.ts-lock-btn{width:100%;background:var(--fire);color:#fff;border:none;padding:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:6px;box-shadow:0 2px 8px rgba(232,112,58,.3);}
+.trail-completion{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #86efac;border-radius:12px;padding:22px;text-align:center;margin-bottom:24px;}
+.trail-completion-icon{font-size:40px;margin-bottom:10px;}
+.trail-completion-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--text);margin-bottom:6px;}
+.trail-completion-sub{font-size:13px;color:var(--text3);line-height:1.6;margin-bottom:16px;}
+.trail-completion-btn{background:var(--green);color:#fff;border:none;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:6px;}
+/* Sidebar — trilhas guiadas */
+.s-tg-section{border-top:1px solid var(--border);padding-top:12px;margin-top:8px;}
+.s-tg-label{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text4);padding:0 20px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.s-tg-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.s-tg-type-sep{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:6px 20px 4px;display:flex;align-items:center;gap:5px;}
+.s-tg-type-sep.especialidade{color:#4338ca;}
+.s-tg-type-sep.vertical{color:var(--fire);}
+.s-tg-item{display:flex;align-items:center;gap:9px;padding:7px 20px;cursor:pointer;transition:background .12s;border-left:3px solid transparent;}
+.s-tg-item:hover{background:var(--bg3);}
+.s-tg-item.active{background:var(--fire-light);border-left-color:var(--fire);}
+.s-tg-item.locked{opacity:.5;cursor:not-allowed;}
+.s-tg-item.locked:hover{background:transparent;}
+.s-tg-icon{font-size:14px;flex-shrink:0;}
+.s-tg-info{flex:1;min-width:0;}
+.s-tg-name{font-size:12px;color:var(--text2);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-tg-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:1px 5px;border-radius:2px;text-transform:uppercase;}
+.s-tg-badge.especialidade{background:#eef2ff;color:#4338ca;}
+.s-tg-badge.vertical{background:var(--fire-light);color:var(--fire);}
+.s-tg-badge.free{background:var(--green-light);color:var(--green);}
+
+
+/* ══════════════════════════════════════════════════
+   TRILHAS GUIADAS v4 — CSS ENGINE
+   (layout duas colunas, workspace, chat, intro, finish)
+══════════════════════════════════════════════════ */
+
+/* Intro */
+.trl-intro-hero{background:var(--char);padding:72px 64px 100px;position:relative;overflow:hidden;}
+.trl-intro-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 50%,rgba(232,112,58,.12) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(232,112,58,.06) 0%,transparent 50%);}
+.trl-intro-hero::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;}
+.trl-ih-back{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#888;cursor:pointer;margin-bottom:22px;display:inline-flex;align-items:center;gap:5px;transition:color .15s;position:relative;z-index:1;}
+.trl-ih-back:hover{color:var(--fire);}
+.trl-ih-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--fire);margin-bottom:20px;position:relative;z-index:1;display:flex;align-items:center;gap:8px;}
+.trl-ih-eyebrow::before{content:'';width:24px;height:1px;background:var(--fire);}
+.trl-ih-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(40px,6vw,72px);color:#fff;line-height:1.02;margin-bottom:18px;position:relative;z-index:1;}
+.trl-ih-title em{color:var(--fire);font-style:italic;}
+.trl-ih-promise{font-size:18px;color:rgba(255,255,255,.65);line-height:1.8;max-width:580px;position:relative;z-index:1;}
+.trl-hero-cut{position:absolute;bottom:-1px;left:0;right:0;height:56px;background:var(--bg);clip-path:ellipse(52% 100% at 50% 100%);}
+.trl-intro-body{padding:56px 64px 80px;max-width:1300px;margin:0 auto;}
+.trl-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px;}
+@media(max-width:800px){.trl-intro-grid{grid-template-columns:1fr;}}
+.trl-icard{background:#fff;border:1px solid var(--border);border-radius:10px;padding:32px 34px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.trl-icard-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.trl-icard-label::after{content:'';flex:1;height:1px;background:var(--fire-mid);}
+.trl-icard h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;color:var(--text);margin-bottom:10px;}
+.trl-icard p{font-size:15px;color:var(--text2);line-height:1.8;}
+.trl-method-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text4);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.trl-method-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.trl-method-steps{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:40px;}
+@media(max-width:700px){.trl-method-steps{grid-template-columns:repeat(4,1fr);}}
+.trl-ms{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px 10px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.trl-ms-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--text4);margin-bottom:6px;}
+.trl-ms-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;color:var(--text);margin-bottom:3px;}
+.trl-ms-sub{font-size:12px;color:var(--text3);}
+.trl-dl-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:34px 38px;margin-bottom:40px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.trl-dl-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--text);margin-bottom:18px;}
+.trl-dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:600px){.trl-dl-grid{grid-template-columns:1fr;}}
+.trl-dl-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);}
+.trl-dl-icon{font-size:20px;flex-shrink:0;}
+.trl-dl-strong{font-size:15px;font-weight:700;color:var(--text);display:block;margin-bottom:2px;}
+.trl-dl-sub{font-size:13px;color:var(--text3);}
+.trl-btn-start{display:inline-flex;align-items:center;gap:12px;background:var(--fire);color:#fff;border:none;padding:20px 60px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 5px 20px rgba(232,112,58,.35);transition:all .2s;}
+.trl-btn-start:hover{background:var(--ember);transform:translateY(-2px);}
+.trl-btn-start-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--text4);margin-top:10px;letter-spacing:1px;}
+
+/* Stepper */
+.trl-stepper{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;}
+.trl-stepper::-webkit-scrollbar{display:none;}
+.trl-sn{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.trl-sn:hover{background:var(--bg3);}
+.trl-sn.trl-sn-active{border-bottom-color:var(--fire);background:var(--fire-light);}
+.trl-sn.trl-sn-done .trl-sn-dot{background:var(--green);}
+.trl-sn.trl-sn-active .trl-sn-dot{background:var(--fire);}
+.trl-sn-dot{width:20px;height:20px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;font-family:'Space Mono',monospace;}
+.trl-sn-step{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--text4);}
+.trl-sn.trl-sn-active .trl-sn-step{color:var(--fire);}
+.trl-sn.trl-sn-done .trl-sn-step{color:var(--green);}
+.trl-sn-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--text2);}
+.trl-sn.trl-sn-active .trl-sn-name{color:var(--fire);}
+.trl-sn-sep{width:1px;background:var(--border);align-self:center;height:18px;flex-shrink:0;}
+
+/* Stage layout */
+.trl-stage-layout{display:grid;grid-template-columns:1fr 420px;min-height:calc(100vh - 160px);}
+@media(max-width:1100px){.trl-stage-layout{grid-template-columns:1fr;}}
+.trl-sc-left{padding:40px 48px 80px;min-width:0;border-right:1px solid var(--border);}
+@media(max-width:700px){.trl-sc-left{padding:24px 16px 60px;}}
+
+/* Eyebrow etapa */
+.trl-eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--char);border-radius:20px;padding:6px 16px;margin-bottom:20px;}
+.trl-eyebrow-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);font-weight:700;}
+.trl-eyebrow-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);}
+.trl-stage-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(30px,4vw,46px);color:var(--text);line-height:1.05;margin-bottom:6px;}
+.trl-stage-sub{font-size:16px;color:var(--text3);line-height:1.65;margin-bottom:36px;}
+
+/* Blocos de conteúdo */
+.trl-block{margin-bottom:32px;}
+.trl-block-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.trl-block-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.trl-concept-card{background:var(--char);border-radius:10px;padding:28px 32px;position:relative;overflow:hidden;}
+.trl-concept-card::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(232,112,58,.13) 0%,transparent 70%);}
+.trl-concept-card p{font-size:15px;color:rgba(255,255,255,.78);line-height:1.85;position:relative;z-index:1;}
+.trl-concept-hl{display:block;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:#fbbf24;position:relative;z-index:1;line-height:1.5;}
+.trl-prov-card{background:#fffbeb;border:1px solid #fde68a;border-left:5px solid var(--amber,#b45309);border-radius:0 10px 10px 0;padding:22px 26px;}
+.trl-prov-card p{font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:#78350f;line-height:1.6;}
+.trl-actions{display:flex;flex-direction:column;gap:10px;}
+.trl-action{display:flex;align-items:flex-start;gap:14px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.trl-action-num{width:26px;height:26px;border-radius:6px;background:var(--char);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);font-weight:700;flex-shrink:0;}
+.trl-action-text{font-size:14px;color:var(--text2);line-height:1.65;padding-top:2px;}
+.trl-deliver-card{background:var(--green-light,#f0fdf4);border:1px solid var(--green-mid,#86efac);border-radius:10px;padding:22px 26px;display:flex;align-items:flex-start;gap:14px;}
+.trl-deliver-icon{font-size:28px;flex-shrink:0;margin-top:2px;}
+.trl-deliver-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:5px;font-weight:700;}
+.trl-deliver-text{font-size:15px;color:#14532d;font-weight:600;line-height:1.5;}
+.trl-micro-card{background:var(--char);border-radius:10px;padding:28px 32px;position:relative;overflow:hidden;}
+.trl-micro-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:8px;font-weight:700;}
+.trl-micro-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:1px;color:#fff;margin-bottom:10px;}
+.trl-micro-text{font-size:14px;color:rgba(255,255,255,.65);line-height:1.8;max-width:520px;}
+.trl-stage-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:40px;padding-top:28px;border-top:1px solid var(--border);}
+.trl-btn-prev{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border2);padding:12px 22px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--text2);cursor:pointer;transition:all .15s;}
+.trl-btn-prev:hover{background:var(--bg3);}
+.trl-btn-complete{display:flex;align-items:center;gap:8px;background:var(--fire);color:#fff;border:none;padding:14px 32px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 12px rgba(232,112,58,.3);transition:all .2s;}
+.trl-btn-complete:hover{background:var(--ember);transform:translateY(-1px);}
+.trl-btn-complete.trl-done{background:var(--green);}
+
+/* Workspace */
+.trl-sc-right{position:sticky;top:0;height:100vh;background:#fff;border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.trl-ws-head{padding:16px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--char);}
+.trl-ws-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;color:#fff;margin-bottom:2px;}
+.trl-ws-sub{font-family:'Space Mono',monospace;font-size:8px;color:#666;letter-spacing:1px;}
+.trl-ws-tabs{display:flex;border-bottom:2px solid var(--border);flex-shrink:0;}
+.trl-ws-tab{flex:1;padding:10px 14px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;border-top:none;border-left:none;border-right:none;text-align:center;font-weight:700;transition:all .15s;}
+.trl-ws-tab.trl-tab-open{color:var(--fire);border-bottom-color:var(--fire);}
+.trl-ws-tab:hover:not(.trl-tab-open){color:var(--text);background:var(--bg3);}
+.trl-ws-reflection{flex:1;overflow-y:auto;padding:18px;display:none;}
+.trl-ws-reflection.trl-tab-open{display:block;}
+.trl-ws-reflection::-webkit-scrollbar{width:3px;}
+.trl-ws-reflection::-webkit-scrollbar-thumb{background:var(--border2);}
+.trl-ws-chat{flex:1;display:none;flex-direction:column;overflow:hidden;}
+.trl-ws-chat.trl-tab-open{display:flex;}
+.trl-ws-stage-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.trl-inp-group{margin-bottom:16px;}
+.trl-inp-label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:6px;}
+.trl-inp-area{width:100%;min-height:80px;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;padding:11px 13px;resize:vertical;font-family:'Barlow',sans-serif;font-size:14px;color:var(--text);line-height:1.6;outline:none;transition:border-color .15s;}
+.trl-inp-area:focus{border-color:var(--fire);background:#fff;}
+.trl-inp-area::placeholder{color:var(--text4);font-size:13px;}
+.trl-ws-hint{display:flex;align-items:flex-start;gap:8px;margin-top:4px;padding:10px 13px;background:var(--fire-light);border:1px solid var(--fire-mid);border-radius:8px;}
+.trl-ws-hint-text{font-size:13px;color:var(--ember);line-height:1.6;}
+
+/* Chat */
+.trl-chat-ctx{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--fire-light);border-bottom:1px solid var(--fire-mid);flex-shrink:0;}
+.trl-chat-dot{width:6px;height:6px;border-radius:50%;background:var(--fire);flex-shrink:0;animation:trl-pulse 2s infinite;}
+@keyframes trl-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.trl-chat-ctx-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--fire);font-weight:700;}
+.trl-chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.trl-chat-msgs::-webkit-scrollbar{width:3px;}
+.trl-chat-msgs::-webkit-scrollbar-thumb{background:var(--border2);}
+.trl-msg{max-width:90%;animation:trl-msgIn .2s ease;}
+@keyframes trl-msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.trl-msg-ai{align-self:flex-start;}
+.trl-msg-user{align-self:flex-end;}
+.trl-msg-bubble{padding:10px 14px;font-size:13px;line-height:1.65;border-radius:10px;}
+.trl-msg-ai .trl-msg-bubble{background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:4px 10px 10px 10px;}
+.trl-msg-user .trl-msg-bubble{background:var(--char);color:rgba(255,255,255,.88);border-radius:10px 4px 10px 10px;}
+.trl-msg-meta{font-family:'Space Mono',monospace;font-size:8px;color:var(--text4);margin-top:3px;padding:0 4px;}
+.trl-msg-user .trl-msg-meta{text-align:right;}
+.trl-typing{display:flex;gap:4px;align-items:center;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:4px 10px 10px 10px;align-self:flex-start;}
+.trl-typing span{width:5px;height:5px;background:var(--text4);border-radius:50%;animation:trl-blink 1.2s infinite;}
+.trl-typing span:nth-child(2){animation-delay:.2s}
+.trl-typing span:nth-child(3){animation-delay:.4s}
+@keyframes trl-blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.trl-chat-footer{padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:7px;align-items:flex-end;flex-shrink:0;}
+.trl-chat-input{flex:1;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);outline:none;resize:none;max-height:90px;line-height:1.5;transition:border-color .15s;}
+.trl-chat-input:focus{border-color:var(--fire);background:#fff;}
+.trl-chat-send{width:36px;height:36px;background:var(--fire);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;transition:background .15s;}
+.trl-chat-send:hover{background:var(--ember);}
+.trl-chat-send:disabled{opacity:.35;cursor:not-allowed;}
+
+/* Finish */
+.trl-finish-hero{background:var(--char);padding:72px 64px 96px;position:relative;overflow:hidden;}
+.trl-finish-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 40%,rgba(232,112,58,.1) 0%,transparent 55%);}
+.trl-fh-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--fire);margin-bottom:16px;position:relative;z-index:1;display:flex;align-items:center;gap:8px;}
+.trl-fh-eyebrow::before{content:'';width:24px;height:1px;background:var(--fire);}
+.trl-fh-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,5vw,62px);color:#fff;line-height:1.05;margin-bottom:16px;position:relative;z-index:1;}
+.trl-fh-title em{color:var(--fire);font-style:italic;}
+.trl-fh-sub{font-size:17px;color:rgba(255,255,255,.6);line-height:1.8;max-width:580px;position:relative;z-index:1;}
+.trl-finish-cut{position:absolute;bottom:-1px;left:0;right:0;height:56px;background:var(--bg);clip-path:ellipse(52% 100% at 50% 100%);}
+.trl-finish-body{padding:56px 64px 80px;max-width:1280px;margin:0 auto;}
+.trl-congrats-card{background:var(--char);border-radius:10px;padding:36px 44px;margin-bottom:28px;position:relative;overflow:hidden;}
+.trl-congrats-card::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,112,58,.14) 0%,transparent 70%);}
+.trl-congrats-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:12px;font-weight:700;display:flex;align-items:center;gap:6px;position:relative;z-index:1;}
+#trlCongratsText p{font-size:17px;color:rgba(255,255,255,.82);line-height:1.9;position:relative;z-index:1;white-space:pre-wrap;}
+.trl-report-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:44px 52px;box-shadow:0 6px 20px rgba(0,0,0,.09);margin-bottom:28px;}
+.trl-report-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:18px;border-bottom:2px solid var(--char);}
+.trl-report-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:2px;color:var(--char);}
+.trl-report-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--text4);letter-spacing:1px;}
+.trl-report-section{margin-bottom:24px;}
+.trl-report-section-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.trl-report-section-title::after{content:'';flex:1;height:1px;background:var(--fire-mid);}
+.trl-report-entry{background:var(--bg3);border-radius:8px;padding:16px 20px;margin-bottom:8px;border-left:3px solid var(--border2);}
+.trl-report-entry-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.trl-report-entry-a{font-size:15px;color:var(--text2);line-height:1.75;}
+.trl-btn-dl{display:inline-flex;align-items:center;gap:10px;background:var(--char);color:#fff;border:none;padding:17px 40px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:all .2s;}
+.trl-btn-dl:hover{background:#222;transform:translateY(-1px);}
+.trl-btn-oma{display:inline-flex;align-items:center;gap:10px;background:var(--fire);color:#fff;border:none;padding:17px 40px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px rgba(232,112,58,.3);transition:all .2s;}
+.trl-btn-oma:hover{background:var(--ember);transform:translateY(-1px);}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1529,22 +1850,39 @@ select.precert-input{cursor:pointer;}
         <div class="section-title">Mapa da Trilha</div>
         <div class="phase-cards" id="phaseCards"></div>
         <!-- Próximas Trilhas -->
-        <div class="section-title" style="margin-top:28px;">Trilhas Guiadas</div>
-        <div style="background:var(--fire-light);border:1px solid var(--fire-mid);border-radius:10px;padding:16px;margin-bottom:10px;">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);margin-bottom:6px;">OMA OS Builder Method</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;color:var(--text);margin-bottom:6px;">Da fluência para a construção</div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px;">Os fundamentos te ajudam a entender o jogo. As trilhas guiadas te ajudam a construir a máquina.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-            <div style="background:#fff;border:1px solid var(--border);border-radius:7px;padding:11px 12px;">
-              <div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--text4);margin-bottom:4px;">Por Especialidade</div>
-              <div style="font-size:12px;color:var(--text2);line-height:1.5;">Gestor Comercial · Financeiro · RH · Marketing · Operações</div>
-            </div>
-            <div style="background:#fff;border:1px solid var(--border);border-radius:7px;padding:11px 12px;">
-              <div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--text4);margin-bottom:4px;">Por Vertical</div>
-              <div style="font-size:12px;color:var(--text2);line-height:1.5;">Escritório Jurídico · Clínica · Ótica · Academia · Condomínio</div>
-            </div>
+        <!-- TRILHAS GUIADAS — BLOCO DASHBOARD -->
+        <div class="tg-section" id="tgDashSection">
+          <div class="tg-section-header">
+            <div class="tg-section-title">Trilhas Guiadas</div>
+            <div class="tg-method-badge">OMA OS Builder</div>
           </div>
-          <button onclick="openEnterpriseOrWaitlist()" style="width:100%;background:var(--fire);color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;padding:11px;border-radius:6px;cursor:pointer;">Entrar na lista de espera →</button>
+          <div class="tg-intro-banner">
+            <div class="tg-intro-label">Da fluência para a construção</div>
+            <div class="tg-intro-title">Construa seu sistema operacional com IA</div>
+            <div class="tg-intro-sub">Os fundamentos te dão o vocabulário. As trilhas guiadas te ajudam a sair do entendimento e construir operação real.</div>
+          </div>
+          <!-- Especialidades -->
+          <div class="tg-type-block">
+            <div class="tg-type-header especialidade">
+              <div class="tg-type-icon">🎯</div>
+              <div>
+                <div class="tg-type-label">Por Especialidade — sua função, qualquer setor</div>
+                <div class="tg-type-desc">Para gestores que querem transformar uma área com IA, independente do segmento</div>
+              </div>
+            </div>
+            <div class="tg-cards" id="tgCardsEspecialidade"></div>
+          </div>
+          <!-- Verticais -->
+          <div class="tg-type-block">
+            <div class="tg-type-header vertical">
+              <div class="tg-type-icon">🏢</div>
+              <div>
+                <div class="tg-type-label">Por Vertical — seu negócio, sua linguagem</div>
+                <div class="tg-type-desc">Para donos e gestores que querem redesenhar a operação do próprio setor</div>
+              </div>
+            </div>
+            <div class="tg-cards" id="tgCardsVertical"></div>
+          </div>
         </div>
 
         <div class="section-title" style="margin-top:20px;">Conquistas</div>
@@ -1852,6 +2190,126 @@ select.precert-input{cursor:pointer;}
       </div>
     </div>
 
+
+    <!-- SCREEN: Trilha Guiada v4 — layout duas colunas -->
+    <div class="screen" id="screenTrail">
+
+      <!-- INTRO DA TRILHA -->
+      <div id="trailViewIntro" style="display:none;">
+        <div class="trl-intro-hero" id="trailIntroHero">
+          <div class="trl-ih-back" onclick="goScreen('dash')">← Voltar ao Dashboard</div>
+          <div class="trl-ih-eyebrow" id="trailIntroEyebrow">OMA OS Builder Method</div>
+          <h1 class="trl-ih-title" id="trailIntroTitle">Trilha</h1>
+          <p class="trl-ih-promise" id="trailIntroPromise"></p>
+          <div class="trl-hero-cut"></div>
+        </div>
+        <div class="trl-intro-body">
+          <div class="trl-intro-grid">
+            <div class="trl-icard">
+              <div class="trl-icard-label">Para quem é</div>
+              <h3 id="trailIntroAudienceTitle">Você está no lugar certo se…</h3>
+              <p id="trailIntroAudienceText"></p>
+            </div>
+            <div class="trl-icard">
+              <div class="trl-icard-label">Como funciona</div>
+              <h3>Um sistema, não um curso</h3>
+              <p>Em cada etapa você vai refletir sobre sua operação real e documentar o que encontrar. Um assistente de IA responde em tempo real sobre o que você escreveu. No final, tudo vira um plano único — gerado pela IA com base nos seus inputs.</p>
+            </div>
+          </div>
+          <div class="trl-method-label">As 7 etapas · OMA OS Builder Method</div>
+          <div class="trl-method-steps">
+            <div class="trl-ms"><div class="trl-ms-num">01</div><div class="trl-ms-name">Shift</div><div class="trl-ms-sub">Destravar</div></div>
+            <div class="trl-ms"><div class="trl-ms-num">02</div><div class="trl-ms-name">Scan</div><div class="trl-ms-sub">Enxergar</div></div>
+            <div class="trl-ms"><div class="trl-ms-num">03</div><div class="trl-ms-name">Mine</div><div class="trl-ms-sub">Investigar</div></div>
+            <div class="trl-ms"><div class="trl-ms-num">04</div><div class="trl-ms-name">Decide</div><div class="trl-ms-sub">Escolher</div></div>
+            <div class="trl-ms"><div class="trl-ms-num">05</div><div class="trl-ms-name">Design</div><div class="trl-ms-sub">Desenhar</div></div>
+            <div class="trl-ms"><div class="trl-ms-num">06</div><div class="trl-ms-name">Launch</div><div class="trl-ms-sub">Ativar</div></div>
+            <div class="trl-ms"><div class="trl-ms-num">07</div><div class="trl-ms-name">Scale</div><div class="trl-ms-sub">Evoluir</div></div>
+          </div>
+          <div class="trl-dl-card">
+            <h3>O que você leva ao final</h3>
+            <div class="trl-dl-grid" id="trailDeliverables"></div>
+          </div>
+          <div style="text-align:center;padding:8px 0 40px;">
+            <button class="trl-btn-start" onclick="startTrailStages()">COMEÇAR A TRILHA →</button>
+            <div class="trl-btn-start-sub">Etapa 1 de 7 · Shift — Destravar · +150 XP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETAPAS DA TRILHA — layout 2 colunas -->
+      <div id="trailViewStage" style="display:none;">
+        <!-- stepper -->
+        <div class="trl-stepper" id="trailStepper"></div>
+        <div class="trl-stage-layout">
+          <!-- esquerda: conteúdo -->
+          <div class="trl-sc-left" id="trailStageContent"></div>
+          <!-- direita: workspace -->
+          <div class="trl-sc-right">
+            <div class="trl-ws-head">
+              <div class="trl-ws-title">WORKSPACE</div>
+              <div class="trl-ws-sub">Seus inputs constroem o plano final</div>
+            </div>
+            <div class="trl-ws-tabs">
+              <button class="trl-ws-tab trl-tab-open" onclick="trlSwitchTab('reflection',this)" id="trlTabRefl">✏️ REFLEXÃO</button>
+              <button class="trl-ws-tab" onclick="trlSwitchTab('chat',this)" id="trlTabChat">💬 CHAT IA</button>
+            </div>
+            <div class="trl-ws-reflection trl-tab-open" id="trlWsReflection"></div>
+            <div class="trl-ws-chat" id="trlWsChat">
+              <div class="trl-chat-ctx">
+                <div class="trl-chat-dot"></div>
+                <span class="trl-chat-ctx-label" id="trlChatCtx">Contexto: Etapa 01 · Shift</span>
+              </div>
+              <div class="trl-chat-msgs" id="trlChatMsgs">
+                <div class="trl-msg trl-msg-ai">
+                  <div class="trl-msg-bubble">Olá! Preencha o workspace e depois volte aqui — vou comentar o que você escreveu e te ajudar a aprofundar.</div>
+                  <div class="trl-msg-meta">OMA · agora</div>
+                </div>
+              </div>
+              <div class="trl-chat-footer">
+                <textarea class="trl-chat-input" id="trlChatInput" placeholder="Escreva aqui…" rows="2" onkeydown="trlHandleKey(event)"></textarea>
+                <button class="trl-chat-send" id="trlChatSend" onclick="trlSendMsg()">↑</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINALIZAÇÃO -->
+      <div id="trailViewFinish" style="display:none;">
+        <div class="trl-finish-hero">
+          <span style="font-size:52px;display:block;margin-bottom:18px;position:relative;z-index:1;">🏆</span>
+          <div class="trl-fh-eyebrow" id="trlFinishEyebrow">Trilha concluída</div>
+          <h1 class="trl-fh-title">Seu sistema operacional<br><em>está desenhado</em></h1>
+          <p class="trl-fh-sub">Você passou pelas 7 etapas, documentou sua operação real e deixou a IA analisar o que você construiu. Aqui está seu plano — único porque é baseado em você.</p>
+          <div class="trl-finish-cut"></div>
+        </div>
+        <div class="trl-finish-body">
+          <div class="trl-congrats-card">
+            <div class="trl-congrats-tag">⚡ Análise do assistente</div>
+            <div id="trlCongratsText">
+              <div style="display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px;color:#666;letter-spacing:1px;margin-top:8px;">
+                <span style="display:inline-flex;gap:3px;"><span style="width:5px;height:5px;background:var(--fire);border-radius:50%;animation:trl-blink 1.2s infinite;"></span><span style="width:5px;height:5px;background:var(--fire);border-radius:50%;animation:trl-blink 1.2s .2s infinite;"></span><span style="width:5px;height:5px;background:var(--fire);border-radius:50%;animation:trl-blink 1.2s .4s infinite;"></span></span>
+                Gerando análise personalizada…
+              </div>
+            </div>
+          </div>
+          <div class="trl-report-card">
+            <div class="trl-report-header">
+              <div class="trl-report-title" id="trlReportTitle">PLANO OMA</div>
+              <div class="trl-report-date" id="trlReportDate"></div>
+            </div>
+            <div id="trlReportContent"></div>
+          </div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <button class="trl-btn-dl" onclick="trlDownload()">⬇ BAIXAR PLANO</button>
+            <button class="trl-btn-oma" onclick="trlOpenOMA()">FALAR COM O OMA →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- SCREEN: Certificate -->
     <div class="screen" id="screenCert">
       <div class="cert-screen fadein">
@@ -2021,6 +2479,7 @@ select.precert-input{cursor:pointer;}
   </div>
 </div>
 
+<script src="/oma-checkout.js"></script>
 </body>
 </html><script>
 const API='https://api.onemanarmyproject.com.br';
@@ -2806,32 +3265,7 @@ function renderSidebar(){
     html+=`</div>`;
   });
 
-  const soonHtml = `
-    <div class="s-coming-soon">
-      <div class="s-cs-label">Em breve</div>
-      <div class="s-trail-soon">
-        <div class="s-trail-soon-icon">💼</div>
-        <div class="s-trail-soon-info">
-          <div class="s-trail-soon-name">Trilha de Negócios</div>
-          <div class="s-trail-soon-badge">em breve</div>
-        </div>
-      </div>
-      <div class="s-trail-soon">
-        <div class="s-trail-soon-icon">📊</div>
-        <div class="s-trail-soon-info">
-          <div class="s-trail-soon-name">Trilha de Dados</div>
-          <div class="s-trail-soon-badge">em breve</div>
-        </div>
-      </div>
-      <div class="s-trail-soon">
-        <div class="s-trail-soon-icon">🔐</div>
-        <div class="s-trail-soon-info">
-          <div class="s-trail-soon-name">Trilha de Segurança</div>
-          <div class="s-trail-soon-badge">em breve</div>
-        </div>
-      </div>
-    </div>
-  `;
+  const soonHtml = buildSidebarTrails();
   navEl.innerHTML=html+soonHtml;
   drawerEl.innerHTML=html+soonHtml;
 }
@@ -2901,6 +3335,8 @@ function renderDashboard(){
     bHtml+=`<div class="badge-chip ${earned?'earned':'locked'}"><span class="badge-chip-icon">${b.icon}</span><span class="badge-chip-name">${b.name}</span></div>`;
   });
   document.getElementById('badgesWrap').innerHTML=bHtml;
+  // Trilhas Guiadas
+  renderTrailCards();
 }
 
 // ════════════════════════════════════════════════════════
@@ -2909,7 +3345,7 @@ function renderDashboard(){
 function goScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
-  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado',intro:'Bem-vindo',precert:'Certificado',checkpoint:'Field Test'};
+  const titles={dash:'Dashboard',phase:'Fase',lesson:'Módulo',cert:'Certificado',intro:'Bem-vindo',precert:'Certificado',checkpoint:'Field Test',trail:'Trilha Guiada'};
   document.getElementById('topTitle').textContent=titles[name]||name;
   window.scrollTo(0,0);
 }
@@ -4477,6 +4913,940 @@ async function submitWaitlist(){
 // ════════════════════════════════════════════════════════
 function openEnterpriseOrWaitlist(){
   openWaitlist();
+}
+
+
+// ════════════════════════════════════════════════════════
+//  TRILHAS GUIADAS — DADOS, LÓGICA E CHECKOUT
+// ════════════════════════════════════════════════════════
+
+const TRAILS = {
+  'sales-manager': {
+    id: 'sales-manager',
+    type: 'especialidade',
+    icon: '🎯',
+    name: 'Gestor Comercial OMA',
+    shortName: 'Gestor Comercial',
+    promise: 'Construa o sistema operacional do seu comercial com IA, automação e agentes.',
+    audience: 'Gestores comerciais, founders e líderes de receita com operação ativa',
+    priceBeta: 497,
+    priceFull: 697,
+    product: 'trail_sales_manager',
+    stages: [
+      {
+        id:'shift', num:'01', label:'Shift', name:'Destravar',
+        sub:'Por que o comercial atual ficou caro demais',
+        xp:150,
+        concept: 'O gargalo do comercial raramente está só na habilidade do vendedor. Na maioria das vezes, ele está na operação invisível: lead mal distribuído, follow-up inconsistente, dados quebrados e gestor atuando como bombeiro.',
+        provocacao: 'Se o seu melhor vendedor saísse amanhã, seu comercial continuaria funcionando como sistema — ou desabaria porque está apoiado em pessoas específicas?',
+        acoes: ['Descreva a realidade do comercial hoje: como os leads entram, quem atende e como os follow-ups acontecem', 'Levante exemplos da última semana: leads não respondidos, follow-ups atrasados, reuniões sem dado confiável', 'Identifique onde você, como gestor, mais atua como bombeiro em vez de arquiteto'],
+        entregavel: 'Diagnóstico inicial do comercial atual — sintomas visíveis de perda de eficiência e dependência operacional.'
+      },
+      {
+        id:'scan', num:'02', label:'Scan', name:'Enxergar',
+        sub:'Mapear a operação como ela realmente roda hoje',
+        xp:150,
+        concept: 'Enquanto o comercial fica só na narrativa, o gestor discute percepção. Quando o fluxo aparece em mapa, ficam visíveis as quebras de cadência, os pontos cegos e os trechos onde a operação depende de improviso.',
+        provocacao: 'Você sabe exatamente onde um lead entra, quanto tempo espera, quem assume a próxima ação e em que ponto ele costuma esfriar?',
+        acoes: ['Mapeie as etapas do pipeline atual, do lead até o fechamento ou descarte', 'Identifique os canais de entrada, os responsáveis por cada etapa e as ferramentas usadas', 'Registre onde o processo para: gargalos de handoff, falta de dado, aprovações pendentes'],
+        entregavel: 'Mapa da operação comercial atual com visão de funil, responsáveis e pontos de fricção.'
+      },
+      {
+        id:'mine', num:'03', label:'Mine', name:'Investigar',
+        sub:'Extrair os gargalos reais que travam resultado',
+        xp:150,
+        concept: 'Nem todo problema aparente merece prioridade. O que parece dor pode ser só sintoma. O trabalho desta etapa é separar ruído de gargalo estrutural e identificar onde a automação pode de fato liberar capacidade.',
+        provocacao: 'Qual parte do seu comercial mais consome energia humana para produzir um resultado que deveria ser previsível?',
+        acoes: ['Classifique os gargalos por tipo: captura, qualificação, follow-up, visibilidade, onboarding, reporte', 'Colete evidências: mensagens sem resposta, oportunidades paradas, tarefas repetitivas do gestor', 'Estime impacto e frequência de cada gargalo'],
+        entregavel: 'Inventário de gargalos comerciais com evidências, frequência, impacto e hipótese de causa.'
+      },
+      {
+        id:'decide', num:'04', label:'Decide', name:'Escolher',
+        sub:'Priorizar onde começar para gerar ganho visível',
+        xp:150,
+        concept: 'O comercial não melhora quando tenta automatizar tudo. Melhora quando escolhe o primeiro recorte com alto impacto, baixa ambiguidade e ganho percebido rápido.',
+        provocacao: 'Se você só pudesse resolver um gargalo nos próximos 30 dias, qual geraria mais clareza, velocidade ou conversão com o menor atrito de adoção?',
+        acoes: ['Use uma matriz impacto × esforço para priorizar os gargalos identificados', 'Valide rapidamente com o time ou liderança: qual dor mais atrapalha a rotina hoje', 'Escolha o primeiro caso de uso a ser desenhado — deve ser executável em até 4 semanas'],
+        entregavel: 'Mapa de automações priorizadas e recorte do primeiro caso de uso a ser desenhado.'
+      },
+      {
+        id:'design', num:'05', label:'Design', name:'Desenhar',
+        sub:'Arquitetar o novo sistema operacional comercial',
+        xp:200,
+        concept: 'Automação não é ferramenta solta — é desenho operacional. Quando o sistema fica bem desenhado, o time entende o que continua humano, o que pode ser delegado e como a gestão recupera visibilidade.',
+        provocacao: 'Se você precisasse explicar para um novo gestor como esse comercial opera sem depender de contexto implícito, conseguiria mostrar o fluxo com clareza?',
+        acoes: ['Desenhe o blueprint do sistema: evento de entrada, roteamento, qualificação, follow-up, alertas, pontos humanos', 'Defina o que o agente comercial faz, o que ele não faz, e quais dados ele precisa', 'Documente a cadência gerencial: rituais, dashboards, métricas e revisões'],
+        entregavel: 'Blueprint do sistema operacional comercial e especificação funcional do agente comercial prioritário.'
+      },
+      {
+        id:'launch', num:'06', label:'Launch', name:'Ativar',
+        sub:'Definir o piloto e colocar o primeiro movimento em campo',
+        xp:200,
+        concept: 'O valor não está em um blueprint bonito. Está em testar um recorte real com métrica, owner e janela de observação. A ativação começa pequena para aprender rápido.',
+        provocacao: 'Qual é o menor recorte operacional capaz de provar que o novo sistema comercial melhora velocidade, consistência ou visibilidade?',
+        acoes: ['Defina o escopo do piloto: qual processo, qual recorte, qual período', 'Estabeleça as métricas baseline e os critérios de sucesso', 'Identifique o owner do piloto, a rotina de acompanhamento e os riscos previstos'],
+        entregavel: 'Plano de piloto comercial com metas, responsáveis, checkpoints e riscos previstos.'
+      },
+      {
+        id:'scale', num:'07', label:'Scale', name:'Evoluir',
+        sub:'Medir, corrigir, consolidar e expandir',
+        xp:200,
+        concept: 'Escalar não é replicar cegamente. É documentar o que funcionou, entender onde ainda existe dependência humana excessiva e preparar a próxima camada de melhoria.',
+        provocacao: 'Se este piloto funcionar, o que exatamente será repetido, o que precisará ser ajustado e qual processo entra na próxima onda?',
+        acoes: ['Analise os resultados do piloto: ganhos percebidos, fricções de adoção, falhas de processo', 'Registre o aprendizado e as dependências que ainda ficaram manuais', 'Monte o roadmap de evolução para a próxima camada do sistema comercial'],
+        entregavel: 'Relatório de aprendizado do piloto e roadmap inicial de evolução do sistema comercial.'
+      }
+    ]
+  },
+  'finance-manager': {
+    id: 'finance-manager', type: 'especialidade', icon: '📊',
+    name: 'Gestor Financeiro OMA', shortName: 'Gestor Financeiro',
+    promise: 'Construa o sistema operacional do seu financeiro com IA, automação e agentes.',
+    audience: 'CFOs, controllers e gestores financeiros de PMEs',
+    priceBeta: 497, priceFull: 697, product: 'trail_finance_manager',
+    stages: [] // conteúdo em breve
+  },
+  'hr-manager': {
+    id: 'hr-manager', type: 'especialidade', icon: '👥',
+    name: 'Gestor de RH OMA', shortName: 'Gestor de RH',
+    promise: 'Construa o sistema operacional do seu RH com IA, automação e agentes.',
+    audience: 'HRBPs, heads de pessoas e gestores de RH em PMEs',
+    priceBeta: 497, priceFull: 697, product: 'trail_hr_manager',
+    stages: []
+  },
+  'legal-office': {
+    id: 'legal-office', type: 'vertical', icon: '⚖️',
+    name: 'Escritório Jurídico OMA', shortName: 'Escritório Jurídico',
+    promise: 'Mapeie e redesenhe a operação do seu escritório com IA, automação e agentes.',
+    audience: 'Sócios e gestores de escritórios de advocacia (2-20 advogados)',
+    priceBeta: 497, priceFull: 697, product: 'trail_legal_office',
+    stages: []
+  },
+  'clinic': {
+    id: 'clinic', type: 'vertical', icon: '🏥',
+    name: 'Clínica OMA', shortName: 'Clínica',
+    promise: 'Mapeie e redesenhe a operação da sua clínica com IA, automação e agentes.',
+    audience: 'Donos de clínicas médicas, odontológicas, veterinárias e de psicologia',
+    priceBeta: 497, priceFull: 697, product: 'trail_clinic',
+    stages: []
+  },
+  'optical': {
+    id: 'optical', type: 'vertical', icon: '👓',
+    name: 'Ótica OMA', shortName: 'Ótica',
+    promise: 'Mapeie e redesenhe a operação da sua ótica com IA, automação e agentes.',
+    audience: 'Donos de óticas independentes ou pequenas redes (1-5 lojas)',
+    priceBeta: 497, priceFull: 697, product: 'trail_optical',
+    stages: []
+  },
+  'petshop': {
+    id: 'petshop', type: 'vertical', icon: '🐾',
+    name: 'Petshop OMA', shortName: 'Petshop',
+    promise: 'Mapeie e redesenhe a operação do seu petshop com IA, automação e agentes.',
+    audience: 'Donos e gestores de petshops com agenda, banho/tosa e atendimento recorrente',
+    priceBeta: 497, priceFull: 697, product: 'trail_petshop',
+    stages: []
+  },
+  'distributor': {
+    id: 'distributor', type: 'vertical', icon: '🏭',
+    name: 'Distribuidora OMA', shortName: 'Distribuidora',
+    promise: 'Mapeie e redesenhe a operação da sua distribuidora com IA, automação e agentes.',
+    audience: 'Donos e gestores de distribuidoras com ruído entre comercial, operação e financeiro',
+    priceBeta: 697, priceFull: 997, product: 'trail_distributor',
+    stages: []
+  }
+};
+
+// Ordem de exibição
+const TRAILS_ORDER_ESP = ['sales-manager','finance-manager','hr-manager'];
+const TRAILS_ORDER_VERT = ['legal-office','clinic','optical','petshop','distributor'];
+
+// ── Controle de acesso ───────────────────────────────────
+function getPurchasedTrails() {
+  try { return JSON.parse(localStorage.getItem('oma_trails_purchased') || '[]'); } catch(e) { return []; }
+}
+function isTrailPurchased(trailId) {
+  return getPurchasedTrails().includes(trailId);
+}
+function markTrailPurchased(trailId) {
+  const list = getPurchasedTrails();
+  if (!list.includes(trailId)) { list.push(trailId); localStorage.setItem('oma_trails_purchased', JSON.stringify(list)); }
+}
+function getTrailProgress(trailId) {
+  try { return JSON.parse(localStorage.getItem('oma_trail_progress_' + trailId) || '[]'); } catch(e) { return []; }
+}
+function markStageComplete(trailId, stageId) {
+  const done = getTrailProgress(trailId);
+  if (!done.includes(stageId)) { done.push(stageId); localStorage.setItem('oma_trail_progress_' + trailId, JSON.stringify(done)); }
+}
+function isStageComplete(trailId, stageId) {
+  return getTrailProgress(trailId).includes(stageId);
+}
+
+// Verifica acesso por conta (via API — confirma compra server-side)
+async function verifyTrailAccess(trailId) {
+  if (isTrailPurchased(trailId)) return true;
+  try {
+    const user = getUser();
+    if (!user || !user.email) return false;
+    const r = await fetch('https://api.onemanarmyproject.com.br/academy/trail-access', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email: user.email, trail_id: trailId })
+    });
+    const d = await r.json();
+    if (d.access) { markTrailPurchased(trailId); return true; }
+    return false;
+  } catch(e) { return false; }
+}
+
+// ── Renderização do dashboard ────────────────────────────
+function renderTrailCards() {
+  const purchased = getPurchasedTrails();
+
+  function renderGroup(ids, containerId) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    let html = '';
+    ids.forEach(id => {
+      const t = TRAILS[id];
+      if (!t) return;
+      const bought = purchased.includes(id);
+      const hasContent = t.stages && t.stages.length > 0;
+      const typeCls = t.type;
+      const priceStr = bought ? '' : `<div class="tg-card-price">Beta · <strong>R$ ${t.priceBeta}</strong></div>`;
+      let ctaHtml = '';
+      if (bought) {
+        const prog = getTrailProgress(id);
+        const total = t.stages.length;
+        const pct = total > 0 ? Math.round((prog.length / total) * 100) : 0;
+        ctaHtml = `<div class="tg-card-badge purchased-badge">✓ Adquirida</div><div style="margin-bottom:8px;"><div style="height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--green);border-radius:2px;"></div></div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);margin-top:3px;">${prog.length}/${total} etapas</div></div><button class="tg-card-cta open" onclick="openTrail('${id}')">Continuar trilha →</button>`;
+      } else if (!hasContent) {
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? '🎯 Especialidade' : '🏢 Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong> beta</div><button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button><div class="tg-card-lock">🔒</div>`;
+      } else {
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? '🎯 Especialidade' : '🏢 Vertical'}</div><div class="tg-card-price">Beta · <strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openTrailPreview('${id}')">Ver preview grátis</button><button class="tg-card-cta buy" style="margin-top:6px;" onclick="buyTrail('${id}')">Comprar trilha →</button>`;
+      }
+      html += `<div class="tg-card ${bought ? 'purchased' : ''}">
+        <div class="tg-card-icon">${t.icon}</div>
+        <div class="tg-card-name">${t.shortName}</div>
+        <div class="tg-card-promise">${t.promise}</div>
+        ${ctaHtml}
+      </div>`;
+    });
+    el.innerHTML = html;
+  }
+
+  renderGroup(TRAILS_ORDER_ESP, 'tgCardsEspecialidade');
+  renderGroup(TRAILS_ORDER_VERT, 'tgCardsVertical');
+}
+
+// ── Ações dos cards ──────────────────────────────────────
+let currentTrailId = null;
+
+function openTrailPreview(trailId) {
+  currentTrailId = trailId;
+  renderTrailScreen(trailId, false);
+  goScreen('trail');
+  document.getElementById('topTitle').textContent = TRAILS[trailId].shortName;
+}
+
+function openTrail(trailId) {
+  currentTrailId = trailId;
+  renderTrailScreen(trailId, true);
+  goScreen('trail');
+  document.getElementById('topTitle').textContent = TRAILS[trailId].shortName;
+}
+
+function buyTrail(trailId) {
+  const t = TRAILS[trailId];
+  const user = getUser ? getUser() : {};
+  omaCheckout.open({
+    badge: t.type === 'especialidade' ? 'Trilha · Especialidade' : 'Trilha · Vertical',
+    title: t.name,
+    priceLabel: 'Beta · R$ ' + t.priceBeta,
+    product: t.product,
+    value: t.priceBeta,
+    description: t.name + ' — OMA Academy',
+    email: user && user.email ? user.email : '',
+    name: user && user.name ? user.name : '',
+    successMsg: 'Pagamento confirmado! Sua trilha <strong>' + t.name + '</strong> está liberada.',
+    successBtnLabel: 'ACESSAR TRILHA →',
+    onSuccess: function() {
+      markTrailPurchased(trailId);
+      renderTrailCards();
+      // Registra lead/compra na API
+      try {
+        fetch('https://api.onemanarmyproject.com.br/academy/trail-purchase', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ email: user && user.email ? user.email : '', trail_id: trailId, product: t.product, value: t.priceBeta })
+        });
+      } catch(e){}
+    },
+    onSuccessBtn: function() {
+      omaCheckout.close();
+      openTrail(trailId);
+    }
+  });
+}
+
+function openWaitlistTrail(trailId) {
+  const t = TRAILS[trailId];
+  // Abre waitlist com interesse na trilha específica
+  document.getElementById('wlInteresse').value = t.product || '';
+  openWaitlist();
+}
+
+// ── Renderização da screen de trilha ────────────────────
+function renderTrailScreen(trailId, fullAccess) {
+  const t = TRAILS[trailId];
+  if (!t) return;
+
+  // Hero
+  const hero = document.getElementById('trailHero');
+  hero.className = 'trail-hero ' + (t.type === 'especialidade' ? 'especialidade-hero' : 'vertical-hero');
+  document.getElementById('trailHeroType').textContent = t.type === 'especialidade' ? '🎯 Especialidade · qualquer setor' : '🏢 Vertical · ' + t.shortName;
+  document.getElementById('trailHeroTitle').textContent = t.name;
+  document.getElementById('trailHeroPromise').textContent = t.promise;
+
+  // Progress
+  const done = getTrailProgress(trailId);
+  const total = t.stages.length;
+  const pct = total > 0 ? Math.round((done.length / total) * 100) : 0;
+  document.getElementById('trailMetaProgress').textContent = done.length + '/' + total + ' etapas concluídas';
+  document.getElementById('trailProgressFill').style.width = pct + '%';
+
+  // Stages
+  const container = document.getElementById('trailStages');
+  if (!t.stages || t.stages.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text3);"><div style="font-size:32px;margin-bottom:12px;">🚧</div><div style="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:18px;color:var(--text);margin-bottom:8px;">Conteúdo em produção</div><div style="font-size:13px;line-height:1.6;">Esta trilha está sendo construída. Compre agora com desconto beta e receba acesso assim que for lançada.</div></div>';
+    return;
+  }
+
+  let html = '';
+  t.stages.forEach((stage, idx) => {
+    const isPreview = idx === 0; // primeira etapa sempre preview
+    const isPurchased = fullAccess;
+    const isUnlocked = isPurchased || isPreview;
+    const isCompleted = isStageComplete(trailId, stage.id);
+    const isFirst = idx === 0;
+    const prevDone = idx === 0 ? true : isStageComplete(trailId, t.stages[idx-1].id);
+    const isActive = isUnlocked && !isCompleted && prevDone;
+
+    let stageClass = 'trail-stage';
+    if (isCompleted) stageClass += ' done';
+    else if (!isUnlocked) stageClass += ' locked';
+    else if (isActive) stageClass += ' active';
+
+    const numIcon = isCompleted ? '✓' : stage.num;
+    const statusIcon = isCompleted ? '✅' : (!isUnlocked ? '🔒' : '▶');
+    const previewBadge = isPreview && !isPurchased ? '<span class="ts-preview-badge">✓ Preview grátis</span>' : '';
+    const clickHandler = isUnlocked ? `onclick="toggleStage('${trailId}','${stage.id}',this)"` : '';
+
+    let bodyHtml = '';
+    if (isUnlocked) {
+      if (isCompleted) {
+        bodyHtml = `<div style="text-align:center;padding:12px;color:var(--green);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;">✅ ETAPA CONCLUÍDA — ${stage.entregavel}</div>`;
+      } else {
+        bodyHtml = `
+          <div class="ts-concept"><div class="ts-concept-label">Conceito</div><div class="ts-concept-text">${stage.concept}</div></div>
+          <div class="ts-provocacao"><div class="ts-provocacao-label">Reflexão</div><div class="ts-provocacao-text">${stage.provocacao}</div></div>
+          <div class="ts-acao"><div class="ts-acao-label">Sua ação nesta etapa</div><div class="ts-acao-items">${stage.acoes.map(a=>`<div class="ts-acao-item">${a}</div>`).join('')}</div></div>
+          <div class="ts-entregavel"><div class="ts-entregavel-label">Entregável desta etapa</div><div class="ts-entregavel-text">${stage.entregavel}</div></div>
+          <button class="ts-btn-complete" onclick="completeStage('${trailId}','${stage.id}')">Marcar etapa como concluída →</button>
+        `;
+      }
+    } else {
+      bodyHtml = `
+        <div class="ts-lock-wall">
+          <div class="ts-lock-icon">🔒</div>
+          <div class="ts-lock-title">Etapa bloqueada</div>
+          <div class="ts-lock-sub">Esta etapa faz parte da trilha completa. Compre agora para acessar todas as 7 etapas e construir seu sistema operacional.</div>
+          <button class="ts-lock-btn" onclick="buyTrail('${trailId}')">Desbloquear trilha completa — R$ ${t.priceBeta} →</button>
+        </div>
+      `;
+    }
+
+    html += `
+      <div class="${stageClass}" id="stage-${trailId}-${stage.id}">
+        <div class="ts-header" ${clickHandler}>
+          <div class="ts-num">${numIcon}</div>
+          <div class="ts-info">
+            <div class="ts-label">${stage.label}${previewBadge}</div>
+            <div class="ts-name">${stage.name}</div>
+            <div class="ts-sub">${stage.sub}</div>
+          </div>
+          <div class="ts-right">
+            <div class="ts-xp">+${stage.xp} XP</div>
+            <div class="ts-status">${statusIcon}</div>
+            ${isUnlocked ? '<div class="ts-chevron">▾</div>' : ''}
+          </div>
+        </div>
+        <div class="ts-body">${bodyHtml}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+
+  // Abre automaticamente a primeira não concluída
+  if (fullAccess) {
+    const firstActive = t.stages.find((s,i) => !isStageComplete(trailId, s.id) && (i===0 || isStageComplete(trailId, t.stages[i-1].id)));
+    if (firstActive) {
+      const el = document.getElementById('stage-' + trailId + '-' + firstActive.id);
+      if (el) { el.classList.add('open'); }
+    }
+  } else {
+    // preview: abre a primeira
+    const el = document.getElementById('stage-' + trailId + '-' + t.stages[0].id);
+    if (el) { el.classList.add('open'); }
+  }
+
+  // Mostra/oculta completion
+  const allDone = t.stages.length > 0 && t.stages.every(s => isStageComplete(trailId, s.id));
+  const comp = document.getElementById('trailCompletion');
+  if (comp) {
+    comp.style.display = allDone ? 'block' : 'none';
+    if (allDone) {
+      document.getElementById('trailCompletionTitle').textContent = t.name + ' — trilha concluída! 🏆';
+      document.getElementById('trailCompletionSub').textContent = 'Você construiu seu ' + (t.type === 'especialidade' ? 'sistema operacional de ' + t.shortName.toLowerCase() : 'sistema operacional da ' + t.shortName.toLowerCase()) + '. O próximo passo é colocar em prática com o OMA.';
+    }
+  }
+}
+
+function toggleStage(trailId, stageId, headerEl) {
+  const stageEl = headerEl.closest('.trail-stage');
+  if (!stageEl || stageEl.classList.contains('locked')) return;
+  stageEl.classList.toggle('open');
+}
+
+function completeStage(trailId, stageId) {
+  markStageComplete(trailId, stageId);
+  // XP
+  const t = TRAILS[trailId];
+  const stage = t.stages.find(s => s.id === stageId);
+  if (stage) { ST.xp = (ST.xp||0) + stage.xp; saveState(); }
+  // Re-renderiza a screen
+  renderTrailScreen(trailId, isTrailPurchased(trailId));
+}
+
+function openOMAImplementation() {
+  // Abre Bia no WhatsApp com contexto da trilha
+  const t = TRAILS[currentTrailId];
+  if (!t) return;
+  const msg = encodeURIComponent('Olá! Acabei de concluir a trilha ' + t.name + ' na OMA Academy e gostaria de conversar sobre implementação.');
+  window.open('https://wa.me/5541991196134?text=' + msg, '_blank');
+}
+
+// Atualizar openEnterpriseOrWaitlist para novo fluxo
+function openEnterpriseOrWaitlist() {
+  openWaitlist();
+}
+
+// ── Sidebar: injetar seção de trilhas guiadas ────────────
+function buildSidebarTrails() {
+  const purchased = getPurchasedTrails();
+  let html = '<div class="s-tg-section"><div class="s-tg-label">Trilhas Guiadas</div>';
+  html += '<div class="s-tg-type-sep especialidade">🎯 Especialidades</div>';
+  TRAILS_ORDER_ESP.forEach(id => {
+    const t = TRAILS[id];
+    const bought = purchased.includes(id);
+    const hasContent = t.stages && t.stages.length > 0;
+    const cls = bought ? '' : (!hasContent ? ' locked' : '');
+    const badgeCls = bought ? 'free' : 'especialidade';
+    const badgeTxt = bought ? 'adquirida' : 'especialidade';
+    const click = bought ? `onclick="openTrail('${id}')"` : (!hasContent ? '' : `onclick="openTrailPreview('${id}')"` );
+    html += `<div class="s-tg-item${cls}" ${click}><div class="s-tg-icon">${t.icon}</div><div class="s-tg-info"><div class="s-tg-name">${t.shortName}</div><div class="s-tg-badge ${badgeCls}">${badgeTxt}</div></div></div>`;
+  });
+  html += '<div class="s-tg-type-sep vertical">🏢 Verticais</div>';
+  TRAILS_ORDER_VERT.forEach(id => {
+    const t = TRAILS[id];
+    const bought = purchased.includes(id);
+    const hasContent = t.stages && t.stages.length > 0;
+    const cls = bought ? '' : (!hasContent ? ' locked' : '');
+    const badgeCls = bought ? 'free' : 'vertical';
+    const badgeTxt = bought ? 'adquirida' : 'vertical';
+    const click = bought ? `onclick="openTrail('${id}')"` : (!hasContent ? '' : `onclick="openTrailPreview('${id}')"` );
+    html += `<div class="s-tg-item${cls}" ${click}><div class="s-tg-icon">${t.icon}</div><div class="s-tg-info"><div class="s-tg-name">${t.shortName}</div><div class="s-tg-badge ${badgeCls}">${badgeTxt}</div></div></div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+
+// ════════════════════════════════════════════════════════
+//  TRILHAS GUIADAS v4 — ENGINE COMPLETO
+// ════════════════════════════════════════════════════════
+
+const TRL_STAGES_DATA = {
+  'sales-manager': [
+    {id:'shift',num:'01',label:'Shift',name:'Destravar',sub:'Por que o comercial atual ficou caro demais',xp:150,
+     concept:'O gargalo do comercial raramente está só na habilidade do vendedor. Na maioria das vezes, ele está na operação invisível: lead mal distribuído, follow-up inconsistente, dados quebrados e gestor atuando como bombeiro.',
+     highlight:'"Mais esforço num sistema quebrado só acelera o desperdício."',
+     prov:'Se o seu melhor vendedor saísse amanhã, seu comercial continuaria funcionando como sistema — ou desabaria porque está apoiado em pessoas específicas?',
+     actions:['Descreva como os leads chegam hoje: canais, quem recebe, tempo médio de resposta','Liste os 3 momentos da semana passada em que você resolveu algo operacional que não deveria ser seu','Identifique qual parte do processo mais depende de uma pessoa específica'],
+     deliver:'Diagnóstico inicial — sintomas de perda de eficiência e dependência operacional',
+     inputs:[{id:'shift_leads',q:'Como os leads chegam hoje?',ph:'Canais: WhatsApp, site, indicação, ads... quem recebe e qual o tempo médio de resposta'},{id:'shift_bombeiro',q:'Onde você mais atua como bombeiro?',ph:'Quais tarefas operacionais tomam seu tempo mas poderiam ser automáticas ou delegadas?'},{id:'shift_dep',q:'O que trava se uma pessoa específica faltar?',ph:'Qual processo ou informação depende de alguém específico no seu time?'}],
+     micro:{tag:'Conceito rápido',title:'O que é um sistema operacional comercial?',text:'É o conjunto de fluxos, regras, ferramentas e agentes que fazem o comercial funcionar independentemente de quem está presente. Um bom sistema opera com consistência — não com heroísmo individual.'}},
+    {id:'scan',num:'02',label:'Scan',name:'Enxergar',sub:'Mapear a operação como ela realmente roda hoje',xp:150,
+     concept:'Enquanto o comercial fica só na narrativa, o gestor discute percepção. Quando o fluxo aparece em mapa, ficam visíveis as quebras de cadência, os pontos cegos e os trechos onde a operação depende de improviso.',
+     highlight:'"Você não pode melhorar o que ainda não consegue ver claramente."',
+     prov:'Você sabe exatamente onde um lead entra, quanto tempo espera, quem assume a próxima ação e em que ponto ele costuma esfriar?',
+     actions:['Mapeie as etapas do pipeline atual, do lead até o fechamento ou descarte','Identifique canais de entrada, responsáveis por cada etapa e ferramentas usadas','Registre onde o processo para: gargalos de handoff, falta de dado, aprovações pendentes'],
+     deliver:'Mapa da operação comercial atual com funil, responsáveis e pontos de fricção',
+     inputs:[{id:'scan_funil',q:'Quais são as etapas do seu pipeline hoje?',ph:'Ex: Lead novo → Qualificação → Proposta → Negociação → Fechamento. Como é o seu?'},{id:'scan_ferramentas',q:'Quais ferramentas existem e como estão integradas?',ph:'CRM, planilha, WhatsApp... o que existe e como está conectado (ou não)?'},{id:'scan_quebras',q:'Onde o processo para ou perde contexto?',ph:'Qual etapa tem mais leads parados? Onde o handoff falha com mais frequência?'}],
+     micro:{tag:'Conceito rápido',title:'CRM ≠ Sistema operacional',text:'Um CRM registra o que aconteceu. Um sistema operacional define o que vai acontecer. A maioria dos times tem CRM mas não tem processo — os dados entram, mas o fluxo depende de memória humana para avançar.'}},
+    {id:'mine',num:'03',label:'Mine',name:'Investigar',sub:'Extrair os gargalos reais que travam resultado',xp:150,
+     concept:'Nem todo problema aparente merece prioridade. O que parece dor pode ser só sintoma. O trabalho desta etapa é separar ruído de gargalo estrutural e identificar onde a automação pode liberar capacidade.',
+     highlight:'"Atacar o sintoma sem entender a causa é o caminho mais caro."',
+     prov:'Qual parte do seu comercial mais consome energia humana para produzir um resultado que deveria ser previsível?',
+     actions:['Classifique os gargalos por tipo: captura, qualificação, follow-up, visibilidade, onboarding, reporte','Colete evidências concretas: mensagens sem resposta, oportunidades paradas, tarefas repetitivas','Estime a frequência e o custo operacional de cada gargalo'],
+     deliver:'Inventário de gargalos com evidências, frequência, impacto estimado e hipótese de causa',
+     inputs:[{id:'mine_top3',q:'Quais são os 3 maiores gargalos do seu comercial?',ph:'Seja específico: não "follow-up ruim" — mas "leads no WhatsApp ficam 3 dias sem resposta porque ninguém tem visibilidade"'},{id:'mine_evid',q:'Que evidência concreta você tem de cada um?',ph:'Número de oportunidades paradas, tempo médio de resposta, tarefas que você mesmo faz todo dia...'},{id:'mine_custo',q:'Qual é o custo real desses gargalos?',ph:'Leads perdidos, deals lentos, tempo do gestor desperdiçado...'}],
+     micro:{tag:'Conceito rápido',title:'Gargalo estrutural vs. problema pontual',text:'Um gargalo estrutural acontece sempre, independente de quem está no time. Automação e agentes resolvem gargalos estruturais — investir neles para resolver problemas pontuais é desperdício.'}},
+    {id:'decide',num:'04',label:'Decide',name:'Escolher',sub:'Priorizar onde começar para gerar ganho visível',xp:150,
+     concept:'O comercial não melhora quando tenta automatizar tudo de uma vez. Melhora quando escolhe o primeiro recorte com alto impacto, baixa ambiguidade e ganho percebido rápido.',
+     highlight:'"Foco não é o que você decide fazer. É o que você decide não fazer agora."',
+     prov:'Se você só pudesse resolver um gargalo nos próximos 30 dias, qual geraria mais clareza, velocidade ou conversão com o menor atrito?',
+     actions:['Use uma matriz impacto × esforço para ordenar os gargalos identificados','Valide com o time: qual dor mais atrapalha a rotina diária','Escolha o primeiro caso de uso — executável em no máximo 4 semanas'],
+     deliver:'Mapa de automações priorizadas com primeiro caso de uso claramente definido',
+     inputs:[{id:'decide_matriz',q:'Ordene seus gargalos por impacto × esforço',ph:'Alto impacto + baixo esforço: qual gargalo cabe nessa caixa? Esse é o ponto de entrada.'},{id:'decide_escolha',q:'Qual é o primeiro caso de uso que você vai atacar?',ph:'"Agente no WhatsApp que responde leads inbound nas primeiras 5 minutos e qualifica antes de passar para o vendedor"'},{id:'decide_criterio',q:'Como você vai saber que funcionou?',ph:'Qual métrica vai mudar? Tempo de resposta cai de X para Y? Follow-up sobe para 100%?'}],
+     micro:null},
+    {id:'design',num:'05',label:'Design',name:'Desenhar',sub:'Arquitetar o novo sistema operacional comercial',xp:200,
+     concept:'Automação não é ferramenta solta — é desenho operacional. Quando o sistema fica bem desenhado, o time entende o que continua humano, o que pode ser delegado e como a gestão recupera visibilidade.',
+     highlight:'"Antes de escolher a ferramenta, desenhe o fluxo. A ferramenta serve o processo."',
+     prov:'Se você precisasse explicar para um novo gestor como esse comercial opera sem depender de contexto implícito, conseguiria mostrar o fluxo com clareza?',
+     actions:['Desenhe o blueprint: evento de entrada, roteamento, qualificação, follow-up, alertas e pontos humanos','Defina o que o agente faz, o que ele não faz, e quais dados ele precisa','Documente a cadência gerencial: rituais, dashboards e métricas'],
+     deliver:'Blueprint do sistema operacional comercial + especificação funcional do agente prioritário',
+     inputs:[{id:'design_fluxo',q:'Descreva o fluxo do novo sistema',ph:'Evento de entrada → O que o agente faz → Quando passa para humano → O que o gestor vê. Passo a passo.'},{id:'design_agente',q:'O que o agente comercial vai fazer (e não fazer)?',ph:'Faz: responde, qualifica, agenda. Não faz: negocia preço. Escala quando: ...'},{id:'design_visib',q:'Como o gestor vai ter visibilidade do sistema?',ph:'Dashboard com quê? Alertas de quê? Relatório diário com quais dados?'}],
+     micro:{tag:'Conceito rápido',title:'O que é um agente comercial?',text:'É uma IA com acesso a ferramentas, memória de contexto e regras de escalada que atua como um SDR que nunca dorme. Ele qualifica, responde, agenda e registra. O que exige julgamento humano, ele escala imediatamente.'}},
+    {id:'launch',num:'06',label:'Launch',name:'Ativar',sub:'Definir o piloto e colocar o primeiro movimento em campo',xp:200,
+     concept:'O valor não está em um blueprint bonito. Está em testar um recorte real com métrica, owner e janela de observação. A ativação começa pequena para aprender rápido.',
+     highlight:'"Um piloto imperfeito que roda aprende mais do que um plano perfeito que espera."',
+     prov:'Qual é o menor recorte operacional capaz de provar que o novo sistema comercial melhora velocidade, consistência ou visibilidade?',
+     actions:['Defina o escopo do piloto: qual processo, qual recorte, qual período (máximo 4 semanas)','Estabeleça as métricas baseline e os critérios claros de sucesso','Identifique o owner do piloto, a rotina de acompanhamento e os principais riscos'],
+     deliver:'Plano de piloto com escopo, métricas, responsável, checkpoints e riscos mapeados',
+     inputs:[{id:'launch_escopo',q:'Qual é o escopo do piloto?',ph:'"Agente responde leads do WhatsApp durante 3 semanas. Resto do comercial funciona normalmente."'},{id:'launch_metricas',q:'Quais são as métricas do piloto?',ph:'Baseline: tempo médio de resposta hoje = X min. Meta: X/2. Baseline: % leads com follow-up = Y%. Meta: 100%.'},{id:'launch_riscos',q:'Quais são os principais riscos?',ph:'O que pode dar errado? Como você vai monitorar e corrigir?'}],
+     micro:null},
+    {id:'scale',num:'07',label:'Scale',name:'Evoluir',sub:'Medir, corrigir, consolidar e expandir',xp:200,
+     concept:'Escalar não é replicar cegamente. É documentar o que funcionou, entender onde ainda existe dependência humana excessiva e preparar a próxima camada de melhoria.',
+     highlight:'"O sistema que não aprende eventualmente quebra. O que aprende, escala."',
+     prov:'Se este piloto funcionar, o que exatamente será repetido, o que precisará ser ajustado e qual processo entra na próxima onda?',
+     actions:['Analise os resultados: ganhos percebidos, fricções de adoção e falhas de processo','Registre os aprendizados e as dependências que ainda ficaram manuais','Monte o roadmap da próxima onda do sistema operacional comercial'],
+     deliver:'Relatório de aprendizado do piloto + roadmap das próximas ondas',
+     inputs:[{id:'scale_result',q:'O que funcionou no piloto?',ph:'Quais métricas melhoraram? O time sentiu diferença? Reação dos clientes?'},{id:'scale_apren',q:'O que você aprendeu e mudaria?',ph:'O que foi mais difícil? Onde o agente falhou? O que faria diferente?'},{id:'scale_prox',q:'Quais são os próximos processos a atacar?',ph:'Agora que o primeiro caso funcionou, qual é o segundo?'}],
+     micro:{tag:'Próximo passo',title:'Do blueprint para o OMA',text:'Você construiu o sistema. O próximo passo é operacionalizar — implementar o agente, conectar ferramentas e configurar dashboards. O OMA existe para fazer exatamente isso.'}}
+  ]
+};
+
+// Estado por trilha
+const TRL_STATE = {
+  currentTrailId: null,
+  currentStageIdx: 0,
+  done: {},        // {trailId: Set}
+  inputs: {},      // {trailId: {inputId: value}}
+  chatHistory: [], // por sessão
+  lastContextSent: ''
+};
+
+function trlGetDone(tid) {
+  if(!TRL_STATE.done[tid]) TRL_STATE.done[tid] = new Set();
+  return TRL_STATE.done[tid];
+}
+function trlGetInputs(tid) {
+  if(!TRL_STATE.inputs[tid]) TRL_STATE.inputs[tid] = {};
+  return TRL_STATE.inputs[tid];
+}
+
+// ── Abrir trilha ─────────────────────────────────────────
+function openTrail(trailId) {
+  if(!isTrailPurchased(trailId) && !TRL_STAGES_DATA[trailId]) { buyTrail(trailId); return; }
+  TRL_STATE.currentTrailId = trailId;
+  TRL_STATE.currentStageIdx = 0;
+  TRL_STATE.chatHistory = [];
+  TRL_STATE.lastContextSent = '';
+  const t = TRAILS[trailId];
+  goScreen('trail');
+  document.getElementById('topTitle').textContent = t.shortName;
+  trlShowIntro(trailId);
+}
+
+function openTrailPreview(trailId) { openTrail(trailId); }
+
+// ── Intro da trilha ──────────────────────────────────────
+function trlShowIntro(trailId) {
+  document.getElementById('trailViewIntro').style.display = 'block';
+  document.getElementById('trailViewStage').style.display = 'none';
+  document.getElementById('trailViewFinish').style.display = 'none';
+  const t = TRAILS[trailId];
+  const hero = document.getElementById('trailIntroHero');
+  hero.className = 'trl-intro-hero ' + (t.type==='especialidade' ? 'especialidade-hero' : 'vertical-hero');
+  document.getElementById('trailIntroEyebrow').textContent = 'OMA OS Builder Method · ' + (t.type==='especialidade' ? 'Especialidade' : 'Vertical');
+  document.getElementById('trailIntroTitle').innerHTML = t.name.replace(' OMA','<br><em>One Man Army</em>');
+  document.getElementById('trailIntroPromise').textContent = t.promise;
+  document.getElementById('trailIntroAudienceText').textContent = t.audience;
+  // Deliverables
+  const dlv = [
+    {icon:'🗺',title:'Mapa da operação atual',sub:'Diagnóstico com sintomas reais da sua operação'},
+    {icon:'⚡',title:'Inventário de gargalos',sub:'O que trava resultado, com impacto estimado'},
+    {icon:'🎯',title:'Automações priorizadas',sub:'Matriz impacto × esforço com primeiro foco'},
+    {icon:'🤖',title:'Blueprint do agente',sub:'Especificação funcional do agente prioritário'},
+    {icon:'🚀',title:'Plano de piloto',sub:'Escopo, métricas, owner e checkpoints'},
+    {icon:'📋',title:'Relatório com análise IA',sub:'Gerado pelos seus inputs + análise do assistente'}
+  ];
+  document.getElementById('trailDeliverables').innerHTML = dlv.map(d=>
+    `<div class="trl-dl-item"><div class="trl-dl-icon">${d.icon}</div><div><span class="trl-dl-strong">${d.title}</span><span class="trl-dl-sub">${d.sub}</span></div></div>`
+  ).join('');
+}
+
+function startTrailStages() {
+  trlGoStage(0);
+}
+
+// ── Etapas ───────────────────────────────────────────────
+function trlGoStage(idx) {
+  document.getElementById('trailViewIntro').style.display = 'none';
+  document.getElementById('trailViewStage').style.display = 'block';
+  document.getElementById('trailViewFinish').style.display = 'none';
+  TRL_STATE.currentStageIdx = idx;
+  trlSaveInputs();
+  trlRenderStage(idx);
+  window.scrollTo(0,0);
+}
+
+function trlRenderStepper(stages, idx) {
+  document.getElementById('trailStepper').innerHTML = stages.map((s,i)=>{
+    const isDone = trlGetDone(TRL_STATE.currentTrailId).has(s.id);
+    const isActive = i===idx;
+    const cls = isDone?'trl-sn trl-sn-done':isActive?'trl-sn trl-sn-active':'trl-sn';
+    return `<div class="${cls}" onclick="trlGoStage(${i})">
+      <div class="trl-sn-dot">${isDone?'✓':s.num}</div>
+      <div><div class="trl-sn-step">${s.label}</div><div class="trl-sn-name">${s.name}</div></div>
+    </div>${i<stages.length-1?'<div class="trl-sn-sep"></div>':''}`;
+  }).join('');
+}
+
+function trlRenderStage(idx) {
+  const tid = TRL_STATE.currentTrailId;
+  const stages = TRL_STAGES_DATA[tid];
+  if(!stages) { return; }
+  const s = stages[idx];
+  const isDone = trlGetDone(tid).has(s.id);
+  const purchased = isTrailPurchased(tid);
+  const unlocked = purchased || idx === 0; // preview: primeira etapa livre
+
+  trlRenderStepper(stages, idx);
+  document.getElementById('trlChatCtx').textContent = 'Etapa '+s.num+' · '+s.label+' — '+s.name;
+
+  const microHtml = s.micro ? `<div class="trl-block">
+    <div class="trl-block-label">Conceito de apoio</div>
+    <div class="trl-micro-card">
+      <div class="trl-micro-tag">${s.micro.tag}</div>
+      <div class="trl-micro-title">${s.micro.title}</div>
+      <div class="trl-micro-text">${s.micro.text}</div>
+    </div></div>` : '';
+
+  const prevBtn = idx>0
+    ? `<button class="trl-btn-prev" onclick="trlGoStage(${idx-1})">← Etapa anterior</button>`
+    : '<div></div>';
+
+  const completeCls = isDone ? 'trl-btn-complete trl-done' : 'trl-btn-complete';
+  const completeTxt = isDone
+    ? (idx<stages.length-1 ? '✓ Concluída · Avançar' : '✓ Concluída · Ver plano')
+    : (idx<stages.length-1 ? 'Concluir etapa →' : 'Concluir e ver plano →');
+
+  // Lock wall se não desbloqueado
+  let lockHtml = '';
+  if(!unlocked) {
+    const t = TRAILS[tid];
+    lockHtml = `<div style="text-align:center;padding:32px 20px;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:16px;">
+      <div style="font-size:32px;margin-bottom:12px;">🔒</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:var(--text);margin-bottom:8px;">Etapa bloqueada</div>
+      <div style="font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:16px;max-width:360px;margin-left:auto;margin-right:auto;">Compre a trilha completa para acessar todas as 7 etapas e sair com um plano executável na mão.</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:14px;">Beta · <strong style="color:var(--fire);font-size:15px;">R$ ${t.priceBeta}</strong></div>
+      <button onclick="buyTrail('${tid}')" style="background:var(--fire);color:#fff;border:none;padding:13px 32px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Desbloquear trilha →</button>
+    </div>`;
+  }
+
+  document.getElementById('trailStageContent').innerHTML = `
+    <div class="trl-eyebrow"><span class="trl-eyebrow-num">${s.num} / 07</span><span class="trl-eyebrow-name">${s.label} · ${s.name}</span></div>
+    <div class="trl-stage-title">${s.name}</div>
+    <div class="trl-stage-sub">${s.sub}</div>
+    ${unlocked ? `
+    <div class="trl-block">
+      <div class="trl-block-label">Conceito</div>
+      <div class="trl-concept-card"><p>${s.concept}</p><em class="trl-concept-hl">${s.highlight}</em></div>
+    </div>
+    <div class="trl-block">
+      <div class="trl-block-label">Reflexão</div>
+      <div class="trl-prov-card"><p>${s.prov}</p></div>
+    </div>
+    <div class="trl-block">
+      <div class="trl-block-label">Suas ações nesta etapa</div>
+      <div class="trl-actions">${s.actions.map((a,i)=>`<div class="trl-action"><div class="trl-action-num">${String(i+1).padStart(2,'0')}</div><div class="trl-action-text">${a}</div></div>`).join('')}</div>
+    </div>
+    ${microHtml}
+    <div class="trl-block">
+      <div class="trl-block-label">Entregável desta etapa</div>
+      <div class="trl-deliver-card"><div class="trl-deliver-icon">📄</div><div><div class="trl-deliver-label">O que você vai ter ao final</div><div class="trl-deliver-text">${s.deliver}</div></div></div>
+    </div>` : lockHtml}
+    <div class="trl-stage-nav">
+      ${prevBtn}
+      <button class="${completeCls}" onclick="trlCompleteStage(${idx})">${completeTxt}</button>
+    </div>
+  `;
+
+  // Workspace inputs
+  const inp = trlGetInputs(tid);
+  document.getElementById('trlWsReflection').innerHTML = `
+    <div class="trl-ws-stage-label">Etapa ${s.num} · ${s.name}</div>
+    ${unlocked ? s.inputs.map(i=>`
+      <div class="trl-inp-group">
+        <label class="trl-inp-label">${i.q}</label>
+        <textarea class="trl-inp-area" id="trl_inp_${i.id}" placeholder="${i.ph}"
+          oninput="trlGetInputs('${tid}')['${i.id}']=this.value">${inp[i.id]||''}</textarea>
+      </div>`).join('') : '<div style="font-size:13px;color:var(--text3);line-height:1.7;">Desbloqueie a trilha para preencher o workspace desta etapa.</div>'}
+    ${unlocked ? `<div class="trl-ws-hint"><span>💡</span><span class="trl-ws-hint-text">Preencha aqui, depois abra o <strong>Chat IA</strong> — o assistente vai analisar o que você escreveu.</span></div>` : ''}
+  `;
+
+  // Reset tabs
+  document.getElementById('trlWsReflection').classList.add('trl-tab-open');
+  document.getElementById('trlWsChat').classList.remove('trl-tab-open');
+  document.getElementById('trlTabRefl').classList.add('trl-tab-open');
+  document.getElementById('trlTabChat').classList.remove('trl-tab-open');
+}
+
+function trlSaveInputs() {
+  const tid = TRL_STATE.currentTrailId;
+  if(!tid) return;
+  const stages = TRL_STAGES_DATA[tid];
+  if(!stages) return;
+  const s = stages[TRL_STATE.currentStageIdx];
+  if(!s) return;
+  const inp = trlGetInputs(tid);
+  s.inputs.forEach(i => {
+    const el = document.getElementById('trl_inp_'+i.id);
+    if(el) inp[i.id] = el.value;
+  });
+}
+
+// ── Tabs workspace ───────────────────────────────────────
+function trlSwitchTab(tab, btn) {
+  document.querySelectorAll('.trl-ws-tab').forEach(b=>b.classList.remove('trl-tab-open'));
+  btn.classList.add('trl-tab-open');
+  document.getElementById('trlWsReflection').classList.toggle('trl-tab-open', tab==='reflection');
+  document.getElementById('trlWsChat').classList.toggle('trl-tab-open', tab==='chat');
+  if(tab==='chat') trlAutoContext();
+}
+
+// ── Concluir etapa ───────────────────────────────────────
+function trlCompleteStage(idx) {
+  trlSaveInputs();
+  const tid = TRL_STATE.currentTrailId;
+  const stages = TRL_STAGES_DATA[tid];
+  const s = stages[idx];
+  const done = trlGetDone(tid);
+  if(!done.has(s.id)) {
+    done.add(s.id);
+    ST.xp = (ST.xp||0) + s.xp;
+    saveState();
+    showXpToast(s.xp, s.name + ' concluída!');
+  }
+  if(idx < stages.length-1) {
+    trlGoStage(idx+1);
+  } else {
+    trlShowFinish();
+  }
+}
+
+// ── Finalização ──────────────────────────────────────────
+async function trlShowFinish() {
+  document.getElementById('trailViewIntro').style.display = 'none';
+  document.getElementById('trailViewStage').style.display = 'none';
+  document.getElementById('trailViewFinish').style.display = 'block';
+  window.scrollTo(0,0);
+
+  const tid = TRL_STATE.currentTrailId;
+  const t = TRAILS[tid];
+  const stages = TRL_STAGES_DATA[tid];
+  document.getElementById('trlFinishEyebrow').textContent = 'Trilha concluída · ' + t.name;
+  document.getElementById('trlReportTitle').textContent = 'PLANO OMA — ' + t.shortName.toUpperCase();
+  document.getElementById('trlReportDate').textContent = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+
+  // Relatório
+  const inp = trlGetInputs(tid);
+  const sections = stages.map(s=>{
+    const filled = s.inputs.filter(i=>inp[i.id]&&inp[i.id].trim());
+    if(!filled.length) return '';
+    return `<div class="trl-report-section">
+      <div class="trl-report-section-title">${s.num} · ${s.label} — ${s.name}</div>
+      ${filled.map(i=>`<div class="trl-report-entry"><div class="trl-report-entry-q">${i.q}</div><div class="trl-report-entry-a">${inp[i.id]}</div></div>`).join('')}
+    </div>`;
+  }).filter(Boolean).join('');
+  document.getElementById('trlReportContent').innerHTML = sections || '<div class="trl-report-entry"><div class="trl-report-entry-a">Volte e preencha o workspace de cada etapa para gerar seu plano completo.</div></div>';
+
+  // Análise IA
+  const allInputs = stages.map(s=>{
+    const filled = s.inputs.filter(i=>inp[i.id]&&inp[i.id].trim());
+    if(!filled.length) return null;
+    return `=== ${s.num}. ${s.name} ===
+${filled.map(i=>`${i.q}
+${inp[i.id]}`).join('
+
+')}`;
+  }).filter(Boolean).join('
+
+');
+
+  if(!allInputs) {
+    document.getElementById('trlCongratsText').innerHTML = '<p style="color:rgba(255,255,255,.6);font-size:15px;position:relative;z-index:1;">Complete ao menos uma etapa do workspace para receber análise personalizada.</p>';
+    return;
+  }
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,
+        system:`Você é um especialista em operações com IA da OMA Academy. O usuário acabou de concluir a trilha "${t.name}".
+Sua função: 1) Parabenizar genuinamente pelo que foi construído (conciso, sem bajulação). 2) Resumir em 3-4 pontos os principais aprendizados evidentes nos inputs. 3) Destacar 1-2 oportunidades ou pontos de atenção que você identificou. 4) Recomendar o próximo passo concreto.
+Tom: direto, parceiro estratégico. Sem enrolação. Português brasileiro. Máximo 250 palavras.`,
+        messages:[{role:'user',content:`Reflexões do usuário ao longo da trilha:
+
+${allInputs}
+
+Gere a análise personalizada.`}]
+      })
+    });
+    const d = await res.json();
+    const txt = d.content?.[0]?.text||'';
+    document.getElementById('trlCongratsText').innerHTML = `<p style="color:rgba(255,255,255,.82);font-size:17px;line-height:1.9;position:relative;z-index:1;white-space:pre-wrap;">${txt}</p>`;
+  } catch(e) {
+    document.getElementById('trlCongratsText').innerHTML = '<p style="color:rgba(255,255,255,.6);font-size:15px;position:relative;z-index:1;">Análise não disponível. Seu plano está completo abaixo.</p>';
+  }
+}
+
+function trlDownload() { setTimeout(()=>window.print(),400); }
+function trlOpenOMA() {
+  const t = TRAILS[TRL_STATE.currentTrailId];
+  const msg = encodeURIComponent('Olá! Acabei de concluir a trilha ' + t.name + ' na OMA Academy e gostaria de conversar sobre implementação.');
+  window.open('https://wa.me/5541991196134?text='+msg,'_blank');
+}
+
+// ── Chat IA ──────────────────────────────────────────────
+function trlGetFilledInputs() {
+  trlSaveInputs();
+  const tid = TRL_STATE.currentTrailId;
+  const stages = TRL_STAGES_DATA[tid];
+  if(!stages) return '';
+  const s = stages[TRL_STATE.currentStageIdx];
+  const inp = trlGetInputs(tid);
+  return s.inputs.map(i=>{
+    const v = inp[i.id];
+    return v&&v.trim() ? `${i.q}
+Resposta: ${v}` : null;
+  }).filter(Boolean).join('
+
+');
+}
+
+function trlBuildSystem() {
+  const tid = TRL_STATE.currentTrailId;
+  const t = TRAILS[tid];
+  const stages = TRL_STAGES_DATA[tid];
+  if(!stages) return '';
+  const s = stages[TRL_STATE.currentStageIdx];
+  const filled = trlGetFilledInputs();
+  return `Você é o assistente de reflexão da OMA Academy para a trilha "${t.name}".
+Etapa atual: ${s.num} — ${s.name}. Objetivo: ${s.sub}. Entregável: ${s.deliver}.
+${filled ? `O usuário preencheu no workspace:
+
+${filled}` : 'O usuário ainda não preencheu o workspace.'}
+Sua função: reagir ao que o usuário escreveu, aprofundar reflexões, conectar com operação com IA. Direto, sem jargão. Português brasileiro.`;
+}
+
+async function trlAutoContext() {
+  const filled = trlGetFilledInputs();
+  if(!filled || filled===TRL_STATE.lastContextSent) return;
+  TRL_STATE.lastContextSent = filled;
+  TRL_STATE.chatHistory.push({role:'user',content:`Acabei de preencher o workspace desta etapa:
+
+${filled}
+
+Comente o que escreví — o que chamou atenção e qual pergunta faria sentido agora.`});
+  const typ = trlAddTyping();
+  document.getElementById('trlChatSend').disabled = true;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,system:trlBuildSystem(),messages:TRL_STATE.chatHistory})
+    });
+    const d = await res.json();
+    typ.remove();
+    const reply = d.content?.[0]?.text||'Algo deu errado.';
+    TRL_STATE.chatHistory.push({role:'assistant',content:reply});
+    trlAddMsg('ai',reply);
+  } catch(e) { typ.remove(); }
+  document.getElementById('trlChatSend').disabled = false;
+}
+
+async function trlSendMsg() {
+  const inp = document.getElementById('trlChatInput');
+  const txt = inp.value.trim();
+  if(!txt) return;
+  inp.value = '';
+  document.getElementById('trlChatSend').disabled = true;
+  trlAddMsg('user',txt);
+  TRL_STATE.chatHistory.push({role:'user',content:txt});
+  const typ = trlAddTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,system:trlBuildSystem(),messages:TRL_STATE.chatHistory})
+    });
+    const d = await res.json();
+    typ.remove();
+    const reply = d.content?.[0]?.text||'Algo deu errado.';
+    TRL_STATE.chatHistory.push({role:'assistant',content:reply});
+    trlAddMsg('ai',reply);
+  } catch(e) { typ.remove(); trlAddMsg('ai','Erro de conexão. Tente novamente.'); }
+  document.getElementById('trlChatSend').disabled = false;
+  inp.focus();
+}
+
+function trlAddMsg(role, text) {
+  const msgs = document.getElementById('trlChatMsgs');
+  const d = document.createElement('div');
+  d.className = 'trl-msg trl-msg-'+role;
+  const time = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML = `<div class="trl-msg-bubble">${text.replace(/
+/g,'<br>')}</div><div class="trl-msg-meta">${role==='ai'?'OMA · ':'Você · '}${time}</div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+  return d;
+}
+
+function trlAddTyping() {
+  const msgs = document.getElementById('trlChatMsgs');
+  const d = document.createElement('div');
+  d.className = 'trl-typing';
+  d.innerHTML = '<span></span><span></span><span></span>';
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+  return d;
+}
+
+function trlHandleKey(e) {
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();trlSendMsg();}
+}
+
+// Toast auxiliar compatível
+function showXpToast(xpVal, label) {
+  const t = document.getElementById('xpToast');
+  if(!t) return;
+  const v = document.getElementById('xpToastVal');
+  if(v) v.textContent = '+'+xpVal+' XP';
+  const l = document.getElementById('xpToastLbl') || t.querySelector('.xp-toast-lbl');
+  if(l) l.textContent = label||'Etapa concluída!';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 // ════════════════════════════════════════════════════════
