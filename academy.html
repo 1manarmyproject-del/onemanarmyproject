@@ -5882,14 +5882,8 @@ async function trlShowFinish() {
   const allInputs = stages.map(s=>{
     const filled = s.inputs.filter(i=>inp[i.id]&&inp[i.id].trim());
     if(!filled.length) return null;
-    return `=== ${s.num}. ${s.name} ===
-${filled.map(i=>`${i.q}
-${inp[i.id]}`).join('
-
-')}`;
-  }).filter(Boolean).join('
-
-');
+    return '=== ' + s.num + '. ' + s.name + ' ===\n' + filled.map(i=>i.q+'\n'+inp[i.id]).join('\n\n');
+  }).filter(Boolean).join('\n\n');
 
   if(!allInputs) {
     document.getElementById('trlCongratsText').innerHTML = '<p style="color:rgba(255,255,255,.6);font-size:15px;position:relative;z-index:1;">Complete ao menos uma etapa do workspace para receber análise personalizada.</p>';
@@ -5936,9 +5930,7 @@ function trlGetFilledInputs() {
     const v = inp[i.id];
     return v&&v.trim() ? `${i.q}
 Resposta: ${v}` : null;
-  }).filter(Boolean).join('
-
-');
+  }).filter(Boolean).join('\n\n');
 }
 
 function trlBuildSystem() {
@@ -6010,8 +6002,7 @@ function trlAddMsg(role, text) {
   const d = document.createElement('div');
   d.className = 'trl-msg trl-msg-'+role;
   const time = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-  d.innerHTML = `<div class="trl-msg-bubble">${text.replace(/
-/g,'<br>')}</div><div class="trl-msg-meta">${role==='ai'?'OMA · ':'Você · '}${time}</div>`;
+  d.innerHTML = `<div class="trl-msg-bubble">${text.replace(/\n/g,'<br>')}</div><div class="trl-msg-meta">${role==='ai'?'OMA · ':'Você · '}${time}</div>`;
   msgs.appendChild(d);
   msgs.scrollTop = msgs.scrollHeight;
   return d;
