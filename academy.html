@@ -3091,19 +3091,38 @@ async function authCheck(){
   if(t){localStorage.setItem('oma_academy_token',t);history.replaceState({},'','/academy');}
   ST.token=localStorage.getItem('oma_academy_token');
   if(!ST.token){location.replace('/academy/login');return;}
+  // Timeout de segurança: se a API demorar mais de 8s, redireciona
+  const timeout = setTimeout(()=>{location.replace('/academy/login');},8000);
   try{
     const r=await apiFetch('/academy/me');
-    if(!r.ok){localStorage.removeItem('oma_academy_token');location.replace('/academy/login');return;}
+    if(!r.ok){
+      clearTimeout(timeout);
+      localStorage.removeItem('oma_academy_token');
+      location.replace('/academy/login');
+      return;
+    }
     const d=await r.json();
+    if(!d || !d.email){
+      clearTimeout(timeout);
+      localStorage.removeItem('oma_academy_token');
+      location.replace('/academy/login');
+      return;
+    }
     ST.user=d;
-    ST.stats={xp:d.xp,level:d.level,lessons_done:d.lessons_done,badges:d.badges,streak:d.streak,xp_to_next:d.xp_to_next};
-  }catch{location.replace('/academy/login');return;}
+    ST.stats={xp:d.xp||0,level:d.level||1,lessons_done:d.lessons_done||0,badges:d.badges||[],streak:d.streak||0,xp_to_next:d.xp_to_next||300};
+  }catch(e){
+    clearTimeout(timeout);
+    localStorage.removeItem('oma_academy_token');
+    location.replace('/academy/login');
+    return;
+  }
   try{
     const rp=await apiFetch('/academy/progress');
     const pd=await rp.json();
-    pd.progress.forEach(p=>{ST.progress[p.lesson_id]=true;});
-    ST.stats=pd.stats;
+    if(pd && pd.progress) pd.progress.forEach(p=>{ST.progress[p.lesson_id]=true;});
+    if(pd && pd.stats) ST.stats=pd.stats;
   }catch{}
+  clearTimeout(timeout);
   initUI();
 }
 
