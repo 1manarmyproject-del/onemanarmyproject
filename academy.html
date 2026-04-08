@@ -1799,10 +1799,10 @@ select.precert-input{cursor:pointer;}
 
 
 .tg-card-price-wrap{margin-bottom:10px;}
-.tg-card-price-de{font-family:'Space Mono',monospace;font-size:10px;color:#666;margin-bottom:2px;}
+.tg-card-price-de{font-family:'Space Mono',monospace;font-size:10px;color:#777;margin-bottom:2px;letter-spacing:.5px;}
 .tg-card-price-de span{text-decoration:line-through;color:#555;}
 .tg-card-price-por{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;color:var(--fire);letter-spacing:.5px;line-height:1;margin-bottom:3px;}
-.tg-card-price-cond{font-family:'Space Mono',monospace;font-size:9px;color:#666;letter-spacing:.5px;}
+.tg-card-price-cond{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);letter-spacing:.5px;opacity:.8;}
 
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
@@ -3036,6 +3036,7 @@ select.precert-input{cursor:pointer;}
       document.getElementById('oma-co-badge').textContent = (_cfg.badge || 'CHECKOUT').toUpperCase();
       document.getElementById('oma-co-title').textContent = _cfg.title || _cfg.product || 'OMA';
       document.getElementById('oma-co-price').textContent = _cfg.priceLabel || '';
+    if(_cfg.priceNote){var noteEl=document.getElementById('oma-co-note');if(noteEl)noteEl.textContent=_cfg.priceNote;}
       // Preenche email se já vier
       if (_cfg.email) document.getElementById('oma-co-email').value = _cfg.email;
       if (_cfg.name)  document.getElementById('oma-co-name').value  = _cfg.name;
@@ -5877,9 +5878,9 @@ function renderTrailCards() {
         const pct = total > 0 ? Math.round((prog.length / total) * 100) : 0;
         ctaHtml = `<div class="tg-card-badge purchased-badge">✓ Adquirida</div><div style="margin-bottom:8px;"><div style="height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--green);border-radius:2px;"></div></div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);margin-top:3px;">${prog.length}/${total} etapas</div></div><button class="tg-card-cta open" onclick="openTrail('${id}')">Continuar trilha →</button>`;
       } else if (!hasContent) {
-        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button>`;
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div>${priceStr}<button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button>`;
       } else {
-        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openTrailPreview('${id}')">Ver preview grátis</button><button class="tg-card-cta buy" style="margin-top:6px;" onclick="buyTrail('${id}')">Comprar trilha →</button>`;
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div>${priceStr}<button class="tg-card-cta preview" onclick="openTrailPreview('${id}')">Ver preview grátis</button><button class="tg-card-cta buy" onclick="buyTrail('${id}')">Comprar trilha →</button>`;
       }
       html += `<div class="tg-card ${bought ? 'purchased' : ''}">
         <div class="tg-card-icon">${t.icon}</div>
