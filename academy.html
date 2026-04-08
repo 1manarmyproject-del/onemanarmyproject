@@ -1251,8 +1251,8 @@ select.precert-input{cursor:pointer;}
 .tg-card-cta.buy:hover{background:var(--ember);}
 .tg-card-cta.open{background:var(--green);color:#fff;}
 .tg-card-cta.open:hover{background:#15803d;}
-.tg-card-cta.preview{background:#1e1e1e;color:#888;border:1px solid #2a2a2a;}
-.tg-card-cta.preview:hover{background:#2a2a2a;}
+.tg-card-cta.preview{background:#f5f0e8;color:#3d3830;border:1px solid #ccc6bc;font-weight:700;}
+.tg-card-cta.preview:hover{background:#ede8df;}
 .tg-card-lock{position:absolute;top:10px;right:10px;font-size:14px;opacity:.35;}
 /* Screen de trilha */
 .trail-screen{padding:0 0 80px;}
@@ -5747,7 +5747,7 @@ const TRAILS = {
     name: 'Gestor Financeiro OMA', shortName: 'Gestor Financeiro',
     promise: 'Construa o sistema operacional do seu financeiro com IA, automação e agentes.',
     audience: 'CFOs, controllers e gestores financeiros de PMEs',
-    priceBeta: 497, priceFull: 697, product: 'trail_finance_manager',
+    priceBeta: 397, priceFull: 799, product: 'trail_finance_manager',
     stages: [] // conteúdo em breve
   },
   'hr-manager': {
@@ -5755,7 +5755,7 @@ const TRAILS = {
     name: 'Gestor de RH OMA', shortName: 'Gestor de RH',
     promise: 'Construa o sistema operacional do seu RH com IA, automação e agentes.',
     audience: 'HRBPs, heads de pessoas e gestores de RH em PMEs',
-    priceBeta: 497, priceFull: 697, product: 'trail_hr_manager',
+    priceBeta: 397, priceFull: 799, product: 'trail_hr_manager',
     stages: []
   },
   'legal-office': {
@@ -5763,7 +5763,7 @@ const TRAILS = {
     name: 'Escritório Jurídico OMA', shortName: 'Escritório Jurídico',
     promise: 'Mapeie e redesenhe a operação do seu escritório com IA, automação e agentes.',
     audience: 'Sócios e gestores de escritórios de advocacia (2-20 advogados)',
-    priceBeta: 497, priceFull: 697, product: 'trail_legal_office',
+    priceBeta: 397, priceFull: 799, product: 'trail_legal_office',
     stages: []
   },
   'clinic': {
@@ -5771,7 +5771,7 @@ const TRAILS = {
     name: 'Clínica OMA', shortName: 'Clínica',
     promise: 'Mapeie e redesenhe a operação da sua clínica com IA, automação e agentes.',
     audience: 'Donos de clínicas médicas, odontológicas, veterinárias e de psicologia',
-    priceBeta: 497, priceFull: 697, product: 'trail_clinic',
+    priceBeta: 397, priceFull: 799, product: 'trail_clinic',
     stages: []
   },
   'optical': {
@@ -5779,7 +5779,7 @@ const TRAILS = {
     name: 'Ótica OMA', shortName: 'Ótica',
     promise: 'Mapeie e redesenhe a operação da sua ótica com IA, automação e agentes.',
     audience: 'Donos de óticas independentes ou pequenas redes (1-5 lojas)',
-    priceBeta: 497, priceFull: 697, product: 'trail_optical',
+    priceBeta: 397, priceFull: 799, product: 'trail_optical',
     stages: []
   },
   'petshop': {
@@ -5787,7 +5787,7 @@ const TRAILS = {
     name: 'Petshop OMA', shortName: 'Petshop',
     promise: 'Mapeie e redesenhe a operação do seu petshop com IA, automação e agentes.',
     audience: 'Donos e gestores de petshops com agenda, banho/tosa e atendimento recorrente',
-    priceBeta: 497, priceFull: 697, product: 'trail_petshop',
+    priceBeta: 397, priceFull: 799, product: 'trail_petshop',
     stages: []
   },
   'distributor': {
@@ -5795,7 +5795,7 @@ const TRAILS = {
     name: 'Distribuidora OMA', shortName: 'Distribuidora',
     promise: 'Mapeie e redesenhe a operação da sua distribuidora com IA, automação e agentes.',
     audience: 'Donos e gestores de distribuidoras com ruído entre comercial, operação e financeiro',
-    priceBeta: 697, priceFull: 997, product: 'trail_distributor',
+    priceBeta: 397, priceFull: 799, product: 'trail_distributor',
     stages: []
   }
 };
@@ -5865,7 +5865,7 @@ function renderTrailCards() {
         const pct = total > 0 ? Math.round((prog.length / total) * 100) : 0;
         ctaHtml = `<div class="tg-card-badge purchased-badge">✓ Adquirida</div><div style="margin-bottom:8px;"><div style="height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--green);border-radius:2px;"></div></div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);margin-top:3px;">${prog.length}/${total} etapas</div></div><button class="tg-card-cta open" onclick="openTrail('${id}')">Continuar trilha →</button>`;
       } else if (!hasContent) {
-        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button><div class="tg-card-lock" style="font-size:12px;opacity:.4;">&#x2715;</div>`;
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button>`;
       } else {
         ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openTrailPreview('${id}')">Ver preview grátis</button><button class="tg-card-cta buy" style="margin-top:6px;" onclick="buyTrail('${id}')">Comprar trilha →</button>`;
       }
@@ -5902,7 +5902,7 @@ function openTrail(trailId) {
 
 function buyTrail(trailId) {
   const t = TRAILS[trailId];
-  const user = getUser ? getUser() : {};
+  const user = ST.user || {};
   omaCheckout.open({
     badge: t.type === 'especialidade' ? 'Trilha · Especialidade' : 'Trilha · Vertical',
     title: t.name,
