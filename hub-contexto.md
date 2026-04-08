@@ -251,3 +251,36 @@ workspaces        — workspaces CRM
 ---
 
 *Atualizado em 08/04/2026 — fim da sessão*
+
+---
+
+### Sessão 08/04/2026 (tarde) — Separação de repositórios
+
+**Hub migrado para domínio próprio:** `hub.onemanarmyproject.com.br`
+- Repo: `cwfrdpx-del/oma-hub` | Caminho local: `~/oma-hub/`
+- Deploy: `cd ~/oma-hub && git add -A && git commit && git push && npx vercel --prod ...`
+- **NUNCA deploy automático — sempre manual**
+
+**CORS adicionado no Hetzner:**
+- `hub.onemanarmyproject.com.br` e `academy.onemanarmyproject.com.br` adicionados
+- Regra: ao criar subdomínio novo, sempre adicionar ao CORS antes de testar
+
+**Mapa de Painéis atualizado:**
+- Hub agora serve de `~/oma-hub/hub.html` — alterações vão para esse repo
+- Repo original `~/oma-project-site/hub.html` não é mais fonte do Hub
+
+**Novo painel Listas** (`/listas`):
+- Filtra leads por origem `waitlist/lista/interest`
+- Exportação CSV incluída
+- Qualquer nova lista com origem contendo essas palavras aparece automaticamente
+
+**Botões de contexto no painel Status:**
+- ⬇ hub-contexto.md → `GET /api/ops/hub-contexto`
+- ⬇ site-contexto.md → `GET /api/ops/site-contexto`
+- ⬇ CONTEXTO (painel OPS) → `GET /api/ops/nanoclaw-contexto` (session-context-latest.md)
+
+**Token Cloudflare DNS:**
+- Variável: `CF_DNS_TOKEN` no `.env` do NanoClaw
+- Zone ID: `CF_ZONE_OMA=2240ff4dfe6bf27d55a5977343271ff3`
+- Permissão: `Zone:DNS:Edit` — consegue criar/editar registros DNS
+- Não tem permissão de Cache Purge (adicionar na próxima sessão)

@@ -189,3 +189,30 @@ Configurados no `vercel.json` do repo original.
 ---
 
 *Atualizado em 08/04/2026 — sessão de separação de repositórios*
+
+---
+
+### Sessão 08/04/2026 (tarde) — Pós-separação, ajustes
+
+**Problemas encontrados e corrigidos após separação:**
+
+1. **Academy 404** — rotas `/academy/*` hardcoded no HTML não estavam no vercel.json do oma-academy
+   - Fix: adicionadas rotas `/academy`, `/academy/login`, `/academy/login/:path*` no vercel.json
+
+2. **Hub Failed to fetch** — `hub.onemanarmyproject.com.br` não estava no CORS do Hetzner
+   - Fix: adicionado ao array `allowed` no server.js + pm2 restart
+
+3. **Imagens Academy quebradas** — assets (lobster-logo.png, favicon.png, etc.) não foram copiados na separação
+   - Fix: copiados para `~/oma-academy/` e commitados
+   - Cache bust adicionado nas referências: `?v=timestamp`
+
+**Lição aprendida para separações futuras:**
+Ao criar novo repo a partir de um existente, sempre verificar:
+- [ ] Assets (*.png, *.svg, *.ico, *.jpg)
+- [ ] Rotas internas hardcoded no HTML (`location.replace`, `href=`)
+- [ ] CORS no Hetzner para o novo domínio
+- [ ] vercel.json com todas as rotas que o HTML usa
+
+**Pendente para próxima sessão:**
+- Token CF com permissão Cache Purge (hoje só tem DNS Edit)
+- Fix MKT Board, MKT Jobs e Produtos no oma-hub (auth x-api-key → getAuthHeaders)
