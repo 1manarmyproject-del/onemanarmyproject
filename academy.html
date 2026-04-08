@@ -9,9 +9,10 @@
 <style>
 :root{
   --fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;
-  --bg:#ffffff;--bg2:#fafafa;--bg3:#f5f5f5;--bg4:#eeeeee;
-  --border:#e5e5e5;--border2:#d0d0d0;
-  --text:#111111;--text2:#444;--text3:#888;--text4:#bbb;
+  --char:#111111;--ink:#1a1a1a;--coal:#242424;--steel:#2e2e2e;
+  --bg:#f5f0e8;--bg2:#ede8df;--bg3:#e4ddd3;--bg4:#d8d1c7;
+  --border:#ccc6bc;--border2:#b8b0a6;
+  --text:#1a1612;--text2:#3d3830;--text3:#7a7368;--text4:#a89e94;
   --green:#16a34a;--green-light:#dcfce7;
   --blue:#2563eb;--blue-light:#dbeafe;
   --red:#dc2626;--red-light:#fee2e2;
@@ -31,29 +32,29 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 
 /* ── SIDEBAR ─────────────────────────────────────────────── */
 .sidebar{
-  background:#fff;border-right:1px solid var(--border);
+  background:var(--char);border-right:1px solid #2a2a2a;
   position:sticky;top:0;height:100vh;overflow-y:auto;
   display:flex;flex-direction:column;
 }
 @media(max-width:960px){.sidebar{display:none;}}
 .sidebar::-webkit-scrollbar{width:3px;}
-.sidebar::-webkit-scrollbar-thumb{background:var(--border2);}
+.sidebar::-webkit-scrollbar-thumb{background:#333;}
 
 .sidebar-head{
-  padding:20px;border-bottom:1px solid var(--border);
-  background:#fff;position:sticky;top:0;z-index:2;
+  padding:20px;border-bottom:1px solid #2a2a2a;
+  background:var(--char);position:sticky;top:0;z-index:2;
 }
 .s-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
 .s-logo-icon{width:32px;height:32px;background:var(--fire);display:flex;align-items:center;justify-content:center;font-size:16px;}
-.s-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;text-transform:uppercase;color:var(--text);}
+.s-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;text-transform:uppercase;color:#e0d9cf;}
 .s-logo-name span{color:var(--fire);}
 
 /* XP strip */
-.xp-strip{background:var(--bg3);border-radius:6px;padding:12px 14px;}
+.xp-strip{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;padding:12px 14px;}
 .xp-strip-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
 .xp-level{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--fire);font-weight:700;text-transform:uppercase;}
-.xp-val{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);font-weight:700;}
-.xp-bar{height:6px;background:var(--border2);border-radius:3px;overflow:hidden;}
+.xp-val{font-family:'Space Mono',monospace;font-size:11px;color:#888;font-weight:700;}
+.xp-bar{height:6px;background:#2a2a2a;border-radius:3px;overflow:hidden;}
 .xp-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));border-radius:3px;transition:width .6s ease;}
 
 /* Sidebar nav */
@@ -61,7 +62,7 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 .s-phase-label{
   padding:14px 20px 6px;
   font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;
-  text-transform:uppercase;color:var(--text4);
+  text-transform:uppercase;color:#555;
   display:flex;align-items:center;gap:8px;
 }
 .s-phase-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -71,44 +72,44 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
   transition:background .15s;
   border-left:3px solid transparent;
 }
-.s-module:hover{background:var(--bg3);}
-.s-module.active{background:var(--fire-light);border-left-color:var(--fire);}
+.s-module:hover{background:#1a1a1a;}
+.s-module.active{background:#1e1e1e;border-left-color:var(--fire);}
 .s-module.done .s-mod-icon{background:var(--green-light);color:var(--green);}
 .s-mod-icon{
   width:22px;height:22px;border-radius:50%;
-  background:var(--bg4);flex-shrink:0;
+  background:#2a2a2a;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-size:9px;font-family:'Space Mono',monospace;color:var(--text3);
+  font-size:9px;font-family:'Space Mono',monospace;color:#666;
   transition:background .2s,color .2s;
 }
 .s-module.active .s-mod-icon{background:var(--fire);color:#fff;}
-.s-mod-label{font-size:12px;color:var(--text3);line-height:1.3;}
-.s-module.active .s-mod-label,.s-module:hover .s-mod-label{color:var(--text2);}
-.s-module.done .s-mod-label{color:var(--text3);}
+.s-mod-label{font-size:12px;color:#888;line-height:1.3;}
+.s-module.active .s-mod-label,.s-module:hover .s-mod-label{color:#ccc;}
+.s-module.done .s-mod-label{color:#666;}
 
 /* ── TOPNAV ─────────────────────────────────────────────── */
 .topnav{
   position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--border);
+  background:rgba(17,17,17,.97);backdrop-filter:blur(8px);
+  border-bottom:1px solid #2a2a2a;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 24px;height:56px;
 }
 .topnav-left{display:flex;align-items:center;gap:14px;}
 .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
 @media(max-width:960px){.hamburger{display:flex;}}
-.hamburger span{width:18px;height:2px;background:var(--text2);border-radius:1px;}
-.topnav-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);}
+.hamburger span{width:18px;height:2px;background:#888;border-radius:1px;}
+.topnav-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#888;}
 .topnav-right{display:flex;align-items:center;gap:12px;}
 .streak-badge{
   display:flex;align-items:center;gap:5px;
-  background:var(--fire-light);border:1px solid var(--fire-mid);
+  background:rgba(232,112,58,.15);border:1px solid rgba(232,112,58,.3);
   padding:5px 10px;border-radius:20px;
   font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);font-weight:700;
 }
 .user-avatar{
   width:34px;height:34px;border-radius:50%;
-  background:var(--fire-light);border:2px solid var(--fire-mid);
+  background:rgba(232,112,58,.15);border:2px solid rgba(232,112,58,.3);
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;color:var(--fire);
   cursor:pointer;overflow:hidden;flex-shrink:0;
@@ -1522,6 +1523,273 @@ select.precert-input{cursor:pointer;}
 .trl-btn-oma{display:inline-flex;align-items:center;gap:10px;background:var(--fire);color:#fff;border:none;padding:17px 40px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px rgba(232,112,58,.3);transition:all .2s;}
 .trl-btn-oma:hover{background:var(--ember);transform:translateY(-1px);}
 
+
+/* ══════════════════════════════════════════════════════
+   HOME PÚBLICA — CSS
+══════════════════════════════════════════════════════ */
+.pub-wrap{min-height:100vh;background:var(--char);}
+
+/* Hero */
+.pub-hero{
+  padding:80px 64px 100px;position:relative;overflow:hidden;
+  background:var(--char);
+}
+.pub-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 40%,rgba(232,112,58,.1) 0%,transparent 55%),
+             radial-gradient(ellipse at 10% 80%,rgba(232,112,58,.05) 0%,transparent 50%);
+}
+.pub-hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.pub-hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:4px;text-transform:uppercase;color:var(--fire);
+  margin-bottom:24px;position:relative;z-index:1;
+}
+.pub-hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--fire);}
+.pub-hero h1{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(40px,6vw,76px);color:#fff;
+  line-height:1.02;margin-bottom:20px;
+  position:relative;z-index:1;
+}
+.pub-hero h1 em{color:var(--fire);font-style:italic;}
+.pub-hero-sub{
+  font-size:18px;color:rgba(255,255,255,.6);
+  line-height:1.8;max-width:580px;
+  position:relative;z-index:1;margin-bottom:36px;
+}
+.pub-hero-actions{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1;}
+.pub-btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--fire);color:#fff;border:none;
+  padding:16px 36px;border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:15px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 20px rgba(232,112,58,.35);
+  transition:all .2s;
+}
+.pub-btn-primary:hover{background:var(--ember);transform:translateY(-2px);}
+.pub-btn-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;color:#888;
+  border:1px solid #333;
+  padding:16px 32px;border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:15px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;transition:all .2s;
+}
+.pub-btn-ghost:hover{border-color:var(--fire);color:var(--fire);}
+.pub-hero-cut{
+  position:absolute;bottom:-1px;left:0;right:0;
+  height:60px;background:var(--bg);
+  clip-path:ellipse(52% 100% at 50% 100%);
+}
+
+/* Body */
+.pub-body{background:var(--bg);padding:60px 64px 80px;max-width:1300px;margin:0 auto;}
+@media(max-width:800px){.pub-body{padding:40px 20px 60px;}}
+
+/* 3 caminhos */
+.pub-paths-label{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--text3);
+  margin-bottom:20px;display:flex;align-items:center;gap:10px;
+}
+.pub-paths-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.pub-paths{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px;}
+@media(max-width:800px){.pub-paths{grid-template-columns:1fr;}}
+
+.pub-path{
+  background:#fff;border:1px solid var(--border);
+  border-radius:12px;padding:28px;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow);transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.pub-path:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.pub-path.path-free{border-top:3px solid var(--text3);}
+.pub-path.path-esp{border-top:3px solid #4338ca;}
+.pub-path.path-vert{border-top:3px solid var(--fire);}
+
+.pub-path-icon{
+  width:40px;height:40px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;flex-shrink:0;
+}
+.pub-path.path-free .pub-path-icon{background:#f0f0ec;color:var(--text2);}
+.pub-path.path-esp .pub-path-icon{background:#eef2ff;color:#4338ca;}
+.pub-path.path-vert .pub-path-icon{background:var(--fire-light);color:var(--fire);}
+
+.pub-path-tag{
+  font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:8px;font-weight:700;
+}
+.pub-path.path-free .pub-path-tag{color:var(--text3);}
+.pub-path.path-esp .pub-path-tag{color:#4338ca;}
+.pub-path.path-vert .pub-path-tag{color:var(--fire);}
+
+.pub-path h3{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:22px;color:var(--text);margin-bottom:10px;line-height:1.2;
+}
+.pub-path p{
+  font-size:13px;color:var(--text3);line-height:1.7;
+  flex:1;margin-bottom:20px;
+}
+.pub-path-items{
+  list-style:none;margin-bottom:20px;
+  display:flex;flex-direction:column;gap:5px;
+}
+.pub-path-items li{
+  font-size:13px;color:var(--text2);
+  display:flex;align-items:center;gap:8px;
+}
+.pub-path-items li::before{
+  content:'';width:4px;height:4px;border-radius:50%;
+  flex-shrink:0;
+}
+.pub-path.path-free .pub-path-items li::before{background:var(--text4);}
+.pub-path.path-esp .pub-path-items li::before{background:#4338ca;}
+.pub-path.path-vert .pub-path-items li::before{background:var(--fire);}
+
+.pub-path-cta{
+  display:flex;align-items:center;justify-content:center;
+  padding:11px;border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;transition:all .15s;
+  border:none;width:100%;
+}
+.pub-path.path-free .pub-path-cta{background:var(--bg3);color:var(--text2);}
+.pub-path.path-free .pub-path-cta:hover{background:var(--border);}
+.pub-path.path-esp .pub-path-cta{background:#4338ca;color:#fff;}
+.pub-path.path-esp .pub-path-cta:hover{background:#3730a3;}
+.pub-path.path-vert .pub-path-cta{background:var(--fire);color:#fff;}
+.pub-path.path-vert .pub-path-cta:hover{background:var(--ember);}
+
+/* OMA OS Builder */
+.pub-method{
+  background:var(--char);border-radius:12px;
+  padding:36px 40px;margin-bottom:48px;
+  position:relative;overflow:hidden;
+}
+.pub-method::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(232,112,58,.12) 0%,transparent 70%);
+}
+.pub-method-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--fire);margin-bottom:12px;font-weight:700;
+}
+.pub-method h2{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(22px,3vw,32px);color:#fff;
+  margin-bottom:10px;line-height:1.15;
+}
+.pub-method h2 em{color:var(--fire);font-style:italic;}
+.pub-method-sub{
+  font-size:14px;color:rgba(255,255,255,.55);
+  line-height:1.7;max-width:580px;margin-bottom:28px;
+}
+.pub-method-steps{display:flex;gap:0;flex-wrap:wrap;}
+.pub-method-step{
+  display:flex;align-items:center;gap:0;
+  position:relative;
+}
+.pub-step-item{
+  text-align:center;padding:10px 14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:6px;min-width:90px;
+}
+.pub-step-num{
+  font-family:'Space Mono',monospace;font-size:8px;
+  color:rgba(255,255,255,.3);margin-bottom:4px;
+}
+.pub-step-name{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:15px;color:#fff;margin-bottom:2px;
+}
+.pub-step-sub{font-size:10px;color:rgba(255,255,255,.4);}
+.pub-step-arrow{
+  font-family:'Space Mono',monospace;font-size:12px;
+  color:rgba(232,112,58,.5);padding:0 6px;flex-shrink:0;
+}
+.pub-method-step:last-child .pub-step-arrow{display:none;}
+
+/* Trilhas preview */
+.pub-trails-label{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--text3);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.pub-trails-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.pub-trail-group{margin-bottom:32px;}
+.pub-trail-group-header{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;border-radius:7px;margin-bottom:12px;
+}
+.pub-trail-group-header.esp{background:#eef2ff;border:1px solid #c7d2fe;}
+.pub-trail-group-header.vert{background:var(--fire-light);border:1px solid var(--fire-mid);}
+.pub-trail-group-lbl{
+  font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:2px;text-transform:uppercase;font-weight:700;
+}
+.pub-trail-group-header.esp .pub-trail-group-lbl{color:#4338ca;}
+.pub-trail-group-header.vert .pub-trail-group-lbl{color:var(--fire);}
+.pub-trail-group-desc{font-size:12px;color:var(--text3);margin-top:1px;}
+
+.pub-trail-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.pub-trail-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:9px;padding:16px;
+  box-shadow:var(--shadow-sm,var(--shadow));
+  display:flex;flex-direction:column;gap:6px;
+}
+.pub-tc-name{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:15px;color:var(--text);line-height:1.2;
+}
+.pub-tc-promise{font-size:12px;color:var(--text3);line-height:1.5;flex:1;}
+.pub-tc-price{
+  font-family:'Space Mono',monospace;font-size:10px;
+  color:var(--text3);
+}
+.pub-tc-price strong{color:var(--text);font-size:12px;}
+.pub-tc-btn{
+  width:100%;border:none;padding:8px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:12px;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;border-radius:5px;transition:all .15s;
+  background:var(--fire);color:#fff;
+}
+.pub-tc-btn:hover{background:var(--ember);}
+
+/* CTA final da home */
+.pub-final-cta{
+  text-align:center;padding:48px 20px;
+}
+.pub-final-cta h2{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(24px,4vw,40px);color:var(--text);
+  margin-bottom:10px;line-height:1.15;
+}
+.pub-final-cta h2 em{color:var(--fire);font-style:italic;}
+.pub-final-cta p{
+  font-size:15px;color:var(--text3);
+  max-width:480px;margin:0 auto 28px;line-height:1.7;
+}
+
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1816,6 +2084,116 @@ select.precert-input{cursor:pointer;}
       </div>
     </div>
 
+
+    <!-- SCREEN: Home Pública (sem login) -->
+    <div class="screen" id="screenPublic">
+      <div class="pub-wrap">
+        <div class="pub-hero">
+          <div class="pub-hero-eyebrow">OMA Academy</div>
+          <h1>Construa seu<br>sistema operacional<br><em>com IA</em></h1>
+          <div class="pub-hero-sub">Não é um curso sobre IA. É um método para transformar como você e seu negócio operam — com fluência, construção guiada e agentes que trabalham por você.</div>
+          <div class="pub-hero-actions">
+            <a href="/academy/login?cadastro=1" class="pub-btn-primary">Começar grátis →</a>
+            <a href="/academy/login" class="pub-btn-ghost">Já tenho conta</a>
+          </div>
+          <div class="pub-hero-cut"></div>
+        </div>
+        <div class="pub-body">
+
+          <!-- 3 caminhos -->
+          <div class="pub-paths-label">Escolha seu caminho</div>
+          <div class="pub-paths">
+
+            <div class="pub-path path-free">
+              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+              <div class="pub-path-tag">Gratuito</div>
+              <h3>Fundamentos</h3>
+              <p>O vocabulário e a lógica que todo gestor precisa dominar para operar com IA.</p>
+              <ul class="pub-path-items">
+                <li>30 módulos organizados em 5 fases</li>
+                <li>Do básico ao avançado operacional</li>
+                <li>Quizzes, Field Tests e certificado</li>
+                <li>Sem custo, sem prazo</li>
+              </ul>
+              <a href="/academy/login?cadastro=1" class="pub-path-cta">Começar grátis →</a>
+            </div>
+
+            <div class="pub-path path-esp">
+              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 14l-4 8h16l-4-8"/></svg></div>
+              <div class="pub-path-tag">Especialidade</div>
+              <h3>Por Função</h3>
+              <p>Para gestores que querem transformar uma área com IA — independente do setor.</p>
+              <ul class="pub-path-items">
+                <li>Gestor Comercial OMA</li>
+                <li>Gestor Financeiro OMA</li>
+                <li>Gestor de RH OMA</li>
+              </ul>
+              <a href="/academy/login?cadastro=1" class="pub-path-cta">Ver trilhas →</a>
+            </div>
+
+            <div class="pub-path path-vert">
+              <div class="pub-path-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+              <div class="pub-path-tag">Vertical</div>
+              <h3>Por Negócio</h3>
+              <p>Para donos e gestores que querem redesenhar a operação do próprio setor.</p>
+              <ul class="pub-path-items">
+                <li>Petshop · Ótica · Clínica</li>
+                <li>Escritório Jurídico</li>
+                <li>Distribuidora</li>
+              </ul>
+              <a href="/academy/login?cadastro=1" class="pub-path-cta">Ver trilhas →</a>
+            </div>
+
+          </div>
+
+          <!-- OMA OS Builder Method -->
+          <div class="pub-method">
+            <div class="pub-method-tag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> OMA OS Builder Method</div>
+            <h2>Não é um curso.<br><em>É um método de construção.</em></h2>
+            <div class="pub-method-sub">Cada trilha guiada segue 7 etapas — do diagnóstico da operação atual até o plano de piloto com agente ativo. Você entra com um problema. Sai com um sistema.</div>
+            <div class="pub-method-steps">
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">01</div><div class="pub-step-name">Shift</div><div class="pub-step-sub">Destravar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">02</div><div class="pub-step-name">Scan</div><div class="pub-step-sub">Enxergar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">03</div><div class="pub-step-name">Mine</div><div class="pub-step-sub">Investigar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">04</div><div class="pub-step-name">Decide</div><div class="pub-step-sub">Escolher</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">05</div><div class="pub-step-name">Design</div><div class="pub-step-sub">Desenhar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">06</div><div class="pub-step-name">Launch</div><div class="pub-step-sub">Ativar</div></div>
+                <div class="pub-step-arrow">›</div>
+              </div>
+              <div class="pub-method-step">
+                <div class="pub-step-item"><div class="pub-step-num">07</div><div class="pub-step-name">Scale</div><div class="pub-step-sub">Evoluir</div></div>
+                <div class="pub-step-arrow"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA final -->
+          <div class="pub-final-cta">
+            <h2>Você não precisa de mais teoria.<br><em>Precisa de um sistema.</em></h2>
+            <p>Comece pelos fundamentos gratuitos e avance para trilhas guiadas quando estiver pronto para construir.</p>
+            <a href="/academy/login?cadastro=1" class="pub-btn-primary">Começar agora — é grátis →</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- SCREEN: Dashboard -->
     <div class="screen active" id="screenDash">
       <div class="dash fadein">
@@ -1864,7 +2242,7 @@ select.precert-input{cursor:pointer;}
           <!-- Especialidades -->
           <div class="tg-type-block">
             <div class="tg-type-header especialidade">
-              <div class="tg-type-icon">🎯</div>
+              <div class="tg-type-icon" style="font-size:16px;color:#4338ca;">◎</div>
               <div>
                 <div class="tg-type-label">Por Especialidade — sua função, qualquer setor</div>
                 <div class="tg-type-desc">Para gestores que querem transformar uma área com IA, independente do segmento</div>
@@ -1875,7 +2253,7 @@ select.precert-input{cursor:pointer;}
           <!-- Verticais -->
           <div class="tg-type-block">
             <div class="tg-type-header vertical">
-              <div class="tg-type-icon">🏢</div>
+              <div class="tg-type-icon" style="font-size:16px;color:var(--fire);">▣</div>
               <div>
                 <div class="tg-type-label">Por Vertical — seu negócio, sua linguagem</div>
                 <div class="tg-type-desc">Para donos e gestores que querem redesenhar a operação do próprio setor</div>
@@ -3090,7 +3468,7 @@ async function authCheck(){
   const t=p.get('token');
   if(t){localStorage.setItem('oma_academy_token',t);history.replaceState({},'','/academy');}
   ST.token=localStorage.getItem('oma_academy_token');
-  if(!ST.token){location.replace('/academy/login');return;}
+  if(!ST.token){showPublicHome();return;}
   // Timeout de segurança: se a API demorar mais de 8s, redireciona
   const timeout = setTimeout(()=>{location.replace('/academy/login');},8000);
   try{
@@ -4943,7 +5321,7 @@ const TRAILS = {
   'sales-manager': {
     id: 'sales-manager',
     type: 'especialidade',
-    icon: '🎯',
+    icon: '◎',
     name: 'Gestor Comercial OMA',
     shortName: 'Gestor Comercial',
     promise: 'Construa o sistema operacional do seu comercial com IA, automação e agentes.',
@@ -5018,7 +5396,7 @@ const TRAILS = {
     ]
   },
   'finance-manager': {
-    id: 'finance-manager', type: 'especialidade', icon: '📊',
+    id: 'finance-manager', type: 'especialidade', icon: '▲',
     name: 'Gestor Financeiro OMA', shortName: 'Gestor Financeiro',
     promise: 'Construa o sistema operacional do seu financeiro com IA, automação e agentes.',
     audience: 'CFOs, controllers e gestores financeiros de PMEs',
@@ -5026,7 +5404,7 @@ const TRAILS = {
     stages: [] // conteúdo em breve
   },
   'hr-manager': {
-    id: 'hr-manager', type: 'especialidade', icon: '👥',
+    id: 'hr-manager', type: 'especialidade', icon: '◈',
     name: 'Gestor de RH OMA', shortName: 'Gestor de RH',
     promise: 'Construa o sistema operacional do seu RH com IA, automação e agentes.',
     audience: 'HRBPs, heads de pessoas e gestores de RH em PMEs',
@@ -5034,7 +5412,7 @@ const TRAILS = {
     stages: []
   },
   'legal-office': {
-    id: 'legal-office', type: 'vertical', icon: '⚖️',
+    id: 'legal-office', type: 'vertical', icon: '⊖',
     name: 'Escritório Jurídico OMA', shortName: 'Escritório Jurídico',
     promise: 'Mapeie e redesenhe a operação do seu escritório com IA, automação e agentes.',
     audience: 'Sócios e gestores de escritórios de advocacia (2-20 advogados)',
@@ -5042,7 +5420,7 @@ const TRAILS = {
     stages: []
   },
   'clinic': {
-    id: 'clinic', type: 'vertical', icon: '🏥',
+    id: 'clinic', type: 'vertical', icon: '⊕',
     name: 'Clínica OMA', shortName: 'Clínica',
     promise: 'Mapeie e redesenhe a operação da sua clínica com IA, automação e agentes.',
     audience: 'Donos de clínicas médicas, odontológicas, veterinárias e de psicologia',
@@ -5050,7 +5428,7 @@ const TRAILS = {
     stages: []
   },
   'optical': {
-    id: 'optical', type: 'vertical', icon: '👓',
+    id: 'optical', type: 'vertical', icon: '◇',
     name: 'Ótica OMA', shortName: 'Ótica',
     promise: 'Mapeie e redesenhe a operação da sua ótica com IA, automação e agentes.',
     audience: 'Donos de óticas independentes ou pequenas redes (1-5 lojas)',
@@ -5058,7 +5436,7 @@ const TRAILS = {
     stages: []
   },
   'petshop': {
-    id: 'petshop', type: 'vertical', icon: '🐾',
+    id: 'petshop', type: 'vertical', icon: '◆',
     name: 'Petshop OMA', shortName: 'Petshop',
     promise: 'Mapeie e redesenhe a operação do seu petshop com IA, automação e agentes.',
     audience: 'Donos e gestores de petshops com agenda, banho/tosa e atendimento recorrente',
@@ -5066,7 +5444,7 @@ const TRAILS = {
     stages: []
   },
   'distributor': {
-    id: 'distributor', type: 'vertical', icon: '🏭',
+    id: 'distributor', type: 'vertical', icon: '▦',
     name: 'Distribuidora OMA', shortName: 'Distribuidora',
     promise: 'Mapeie e redesenhe a operação da sua distribuidora com IA, automação e agentes.',
     audience: 'Donos e gestores de distribuidoras com ruído entre comercial, operação e financeiro',
@@ -6032,6 +6410,18 @@ function showXpToast(xpVal, label) {
   if(l) l.textContent = label||'Etapa concluída!';
   t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ════════════════════════════════════════════════════════
+//  HOME PÚBLICA
+// ════════════════════════════════════════════════════════
+function showPublicHome(){
+  // Esconde o layout logado (sidebar + main com screens)
+  const layout = document.querySelector('.layout');
+  if(layout) layout.style.display = 'none';
+  // Mostra a screen pública
+  const pub = document.getElementById('screenPublic');
+  if(pub){ pub.style.display='block'; pub.classList.add('active'); }
 }
 
 // ════════════════════════════════════════════════════════
