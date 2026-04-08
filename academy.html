@@ -5111,7 +5111,7 @@ function renderTrailCards() {
       const t = TRAILS[id];
       if (!t) return;
       const bought = purchased.includes(id);
-      const hasContent = t.stages && t.stages.length > 0;
+      const hasContent = (t.stages && t.stages.length > 0) || (typeof TRL_STAGES_DATA !== 'undefined' && TRL_STAGES_DATA[id] && TRL_STAGES_DATA[id].length > 0);
       const typeCls = t.type;
       const priceStr = bought ? '' : `<div class="tg-card-price">Beta · <strong>R$ ${t.priceBeta}</strong></div>`;
       let ctaHtml = '';
