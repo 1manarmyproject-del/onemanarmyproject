@@ -3084,7 +3084,7 @@ select.precert-input{cursor:pointer;}
       _clearErr();
       try {
         var r = await fetch(API+'/checkout/onetime/pix', {
-          method:'POST', headers:{'Content-Type':'application/json'},
+          method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
           body: JSON.stringify({
             email: document.getElementById('oma-co-email').value.trim(),
             name:  document.getElementById('oma-co-name').value.trim(),
@@ -3121,7 +3121,7 @@ select.precert-input{cursor:pointer;}
       _clearErr();
       try {
         var r = await fetch(API+'/checkout/onetime/card', {
-          method:'POST', headers:{'Content-Type':'application/json'},
+          method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
           body: JSON.stringify({
             email:      document.getElementById('oma-co-email').value.trim(),
             name:       document.getElementById('oma-co-name').value.trim(),
@@ -3206,8 +3206,7 @@ select.precert-input{cursor:pointer;}
 })(window);
 
 </script>
-</body>
-</html><script>
+<script>
 const API='https://api.onemanarmyproject.com.br';
 
 
@@ -3235,7 +3234,7 @@ async function saraToggle(){
 
 async function saraStart(){
   try{
-    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},
+    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
       body:JSON.stringify({segmento:'suporte',produto:'academy',cliente_nome:saraCtx.nome||'',cliente_phone:saraCtx.phone||'',cliente_plano:saraCtx.plano||''})});
     var d=await r.json();
     saraSid=d.session_id;
@@ -3270,7 +3269,7 @@ async function saraSend(){
   t.innerHTML='<span></span><span></span><span></span>';
   document.getElementById('sara-msgs').appendChild(t);
   saraMsgs().scrollTop=saraMsgs().scrollHeight;
-  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:saraSid,content:txt})});}
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},body:JSON.stringify({session_id:saraSid,content:txt})});}
   catch(e){}
   document.getElementById('sara-snd').disabled=false;
 }
@@ -6551,6 +6550,8 @@ function trlSaveInputs() {
 
 // ── Tabs workspace ───────────────────────────────────────
 function trlSwitchTab(tab, btn) {
+  // Salvar inputs ANTES de qualquer manipulação do DOM
+  trlSaveInputs();
   document.querySelectorAll('.trl-ws-tab').forEach(b=>b.classList.remove('trl-tab-open'));
   btn.classList.add('trl-tab-open');
   document.getElementById('trlWsReflection').classList.toggle('trl-tab-open', tab==='reflection');
@@ -6616,8 +6617,8 @@ async function trlShowFinish() {
     return;
   }
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST', headers:{'Content-Type':'application/json'},
+    const res = await fetch('https://api.onemanarmyproject.com.br/academy/ai-chat',{
+      method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,
         system:`Você é um especialista em operações com IA da OMA Academy. O usuário acabou de concluir a trilha "${t.name}".
 Sua função: 1) Parabenizar genuinamente pelo que foi construído (conciso, sem bajulação). 2) Resumir em 3-4 pontos os principais aprendizados evidentes nos inputs. 3) Destacar 1-2 oportunidades ou pontos de atenção que você identificou. 4) Recomendar o próximo passo concreto.
@@ -6676,8 +6677,9 @@ Sua função: reagir ao que o usuário escreveu, aprofundar reflexões, conectar
 
 async function trlAutoContext() {
   const filled = trlGetFilledInputs();
-  if(!filled || filled===TRL_STATE.lastContextSent) return;
-  TRL_STATE.lastContextSent = filled;
+  const contextKey = TRL_STATE.currentTrailId + ':' + TRL_STATE.currentStageIdx + ':' + filled;
+  if(!filled || contextKey===TRL_STATE.lastContextSent) return;
+  TRL_STATE.lastContextSent = contextKey;
   TRL_STATE.chatHistory.push({role:'user',content:`Acabei de preencher o workspace desta etapa:
 
 ${filled}
@@ -6686,8 +6688,8 @@ Comente o que escreví — o que chamou atenção e qual pergunta faria sentido 
   const typ = trlAddTyping();
   document.getElementById('trlChatSend').disabled = true;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+    const res = await fetch('https://api.onemanarmyproject.com.br/academy/ai-chat',{
+      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,system:trlBuildSystem(),messages:TRL_STATE.chatHistory})
     });
     const d = await res.json();
@@ -6709,8 +6711,8 @@ async function trlSendMsg() {
   TRL_STATE.chatHistory.push({role:'user',content:txt});
   const typ = trlAddTyping();
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+    const res = await fetch('https://api.onemanarmyproject.com.br/academy/ai-chat',{
+      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,system:trlBuildSystem(),messages:TRL_STATE.chatHistory})
     });
     const d = await res.json();
@@ -6780,4 +6782,5 @@ authCheck();
 
 
 </script>
-
+</body>
+</html>
