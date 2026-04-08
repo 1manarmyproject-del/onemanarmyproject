@@ -95,14 +95,14 @@ input:focus{border-color:var(--fire);}
   <!-- Form: Register -->
   <div id="formRegister" style="display:none">
     <div class="name-row">
-      <div><label>Nome</label><input type="text" id="regNome" placeholder="Seu nome" style="margin-bottom:0"></div>
-      <div><label>Empresa</label><input type="text" id="regEmpresa" placeholder="OMA Ltda" style="margin-bottom:0"></div>
+      <div><label>Nome</label><input type="text" id="regNome" placeholder="Seu nome" style="margin-bottom:0" autocomplete="name"></div>
+      <div><label>Empresa</label><input type="text" id="regEmpresa" placeholder="OMA Ltda" style="margin-bottom:0" autocomplete="organization"></div>
     </div>
     <div style="margin-top:14px"></div>
     <label>Email</label>
-    <input type="email" id="regEmail" placeholder="seu@email.com">
+    <input type="email" id="regEmail" placeholder="seu@email.com" autocomplete="email">
     <label>Senha</label>
-    <input type="password" id="regPass" placeholder="Mínimo 6 caracteres">
+    <input type="password" id="regPass" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
     <button class="btn-fire" id="registerBtn" onclick="doRegister()">Criar conta gratuita</button>
     <div class="toggle-link">Já tem conta? <span onclick="showLogin()">Entrar</span></div>
   </div>
@@ -150,7 +150,7 @@ async function doLogin(){
     const d=await r.json();
     if(!r.ok){showErr(d.error||'Credenciais inválidas.');clearLoading('loginBtn','Entrar');return;}
     localStorage.setItem('oma_academy_token',d.token);
-    location.replace('/academy');
+    window.location.href='/academy';
   }catch{showErr('Erro de conexão. Tente novamente.');clearLoading('loginBtn','Entrar');}
 }
 
@@ -163,11 +163,17 @@ async function doRegister(){
   if(senha.length<6){showErr('Senha precisa ter pelo menos 6 caracteres.');return;}
   setLoading('registerBtn','Criando conta...');
   try{
-    const r=await fetch(API+'/academy/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,email,senha,empresa})});
+    const r=await fetch(API+'/academy/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,email,password:senha,empresa})});
     const d=await r.json();
-    if(!r.ok){showErr(d.error||'Erro ao criar conta.');clearLoading('registerBtn','Criar conta gratuita');return;}
+    if(!r.ok){
+      var msg = d.error||'Erro ao criar conta.';
+      if(msg==='email_exists') msg='Este email já tem uma conta. <a href="#" onclick="showTab(\'login\')">Fazer login →</a>';
+      showErr(msg);
+      clearLoading('registerBtn','Criar conta gratuita');
+      return;
+    }
     localStorage.setItem('oma_academy_token',d.token);
-    location.replace('/academy');
+    window.location.href='/academy';
   }catch{showErr('Erro de conexão.');clearLoading('registerBtn','Criar conta gratuita');}
 }
 
@@ -187,7 +193,9 @@ async function doMagic(){
 document.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const v=document.getElementById('formLogin').style.display;if(v!=='none')doLogin();});
 
 // Check existing token
-if(localStorage.getItem('oma_academy_token'))location.replace('/academy');
+if(localStorage.getItem('oma_academy_token'))window.location.href='/academy';
+// Abrir form correto via query string
+(function(){const p=new URLSearchParams(location.search);if(p.get('cadastro')==='1')showRegister();})();
 </script>
 </body>
 </html>
