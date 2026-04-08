@@ -217,14 +217,6 @@
       "destination": "/privacidade.html"
     },
     {
-      "source": "/academy",
-      "destination": "/academy.html"
-    },
-    {
-      "source": "/academy/login",
-      "destination": "/academy-login.html"
-    },
-    {
       "source": "/links",
       "destination": "/links.html"
     },
@@ -247,10 +239,6 @@
     {
       "source": "/ops",
       "destination": "/ops.html"
-    },
-    {
-      "source": "/hub",
-      "destination": "/hub.html"
     },
     {
       "source": "/agent/george",
@@ -350,6 +338,26 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/academy",
+      "destination": "https://academy.onemanarmyproject.com.br",
+      "permanent": false
+    },
+    {
+      "source": "/academy/:path*",
+      "destination": "https://academy.onemanarmyproject.com.br/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/hub",
+      "destination": "https://hub.onemanarmyproject.com.br",
+      "permanent": false
+    },
+    {
+      "source": "/hub/:path*",
+      "destination": "https://hub.onemanarmyproject.com.br/:path*",
+      "permanent": false
+    },
     {
       "source": "/monitor",
       "destination": "/hub",
