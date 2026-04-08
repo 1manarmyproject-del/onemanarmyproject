@@ -1,6 +1,38 @@
 {
   "rewrites": [
     {
+      "source": "/oma-checkout.js",
+      "destination": "/oma-checkout.js"
+    },
+    {
+      "source": "/agent-suporte",
+      "destination": "/agent-suporte.html"
+    },
+    {
+      "source": "/scribe",
+      "destination": "/scribe.html"
+    },
+    {
+      "source": "/onboarding-form",
+      "destination": "/onboarding-form.html"
+    },
+    {
+      "source": "/roadmap",
+      "destination": "/roadmap.html"
+    },
+    {
+      "source": "/whatsapp-connect",
+      "destination": "/whatsapp-connect.html"
+    },
+    {
+      "source": "/roi",
+      "destination": "/roi.html"
+    },
+    {
+      "source": "/priority",
+      "destination": "/roi.html"
+    },
+    {
       "source": "/portal",
       "destination": "/portal.html"
     },
@@ -283,6 +315,10 @@
     {
       "source": "/mkt-insights",
       "destination": "/mkt-insights.html"
+    },
+    {
+      "source": "/listas",
+      "destination": "/listas.html"
     },
     {
       "source": "/clientes",
