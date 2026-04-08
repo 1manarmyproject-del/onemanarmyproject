@@ -5,6 +5,8 @@
 <title>OMA — War Room</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
+
+
 // WAR ROOM — ABAS
 function wrTab(tab, btn){
   document.querySelectorAll('.wr-tab').forEach(function(b){b.classList.remove('active');});
@@ -63,11 +65,45 @@ function showCliente(nome){
   detail.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
+
+// ── AUTH SEGURA — não armazena senha ou API key no frontend ──────────────
+
+;
+  return { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+}
+
+async function doLogin(password) {
+  var r = await fetch('https://api.onemanarmyproject.com.br/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password })
+  });
+  var d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Senha incorreta');
+  var expMs = Date.now() + (d.expiresIn * 1000);
+  localStorage.setItem('oma_hub_token', d.token);
+  localStorage.setItem('oma_hub_token_exp', expMs.toString());
+  localStorage.setItem('oma_hub', '1');
+  return d.token;
+}
+
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-OMA2026PROJ');</script>
+<script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-OMA2026PROJ');
+</script>
 <style>
-:root{--char:#080808;--coal:#0f0f0f;--graph:#111;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#4a4a4a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--purple:#8b5cf6;}
+:root{--char:#1a1a1a;--coal:#242424;--graph:#252525;--iron:#1e1e1e;--steel:#3a3a3a;--ash:#6a6a6a;--fog:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--green:#3d9e60;--gold:#c8a456;--blue:#3a7bd5;--purple:#8b5cf6;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
 body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
@@ -672,7 +708,7 @@ async function loadGeorgeKPIs() {
   const KEY = ((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'');
 
   try {
-    const r = await fetch(API + '/george/stats', { headers: { 'x-api-key': KEY } });
+    const r = await fetch(API + '/george/stats', { headers: { "Authorization": "Bearer " + (getToken()||"") } });
     const d = await r.json();
 
     // Tasks

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Automation Roadmap — Seu plano 30/60/90 dias</title>
+<link rel="icon" href="/lobster-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0ede8;--coal:#1c1c1e;--iron:#242424;--border:#d4cfc8;
+  --ash:#8a8278;--fog:#5a5550;
+  --fire:#e8703a;--ember:#c05020;--green:#2d8a50;--gold:#b8942a;--blue:#4a8fd5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--coal);font-family:'Barlow',sans-serif;min-height:100vh;}
+
+.hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:#e0d9cf;}
+.hlogo span{color:var(--fire);}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--fire);}
+
+.hero{max-width:680px;margin:60px auto 0;padding:0 24px;text-align:center;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:16px;}
+.hero-title{font-family:'Black Ops One',cursive;font-size:36px;letter-spacing:1px;line-height:1.15;margin-bottom:16px;}
+.hero-title span{color:var(--fire);}
+.hero-sub{font-size:16px;color:var(--fog);line-height:1.7;margin-bottom:40px;}
+
+.steps{display:flex;justify-content:center;gap:8px;margin-bottom:48px;}
+.step-dot{width:28px;height:28px;border-radius:50%;border:2px solid #c4bfb8;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;color:#9a948e;}
+.step-dot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.step-dot.active{background:var(--fire);border-color:var(--fire);color:#fff;}
+.step-line{width:32px;height:2px;background:#c4bfb8;margin-top:13px;}
+.step-line.done{background:var(--green);}
+
+.card{max-width:680px;margin:0 auto 80px;padding:0 24px;}
+.card-inner{background:#1c1c1e;border:1px solid #2a2a2a;padding:40px;}
+
+.step-title{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:1px;margin-bottom:8px;color:#e0d9cf;}
+.step-desc{font-size:14px;color:#888;margin-bottom:32px;line-height:1.6;}
+
+.field{margin-bottom:24px;}
+.field label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;text-transform:uppercase;display:block;margin-bottom:8px;}
+.field input,.field select,.field textarea{width:100%;background:#242424;border:1px solid #333;color:#e0d9cf;padding:12px 14px;font-family:'Barlow',sans-serif;font-size:15px;outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--fire);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+.btn-primary{width:100%;background:var(--fire);color:#000;border:none;padding:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;transition:background .2s;margin-top:8px;}
+.btn-primary:hover{background:var(--ember);}
+.btn-primary:disabled{background:#444;color:#666;cursor:not-allowed;}
+
+/* PAYWALL */
+.paywall-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px;}
+.paywall-box{background:#1c1c1e;border:1px solid #2a2a2a;padding:48px 40px;max-width:480px;width:100%;text-align:center;}
+.paywall-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:16px;}
+.paywall-title{font-family:'Black Ops One',cursive;font-size:28px;color:#e0d9cf;margin-bottom:12px;line-height:1.2;}
+.paywall-desc{font-size:14px;color:#888;line-height:1.7;margin-bottom:32px;}
+.price-block{margin-bottom:32px;}
+.price-main{font-family:'Black Ops One',cursive;font-size:48px;color:#e0d9cf;line-height:1;}
+.price-sub{font-size:12px;color:#6a6a6a;font-family:'Space Mono',monospace;margin-top:4px;}
+.paywall-items{text-align:left;margin-bottom:32px;}
+.paywall-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:13px;color:#aaa;}
+.paywall-item span{color:var(--green);font-weight:700;font-size:16px;line-height:1.2;}
+.btn-pay{display:block;background:var(--fire);color:#000;padding:16px 24px;text-align:center;text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:12px;cursor:pointer;border:none;width:100%;}
+.btn-pay:hover{background:var(--ember);}
+.btn-pay-cc{background:#242424;color:#e0d9cf;border:1px solid #333;}
+.btn-pay-cc:hover{background:#2a2a2a;}
+.paywall-verify{margin-top:16px;font-size:12px;color:#6a6a6a;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'Space Mono',monospace;}
+.paywall-verify:hover{color:var(--fire);}
+
+/* LOADING */
+.loading-state{text-align:center;padding:40px 0;display:none;}
+.loading-state.show{display:block;}
+.loading-spinner{width:40px;height:40px;border:3px solid #333;border-top-color:var(--fire);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-label{font-family:'Space Mono',monospace;font-size:11px;color:#6a6a6a;letter-spacing:2px;}
+
+/* RESULTADO */
+.resultado{display:none;}
+.resultado.show{display:block;}
+.resumo-box{background:#242424;border-left:3px solid var(--fire);padding:20px 24px;margin-bottom:32px;}
+.resumo-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--fire);margin-bottom:8px;}
+.resumo-text{font-size:15px;color:#e0d9cf;line-height:1.7;}
+
+.fase-card{border:1px solid #2a2a2a;margin-bottom:16px;overflow:hidden;}
+.fase-header{background:#242424;padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.fase-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);letter-spacing:2px;margin-bottom:4px;}
+.fase-titulo{font-family:'Black Ops One',cursive;font-size:16px;color:#e0d9cf;}
+.fase-periodo{font-size:12px;color:#6a6a6a;font-family:'Space Mono',monospace;}
+.fase-toggle{color:#6a6a6a;font-size:18px;transition:transform .2s;}
+.fase-body{padding:24px;display:none;}
+.fase-body.open{display:block;}
+.fase-objetivo{font-size:13px;color:#888;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #2a2a2a;}
+
+.acao-item{padding:16px 0;border-bottom:1px solid #1a1a1a;}
+.acao-item:last-child{border-bottom:none;}
+.acao-nome{font-size:14px;font-weight:600;color:#e0d9cf;margin-bottom:6px;}
+.acao-desc{font-size:13px;color:#888;margin-bottom:8px;line-height:1.5;}
+.acao-meta{display:flex;gap:16px;flex-wrap:wrap;}
+.acao-tag{font-size:11px;font-family:'Space Mono',monospace;padding:4px 8px;background:#1a1a1a;border:1px solid #2a2a2a;}
+.acao-tag.ferramenta{color:var(--blue);}
+.acao-tag.responsavel{color:var(--ash);}
+.acao-tag.resultado{color:var(--green);}
+
+.fase-resultado{margin-top:16px;background:#1a1a1a;padding:12px 16px;font-size:12px;color:#aaa;line-height:1.5;}
+.fase-resultado strong{color:var(--fire);}
+
+.resultado-footer{text-align:center;margin-top:40px;padding-top:32px;border-top:1px solid #2a2a2a;}
+.resultado-footer p{font-size:13px;color:#888;margin-bottom:20px;}
+.btn-whatsapp{display:inline-block;background:var(--green);color:#fff;padding:14px 28px;text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;font-weight:700;}
+.btn-whatsapp:hover{opacity:.9;}
+
+.hidden{display:none;}
+</style>
+
+<script src="/oma-checkout.js" defer></script>
+<script src="/tracker.js" defer></script>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hlogo">OMA<span>.</span>PROJECT</div>
+  <a href="/roi" class="hback">← VOLTAR AO ROI</a>
+</header>
+
+<!-- PAYWALL -->
+<div class="paywall-overlay" id="paywall">
+  <div class="paywall-box">
+    <div class="paywall-badge">ETAPA 3 DE 4</div>
+    <h2 class="paywall-title">Automation Roadmap</h2>
+    <p class="paywall-desc">Transforme seu Priority Map em um plano real de execução — 30/60/90 dias, com ações, ferramentas e resultados esperados por fase.</p>
+    <div class="price-block">
+      <div class="price-main">R$297</div>
+      <div class="price-sub">pagamento único · entrega imediata</div>
+    </div>
+    <div class="paywall-items">
+      <div class="paywall-item"><span>✓</span><div>Plano 30/60/90 dias personalizado para o seu setor e operação</div></div>
+      <div class="paywall-item"><span>✓</span><div>Ações específicas com ferramentas sugeridas por fase</div></div>
+      <div class="paywall-item"><span>✓</span><div>Resultado esperado para cada ação</div></div>
+      <div class="paywall-item"><span>✓</span><div>Enviado por email imediatamente após o pagamento</div></div>
+    </div>
+    <button class="btn-pay" onclick="abrirCheckoutRoadmap()">PAGAR AGORA — R$297 &#x2192;</button>
+    <button class="paywall-verify" onclick="verificarPagamento()">Já paguei — verificar pagamento</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">ETAPA 3 DE 4</div>
+  <h1 class="hero-title">Seu <span>Roadmap</span><br>de Automação</h1>
+  <p class="hero-sub">Plano 30/60/90 dias personalizado para transformar seu Priority Map em execução real.</p>
+  <div class="steps">
+    <div class="step-dot done">1</div>
+    <div class="step-line done"></div>
+    <div class="step-dot done">2</div>
+    <div class="step-line done"></div>
+    <div class="step-dot active">3</div>
+    <div class="step-line"></div>
+    <div class="step-dot">4</div>
+  </div>
+</div>
+
+<!-- FORMULÁRIO COMPLEMENTAR -->
+<div class="card" id="form-section">
+  <div class="card-inner">
+    <div class="step-title">Contexto da Execução</div>
+    <p class="step-desc">Algumas perguntas rápidas para personalizar seu roadmap.</p>
+
+    <div class="field">
+      <label>Ferramentas que você já usa</label>
+      <input type="text" id="ferramentas" placeholder="Ex: Excel, WhatsApp, Planilhas, ERP..." />
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Tamanho do time</label>
+        <select id="tamanho_time">
+          <option value="solo">Só eu</option>
+          <option value="2-5">2 a 5 pessoas</option>
+          <option value="5-10" selected>5 a 10 pessoas</option>
+          <option value="10-20">10 a 20 pessoas</option>
+          <option value="20+">Mais de 20</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Orçamento mensal para ferramentas</label>
+        <select id="orcamento">
+          <option value="zero">Sem orçamento agora</option>
+          <option value="ate200" selected>Até R$200/mês</option>
+          <option value="200-500">R$200 a R$500</option>
+          <option value="500+">Acima de R$500</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Restrições ou contexto adicional (opcional)</label>
+      <textarea id="restricoes" rows="2" placeholder="Ex: sem desenvolvedor interno, sistema legado, franquia..."></textarea>
+    </div>
+
+    <button class="btn-primary" onclick="gerarRoadmap()">GERAR MEU ROADMAP →</button>
+
+    <!-- LOADING -->
+    <div class="loading-state" id="loading">
+      <div class="loading-spinner"></div>
+      <div class="loading-label" id="loading-label">ANALISANDO SEU PRIORITY MAP...</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTADO -->
+<div class="card hidden" id="resultado-section">
+  <div class="card-inner">
+    <div class="resultado" id="resultado">
+      <div class="step-title">Seu Automation Roadmap</div>
+      <p class="step-desc">Plano personalizado gerado com base no seu Priority Map.</p>
+
+      <div class="resumo-box">
+        <div class="resumo-label">RESUMO EXECUTIVO</div>
+        <div class="resumo-text" id="resumo-text"></div>
+      </div>
+
+      <div id="fases-container"></div>
+
+      <div class="resultado-footer">
+        <p>Roadmap enviado para o seu email. Quer ajuda para implementar?</p>
+        <a href="https://wa.me/5511966621506?text=Acabei+de+gerar+meu+Automation+Roadmap+no+OMA+Project+e+quero+conversar+sobre+implementação" class="btn-whatsapp" target="_blank">FALAR COM A OMA NO WHATSAPP →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var API = 'https://api.onemanarmyproject.com.br';
+var SESSION_ID = null;
+var PRIORITY_MAP_ID = null;
+
+// pega session_id e priority_map_id da URL ou localStorage
+function init() {
+  var params = new URLSearchParams(window.location.search);
+  SESSION_ID = params.get('session_id') || localStorage.getItem('oma_session_id');
+  PRIORITY_MAP_ID = params.get('pm_id') || localStorage.getItem('oma_pm_id');
+
+  if (!SESSION_ID) {
+    // sem sessão, redireciona pro ROI
+    window.location.href = '/roi';
+    return;
+  }
+
+  // verifica se já pagou
+  verificarPagamentoSilencioso();
+}
+
+function abrirCheckoutRoadmap() {
+  var email = document.getElementById('roadmap-email') ? document.getElementById('roadmap-email').value :
+              (document.querySelector('input[type=email]') ? document.querySelector('input[type=email]').value : '');
+  omaCheckout.open({
+    badge: 'AUTOMATION ROADMAP',
+    title: 'OMA AUTOMATION ROADMAP',
+    priceLabel: 'R$297 — pagamento único',
+    product: 'automation_roadmap',
+    value: 297,
+    description: 'OMA Automation Roadmap — Plano 30/60/90 dias',
+    email: email,
+    successMsg: 'Pagamento confirmado! Seu Automation Roadmap está sendo gerado e será enviado para <strong>' + (email||'seu email') + '</strong> em instantes.',
+    successBtnLabel: 'FECHAR',
+    onSuccess: function() {
+      if (typeof sessionId !== 'undefined' && sessionId) {
+        fetch(API + '/roadmap/confirmar-pagamento', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({session_id: sessionId})
+        }).catch(function(){});
+      }
+    }
+  });
+}
+function registrarCheckout() { abrirCheckoutRoadmap(); }
+
+function verificarPagamento() {
+  var btn = document.querySelector('.paywall-verify');
+  btn.textContent = 'Verificando...';
+  btn.disabled = true;
+  fetch(API + '/roadmap/verificar-pagamento', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({session_id: SESSION_ID})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d.pago) {
+      document.getElementById('paywall').style.display = 'none';
+      if (d.roadmap_id) {
+        // já tem roadmap gerado
+        carregarRoadmap(d.roadmap_id);
+      }
+    } else {
+      btn.textContent = 'Pagamento ainda não confirmado. Tente em alguns minutos.';
+      setTimeout(function(){ btn.textContent = 'Já paguei — verificar pagamento'; btn.disabled = false; }, 3000);
+    }
+  })
+  .catch(function(){
+    btn.textContent = 'Erro ao verificar. Tente novamente.';
+    btn.disabled = false;
+  });
+}
+
+function verificarPagamentoSilencioso() {
+  fetch(API + '/roadmap/verificar-pagamento', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({session_id: SESSION_ID})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d.pago) {
+      document.getElementById('paywall').style.display = 'none';
+      if (d.roadmap_id) carregarRoadmap(d.roadmap_id);
+    }
+  })
+  .catch(function(){});
+}
+
+function gerarRoadmap() {
+  var btn = document.querySelector('.btn-primary');
+  var loading = document.getElementById('loading');
+  var labels = [
+    'ANALISANDO SEU PRIORITY MAP...',
+    'MAPEANDO OPORTUNIDADES...',
+    'GERANDO FASES DO ROADMAP...',
+    'MONTANDO SEU PLANO DE AÇÃO...'
+  ];
+  var li = 0;
+  btn.disabled = true;
+  loading.classList.add('show');
+  var interval = setInterval(function(){
+    li = (li+1) % labels.length;
+    document.getElementById('loading-label').textContent = labels[li];
+  }, 2000);
+
+  fetch(API + '/roadmap/iniciar', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      session_id: SESSION_ID,
+      priority_map_id: PRIORITY_MAP_ID,
+      ferramentas_atuais: document.getElementById('ferramentas').value,
+      tamanho_time: document.getElementById('tamanho_time').value,
+      restricoes: document.getElementById('restricoes').value
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    clearInterval(interval);
+    loading.classList.remove('show');
+    if (d.error) { alert('Erro: ' + d.error); btn.disabled = false; return; }
+    exibirRoadmap(d);
+  })
+  .catch(function(e){
+    clearInterval(interval);
+    loading.classList.remove('show');
+    alert('Erro ao gerar roadmap. Tente novamente.');
+    btn.disabled = false;
+  });
+}
+
+function carregarRoadmap(roadmapId) {
+  fetch(API + '/roadmap/resultado/' + roadmapId)
+  .then(function(r){ return r.json(); })
+  .then(function(d){ exibirRoadmap(d); })
+  .catch(function(){});
+}
+
+function exibirRoadmap(d) {
+  // esconde form, mostra resultado
+  document.getElementById('form-section').classList.add('hidden');
+  document.getElementById('resultado-section').classList.remove('hidden');
+  document.getElementById('resultado').classList.add('show');
+
+  // resumo
+  document.getElementById('resumo-text').textContent = d.resumo_executivo || '';
+
+  // fases
+  var fases = d.fases || [];
+  var container = document.getElementById('fases-container');
+  container.innerHTML = '';
+  fases.forEach(function(f, idx){
+    var acoes = (f.acoes||[]).map(function(a){
+      return '<div class="acao-item">' +
+        '<div class="acao-nome">' + (a.acao||'') + '</div>' +
+        '<div class="acao-desc">' + (a.descricao||'') + '</div>' +
+        '<div class="acao-meta">' +
+          (a.ferramenta_sugerida ? '<span class="acao-tag ferramenta">🔧 ' + a.ferramenta_sugerida + '</span>' : '') +
+          (a.responsavel ? '<span class="acao-tag responsavel">👤 ' + a.responsavel + '</span>' : '') +
+          (a.resultado_esperado ? '<span class="acao-tag resultado">✓ ' + a.resultado_esperado + '</span>' : '') +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    var card = document.createElement('div');
+    card.className = 'fase-card';
+    card.innerHTML = '<div class="fase-header" onclick="toggleFase(this)">' +
+      '<div>' +
+        '<div class="fase-num">FASE ' + f.fase + ' · ' + (f.periodo||'') + '</div>' +
+        '<div class="fase-titulo">' + (f.titulo||'') + '</div>' +
+      '</div>' +
+      '<div class="fase-toggle">' + (idx===0 ? '▲' : '▼') + '</div>' +
+    '</div>' +
+    '<div class="fase-body ' + (idx===0?'open':'') + '">' +
+      '<div class="fase-objetivo">' + (f.objetivo||'') + '</div>' +
+      acoes +
+      '<div class="fase-resultado"><strong>Resultado da fase:</strong> ' + (f.resultado_fase||'') + '</div>' +
+    '</div>';
+    container.appendChild(card);
+  });
+
+  // scroll suave pro resultado
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleFase(header) {
+  var body = header.nextElementSibling;
+  var toggle = header.querySelector('.fase-toggle');
+  body.classList.toggle('open');
+  toggle.textContent = body.classList.contains('open') ? '▲' : '▼';
+}
+
+init();
+</script>
+</body>
+</html>

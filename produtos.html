@@ -361,8 +361,14 @@ body{background:var(--char);color:var(--bone);font-family:Barlow,sans-serif;min-
 <div class="toast" id="ts"></div>
 
 <script>
-var API='https://alexa.pipeeyewear.com.br';
-var KEY=localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'';
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+var API='https://api.onemanarmyproject.com.br';
 var prods=[],acoes=[],linha='todos',_ct=[],_bt=[];
 
 function dL(){
@@ -407,10 +413,10 @@ function fmt(v){return 'R$'+(parseFloat(v)||0).toLocaleString('pt-BR');}
 async function init(){await Promise.all([lP(),lA()]);}
 
 async function lP(){
-  try{var r=await fetch(API+'/produtos',{headers:{'x-api-key':KEY}});prods=await r.json();if(!Array.isArray(prods))prods=[];rP();}catch(e){console.error(e);}
+  try{var r=await fetch(API+'/produtos',{headers:getAuthHeaders()});prods=await r.json();if(!Array.isArray(prods))prods=[];rP();}catch(e){console.error(e);}
 }
 async function lA(){
-  try{var r=await fetch(API+'/acoes',{headers:{'x-api-key':KEY}});acoes=await r.json();if(!Array.isArray(acoes))acoes=[];rA();}catch(e){console.error(e);}
+  try{var r=await fetch(API+'/acoes',{headers:getAuthHeaders()});acoes=await r.json();if(!Array.isArray(acoes))acoes=[];rA();}catch(e){console.error(e);}
 }
 
 function setTab(t,el){
@@ -603,7 +609,7 @@ async function sP(){
   var id=document.getElementById('p-id').value;
   var d={nome:nome,descricao:document.getElementById('p-desc').value,linha:document.getElementById('p-linha').value,periodo:document.getElementById('p-per').value,suporte:document.getElementById('p-suporte').value,sla:document.getElementById('p-sla').value,status:document.getElementById('p-st').value,preco_cheio:document.getElementById('p-pc').value,preco_desconto:document.getElementById('p-pd').value,setup_fee:document.getElementById('p-sf').value,custo_op:document.getElementById('p-co').value,limite_agentes:document.getElementById('p-lag').value,limite_relatorios:document.getElementById('p-lrel').value,asaas_link_pix:document.getElementById('p-lpix').value,asaas_link_cartao:document.getElementById('p-lcc').value,notas:document.getElementById('p-notas').value,destaque:document.getElementById('p-dest').checked,bundle:document.getElementById('p-bund').checked,caracteristicas:_ct,bundle_itens:_bt};
   try{
-    var r=await fetch(API+'/produtos'+(id?'/'+id:''),{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify(d)});
+    var r=await fetch(API+'/produtos'+(id?'/'+id:''),{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(getToken()||'')},body:JSON.stringify(d)});
     var res=await r.json();
     if(res.id||res.nome){toast('Produto salvo!','ok');fp();await lP();}
     else{toast('Erro: '+(res.error||'falha'),'');}
@@ -654,14 +660,14 @@ async function sA(){
   var pi=Array.from(document.querySelectorAll('[name="ap"]:checked')).map(function(c){return parseInt(c.value);});
   var d={nome:nome,descricao:document.getElementById('a-desc').value,desconto_pct:document.getElementById('a-pct').value,desconto_fixo:document.getElementById('a-fix').value,validade_inicio:document.getElementById('a-ini').value,validade_fim:document.getElementById('a-fim').value,status:document.getElementById('a-st').value,canais:cn,produtos_ids:pi};
   try{
-    var r=await fetch(API+'/acoes'+(id?'/'+id:''),{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify(d)});
+    var r=await fetch(API+'/acoes'+(id?'/'+id:''),{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(getToken()||'')},body:JSON.stringify(d)});
     var res=await r.json();
     if(res.id||res.nome){toast('Acao salva!','ok');fa();await lA();}
     else{toast('Erro: '+(res.error||'falha'),'');}
   }catch(e){toast('Erro de conexao','');}
 }
 async function atA(id,st){
-  try{var r=await fetch(API+'/acoes/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify({status:st})});var d=await r.json();if(d.id){toast('Status: '+st,'ok');await lA();}}catch(e){toast('Erro','');}
+  try{var r=await fetch(API+'/acoes/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(getToken()||'')},body:JSON.stringify({status:st})});var d=await r.json();if(d.id){toast('Status: '+st,'ok');await lA();}}catch(e){toast('Erro','');}
 }
 async function distA(id){
   var a=acoes.find(function(x){return x.id==id;});if(!a)return;
@@ -676,7 +682,7 @@ async function dP(id, e){
   if(!p) return;
   if(!confirm('Deletar produto "'+p.nome+'"? Esta acao nao pode ser desfeita.')) return;
   try{
-    var r = await fetch(API+'/produtos/'+id, {method:'DELETE', headers:{'x-api-key':KEY}});
+    var r = await fetch(API+'/produtos/'+id, {method:'DELETE', headers:getAuthHeaders()});
     var d = await r.json();
     if(d.ok || d.deleted){
       toast('Produto deletado','ok');
@@ -693,7 +699,7 @@ async function dA(id, e){
   if(!a) return;
   if(!confirm('Deletar acao "'+a.nome+'"?')) return;
   try{
-    var r = await fetch(API+'/acoes/'+id, {method:'DELETE', headers:{'x-api-key':KEY}});
+    var r = await fetch(API+'/acoes/'+id, {method:'DELETE', headers:getAuthHeaders()});
     var d = await r.json();
     if(d.ok || d.deleted){
       toast('Acao deletada','ok');

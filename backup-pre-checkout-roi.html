@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Automation ROI — Quanto custa seu trabalho manual?</title>
+<link rel="icon" href="/lobster-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0ede8;--coal:#1c1c1e;--iron:#242424;--border:#d4cfc8;--steel:#3a3a3a;
+  --ash:#8a8278;--fog:#5a5550;--bone:#1c1c1e;
+  --fire:#e8703a;--ember:#c05020;--green:#2d8a50;--gold:#b8942a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+
+/* HEADER */
+.hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:#e0d9cf;}
+.hlogo span{color:var(--fire);}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--fire);}
+
+/* HERO */
+.hero{max-width:680px;margin:60px auto 0;padding:0 24px;text-align:center;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:16px;}
+.hero-title{font-family:'Black Ops One',cursive;font-size:36px;letter-spacing:1px;line-height:1.15;margin-bottom:16px;}
+.hero-title span{color:var(--fire);}
+.hero-sub{font-size:16px;color:var(--fog);line-height:1.7;margin-bottom:40px;}
+
+/* STEPS */
+.steps{display:flex;justify-content:center;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.step-dot{width:28px;height:28px;border-radius:50%;border:2px solid #c4bfb8;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;color:#9a948e;transition:all .3s;}
+.step-dot.active{background:var(--fire);border-color:var(--fire);color:#fff;}
+.step-dot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.step-line{width:32px;height:2px;background:#c4bfb8;margin-top:13px;}
+.step-line.done{background:var(--green);}
+
+/* CARD */
+.card{max-width:680px;margin:0 auto 80px;padding:0 24px;}
+.card-inner{background:#1c1c1e;border:1px solid #2a2a2a;padding:40px;box-shadow:0 8px 40px rgba(0,0,0,.15);}
+
+.step-title{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:1px;margin-bottom:8px;color:#e0d9cf;}
+.step-desc{font-size:14px;color:#888;margin-bottom:32px;line-height:1.6;}
+
+/* FORM */
+.field{margin-bottom:24px;}
+.field label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;text-transform:uppercase;display:block;margin-bottom:8px;}
+.field input,.field select,.field textarea{width:100%;background:#242424;border:1px solid #333;color:#e0d9cf;padding:12px 14px;font-family:'Barlow',sans-serif;font-size:15px;outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus{border-color:var(--fire);}
+.field select option{background:#1c1c1e;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+/* TAREFAS */
+.tarefa-item{background:#242424;border:1px solid #333;padding:16px;margin-bottom:12px;position:relative;}
+.tarefa-remove{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--ash);cursor:pointer;font-size:16px;line-height:1;}
+.tarefa-remove:hover{color:var(--fire);}
+.tarefa-fields{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;}
+.tarefa-fields input,.tarefa-fields select{background:#1c1c1e;border:1px solid #333;color:#e0d9cf;padding:8px 10px;font-size:13px;font-family:'Barlow',sans-serif;outline:none;width:100%;}
+.tarefa-fields input:focus,.tarefa-fields select:focus{border-color:var(--fire);}
+.tarefa-label{font-family:'Space Mono',monospace;font-size:9px;color:#6a6a6a;letter-spacing:1px;margin-bottom:4px;}
+.add-tarefa{background:none;border:1px dashed var(--steel);color:var(--ash);padding:12px;width:100%;cursor:pointer;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;transition:all .2s;margin-top:4px;}
+.add-tarefa:hover{border-color:var(--fire);color:var(--fire);}
+
+/* BOTOES */
+.btn-primary{background:var(--fire);border:none;color:#000;padding:16px 32px;font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;cursor:pointer;width:100%;transition:background .2s;margin-top:8px;}
+.btn-primary:hover{background:var(--ember);}
+.btn-primary:disabled{background:var(--steel);color:var(--ash);cursor:not-allowed;}
+.btn-secondary{background:none;border:1px solid var(--border);color:var(--ash);padding:12px 24px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.btn-secondary:hover{border-color:var(--fire);color:var(--fire);}
+.btn-row{display:flex;gap:12px;margin-top:8px;}
+.btn-row .btn-primary{flex:1;}
+
+/* RESULTADO */
+.resultado-hidden{display:none;}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:32px;}
+.result-card{background:#242424;padding:24px 20px;}
+.result-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#6a6a6a;text-transform:uppercase;margin-bottom:8px;}
+.result-value{font-family:'Black Ops One',cursive;font-size:28px;color:#e0d9cf;}
+.result-value.fire{color:var(--fire);}
+.result-value.green{color:var(--green);}
+.result-sub{font-size:11px;color:#6a6a6a;margin-top:4px;}
+
+.interpretacao{background:#242424;border-left:3px solid var(--fire);padding:20px 24px;margin-bottom:32px;font-size:14px;line-height:1.8;color:#aaa;}
+
+/* PRIORITY CTA */
+.priority-cta{background:linear-gradient(135deg,rgba(232,112,58,.15),rgba(232,112,58,.05));border:1px solid rgba(232,112,58,.4);padding:32px;text-align:center;margin-top:16px;}
+.priority-cta-title{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:1px;margin-bottom:8px;color:#e0d9cf;}
+.priority-cta-desc{font-size:14px;color:#aaa;margin-bottom:24px;line-height:1.6;}
+.priority-price{font-family:'Space Mono',monospace;font-size:11px;color:#6a6a6a;margin-bottom:20px;}
+.priority-price strong{color:var(--fire);font-size:24px;font-family:'Black Ops One',cursive;}
+
+/* EMAIL GATE */
+.email-gate{background:#242424;border:1px solid #333;padding:32px;text-align:center;}
+.email-gate-title{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:1px;margin-bottom:8px;color:#e0d9cf;}
+.email-gate-desc{font-size:13px;color:#888;margin-bottom:24px;}
+.email-gate input{background:#1c1c1e;border:1px solid #333;color:#e0d9cf;padding:14px;font-size:15px;font-family:'Barlow',sans-serif;width:100%;outline:none;margin-bottom:12px;}
+.email-gate input:focus{border-color:var(--fire);}
+
+/* LOADING */
+.loading{text-align:center;padding:40px;display:none;}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--steel);border-top-color:var(--fire);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-txt{font-family:'Space Mono',monospace;font-size:11px;color:#6a6a6a;letter-spacing:2px;}
+
+/* PRIORITY MAP RESULTADO */
+.pm-section{margin-bottom:28px;}
+.pm-section-title{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;color:var(--fire);margin-bottom:12px;text-transform:uppercase;border-bottom:1px solid #2a2a2a;padding-bottom:8px;}
+.pm-card{background:#242424;border-left:3px solid #3a3a3a;padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;}
+.pm-card.quick-win{border-left-color:var(--green);}
+.pm-card.planejar{border-left-color:var(--gold);}
+.pm-card.padronizar{border-left-color:var(--fire);}
+.pm-card.ignorar{border-left-color:var(--ash);}
+.pm-badge{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;padding:3px 8px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.pm-badge.quick-win{background:rgba(61,158,96,.2);color:var(--green);}
+.pm-badge.planejar{background:rgba(200,164,86,.2);color:var(--gold);}
+.pm-badge.padronizar{background:rgba(232,112,58,.2);color:var(--fire);}
+.pm-badge.ignorar{background:rgba(106,106,106,.2);color:var(--ash);}
+.pm-nome{font-size:14px;font-weight:600;margin-bottom:4px;color:#e0d9cf;}
+.pm-rec{font-size:12px;color:#888;line-height:1.5;}
+
+.toast{position:fixed;bottom:24px;right:24px;background:#1c1c1e;border:1px solid #333;padding:12px 20px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;z-index:999;transition:opacity .3s;opacity:0;}
+.toast.show{opacity:1;}
+.toast.ok{border-color:var(--green);color:var(--green);}
+.toast.err{border-color:var(--fire);color:var(--fire);}
+
+@media(max-width:600px){
+  .result-grid{grid-template-columns:1fr;}
+  .tarefa-fields{grid-template-columns:1fr;}
+  .hero-title{font-size:26px;}
+  .field-row{grid-template-columns:1fr;}
+}
+</style>
+<script src="/tracker.js" defer></script>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hlogo">OMA <span>ROI</span></div>
+  <a href="/" class="hback">← OMA PROJECT</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge" style="color:var(--fire);">⚡ Diagnóstico Gratuito</div>
+  <h1 class="hero-title" style="color:#1c1c1e;">Quanto custa seu<br><span>trabalho manual?</span></h1>
+  <p class="hero-sub" style="color:#5a5550;">Mapeie as tarefas repetitivas da sua operação e descubra em minutos quanto tempo e dinheiro estão sendo desperdiçados.</p>
+
+  <!-- STEPS INDICATOR -->
+  <div class="steps" id="steps-indicator">
+    <div class="step-dot active" id="sd-1">1</div>
+    <div class="step-line" id="sl-1"></div>
+    <div class="step-dot" id="sd-2">2</div>
+    <div class="step-line" id="sl-2"></div>
+    <div class="step-dot" id="sd-3">3</div>
+    <div class="step-line" id="sl-3"></div>
+    <div class="step-dot" id="sd-4">4</div>
+  </div>
+</div>
+
+<!-- CARD PRINCIPAL -->
+<div class="card">
+  <div class="card-inner">
+
+    <!-- STEP 1: CONTEXTO -->
+    <div id="step-1">
+      <div class="step-title">Sobre o seu negócio</div>
+      <div class="step-desc">Informações básicas para personalizarmos o diagnóstico. Tudo opcional — mas quanto mais você preencher, mais preciso o resultado.</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Seu nome</label>
+          <input type="text" id="f-nome" placeholder="Como prefere ser chamado?">
+        </div>
+        <div class="field">
+          <label>Nome da empresa</label>
+          <input type="text" id="f-empresa" placeholder="Razão social ou nome fantasia">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Setor</label>
+          <select id="f-setor">
+            <option value="geral">Geral / PME</option>
+            <option value="advocacia">Advocacia / Jurídico</option>
+            <option value="consultorio">Saúde / Consultório</option>
+            <option value="otica">Ótica / Varejo</option>
+            <option value="condominio">Condomínio / Imobiliária</option>
+            <option value="distribuidor">Distribuidor / Logística</option>
+            <option value="contabilidade">Contabilidade / Financeiro</option>
+            <option value="educacao">Educação / Treinamento</option>
+            <option value="marketing">Marketing / Agência</option>
+            <option value="tecnologia">Tecnologia / SaaS</option>
+            <option value="construcao">Construção / Engenharia</option>
+            <option value="alimentacao">Alimentação / Food</option>
+            <option value="rh">RH / Recrutamento</option>
+            <option value="consultoria">Consultoria</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tamanho do time</label>
+          <select id="f-time">
+            <option value="1">Só eu</option>
+            <option value="2-5">2 a 5 pessoas</option>
+            <option value="6-15">6 a 15 pessoas</option>
+            <option value="16-50">16 a 50 pessoas</option>
+            <option value="50+">Mais de 50</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="irStep(2)">CONTINUAR →</button>
+    </div>
+
+    <!-- STEP 2: TAREFAS -->
+    <div id="step-2" style="display:none;">
+      <div class="step-title">Mapeie as tarefas manuais</div>
+      <div class="step-desc">Liste as atividades repetitivas que você ou seu time fazem manualmente. Adicione quantas quiser — mínimo de 2 para um diagnóstico útil.</div>
+      <div id="tarefas-container"></div>
+      <button class="add-tarefa" onclick="addTarefa()">+ ADICIONAR TAREFA</button>
+      <div class="btn-row" style="margin-top:24px;">
+        <button class="btn-secondary" onclick="irStep(1)">← VOLTAR</button>
+        <button class="btn-primary" onclick="irStep(3)">CONTINUAR →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: EMAIL GATE -->
+    <div id="step-3" style="display:none;">
+      <div class="email-gate">
+        <div class="email-gate-title">📊 Seu diagnóstico está pronto</div>
+        <div class="email-gate-desc">Informe seu email para receber o resultado completo e o relatório de oportunidades.</div>
+        <div class="field-row" style="margin-bottom:12px;">
+          <div><input type="email" id="f-email" placeholder="seu@email.com.br" style="background:#1c1c1e;border:1px solid #333;color:#e0d9cf;padding:14px;font-size:15px;font-family:Barlow,sans-serif;width:100%;outline:none;"></div>
+          <div><input type="tel" id="f-celular" placeholder="(11) 99999-9999" style="background:#1c1c1e;border:1px solid #333;color:#e0d9cf;padding:14px;font-size:15px;font-family:Barlow,sans-serif;width:100%;outline:none;"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="irStep(2)">← VOLTAR</button>
+          <button class="btn-primary" onclick="calcularROI()">VER MEU DIAGNÓSTICO →</button>
+        </div>
+        <p style="font-size:11px;color:var(--ash);margin-top:12px;">Sem spam. Você recebe apenas o relatório e oportunidades relevantes.</p>
+      </div>
+    </div>
+
+    <!-- STEP 4: LOADING -->
+    <div id="step-loading" style="display:none;">
+      <div class="loading" style="display:block;">
+        <div class="loading-spinner"></div>
+        <div class="loading-txt" id="loading-msg">CALCULANDO SEU ROI...</div>
+      </div>
+    </div>
+
+    <!-- STEP 4: RESULTADO ROI -->
+    <div id="step-resultado" style="display:none;">
+      <div class="step-title">Seu diagnóstico</div>
+      <div class="step-desc" id="resultado-subtitulo">Aqui está o custo real do trabalho manual na sua operação.</div>
+
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-label">Tarefas mapeadas</div>
+          <div class="result-value" id="r-tarefas">—</div>
+          <div class="result-sub">atividades manuais identificadas</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Horas semanais em risco</div>
+          <div class="result-value fire" id="r-horas">—</div>
+          <div class="result-sub">horas/semana perdidas em manual</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Custo anual estimado</div>
+          <div class="result-value fire" id="r-custo">—</div>
+          <div class="result-sub">custo do trabalho manual por ano</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Economia potencial</div>
+          <div class="result-value green" id="r-economia">—</div>
+          <div class="result-sub">estimativa conservadora (40%)</div>
+        </div>
+      </div>
+
+      <div class="interpretacao" id="r-interpretacao"></div>
+
+      <!-- CTA PRIORITY MAP -->
+      <div class="priority-cta">
+        <div class="priority-cta-title">Mas o que atacar primeiro?</div>
+        <div class="priority-cta-desc">O diagnóstico revelou o problema. O <strong>OMA Priority Map</strong> responde o que fazer com isso — lista priorizada por impacto × esforço, quick wins, recomendações por tarefa e PDF completo enviado no seu email.</div>
+        <div class="priority-price">Por apenas <strong>R$97</strong> — one-off, sem mensalidade</div>
+        <button class="btn-primary" onclick="abrirCheckout()" id="btn-priority">QUERO MEU PRIORITY MAP — R$97 →</button>
+        <p style="font-size:11px;color:#6a6a6a;margin-top:12px;">Pagamento via PIX, boleto ou cartão · Acesso imediato após confirmação</p>
+      </div>
+
+      <!-- CHECKOUT OVERLAY -->
+      <div id="checkout-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:center;justify-content:center;">
+        <div style="background:#1c1c1e;border:1px solid #333;padding:40px;max-width:440px;width:90%;position:relative;">
+          <button onclick="fecharCheckout()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#6a6a6a;font-size:20px;cursor:pointer;">×</button>
+          <div style="font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:1px;color:#e0d9cf;margin-bottom:6px;">OMA Priority Map</div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:#e8703a;margin-bottom:20px;">R$ 97,00 — Pague apenas uma vez</div>
+          <div style="font-size:13px;color:#888;margin-bottom:24px;line-height:1.6;">Após o pagamento você recebe por email o <strong style="color:#e0d9cf;">PDF completo</strong> com sua lista priorizada, quick wins e recomendações detalhadas por tarefa.</div>
+          <a id="btn-checkout-pix" href="#" target="_blank" onclick="registrarInicioPagamento()" style="display:block;background:#e8703a;color:#000;padding:16px;text-align:center;text-decoration:none;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;margin-bottom:8px;">PAGAR VIA PIX / BOLETO →</a>
+          <a id="btn-checkout-cc" href="#" target="_blank" onclick="registrarInicioPagamento()" style="display:block;background:transparent;color:#e8703a;border:1px solid #e8703a;padding:14px;text-align:center;text-decoration:none;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;margin-bottom:16px;">PAGAR COM CARTÃO →</a>
+          <p style="font-size:10px;color:#4a4a4a;text-align:center;">Após o pagamento ser confirmado, seu Priority Map é gerado automaticamente e enviado para <span id="checkout-email-show" style="color:#888;"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4.5: AGUARDANDO PAGAMENTO -->
+    <div id="step-aguardando" style="display:none;">
+      <div style="text-align:center;padding:40px 20px;">
+        <div style="font-size:40px;margin-bottom:16px;">⏳</div>
+        <div class="step-title" style="color:#e0d9cf;">Aguardando confirmação</div>
+        <div class="step-desc">Assim que o pagamento for confirmado, seu Priority Map será gerado automaticamente e enviado para <strong id="aguard-email" style="color:#e0d9cf;"></strong></div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;margin-top:24px;letter-spacing:1px;">PIX confirma em segundos · Boleto em até 1 dia útil</div>
+        <div style="margin-top:32px;padding:16px;background:#242424;border:1px solid #333;font-size:12px;color:#888;">Já pagou? <button onclick="verificarPagamento()" style="background:none;border:none;color:#e8703a;cursor:pointer;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;">VERIFICAR AGORA →</button></div>
+      </div>
+    </div>
+
+    <!-- STEP 5: PRIORITY MAP -->
+    <div id="step-priority" style="display:none;">
+      <div class="step-title">Seu Priority Map</div>
+      <div class="step-desc">Aqui está um resumo visual das suas prioridades. O <strong style="color:#e0d9cf;">relatório completo em PDF</strong> — com análise detalhada, recomendações por tarefa e plano de ação — foi enviado para o seu email agora.</div>
+      <div style="background:rgba(61,158,96,.1);border:1px solid rgba(61,158,96,.3);padding:12px 16px;margin-bottom:24px;font-family:'Space Mono',monospace;font-size:10px;color:#3d9e60;letter-spacing:1px;">✅ PDF COMPLETO ENVIADO NO SEU EMAIL</div>
+
+      <div class="pm-section">
+        <div class="pm-section-title">⚡ Quick Wins — Automatizar agora</div>
+        <div id="pm-quick-wins"></div>
+      </div>
+      <div class="pm-section">
+        <div class="pm-section-title">📋 Planejar — Vale o investimento</div>
+        <div id="pm-planejar"></div>
+      </div>
+      <div class="pm-section">
+        <div class="pm-section-title">🔧 Padronizar primeiro</div>
+        <div id="pm-padronizar"></div>
+      </div>
+      <div class="pm-section" id="pm-ignorar-section">
+        <div class="pm-section-title" style="color:var(--ash);">⏸ Ignorar por enquanto</div>
+        <div id="pm-ignorar"></div>
+      </div>
+
+      <div class="priority-cta" style="margin-top:32px;">
+        <div class="priority-cta-title">Próximo passo: Roadmap 30/60/90</div>
+        <div class="priority-cta-desc">Transforme esse Priority Map em um plano de execução real. O <strong>OMA Automation Roadmap</strong> entrega seu plano estruturado de automação com fases, ferramentas e resultados esperados.</div>
+        <button class="btn-primary" onclick="irRoadmap()">QUERO MEU ROADMAP →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var API = 'https://api.onemanarmyproject.com.br';
+var sessionId = null;
+var priorityMapId = null;
+
+var tarefas = [
+  {nome:'', frequencia:'diaria', minutos:'', custo_horario:'', risco:false, esforco:'3'}
+];
+
+function toast(msg, tipo) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (tipo || '');
+  setTimeout(function(){ t.className = 'toast'; }, 3000);
+}
+
+function fmt(v) {
+  return 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+}
+
+function irStep(n) {
+  ['step-1','step-2','step-3','step-loading','step-resultado','step-aguardando','step-priority'].forEach(function(id){
+    document.getElementById(id).style.display = 'none';
+  });
+
+  if (n === 2 && tarefas.length === 0) addTarefa();
+  if (n === 2) renderTarefas();
+
+  var map = {1:'step-1', 2:'step-2', 3:'step-3', 'loading':'step-loading', 'resultado':'step-resultado', 'aguardando':'step-aguardando', 'priority':'step-priority'};
+  var el = document.getElementById(map[n] || 'step-1');
+  if (el) el.style.display = 'block';
+
+  // atualizar indicador
+  var stepNum = typeof n === 'number' ? n : 4;
+  [1,2,3,4].forEach(function(i){
+    var dot = document.getElementById('sd-'+i);
+    var line = document.getElementById('sl-'+i);
+    if (!dot) return;
+    dot.className = 'step-dot' + (i < stepNum ? ' done' : i === stepNum ? ' active' : '');
+    if (line) line.className = 'step-line' + (i < stepNum ? ' done' : '');
+  });
+}
+
+function addTarefa() {
+  tarefas.push({nome:'', frequencia:'diaria', minutos:'', custo_horario:'', risco:false, esforco:'3'});
+  renderTarefas();
+}
+
+function renderTarefas() {
+  var c = document.getElementById('tarefas-container');
+  c.innerHTML = tarefas.map(function(t, i) {
+    return '<div class="tarefa-item">' +
+      (tarefas.length > 1 ? '<button class="tarefa-remove" onclick="removeTarefa('+i+')">×</button>' : '') +
+      '<div class="tarefa-fields">' +
+        '<div><div class="tarefa-label">Nome da tarefa</div><input type="text" value="'+esc(t.nome)+'" placeholder="Ex: Triagem de emails" oninput="upT('+i+',\'nome\',this.value)"></div>' +
+        '<div><div class="tarefa-label">Frequência</div><select onchange="upT('+i+',\'frequencia\',this.value)">' +
+          ['diaria','semanal','mensal'].map(function(f){ return '<option value="'+f+'"'+(t.frequencia===f?' selected':'')+'>'+f.charAt(0).toUpperCase()+f.slice(1)+'</option>'; }).join('') +
+        '</select></div>' +
+        '<div><div class="tarefa-label">Minutos/ocorrência</div><input type="number" value="'+esc(t.minutos)+'" placeholder="30" min="1" oninput="upT('+i+',\'minutos\',this.value)"></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function esc(v) { return String(v||'').replace(/"/g,'&quot;'); }
+function upT(i, k, v) { tarefas[i][k] = v; }
+function removeTarefa(i) { tarefas.splice(i,1); renderTarefas(); }
+
+async function calcularROI() {
+  var email = document.getElementById('f-email').value.trim();
+  if (!email || !email.includes('@')) { toast('Informe um email válido','err'); return; }
+
+  var tarefasValidas = tarefas.filter(function(t){ return t.nome && t.minutos; });
+  if (tarefasValidas.length < 1) { toast('Adicione ao menos 1 tarefa com nome e minutos','err'); return; }
+
+  irStep('loading');
+  document.getElementById('loading-msg').textContent = 'ANALISANDO SUA OPERAÇÃO...';
+
+  try {
+    var res = await fetch(API + '/roi/calcular', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        nome: document.getElementById('f-nome').value,
+        empresa: document.getElementById('f-empresa').value,
+        setor: document.getElementById('f-setor').value,
+        tamanho_time: document.getElementById('f-time').value,
+        tarefas: tarefasValidas
+      })
+    });
+    var d = await res.json();
+    sessionId = d.session_id;
+
+    // capturar lead
+    var celular = document.getElementById('f-celular').value.trim();
+    await fetch(API + '/roi/lead', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: sessionId, email: email, celular: celular})
+    });
+
+    // preencher resultado
+    document.getElementById('r-tarefas').textContent = d.n_tarefas;
+    document.getElementById('r-horas').textContent = d.horas_semanais + 'h';
+    document.getElementById('r-custo').textContent = fmt(d.custo_anual);
+    document.getElementById('r-economia').textContent = fmt(d.economia_estimada);
+    document.getElementById('r-interpretacao').textContent = d.interpretacao || '';
+
+    var nome = document.getElementById('f-nome').value;
+    if (nome) document.getElementById('resultado-subtitulo').textContent = nome + ', aqui está o custo real do trabalho manual na sua operação.';
+
+    irStep('resultado');
+  } catch(e) {
+    toast('Erro ao calcular. Tente novamente.','err');
+    irStep(3);
+  }
+}
+
+// ASAAS links Priority Map
+var ASAAS_PIX_PM = 'https://www.asaas.com/c/priority-map-pix'; // substituir pelo link real
+var ASAAS_CC_PM  = 'https://www.asaas.com/c/priority-map-cc';  // substituir pelo link real
+
+function abrirCheckout() {
+  if (!sessionId) return;
+  // definir links com session_id no description para rastreamento
+  var pixUrl = 'https://asaas.com/c/oma-priority-pix?session=' + sessionId;
+  var ccUrl  = 'https://asaas.com/c/oma-priority-cc?session='  + sessionId;
+  // por ora usar link genérico — substituir por link Asaas real quando criado
+  // Links Asaas reais — Priority Map R$97
+  document.getElementById('btn-checkout-pix').href = 'https://www.asaas.com/c/32w0juvxxk44yyiq';
+  document.getElementById('btn-checkout-cc').href  = 'https://www.asaas.com/c/vmo6efx41t6z6y9e';
+  document.getElementById('checkout-email-show').textContent = document.getElementById('f-email').value || '';
+  var overlay = document.getElementById('checkout-overlay');
+  overlay.style.display = 'flex';
+}
+
+function fecharCheckout() {
+  document.getElementById('checkout-overlay').style.display = 'none';
+}
+
+function registrarInicioPagamento() {
+  // registrar no backend que pagamento foi iniciado
+  if (sessionId) {
+    fetch(API + '/priority/registrar-checkout', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: sessionId})
+    }).catch(function(){});
+  }
+  setTimeout(function() {
+    document.getElementById('checkout-overlay').style.display = 'none';
+    document.getElementById('aguard-email').textContent = document.getElementById('f-email').value || '';
+    irStep('aguardando');
+  }, 500);
+}
+
+async function verificarPagamento() {
+  // Verificar status do pagamento via backend antes de liberar
+  if (!sessionId) { toast('Sessão inválida. Refaça o diagnóstico.','err'); return; }
+  var btn = event.target;
+  btn.textContent = '⏳ VERIFICANDO...';
+  btn.disabled = true;
+  try {
+    var res = await fetch(API + '/priority/verificar-pagamento', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: sessionId})
+    });
+    var d = await res.json();
+    if (d.pago) {
+      await gerarPriorityMap();
+    } else {
+      toast('Pagamento ainda não confirmado. PIX confirma em segundos após o pagamento.','err');
+      btn.textContent = 'VERIFICAR AGORA →';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    toast('Erro ao verificar. Tente novamente.','err');
+    btn.textContent = 'VERIFICAR AGORA →';
+    btn.disabled = false;
+  }
+}
+
+async function gerarPriorityMap() {
+  if (!sessionId) return;
+  irStep('loading');
+  document.getElementById('loading-msg').textContent = 'GERANDO SEU PRIORITY MAP...';
+
+  try {
+    var res = await fetch(API + '/priority/iniciar', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({roi_session_id: sessionId})
+    });
+    var d = await res.json();
+
+    if (d.priority_map_id) {
+      priorityMapId = d.priority_map_id;
+      renderPriorityMap(d);
+      irStep('priority');
+    }
+  } catch(e) {
+    toast('Erro ao gerar Priority Map. Tente novamente.','err');
+    irStep('resultado');
+  }
+}
+
+function renderPriorityMap(d) {
+  var scored = d.tarefas_scored || [];
+  var recs = d.recomendacoes || [];
+
+  function recPara(nome) {
+    var r = recs.find(function(x){ return x.nome === nome; });
+    return r ? r.recomendacao : '';
+  }
+
+  function renderGroup(categoria, containerId) {
+    var items = scored.filter(function(t){ return t.categoria === categoria; });
+    var cont = document.getElementById(containerId);
+    if (!items.length) { cont.innerHTML = '<p style="font-size:13px;color:var(--ash);padding:8px 0;">Nenhuma tarefa nesta categoria.</p>'; return; }
+    cont.innerHTML = items.map(function(t) {
+      var badgeLabel = {quick_win:'QUICK WIN',planejar:'PLANEJAR',padronizar:'PADRONIZAR',ignorar:'IGNORAR'}[t.categoria] || t.categoria;
+      return '<div class="pm-card '+t.categoria.replace('_','-')+'">' +
+        '<span class="pm-badge '+t.categoria.replace('_','-')+'">'+badgeLabel+'</span>' +
+        '<div><div class="pm-nome">'+(t.nome||t.tarefa||'')+'</div><div class="pm-rec">'+recPara(t.nome||t.tarefa||'')+'</div></div>' +
+        '</div>';
+    }).join('');
+  }
+
+  renderGroup('quick_win', 'pm-quick-wins');
+  renderGroup('planejar', 'pm-planejar');
+  renderGroup('padronizar', 'pm-padronizar');
+  renderGroup('ignorar', 'pm-ignorar');
+}
+
+function irRoadmap() {
+  // por enquanto abre contato via WhatsApp com contexto
+  var msg = 'Olá! Acabei de ver meu Priority Map no OMA e quero montar meu roadmap de automação.';
+  window.open('https://wa.me/5511966621506?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// inicializar
+irStep(1);
+</script>
+</body>
+</html>

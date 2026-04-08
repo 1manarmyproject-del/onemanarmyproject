@@ -5,7 +5,7 @@
 <title>OMA — Amanda</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--char:#080808;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#2a2a2a;--ash:#555;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;--agent:var(--gold);}
+:root{--char:#1a1a1a;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#3a3a3a;--ash:#6a6a6a;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--gold:#c8a456;--green:#3d9e60;--blue:#3a7bd5;--agent:var(--gold);}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(122,34,4,.06),transparent 55%);pointer-events:none;}
@@ -162,133 +162,19 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .gerar-btns button.salvar-btn:disabled{opacity:.4;cursor:not-allowed;}
 </style>
 <!-- Google Analytics GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-OMA2026PROJ"></script>
+
 <script>
-function openExport(){
-  var data = {
-    nome: (document.getElementById('s-nome')||{}).value || '',
-    funcao: (document.getElementById('s-funcao')||{}).value || '',
-    desc: (document.getElementById('s-desc')||{}).value || '',
-    status: (document.getElementById('s-status')||{}).value || '',
-    modelo: (document.getElementById('s-modelo')||{}).value || '',
-    wa_num: (document.getElementById('c-wa-num')||{}).value || '',
-    wa_inst: (document.getElementById('c-wa-inst')||{}).value || '',
-    tg_bot: (document.getElementById('c-tg-bot')||{}).value || '',
-    tg_id: (document.getElementById('c-tg-id')||{}).value || '',
-    tom: (document.getElementById('s-tom')||{}).value || '',
-    tam: (document.getElementById('s-tam')||{}).value || '',
-    esc_nome: (document.getElementById('s-esc-nome')||{}).value || '',
-    esc_ct: (document.getElementById('s-esc-ct')||{}).value || '',
-    know: (document.getElementById('s-know')||{}).value || '',
-    rec: Array.from(document.querySelectorAll('#el-rec input')).map(function(i){return i.value;}).filter(Boolean),
-    dem: Array.from(document.querySelectorAll('#el-dem input')).map(function(i){return i.value;}).filter(Boolean),
-    nao: Array.from(document.querySelectorAll('#el-nao input')).map(function(i){return i.value;}).filter(Boolean),
-    trig: Array.from(document.querySelectorAll('#el-trig input')).map(function(i){return i.value;}).filter(Boolean),
-    fluxos: Array.from(document.querySelectorAll('#jobs-list .jcard')).map(function(card,i){
-      return {
-        nome: (card.querySelector('[id^="jn-"]')||{}).value || '',
-        tipo: (card.querySelector('[id^="jt-"] option:checked')||{}).textContent || '',
-        gatilho: (card.querySelector('[id^="jgat-"]')||{}).value || '',
-        proc: (card.querySelector('[id^="jproc-"]')||{}).value || '',
-        dest: (card.querySelector('[id^="jdest-"]')||{}).value || '',
-        esc: (card.querySelector('[id^="jesc-"]')||{}).value || ''
-      };
-    })
-  };
-  var prompt = 'Aqui estao os dados do agente preenchidos no Setup. Gere o CLAUDE.md completo para este agente:\n\n' + JSON.stringify(data, null, 2);
-  document.getElementById('export-json').value = prompt;
-  document.getElementById('export-modal').classList.add('open');
-}
-function closeExport(){document.getElementById('export-modal').classList.remove('open');}
-function copyExport(){
-  var ta = document.getElementById('export-json');
-  ta.select();
-  document.execCommand('copy');
-  toast('Copiado! Cole no Claude.','ok');
-  closeExport();
-}
-
-
-var gerarSlug = '';
-var claudeMdGerado = '';
-
-function openGerar(slug){
-  gerarSlug = slug;
-  claudeMdGerado = '';
-  document.getElementById('gerar-output').value = '';
-  document.getElementById('gerar-status').textContent = '';
-  document.getElementById('gerar-status').className = 'gerar-status';
-  document.getElementById('salvar-btn').disabled = true;
-  document.getElementById('gerar-modal').classList.add('open');
-}
-function closeGerar(){document.getElementById('gerar-modal').classList.remove('open');}
-
-async function gerarClaudeMd(){
-  var key = (localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'') || '';
-  if(!key){ setGerarStatus('Faca login primeiro.','err'); return; }
-  setGerarStatus('Salvando Setup e gerando CLAUDE.md...','loading');
-
-  // Primeiro salva o setup atual
-  await doSave();
-
-  // Depois gera o CLAUDE.md via API
-  try{
-    var res = await fetch('https://api.onemanarmyproject.com.br/agentes/'+gerarSlug+'/gerar-claude-md',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':key}
-    });
-    var d = await res.json();
-    if(d.ok && d.claude_md){
-      claudeMdGerado = d.claude_md;
-      document.getElementById('gerar-output').value = claudeMdGerado;
-      document.getElementById('salvar-btn').disabled = false;
-      setGerarStatus('CLAUDE.md gerado. Revise e clique em SALVAR NO MAC MINI.','ok');
-    } else {
-      setGerarStatus('Erro ao gerar: '+(d.error||'tente novamente'),'err');
-    }
-  }catch(e){
-    setGerarStatus('Erro de conexao: '+e.message,'err');
-  }
-}
-
-async function salvarNoMacMini(){
-  if(!claudeMdGerado){ setGerarStatus('Gere o CLAUDE.md primeiro.','err'); return; }
-  setGerarStatus('Salvando no Mac Mini...','loading');
-  try{
-    var res = await fetch('https://mcp.pipeeyewear.com.br/save-claude-md',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({slug: gerarSlug, content: claudeMdGerado})
-    });
-    if(res.ok){
-      setGerarStatus('Salvo em /nanoclaw/groups/'+gerarSlug+'/CLAUDE.md','ok');
-      toast('CLAUDE.md salvo no Mac Mini!','ok');
-    } else {
-      // Fallback: copia para clipboard
-      navigator.clipboard.writeText(claudeMdGerado).then(function(){
-        setGerarStatus('API Mac Mini indisponivel. CLAUDE.md copiado para o clipboard — cole no arquivo manualmente.','err');
-      });
-    }
-  }catch(e){
-    // Fallback: copia para clipboard
-    try{
-      navigator.clipboard.writeText(claudeMdGerado);
-      setGerarStatus('Sem acesso ao Mac Mini. CLAUDE.md copiado! Cole em /nanoclaw/groups/'+gerarSlug+'/CLAUDE.md','err');
-    }catch(e2){
-      setGerarStatus('Copie o conteudo manualmente e salve em /nanoclaw/groups/'+gerarSlug+'/CLAUDE.md','err');
-    }
-  }
-}
-
-function setGerarStatus(msg, type){
-  var el = document.getElementById('gerar-status');
-  el.textContent = msg;
-  el.className = 'gerar-status '+(type||'');
-}
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
 </script>
 <script>
 
-const PWD='omaproject2026';
+// senha removida do frontend
 function dL(){
   if(document.getElementById('pw').value===PWD){
     ['oma_hub','oma_auth','oma_monitor','ops'].forEach(function(k){sessionStorage.setItem(k,'1');});
@@ -381,7 +267,7 @@ function syncSetupToAPI(slug, data){
   if(!key) return;
   fetch('https://api.onemanarmyproject.com.br/agentes', {
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key},
+    headers:{'Content-Type':'application/json',"Authorization": "Bearer " + (getToken()||"")},
     body:JSON.stringify({slug:slug, nome:data.nome||slug, funcao:data.funcao||'', descricao:data.desc||'', setup:data})
   }).catch(function(){});
 }

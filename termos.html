@@ -3,125 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Termos de Uso — OMA Academy</title>
-<link rel="icon" href="/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<title>Termos de Uso — OMA Project</title>
+<link rel="icon" href="/lobster-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{--fire:#e8703a;--border:#e5e5e5;--text:#111;--text2:#444;--text3:#888;--bg:#fff;}
-body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);line-height:1.7;}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
-.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.topbar-logo-icon{width:30px;height:30px;background:var(--fire);display:flex;align-items:center;justify-content:center;font-size:15px;}
-.topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
-.topbar-logo-name span{color:var(--fire);}
-.topbar-back{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:1px;}
-.topbar-back:hover{color:var(--fire);}
-.wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px;}
-.eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:10px;}
-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;margin-bottom:8px;}
-.updated{font-size:12px;color:var(--text3);margin-bottom:40px;font-family:'Space Mono',monospace;}
-h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;margin:36px 0 12px;color:var(--text);}
-p{font-size:15px;color:var(--text2);margin-bottom:14px;}
+:root{--bg:#f0ede8;--coal:#1c1c1e;--iron:#242424;--fire:#e8703a;--green:#2d8a50;--ash:#8a8278;--fog:#5a5550;--border:#2a2a2a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--coal);font-family:'Barlow',sans-serif;min-height:100vh;}
+.hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:#e0d9cf;}
+.hlogo span{color:var(--fire);}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--fire);}
+.hero{background:#1c1c1e;padding:60px 24px 48px;border-bottom:1px solid #2a2a2a;}
+.hero-inner{max-width:800px;margin:0 auto;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:12px;}
+.hero-title{font-family:'Black Ops One',cursive;font-size:36px;color:#e0d9cf;margin-bottom:8px;}
+.hero-meta{font-family:'Space Mono',monospace;font-size:11px;color:#6a6a6a;}
+.wrap{max-width:800px;margin:0 auto;padding:60px 24px 100px;}
+.toc{background:#fff;border:1px solid #ddd;padding:24px 28px;margin-bottom:48px;}
+.toc-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--ash);margin-bottom:16px;}
+.toc a{display:block;font-size:13px;color:var(--fog);text-decoration:none;padding:4px 0;border-bottom:1px solid #f0ede8;}
+.toc a:hover{color:var(--fire);}
+.toc a span{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-right:10px;}
+h2{font-family:'Black Ops One',cursive;font-size:20px;color:var(--coal);margin:48px 0 16px;padding-top:8px;border-top:2px solid var(--fire);display:inline-block;}
+h3{font-size:15px;font-weight:700;color:var(--coal);margin:24px 0 10px;}
+p{font-size:14px;color:var(--fog);line-height:1.8;margin-bottom:14px;}
 ul{padding-left:20px;margin-bottom:14px;}
-li{font-size:15px;color:var(--text2);margin-bottom:6px;}
-a{color:var(--fire);}
-.highlight-box{background:#fef3ec;border-left:4px solid var(--fire);border-radius:0 8px 8px 0;padding:16px 18px;margin:24px 0;}
-.highlight-box p{margin:0;font-size:14px;}
-hr{border:none;border-top:1px solid var(--border);margin:36px 0;}
+li{font-size:14px;color:var(--fog);line-height:1.8;margin-bottom:6px;}
+.highlight{background:#1c1c1e;border-left:3px solid var(--fire);padding:16px 20px;margin:20px 0;}
+.highlight p{color:#e0d9cf;margin:0;}
+.tag{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border:1px solid;margin-bottom:20px;}
+.tag-scribe{color:var(--green);border-color:rgba(45,138,80,.4);}
+.tag-roi{color:var(--fire);border-color:rgba(232,112,58,.4);}
+.tag-all{color:var(--ash);border-color:rgba(138,130,120,.4);}
+footer{background:#1c1c1e;border-top:1px solid #2a2a2a;padding:24px;text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:#4a4a4a;}
 </style>
+<script src="/tracker.js" defer></script>
 </head>
 <body>
-<div class="topbar">
-  <a class="topbar-logo" href="/">
-    <div class="topbar-logo-icon">🧠</div>
-    <div class="topbar-logo-name">OMA <span>Academy</span></div>
-  </a>
-  <a class="topbar-back" href="/academy">← Voltar à Academy</a>
+<header class="hdr">
+  <div class="hlogo">OMA<span>.</span>PROJECT</div>
+  <a href="/" class="hback">← INÍCIO</a>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">DOCUMENTAÇÃO LEGAL</div>
+    <h1 class="hero-title">Termos de Uso</h1>
+    <div class="hero-meta">Última atualização: Abril de 2026 · Riva Labs Ltda · CNPJ 65.452.151/0001-26</div>
+  </div>
 </div>
 
 <div class="wrap">
-  <div class="eyebrow">Documento legal</div>
-  <h1>Termos de Uso</h1>
-  <div class="updated">Última atualização: abril de 2026</div>
 
-  <div class="highlight-box">
-    <p>Ao acessar ou usar a OMA Academy, você concorda com estes Termos de Uso. Leia com atenção antes de criar sua conta.</p>
+  <div class="toc">
+    <div class="toc-title">ÍNDICE</div>
+    <a href="#geral"><span>01</span>Disposições Gerais</a>
+    <a href="#servicos"><span>02</span>Descrição dos Serviços</a>
+    <a href="#scribe"><span>03</span>OMA Scribe — Termos Específicos</a>
+    <a href="#automation"><span>04</span>OMA Automation Intelligence</a>
+    <a href="#pagamentos"><span>05</span>Pagamentos e Assinaturas</a>
+    <a href="#privacidade"><span>06</span>Privacidade e Proteção de Dados</a>
+    <a href="#seguranca"><span>07</span>Segurança e Criptografia</a>
+    <a href="#limitacoes"><span>08</span>Limitações de Responsabilidade</a>
+    <a href="#cancelamento"><span>09</span>Cancelamento e Reembolso</a>
+    <a href="#contato"><span>10</span>Contato e Suporte</a>
   </div>
 
-  <h2>1. Sobre a plataforma</h2>
-  <p>A OMA Academy é uma plataforma de aprendizado online sobre tecnologia, inteligência artificial e transformação digital para founders e executivos de PMEs, operada pela <strong>Riva Labs Ltda</strong> (CNPJ: 65.452.151/0001-26), com sede em São Paulo, SP, Brasil.</p>
-  <p>Acesso em: <a href="https://onemanarmyproject.com.br/academy">onemanarmyproject.com.br/academy</a></p>
+  <!-- 01 -->
+  <h2 id="geral">01 · Disposições Gerais</h2>
+  <p>Estes Termos de Uso regulam o acesso e a utilização dos produtos e serviços oferecidos pela <strong>Riva Labs Ltda</strong> (CNPJ 65.452.151/0001-26), sob a marca <strong>OMA Project</strong>, acessíveis em <strong>onemanarmyproject.com.br</strong>.</p>
+  <p>Ao acessar ou utilizar qualquer produto OMA, o usuário declara ter lido, compreendido e concordado integralmente com estes termos. Caso não concorde, deve cessar imediatamente o uso dos serviços.</p>
+  <p>Estes termos aplicam-se a todos os produtos da linha OMA, incluindo OMA Scribe, OMA Automation ROI, OMA Priority Map, OMA Automation Roadmap e quaisquer outros serviços lançados sob a mesma marca.</p>
 
-  <h2>2. Elegibilidade</h2>
-  <p>Para usar a OMA Academy você deve:</p>
+  <!-- 02 -->
+  <h2 id="servicos">02 · Descrição dos Serviços</h2>
+  <p>O OMA Project oferece uma linha de ferramentas de inteligência artificial voltadas para founders, gestores e operadores de pequenas e médias empresas:</p>
   <ul>
-    <li>Ter 18 anos ou mais</li>
-    <li>Criar uma conta com informações verdadeiras e atualizadas</li>
-    <li>Não usar a plataforma em nome de terceiros sem autorização</li>
+    <li><strong>OMA Scribe</strong> — serviço de transcrição de áudios recebidos e enviados via WhatsApp, utilizando tecnologia Whisper AI.</li>
+    <li><strong>OMA Automation ROI</strong> — diagnóstico gratuito que quantifica o custo do trabalho manual na operação do cliente.</li>
+    <li><strong>OMA Priority Map</strong> — relatório de priorização de automações por impacto e esforço.</li>
+    <li><strong>OMA Automation Roadmap</strong> — plano de execução 30/60/90 dias para automação operacional.</li>
   </ul>
+  <p>Os serviços são fornecidos no estado em que se encontram, podendo ser atualizados, modificados ou descontinuados a qualquer momento mediante aviso prévio de 30 dias.</p>
 
-  <h2>3. Conta de usuário</h2>
-  <p>Você é responsável por manter a confidencialidade das credenciais da sua conta. Notifique-nos imediatamente em caso de uso não autorizado em <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a>.</p>
-  <p>Reservamo-nos o direito de suspender ou encerrar contas que violem estes termos.</p>
+  <!-- 03 -->
+  <h2 id="scribe">03 · OMA Scribe — Termos Específicos</h2>
+  <span class="tag tag-scribe">EXCLUSIVO SCRIBE</span>
 
-  <h2>4. Conteúdo e propriedade intelectual</h2>
-  <p>Todo o conteúdo da OMA Academy — textos, módulos, quizzes, desafios, design e código — é de propriedade da Riva Labs Ltda e protegido por direitos autorais.</p>
-  <p>Você pode usar o conteúdo para seu aprendizado pessoal. É proibido:</p>
+  <h3>3.1 Funcionamento</h3>
+  <p>O OMA Scribe opera como um aparelho conectado ao WhatsApp do usuário, nos mesmos moldes do WhatsApp Web e de outros dispositivos vinculados. O serviço intercepta áudios recebidos e enviados, realiza a transcrição via API de inteligência artificial e devolve o texto na mesma conversa.</p>
+
+  <div class="highlight">
+    <p>🔒 <strong>Segurança:</strong> toda a comunicação entre o WhatsApp e o OMA Scribe é protegida pela criptografia de ponta a ponta da Meta. O conteúdo das conversas é cifrado na origem e só pode ser lido pelo destinatário legítimo. A OMA não tem acesso ao conteúdo das suas mensagens — apenas ao resultado da transcrição que é entregue a você.</p>
+  </div>
+
+  <h3>3.2 Regra de Consumo de Minutos</h3>
+  <p>O consumo é calculado por <strong>minuto iniciado</strong> — padrão da indústria para serviços de transcrição de áudio. Um áudio de 5 segundos consome 1 minuto do plano contratado. Um áudio de 1 minuto e 5 segundos consome 2 minutos.</p>
+  <p>O saldo de minutos é renovado mensalmente na data de vencimento da assinatura. Minutos não utilizados não são transferidos para o mês seguinte.</p>
+
+  <h3>3.3 Limites e Disponibilidade</h3>
+  <p>O plano gratuito oferece 30 minutos mensais. Planos pagos oferecem de 150 a 1.200 minutos mensais conforme descrito na página de preços. Ao atingir o limite, o serviço de transcrição é suspenso até a renovação ou upgrade do plano.</p>
+
+  <h3>3.4 Conteúdo Proibido</h3>
+  <p>É vedada a utilização do OMA Scribe para transcrição de conteúdo ilegal, difamatório, ou que viole direitos de terceiros. A OMA reserva-se o direito de suspender contas que violem estes termos.</p>
+
+  <!-- 04 -->
+  <h2 id="automation">04 · OMA Automation Intelligence</h2>
+  <span class="tag tag-roi">ROI · PRIORITY MAP · ROADMAP</span>
+
+  <h3>4.1 Natureza dos Relatórios</h3>
+  <p>Os produtos da linha Automation Intelligence (ROI Calculator, Priority Map e Automation Roadmap) geram análises baseadas em inteligência artificial a partir de dados fornecidos pelo próprio usuário. Os resultados são estimativas orientativas e não constituem consultoria profissional formal.</p>
+
+  <h3>4.2 Precisão das Estimativas</h3>
+  <p>Os cálculos de custo e economia são baseados em benchmarks setoriais e nos dados informados pelo usuário. A OMA não garante que os resultados reflitam com exatidão a realidade específica de cada operação. O usuário é responsável por validar as informações antes de tomar decisões baseadas nos relatórios.</p>
+
+  <h3>4.3 Entrega</h3>
+  <p>Os relatórios pagos (Priority Map e Automation Roadmap) são entregues imediatamente após a confirmação do pagamento, no email cadastrado. Em caso de falha na entrega, o usuário deve contatar o suporte em até 7 dias.</p>
+
+  <!-- 05 -->
+  <h2 id="pagamentos">05 · Pagamentos e Assinaturas</h2>
+  <span class="tag tag-all">TODOS OS PRODUTOS</span>
+
+  <h3>5.1 Meios de Pagamento</h3>
+  <p>Os pagamentos são processados pela plataforma <strong>Asaas</strong>, que aceita PIX, boleto bancário e cartão de crédito. A OMA não armazena dados de pagamento — todas as transações são gerenciadas diretamente pela Asaas.</p>
+
+  <h3>5.2 Assinaturas Recorrentes (OMA Scribe)</h3>
+  <p>Os planos do OMA Scribe são cobrados mensalmente de forma recorrente. A cobrança ocorre na mesma data do primeiro pagamento, todos os meses. O usuário pode cancelar a assinatura a qualquer momento — o cancelamento é efetivo no fim do período já pago.</p>
+
+  <h3>5.3 Pagamentos Únicos (Priority Map e Roadmap)</h3>
+  <p>Os produtos de pagamento único são cobrados uma única vez e dão acesso permanente ao relatório gerado. Não há renovação automática.</p>
+
+  <!-- 06 -->
+  <h2 id="privacidade">06 · Privacidade e Proteção de Dados</h2>
+  <p>O OMA Project trata os dados dos usuários em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD — Lei 13.709/2018)</strong>.</p>
+  <h3>6.1 Dados Coletados</h3>
   <ul>
-    <li>Reproduzir, distribuir ou revender o conteúdo sem autorização prévia por escrito</li>
-    <li>Criar produtos derivados baseados no conteúdo da plataforma</li>
-    <li>Compartilhar credenciais de acesso com terceiros</li>
-    <li>Usar o conteúdo para fins comerciais sem licença</li>
+    <li><strong>Cadastro:</strong> nome, email e número de WhatsApp fornecidos voluntariamente.</li>
+    <li><strong>Uso:</strong> dados operacionais como quantidade de minutos consumidos, data de acesso e plano contratado.</li>
+    <li><strong>Diagnóstico:</strong> informações sobre tarefas e processos informadas pelo próprio usuário nos produtos Automation Intelligence.</li>
   </ul>
+  <h3>6.2 Uso dos Dados</h3>
+  <p>Os dados são utilizados exclusivamente para prestação dos serviços contratados, comunicações relacionadas à conta e melhoria dos produtos. A OMA não vende, aluga ou compartilha dados pessoais com terceiros para fins comerciais.</p>
+  <h3>6.3 Direitos do Titular</h3>
+  <p>O usuário pode solicitar a qualquer momento: acesso, correção, exclusão ou portabilidade dos seus dados, através do email <strong>atendimento@onemanarmy.com.br</strong>.</p>
 
-  <h2>5. Certificado de conclusão</h2>
-  <p>O certificado emitido ao final da trilha atesta a conclusão dos 30 módulos da OMA Academy. É pessoal e intransferível. A OMA Academy não garante resultados profissionais específicos decorrentes da conclusão do curso.</p>
+  <!-- 07 -->
+  <h2 id="seguranca">07 · Segurança e Criptografia</h2>
+  <div class="highlight">
+    <p>🔒 O OMA Scribe utiliza a mesma infraestrutura de segurança do WhatsApp Web. A criptografia de ponta a ponta da Meta garante que o conteúdo dos áudios só possa ser acessado pelo remetente e destinatário legítimos. A OMA atua como um aparelho autorizado vinculado à conta do usuário — exatamente como o WhatsApp Web ou qualquer outro dispositivo conectado — e não tem acesso ao conteúdo cifrado das conversas.</p>
+  </div>
+  <p>Toda a infraestrutura do OMA Project opera em servidores na Europa (Hetzner Cloud, Frankfurt), com comunicações via HTTPS/TLS. Senhas e tokens de acesso são armazenados de forma criptografada.</p>
 
-  <h2>6. Plano gratuito e planos pagos</h2>
-  <p>A trilha de 30 módulos é oferecida gratuitamente. Módulos avançados, trilhas práticas e conteúdos adicionais poderão ser oferecidos mediante pagamento, com condições específicas informadas no momento da oferta.</p>
-  <p>Pagamentos são processados por plataformas terceiras. Política de reembolso: solicite em até 7 dias corridos após a compra pelo e-mail <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a>.</p>
-
-  <h2>7. Conduta do usuário</h2>
-  <p>Ao usar a plataforma, você concorda em não:</p>
+  <!-- 08 -->
+  <h2 id="limitacoes">08 · Limitações de Responsabilidade</h2>
+  <p>A OMA não se responsabiliza por:</p>
   <ul>
-    <li>Violar qualquer lei aplicável</li>
-    <li>Tentar acessar áreas restritas da plataforma sem autorização</li>
-    <li>Interferir no funcionamento da plataforma ou de outros usuários</li>
-    <li>Publicar conteúdo ofensivo, discriminatório ou ilegal</li>
-    <li>Usar a plataforma para envio de spam ou comunicações não solicitadas</li>
+    <li>Decisões tomadas com base nos relatórios e análises gerados pelos produtos Automation Intelligence.</li>
+    <li>Interrupções temporárias dos serviços por manutenção, falhas de terceiros ou força maior.</li>
+    <li>Imprecisões nas transcrições do OMA Scribe decorrentes de qualidade de áudio, sotaques ou ruídos.</li>
+    <li>Perda de dados decorrente de uso indevido da conta pelo próprio usuário.</li>
   </ul>
+  <p>A responsabilidade total da OMA perante qualquer usuário está limitada ao valor pago pelo serviço nos últimos 3 meses.</p>
 
-  <h2>8. Disponibilidade e modificações</h2>
-  <p>Nos esforçamos para manter a plataforma disponível continuamente, mas não garantimos disponibilidade ininterrupta. Podemos modificar, suspender ou encerrar funcionalidades com aviso prévio razoável.</p>
-  <p>Reservamo-nos o direito de atualizar o conteúdo dos módulos para mantê-los precisos e relevantes.</p>
+  <!-- 09 -->
+  <h2 id="cancelamento">09 · Cancelamento e Reembolso</h2>
+  <h3>9.1 OMA Scribe (assinatura)</h3>
+  <p>O cancelamento pode ser solicitado a qualquer momento pelo email de suporte. O acesso permanece ativo até o fim do período pago. Não há reembolso proporcional de períodos já iniciados.</p>
+  <h3>9.2 Priority Map e Roadmap (pagamento único)</h3>
+  <p>Por se tratar de entrega digital imediata, não há reembolso após a geração do relatório. Em casos de falha técnica comprovada na entrega, o usuário tem direito à regeneração gratuita do relatório em até 7 dias.</p>
+  <h3>9.3 Garantia de 7 dias</h3>
+  <p>Para novos assinantes do OMA Scribe, oferecemos garantia de satisfação de 7 dias a partir da primeira conexão. Caso o serviço não atenda às expectativas, o reembolso integral será processado mediante solicitação dentro deste prazo.</p>
 
-  <h2>9. Limitação de responsabilidade</h2>
-  <p>A OMA Academy é fornecida "como está". Não nos responsabilizamos por:</p>
-  <ul>
-    <li>Decisões de negócio tomadas com base no conteúdo da plataforma</li>
-    <li>Perdas ou danos indiretos decorrentes do uso ou impossibilidade de uso</li>
-    <li>Conteúdo de sites ou serviços de terceiros linkados na plataforma</li>
-  </ul>
+  <!-- 10 -->
+  <h2 id="contato">10 · Contato e Suporte</h2>
+  <p><strong>Riva Labs Ltda</strong><br>
+  CNPJ: 65.452.151/0001-26 · São Paulo, SP<br>
+  Email: <a href="mailto:atendimento@onemanarmy.com.br" style="color:var(--fire);">atendimento@onemanarmy.com.br</a><br>
+  WhatsApp: <a href="https://wa.me/5511966621506" style="color:var(--fire);">+55 11 96662-1506</a></p>
 
-  <h2>10. Privacidade</h2>
-  <p>O uso dos seus dados pessoais é regido pela nossa <a href="/privacidade">Política de Privacidade</a>, incorporada a estes termos por referência.</p>
-
-  <h2>11. Lei aplicável e foro</h2>
-  <p>Estes termos são regidos pela legislação brasileira. Fica eleito o foro da Comarca de São Paulo, SP, para dirimir quaisquer controvérsias, com renúncia a qualquer outro por mais privilegiado que seja.</p>
-
-  <h2>12. Contato</h2>
-  <p>Para dúvidas sobre estes termos:</p>
-  <ul>
-    <li><strong>E-mail:</strong> <a href="mailto:1manarmyproject@gmail.com">1manarmyproject@gmail.com</a></li>
-    <li><strong>Empresa:</strong> Riva Labs Ltda — CNPJ 65.452.151/0001-26 — São Paulo, SP</li>
-  </ul>
-
-  <hr>
-  <p style="font-size:12px;color:var(--text3);text-align:center;">
-    OMA Academy · Riva Labs Ltda · São Paulo, SP · 
-    <a href="/privacidade">Política de Privacidade</a>
+  <p style="margin-top:40px;padding-top:24px;border-top:1px solid #ddd;font-size:12px;color:var(--ash);font-family:'Space Mono',monospace;">
+    A OMA reserva-se o direito de atualizar estes termos a qualquer momento. Alterações relevantes serão comunicadas por email com antecedência de 30 dias. O uso continuado dos serviços após esse prazo implica concordância com os novos termos.
   </p>
+
 </div>
+
+<footer>OMA Project · Riva Labs Ltda · CNPJ 65.452.151/0001-26 · São Paulo, SP</footer>
 </body>
 </html>

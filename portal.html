@@ -10,8 +10,8 @@
 <style>
 :root{
   --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
-  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
-  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
+  --char:#1a1a1a;--coal:#242424;--iron:#2e2e2e;--steel:#252525;
+  --ash:#6a6a6a;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -112,9 +112,153 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--iron);margin-to
 footer p{font-family:'Space Mono',monospace;font-size:8px;color:var(--steel);letter-spacing:2px;}
 footer a{color:var(--ash);text-decoration:none;}
 footer a:hover{color:var(--fire);}
+
+/* ── SARA — suporte portal ───────────────────── */
+
+
+
+/* ── SARA suporte ── */
+#sara-bubble{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:#2d5a8e;box-shadow:0 4px 20px rgba(45,90,142,.45);cursor:pointer;display:none;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#sara-bubble:hover{transform:scale(1.08);}
+#sara-bubble svg{width:24px;height:24px;fill:white;}
+#sara-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#e8703a;border-radius:50%;font-size:9px;color:#000;font-family:monospace;font-weight:700;display:none;align-items:center;justify-content:center;}
+#sara-widget{position:fixed;bottom:88px;right:24px;width:340px;max-height:480px;background:#111;border:1px solid #222;display:none;flex-direction:column;z-index:9001;box-shadow:0 8px 40px rgba(0,0,0,.7);}
+#sara-hdr{background:#0d1f35;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2d45;}
+.sara-hdr-l{display:flex;align-items:center;gap:10px;}
+.sara-av{width:32px;height:32px;border-radius:50%;background:#2d5a8e;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;color:#fff;font-weight:700;flex-shrink:0;}
+.sara-nm{font-family:monospace;font-size:10px;color:#e0d9cf;letter-spacing:1px;}
+.sara-st{font-family:monospace;font-size:8px;color:#3d9e60;}
+#sara-x{background:none;border:none;color:#555;font-size:18px;cursor:pointer;padding:0;line-height:1;}
+#sara-x:hover{color:#e0d9cf;}
+#sara-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:200px;}
+#sara-msgs .sma{background:#1a1a1a;border:1px solid #2a2a2a;padding:10px 14px;border-radius:3px;font-size:13px;color:#e0d9cf;line-height:1.6;align-self:flex-start;max-width:85%;white-space:pre-wrap;}
+#sara-msgs .smu{background:#2d5a8e;padding:10px 14px;border-radius:3px;font-size:13px;color:#fff;line-height:1.6;align-self:flex-end;max-width:85%;}
+#sara-msgs .smt{display:flex;gap:5px;padding:10px 14px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:3px;align-self:flex-start;width:50px;}
+#sara-msgs .smt span{width:6px;height:6px;border-radius:50%;background:#555;animation:sb 1.2s infinite;}
+#sara-msgs .smt span:nth-child(2){animation-delay:.2s;}
+#sara-msgs .smt span:nth-child(3){animation-delay:.4s;}
+@keyframes sb{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sara-inp-area{padding:12px;border-top:1px solid #222;display:flex;gap:8px;}
+#sara-inp{flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:8px 12px;font-family:sans-serif;font-size:13px;outline:none;resize:none;height:36px;border-radius:2px;}
+#sara-inp:focus{border-color:#2d5a8e;}
+#sara-snd{background:#2d5a8e;border:none;color:#fff;width:36px;height:36px;cursor:pointer;font-size:16px;border-radius:2px;flex-shrink:0;}
+#sara-snd:disabled{opacity:.4;cursor:not-allowed;}
+@media(max-width:480px){#sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}#sara-bubble{right:16px;bottom:16px;}}
+
 </style>
+<script src="/tracker.js" defer></script>
 </head>
 <body>
+<!-- SARA -->
+<div id="sara-bubble" onclick="saraToggle()" title="Precisa de ajuda?">
+  <div id="sara-badge"></div>
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+</div>
+<div id="sara-widget">
+  <div id="sara-hdr">
+    <div class="sara-hdr-l">
+      <div class="sara-av">SA</div>
+
+<script>
+/* ── SARA JS ── */
+var saraOpen=false,saraSid=null,saraLid=0,saraPollT=null,saraCtx={};
+var SARA_API='https://api.onemanarmyproject.com.br';
+
+function saraShow(){
+  var b=document.getElementById('sara-bubble');
+  if(b) b.style.display='flex';
+}
+function saraHide(){
+  var b=document.getElementById('sara-bubble');
+  if(b) b.style.display='none';
+  if(saraOpen) saraToggle();
+  saraSid=null; saraOpen=false; saraLid=0;
+  if(saraPollT){clearInterval(saraPollT);saraPollT=null;}
+}
+function saraInit(ctx){
+  saraCtx=ctx||{};
+  saraShow();
+  var visto=sessionStorage.getItem('sara_visto_'+( ctx&&ctx.produto||'x'));
+  if(!visto){
+    setTimeout(function(){
+      if(!saraOpen){saraToggle();sessionStorage.setItem('sara_visto_'+(saraCtx.produto||'x'),'1');}
+    },5000);
+  }
+}
+async function saraToggle(){
+  var w=document.getElementById('sara-widget');
+  if(!w) return;
+  saraOpen=!saraOpen;
+  w.style.display=saraOpen?'flex':'none';
+  var badge=document.getElementById('sara-badge');
+  if(badge) badge.style.display='none';
+  if(saraOpen&&!saraSid) await saraStart();
+}
+async function saraStart(){
+  try{
+    var r=await fetch(SARA_API+'/webchat/session',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({segmento:'suporte',produto:saraCtx.produto||'portal',
+        cliente_nome:saraCtx.nome||'',cliente_phone:saraCtx.phone||'',cliente_plano:saraCtx.plano||''})
+    });
+    var d=await r.json(); saraSid=d.session_id;
+    var h=await fetch(SARA_API+'/webchat/history/'+saraSid);
+    var hd=await h.json();
+    hd.messages.forEach(function(m){saraAdd(m.role==='agent'?'sma':'smu',m.content,m.id);});
+    saraPollT=setInterval(saraPoll,2000);
+  }catch(e){saraAdd('sma','Ola! Sou a Sara, suporte OMA. Como posso ajudar?',0);}
+}
+async function saraPoll(){
+  if(!saraSid)return;
+  try{
+    var r=await fetch(SARA_API+'/webchat/poll/'+saraSid+'?since='+saraLid);
+    var d=await r.json();
+    if(d.messages&&d.messages.length){
+      d.messages.forEach(function(m){saraAdd('sma',m.content,m.id);});
+      if(!saraOpen){var b=document.getElementById('sara-badge');if(b){b.style.display='flex';b.textContent='!';}}
+    }
+  }catch(e){}
+}
+async function saraSend(){
+  var inp=document.getElementById('sara-inp');
+  var txt=inp.value.trim(); if(!txt||!saraSid)return;
+  inp.value=''; inp.style.height='36px';
+  document.getElementById('sara-snd').disabled=true;
+  saraAdd('smu',txt,null);
+  var t=document.createElement('div');t.className='smt';t.id='sara-t';
+  t.innerHTML='<span></span><span></span><span></span>';
+  saraMsgs().appendChild(t); saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({session_id:saraSid,content:txt})});}
+  catch(e){}
+  document.getElementById('sara-snd').disabled=false;
+}
+function saraAdd(cls,txt,id){
+  var t=document.getElementById('sara-t'); if(t)t.remove();
+  var d=document.createElement('div'); d.className=cls; d.textContent=txt;
+  saraMsgs().appendChild(d); saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  if(id) saraLid=Math.max(saraLid,id);
+}
+function saraMsgs(){return document.getElementById('sara-msgs');}
+document.addEventListener('DOMContentLoaded',function(){
+  var i=document.getElementById('sara-inp');
+  if(i) i.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}
+  });
+});
+</script>
+      <div><div class="sara-nm">SARA &middot; SUPORTE OMA</div><div class="sara-st">&#9679; online</div></div>
+    </div>
+    <button id="sara-x" onclick="saraToggle()">&#x2715;</button>
+  </div>
+  <div id="sara-msgs"></div>
+  <div id="sara-inp-area">
+    <textarea id="sara-inp" placeholder="Como posso ajudar?" rows="1"></textarea>
+    <button id="sara-snd" onclick="saraSend()">&#8593;</button>
+  </div>
+</div>
+
 
 <nav>
   <a href="/" class="nav-brand">ONE MAN <span>ARMY</span></a>
@@ -195,6 +339,7 @@ footer a:hover{color:var(--fire);}
 
 <script>
 const API = 'https://alexa.pipeeyewear.com.br';
+const SARA_API = 'https://api.onemanarmyproject.com.br';
 const SK = 'oma_portal_session';
 const STATUS_LABELS = {pending:'Aguardando',processing:'Em processamento',ready:'Pronto',delivered:'Entregue'};
 const ICONS = {predictions:'🔮',scribe:'🎙️',recap:'📊',agentes:'🤖'};
@@ -290,6 +435,13 @@ function renderPortal(client,products,currentSession){
     }
   }
   showScreen('screen-portal');
+  // Inicia Sara com contexto do cliente
+  saraInit({
+    nome: client.name || client.email.split('@')[0],
+    phone: client.phone || client.whatsapp || '',
+    plano: (products && products[0]) ? products[0].product_type : 'portal',
+    produto: 'portal'
+  });
 }
 
 function renderBriefing(product, session) {
@@ -566,14 +718,9 @@ async function init(){
 document.getElementById('login-email').addEventListener('keydown',e=>{if(e.key==='Enter')requestMagicLink();});
 init();
 </script>
-<!-- Webchat Bia -->
-<script>
-  window.addEventListener('load', function() {
-    var s = document.createElement('script');
-    s.src = 'https://onemanarmyproject.com.br/webchat.js';
-    s.defer = true;
-    document.body.appendChild(s);
-  });
-</script>
+
+
+
+
 </body>
 </html>

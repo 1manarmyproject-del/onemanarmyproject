@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-06T11:55:10Z",
-  "updated_at_brt": "08:55 BRT · 06/04/2026",
+  "updated_at": "2026-04-08T18:18:03Z",
+  "updated_at_brt": "15:18 BRT · 08/04/2026",
   "categories": [
     {
       "cat": "INFRAESTRUTURA & REDUNDÂNCIA",
@@ -68,9 +68,9 @@
         {
           "id": "backup",
           "title": "Backup multi-camada",
-          "current": "4x/dia. Último: 08:55 BRT · 06/04/2026",
-          "nota": 3,
-          "farol": "r",
+          "current": "4x/dia. Último: 15:18 BRT · 08/04/2026",
+          "nota": 10,
+          "farol": "g",
           "risk": "Perda de dados",
           "action": "Monitorar execução",
           "tag": "done",
@@ -210,9 +210,9 @@
         {
           "id": "ziptalk",
           "title": "ZipTalk server",
-          "current": "Operacional — Groq free tier",
-          "nota": 9,
-          "farol": "g",
+          "current": "OFFLINE",
+          "nota": 0,
+          "farol": "r",
           "risk": "Transcrição parada",
           "action": "Manter",
           "tag": "done",
@@ -251,8 +251,8 @@
         {
           "id": "or_balance",
           "title": "OpenRouter saldo",
-          "current": "US$ 3.40 disponível",
-          "nota": 5,
+          "current": "US$ 6.94 disponível",
+          "nota": 7,
           "farol": "y",
           "risk": "Agentes param se zerar",
           "action": "Monitorar e recarregar",

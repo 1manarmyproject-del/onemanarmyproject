@@ -10,8 +10,8 @@
 <style>
 :root{
   --fire:#e8703a;--ember:#c05020;--blood:#7a2204;
-  --char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;
-  --ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
+  --char:#1a1a1a;--coal:#242424;--iron:#2e2e2e;--steel:#252525;
+  --ash:#6a6a6a;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;
   --light-bg:#f7f4ef;--light-surface:#ffffff;--light-border:#e8e2d9;
   --dark-text:#1a1612;--mid-text:#4a4035;
 }
@@ -150,6 +150,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
 </style>
+<script src="/tracker.js" defer></script>
 </head>
 <body>
 
@@ -180,13 +181,44 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <p class="sec-lbl">Por que confiar</p>
     <h2 class="sec-title" style="color:var(--dark-text)">Usamos os mesmos agentes<br><span>para operar o nosso negócio.</span></h2>
     <p class="sec-body" style="max-width:580px;color:var(--mid-text)">O OMA não nasceu como apresentação. Nasceu como operação real. Os mesmos agentes que oferecemos aos clientes já rodam o nosso dia a dia — e é por isso que evoluímos rápido, corrigimos ao vivo e mostramos o que funciona com transparência.</p>
-    <div class="proof-grid">
+    <div class="proof-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+      <div class="proof-card" style="border-top:3px solid var(--fire);">
+        <div class="proof-num">70+</div>
+        <div class="proof-label">Templates prontos</div>
+        <div class="proof-note">Agentes pré-construídos para segmentos e funções estratégicas — prontos para adaptar e implementar no seu negócio</div>
+      </div>
       <div class="proof-card"><div class="proof-num">7</div><div class="proof-label">Agentes em produção</div><div class="proof-note">George, Bia, Amanda, Tiago, Flávia, Darwin e mais operando rotinas reais</div></div>
       <div class="proof-card"><div class="proof-num">24/7</div><div class="proof-label">Monitoramento contínuo</div><div class="proof-note">Operação com supervisão, alertas e revisão de falhas antes de virarem problema</div></div>
       <div class="proof-card"><div class="proof-num">48h</div><div class="proof-label">Para entrar em operação</div><div class="proof-note">Diagnóstico rápido, setup enxuto e onboarding sem complexidade para o cliente</div></div>
       <div class="proof-card"><div class="proof-num">100%</div><div class="proof-label">Construído a partir da dor real</div><div class="proof-note">Desenvolvido por quem viveu o peso da operação manual e transformou em sistema</div></div>
     </div>
   </div>
+
+  <!-- DESTAQUE 70 TEMPLATES -->
+  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
+    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
+        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
+        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <div class="div"><div class="div-gem"></div></div>
@@ -204,6 +236,32 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-005 · MONITORAMENTO</div><div class="agent-name">Darwin</div><div class="agent-role">Qualidade 24/7</div><div class="agent-desc">Monitora a operação 24/7, identifica falhas, desvios e gargalos antes que virem problema para o cliente.</div></div>
     <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-006 · MARKETING</div><div class="agent-name">Flávia</div><div class="agent-role">Operação de Conteúdo</div><div class="agent-desc">Coordena calendário, briefing, produção e publicação de conteúdo com operação contínua.</div></div>
   </div>
+
+  <!-- DESTAQUE 70 TEMPLATES -->
+  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
+    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
+        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
+        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <div class="div"><div class="div-gem"></div></div>
@@ -226,6 +284,32 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
       <div class="vert-card"><div class="vert-ico">🏗️</div><div class="vert-name">Outros segmentos</div><div class="vert-dor">"Tenho uma operação diferente"</div><div class="vert-res">Se existe dor operacional recorrente, existe fluxo para um agente assumir. A Bia faz o diagnóstico.</div></div>
     </div>
   </div>
+
+  <!-- DESTAQUE 70 TEMPLATES -->
+  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
+    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
+        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
+        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <div class="div"><div class="div-gem"></div></div>
@@ -274,6 +358,32 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:10px;letter-spacing:1px;">Gratuito · Sem cadastro obrigatório</p>
     </div>
   </div>
+
+  <!-- DESTAQUE 70 TEMPLATES -->
+  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
+    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
+        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
+        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <div class="div"><div class="div-gem"></div></div>

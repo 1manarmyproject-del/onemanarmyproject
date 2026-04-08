@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA — Formulário de Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ede8;--coal:#1c1c1e;--iron:#242424;--fire:#e8703a;--green:#2d8a50;--ash:#8a8278;--fog:#5a5550;--border:#2a2a2a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--coal);font-family:'Barlow',sans-serif;min-height:100vh;}
+.hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:0 24px;height:52px;display:flex;align-items:center;gap:14px;}
+.hlogo{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;color:#e0d9cf;font-weight:700;}
+.hlogo span{color:var(--fire);}
+.hero{max-width:720px;margin:48px auto 0;padding:0 24px;text-align:center;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:12px;}
+.hero-title{font-size:28px;font-weight:700;color:#1c1c1e;margin-bottom:8px;}
+.hero-sub{font-size:15px;color:var(--fog);line-height:1.6;margin-bottom:40px;}
+
+/* PROGRESS */
+.progress-bar{max-width:720px;margin:0 auto 32px;padding:0 24px;}
+.progress-steps{display:flex;justify-content:space-between;position:relative;}
+.progress-steps::before{content:'';position:absolute;top:14px;left:0;right:0;height:2px;background:#d4cfc8;z-index:0;}
+.progress-fill{position:absolute;top:14px;left:0;height:2px;background:var(--fire);z-index:1;transition:width .4s;}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2;}
+.step-circle{width:28px;height:28px;border-radius:50%;background:#d4cfc8;border:2px solid #c4bfb8;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;color:#9a948e;transition:all .3s;}
+.step-circle.active{background:var(--fire);border-color:var(--fire);color:#fff;}
+.step-circle.done{background:var(--green);border-color:var(--green);color:#fff;}
+.step-label{font-size:10px;font-family:'Space Mono',monospace;color:#9a948e;letter-spacing:1px;white-space:nowrap;}
+.step-label.active{color:var(--fire);}
+.step-label.done{color:var(--green);}
+
+/* FORM */
+.form-wrap{max-width:720px;margin:0 auto 80px;padding:0 24px;}
+.section{background:#1c1c1e;border:1px solid #2a2a2a;padding:36px;margin-bottom:16px;display:none;}
+.section.active{display:block;}
+.section-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:8px;}
+.section-title{font-size:20px;font-weight:700;color:#e0d9cf;margin-bottom:6px;}
+.section-desc{font-size:13px;color:#888;margin-bottom:28px;line-height:1.6;}
+
+.field{margin-bottom:20px;}
+.field label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;text-transform:uppercase;display:block;margin-bottom:8px;}
+.field label .req{color:var(--fire);}
+.field input,.field select,.field textarea{width:100%;background:#242424;border:1px solid #333;color:#e0d9cf;padding:12px 14px;font-family:'Barlow',sans-serif;font-size:15px;outline:none;transition:border-color .2s;border-radius:2px;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--fire);}
+.field select option{background:#1c1c1e;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+/* CHECKBOXES */
+.check-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+.check-item{display:flex;align-items:flex-start;gap:10px;background:#242424;border:1px solid #333;padding:12px 14px;cursor:pointer;transition:border-color .2s;}
+.check-item:hover{border-color:#555;}
+.check-item.selected{border-color:var(--fire);}
+.check-item input[type=checkbox]{display:none;}
+.check-box{width:16px;height:16px;border:2px solid #555;border-radius:2px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.check-item.selected .check-box{background:var(--fire);border-color:var(--fire);}
+.check-box::after{content:'✓';font-size:10px;color:#000;display:none;}
+.check-item.selected .check-box::after{display:block;}
+.check-label{font-size:13px;color:#e0d9cf;line-height:1.4;}
+
+/* AGENTE */
+.agente-block{background:#242424;border:1px solid #333;padding:24px;margin-bottom:16px;}
+.agente-header{font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);letter-spacing:2px;margin-bottom:20px;}
+
+/* BOTÕES */
+.btn-row{display:flex;gap:12px;margin-top:28px;}
+.btn-next{background:var(--fire);color:#000;border:none;padding:14px 32px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;flex:1;}
+.btn-next:hover{background:#c05020;}
+.btn-back{background:transparent;color:#888;border:1px solid #333;padding:14px 24px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.btn-back:hover{color:#e0d9cf;border-color:#555;}
+.btn-submit{background:var(--green);color:#fff;border:none;padding:16px 32px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;flex:1;}
+.btn-submit:hover{opacity:.9;}
+.btn-submit:disabled{background:#444;color:#666;cursor:not-allowed;}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:60px 24px;}
+.success-screen.show{display:block;}
+.success-icon{font-size:48px;margin-bottom:24px;}
+.success-title{font-size:24px;font-weight:700;color:#1c1c1e;margin-bottom:12px;}
+.success-sub{font-size:15px;color:var(--fog);line-height:1.7;}
+
+.error-msg{color:#e05555;font-size:12px;font-family:'Space Mono',monospace;margin-top:6px;display:none;}
+.error-msg.show{display:block;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hlogo">OMA<span>.</span>PROJECT</div>
+</header>
+
+<div class="hero">
+  <div class="hero-badge">ONBOARDING</div>
+  <h1 class="hero-title" id="hero-title">Preparando sua operação</h1>
+  <p class="hero-sub" id="hero-sub">Preencha o formulário abaixo para configurarmos seus agentes. Leva cerca de 5 minutos.</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-steps">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    <div class="step-item">
+      <div class="step-circle active" id="sc1">1</div>
+      <div class="step-label active" id="sl1">VOCÊ</div>
+    </div>
+    <div class="step-item">
+      <div class="step-circle" id="sc2">2</div>
+      <div class="step-label" id="sl2">EMPRESA</div>
+    </div>
+    <div class="step-item">
+      <div class="step-circle" id="sc3">3</div>
+      <div class="step-label" id="sl3">NEGÓCIO</div>
+    </div>
+    <div class="step-item">
+      <div class="step-circle" id="sc4">4</div>
+      <div class="step-label" id="sl4">AGENTES</div>
+    </div>
+    <div class="step-item">
+      <div class="step-circle" id="sc5">5</div>
+      <div class="step-label" id="sl5">REVISÃO</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-wrap">
+
+  <!-- SEÇÃO 1 — CONTATO -->
+  <div class="section active" id="s1">
+    <div class="section-num">ETAPA 1 DE 5</div>
+    <div class="section-title">Dados de Contato</div>
+    <p class="section-desc">Quem será o responsável pela operação dos agentes.</p>
+    <div class="field-row">
+      <div class="field"><label>Nome completo <span class="req">*</span></label><input type="text" id="f-nome" placeholder="Seu nome" /></div>
+      <div class="field"><label>Cargo</label><input type="text" id="f-cargo" placeholder="Ex: Diretor, Sócio, Gerente" /></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>WhatsApp <span class="req">*</span></label><input type="tel" id="f-whatsapp" placeholder="(11) 99999-9999" /></div>
+      <div class="field"><label>Email <span class="req">*</span></label><input type="email" id="f-email" placeholder="seu@email.com" /></div>
+    </div>
+    <div class="field">
+      <label>WhatsApp de backup (para alertas urgentes)</label>
+      <input type="tel" id="f-whatsapp-backup" placeholder="Opcional — outro número do time" />
+    </div>
+    <div class="error-msg" id="err1">Preencha nome, WhatsApp e email antes de continuar.</div>
+    <div class="btn-row"><button class="btn-next" onclick="goTo(2)">PRÓXIMO →</button></div>
+  </div>
+
+  <!-- SEÇÃO 2 — EMPRESA -->
+  <div class="section" id="s2">
+    <div class="section-num">ETAPA 2 DE 5</div>
+    <div class="section-title">Dados da Empresa</div>
+    <p class="section-desc">Informações legais e de localização.</p>
+    <div class="field-row">
+      <div class="field"><label>Razão Social <span class="req">*</span></label><input type="text" id="f-razao" placeholder="Nome empresarial" /></div>
+      <div class="field"><label>CNPJ <span class="req">*</span></label><input type="text" id="f-cnpj" placeholder="00.000.000/0001-00" /></div>
+    </div>
+    <div class="field"><label>Site (se tiver)</label><input type="text" id="f-site" placeholder="www.suaempresa.com.br" /></div>
+    <div class="field-row">
+      <div class="field">
+        <label>CEP <span class="req">*</span></label>
+        <input type="text" id="f-cep" placeholder="00000-000" oninput="buscarCep(this.value)" maxlength="9" />
+      </div>
+      <div class="field"><label>Número / Complemento</label><input type="text" id="f-numero" placeholder="Ex: 1234, Sala 5" /></div>
+    </div>
+    <div class="field"><label>Endereço (preenchido automaticamente pelo CEP)</label><input type="text" id="f-endereco" placeholder="Aguardando CEP..." readonly style="opacity:.6" /></div>
+    <div class="error-msg" id="err2">Preencha razão social e CNPJ antes de continuar.</div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(1)">← VOLTAR</button>
+      <button class="btn-next" onclick="goTo(3)">PRÓXIMO →</button>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 3 — NEGÓCIO -->
+  <div class="section" id="s3">
+    <div class="section-num">ETAPA 3 DE 5</div>
+    <div class="section-title">Sobre o Negócio</div>
+    <p class="section-desc">Como funciona sua operação hoje.</p>
+    <div class="field">
+      <label>Descreva o que a empresa faz em uma frase <span class="req">*</span></label>
+      <input type="text" id="f-descricao" placeholder="Ex: Escritório de advocacia trabalhista com foco em PMEs" />
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Perfil dos clientes <span class="req">*</span></label>
+        <input type="text" id="f-perfil" placeholder="Ex: Empresas de 10 a 50 funcionários, SP" />
+      </div>
+      <div class="field">
+        <label>Ticket médio</label>
+        <input type="text" id="f-ticket" placeholder="Ex: R$ 2.000/mês" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Faturamento mensal aproximado</label>
+        <select id="f-faturamento">
+          <option value="">Selecione</option>
+          <option value="ate50k">Até R$ 50k/mês</option>
+          <option value="50k-200k">R$ 50k – R$ 200k</option>
+          <option value="200k-500k">R$ 200k – R$ 500k</option>
+          <option value="500k-1m">R$ 500k – R$ 1M</option>
+          <option value="acima1m">Acima de R$ 1M</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Como clientes chegam até vocês</label>
+        <select id="f-aquisicao">
+          <option value="">Selecione</option>
+          <option value="indicacao">Indicação</option>
+          <option value="prospeccao">Prospecção ativa</option>
+          <option value="anuncios">Anúncios</option>
+          <option value="misto">Misto</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Para quais atividades você quer agentes? <span class="req">*</span></label>
+      <div class="check-group" id="atividades">
+        <div class="check-item" onclick="toggleCheck(this,'ativ-1')"><div class="check-box"></div><div class="check-label">Atendimento ao cliente (SAC, WhatsApp, dúvidas)</div></div>
+        <div class="check-item" onclick="toggleCheck(this,'ativ-2')"><div class="check-box"></div><div class="check-label">Agendamentos e confirmações</div></div>
+        <div class="check-item" onclick="toggleCheck(this,'ativ-3')"><div class="check-box"></div><div class="check-label">Cobrança e follow-up financeiro</div></div>
+        <div class="check-item" onclick="toggleCheck(this,'ativ-4')"><div class="check-box"></div><div class="check-label">Processos e tarefas internas</div></div>
+        <div class="check-item" onclick="toggleCheck(this,'ativ-5')"><div class="check-box"></div><div class="check-label">Vendas e qualificação de leads</div></div>
+        <div class="check-item" onclick="toggleCheck(this,'ativ-6')"><div class="check-box"></div><div class="check-label">Análise de dados e relatórios</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Qual expectativa pesa mais agora? <span class="req">*</span></label>
+      <div class="check-group" style="grid-template-columns:1fr;" id="expectativa">
+        <div class="check-item" onclick="selectRadio(this,'exp','exp-1')"><div class="check-box"></div><div class="check-label">Ganho de produtividade — fazer mais com o mesmo time</div></div>
+        <div class="check-item" onclick="selectRadio(this,'exp','exp-2')"><div class="check-box"></div><div class="check-label">Aumento de conversão — capturar mais receita</div></div>
+        <div class="check-item" onclick="selectRadio(this,'exp','exp-3')"><div class="check-box"></div><div class="check-label">Liberar tempo — focar no que só vocês sabem fazer</div></div>
+        <div class="check-item" onclick="selectRadio(this,'exp','exp-4')"><div class="check-box"></div><div class="check-label">Redução de custo operacional</div></div>
+      </div>
+    </div>
+    <div class="error-msg" id="err3">Preencha descrição, perfil de clientes, atividades e expectativa.</div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(2)">← VOLTAR</button>
+      <button class="btn-next" onclick="goTo(4)">PRÓXIMO →</button>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4 — AGENTES -->
+  <div class="section" id="s4">
+    <div class="section-num">ETAPA 4 DE 5</div>
+    <div class="section-title">Configuração dos Agentes</div>
+    <p class="section-desc">Configure até 2 agentes. Se precisar de mais, o Fabio vai ajustar na revisão.</p>
+
+    <!-- AGENTE 1 -->
+    <div class="agente-block">
+      <div class="agente-header">AGENTE 1</div>
+      <div class="field-row">
+        <div class="field"><label>Nome do agente <span class="req">*</span></label><input type="text" id="a1-nome" placeholder="Ex: Sofia, Carlos, Atendente..." /></div>
+        <div class="field">
+          <label>Função principal</label>
+          <select id="a1-funcao">
+            <option value="atendimento">Atendimento ao cliente</option>
+            <option value="vendas">Vendas / Qualificação</option>
+            <option value="financeiro">Financeiro / Cobrança</option>
+            <option value="operacional">Operacional / Tarefas internas</option>
+            <option value="agendamento">Agendamento</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tom de voz</label>
+          <select id="a1-tom">
+            <option value="formal">Formal</option>
+            <option value="semiformal" selected>Semiformal</option>
+            <option value="descontraido">Descontraído</option>
+          </select>
+        </div>
+        <div class="field"><label>Horário de cobertura</label><input type="text" id="a1-horario" placeholder="Ex: Seg-Sex 8h-18h | 24/7" /></div>
+      </div>
+      <div class="field">
+        <label>Como a empresa se apresenta para os clientes (em uma frase)</label>
+        <input type="text" id="a1-apresentacao" placeholder="Ex: Escritório especializado em causas trabalhistas com atendimento personalizado" />
+      </div>
+      <div class="field">
+        <label>O que o agente pode resolver sozinho</label>
+        <div class="check-group" id="a1-autonomia">
+          <div class="check-item" onclick="toggleCheck(this,'a1-aut-1')"><div class="check-box"></div><div class="check-label">Responder dúvidas frequentes</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-aut-2')"><div class="check-box"></div><div class="check-label">Agendar e confirmar compromissos</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-aut-3')"><div class="check-box"></div><div class="check-label">Enviar materiais pré-definidos</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-aut-4')"><div class="check-box"></div><div class="check-label">Captar e qualificar novos contatos</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-aut-5')"><div class="check-box"></div><div class="check-label">Enviar follow-ups automáticos</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-aut-6')"><div class="check-box"></div><div class="check-label">Registrar informações</div></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Situações que SEMPRE precisam de você</label>
+        <div class="check-group" id="a1-escalacao">
+          <div class="check-item" onclick="toggleCheck(this,'a1-esc-1')"><div class="check-box"></div><div class="check-label">Negociação de preço ou condição especial</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-esc-2')"><div class="check-box"></div><div class="check-label">Reclamação grave ou cliente insatisfeito</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-esc-3')"><div class="check-box"></div><div class="check-label">Proposta customizada</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'a1-esc-4')"><div class="check-box"></div><div class="check-label">Pagamentos e recebimentos</div></div>
+        </div>
+      </div>
+      <div class="field"><label>WhatsApp para escalar (onde o agente avisa você)</label><input type="tel" id="a1-escalacao-wa" placeholder="(11) 99999-9999" /></div>
+    </div>
+
+    <!-- AGENTE 2 (opcional) -->
+    <div id="a2-toggle" style="text-align:center;margin-bottom:16px;">
+      <button style="background:transparent;border:1px dashed #444;color:#888;padding:12px 24px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;width:100%;" onclick="showAgente2()">+ ADICIONAR SEGUNDO AGENTE (OPCIONAL)</button>
+    </div>
+    <div class="agente-block" id="a2-block" style="display:none;">
+      <div class="agente-header">AGENTE 2 (OPCIONAL)</div>
+      <div class="field-row">
+        <div class="field"><label>Nome do agente</label><input type="text" id="a2-nome" placeholder="Ex: Carlos, Assistente..." /></div>
+        <div class="field">
+          <label>Função principal</label>
+          <select id="a2-funcao">
+            <option value="atendimento">Atendimento ao cliente</option>
+            <option value="vendas">Vendas / Qualificação</option>
+            <option value="financeiro">Financeiro / Cobrança</option>
+            <option value="operacional">Operacional / Tarefas internas</option>
+            <option value="agendamento">Agendamento</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tom de voz</label>
+          <select id="a2-tom"><option value="formal">Formal</option><option value="semiformal" selected>Semiformal</option><option value="descontraido">Descontraído</option></select>
+        </div>
+        <div class="field"><label>Horário de cobertura</label><input type="text" id="a2-horario" placeholder="Ex: Seg-Sex 8h-18h" /></div>
+      </div>
+      <div class="field"><label>Objetivo principal desse agente</label><textarea id="a2-objetivo" rows="2" placeholder="Ex: Cobrar clientes inadimplentes automaticamente toda segunda-feira..."></textarea></div>
+      <div class="field"><label>WhatsApp para escalar</label><input type="tel" id="a2-escalacao-wa" placeholder="(11) 99999-9999" /></div>
+    </div>
+
+    <div class="error-msg" id="err4">Preencha o nome do primeiro agente.</div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(3)">← VOLTAR</button>
+      <button class="btn-next" onclick="goTo(5)">PRÓXIMO →</button>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 5 — REVISÃO -->
+  <div class="section" id="s5">
+    <div class="section-num">ETAPA 5 DE 5</div>
+    <div class="section-title">Revisão Final</div>
+    <p class="section-desc">Confirme os dados antes de enviar para a equipe OMA.</p>
+    <div id="resumo" style="background:#242424;border:1px solid #333;padding:24px;margin-bottom:24px;font-size:13px;color:#e0d9cf;line-height:2;font-family:'Barlow',sans-serif;white-space:pre-wrap;"></div>
+    <div class="field">
+      <label>Observações adicionais (opcional)</label>
+      <textarea id="f-obs" rows="3" placeholder="Alguma particularidade da sua operação que devemos saber..."></textarea>
+    </div>
+    <div class="error-msg" id="err5"></div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(4)">← VOLTAR</button>
+      <button class="btn-submit" id="btn-submit" onclick="enviar()">ENVIAR PARA A OMA ↗</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="success">
+  <div style="max-width:560px;margin:0 auto;">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Onboarding recebido!</div>
+    <p class="success-sub">Seus dados foram enviados para o Fabio e a equipe OMA.<br><br>Você receberá uma confirmação no WhatsApp em até 24 horas com os próximos passos.</p>
+  </div>
+</div>
+
+<script>
+var API = 'https://api.onemanarmyproject.com.br';
+var SLUG = new URLSearchParams(window.location.search).get('slug') || '';
+var selectedChecks = {};
+var selectedRadios = {};
+var currentStep = 1;
+var SESSION_ID = null;
+
+// Inicializa sessão
+(async function init(){
+  if(!SLUG) return;
+  try {
+    var r = await fetch(API+'/onboarding/session', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({client_slug:SLUG, session_type:'form'})
+    });
+    var d = await r.json();
+    SESSION_ID = d.session_id;
+    // Seta título com nome do cliente se disponível
+    if(d.client_name) {
+      document.getElementById('hero-title').textContent = 'Olá, ' + d.client_name.split(' ')[0] + '!';
+    }
+  } catch(e){}
+})();
+
+function toggleCheck(el, key) {
+  el.classList.toggle('selected');
+  if(el.classList.contains('selected')) selectedChecks[key] = true;
+  else delete selectedChecks[key];
+}
+
+function selectRadio(el, group, key) {
+  document.querySelectorAll('[onclick*="selectRadio(this,\'' + group + '\'"]').forEach(function(e){ e.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedRadios[group] = key;
+}
+
+function showAgente2() {
+  document.getElementById('a2-toggle').style.display = 'none';
+  document.getElementById('a2-block').style.display = 'block';
+}
+
+function getChecked(groupId) {
+  var items = document.querySelectorAll('#' + groupId + ' .check-item.selected .check-label');
+  return Array.from(items).map(function(i){ return i.textContent.trim(); });
+}
+
+function v(id){ return (document.getElementById(id)||{}).value||''; }
+
+function goTo(step) {
+  // validações
+  if(step > currentStep) {
+    if(currentStep === 1) {
+      if(!v('f-nome')||!v('f-whatsapp')||!v('f-email')){
+        document.getElementById('err1').classList.add('show'); return;
+      }
+      document.getElementById('err1').classList.remove('show');
+    }
+    if(currentStep === 2) {
+      if(!v('f-razao')||!v('f-cnpj')){
+        document.getElementById('err2').classList.add('show'); return;
+      }
+      document.getElementById('err2').classList.remove('show');
+    }
+    if(currentStep === 3) {
+      var ativs = getChecked('atividades');
+      var exps = getChecked('expectativa');
+      if(!v('f-descricao')||!v('f-perfil')||!ativs.length||!exps.length){
+        document.getElementById('err3').classList.add('show'); return;
+      }
+      document.getElementById('err3').classList.remove('show');
+    }
+    if(currentStep === 4) {
+      if(!v('a1-nome')){ document.getElementById('err4').classList.add('show'); return; }
+      document.getElementById('err4').classList.remove('show');
+    }
+  }
+
+  document.getElementById('s'+currentStep).classList.remove('active');
+  currentStep = step;
+  document.getElementById('s'+currentStep).classList.add('active');
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  if(step === 5) gerarResumo();
+}
+
+function updateProgress() {
+  var pct = ((currentStep-1)/4)*100;
+  document.getElementById('progress-fill').style.width = pct+'%';
+  for(var i=1;i<=5;i++){
+    var sc = document.getElementById('sc'+i);
+    var sl = document.getElementById('sl'+i);
+    sc.className = 'step-circle' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+    sl.className = 'step-label' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+    if(i < currentStep) sc.textContent = '✓';
+    else sc.textContent = i;
+  }
+}
+
+function gerarResumo() {
+  var a1aut = getChecked('a1-autonomia');
+  var a1esc = getChecked('a1-escalacao');
+  var a2nome = v('a2-nome');
+
+  var txt = 'RESPONSÁVEL\n' +
+    '  Nome: ' + v('f-nome') + '\n' +
+    '  WhatsApp: ' + v('f-whatsapp') + '\n' +
+    '  Email: ' + v('f-email') + '\n\n' +
+    'EMPRESA\n' +
+    '  ' + v('f-razao') + ' — CNPJ: ' + v('f-cnpj') + '\n' +
+    '  Endereço: ' + v('f-endereco') + ', ' + v('f-numero') + '\n\n' +
+    'NEGÓCIO\n' +
+    '  ' + v('f-descricao') + '\n' +
+    '  Clientes: ' + v('f-perfil') + '\n' +
+    '  Ticket médio: ' + (v('f-ticket')||'não informado') + '\n' +
+    '  Atividades: ' + getChecked('atividades').join(', ') + '\n' +
+    '  Expectativa: ' + getChecked('expectativa').join('') + '\n\n' +
+    'AGENTE 1 — ' + v('a1-nome').toUpperCase() + '\n' +
+    '  Função: ' + v('a1-funcao') + '\n' +
+    '  Tom: ' + v('a1-tom') + ' | Horário: ' + (v('a1-horario')||'a definir') + '\n' +
+    '  Autonomia: ' + (a1aut.length ? a1aut.join(', ') : 'a definir') + '\n' +
+    '  Escalação: ' + (a1esc.length ? a1esc.join(', ') : 'a definir') + '\n' +
+    '  WhatsApp escalação: ' + (v('a1-escalacao-wa')||'não informado') + '\n';
+
+  if(a2nome) {
+    txt += '\nAGENTE 2 — ' + a2nome.toUpperCase() + '\n' +
+      '  Função: ' + v('a2-funcao') + '\n' +
+      '  Tom: ' + v('a2-tom') + ' | Horário: ' + (v('a2-horario')||'a definir') + '\n';
+  }
+
+  document.getElementById('resumo').textContent = txt;
+}
+
+async function buscarCep(cep) {
+  var clean = cep.replace(/\D/g,'');
+  if(clean.length !== 8) return;
+  try {
+    var r = await fetch(API+'/cep/'+clean);
+    var d = await r.json();
+    if(d.logradouro) {
+      document.getElementById('f-endereco').value = d.logradouro + ', ' + d.bairro + ' — ' + d.localidade + '/' + d.uf;
+      document.getElementById('f-endereco').style.opacity = '1';
+    }
+  } catch(e){}
+}
+
+async function enviar() {
+  var btn = document.getElementById('btn-submit');
+  btn.disabled = true; btn.textContent = 'ENVIANDO...';
+
+  var a1aut = getChecked('a1-autonomia');
+  var a1esc = getChecked('a1-escalacao');
+  var agentes = [{
+    nome: v('a1-nome'), funcao: v('a1-funcao'), tom: v('a1-tom'),
+    horario_atendimento: v('a1-horario'), apresentacao_empresa: v('a1-apresentacao'),
+    autonomia: a1aut, gatilhos_escalacao: a1esc, whatsapp_escalacao: v('a1-escalacao-wa')
+  }];
+
+  if(v('a2-nome')) {
+    agentes.push({
+      nome: v('a2-nome'), funcao: v('a2-funcao'), tom: v('a2-tom'),
+      horario_atendimento: v('a2-horario'), objetivo: v('a2-objetivo'),
+      whatsapp_escalacao: v('a2-escalacao-wa')
+    });
+  }
+
+  var dados = {
+    nome_responsavel: v('f-nome'), cargo: v('f-cargo'),
+    whatsapp: v('f-whatsapp'), email: v('f-email'),
+    whatsapp_backup: v('f-whatsapp-backup'),
+    cnpj: v('f-cnpj'), razao_social: v('f-razao'), site: v('f-site'),
+    endereco_completo: v('f-endereco') + (v('f-numero') ? ', '+v('f-numero') : ''),
+    cidade: '', // extraída do endereço
+    descricao: v('f-descricao'),
+    perfil_clientes: v('f-perfil'), ticket_medio: v('f-ticket'),
+    faturamento: v('f-faturamento'), aquisicao: v('f-aquisicao'),
+    atividades: getChecked('atividades'),
+    expectativa_principal: getChecked('expectativa').join(''),
+    agentes: agentes,
+    observacoes: v('f-obs'),
+    tipo_onboarding: 'formulario'
+  };
+
+  try {
+    // Cria sessão se não tiver
+    if(!SESSION_ID) {
+      var rs = await fetch(API+'/onboarding/session', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({client_slug: SLUG||'form-'+Date.now(), session_type:'form'})
+      });
+      var ds = await rs.json();
+      SESSION_ID = ds.session_id;
+    }
+
+    await fetch(API+'/onboarding/salvar', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: SESSION_ID, dados: dados})
+    });
+
+    // Notifica George via Telegram
+    await fetch(API+'/onboarding/form-recebido', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({slug: SLUG, nome: v('f-nome'), empresa: v('f-razao'), dados: dados})
+    }).catch(function(){});
+
+    document.querySelector('.form-wrap').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.querySelector('.hero').style.display = 'none';
+    document.getElementById('success').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'ENVIAR PARA A OMA ↗';
+    document.getElementById('err5').textContent = 'Erro ao enviar. Tente novamente.';
+    document.getElementById('err5').classList.add('show');
+  }
+}
+</script>
+</body>
+</html>

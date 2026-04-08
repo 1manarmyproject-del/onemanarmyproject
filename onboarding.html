@@ -2,40 +2,400 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>OMA — ONBOARDING</title>
+<title>OMA — Onboarding</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--char:#080808;--carbon:#0f0f0f;--iron:#1e1e1e;--ash:#555;--bone:#e0d9cf;--fire:#e8703a;--gold:#c8a456;}
+:root{--char:#1a1a1a;--carbon:#0f0f0f;--iron:#222;--steel:#2a2a2a;--ash:#6a6a6a;--bone:#e0d9cf;--fire:#e8703a;--ember:#c05020;--green:#2d8a50;--gold:#c8a456;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
-.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;}
+/* header */
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
 .hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;}
 .hback:hover{color:var(--fire);}
-.htitle{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--fire);}
-.zero-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:40px;text-align:center;}
-.zero-icon{font-size:64px;margin-bottom:24px;opacity:.4;}
-.zero-title{font-family:'Black Ops One',cursive;font-size:28px;letter-spacing:3px;color:var(--ash);margin-bottom:12px;}
-.zero-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:2px;line-height:2;margin-bottom:32px;}
-.zero-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);border:1px solid var(--gold);padding:6px 16px;border-radius:2px;}
-.zero-items{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin-top:48px;}
-@media(max-width:600px){.zero-items{grid-template-columns:1fr;}}
-.zero-item{background:var(--carbon);border:1px solid var(--iron);border-radius:4px;padding:24px;}
-.zero-item-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;margin-bottom:10px;}
-.zero-item-val{font-family:'Black Ops One',cursive;font-size:32px;color:var(--iron);}
+.htitle{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:var(--fire);}
+/* wrap */
+.wrap{padding:28px 24px;max-width:1100px;margin:0 auto;}
+/* stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.stat{background:var(--carbon);border:1px solid var(--iron);padding:18px 20px;}
+.stat-val{font-family:'Black Ops One',cursive;font-size:28px;color:var(--bone);margin-bottom:4px;}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;}
+/* topo ações */
+.actions-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.section-title{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--ash);}
+.btn-manual{background:var(--fire);border:none;color:#000;padding:10px 20px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:8px;}
+.btn-manual:hover{background:var(--ember);}
+/* tabela */
+.tbl-wrap{background:var(--carbon);border:1px solid var(--iron);overflow:hidden;}
+.tbl-hdr{display:grid;grid-template-columns:2fr 1.2fr 1fr 1.2fr 1fr 80px;padding:10px 16px;background:var(--iron);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);}
+.tbl-row{display:grid;grid-template-columns:2fr 1.2fr 1fr 1.2fr 1fr 80px;padding:14px 16px;border-top:1px solid var(--iron);align-items:center;transition:background .1s;}
+.tbl-row:hover{background:rgba(255,255,255,.02);}
+.tbl-nome{font-size:14px;color:var(--bone);font-weight:500;}
+.tbl-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px;}
+.tbl-cell{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);}
+/* badges status */
+.badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;padding:3px 8px;border-radius:2px;}
+.badge-ativo{background:rgba(45,138,80,.15);color:#2d8a50;border:1px solid rgba(45,138,80,.3);}
+.badge-onboarding{background:rgba(200,164,86,.15);color:var(--gold);border:1px solid rgba(200,164,86,.3);}
+.badge-concluido{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3);}
+.badge-lead{background:rgba(106,106,106,.15);color:var(--ash);border:1px solid rgba(106,106,106,.3);}
+/* esteira modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#0f0f0f;border:1px solid var(--steel);width:100%;max-width:680px;max-height:90vh;overflow-y:auto;}
+.modal-hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:'Black Ops One',cursive;font-size:18px;color:var(--bone);letter-spacing:1px;}
+.modal-close{background:none;border:none;color:var(--ash);font-size:20px;cursor:pointer;padding:4px;}
+.modal-close:hover{color:var(--bone);}
+.modal-body{padding:24px;}
+/* formulário embed */
+.form-section{margin-bottom:20px;}
+.form-section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--iron);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.form-row.single{grid-template-columns:1fr;}
+.flabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ash);display:block;margin-bottom:5px;}
+.finput,.fselect,.ftarea{background:#1a1a1a;border:1px solid var(--steel);color:var(--bone);padding:10px 12px;font-family:'Barlow',sans-serif;font-size:13px;outline:none;width:100%;transition:border-color .15s;}
+.finput:focus,.fselect:focus,.ftarea:focus{border-color:var(--fire);}
+.finput::placeholder,.ftarea::placeholder{color:#3a3a3a;}
+.fselect{cursor:pointer;}
+.ftarea{resize:vertical;min-height:80px;}
+/* ações do form */
+.form-actions{display:flex;gap:12px;margin-top:20px;}
+.btn-salvar{flex:1;background:var(--fire);border:none;color:#000;padding:13px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;transition:background .15s;}
+.btn-salvar:hover{background:var(--ember);}
+.btn-salvar:disabled{opacity:.5;cursor:not-allowed;}
+.btn-enviar-link{flex:1;background:transparent;border:1px solid var(--fire);color:var(--fire);padding:13px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .15s;}
+.btn-enviar-link:hover{background:var(--fire);color:#000;}
+.form-msg{font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;padding:10px 12px;display:none;}
+.form-msg.ok{background:rgba(45,138,80,.1);color:var(--green);border:1px solid rgba(45,138,80,.3);}
+.form-msg.err{background:rgba(226,75,74,.1);color:#e24b4a;border:1px solid rgba(226,75,74,.2);}
+/* esteira cliente */
+.esteira{margin-top:24px;padding-top:20px;border-top:1px solid var(--iron);}
+.esteira-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px;}
+.etapas{display:flex;flex-direction:column;gap:8px;}
+.etapa{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--iron);border-left:3px solid transparent;}
+.etapa.done{border-left-color:var(--green);}
+.etapa.active{border-left-color:var(--fire);}
+.etapa.pending{border-left-color:var(--steel);}
+.etapa-icon{font-size:16px;flex-shrink:0;}
+.etapa-info{flex:1;}
+.etapa-nome{font-size:13px;color:var(--bone);font-weight:500;}
+.etapa-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:2px;}
+.etapa-badge{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;}
+.etapa-badge.done{background:rgba(45,138,80,.15);color:var(--green);}
+.etapa-badge.active{background:rgba(232,112,58,.15);color:var(--fire);}
+.etapa-badge.pending{background:rgba(42,42,42,.5);color:var(--ash);}
+/* empty */
+.empty{text-align:center;padding:60px 20px;color:var(--ash);}
+.empty-icon{font-size:40px;margin-bottom:12px;opacity:.3;}
+.empty-txt{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;}
+@media(max-width:700px){.stats-row{grid-template-columns:1fr 1fr;}.tbl-hdr{display:none;}.tbl-row{grid-template-columns:1fr;gap:4px;}.form-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <header class="hdr">
-  <a href="/hub" class="hback">HUB</a>
+  <a href="/hub" class="hback">← HUB</a>
   <span class="htitle">ONBOARDING</span>
-  <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">AGUARDANDO DADOS</span>
+  <span id="hdr-count" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);">—</span>
 </header>
-<div class="zero-wrap">
-  <div class="zero-icon">🚀</div>
-  <div class="zero-title">ZERADO</div>
-  <div class="zero-sub">Painel de onboarding aguardando primeiro cliente.<br>Cada novo cliente aparecera aqui com<br>status de cada etapa do processo.</div>
-  <span class="zero-badge">PRONTO PARA COMECAR A MEDIR</span>
-  <div class="zero-items"><div class="zero-item"><div class="zero-item-lbl">Em Onboarding</div><div class="zero-item-val">0</div></div><div class="zero-item"><div class="zero-item-lbl">Concluidos</div><div class="zero-item-val">0</div></div><div class="zero-item"><div class="zero-item-lbl">Tempo Medio</div><div class="zero-item-val">—</div></div></div>
+
+<div class="wrap">
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val" id="st-total">—</div><div class="stat-lbl">Total Clientes</div></div>
+    <div class="stat"><div class="stat-val" id="st-em">—</div><div class="stat-lbl">Em Onboarding</div></div>
+    <div class="stat"><div class="stat-val" id="st-concluido">—</div><div class="stat-lbl">Concluídos</div></div>
+    <div class="stat"><div class="stat-val" id="st-ativo">—</div><div class="stat-lbl">Ativos</div></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions-bar">
+    <span class="section-title">CLIENTES</span>
+    <button class="btn-manual" onclick="abrirFormManual()">
+      &#43; ONBOARDING MANUAL
+    </button>
+  </div>
+
+  <!-- Tabela -->
+  <div class="tbl-wrap">
+    <div class="tbl-hdr">
+      <span>CLIENTE</span><span>PLANO</span><span>ORIGEM</span><span>STATUS</span><span>ENTRADA</span><span></span>
+    </div>
+    <div id="tbl-body">
+      <div class="empty"><div class="empty-icon">🚀</div><div class="empty-txt">CARREGANDO...</div></div>
+    </div>
+  </div>
 </div>
+
+<!-- Modal Onboarding Manual -->
+<div class="modal-overlay" id="modal-onboarding">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-titulo">ONBOARDING MANUAL</span>
+      <button class="modal-close" onclick="fecharModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Formulário -->
+      <div id="form-section">
+        <div class="form-section">
+          <div class="form-section-title">DADOS DO CLIENTE</div>
+          <div class="form-row">
+            <div><label class="flabel">NOME COMPLETO *</label><input class="finput" id="f-nome" placeholder="Nome do responsável"></div>
+            <div><label class="flabel">CARGO</label><input class="finput" id="f-cargo" placeholder="CEO, Sócio..."></div>
+          </div>
+          <div class="form-row">
+            <div><label class="flabel">WHATSAPP *</label><input class="finput" id="f-whatsapp" type="tel" placeholder="11 99999-9999"></div>
+            <div><label class="flabel">EMAIL</label><input class="finput" id="f-email" type="email" placeholder="email@empresa.com"></div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">EMPRESA</div>
+          <div class="form-row">
+            <div><label class="flabel">EMPRESA *</label><input class="finput" id="f-empresa" placeholder="Nome da empresa"></div>
+            <div><label class="flabel">SEGMENTO</label>
+              <select class="fselect" id="f-segmento">
+                <option value="">Selecionar</option>
+                <option value="advocacia">Advocacia / Jurídico</option>
+                <option value="consultorio">Saúde / Consultório</option>
+                <option value="otica">Ótica / Varejo</option>
+                <option value="condominio">Condomínio</option>
+                <option value="shopping">Shopping / Imobiliária</option>
+                <option value="distribuidor">Distribuidor de Bebidas</option>
+                <option value="outros">Outros</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row single">
+            <div><label class="flabel">PRINCIPAL DOR / DESAFIO</label><textarea class="ftarea" id="f-dor" placeholder="O que mais toma tempo? O que quer automatizar?"></textarea></div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">CONTRATO</div>
+          <div class="form-row">
+            <div><label class="flabel">PLANO</label>
+              <select class="fselect" id="f-plano">
+                <option value="pme">PME — Agentes OMA</option>
+                <option value="scribe-light">Scribe Light</option>
+                <option value="scribe-basic">Scribe Basic</option>
+                <option value="scribe-pro">Scribe Pro</option>
+                <option value="priority_map">Priority Map</option>
+                <option value="automation_roadmap">Automation Roadmap</option>
+              </select>
+            </div>
+            <div><label class="flabel">MRR / VALOR</label><input class="finput" id="f-mrr" type="number" placeholder="0.00"></div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-salvar" id="btn-salvar" onclick="salvarCliente()">SALVAR CLIENTE &#x2192;</button>
+          <button class="btn-enviar-link" onclick="enviarLinkForm()">ENVIAR FORMULÁRIO &#x2192;</button>
+        </div>
+        <div class="form-msg" id="form-msg"></div>
+      </div>
+
+      <!-- Esteira (mostra após salvar) -->
+      <div class="esteira" id="esteira-section" style="display:none;">
+        <div class="esteira-title">ESTEIRA DE ONBOARDING — <span id="esteira-nome"></span></div>
+        <div class="etapas" id="etapas-list"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── AUTH HELPERS ──────────────────────────────────────────────
+function getToken(){
+  var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');
+  var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');
+  if(!t||Date.now()>e)return null; return t;
+}
+function getAuthHeaders(){
+  var t=getToken();
+  return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};
+}
+window.addEventListener('message',function(e){
+  if(!e.data||e.data.type!=='oma_auth')return;
+  var tok=e.data.token||e.data.oma_api_key||'';
+  if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}
+  init();
+});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())init();});
+
+var API='https://api.onemanarmyproject.com.br';
+var clienteAtual = null;
+
+// ── INIT ─────────────────────────────────────────────────────
+async function init(){
+  try{
+    var r = await fetch(API+'/clientes',{headers:getAuthHeaders()});
+    var clientes = await r.json();
+    if(!Array.isArray(clientes)) clientes=[];
+
+    // Stats
+    var em=0,conc=0,ativos=0;
+    clientes.forEach(function(c){
+      if(c.status==='em_onboarding') em++;
+      else if(c.status==='onboarding_completo') conc++;
+      else if(c.status==='ativo') ativos++;
+    });
+    document.getElementById('st-total').textContent=clientes.length;
+    document.getElementById('st-em').textContent=em;
+    document.getElementById('st-concluido').textContent=conc;
+    document.getElementById('st-ativo').textContent=ativos;
+    document.getElementById('hdr-count').textContent=clientes.length+' clientes';
+
+    // Tabela
+    var tbody = document.getElementById('tbl-body');
+    if(clientes.length===0){
+      tbody.innerHTML='<div class="empty"><div class="empty-icon">🚀</div><div class="empty-txt">NENHUM CLIENTE AINDA</div></div>';
+      return;
+    }
+    tbody.innerHTML = clientes.map(function(c){
+      var badgeClass = c.status==='ativo'?'badge-ativo':c.status==='onboarding_completo'?'badge-concluido':c.status==='em_onboarding'?'badge-onboarding':'badge-lead';
+      var badgeLabel = c.status==='ativo'?'ATIVO':c.status==='onboarding_completo'?'CONCLUÍDO':c.status==='em_onboarding'?'EM ANDAMENTO':'LEAD';
+      var data = c.created_at ? c.created_at.split('T')[0] : '—';
+      return '<div class="tbl-row" onclick="verEsteira(\''+c.id+'\',\''+c.nome+'\',\''+c.status+'\')">'+
+        '<div><div class="tbl-nome">'+c.nome+'</div><div class="tbl-sub">'+(c.empresa||'')+'</div></div>'+
+        '<div class="tbl-cell">'+(c.plano||'—')+'</div>'+
+        '<div class="tbl-cell">'+(c.origem||'—')+'</div>'+
+        '<div><span class="badge '+badgeClass+'">'+badgeLabel+'</span></div>'+
+        '<div class="tbl-cell">'+data+'</div>'+
+        '<div><span style="font-family:\'Space Mono\',monospace;font-size:10px;color:var(--fire);cursor:pointer;">VER →</span></div>'+
+      '</div>';
+    }).join('');
+  }catch(e){ document.getElementById('tbl-body').innerHTML='<div class="empty"><div class="empty-txt">ERRO AO CARREGAR</div></div>'; }
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+function abrirFormManual(){
+  clienteAtual = null;
+  document.getElementById('modal-titulo').textContent = 'ONBOARDING MANUAL';
+  document.getElementById('form-section').style.display='block';
+  document.getElementById('esteira-section').style.display='none';
+  document.getElementById('form-msg').style.display='none';
+  ['f-nome','f-cargo','f-whatsapp','f-email','f-empresa','f-dor','f-mrr'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('modal-onboarding').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModal(){
+  document.getElementById('modal-onboarding').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function verEsteira(id, nome, status){
+  clienteAtual = {id,nome,status};
+  document.getElementById('modal-titulo').textContent = nome.toUpperCase();
+  document.getElementById('form-section').style.display='none';
+  document.getElementById('esteira-section').style.display='block';
+  document.getElementById('esteira-nome').textContent = nome;
+  renderEsteira(status);
+  document.getElementById('modal-onboarding').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function renderEsteira(status){
+  var etapas = [
+    {id:'cadastro',    nome:'Cadastro',         sub:'Cliente registrado no sistema', icon:'✅'},
+    {id:'formulario',  nome:'Formulário enviado',sub:'Dados do negócio coletados',   icon:'📋'},
+    {id:'briefing',    nome:'Briefing',          sub:'Reunião de alinhamento',        icon:'🎯'},
+    {id:'configuracao',nome:'Configuração',      sub:'Agentes e integrações',         icon:'⚙️'},
+    {id:'entrega',     nome:'Entrega',           sub:'Apresentação e treinamento',    icon:'🚀'},
+    {id:'ativo',       nome:'Ativo',             sub:'Cliente em produção',           icon:'🟢'},
+  ];
+  var ordem = ['cadastro','formulario','briefing','configuracao','entrega','ativo'];
+  var idx = status==='ativo'?5:status==='onboarding_completo'?4:status==='em_onboarding'?2:0;
+  document.getElementById('etapas-list').innerHTML = etapas.map(function(e,i){
+    var cls = i<idx?'done':i===idx?'active':'pending';
+    var badgeTxt = i<idx?'CONCLUÍDO':i===idx?'EM ANDAMENTO':'PENDENTE';
+    return '<div class="etapa '+cls+'">'+
+      '<span class="etapa-icon">'+e.icon+'</span>'+
+      '<div class="etapa-info"><div class="etapa-nome">'+e.nome+'</div><div class="etapa-sub">'+e.sub+'</div></div>'+
+      '<span class="etapa-badge '+cls+'">'+badgeTxt+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+// ── SALVAR CLIENTE ────────────────────────────────────────────
+async function salvarCliente(){
+  var btn = document.getElementById('btn-salvar');
+  var msg = document.getElementById('form-msg');
+  var nome = document.getElementById('f-nome').value.trim();
+  var whatsapp = document.getElementById('f-whatsapp').value.trim();
+  var empresa = document.getElementById('f-empresa').value.trim();
+  if(!nome||!whatsapp||!empresa){
+    msg.textContent='Nome, WhatsApp e Empresa são obrigatórios.';
+    msg.className='form-msg err'; msg.style.display='block'; return;
+  }
+  btn.disabled=true; btn.textContent='SALVANDO...';
+  try{
+    var payload = {
+      nome: nome, cargo: document.getElementById('f-cargo').value.trim(),
+      phone: whatsapp.replace(/\D/g,''), email: document.getElementById('f-email').value.trim(),
+      empresa: empresa, segmento: document.getElementById('f-segmento').value,
+      dor: document.getElementById('f-dor').value.trim(),
+      plano: document.getElementById('f-plano').value,
+      mrr: parseFloat(document.getElementById('f-mrr').value||0),
+      status: 'em_onboarding', origem: 'manual'
+    };
+    var r = await fetch(API+'/clientes',{method:'POST',headers:getAuthHeaders(),body:JSON.stringify(payload)});
+    var d = await r.json();
+    if(d.error){ msg.textContent=d.error; msg.className='form-msg err'; msg.style.display='block'; btn.disabled=false; btn.textContent='SALVAR CLIENTE →'; return; }
+    msg.textContent='✓ Cliente salvo! Iniciando esteira...';
+    msg.className='form-msg ok'; msg.style.display='block';
+    clienteAtual={id:d.id||d.cliente_id,nome,status:'em_onboarding'};
+    setTimeout(function(){
+      document.getElementById('form-section').style.display='none';
+      document.getElementById('esteira-section').style.display='block';
+      document.getElementById('esteira-nome').textContent=nome;
+      renderEsteira('em_onboarding');
+    }, 800);
+    init(); // Atualiza tabela
+  }catch(e){ msg.textContent='Erro: '+e.message; msg.className='form-msg err'; msg.style.display='block'; }
+  btn.disabled=false; btn.textContent='SALVAR CLIENTE →';
+}
+
+// ── ENVIAR LINK ───────────────────────────────────────────────
+async function enviarLinkForm(){
+  var whatsapp = document.getElementById('f-whatsapp').value.trim().replace(/\D/g,'');
+  var nome = document.getElementById('f-nome').value.trim();
+  if(!whatsapp){ 
+    var msg=document.getElementById('form-msg');
+    msg.textContent='Informe o WhatsApp para enviar o link.';
+    msg.className='form-msg err'; msg.style.display='block'; return;
+  }
+  var link = 'https://onemanarmyproject.com.br/onboarding-form'+(nome?'?nome='+encodeURIComponent(nome):'');
+  var texto = 'Olá'+( nome?' '+nome.split(' ')[0]:'')+', aqui é o OMA Project! Preparei um formulário para iniciarmos seu onboarding: '+link;
+  try{
+    var r = await fetch(API+'/agent/bia/send-message',{
+      method:'POST', headers:getAuthHeaders(),
+      body:JSON.stringify({phone:'55'+whatsapp, message:texto})
+    });
+    var d = await r.json();
+    var msg=document.getElementById('form-msg');
+    if(d.ok||d.id||d.key){
+      msg.textContent='✓ Link enviado via WhatsApp!';
+      msg.className='form-msg ok';
+    } else {
+      msg.textContent='✓ Link gerado: '+link+' (copie e envie manualmente)';
+      msg.className='form-msg ok';
+    }
+    msg.style.display='block';
+  }catch(e){
+    var msg=document.getElementById('form-msg');
+    msg.textContent='Link: '+link+' (copie e envie manualmente)';
+    msg.className='form-msg ok'; msg.style.display='block';
+  }
+}
+
+// Fecha ao clicar fora
+document.addEventListener('click',function(e){if(e.target.id==='modal-onboarding')fecharModal();});
+</script>
 </body>
 </html>

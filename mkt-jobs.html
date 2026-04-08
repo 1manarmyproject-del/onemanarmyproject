@@ -195,8 +195,16 @@ main{padding:24px 28px 60px;}
 </div>
 <div class="toast" id="toast"></div>
 <script>
-var API='https://oma-api.pipeeyewear.com.br',KEY=((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'');
-var HDR={'Content-Type':'application/json','x-api-key':KEY};
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+function init(){if(typeof load==='function')load();else if(typeof loadJobs==='function')loadJobs();}
+var API='https://api.onemanarmyproject.com.br';
+var HDR=getAuthHeaders();
 var jobs=[],fS='all',fC='all',view='grid',cur=null,ctab='ov';
 var SC={publicado:'var(--gr)',producao:'var(--or)',revisao:'var(--ye)',briefing:'var(--bl)',pausado:'var(--mu)'};
 var SL={publicado:'Publicado',producao:'Produção',revisao:'Revisão',briefing:'Briefing',pausado:'Pausado'};
@@ -204,7 +212,7 @@ var CL={fabio:'@fabio_xavier_br','1manarmy':'@1manarmy_project'};
 
 async function load(){
   try{
-    var r=await fetch(API+'/mkt/jobs',{headers:{'x-api-key':KEY}});
+    var r=await fetch(API+'/mkt/jobs',{headers:getAuthHeaders()});
     if(!r.ok) throw new Error('HTTP '+r.status);
     var data=await r.json();
     if(!Array.isArray(data)) throw new Error('resposta invalida');
@@ -338,7 +346,7 @@ async function saveJob(){
     notas:document.getElementById('e-nt')?.value??cur.notas,
   };
   try{
-    var r=await fetch(API+'/mkt/jobs/'+cur.id,{method:'PATCH',headers:HDR,body:JSON.stringify(fields)});
+    var r=await fetch(API+'/mkt/jobs/'+cur.id,{method:'PATCH',headers:getAuthHeaders(),body:JSON.stringify(fields)});
     if(r.ok){
       var idx=jobs.findIndex(j=>j.id===cur.id);
       if(idx>=0)jobs[idx]={...jobs[idx],...fields};
@@ -351,7 +359,7 @@ async function saveJob(){
 async function delJob(){
   if(!cur||!confirm('Excluir este job?'))return;
   try{
-    await fetch(API+'/mkt/jobs/'+cur.id,{method:'DELETE',headers:{'x-api-key':KEY}});
+    await fetch(API+'/mkt/jobs/'+cur.id,{method:'DELETE',headers:getAuthHeaders()});
     jobs=jobs.filter(j=>j.id!==cur.id);
     closeDr();stats();render();toast('Excluído');
   }catch(e){toast('Erro ao excluir');}
@@ -365,7 +373,7 @@ async function createJob(){
   if(!titulo){alert('Título obrigatório');return;}
   var body={titulo,canal:document.getElementById('nc').value,tipo:document.getElementById('ntp').value,status:document.getElementById('nst').value,responsavel:document.getElementById('nr')?.value||'fabio',num_slides:parseInt(document.getElementById('nsl')?.value)||0,briefing:document.getElementById('nb').value,objetivo:document.getElementById('nobj')?.value||null};
   try{
-    var r=await fetch(API+'/mkt/jobs',{method:'POST',headers:HDR,body:JSON.stringify(body)});
+    var r=await fetch(API+'/mkt/jobs',{method:'POST',headers:getAuthHeaders(),body:JSON.stringify(body)});
     var d=await r.json();
     if(d.ok){
       body.id=d.id;body.created_at=new Date().toISOString();
@@ -391,6 +399,7 @@ function stChange(val){
   if(el) el.style.background=SC[val]||'var(--mu)';
 }
 
-load();</script>
+load();
+</script>
 </body>
 </html>

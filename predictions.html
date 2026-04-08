@@ -77,6 +77,9 @@ footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
 footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;margin-top:6px;}
 footer a{color:var(--ash);text-decoration:none;}
 </style>
+
+<script src="/oma-checkout.js" defer></script>
+<script src="/tracker.js" defer></script>
 </head>
 <body>
 
@@ -105,7 +108,20 @@ footer a{color:var(--ash);text-decoration:none;}
   </div>
 </section>
 
-
+<!-- CASO OMA — RELATÓRIO ABERTO -->
+<section style="max-width:760px;margin:0 auto;padding:0 32px 48px;">
+  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:16px;">Transparência brutal</div>
+  <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--bone);margin-bottom:24px;">Usamos o Predictions no <em style="color:var(--fire);font-style:italic;">nosso próprio negócio.</em></div>
+  <div style="background:var(--iron);border:1px solid var(--steel);padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+    <div style="font-size:40px;flex-shrink:0;">📊</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-size:16px;font-weight:700;color:var(--bone);margin-bottom:6px;">Analisamos o OMA Project com o OMA Predictions</div>
+      <div style="font-size:13px;color:var(--ash);line-height:1.7;margin-bottom:12px;">43 agentes simulados debateram sobre nosso negócio por 15 rounds. Veja o que descobrimos — sem filtro, sem edição.</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;">43 agentes · 334 interações · 4 seções · custo R$1,50</div>
+    </div>
+    <a href="/reports/oma-case-study.html" target="_blank" style="background:var(--fire);color:#000;padding:12px 24px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;text-decoration:none;flex-shrink:0;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">VER RELATÓRIO →</a>
+  </div>
+</section>
 
 <div class="divider"><div class="divider-gem"></div></div>
 
@@ -124,8 +140,8 @@ footer a{color:var(--ash);text-decoration:none;}
         <li>Suporte via WhatsApp</li>
       </ul>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;">
-        <a href="https://www.asaas.com/c/g6ac2ags7z676f82" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:var(--fire);color:var(--char);padding:12px 8px;text-align:center;text-decoration:none;transition:background .2s;display:block;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">PIX / Boleto →</a>
-        <a href="https://www.asaas.com/c/8nu9xkg9fpim3rf8" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:12px 8px;text-align:center;text-decoration:none;transition:all .2s;display:block;" onmouseover="this.style.background='var(--fire)';this.style.color='var(--char)'" onmouseout="this.style.background='transparent';this.style.color='var(--fire)'">Cartão 4x →</a>
+        <button class="btn-pay-pred" onclick="abrirCheckoutPred(1299,5)">COMPRAR — R$1.299 &#x2192;</button>
+        
       </div>
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
     </div>
@@ -142,8 +158,8 @@ footer a{color:var(--ash);text-decoration:none;}
         <li>Relatórios em até 12h</li>
       </ul>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;">
-        <a href="https://www.asaas.com/c/uh43vdgmm5mmz8lt" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:var(--fire);color:var(--char);padding:12px 8px;text-align:center;text-decoration:none;transition:background .2s;display:block;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">PIX / Boleto →</a>
-        <a href="https://www.asaas.com/c/v6xhiz3ixfv38no5" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:12px 8px;text-align:center;text-decoration:none;transition:all .2s;display:block;" onmouseover="this.style.background='var(--fire)';this.style.color='var(--char)'" onmouseout="this.style.background='transparent';this.style.color='var(--fire)'">Cartão 4x →</a>
+        <button class="btn-pay-pred" onclick="abrirCheckoutPred(3999,20)">COMPRAR — R$3.999 &#x2192;</button>
+        
       </div>
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
     </div>
@@ -251,8 +267,8 @@ footer a{color:var(--ash);text-decoration:none;}
         <li>Suporte via WhatsApp</li>
       </ul>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;">
-        <a href="https://www.asaas.com/c/g6ac2ags7z676f82" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:var(--fire);color:var(--char);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">PIX / Boleto →</a>
-        <a href="https://www.asaas.com/c/8nu9xkg9fpim3rf8" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='var(--fire)';this.style.color='var(--char)'" onmouseout="this.style.background='transparent';this.style.color='var(--fire)'">Cartão 4x →</a>
+        <button class="btn-pay-pred" onclick="abrirCheckoutPred(1299,5)">COMPRAR — R$1.299 &#x2192;</button>
+        
       </div>
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
     </div>
@@ -269,8 +285,8 @@ footer a{color:var(--ash);text-decoration:none;}
         <li>Relatórios em até 12h</li>
       </ul>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;">
-        <a href="https://www.asaas.com/c/uh43vdgmm5mmz8lt" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:var(--fire);color:var(--char);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">PIX / Boleto →</a>
-        <a href="https://www.asaas.com/c/v6xhiz3ixfv38no5" target="_blank" style="font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:1px;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:12px 8px;text-align:center;text-decoration:none;display:block;" onmouseover="this.style.background='var(--fire)';this.style.color='var(--char)'" onmouseout="this.style.background='transparent';this.style.color='var(--fire)'">Cartão 4x →</a>
+        <button class="btn-pay-pred" onclick="abrirCheckoutPred(3999,20)">COMPRAR — R$3.999 &#x2192;</button>
+        
       </div>
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
     </div>
@@ -376,6 +392,20 @@ async function submitPrediction() {
   };
   document.body.appendChild(btn);
 })();
+
+function abrirCheckoutPred(value, qtd) {
+  omaCheckout.open({
+    badge: 'PREDICTIONS',
+    title: 'OMA PREDICTIONS',
+    priceLabel: 'R$' + value.toLocaleString('pt-BR') + ' — ' + qtd + ' relatórios',
+    product: 'predictions_' + qtd,
+    value: value,
+    description: 'OMA Predictions — ' + qtd + ' relatórios de inteligência preditiva',
+    successMsg: 'Pagamento confirmado! Nossa equipe entrará em contato em até 24h para iniciar o briefing.',
+    successBtnLabel: 'FECHAR'
+  });
+}
+
 </script>
 
 </body>

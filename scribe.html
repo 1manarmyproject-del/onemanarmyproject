@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Scribe — Transcrição de áudio no WhatsApp</title>
+<link rel="icon" href="/lobster-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0ede8;--coal:#1c1c1e;--iron:#242424;--border:#2a2a2a;--fire:#e8703a;--ember:#c05020;--green:#2d8a50;--ash:#8a8278;--fog:#5a5550;--bone:#e0d9cf;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--coal);font-family:'Barlow',sans-serif;min-height:100vh;}
+
+/* HEADER */
+.hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:#e0d9cf;}
+.hlogo span{color:var(--fire);}
+.hnav{display:flex;gap:24px;align-items:center;}
+.hnav a{font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;text-decoration:none;letter-spacing:1px;}
+.hnav a:hover{color:var(--fire);}
+.hnav .btn-login{background:var(--fire);color:#000;padding:6px 14px;font-weight:700;}
+
+/* HERO */
+.hero{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:80px 24px;text-align:center;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:16px;}
+.hero-title{font-family:'Black Ops One',cursive;font-size:clamp(32px,6vw,64px);letter-spacing:1px;color:#e0d9cf;line-height:1.1;margin-bottom:20px;}
+.hero-title span{color:var(--fire);}
+.hero-sub{font-size:18px;color:#888;max-width:560px;margin:0 auto 40px;line-height:1.7;}
+.hero-demo{display:inline-flex;align-items:center;gap:12px;background:#242424;border:1px solid #333;padding:16px 24px;margin-bottom:48px;}
+.demo-icon{font-size:24px;}
+.demo-text{text-align:left;}
+.demo-label{font-family:'Space Mono',monospace;font-size:9px;color:#6a6a6a;letter-spacing:2px;}
+.demo-msg{font-size:14px;color:#e0d9cf;margin-top:4px;}
+.hero-cta{display:inline-block;background:var(--fire);color:#000;padding:16px 36px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;text-decoration:none;font-weight:700;margin-right:12px;}
+.hero-cta:hover{background:var(--ember);}
+.hero-cta-sec{display:inline-block;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:16px 28px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;text-decoration:none;}
+.hero-cta-sec:hover{background:rgba(232,112,58,.1);}
+
+/* COMO FUNCIONA */
+.how{max-width:860px;margin:80px auto;padding:0 24px;}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);text-align:center;margin-bottom:12px;}
+.section-title{font-family:'Black Ops One',cursive;font-size:28px;color:var(--coal);text-align:center;margin-bottom:48px;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.step{text-align:center;padding:32px 20px;background:#fff;border:1px solid #ddd;}
+.step-num{font-family:'Black Ops One',cursive;font-size:40px;color:var(--fire);margin-bottom:16px;}
+.step-title{font-size:16px;font-weight:700;color:var(--coal);margin-bottom:8px;}
+.step-desc{font-size:13px;color:var(--fog);line-height:1.6;}
+@media(max-width:600px){.steps{grid-template-columns:1fr;}}
+
+/* PRICING */
+.pricing{background:#1c1c1e;padding:80px 24px;}
+.pricing-inner{max-width:960px;margin:0 auto;}
+.plans{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:48px;}
+.plan{background:#242424;border:1px solid #333;padding:24px 16px;text-align:center;position:relative;}
+.plan.featured{border-color:var(--fire);background:#1a1a1a;}
+.plan-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--fire);color:#000;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;padding:3px 10px;white-space:nowrap;}
+.plan-name{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;margin-bottom:12px;}
+.plan-price{font-family:'Black Ops One',cursive;font-size:28px;color:#e0d9cf;margin-bottom:4px;}
+.plan-period{font-family:'Space Mono',monospace;font-size:9px;color:#6a6a6a;margin-bottom:16px;}
+.plan-min{font-size:24px;font-weight:700;color:var(--fire);margin-bottom:4px;}
+.plan-min-label{font-size:11px;color:#888;margin-bottom:20px;}
+.plan-btn{display:block;padding:10px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border:none;font-weight:700;text-decoration:none;}
+.plan-btn-primary{background:var(--fire);color:#000;}
+.plan-btn-primary:hover{background:var(--ember);}
+.plan-btn-secondary{background:transparent;color:var(--fire);border:1px solid var(--fire);}
+.plan-btn-secondary:hover{background:rgba(232,112,58,.1);}
+.plan-free .plan-price{font-size:20px;}
+@media(max-width:700px){.plans{grid-template-columns:1fr 1fr;} .plan:first-child{grid-column:1/-1;}}
+
+/* PORTAL */
+.portal-section{max-width:680px;margin:80px auto;padding:0 24px;}
+.portal-card{background:#1c1c1e;border:1px solid #2a2a2a;padding:40px;}
+.portal-title{font-family:'Black Ops One',cursive;font-size:22px;color:#e0d9cf;margin-bottom:8px;}
+.portal-desc{font-size:14px;color:#888;margin-bottom:32px;line-height:1.6;}
+.field{margin-bottom:20px;}
+.field label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;display:block;margin-bottom:8px;}
+.field input{width:100%;background:#242424;border:1px solid #333;color:#e0d9cf;padding:12px 14px;font-family:'Barlow',sans-serif;font-size:15px;outline:none;}
+.field input:focus{border-color:var(--fire);}
+.btn-portal{width:100%;background:var(--fire);color:#000;border:none;padding:14px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:700;margin-top:8px;}
+.btn-portal:hover{background:var(--ember);}
+.btn-portal:disabled{background:#444;color:#666;cursor:not-allowed;}
+
+/* QR PORTAL */
+.qr-portal{display:none;}
+.qr-portal.show{display:block;}
+.status-bar{display:flex;align-items:center;gap:12px;background:#242424;border:1px solid #333;padding:16px;margin-bottom:24px;}
+.status-dot{width:10px;height:10px;border-radius:50%;background:#666;flex-shrink:0;}
+.status-dot.connected{background:var(--green);}
+.status-dot.waiting{background:var(--fire);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.status-text{font-family:'Space Mono',monospace;font-size:11px;color:#e0d9cf;}
+.status-sub{font-size:12px;color:#888;margin-top:2px;}
+.usage-bar-wrap{margin-bottom:24px;}
+.usage-label{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;margin-bottom:6px;}
+.usage-bar{height:6px;background:#333;border-radius:3px;}
+.usage-fill{height:100%;background:var(--fire);border-radius:3px;transition:width .3s;}
+.qr-box{background:#fff;padding:16px;display:inline-block;margin-bottom:20px;}
+.qr-instructions{font-size:13px;color:#888;line-height:1.7;margin-bottom:24px;}
+.qr-instructions ol{padding-left:20px;margin-top:8px;}
+.btn-refresh{background:transparent;border:1px solid #333;color:#888;padding:10px 20px;font-family:'Space Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;}
+.btn-refresh:hover{border-color:var(--fire);color:var(--fire);}
+.upgrade-banner{background:rgba(232,112,58,.1);border:1px solid rgba(232,112,58,.3);padding:16px;text-align:center;margin-top:24px;}
+.upgrade-banner p{font-size:13px;color:#e0d9cf;margin-bottom:12px;}
+.upgrade-banner a{color:var(--fire);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;}
+
+/* FOOTER */
+footer{background:#1c1c1e;border-top:1px solid #2a2a2a;padding:24px;text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:#4a4a4a;}
+
+/* ── SARA — bolha de suporte ─────────────────────────── */
+
+
+
+/* ── SARA suporte ── */
+#sara-bubble{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:#2d5a8e;box-shadow:0 4px 20px rgba(45,90,142,.45);cursor:pointer;display:none;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#sara-bubble:hover{transform:scale(1.08);}
+#sara-bubble svg{width:24px;height:24px;fill:white;}
+#sara-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#e8703a;border-radius:50%;font-size:9px;color:#000;font-family:monospace;font-weight:700;display:none;align-items:center;justify-content:center;}
+#sara-widget{position:fixed;bottom:88px;right:24px;width:340px;max-height:480px;background:#111;border:1px solid #222;display:none;flex-direction:column;z-index:9001;box-shadow:0 8px 40px rgba(0,0,0,.7);}
+#sara-hdr{background:#0d1f35;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2d45;}
+.sara-hdr-l{display:flex;align-items:center;gap:10px;}
+.sara-av{width:32px;height:32px;border-radius:50%;background:#2d5a8e;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;color:#fff;font-weight:700;flex-shrink:0;}
+.sara-nm{font-family:monospace;font-size:10px;color:#e0d9cf;letter-spacing:1px;}
+.sara-st{font-family:monospace;font-size:8px;color:#3d9e60;}
+#sara-x{background:none;border:none;color:#555;font-size:18px;cursor:pointer;padding:0;line-height:1;}
+#sara-x:hover{color:#e0d9cf;}
+#sara-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:200px;}
+#sara-msgs .sma{background:#1a1a1a;border:1px solid #2a2a2a;padding:10px 14px;border-radius:3px;font-size:13px;color:#e0d9cf;line-height:1.6;align-self:flex-start;max-width:85%;white-space:pre-wrap;}
+#sara-msgs .smu{background:#2d5a8e;padding:10px 14px;border-radius:3px;font-size:13px;color:#fff;line-height:1.6;align-self:flex-end;max-width:85%;}
+#sara-msgs .smt{display:flex;gap:5px;padding:10px 14px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:3px;align-self:flex-start;width:50px;}
+#sara-msgs .smt span{width:6px;height:6px;border-radius:50%;background:#555;animation:sb 1.2s infinite;}
+#sara-msgs .smt span:nth-child(2){animation-delay:.2s;}
+#sara-msgs .smt span:nth-child(3){animation-delay:.4s;}
+@keyframes sb{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sara-inp-area{padding:12px;border-top:1px solid #222;display:flex;gap:8px;}
+#sara-inp{flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:8px 12px;font-family:sans-serif;font-size:13px;outline:none;resize:none;height:36px;border-radius:2px;}
+#sara-inp:focus{border-color:#2d5a8e;}
+#sara-snd{background:#2d5a8e;border:none;color:#fff;width:36px;height:36px;cursor:pointer;font-size:16px;border-radius:2px;flex-shrink:0;}
+#sara-snd:disabled{opacity:.4;cursor:not-allowed;}
+@media(max-width:480px){#sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}#sara-bubble{right:16px;bottom:16px;}}
+
+
+/* ── CHECKOUT NATIVO ──────────────────────────────────────────── */
+.checkout-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:8000;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);}
+.checkout-overlay.open{display:flex;}
+.checkout-box{background:#0f0f0f;border:1px solid #2a2a2a;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;position:relative;}
+.co-header{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;}
+.co-plan-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);}
+.co-plan-name{font-family:'Black Ops One',cursive;font-size:22px;color:#e0d9cf;margin-top:4px;letter-spacing:1px;}
+.co-close{background:none;border:none;color:#555;font-size:22px;cursor:pointer;line-height:1;padding:4px;}
+.co-close:hover{color:#e0d9cf;}
+.co-body{padding:24px;}
+/* Tabs */
+.co-tabs{display:flex;gap:0;margin-bottom:24px;border:1px solid #2a2a2a;}
+.co-tab{flex:1;padding:12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;border:none;background:#1a1a1a;color:#555;transition:all .15s;}
+.co-tab.active{background:var(--fire);color:#000;font-weight:700;}
+.co-tab:not(.active):hover{background:#242424;color:#888;}
+/* Campos */
+.co-field{margin-bottom:16px;}
+.co-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#666;margin-bottom:6px;display:block;}
+.co-input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:12px 14px;font-size:14px;font-family:'Barlow',sans-serif;outline:none;transition:border-color .15s;}
+.co-input:focus{border-color:var(--fire);}
+.co-input::placeholder{color:#3a3a3a;}
+.co-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* Botão pagar */
+.co-pay-btn{width:100%;background:var(--fire);border:none;color:#000;padding:16px;font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;cursor:pointer;margin-top:8px;transition:background .15s;}
+.co-pay-btn:hover:not(:disabled){background:var(--ember);}
+.co-pay-btn:disabled{opacity:.5;cursor:not-allowed;}
+.co-error{font-family:'Space Mono',monospace;font-size:10px;color:#e24b4a;margin-top:12px;display:none;line-height:1.5;}
+/* PIX section */
+.pix-section{display:none;}
+.pix-section.show{display:block;}
+.pix-qr-wrap{background:#1a1a1a;border:1px solid #2a2a2a;padding:24px;text-align:center;margin:16px 0;}
+.pix-qr-wrap img{width:200px;height:200px;image-rendering:pixelated;}
+.pix-copy{background:#1a1a1a;border:1px solid #2a2a2a;padding:10px 14px;font-family:'Space Mono',monospace;font-size:10px;color:#888;word-break:break-all;margin-bottom:12px;line-height:1.5;cursor:pointer;}
+.pix-copy:hover{border-color:var(--fire);color:#e0d9cf;}
+.copy-btn{width:100%;background:#1c1c1e;border:1px solid #2a2a2a;color:#e0d9cf;padding:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all .15s;}
+.copy-btn:hover{border-color:var(--fire);color:var(--fire);}
+.pix-waiting{font-family:'Space Mono',monospace;font-size:10px;color:#666;text-align:center;margin-top:12px;letter-spacing:1px;}
+.pix-waiting span{color:var(--fire);animation:blink-dot 1.2s infinite;}
+@keyframes blink-dot{0%,100%{opacity:.2}50%{opacity:1}}
+/* Confirmação */
+.co-success{display:none;text-align:center;padding:32px 24px;}
+.co-success.show{display:block;}
+.co-success-icon{font-size:48px;margin-bottom:16px;}
+.co-success-title{font-family:'Black Ops One',cursive;font-size:24px;color:#e0d9cf;letter-spacing:1px;margin-bottom:8px;}
+.co-success-sub{font-size:14px;color:#888;line-height:1.6;margin-bottom:24px;}
+.co-success-btn{background:var(--fire);border:none;color:#000;padding:14px 32px;font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:2px;cursor:pointer;}
+/* Segurança */
+.co-security{display:flex;align-items:center;gap:8px;padding:12px 0;border-top:1px solid #1a1a1a;margin-top:16px;}
+.co-security span{font-family:'Space Mono',monospace;font-size:9px;color:#444;letter-spacing:1px;}
+@media(max-width:480px){.checkout-box{max-height:100vh;}.co-row{grid-template-columns:1fr;}}
+
+</style>
+<script src="/tracker.js" defer></script>
+</head>
+<body>
+<!-- SARA -->
+<div id="sara-bubble" onclick="saraToggle()" title="Precisa de ajuda?">
+  <div id="sara-badge"></div>
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+</div>
+<div id="sara-widget">
+  <div id="sara-hdr">
+    <div class="sara-hdr-l">
+      <div class="sara-av">SA</div>
+
+<script>
+/* ── SARA JS ── */
+var saraOpen=false,saraSid=null,saraLid=0,saraPollT=null,saraCtx={};
+var SARA_API='https://api.onemanarmyproject.com.br';
+
+function saraShow(){
+  var b=document.getElementById('sara-bubble');
+  if(b) b.style.display='flex';
+}
+function saraHide(){
+  var b=document.getElementById('sara-bubble');
+  if(b) b.style.display='none';
+  if(saraOpen) saraToggle();
+  saraSid=null; saraOpen=false; saraLid=0;
+  if(saraPollT){clearInterval(saraPollT);saraPollT=null;}
+}
+function saraInit(ctx){
+  saraCtx=ctx||{};
+  saraShow();
+  var visto=sessionStorage.getItem('sara_visto_'+( ctx&&ctx.produto||'x'));
+  if(!visto){
+    setTimeout(function(){
+      if(!saraOpen){saraToggle();sessionStorage.setItem('sara_visto_'+(saraCtx.produto||'x'),'1');}
+    },5000);
+  }
+}
+async function saraToggle(){
+  var w=document.getElementById('sara-widget');
+  if(!w) return;
+  saraOpen=!saraOpen;
+  w.style.display=saraOpen?'flex':'none';
+  var badge=document.getElementById('sara-badge');
+  if(badge) badge.style.display='none';
+  if(saraOpen&&!saraSid) await saraStart();
+}
+async function saraStart(){
+  try{
+    var r=await fetch(SARA_API+'/webchat/session',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({segmento:'suporte',produto:saraCtx.produto||'portal',
+        cliente_nome:saraCtx.nome||'',cliente_phone:saraCtx.phone||'',cliente_plano:saraCtx.plano||''})
+    });
+    var d=await r.json(); saraSid=d.session_id;
+    var h=await fetch(SARA_API+'/webchat/history/'+saraSid);
+    var hd=await h.json();
+    hd.messages.forEach(function(m){saraAdd(m.role==='agent'?'sma':'smu',m.content,m.id);});
+    saraPollT=setInterval(saraPoll,2000);
+  }catch(e){saraAdd('sma','Ola! Sou a Sara, suporte OMA. Como posso ajudar?',0);}
+}
+async function saraPoll(){
+  if(!saraSid)return;
+  try{
+    var r=await fetch(SARA_API+'/webchat/poll/'+saraSid+'?since='+saraLid);
+    var d=await r.json();
+    if(d.messages&&d.messages.length){
+      d.messages.forEach(function(m){saraAdd('sma',m.content,m.id);});
+      if(!saraOpen){var b=document.getElementById('sara-badge');if(b){b.style.display='flex';b.textContent='!';}}
+    }
+  }catch(e){}
+}
+async function saraSend(){
+  var inp=document.getElementById('sara-inp');
+  var txt=inp.value.trim(); if(!txt||!saraSid)return;
+  inp.value=''; inp.style.height='36px';
+  document.getElementById('sara-snd').disabled=true;
+  saraAdd('smu',txt,null);
+  var t=document.createElement('div');t.className='smt';t.id='sara-t';
+  t.innerHTML='<span></span><span></span><span></span>';
+  saraMsgs().appendChild(t); saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({session_id:saraSid,content:txt})});}
+  catch(e){}
+  document.getElementById('sara-snd').disabled=false;
+}
+function saraAdd(cls,txt,id){
+  var t=document.getElementById('sara-t'); if(t)t.remove();
+  var d=document.createElement('div'); d.className=cls; d.textContent=txt;
+  saraMsgs().appendChild(d); saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  if(id) saraLid=Math.max(saraLid,id);
+}
+function saraMsgs(){return document.getElementById('sara-msgs');}
+document.addEventListener('DOMContentLoaded',function(){
+  var i=document.getElementById('sara-inp');
+  if(i) i.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}
+  });
+});
+</script>
+      <div><div class="sara-nm">SARA &middot; SUPORTE OMA</div><div class="sara-st">&#9679; online</div></div>
+    </div>
+    <button id="sara-x" onclick="saraToggle()">&#x2715;</button>
+  </div>
+  <div id="sara-msgs"></div>
+  <div id="sara-inp-area">
+    <textarea id="sara-inp" placeholder="Como posso ajudar?" rows="1"></textarea>
+    <button id="sara-snd" onclick="saraSend()">&#8593;</button>
+  </div>
+</div>
+
+
+<header class="hdr">
+  <div class="hlogo">OMA<span>.</span>SCRIBE</div>
+  <nav class="hnav">
+    <a href="/solutions">← PRODUTOS</a>
+    <a href="#pricing">PLANOS</a>
+    <a href="#portal" class="btn-login">ACESSAR →</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">OMA SCRIBE</div>
+  <h1 class="hero-title">Manda o áudio.<br>O Scribe <span>escreve.</span></h1>
+  <p class="hero-sub">Transcrição de áudio diretamente no seu WhatsApp. Sem app, sem cadastro complicado — só mandar o áudio e receber o texto.</p>
+  <div class="hero-demo">
+    <div class="demo-icon">🎙️</div>
+    <div class="demo-text">
+      <div class="demo-label">VOCÊ MANDA</div>
+      <div class="demo-msg">🎵 Áudio de 2 minutos</div>
+    </div>
+    <div style="color:#333;font-size:20px;margin:0 8px;">→</div>
+    <div class="demo-icon">📝</div>
+    <div class="demo-text">
+      <div class="demo-label">SCRIBE RESPONDE</div>
+      <div class="demo-msg">"Bom, então o combinado é..."</div>
+    </div>
+  </div>
+  <br>
+  <a href="#portal" class="hero-cta">COMEÇAR GRÁTIS →</a>
+  <a href="#pricing" class="hero-cta-sec">VER PLANOS</a>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how">
+  <div class="section-label">SIMPLES ASSIM</div>
+  <h2 class="section-title">3 passos para nunca mais ouvir áudio</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Conecta seu WhatsApp</div>
+      <div class="step-desc">Escaneia o QR code abaixo. Leva 30 segundos. O Scribe funciona como um aparelho conectado.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Manda qualquer áudio</div>
+      <div class="step-desc">Qualquer áudio que você receber ou enviar no WhatsApp — o Scribe transcreve automaticamente.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Recebe o texto</div>
+      <div class="step-desc">Em segundos a transcrição aparece na própria conversa. Português com precisão profissional.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-label" style="color:var(--fire);text-align:center;">PLANOS</div>
+    <h2 style="font-family:'Black Ops One',cursive;font-size:28px;color:#e0d9cf;text-align:center;margin-bottom:8px;">Simples. Sem surpresa.</h2>
+    <p style="text-align:center;color:#888;font-size:14px;margin-bottom:0;">Todos os planos incluem Whisper AI (precisão profissional) + renovação mensal automática.</p>
+    <div class="plans">
+      <div class="plan plan-free">
+        <div class="plan-name">FREE</div>
+        <div class="plan-price">R$0</div>
+        <div class="plan-period">para sempre</div>
+        <div class="plan-min">30</div>
+        <div class="plan-min-label">min/mês</div>
+        <button class="plan-btn plan-btn-secondary" onclick="assinar('free','')">COMEÇAR GRÁTIS</button>
+      </div>
+      <div class="plan">
+        <div class="plan-name">STARTER</div>
+        <div class="plan-price">R$19</div>
+        <div class="plan-period">,90/mês</div>
+        <div class="plan-min">150</div>
+        <div class="plan-min-label">min/mês</div>
+        <button class="plan-btn plan-btn-secondary" onclick="assinar('starter','ouelv075jn9jyef9')">ASSINAR</button>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">MAIS POPULAR</div>
+        <div class="plan-name">LIGHT</div>
+        <div class="plan-price">R$29</div>
+        <div class="plan-period">,90/mês</div>
+        <div class="plan-min">300</div>
+        <div class="plan-min-label">min/mês</div>
+        <button class="plan-btn plan-btn-primary" onclick="assinar('light','70a534lujq5qa32a')">ASSINAR</button>
+      </div>
+      <div class="plan">
+        <div class="plan-name">BASIC</div>
+        <div class="plan-price">R$49</div>
+        <div class="plan-period">,90/mês</div>
+        <div class="plan-min">600</div>
+        <div class="plan-min-label">min/mês</div>
+        <button class="plan-btn plan-btn-secondary" onclick="assinar('basic','05lbyamdsjm64rjv')">ASSINAR</button>
+      </div>
+      <div class="plan">
+        <div class="plan-name">PRO</div>
+        <div class="plan-price">R$89</div>
+        <div class="plan-period">,90/mês</div>
+        <div class="plan-min">1.500</div>
+        <div class="plan-min-label">min/mês</div>
+        <button class="plan-btn plan-btn-secondary" onclick="assinar('pro','peun5nw70qp5vl09')">ASSINAR</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKOUT INLINE -->
+<section id="checkout-modal" style="display:none;background:#1c1c1e;border-top:3px solid var(--fire);padding:40px 24px;">
+  <div style="max-width:480px;margin:0 auto;">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:12px;" id="co-badge">ASSINAR PLANO</div>
+    <h3 style="font-family:'Black Ops One',cursive;font-size:22px;color:#e0d9cf;margin-bottom:8px;" id="co-title">OMA Scribe</h3>
+    <p style="font-size:13px;color:#888;margin-bottom:24px;line-height:1.6;">Seu WhatsApp fica vinculado à conta. Use o mesmo número para acessar o portal.</p>
+    <div style="margin-bottom:16px;">
+      <label style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;display:block;margin-bottom:8px;">NÚMERO DO WHATSAPP</label>
+      <input type="tel" id="co-phone" placeholder="(11) 99999-9999" style="width:100%;background:#242424;border:1px solid #333;color:#e0d9cf;padding:14px;font-size:16px;outline:none;font-family:'Barlow',sans-serif;" />
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#6a6a6a;display:block;margin-bottom:8px;">EMAIL</label>
+      <input type="email" id="co-email" placeholder="seu@email.com" style="width:100%;background:#242424;border:1px solid #333;color:#e0d9cf;padding:14px;font-size:16px;outline:none;font-family:'Barlow',sans-serif;" />
+    </div>
+    <p style="font-size:11px;color:#6a6a6a;font-family:Space Mono,monospace;margin-bottom:16px;">Ao assinar você concorda com os <a href="/termos" target="_blank" style="color:var(--fire);">Termos de Uso</a>. Cobrança por minuto iniciado.</p>
+    <button id="co-btn" style="width:100%;background:var(--fire);color:#000;border:none;padding:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;margin-bottom:12px;" onclick="confirmarAssinar()">IR PARA O PAGAMENTO →</button>
+    <button style="width:100%;background:transparent;border:1px solid #333;color:#888;padding:12px;font-family:'Space Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;" onclick="fecharModal()">CANCELAR</button>
+    <p id="co-error" style="color:#e05555;font-size:12px;font-family:Space Mono,monospace;margin-top:12px;display:none;"></p>
+  </div>
+</section>
+
+<!-- PORTAL -->
+
+<!-- SEGURANÇA -->
+<section style="background:#1c1c1e;border-top:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;padding:48px 24px;">
+  <div style="max-width:720px;margin:0 auto;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+    <div style="flex-shrink:0;width:48px;height:48px;background:rgba(45,138,80,.15);border:1px solid rgba(45,138,80,.3);display:flex;align-items:center;justify-content:center;font-size:24px;">🔒</div>
+    <div style="flex:1;min-width:260px;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:8px;">CRIPTOGRAFIA DE PONTA A PONTA</div>
+      <p style="font-size:15px;color:#e0d9cf;font-weight:600;margin-bottom:8px;">Seus áudios ficam protegidos pela mesma criptografia do WhatsApp.</p>
+      <p style="font-size:13px;color:#888;line-height:1.8;">O OMA Scribe funciona como um aparelho conectado ao seu WhatsApp — exatamente como o WhatsApp Web. A criptografia end-to-end da Meta protege todo o conteúdo. Nem a OMA, nem ninguém além de você tem acesso às suas conversas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="portal-section" id="portal">
+  <div class="portal-card">
+
+    <!-- LOGIN -->
+    <div id="login-view">
+      <div class="portal-title">Acessar o Scribe</div>
+      <p class="portal-desc">Digite seu número para conectar ou ver o status da sua conta.</p>
+      <div class="field">
+        <label>Seu número do WhatsApp</label>
+        <input type="tel" id="portal-phone" placeholder="(11) 99999-9999" />
+      </div>
+      <div class="field">
+        <label>Seu nome</label>
+        <input type="text" id="portal-name" placeholder="Nome completo" />
+      </div>
+      <div class="field">
+        <label>Email (para avisos)</label>
+        <input type="email" id="portal-email" placeholder="seu@email.com" />
+      </div>
+      <button class="btn-portal" id="btn-acessar" onclick="acessar()">ACESSAR MEU SCRIBE →</button>
+      <div id="login-error" style="color:#e05555;font-size:12px;font-family:'Space Mono',monospace;margin-top:12px;display:none;"></div>
+    </div>
+
+    <!-- PORTAL LOGADO -->
+    <div class="qr-portal" id="portal-view">
+      <div class="portal-title" id="pv-titulo">Meu OMA Scribe</div>
+
+      <!-- STATUS -->
+      <div class="status-bar">
+        <div class="status-dot" id="status-dot"></div>
+        <div>
+          <div class="status-text" id="status-text">Verificando...</div>
+          <div class="status-sub" id="status-sub"></div>
+        </div>
+      </div>
+
+      <!-- USO -->
+      <div class="usage-bar-wrap">
+        <div class="usage-label">
+          <span>Minutos usados</span>
+          <span id="usage-nums">— / —</span>
+        </div>
+        <div class="usage-bar"><div class="usage-fill" id="usage-fill" style="width:0%"></div></div>
+      </div>
+
+      <!-- QR (só quando desconectado) -->
+      <div id="qr-section" style="display:none;">
+
+        <!-- Aviso mobile -->
+        <div id="mobile-warning" style="display:none;background:rgba(232,112,58,.1);border:1px solid rgba(232,112,58,.3);padding:14px;margin-bottom:20px;">
+          <p style="font-size:13px;color:#e0d9cf;font-weight:600;margin-bottom:4px;">📱 Você está no celular</p>
+          <p style="font-size:12px;color:#888;line-height:1.6;">Para escanear o QR você precisa de outro dispositivo. Use o <strong style="color:var(--fire);">Código de Conexão</strong> abaixo — é mais fácil no celular.</p>
+        </div>
+
+        <!-- Tabs QR / Código -->
+        <div style="display:flex;gap:0;margin-bottom:20px;border:1px solid #333;">
+          <button id="tab-qr" onclick="showTab('qr')" style="flex:1;padding:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;cursor:pointer;border:none;background:var(--fire);color:#000;font-weight:700;">QR CODE</button>
+          <button id="tab-code" onclick="showTab('code')" style="flex:1;padding:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;cursor:pointer;border:none;background:#242424;color:#888;">CÓDIGO</button>
+        </div>
+
+        <!-- QR -->
+        <div id="panel-qr">
+          <p class="qr-instructions">
+            <ol>
+              <li>Abra o WhatsApp no celular</li>
+              <li>Vá em <strong>Menu → Aparelhos conectados</strong></li>
+              <li>Toque em <strong>Conectar um aparelho</strong></li>
+              <li>Aponte para o QR abaixo</li>
+            </ol>
+          </p>
+          <div class="qr-box" id="qr-box"></div>
+          <br>
+          <button class="btn-refresh" onclick="refreshQR()">↻ NOVO QR CODE</button>
+          <p style="font-size:11px;color:#6a6a6a;font-family:'Space Mono',monospace;margin-top:12px;">QR válido por ~60s</p>
+        </div>
+
+        <!-- Pairing Code -->
+        <div id="panel-code" style="display:none;text-align:center;">
+          <p class="qr-instructions" style="text-align:left;">
+            <ol>
+              <li>Abra o WhatsApp no celular</li>
+              <li>Vá em <strong>Menu → Aparelhos conectados</strong></li>
+              <li>Toque em <strong>Conectar com número de telefone</strong></li>
+              <li>Digite o código abaixo quando solicitado</li>
+            </ol>
+          </p>
+          <div id="pairing-code-box" style="background:#242424;border:1px solid #333;padding:24px;margin:16px 0;">
+            <div id="pairing-display" style="font-family:'Black Ops One',cursive;font-size:36px;color:var(--fire);letter-spacing:8px;">— — — —</div>
+            <p style="font-size:11px;color:#6a6a6a;font-family:'Space Mono',monospace;margin-top:8px;">código válido por ~60s</p>
+          </div>
+          <button class="btn-refresh" onclick="buscarPairingCode()">↻ GERAR CÓDIGO</button>
+        </div>
+
+      </div>
+
+      <!-- UPGRADE -->
+      <div class="upgrade-banner" id="upgrade-banner" style="display:none;">
+        <p>Seus minutos acabaram. Faça upgrade para continuar transcrevendo.</p>
+        <a href="#pricing">VER PLANOS →</a>
+      </div>
+
+      <div style="margin-top:24px;">
+        <button class="btn-refresh" onclick="sair()">← SAIR</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>OMA Project · onemanarmyproject.com.br · <a href="/termos" style="color:#6a6a6a;text-decoration:none;">Termos de Uso</a> · Transcrição by OMA Scribe</footer>
+
+<script>
+var API = 'https://api.onemanarmyproject.com.br';
+var currentPhone = null;
+var statusInterval = null;
+var checkoutPlan = null;
+var checkoutLink = null;
+
+// ── UTILS ──────────────────────────────────────────
+function cleanPhone(p){ return p.replace(/\D/g,''); }
+
+// ── CHECKOUT ───────────────────────────────────────
+
+
+
+
+
+
+// ── PORTAL ─────────────────────────────────────────
+function acessar() {
+  var phone = cleanPhone(document.getElementById('portal-phone').value);
+  var name  = document.getElementById('portal-name').value.trim();
+  var email = document.getElementById('portal-email').value.trim();
+  var err   = document.getElementById('login-error');
+  var btn   = document.getElementById('btn-acessar');
+  if (phone.length < 10) { err.textContent='Número inválido.'; err.style.display='block'; return; }
+  btn.disabled=true; btn.textContent='AGUARDE...'; err.style.display='none';
+  fetch(API+'/scribe/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name,email:email})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d.ok) throw new Error(d.error||'Erro');
+      currentPhone = phone;
+      localStorage.setItem('scribe_phone', phone);
+      document.getElementById('login-view').style.display='none';
+      document.getElementById('portal-view').classList.add('show');
+      document.getElementById('pv-titulo').textContent = name ? 'Olá, '+name.split(' ')[0]+'!' : 'Meu OMA Scribe';
+      // Passa contexto do cliente para a Sara
+      setTimeout(function(){
+        saraInit({
+          produto: 'scribe',
+          nome: name || '',
+          phone: currentPhone || '',
+          plano: ''
+        });
+        // Atualiza plano após carregar status
+        setTimeout(function(){
+          var st=document.getElementById('status-text');
+          if(st) saraCtx.plano = st.textContent.toLowerCase().replace('conectado','').trim();
+        }, 2000);
+      }, 800);
+      carregarStatus();
+      if(statusInterval) clearInterval(statusInterval);
+      statusInterval = setInterval(carregarStatus, 10000);
+    }).catch(function(e){
+      err.textContent=e.message; err.style.display='block';
+      btn.disabled=false; btn.textContent='ACESSAR MEU SCRIBE →';
+    });
+}
+
+function carregarStatus() {
+  if(!currentPhone) return;
+  fetch(API+'/scribe/status/'+currentPhone)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.error) return;
+      var dot   = document.getElementById('status-dot');
+      var stTxt = document.getElementById('status-text');
+      var stSub = document.getElementById('status-sub');
+      var qrSec = document.getElementById('qr-section');
+      // Verifica se estava aguardando pagamento e agora o plano mudou
+      var pendingPhone = localStorage.getItem('scribe_pending_phone');
+      var pendingPlan = localStorage.getItem('scribe_pending_plan');
+      if(pendingPhone && d.plan && d.plan !== 'free' && pendingPlan) {
+        localStorage.removeItem('scribe_pending_phone');
+        localStorage.removeItem('scribe_pending_plan');
+        document.getElementById('pv-titulo').textContent = '✅ Plano ' + d.plan.toUpperCase() + ' ativo!';
+      }
+      if(d.connected){
+        dot.className='status-dot connected';
+        stTxt.textContent='● CONECTADO';
+        stSub.textContent='Scribe ativo — transcreve áudios automaticamente';
+        qrSec.style.display='none';
+        document.getElementById('reconnect-help').style.display='none';
+      } else {
+        dot.className='status-dot waiting';
+        stTxt.textContent='○ AGUARDANDO CONEXÃO';
+        stSub.textContent='Escaneie o QR Code ou use o Código para ativar o Scribe.';
+        qrSec.style.display='block';
+        document.getElementById('reconnect-help').style.display='block';
+        checkMobileWarning();
+        carregarQR();
+      }
+      var used  = d.minutes_used||0;
+      var limit = d.minutes_limit||30;
+      var pct   = Math.min(100,Math.round((used/limit)*100));
+      document.getElementById('usage-nums').textContent = used+' / '+limit+' min';
+      document.getElementById('usage-fill').style.width = pct+'%';
+      document.getElementById('usage-fill').style.background = pct>80?'#e05555':'var(--fire)';
+      document.getElementById('upgrade-banner').style.display=(used>=limit)?'block':'none';
+    }).catch(function(){});
+}
+
+function carregarQR() {
+  if(!currentPhone) return;
+  fetch(API+'/scribe/qr/'+currentPhone)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.qr_code){
+        mostrarQR(d.qr_code);
+      } else if(d.status==='already_connected'){
+        document.getElementById('qr-section').style.display='none';
+      }
+    }).catch(function(){});
+}
+
+function mostrarQR(code) {
+  var box = document.getElementById('qr-box');
+  if(!window.QRCode){
+    var sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    sc.onload = function(){ renderQR(box, code); };
+    document.head.appendChild(sc);
+  } else {
+    renderQR(box, code);
+  }
+}
+
+function renderQR(box, code) {
+  box.innerHTML = '';
+  new QRCode(box, {text:code, width:240, height:240, colorDark:'#000', colorLight:'#fff'});
+}
+
+function refreshQR() { carregarQR(); }
+
+function sair() {
+  currentPhone = null;
+  localStorage.removeItem('scribe_phone');
+  if(statusInterval) clearInterval(statusInterval);
+  if(typeof saraHide==='function') saraHide();
+  saraSid=null; saraOpen=false; saraLid=0;
+  document.getElementById('login-view').style.display='block';
+  document.getElementById('portal-view').classList.remove('show');
+  saraHide();
+  document.getElementById('portal-phone').value='';
+}
+
+
+// ── PAIRING CODE ────────────────────────────────────
+function showTab(tab) {
+  document.getElementById('panel-qr').style.display = tab==='qr' ? 'block' : 'none';
+  document.getElementById('panel-code').style.display = tab==='code' ? 'block' : 'none';
+  document.getElementById('tab-qr').style.background = tab==='qr' ? 'var(--fire)' : '#242424';
+  document.getElementById('tab-qr').style.color = tab==='qr' ? '#000' : '#888';
+  document.getElementById('tab-code').style.background = tab==='code' ? 'var(--fire)' : '#242424';
+  document.getElementById('tab-code').style.color = tab==='code' ? '#000' : '#888';
+  if(tab==='code') buscarPairingCode();
+}
+
+function buscarPairingCode() {
+  if(!currentPhone) return;
+  document.getElementById('pairing-display').textContent = '...';
+  fetch(API+'/scribe/pairing/'+currentPhone)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.code) {
+        // Formata como XXXX-XXXX
+        var c = d.code.replace(/[^A-Z0-9]/gi,'').toUpperCase();
+        var fmt = c.length >= 8 ? c.slice(0,4)+'-'+c.slice(4,8) : c;
+        document.getElementById('pairing-display').textContent = fmt;
+      } else {
+        document.getElementById('pairing-display').textContent = 'INDISPONÍVEL';
+      }
+    }).catch(function(){
+      document.getElementById('pairing-display').textContent = 'ERRO';
+    });
+}
+
+// ── MOBILE DETECTION ────────────────────────────────
+function isMobile() {
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+}
+
+function checkMobileWarning() {
+  if(isMobile()) {
+    var w = document.getElementById('mobile-warning');
+    if(w) w.style.display = 'block';
+    // No mobile, abre na aba código por padrão
+    showTab('code');
+  }
+}
+
+// ── PÓS-PIX — detecta retorno do Asaas ──────────────
+function checkPostPayment() {
+  var params = new URLSearchParams(window.location.search);
+  var phone = params.get('phone') || params.get('externalReference') || localStorage.getItem('scribe_phone');
+  var status = params.get('status');
+  // Asaas redireciona com ?status=success ou simplesmente volta para a URL
+  if(phone && phone.length >= 10) {
+    currentPhone = phone.replace(/\D/g,'');
+    localStorage.setItem('scribe_phone', currentPhone);
+    document.getElementById('portal-phone').value = currentPhone;
+    // Faz signup silencioso e abre portal
+    fetch(API+'/scribe/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:currentPhone,name:'',email:''})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.ok) {
+          document.getElementById('login-view').style.display='none';
+          document.getElementById('portal-view').classList.add('show');
+          document.getElementById('pv-titulo').textContent = status==='success' ? '✅ Pagamento confirmado!' : 'Meu OMA Scribe';
+          document.getElementById('portal').scrollIntoView({behavior:'smooth'});
+          carregarStatus();
+          setTimeout(function(){ saraInit({produto:'scribe',nome:'',phone:currentPhone||'',plano:''}); }, 1000);
+          if(statusInterval) clearInterval(statusInterval);
+          statusInterval = setInterval(carregarStatus, 8000);
+        }
+      }).catch(function(){});
+  }
+}
+
+// ── INIT ───────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  var saved = localStorage.getItem('scribe_phone');
+  if(saved) document.getElementById('portal-phone').value = saved;
+  checkPostPayment();
+  if(window.location.hash === '#portal'){
+    setTimeout(function(){ document.getElementById('portal').scrollIntoView({behavior:'smooth'}); },300);
+  }
+});
+
+// ── SARA — suporte webchat ────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded',function(){
+  var i=document.getElementById('sara-inp');
+  if(i)i.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}
+  });
+});
+
+
+// ── CHECKOUT NATIVO ──────────────────────────────────────────
+var coCurrentPlan = null;
+var coCurrentPhone = null;
+var coPendingPaymentId = null;
+var coPollingInterval = null;
+var coTabAtual = 'pix';
+
+var CO_PLANOS = {
+  starter: {nome:'STARTER', preco:'R$19,90/mês', mins:'150 min'},
+  light:   {nome:'LIGHT',   preco:'R$29,90/mês', mins:'300 min'},
+  basic:   {nome:'BASIC',   preco:'R$49,90/mês', mins:'600 min'},
+  pro:     {nome:'PRO',     preco:'R$89,90/mês', mins:'1.500 min'}
+};
+
+function assinar(plan, _linkIdIgnored) {
+  if (plan === 'free') {
+    document.getElementById('portal').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  coCurrentPlan = plan;
+  var pl = CO_PLANOS[plan];
+  document.getElementById('co-plan-badge').textContent = pl.mins + ' · ' + pl.preco;
+  document.getElementById('co-plan-name').textContent = 'SCRIBE ' + pl.nome;
+  // Preenche phone se já tiver
+  var saved = localStorage.getItem('scribe_phone');
+  if (saved) document.getElementById('co-phone').value = saved.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3') || saved;
+  // Reset
+  document.getElementById('co-step-dados').style.display = 'block';
+  document.getElementById('co-step-pag').style.display = 'none';
+  document.getElementById('co-success').classList.remove('show');
+  document.getElementById('co-err-dados').style.display = 'none';
+  document.getElementById('co-btn-continuar').disabled = false;
+  document.getElementById('co-btn-continuar').textContent = 'CONTINUAR →';
+  // Reset PIX
+  document.getElementById('co-pix-form').style.display = 'block';
+  document.getElementById('co-pix-qr').classList.remove('show');
+  // Abre overlay
+  document.getElementById('checkout-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharCheckout() {
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  if (coPollingInterval) { clearInterval(coPollingInterval); coPollingInterval = null; }
+}
+
+function coTab(tab) {
+  coTabAtual = tab;
+  document.getElementById('tab-pix').classList.toggle('active', tab==='pix');
+  document.getElementById('tab-card').classList.toggle('active', tab==='card');
+  document.getElementById('co-pix-form').style.display = tab==='pix' ? 'block' : 'none';
+  document.getElementById('co-pix-qr').classList.toggle('show', false);
+  document.getElementById('co-card-form').style.display = tab==='card' ? 'block' : 'none';
+  document.getElementById('co-err-pag').style.display = 'none';
+}
+
+function coContinuar() {
+  var phone = cleanPhone(document.getElementById('co-phone').value);
+  var name  = document.getElementById('co-name').value.trim();
+  var email = document.getElementById('co-email').value.trim();
+  var cpf   = document.getElementById('co-cpf').value.trim();
+  var err   = document.getElementById('co-err-dados');
+  if (phone.length < 10) { err.textContent='Número com DDD inválido.'; err.style.display='block'; return; }
+  if (!name) { err.textContent='Informe seu nome.'; err.style.display='block'; return; }
+  if (!email || !email.includes('@')) { err.textContent='Email inválido.'; err.style.display='block'; return; }
+  if (cpf.replace(/\D/g,'').length < 11) { err.textContent='CPF inválido.'; err.style.display='block'; return; }
+  coCurrentPhone = phone;
+  localStorage.setItem('scribe_phone', phone);
+  document.getElementById('co-step-dados').style.display = 'none';
+  document.getElementById('co-step-pag').style.display = 'block';
+  // Preenche nome no cartão
+  document.getElementById('co-cardname').value = name.toUpperCase();
+}
+
+async function coGerarPix() {
+  var btn = document.getElementById('co-btn-pix');
+  var err = document.getElementById('co-err-pag');
+  btn.disabled = true; btn.textContent = 'GERANDO...';
+  err.style.display = 'none';
+  try {
+    var r = await fetch(API+'/scribe/checkout/pix', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        phone: coCurrentPhone,
+        plan: coCurrentPlan,
+        name: document.getElementById('co-name').value.trim(),
+        email: document.getElementById('co-email').value.trim(),
+        cpf: document.getElementById('co-cpf').value.trim()
+      })
+    });
+    var d = await r.json();
+    if (d.error) { err.textContent = d.error; err.style.display='block'; btn.disabled=false; btn.textContent='TENTAR NOVAMENTE →'; return; }
+    // Exibe QR
+    document.getElementById('co-qr-img').src = 'data:image/png;base64,'+d.qr_code_image;
+    document.getElementById('co-pix-payload').textContent = d.qr_code_text;
+    document.getElementById('co-pix-form').style.display = 'none';
+    document.getElementById('co-pix-qr').classList.add('show');
+    coPendingPaymentId = d.payment_id;
+    // Polling de confirmação
+    coPollingInterval = setInterval(async function() {
+      try {
+        var rs = await fetch(API+'/scribe/checkout/status/'+coPendingPaymentId);
+        var ds = await rs.json();
+        if (ds.confirmed) {
+          clearInterval(coPollingInterval); coPollingInterval = null;
+          coMostrarSucesso(d.plan);
+        }
+      } catch(e) {}
+    }, 3000);
+  } catch(e) { err.textContent='Erro de conexão. Tente novamente.'; err.style.display='block'; btn.disabled=false; btn.textContent='GERAR QR CODE PIX →'; }
+}
+
+async function coPagarCard() {
+  var btn = document.getElementById('co-btn-card');
+  var err = document.getElementById('co-err-pag');
+  btn.disabled = true; btn.textContent = 'PROCESSANDO...';
+  err.style.display = 'none';
+  try {
+    var r = await fetch(API+'/scribe/checkout/card', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        phone: coCurrentPhone, plan: coCurrentPlan,
+        name: document.getElementById('co-name').value.trim(),
+        email: document.getElementById('co-email').value.trim(),
+        cpf: document.getElementById('co-cpf').value.trim(),
+        postalCode: document.getElementById('co-cep').value.replace(/\D/g,''),
+        addressNumber: '1',
+        cardNumber: document.getElementById('co-cardnum').value.replace(/\s/g,''),
+        cardName: document.getElementById('co-cardname').value.trim(),
+        cardExpiry: document.getElementById('co-cardexp').value.trim(),
+        cardCvv: document.getElementById('co-cardcvv').value.trim()
+      })
+    });
+    var d = await r.json();
+    if (d.error) { err.textContent = d.error; err.style.display='block'; btn.disabled=false; btn.textContent='PAGAR COM CARTÃO →'; return; }
+    coMostrarSucesso(d.plan);
+  } catch(e) { err.textContent='Erro de conexão. Tente novamente.'; err.style.display='block'; btn.disabled=false; btn.textContent='PAGAR COM CARTÃO →'; }
+}
+
+function copiarPix() {
+  var txt = document.getElementById('co-pix-payload').textContent;
+  navigator.clipboard.writeText(txt).then(function(){
+    var btn = document.querySelector('.copy-btn');
+    btn.textContent = '✓ COPIADO!'; btn.style.color = 'var(--green)';
+    setTimeout(function(){ btn.textContent = '⊕ COPIAR CÓDIGO PIX'; btn.style.color = ''; }, 2000);
+  });
+}
+
+function coMostrarSucesso(plan) {
+  var pl = CO_PLANOS[plan] || {};
+  document.getElementById('co-step-dados').style.display = 'none';
+  document.getElementById('co-step-pag').style.display = 'none';
+  document.getElementById('co-success-msg').innerHTML = 'Plano <strong>'+pl.nome+'</strong> ativado! '+pl.mins+' por mês.<br>Agora conecte seu WhatsApp para começar a transcrever.';
+  document.getElementById('co-success').classList.add('show');
+}
+
+function coIrParaQR() {
+  fecharCheckout();
+  document.getElementById('portal').scrollIntoView({behavior:'smooth'});
+  // Auto-login se já tem phone
+  if (coCurrentPhone) {
+    document.getElementById('portal-phone').value = coCurrentPhone;
+    setTimeout(acessar, 400);
+  }
+}
+
+// Formatação de campos
+function fmtCard(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,16);
+  el.value = v.replace(/(\d{4})/g,'$1 ').trim();
+}
+function fmtExp(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,4);
+  if (v.length > 2) v = v.slice(0,2)+'/'+v.slice(2);
+  el.value = v;
+}
+function fmtCep(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,8);
+  if (v.length > 5) v = v.slice(0,5)+'-'+v.slice(5);
+  el.value = v;
+}
+function fmtCpf(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,11);
+  if (v.length > 9) v = v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9);
+  else if (v.length > 6) v = v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6);
+  else if (v.length > 3) v = v.slice(0,3)+'.'+v.slice(3);
+  el.value = v;
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var cpfEl = document.getElementById('co-cpf');
+  if (cpfEl) cpfEl.addEventListener('input', function(){ fmtCpf(this); });
+});
+// Fecha overlay ao clicar fora
+document.addEventListener('click', function(e) {
+  if (e.target.id === 'checkout-overlay') fecharCheckout();
+});
+
+</script>
+
+
+
+<!-- SARA — bolha de suporte (aparece só no portal logado) -->
+</div>
+
+
+<!-- CHECKOUT NATIVO OMA -->
+<div class="checkout-overlay" id="checkout-overlay">
+  <div class="checkout-box" id="checkout-box">
+    <div class="co-header">
+      <div>
+        <div class="co-plan-badge" id="co-plan-badge">ASSINAR</div>
+        <div class="co-plan-name" id="co-plan-name">OMA Scribe</div>
+      </div>
+      <button class="co-close" onclick="fecharCheckout()">&#x2715;</button>
+    </div>
+    <div class="co-body">
+
+      <!-- Dados do cliente -->
+      <div id="co-step-dados">
+        <div class="co-field">
+          <label class="co-label">WHATSAPP (com DDD)</label>
+          <input class="co-input" type="tel" id="co-phone" placeholder="(11) 99999-9999" />
+        </div>
+        <div class="co-field">
+          <label class="co-label">NOME COMPLETO</label>
+          <input class="co-input" type="text" id="co-name" placeholder="Seu nome" />
+        </div>
+        <div class="co-field">
+          <label class="co-label">EMAIL</label>
+          <input class="co-input" type="email" id="co-email" placeholder="seu@email.com" />
+        </div>
+        <div class="co-field">
+          <label class="co-label">CPF</label>
+          <input class="co-input" type="text" id="co-cpf" placeholder="000.000.000-00" maxlength="14" />
+        </div>
+        <button class="co-pay-btn" id="co-btn-continuar" onclick="coContinuar()">CONTINUAR →</button>
+        <div class="co-error" id="co-err-dados"></div>
+      </div>
+
+      <!-- Pagamento -->
+      <div id="co-step-pag" style="display:none;">
+        <!-- Tabs PIX / Cartão -->
+        <div class="co-tabs">
+          <button class="co-tab active" id="tab-pix" onclick="coTab('pix')">&#128386; PIX</button>
+          <button class="co-tab" id="tab-card" onclick="coTab('card')">&#128179; CARTÃO</button>
+        </div>
+
+        <!-- PIX -->
+        <div id="co-pix-form">
+          <p style="font-family:'Space Mono',monospace;font-size:11px;color:#888;line-height:1.6;margin-bottom:20px;">
+            Clique em gerar QR para criar sua cobrança PIX. Após o pagamento seu plano é ativado em instantes.
+          </p>
+          <button class="co-pay-btn" id="co-btn-pix" onclick="coGerarPix()">GERAR QR CODE PIX →</button>
+        </div>
+
+        <!-- QR Code PIX -->
+        <div class="pix-section" id="co-pix-qr">
+          <div class="pix-qr-wrap">
+            <img id="co-qr-img" src="" alt="QR Code PIX" />
+          </div>
+          <p style="font-family:'Space Mono',monospace;font-size:9px;color:#666;text-align:center;margin-bottom:8px;letter-spacing:1px;">OU COPIE O CÓDIGO</p>
+          <div class="pix-copy" id="co-pix-payload" onclick="copiarPix()"></div>
+          <button class="copy-btn" onclick="copiarPix()">&#128203; COPIAR CÓDIGO PIX</button>
+          <div class="pix-waiting">AGUARDANDO PAGAMENTO <span>...</span></div>
+        </div>
+
+        <!-- Cartão -->
+        <div id="co-card-form" style="display:none;">
+          <div class="co-field">
+            <label class="co-label">NÚMERO DO CARTÃO</label>
+            <input class="co-input" type="text" id="co-cardnum" placeholder="0000 0000 0000 0000" maxlength="19" oninput="fmtCard(this)" />
+          </div>
+          <div class="co-field">
+            <label class="co-label">NOME NO CARTÃO</label>
+            <input class="co-input" type="text" id="co-cardname" placeholder="NOME COMO NO CARTÃO" style="text-transform:uppercase;" />
+          </div>
+          <div class="co-row">
+            <div class="co-field">
+              <label class="co-label">VALIDADE</label>
+              <input class="co-input" type="text" id="co-cardexp" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this)" />
+            </div>
+            <div class="co-field">
+              <label class="co-label">CVV</label>
+              <input class="co-input" type="text" id="co-cardcvv" placeholder="123" maxlength="4" />
+            </div>
+          </div>
+          <div class="co-field">
+            <label class="co-label">CEP (para fatura)</label>
+            <input class="co-input" type="text" id="co-cep" placeholder="00000-000" maxlength="9" oninput="fmtCep(this)" />
+          </div>
+          <button class="co-pay-btn" id="co-btn-card" onclick="coPagarCard()">PAGAR COM CARTÃO →</button>
+        </div>
+
+        <div class="co-error" id="co-err-pag"></div>
+        <div class="co-security">
+          <span>&#128274; PAGAMENTO SEGURO &middot; PROCESSADO PELA ASAAS &middot; DADOS CRIPTOGRAFADOS</span>
+        </div>
+      </div>
+
+      <!-- Sucesso -->
+      <div class="co-success" id="co-success">
+        <div class="co-success-icon">&#9989;</div>
+        <div class="co-success-title">PLANO ATIVADO!</div>
+        <div class="co-success-sub" id="co-success-msg">Seu plano foi ativado com sucesso.<br>Agora conecte seu WhatsApp para começar.</div>
+        <button class="co-success-btn" onclick="coIrParaQR()">CONECTAR MEU WHATSAPP →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

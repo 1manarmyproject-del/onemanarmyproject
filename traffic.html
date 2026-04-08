@@ -37,5 +37,14 @@ body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;mi
   <span class="zero-badge">PRONTO PARA COMECAR A MEDIR</span>
   <div class="zero-items"><div class="zero-item"><div class="zero-item-lbl">Visitantes</div><div class="zero-item-val">0</div></div><div class="zero-item"><div class="zero-item-lbl">Leads</div><div class="zero-item-val">0</div></div><div class="zero-item"><div class="zero-item-lbl">Conversao</div><div class="zero-item-val">0%</div></div><div class="zero-item"><div class="zero-item-lbl">Origem Top</div><div class="zero-item-val">—</div></div></div>
 </div>
+<script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+</script>
 </body>
 </html>

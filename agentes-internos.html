@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agentes Internos — OMA Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1c1c1e;--card:#141414;--iron:#1e1e1e;--border:#2a2a2a;--fire:#e8703a;--bone:#e0d9cf;--ash:#6a6a6a;--fog:#888;--green:#3d9e60;--gold:#f5a623;--blue:#378add;--purple:#8b5cf6;--red:#e24b4a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+.hdr{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.hlogo{font-family:'Black Ops One',cursive;font-size:14px;letter-spacing:2px;color:var(--bone);}
+.hlogo span{color:var(--fire);}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;}
+.hback:hover{color:var(--fire);}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{max-width:280px;width:100%;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:3px;color:var(--fire);margin-bottom:4px;}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:28px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid #333;padding:10px 0;color:var(--bone);font-size:15px;outline:none;margin-bottom:16px;}
+.lbtn{width:100%;background:var(--fire);border:none;color:#000;padding:11px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;cursor:pointer;}
+#app{display:none;}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 24px;}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden;}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.s-fire::before{background:var(--fire);} .s-green::before{background:var(--green);} .s-gold::before{background:var(--gold);} .s-blue::before{background:var(--blue);} .s-purple::before{background:var(--purple);}
+.stat-val{font-family:'Black Ops One',cursive;font-size:24px;margin-bottom:4px;}
+.s-fire .stat-val{color:var(--fire);} .s-green .stat-val{color:var(--green);} .s-gold .stat-val{color:var(--gold);} .s-blue .stat-val{color:var(--blue);} .s-purple .stat-val{color:var(--purple);}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--ash);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.acard{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .15s;}
+.acard:hover{border-color:var(--ash);}
+.acard.active{border-left:3px solid var(--green);}
+.acard.planned{border-left:3px solid var(--gold);}
+.acard.template{border-left:3px solid var(--blue);}
+.acard-top{padding:16px 18px 12px;border-bottom:1px solid var(--border);}
+.acard-id{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);margin-bottom:6px;}
+.acard-name{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:1px;color:var(--bone);margin-bottom:2px;}
+.acard-role{font-size:12px;color:var(--fog);}
+.acard-body{padding:14px 18px;}
+.acard-desc{font-size:12px;color:var(--fog);line-height:1.6;margin-bottom:12px;}
+.acard-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.meta-item{background:var(--iron);border:1px solid var(--border);padding:6px 10px;border-radius:3px;}
+.meta-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--ash);margin-bottom:2px;}
+.meta-val{font-size:12px;color:var(--bone);}
+.skills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
+.skill{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;border:1px solid var(--border);color:var(--ash);}
+.acard-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border);}
+.status-badge{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;padding:3px 8px;border-radius:2px;}
+.status-active{background:rgba(61,158,96,.15);color:var(--green);border:1px solid rgba(61,158,80,.3);}
+.status-planned{background:rgba(245,166,35,.15);color:var(--gold);border:1px solid rgba(245,166,35,.3);}
+.status-template{background:rgba(55,138,221,.15);color:var(--blue);border:1px solid rgba(55,138,221,.3);}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--ash);}
+.add-btn{background:none;border:1px solid var(--fire);color:var(--fire);padding:5px 14px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;cursor:pointer;}
+.add-btn:hover{background:var(--fire);color:#000;}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr;}}
+</style>
+<script src="/tracker.js" defer></script>
+</head>
+<body>
+<div id="ls"><div class="lb">
+  <div class="ll">AGENTES</div>
+  <div class="lsub">OMA INTERNAL REGISTRY</div>
+  <input class="li" type="password" id="pw" placeholder="senha" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+</div></div>
+
+<div id="app">
+<header class="hdr">
+  <div class="hlogo">OMA<span>.</span>AGENTES</div>
+  <a href="/hub" class="hback">← HUB</a>
+</header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat s-green"><div class="stat-val" id="s-ativos">0</div><div class="stat-lbl">Ativos</div></div>
+    <div class="stat s-gold"><div class="stat-val" id="s-planejados">0</div><div class="stat-lbl">Planejados</div></div>
+    <div class="stat s-blue"><div class="stat-val" id="s-templates">0</div><div class="stat-lbl">Templates</div></div>
+    <div class="stat s-fire"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">Total</div></div>
+    <div class="stat s-purple"><div class="stat-val" id="s-canais">0</div><div class="stat-lbl">Canais</div></div>
+  </div>
+
+  <div class="section-hdr">
+    <span class="section-title">PORTFÓLIO DE AGENTES</span>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+</div>
+
+<script>
+var AGENTS = [
+  {
+    id:'AGT-001', name:'George', role:'Orquestrador / Coordenação Central',
+    status:'active', canal:'Telegram', numero:'@George_Jetson_Bot',
+    desc:'Porta de entrada principal de Fabio. Orquestra o domínio Personal, lê expectations diárias, escreve diário de ops e escala para Fabio via Telegram apenas quando genuinamente bloqueado.',
+    skills:['email','calendar','web-search','task-management','send-telegram','ops-diary'],
+    modelo:'claude-sonnet-4-5', dominio:'personal'
+  },
+  {
+    id:'AGT-002', name:'Bia', role:'Comercial / Diagnóstico e Captação',
+    status:'active', canal:'WhatsApp', numero:'+55 41 99119-6134',
+    desc:'Agente comercial B2B do OMA Project. Faz diagnóstico operacional via 6 perguntas, qualifica leads, apresenta soluções e escala para Fabio no momento certo. Nunca toma decisões de preço ou contrato.',
+    skills:['product-knowledge','b2b-diagnostic','lead-qualification','escalation','send-whatsapp'],
+    modelo:'claude-haiku-4-5', dominio:'sales'
+  },
+  {
+    id:'AGT-003', name:'Amanda', role:'Personal Ops / Assistente Pessoal',
+    status:'active', canal:'WhatsApp + Telegram', numero:'+55 11 92013-5700',
+    desc:'Assistente pessoal operacional. Gerencia email (4 contas), calendário, lembretes, voos, quadras de tênis (Winker) e Mini Apps no Telegram. Não roteia para Sales ou Ekhoa.',
+    skills:['email','calendar','reminders','flight-search','tennis-booking','telegram-mini-apps'],
+    modelo:'claude-sonnet-4-5', dominio:'personal'
+  },
+  {
+    id:'AGT-004', name:'Flávia', role:'Marketing / Instagram Autônomo',
+    status:'active', canal:'Instagram', numero:'@1manarmy_project',
+    desc:'Agente de marketing autônomo. Cria e publica posts no Instagram do OMA Project. Pipeline simplificado: Flávia + Crítico apenas. Primeiro post entregue end-to-end em 25/03/2026.',
+    skills:['content-creation','instagram-publish','image-generation','brand-voice'],
+    modelo:'claude-sonnet-4-5', dominio:'marketing'
+  },
+  {
+    id:'AGT-005', name:'Tiago', role:'Comercial Director / Business Plan',
+    status:'active', canal:'Telegram', numero:'@Thiago_DC_Eyewear_bot',
+    desc:'Diretor comercial estratégico. Responsável por construção do Business Plan OMA e documentação de estratégia comercial. Tem regra obrigatória de schedule_delivery.',
+    skills:['business-planning','commercial-strategy','document-generation'],
+    modelo:'claude-sonnet-4-5', dominio:'sales'
+  },
+  {
+    id:'AGT-006', name:'Darwin', role:'Monitoramento / Health Check',
+    status:'active', canal:'Sistema', numero:'internal',
+    desc:'Agente de monitoramento silencioso. Roda a cada 15 minutos, verifica saúde de todos os serviços, gera relatório diário às 8h BRT e alerta Fabio via George quando detecta anomalias.',
+    skills:['health-check','service-monitoring','daily-report','alerting'],
+    modelo:'claude-haiku-4-5', dominio:'ops'
+  },
+  {
+    id:'AGT-007', name:'Ekhoa', role:'Clipping / Monitoramento de Mídia',
+    status:'active', canal:'Telegram', numero:'@Clipping_Ekhoa_Bot',
+    desc:'Agente de clipping eletrônico para a Ekhoa (empresa da Daniela). Monitora 6 clientes, usa LLM classifier Haiku/Sonnet, envia PDF + relatório Telegram às 06h30/14h/20h BRT.',
+    skills:['news-clipping','llm-classification','pdf-report','send-telegram'],
+    modelo:'claude-haiku-4-5', dominio:'ekhoa'
+  },
+  {
+    id:'AGT-008', name:'Suporte OMA', role:'Suporte Técnico / Produtos OMA',
+    status:'template', canal:'WhatsApp', numero:'A definir',
+    desc:'Agente dedicado de suporte técnico para clientes dos produtos OMA (Scribe, Predictions, Academy). Responde dúvidas de produto, resolve problemas comuns, escala para Fabio via Telegram apenas em casos críticos. Separado da Bia para não misturar papel comercial com suporte.',
+    skills:['product-knowledge-scribe','product-knowledge-predictions','faq-resolution','ticket-logging','escalation'],
+    modelo:'claude-haiku-4-5', dominio:'support',
+    knowledge:[
+      'Como conectar WhatsApp no Scribe',
+      'QR expirado — como reconectar',
+      'Minutos consumidos — como consultar saldo',
+      'Upgrade de plano — como fazer',
+      'ROI Calculator — como interpretar',
+      'Priority Map — prazo de entrega',
+      'Academy — acesso e certificado',
+      'Cancelamento e reembolso'
+    ]
+  },
+  {
+    id:'AGT-009', name:'Onboarder', role:'Onboarding Automático / Novos Clientes',
+    status:'planned', canal:'WhatsApp', numero:'A definir',
+    desc:'Agente dedicado ao onboarding de novos clientes OMA. Ativado quando cliente assina qualquer plano. Coleta dados do formulário, explica próximos passos, agenda kick-off e garante ativação completa. Primeiro gatilho: 8–10 clientes ativos ou MRR > R$20k.',
+    skills:['onboarding-flow','form-collection','calendar-booking','status-tracking'],
+    modelo:'claude-haiku-4-5', dominio:'ops'
+  },
+];
+
+var KEY = localStorage.getItem('oma_api_key') || sessionStorage.getItem('oma_api_key') || '';
+
+function dL() {
+  var p = document.getElementById('pw').value;
+  doLogin(p).then(function() {
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+    if(typeof init==='function') init();
+  }).catch(function(e) {
+    var el = document.getElementById('lerr');
+    if(el){el.textContent=e.message;el.style.display='block';}
+  });
+} else {
+    document.getElementById('pw').style.borderBottomColor='var(--red)';
+  }
+}
+
+function statusClass(s){
+  if(s==='active') return 'active';
+  if(s==='planned') return 'planned';
+  return 'template';
+}
+function statusLabel(s){
+  if(s==='active') return '<span class="status-badge status-active">● ATIVO</span>';
+  if(s==='planned') return '<span class="status-badge status-planned">◐ PLANEJADO</span>';
+  return '<span class="status-badge status-template">◻ TEMPLATE</span>';
+}
+
+function render(){
+  var ativos=0, planejados=0, templates=0, canais=new Set();
+  var html = AGENTS.map(function(a){
+    if(a.status==='active') ativos++;
+    else if(a.status==='planned') planejados++;
+    else templates++;
+    canais.add(a.canal.split(' ')[0]);
+
+    var knowledgeHtml = '';
+    if(a.knowledge){
+      knowledgeHtml = '<div style="margin-bottom:10px;"><div style="font-family:Space Mono,monospace;font-size:8px;letter-spacing:1px;color:var(--ash);margin-bottom:6px;">KNOWLEDGE BASE</div>'
+        + a.knowledge.map(function(k){ return '<div style="font-size:11px;color:var(--fog);padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04);">· '+k+'</div>'; }).join('')
+        + '</div>';
+    }
+
+    return '<div class="acard '+statusClass(a.status)+'">'
+      +'<div class="acard-top">'
+      +'<div class="acard-id">'+a.id+' · '+a.dominio.toUpperCase()+'</div>'
+      +'<div class="acard-name">'+a.name+'</div>'
+      +'<div class="acard-role">'+a.role+'</div>'
+      +'</div>'
+      +'<div class="acard-body">'
+      +'<div class="acard-desc">'+a.desc+'</div>'
+      +'<div class="acard-meta">'
+      +'<div class="meta-item"><div class="meta-lbl">CANAL</div><div class="meta-val">'+a.canal+'</div></div>'
+      +'<div class="meta-item"><div class="meta-lbl">MODELO</div><div class="meta-val">'+a.modelo+'</div></div>'
+      +'<div class="meta-item"><div class="meta-lbl">NÚMERO/ID</div><div class="meta-val" style="font-size:10px;">'+a.numero+'</div></div>'
+      +'<div class="meta-item"><div class="meta-lbl">DOMÍNIO</div><div class="meta-val">'+a.dominio+'</div></div>'
+      +'</div>'
+      +knowledgeHtml
+      +'<div class="skills">'+a.skills.map(function(sk){ return '<span class="skill">'+sk+'</span>'; }).join('')+'</div>'
+      +'<div class="acard-footer">'
+      +statusLabel(a.status)
+      +(a.status==='active'?'<div class="dot-live"></div>':'')
+      +'</div>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+
+  document.getElementById('grid').innerHTML = html;
+  document.getElementById('s-ativos').textContent = ativos;
+  document.getElementById('s-planejados').textContent = planejados;
+  document.getElementById('s-templates').textContent = templates;
+  document.getElementById('s-total').textContent = AGENTS.length;
+  document.getElementById('s-canais').textContent = canais.size;
+}
+
+if(getToken()){
+render();
+} else {
+doLogin(KEY).then(function(){ document.getElementById('ls').style.display='none'; document.getElementById('app').style.display='block'; render(); }).catch(function(){ document.getElementById('ls').style.display='flex'; });
+}
+if(false){
+  document.getElementById('ls').style.display='none';
+  document.getElementById('app').style.display='block';
+  render();
+}
+</script>
+</body>
+</html>

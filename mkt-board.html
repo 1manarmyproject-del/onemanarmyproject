@@ -131,13 +131,21 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.95);backdrop
 </div>
 <div class="toast" id="toast"></div>
 <script>
-var API='https://oma-api.pipeeyewear.com.br',KEY=((localStorage.getItem('oma_api_key')||sessionStorage.getItem('oma_api_key')||'')||'');
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+function init(){if(typeof load==='function')load();else if(typeof loadJobs==='function')loadJobs();}
+var API='https://api.onemanarmyproject.com.br';
 var IMG='https://mkt-img.pipeeyewear.com.br';
 var cards=[],local={},canal='all',filter='all',pending=new Set();
 
 async function load(){
   try{
-    var r=await fetch(API+'/mkt/cards',{headers:{'x-api-key':KEY}});
+    var r=await fetch(API+'/mkt/cards',{headers:getAuthHeaders()});
     cards=await r.json();
     cards.forEach(function(c){local[c.id]={
       status:c.status||'pending',
@@ -307,7 +315,7 @@ async function saveAll(){
   var ok=0;
   for(var id of pending){
     try{
-      var r=await fetch(API+'/mkt/cards/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-api-key':KEY},body:JSON.stringify({status:local[id].status,status_arte:local[id].sa,status_legenda:local[id].sl,comentario_arte:local[id].ca,comentario_legenda:local[id].cl})});
+      var r=await fetch(API+'/mkt/cards/'+id,{method:'PATCH',headers:getAuthHeaders(),body:JSON.stringify({status:local[id].status,status_arte:local[id].sa,status_legenda:local[id].sl,comentario_arte:local[id].ca,comentario_legenda:local[id].cl})});
       if(r.ok)ok++;
     }catch(e){}
   }
@@ -324,7 +332,7 @@ var autosaveTimer = setInterval(async function(){
       var L=local[id];
       var r=await fetch(API+'/mkt/cards/'+id,{
         method:'PATCH',
-        headers:{'Content-Type':'application/json','x-api-key':KEY},
+        headers:getAuthHeaders(),
         body:JSON.stringify({status:L.status,status_arte:L.sa,status_legenda:L.sl,comentario_arte:L.ca,comentario_legenda:L.cl})
       });
       if(r.ok) pending.delete(id);
@@ -347,7 +355,7 @@ document.addEventListener('change', function(e){
     if(id && local[id]){
       fetch(API+'/mkt/cards/'+id,{
         method:'PATCH',
-        headers:{'Content-Type':'application/json','x-api-key':KEY},
+        headers:getAuthHeaders(),
         body:JSON.stringify({status:local[id].status,status_arte:local[id].sa,status_legenda:local[id].sl,comentario_arte:local[id].ca,comentario_legenda:local[id].cl})
       }).then(r=>{if(r.ok)pending.delete(id);}).catch(()=>{});
     }

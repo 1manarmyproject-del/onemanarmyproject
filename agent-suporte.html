@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OMA — Suporte</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--char:#1a1a1a;--carbon:#0f0f0f;--graph:#161616;--iron:#1e1e1e;--steel:#3a3a3a;--ash:#6a6a6a;--fog:#777;--bone:#e0d9cf;--fire:#e8703a;--green:#3d9e60;--blue:#3a7bd5;--red:#e24b4a;--agent:#2d8a50;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;min-height:100vh;}
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.lb{width:100%;max-width:320px;padding:0 24px;text-align:center;}
+.ll{font-family:'Black Ops One',cursive;font-size:20px;letter-spacing:4px;margin-bottom:4px;color:var(--agent);}
+.lsub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:36px;}
+.li{width:100%;background:transparent;border:none;border-bottom:1px solid var(--steel);padding:10px 0;color:var(--bone);font-family:'Barlow',sans-serif;font-size:15px;outline:none;margin-bottom:24px;}
+.li:focus{border-bottom-color:var(--agent);}
+.lbtn{width:100%;background:var(--agent);border:none;color:#000;padding:11px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+#app{display:none;}
+.hdr{background:var(--carbon);border-bottom:1px solid var(--iron);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.hback{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-decoration:none;letter-spacing:1px;}
+.hback:hover{color:var(--agent);}
+.hname{font-family:'Black Ops One',cursive;font-size:18px;letter-spacing:2px;color:var(--agent);}
+.hrole{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-left:12px;}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hout{background:none;border:1px solid var(--steel);color:var(--ash);padding:5px 12px;font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;margin-left:16px;}
+.hero{background:var(--carbon);border-bottom:1px solid var(--iron);padding:40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;}
+.hero-id{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;margin-bottom:12px;}
+.hero-name{font-family:'Black Ops One',cursive;font-size:48px;letter-spacing:3px;color:var(--agent);line-height:1;margin-bottom:6px;}
+.hero-role{font-family:'Space Mono',monospace;font-size:11px;color:var(--ash);letter-spacing:2px;margin-bottom:20px;}
+.hero-desc{font-size:14px;color:var(--fog);line-height:1.7;max-width:520px;}
+.canal-tag{font-family:'Space Mono',monospace;font-size:9px;padding:4px 10px;border:1px solid var(--iron);color:var(--ash);letter-spacing:1px;display:inline-block;margin-top:4px;margin-right:4px;}
+.status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);animation:blink 2s infinite;margin-right:8px;}
+.status-txt{font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:1px;}
+.content{padding:32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.content{grid-template-columns:1fr;padding:24px;}.hdr{padding:0 20px;}}
+.card{background:var(--carbon);border:1px solid var(--iron);}
+.card-hd{padding:16px 20px;border-bottom:1px solid var(--iron);font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:2px;}
+.card-body{padding:20px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.stat{background:var(--graph);padding:18px 16px;}
+.stat-val{font-family:'Black Ops One',cursive;font-size:32px;color:var(--agent);line-height:1;margin-bottom:6px;}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;}
+.task-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--iron);font-size:12px;color:var(--fog);}
+.task-item:last-child{border-bottom:none;}
+.task-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.task-dot.green{background:var(--green);}
+.task-dot.orange{background:var(--fire);}
+.task-dot.blue{background:var(--blue);}
+.log-list{display:flex;flex-direction:column;gap:0;max-height:320px;overflow-y:auto;}
+.log-item{padding:10px 0;border-bottom:1px solid var(--iron);display:flex;gap:12px;align-items:baseline;}
+.log-item:last-child{border-bottom:none;}
+.log-time{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);white-space:nowrap;flex-shrink:0;}
+.log-content{font-size:12px;color:var(--fog);line-height:1.5;}
+.log-empty{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);text-align:center;padding:32px 0;}
+.inst-card{grid-column:1/-1;}
+.inst-area{width:100%;background:var(--graph);border:1px solid var(--iron);padding:12px;color:var(--bone);font-family:'Barlow',sans-serif;font-size:13px;outline:none;min-height:80px;resize:vertical;line-height:1.6;}
+.inst-area:focus{border-color:var(--agent);}
+.inst-btn{margin-top:10px;background:var(--agent);border:none;color:#000;padding:10px 24px;font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;cursor:pointer;}
+.faq-item{padding:12px 0;border-bottom:1px solid var(--iron);}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{font-family:'Space Mono',monospace;font-size:10px;color:var(--bone);letter-spacing:1px;margin-bottom:6px;}
+.faq-a{font-size:12px;color:var(--fog);line-height:1.6;}
+.tag-produto{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;margin-right:4px;}
+.tag-scribe{background:rgba(45,138,80,.15);color:var(--green);border:1px solid rgba(45,138,80,.3);}
+.tag-roi{background:rgba(232,112,58,.15);color:var(--fire);border:1px solid rgba(232,112,58,.3);}
+.tag-all{background:rgba(106,106,106,.15);color:var(--ash);border:1px solid rgba(106,106,106,.3);}
+.escalation-box{background:rgba(232,112,58,.08);border:1px solid rgba(232,112,58,.2);padding:16px;margin-top:8px;}
+.esc-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);letter-spacing:2px;margin-bottom:10px;}
+.esc-item{font-size:12px;color:var(--fog);padding:4px 0;display:flex;gap:8px;align-items:center;}
+.esc-dot{width:5px;height:5px;border-radius:50%;background:var(--fire);flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<div id="ls"><div class="lb">
+  <div class="ll">SUPORTE</div>
+  <div class="lsub">ONE MAN ARMY PROJECT</div>
+  <input class="li" type="password" id="pw" placeholder="senha" onkeydown="if(event.key==='Enter')dL()">
+  <button class="lbtn" onclick="dL()">ENTRAR</button>
+</div></div>
+
+<div id="app">
+<header class="hdr">
+  <div style="display:flex;align-items:center;">
+    <a href="/hub" class="hback">← HUB</a>
+    <span style="color:var(--steel);margin:0 12px;">|</span>
+    <span class="hname">SUPORTE</span>
+    <span class="hrole">OMA PROJECT · ATENDIMENTO</span>
+  </div>
+  <div style="display:flex;align-items:center;">
+    <span class="live"></span>
+    <span class="status-txt">ATIVO</span>
+    <button class="hout" onclick="lo()">Sair</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <div class="hero-id">AGENTE · 006 · SUPORTE TÉCNICO</div>
+    <div class="hero-name">SARA</div>
+    <div class="hero-role">SUPORTE & ATENDIMENTO — OMA PRODUCTS</div>
+    <div class="hero-desc">Sara cuida do suporte técnico e atendimento dos clientes OMA. Resolve dúvidas sobre Scribe, Automation Intelligence e Academy. Escala para Fabio quando não consegue resolver.</div>
+    <div style="margin-top:16px;">
+      <span class="canal-tag">WhatsApp</span>
+      <span class="canal-tag">Telegram</span>
+      <span class="canal-tag">📦 PLANNED</span>
+    </div>
+  </div>
+  <div style="text-align:right;">
+    <div><span class="status-dot"></span><span class="status-txt">EM CONSTRUÇÃO</span></div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:4px;" id="updated-at">—</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- STATS -->
+  <div class="card">
+    <div class="card-hd">MÉTRICAS</div>
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-val" id="s-tickets">—</div><div class="stat-lbl">Tickets/Mês</div></div>
+      <div class="stat"><div class="stat-val" id="s-resolvidos">—</div><div class="stat-lbl">Resolvidos</div></div>
+      <div class="stat"><div class="stat-val" id="s-escalados">—</div><div class="stat-lbl">Escalados</div></div>
+      <div class="stat"><div class="stat-val" id="s-tma">—</div><div class="stat-lbl">TMA (min)</div></div>
+    </div>
+  </div>
+
+  <!-- RESPONSABILIDADES -->
+  <div class="card">
+    <div class="card-hd">RESPONSABILIDADES</div>
+    <div class="card-body">
+      <div class="task-item"><div class="task-dot green"></div><div><span class="tag-produto tag-scribe">SCRIBE</span> QR code, conexão, reconexão WhatsApp</div></div>
+      <div class="task-item"><div class="task-dot green"></div><div><span class="tag-produto tag-scribe">SCRIBE</span> Dúvidas de plano, cobrança, cancelamento</div></div>
+      <div class="task-item"><div class="task-dot green"></div><div><span class="tag-produto tag-scribe">SCRIBE</span> Minutos zerados, upgrade de plano</div></div>
+      <div class="task-item"><div class="task-dot orange"></div><div><span class="tag-produto tag-roi">AUTOMATION</span> Dúvidas sobre ROI, Priority Map, Roadmap</div></div>
+      <div class="task-item"><div class="task-dot orange"></div><div><span class="tag-produto tag-roi">AUTOMATION</span> Relatório não chegou por email</div></div>
+      <div class="task-item"><div class="task-dot blue"></div><div><span class="tag-produto tag-all">GERAL</span> Dúvidas sobre conta, acesso, LGPD</div></div>
+    </div>
+  </div>
+
+  <!-- ESCALAÇÃO -->
+  <div class="card">
+    <div class="card-hd">REGRAS DE ESCALAÇÃO</div>
+    <div class="card-body">
+      <div class="escalation-box">
+        <div class="esc-title">ESCALA PARA FABIO QUANDO:</div>
+        <div class="esc-item"><div class="esc-dot"></div>Cliente solicita reembolso</div>
+        <div class="esc-item"><div class="esc-dot"></div>Bug técnico não documentado no FAQ</div>
+        <div class="esc-item"><div class="esc-dot"></div>Reclamação grave ou ameaça de chargeback</div>
+        <div class="esc-item"><div class="esc-dot"></div>Pergunta sobre preços ou condições especiais</div>
+        <div class="esc-item"><div class="esc-dot"></div>Dúvida após 2 tentativas sem resolução</div>
+      </div>
+      <div style="margin-top:12px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);">Escalação via Telegram → @George_Jetson_Bot</div>
+    </div>
+  </div>
+
+  <!-- FAQ BASE -->
+  <div class="card">
+    <div class="card-hd">BASE DE CONHECIMENTO — FAQ</div>
+    <div class="card-body" style="max-height:340px;overflow-y:auto;">
+      <div class="faq-item">
+        <div class="faq-q"><span class="tag-produto tag-scribe">SCRIBE</span> QR CODE EXPIROU / NÃO APARECE</div>
+        <div class="faq-a">Acesse onemanarmyproject.com.br/scribe → Acessar → seu número → botão "↻ NOVO QR CODE". O QR é válido por ~60 segundos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="tag-produto tag-scribe">SCRIBE</span> NÃO ESTOU RECEBENDO A TRANSCRIÇÃO</div>
+        <div class="faq-a">1) Verifique se o WhatsApp está conectado no portal. 2) O Scribe só transcreve áudios — não fotos ou vídeos. 3) Aguarde 5-10 segundos após enviar o áudio.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="tag-produto tag-scribe">SCRIBE</span> MINUTOS ACABARAM ANTES DO PREVISTO</div>
+        <div class="faq-a">O consumo é por minuto iniciado — um áudio de 5 segundos consome 1 minuto. Veja os termos em onemanarmyproject.com.br/termos seção 3.2.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="tag-produto tag-scribe">SCRIBE</span> MEUS ÁUDIOS SÃO PRIVADOS?</div>
+        <div class="faq-a">Sim. O Scribe funciona como o WhatsApp Web — a criptografia E2E da Meta protege tudo. A OMA não tem acesso ao conteúdo das suas conversas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="tag-produto tag-roi">AUTOMATION</span> NÃO RECEBI MEU RELATÓRIO</div>
+        <div class="faq-a">Verifique a caixa de spam. O envio é feito em até 5 minutos após o pagamento confirmado. Se não chegou em 30 minutos, escale para Fabio.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="tag-produto tag-all">GERAL</span> COMO CANCELO MINHA ASSINATURA?</div>
+        <div class="faq-a">Envie email para atendimento@onemanarmy.com.br com assunto "Cancelamento". O acesso fica ativo até o fim do período pago.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIGURAÇÃO DO AGENTE -->
+  <div class="card inst-card">
+    <div class="card-hd">INSTRUÇÃO DO AGENTE (CLAUDE.MD)</div>
+    <div class="card-body">
+      <p style="font-size:12px;color:var(--fog);margin-bottom:14px;line-height:1.6;">Instrução principal que define o comportamento da Sara. Editável aqui e sincronizada com o NanoClaw.</p>
+      <textarea class="inst-area" id="inst-txt" rows="8">Você é Sara, agente de suporte do OMA Project. Seu papel é resolver dúvidas técnicas e operacionais dos clientes dos produtos OMA (Scribe, Automation Intelligence, Academy) de forma direta e eficiente.
+
+TOM: Prestativo, claro e conciso. Português informal. Nunca prometar o que não pode cumprir.
+
+PRODUTOS QUE CONHECE:
+- OMA Scribe: transcrição de áudio via WhatsApp. Planos free (30min), starter (150min), light (300min), basic (600min), pro (1500min).
+- OMA Automation ROI: diagnóstico gratuito de custo operacional.
+- OMA Priority Map: relatório de priorização R$97.
+- OMA Automation Roadmap: plano 30/60/90 dias R$297.
+
+REGRAS:
+1. Tente resolver com o FAQ antes de escalar.
+2. Para reembolso, preços especiais ou bugs graves → escale para Fabio via Telegram.
+3. Nunca discuta com o cliente. Se ficar tenso, escale.
+4. Sempre confirme se o problema foi resolvido antes de encerrar.</textarea>
+      <button class="inst-btn" onclick="salvarInstrucao()">SALVAR INSTRUÇÃO</button>
+      <span id="inst-ok" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);margin-left:12px;display:none;">SALVO ✓</span>
+    </div>
+  </div>
+
+  <!-- LOGS -->
+  <div class="card inst-card">
+    <div class="card-hd">HISTÓRICO DE ATENDIMENTOS</div>
+    <div class="card-body">
+      <div class="log-list" id="log-list">
+        <div class="log-empty">Nenhum atendimento registrado ainda.<br>Sara começa a logar quando o número WhatsApp for configurado.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ── AUTH ─────────────────────────────────────────────────
+function getToken(){var t=localStorage.getItem('oma_hub_token')||sessionStorage.getItem('oma_hub_token');var e=parseInt(localStorage.getItem('oma_hub_token_exp')||'0');if(!t||Date.now()>e)return null;return t;}
+function getAuthHeaders(){var t=getToken();return t?{'Authorization':'Bearer '+t,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+function _omaShow(){['ls','login-screen','login'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['app','main','content'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='block';el.style.opacity='1';}});}
+function _omaLoad(){_omaShow();if(typeof init==='function')init();else if(typeof loadData==='function')loadData();else if(typeof carregarDados==='function')carregarDados();else if(typeof render==='function')render();}
+window.addEventListener('message',function(e){if(!e.data||e.data.type!=='oma_auth')return;var tok=e.data.token||e.data.oma_api_key||'';if(tok){localStorage.setItem('oma_hub_token',tok);localStorage.setItem('oma_hub_token_exp',String(Date.now()+28800000));}  _omaLoad();});
+document.addEventListener('DOMContentLoaded',function(){if(getToken())_omaLoad();});
+
+var API = 'https://api.onemanarmyproject.com.br';
+
+function dL(){
+  var pw=document.getElementById('pw').value;
+  if(!pw)return;
+  doLogin(pw).then(function(){_omaShow();init();}).catch(function(){
+    document.getElementById('pw').value='';
+  });
+}
+function lo(){
+  localStorage.removeItem('oma_hub_token');
+  localStorage.removeItem('oma_hub_token_exp');
+  location.reload();
+}
+async function doLogin(password){
+  var r=await fetch(API+'/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password})});
+  var d=await r.json();
+  if(!r.ok) throw new Error(d.error||'Senha incorreta');
+  localStorage.setItem('oma_hub_token',d.token);
+  localStorage.setItem('oma_hub_token_exp',String(Date.now()+d.expiresIn*1000));
+  return d.token;
+}
+
+async function init(){
+  try {
+    // Stats do suporte
+    var r = await fetch(API+'/suporte/stats',{headers:getAuthHeaders()});
+    var d = await r.json();
+    document.getElementById('s-tickets').textContent = d.total||0;
+    document.getElementById('s-resolvidos').textContent = d.hoje||0;
+    document.getElementById('s-escalados').textContent = d.abertos||0;
+    document.getElementById('s-tma').textContent = d.msgs||0;
+    // Atualiza timestamp
+    var el = document.getElementById('updated-at');
+    if(el) el.textContent = new Date().toLocaleTimeString('pt-BR');
+    // Carrega instrução salva
+    var saved = localStorage.getItem('sara_instrucao');
+    if(saved){var ta=document.getElementById('inst-txt');if(ta)ta.value=saved;}
+    // Carrega logs
+    carregarLogs();
+  } catch(e){ console.error('init suporte:', e); }
+}
+
+async function carregarLogs(){
+  try {
+    var r = await fetch(API+'/webchat/pending',{headers:getAuthHeaders()});
+    var d = await r.json();
+    var list = document.getElementById('log-list');
+    if(!list) return;
+    var sessions = d.sessions||[];
+    if(!sessions.length){
+      list.innerHTML='<div style="padding:20px;font-family:Space Mono,monospace;font-size:10px;color:var(--ash);text-align:center;letter-spacing:1px;">NENHUMA CONVERSA PENDENTE</div>';
+      return;
+    }
+    list.innerHTML = sessions.map(function(s){
+      return '<div style="padding:12px 16px;border-bottom:1px solid var(--iron);">'
+        +'<div style="font-family:Space Mono,monospace;font-size:9px;color:var(--ash);letter-spacing:1px;">SESSION '+s.session_id+'</div>'
+        +'<div style="font-size:13px;color:var(--bone);margin-top:4px;">'+s.last_user_msg+'</div>'
+        +'</div>';
+    }).join('');
+  } catch(e){}
+}
+
+function salvarInstrucao(){
+  var txt = document.getElementById('inst-txt');
+  if(!txt) return;
+  localStorage.setItem('sara_instrucao', txt.value);
+  var ok = document.getElementById('inst-ok');
+  if(ok){ ok.style.display='inline'; setTimeout(function(){ok.style.display='none';},2000); }
+}
+
+// Atualiza a cada 30s
+setInterval(function(){ if(getToken()) init(); }, 30000);
+
+</script>
+</body>
+</html>
