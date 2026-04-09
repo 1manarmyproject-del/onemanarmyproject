@@ -628,7 +628,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 (function(){
 const API='https://api.onemanarmyproject.com.br';
 let sid=null,lid=0,pi=null,op=false,un=0;
-function ft(ts){if(!ts)return'';try{const d=new Date(ts.replace(' ','T')+'Z');return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
+function ft(ts){if(!ts)return'';try{let s=ts.trim();if(s.endsWith('Z')||s.includes('+'))s=s;else s=s.replace(' ','T')+'-03:00';const d=new Date(s);if(isNaN(d.getTime()))return'';return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});}catch{return '';}}
 function aM(r,c,ts,id){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm '+r;d.innerHTML='<div class="wb">'+c.replace(/\n/g,'<br>')+'</div><div class="wt">'+ft(ts)+'</div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;if(id)lid=Math.max(lid,id);if(r==='wa'&&!op){un++;const b=document.getElementById('oma-badge');b.style.display='flex';b.textContent=un>9?'9+':un;}}
 function sT(){const ml=document.getElementById('oma-ml');const d=document.createElement('div');d.className='wm wa wtyp';d.id='wtyp';d.innerHTML='<div class="wb"><div class="wd"></div><div class="wd"></div><div class="wd"></div></div>';ml.appendChild(d);ml.scrollTop=ml.scrollHeight;}
 function hT(){const t=document.getElementById('wtyp');if(t)t.remove();}
