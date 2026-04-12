@@ -26,7 +26,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
 .nav-links a:hover,.nav-links a.hl{color:var(--fire);}
 .nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
-.nav-cta:hover{background:var(--ember);}
+.nav-cta:hover{background:var(--ember);}.nav-insights{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#e8703a;border:1px solid rgba(232,112,58,.4);padding:6px 12px;text-decoration:none;transition:all .2s;}.nav-insights:hover{background:rgba(232,112,58,.1);}
 @media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
 .page-hero{padding:140px 32px 80px;text-align:center;position:relative;}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.07) 0%,transparent 60%);pointer-events:none;}
@@ -150,7 +150,6 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
 </style>
-<script src="/tracker.js" defer></script>
 </head>
 <body>
 
@@ -163,6 +162,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <a href="/blog">Blog</a>
   </div>
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
   <a href="/" onclick="if(window.oT)oT();return true;" class="nav-cta">Falar com a Bia</a>
 </nav>
 
