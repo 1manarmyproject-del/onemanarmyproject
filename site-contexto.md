@@ -256,3 +256,77 @@ Se o save-server cair (Bia não responde no webchat):
 ---
 
 *Atualizado em abril/2026 — sessão OMA IA Insights (design, motor, deploy, URL, paleta creme)*
+
+---
+
+### Sessão 12/04/2026 — OMA IA Insights: nav, email export, Bia, save-server
+
+#### Funcionalidades entregues
+
+**Nav IA Insights em todas as páginas do site:**
+- Botão `.nav-insights` adicionado em: `index.html`, `index-v2.html`, `agentes.html`, `solutions.html`
+- CSS do badge: Space Mono 10px, borda laranja, hover sutil
+- `solutions.html` tem nav diferente (sem ul) — botão inserido antes do "Meu Portal" via inline style
+
+**Nav do Insights corrigido:**
+- Cores hardcoded escuras independentes da paleta creme da página
+- `.nav-logo { color: #e4ddd3 }`, `.nav-links a { color: #999 }` — não herdam variáveis CSS do body
+
+**Watermark editorial na resposta:**
+- `.resp-watermark` — linha discreta separando resposta do feedback
+- Esquerda: `⬛ ONE MAN ARMY PROJECT` (Space Mono, 35% opacidade)
+- Direita: botão laranja sólido `CONHEÇA O OMA →` linkando para home
+
+**Email export com dropdown:**
+- Botão E-MAIL abre dropdown inline (`.email-drop`) com: Nome*, Empresa, E-mail*, Telefone
+- Submit → `POST https://api.onemanarmyproject.com.br/insights/send-email`
+- Grava lead na tabela `leads` com `origem='insights'`
+- Envia email via Gmail API: `From: OMA IA Insights <atendimento@onemanarmy.com.br>`
+- BCC automático para `atendimento@onemanarmy.com.br`
+- HTML do email espelha a página: blocos, CTA, referências com badges, followup, rodapé escuro
+
+**Variáveis expostas no window (CRÍTICO — todas dentro do IIFE):**
+```js
+window.oT = oT          // toggle do chat Bia
+window.oS = oS          // enviar msg Bia
+window.lastQ = ''       // última pergunta feita (capturado em send())
+window.lastD = null     // último objeto de resposta completo (capturado após fetch /v1/query)
+window.IS_SUBDOMAIN = IS_SUBDOMAIN
+window._wcInit = wInit
+```
+**Regra:** qualquer variável do IIFE que precise ser acessada por elementos criados dinamicamente (dropdowns, botões de export) DEVE ser exposta no window.
+
+#### Bugs corrigidos
+
+**save-server crashando (Bia não respondia no webchat):**
+- Causa: `src/save-server.js` tem TypeScript mas extensão `.js`; plist chamava `node` direto
+- Fix: `cp src/save-server.js src/save-server.ts && npm run build`
+- Plist atualizado para: `node dist/save-server.js`
+- Verificar: `curl http://localhost:3104/health`
+- Diagnóstico completo em `ARCHITECTURE_v2.md` — seção "Regras Críticas de Build"
+
+**CORS — Bia não respondia no chat do Insights:**
+- Causa: `insights.onemanarmyproject.com.br` não estava na lista `allowed` do `oma-clients-api`
+- Fix: adicionado ao array CORS no `/opt/oma-clients/server.js`
+
+**`google is not defined` no send-email:**
+- Causa: `import { google } from 'googleapis'` estava faltando no server.js
+- Fix: adicionado após `import Database from 'better-sqlite3'`
+
+**`lastQ is not defined` / `lastD vazio` no email:**
+- Causa: variáveis dentro do IIFE não acessíveis pelo dropdown criado dinamicamente
+- Fix: expor no `window` e capturar com `window.lastQ=msg` e `window.lastD=d`
+
+**Email sem conteúdo (só cabeçalho + pergunta + rodapé):**
+- Causa: `response_data: window.lastD||{}` mas `window.lastD` era `null` (não estava exposto)
+- Fix: `window.lastD=null` declarado + `window.lastD=d` capturado após `/v1/query`
+
+#### Instagram corrigido
+- Texto: `@1manarmy_project` → `@onemanarmy.ai`
+- Link: `instagram.com/1manarmy_project` → `https://instagram.com/onemanarmy.ai/`
+
+#### Rotas novas no Hetzner (`/opt/oma-clients/server.js`)
+- `POST /insights/send-email` — adicionada à `publicPaths`
+- Recebe: `{nome, empresa, email, telefone, pergunta, response_data}`
+- `response_data` é o objeto `lastD` completo: `response_blocks`, `references`, `cta_primary`, `followup_prompt`
+
