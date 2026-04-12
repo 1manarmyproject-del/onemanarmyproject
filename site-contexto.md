@@ -330,3 +330,44 @@ window._wcInit = wInit
 - Recebe: `{nome, empresa, email, telefone, pergunta, response_data}`
 - `response_data` é o objeto `lastD` completo: `response_blocks`, `references`, `cta_primary`, `followup_prompt`
 
+
+---
+
+### Sessão 12/04/2026 (continuação) — CRM canais dinâmicos + Pipeline fix
+
+#### CRM — Canais Dinâmicos
+
+**Problema:** canais hardcoded no sidebar (`WhatsApp`, `Instagram`, `Site`, `Indicação`).
+Qualquer nova origem não aparecia sem editar o código.
+
+**Fix aplicado em `crm.html`:**
+- `mapL()` usa `_canalMap` com aliases conhecidos + fallback automático para capitalizar origens desconhecidas
+- Sidebar de canais gerado dinamicamente em `stats()` — mostra apenas canais existentes, ordenados por volume
+- Emoji automático por canal; origens novas ganham `📌` por padrão
+
+**Mapa de aliases atual:**
+```js
+{'webchat':'Webchat','whatsapp':'WhatsApp','bia':'WhatsApp',
+ 'instagram':'Instagram','academy':'Academia','rex_telegram':'Telegram',
+ 'insights':'Site','indicacao':'Indicação','roi_calculator':'Site','manual':'Manual'}
+```
+
+**Regra:** ao criar novo canal de captação, basta gravar `origem` corretamente no banco.
+O CRM detecta e exibe automaticamente. Nunca mais editar o código para novo canal.
+
+#### CRM — Bug Pipeline (leads Insights não apareciam)
+
+**Causa raiz:** rota `POST /insights/send-email` gravava `status='lead'` no banco.
+O Pipeline Kanban aceita apenas: `novo`, `qualificado`, `conversa`, `agendado`, `proposta`, `cliente`, `perdido`.
+Status `'lead'` não era um stage válido — card existia na lista mas não aparecia em nenhuma coluna.
+
+**Fixes:**
+1. Banco: `UPDATE leads SET status='novo' WHERE status='lead'` (2 registros corrigidos)
+2. Servidor: INSERT do Insights agora grava `'novo'` em vez de `'lead'`
+3. CRM `mapL()`: stage validado — qualquer valor inválido → `'novo'`
+
+#### CRM — init() robusto
+
+**Fix:** `init()` reescrito com `try/catch/finally` — `render()` e `stats()` sempre executados
+mesmo que qualquer parte do carregamento falhe. Meta tags `no-cache` adicionadas ao HTML.
+
