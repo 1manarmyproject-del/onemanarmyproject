@@ -381,7 +381,7 @@ function renderProducts(products){
     if (p.status==='ready'||p.status==='delivered') {
       const meta2 = JSON.parse(p.metadata||'{}');
       if (p.product_type==='ideias' && meta2.case_id) {
-        action = `<div class="product-action"><a href="https://api.onemanarmyproject.com.br/oma-ideias/start?case_id=${meta2.case_id}" target="_blank">Ver blueprint →</a></div>`;
+        action = `<div class="product-action"><a href="https://ideias.onemanarmyproject.com.br/start?case_id=${meta2.case_id}" target="_blank">Ver blueprint →</a></div>`;
       } else {
         action = `<div class="product-action"><a href="/solutions">Ver relatório →</a></div>`;
       }
