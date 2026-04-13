@@ -342,7 +342,7 @@ const API = 'https://alexa.pipeeyewear.com.br';
 const SARA_API = 'https://api.onemanarmyproject.com.br';
 const SK = 'oma_portal_session';
 const STATUS_LABELS = {pending:'Aguardando',processing:'Em processamento',ready:'Pronto',delivered:'Entregue'};
-const ICONS = {predictions:'🔮',scribe:'🎙️',recap:'📊',agentes:'🤖'};
+const ICONS = {predictions:'🔮',scribe:'🎙️',recap:'📊',agentes:'🤖',ideias:'📐'};
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -376,15 +376,32 @@ function renderProducts(products){
     const sl=STATUS_LABELS[p.status]||p.status;
     const meta=JSON.parse(p.metadata||'{}');
     const dt=p.created_at?new Date(p.created_at.replace(' ','T')+'Z').toLocaleDateString('pt-BR'):'';
-    const action=(p.status==='ready'||p.status==='delivered')
-      ?`<div class="product-action"><a href="/solutions">Ver relatório →</a></div>`
-      :p.status==='processing'
-      ?`<div class="product-action" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">Você será notificado quando estiver pronto.</div>`:'';
+    // Link de ação por tipo de produto
+    let action = '';
+    if (p.status==='ready'||p.status==='delivered') {
+      const meta2 = JSON.parse(p.metadata||'{}');
+      if (p.product_type==='ideias' && meta2.case_id) {
+        action = `<div class="product-action"><a href="https://api.onemanarmyproject.com.br/oma-ideias/start?case_id=${meta2.case_id}" target="_blank">Ver blueprint →</a></div>`;
+      } else {
+        action = `<div class="product-action"><a href="/solutions">Ver relatório →</a></div>`;
+      }
+    } else if (p.status==='processing') {
+      action = `<div class="product-action" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash)">Você será notificado quando estiver pronto.</div>`;
+    }
+    // Score badge para produtos ideias
+    const meta3 = JSON.parse(p.metadata||'{}');
+    const scoreBadge = (p.product_type==='ideias' && meta3.fit_score)
+      ? `<div style="margin:8px 0;display:flex;align-items:center;gap:8px;">
+           <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);">${meta3.fit_score}/100</span>
+           <span style="font-family:'Space Mono',monospace;font-size:8px;color:var(--ash);letter-spacing:1px;">${meta3.fit_label||''}</span>
+         </div>`
+      : '';
     return `<div class="product-card">
       <div class="product-type">${icon} ${p.product_type.toUpperCase()}</div>
       <div class="product-name">${p.product_name||'OMA '+p.product_type}</div>
       <div class="product-company">${meta.company||''}</div>
       <div class="product-status ${sc}"><div class="status-dot"></div>${sl}</div>
+      ${scoreBadge}
       ${action}
       <div class="product-meta">${dt?'Solicitado em '+dt:''}</div>
     </div>`;
