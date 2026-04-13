@@ -256,3 +256,28 @@ Para ativar R$349,90 (desligar modo teste):
 - PIX R$349,90: `https://www.asaas.com/c/u5w9jrhdc20azcsp`
 - Cartão R$349,90: `https://www.asaas.com/c/ifc2rr706g9fbs2m`
 (Links de backup — não usados no checkout nativo, apenas como fallback)
+
+---
+
+## OMA Ideias — Fixes de UX (13/04/2026)
+
+### 1. Áudio — transcrição na textarea
+- **Antes:** parava a gravação → enviava direto para `audio-intake` sem mostrar o texto
+- **Depois:** para → chama `POST /api/v1/transcribe` (Groq Whisper) → exibe na textarea → cliente revisa → clica enviar
+- Fallback: se `/transcribe` falhar, envia via `audio-intake` direto (comportamento anterior)
+- Endpoint novo: `POST /api/v1/transcribe` em `/opt/oma-ideias/src/server.js`
+
+### 2. Confirmação do briefing — hint de UX
+- Botão "Confirmar e iniciar análise" fica disabled até selecionar opção
+- Adicionado hint abaixo: `"↑ Selecione uma opção acima para continuar"` (Space Mono, laranja suave)
+- Hint desaparece (`opacity: 0`) quando cliente seleciona uma opção via `selectConf()`
+
+### 3. Consolidação → auto-advance
+- Poll acelerado para 1.5s quando `status === in_consolidation`
+- Quando `delivered` detectado: `loadDeliveryScreen()` chamado automaticamente
+- Sem necessidade de clique — transição automática
+
+### 4. Botão "Quero validar com OMA Predictions"
+- **Antes:** `href="#"` — levava ao topo da página
+- **Depois:** `href="https://insights.onemanarmyproject.com.br/?utm_source=ideias&case_id=X"`
+- Abre em `target="_blank"`, preenchido dinamicamente no `loadDeliveryScreen()`
