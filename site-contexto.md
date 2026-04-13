@@ -1,17 +1,20 @@
 # OMA Site — Documento de Contexto
-> Versão: abril/2026 — atualizado pós-sessão IA Insights | Para carregar em qualquer sessão de desenvolvimento
+> Versão: abril/2026 — atualizado pós-sessão OMA Ideias (12–13/04/2026)
+> Para carregar em qualquer sessão de desenvolvimento
 
 ---
 
 ## Arquitetura Geral
 
-O frontend OMA está em **3 repositórios independentes**, cada um com seu próprio projeto Vercel.
+O frontend OMA está em repositórios independentes, cada um com seu próprio projeto Vercel ou no Hetzner.
 
 ```
-onemanarmyproject.com.br         → oma-project-site  (site público — repo ativo)
-academy.onemanarmyproject.com.br → oma-academy
-hub.onemanarmyproject.com.br     → oma-hub
+onemanarmyproject.com.br          → oma-project-site  (site público — repo ativo)
+academy.onemanarmyproject.com.br  → oma-academy
+hub.onemanarmyproject.com.br      → oma-hub
 insights.onemanarmyproject.com.br → Hetzner :3093 (PM2 oma-ia-insights)
+api.onemanarmyproject.com.br      → Hetzner :3000 (PM2 oma-clients-api) + rotas nginx
+agents.onemanarmyproject.com.br   → Hetzner :3097 (PM2 oma-agent-manager) ← NOVO
 ```
 
 ---
@@ -20,12 +23,12 @@ insights.onemanarmyproject.com.br → Hetzner :3093 (PM2 oma-ia-insights)
 
 | Repo | GitHub | Domínio | Deploy |
 |------|--------|---------|--------|
-| oma-project-site | `1manarmyproject-del/onemanarmyproject` | `onemanarmyproject.com.br` | Push no main + vercel |
-| oma-academy | `cwfrdpx-del/oma-academy` | `academy.onemanarmyproject.com.br` | Push no main |
+| oma-project-site | `1manarmyproject-del/onemanarmyproject` | `onemanarmyproject.com.br` | git push main + vercel |
+| oma-academy | `cwfrdpx-del/oma-academy` | `academy.onemanarmyproject.com.br` | git push main |
 | oma-hub | `cwfrdpx-del/oma-hub` | `hub.onemanarmyproject.com.br` | **Manual apenas** |
 | oma-ia-insights | `/Users/georgejetson/oma-ia-insights-sandbox` | `insights.onemanarmyproject.com.br` | rsync → Hetzner + pm2 restart |
 
-**Regra crítica do Hub:** nunca fazer push automático. Deploy sempre via comando explícito.
+**Regra crítica do Hub:** nunca fazer push automático.
 **Regra crítica do Insights:** alterações sempre via rsync do Mac Mini para o Hetzner.
 
 ---
@@ -33,12 +36,102 @@ insights.onemanarmyproject.com.br → Hetzner :3093 (PM2 oma-ia-insights)
 ## Caminhos Locais (Mac Mini georgejetson)
 
 ```
-~/oma-project-site/   → site público (fonte de verdade para deploy)
-~/oma-site/           → cópia de trabalho (editar aqui, copiar para oma-project-site)
-~/oma-academy/        → academy + checkout
-~/oma-hub/            → hub + painéis internos
-~/oma-ia-insights-sandbox/  → OMA IA Insights (frontend + backend + engine)
+~/oma-project-site/              → site público (fonte de verdade para deploy)
+~/oma-site/                      → cópia de trabalho
+~/oma-academy/                   → academy + checkout
+~/oma-hub/                       → hub + painéis internos
+~/oma-ia-insights-sandbox/       → OMA IA Insights (frontend + backend + engine)
+~/nanoclaw/                      → NanoClaw — agentes, portal, webhooks
 ```
+
+---
+
+## OMA Ideias — Produto (NOVO — 12/04/2026)
+
+### URLs
+- **Landing:** `https://api.onemanarmyproject.com.br/oma-ideias/`
+- **Página do cliente:** `https://api.onemanarmyproject.com.br/oma-ideias/start`
+- **API:** `https://api.onemanarmyproject.com.br/ideias-api/`
+- **Arquivos estáticos:** `/opt/oma-ideias-sandbox/public/`
+
+### Infraestrutura (100% Hetzner)
+- **Backend:** `/opt/oma-ideias/src/server.js` — PM2 `oma-ideias` (id 4), porta 3095
+- **Banco:** `/opt/oma-ideias/oma-ideias.db` (SQLite)
+- **PDFs gerados:** `/opt/oma-ideias/pdfs/{case_id}/`
+- **Puppeteer + Chromium:** `/snap/bin/chromium`
+- **ENV:** `/opt/oma-ideias/.env` (ANTHROPIC_AGENTS_KEY)
+- **PDF generator:** `/opt/oma-ideias/src/pdf-generator.js`
+
+### Agent Manager (NOVO)
+- **URL pública:** `https://agents.onemanarmyproject.com.br/run`
+- **URL interna:** `http://localhost:3097/run`
+- **PM2:** `oma-agent-manager` (id 8), porta 3097
+- **Código:** `/opt/oma-agent-manager/server.js`
+- **Chave de serviço:** `oma-agent-manager-2026-e0bd41acabd76eeb`
+- **CLAUDE.md dos agentes:** `/opt/oma-agent-manager/agents/{agent_id}/CLAUDE.md`
+- **5 agentes:** oma-market, oma-competition, oma-product, oma-experience, oma-stack
+- **Autenticação:** `Authorization: Bearer {AGENT_MANAGER_KEY}`
+
+### Preço
+- **Lançamento:** R$349,90
+- **Preço cheio:** R$699,00
+- **Parcelamento:** 2x no cartão (R$174,95/parcela — webhook detecta parcela 1)
+
+### Fluxo do produto
+```
+Landing → CTA → /start (sem case_id)
+→ Intake (texto ou áudio)
+→ POST /cases/text-intake → cria case
+→ Processing — briefing gerado (~25s)
+→ Confirmação — cliente revisa e confirma
+→ 5 agentes via Agent Manager em paralelo (~60-90s)
+→ Consolidação — blueprint + score + SWOT + Porter + Jornada + Stack + Roadmap checklist
+→ Delivered → 7 PDFs gerados automaticamente (~40s)
+→ Tela de entrega: Resumo | Documentos | Continuidade
+→ Downloads: .MD e .JSON disponíveis
+```
+
+### Entregáveis por case
+- 9 deliverables consolidados
+- 7 PDFs documentais (01-resumo com SWOT, 02-mercado, 03-concorrência com Porter 5 forças, 04-produto, 05-experiência com jornada visual, 06-stack com diagrama, 07-roadmap checklist)
+- Fit Score (0-100) + label + rationale
+- Tamanho de mercado + rationale
+- blueprint.md (para uso em LLMs)
+- blueprint.json (para build técnico)
+
+### Webhook ASAAS → OMA Ideias
+Implementado em dois lugares:
+1. **oma-clients-api** (`/opt/oma-clients/server.js`) — detecta valor, cria case, envia email
+2. **NanoClaw** (`~/nanoclaw/src/whatsapp/runner.ts`) — registra produto no portal do cliente
+
+---
+
+## Portal do Cliente
+
+- **URL:** `https://onemanarmyproject.com.br/portal`
+- **Frontend:** `~/oma-project-site/portal.html` (Vercel)
+- **Backend:** `localhost:3000` no Mac Mini via NanoClaw (`src/whatsapp/runner.ts`)
+- **Exposição:** Cloudflare Tunnel → `https://alexa.pipeeyewear.com.br`
+- **Auth:** Magic Link por email → token 7 dias
+- **Banco:** `~/nanoclaw/store/predictions.db` (tabelas: portal_clients, portal_products, portal_tokens)
+- **Card OMA Ideias:** ícone 📐, `product_type: 'ideias'`, link para `?case_id=X`, score badge
+- **ICONS mapa:** `{predictions:'🔮', scribe:'🎙️', recap:'📊', agentes:'🤖', ideias:'📐'}`
+
+---
+
+## DNS — Cloudflare
+
+**Zone ID:** `2240ff4dfe6bf27d55a5977343271ff3`
+
+| Tipo | Nome | Destino | Proxy |
+|------|------|---------|-------|
+| A | `onemanarmyproject.com.br` | `216.198.79.1` | ✅ |
+| CNAME | `www` | Vercel | ✅ |
+| A | `api` | `204.168.168.61` (Hetzner) | ✅ |
+| A | `insights` | `204.168.168.61` (Hetzner) | ❌ |
+| A | `agents` | `204.168.168.61` (Hetzner) | ❌ | ← NOVO
+| CNAME | `academy` | Vercel | ✅ |
+| CNAME | `hub` | Vercel | ✅ |
 
 ---
 
@@ -47,200 +140,17 @@ insights.onemanarmyproject.com.br → Hetzner :3093 (PM2 oma-ia-insights)
 ```bash
 # Site público
 cd ~/oma-project-site && git add -A && git commit -m "msg" && git push origin main
-npx vercel --prod --yes --token "vcp_****************************VERCEL_TOKEN_NO_ENV****" --scope 1manarmyproject-6412s-projects
+npx vercel --prod --yes --token "$VERCEL_TOKEN"
 
 # IA Insights (frontend)
 rsync -az ~/oma-ia-insights-sandbox/src/frontend/index.html root@204.168.168.61:/opt/oma-ia-insights/src/frontend/index.html && ssh root@204.168.168.61 "pm2 restart oma-ia-insights"
 
-# IA Insights (backend completo)
-rsync -az --exclude='node_modules' --exclude='logs' --exclude='dist' ~/oma-ia-insights-sandbox/src/ root@204.168.168.61:/opt/oma-ia-insights/src/ && ssh root@204.168.168.61 "pm2 restart oma-ia-insights"
+# OMA Ideias (editar direto no Hetzner via python patches ou scp)
+ssh root@204.168.168.61 "pm2 restart oma-ideias"
+
+# NanoClaw (após editar runner.ts ou qualquer src/)
+cd ~/nanoclaw && npm run build && launchctl kickstart -k gui/$(id -u)/com.nanoclaw
 ```
-
----
-
-## DNS — Cloudflare
-
-**Zone ID:** `2240ff4dfe6bf27d55a5977343271ff3`
-**Token DNS:** `CF_DNS_TOKEN` no `.env` do NanoClaw
-
-| Tipo | Nome | Destino | Proxy |
-|------|------|---------|-------|
-| A | `onemanarmyproject.com.br` | `216.198.79.1` | ✅ |
-| CNAME | `www` | `ba97a2bdb9694111.vercel-dns-017.com` | ✅ |
-| A | `api` | `204.168.168.61` (Hetzner) | ✅ |
-| A | `insights` | `204.168.168.61` (Hetzner) | ❌ (direto) |
-| CNAME | `academy` | `cname.vercel-dns.com` | ✅ |
-| CNAME | `hub` | `cname.vercel-dns.com` | ✅ |
-
----
-
-## Botão IA Insights no Nav
-
-Adicionado em todas as páginas do site público (sessão abril/2026):
-- `index.html` ✅
-- `index-v2.html` ✅
-- `agentes.html` ✅
-- `solutions.html` ✅
-
-**CSS padrão do badge:**
-```css
-.nav-insights {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: #e8703a; border: 1px solid rgba(232,112,58,.4);
-  padding: 6px 12px; text-decoration: none; transition: all .2s;
-}
-.nav-insights:hover { background: rgba(232,112,58,.1); }
-```
-
----
-
-## OMA IA Insights — Design System Completo
-
-### URLs
-- **Produção:** `https://insights.onemanarmyproject.com.br`
-- **Legacy:** `https://api.onemanarmyproject.com.br/ia-insights/`
-- **Health:** `https://api.onemanarmyproject.com.br/ia-insights/health`
-
-### Infraestrutura
-- **Hetzner:** `root@204.168.168.61`, porta `3093`, PM2 `oma-ia-insights` (id 3)
-- **Nginx:** `/etc/nginx/sites-enabled/oma-api`
-- **Logs:** `/opt/oma-ia-insights/logs/interactions-YYYY-MM-DD.jsonl`
-- **ENV:** `/opt/oma-ia-insights/.env` (ANTHROPIC_API_KEY, GROQ_API_KEY, PERPLEXITY_API_KEY)
-
-### Paleta de Cores (tema creme — padrão atual)
-```css
-:root {
-  --fire:   #c85820;   /* laranja OMA — ajustado para contraste no creme */
-  --ember:  #a04010;
-  --char:   #f5f0e8;   /* fundo base: creme quente */
-  --coal:   #ede8df;   /* fundo cards */
-  --iron:   #e8e2d8;   /* input box */
-  --steel:  #cec8be;   /* bordas */
-  --ash:    #7a7068;   /* texto desabilitado */
-  --fog:    #5a5048;   /* texto secundário */
-  --bone:   #2a2018;   /* texto principal: carvão quente */
-  --white:  #1a1008;   /* texto máximo */
-  --b1:     #ddd8ce;
-  --b2:     #c8c2b8;
-  --b3:     #b8b2a8;
-}
-```
-
-**Nota:** o NAV usa cores hardcoded escuras independentes da paleta creme:
-```css
-nav { background: rgba(8,8,8,.96); }
-.nav-links a { color: #999; }
-.nav-logo { color: #e4ddd3; }
-```
-
-### Tipografia
-| Uso | Fonte | Peso | Tamanho |
-|-----|-------|------|---------|
-| Headlines hero | Playfair Display | 900 | 72-96px |
-| Labels/botões | Barlow Condensed | 900 | 10-13px |
-| Corpo | Barlow | 300-400 | 14-17px |
-| Mono/labels técnicos | Space Mono | 400 | 9-11px |
-
-### Layout Principal
-```
-Grid: 1fr 220px (input col + preview col)
-Max-width: 1280px
-Padding: 0 48px
-Breakpoint: 900px → 1fr (preview some)
-```
-
-### Componentes Chave
-
-**Caixa de input:**
-```css
-.input-box {
-  background: var(--iron);
-  border: 1px solid rgba(255,255,255,.13);
-  border-top: 3px solid var(--fire);  /* detalhe laranja no topo */
-}
-textarea { min-height: 224px; font-size: 17px; }
-```
-
-**Botão Perguntar (estado ativo):**
-```css
-background: #e8521a; color: #080808;
-font-family: 'Barlow Condensed'; font-weight: 900;
-letter-spacing: .12em; text-transform: uppercase;
-padding: 12px 32px; border: none;
-```
-
-**Chips de exemplo:**
-```css
-.chip { font-size: 13px; font-weight: 300; color: rgba(42,32,24,.5); border: 1px solid rgba(42,32,24,.18); }
-.chip-px { border-color: rgba(200,88,32,.25); }  /* chips que disparam Perplexity */
-.chip-px::before { content: '⚡ '; }
-```
-
-**Preview card (índice lateral):**
-```css
-.pv-card { border-left: 2px solid rgba(200,88,32,.25); background: transparent; }
-/* Blocos como linhas compactas — sem texto descritivo, só título + bullet */
-```
-
-**Botões de exportação (fim da resposta):**
-```css
-.btn-export { border: 1px solid var(--steel); font-family: 'Barlow Condensed'; font-size: 12px; font-weight: 700; letter-spacing: .12em; padding: 8px 16px; }
-/* WhatsApp → wa.me/?text=... */
-/* Email → clipboard copy com feedback visual "✓ Copiado!" */
-```
-
-### Motor (Backend)
-```
-Classificador → intent_primary + theme_primary + maturity_level
-Router → route_type: oma_only | oma_plus_external | short_response | guardrail_exit
-Composer → Claude Haiku 4.5 + Perplexity sonar (quando oma_plus_external)
-```
-
-**Quando Perplexity é chamado:**
-- Tema `llm` ou `custos` + qualquer intenção
-- Tema `stack` + intenção `practical/exploratory` + maturidade `intermediate/advanced`
-- Custo médio: ~$0.007/query com Perplexity, ~$0.001 sem
-
-**Chips que garantem Perplexity:**
-- "⚡ Qual a diferença entre GPT-4, Claude e Gemini para atendimento?"
-- "⚡ Quanto custa rodar um agente de IA por mês na prática?"
-
-### API Endpoints
-```
-POST /v1/session         → cria sessão
-POST /v1/query           → query principal
-POST /v1/feedback        → thumbs up/down
-POST /v1/cta-events      → rastreia cliques no CTA
-POST /v1/audio/transcribe → Groq Whisper
-```
-
----
-
-## Próximos Passos Planejados
-
-1. **Revisão paleta creme no site inteiro** — página por página, sandbox primeiro
-2. **Link IA Insights no nav** — agent-*.html (páginas individuais dos agentes)
-3. **Curadoria FAQs das verticais** — advocacia, clínica, ótica, condomínio, distribuidora
-4. **Subdomínio próprio insights.*** — ✅ já feito
-
----
-
-## NanoClaw — Regras de Build
-
-**save-server (webchat da Bia):**
-- Arquivo: `~/nanoclaw/src/save-server.js` (contém TypeScript apesar da extensão .js)
-- Compilado para: `~/nanoclaw/dist/save-server.js`
-- Launchctl usa: `dist/save-server.js` — **nunca** `src/save-server.js` diretamente
-- Após qualquer edição: `cd ~/nanoclaw && npm run build`
-- Reiniciar: `launchctl kickstart -k gui/$(id -u)/com.nanoclaw.save-server`
-- Verificar: `curl http://localhost:3104/health`
-
-Se o save-server cair (Bia não responde no webchat):
-1. `tail -20 ~/nanoclaw/logs/save-server.error.log` — ver o erro
-2. Se `SyntaxError` → esqueceram de buildar antes de reiniciar
-3. Se `require is not defined` → versão antiga sem build no dist
-4. Fix: `npm run build && launchctl kickstart -k gui/$(id -u)/com.nanoclaw.save-server`
 
 ---
 
@@ -252,122 +162,9 @@ Se o save-server cair (Bia não responde no webchat):
 4. **DNS via CF_DNS_TOKEN** — qualquer alteração DNS
 5. **Insights via rsync** — nunca editar diretamente no Hetzner
 6. **Nav do Insights é hardcoded escuro** — independente da paleta da página
+7. **OMA Ideias — 100% Hetzner** — Mac Mini não participa da produção
+8. **Agent Manager chave de serviço** — `oma-agent-manager-2026-e0bd41acabd76eeb`
 
 ---
 
-*Atualizado em abril/2026 — sessão OMA IA Insights (design, motor, deploy, URL, paleta creme)*
-
----
-
-### Sessão 12/04/2026 — OMA IA Insights: nav, email export, Bia, save-server
-
-#### Funcionalidades entregues
-
-**Nav IA Insights em todas as páginas do site:**
-- Botão `.nav-insights` adicionado em: `index.html`, `index-v2.html`, `agentes.html`, `solutions.html`
-- CSS do badge: Space Mono 10px, borda laranja, hover sutil
-- `solutions.html` tem nav diferente (sem ul) — botão inserido antes do "Meu Portal" via inline style
-
-**Nav do Insights corrigido:**
-- Cores hardcoded escuras independentes da paleta creme da página
-- `.nav-logo { color: #e4ddd3 }`, `.nav-links a { color: #999 }` — não herdam variáveis CSS do body
-
-**Watermark editorial na resposta:**
-- `.resp-watermark` — linha discreta separando resposta do feedback
-- Esquerda: `⬛ ONE MAN ARMY PROJECT` (Space Mono, 35% opacidade)
-- Direita: botão laranja sólido `CONHEÇA O OMA →` linkando para home
-
-**Email export com dropdown:**
-- Botão E-MAIL abre dropdown inline (`.email-drop`) com: Nome*, Empresa, E-mail*, Telefone
-- Submit → `POST https://api.onemanarmyproject.com.br/insights/send-email`
-- Grava lead na tabela `leads` com `origem='insights'`
-- Envia email via Gmail API: `From: OMA IA Insights <atendimento@onemanarmy.com.br>`
-- BCC automático para `atendimento@onemanarmy.com.br`
-- HTML do email espelha a página: blocos, CTA, referências com badges, followup, rodapé escuro
-
-**Variáveis expostas no window (CRÍTICO — todas dentro do IIFE):**
-```js
-window.oT = oT          // toggle do chat Bia
-window.oS = oS          // enviar msg Bia
-window.lastQ = ''       // última pergunta feita (capturado em send())
-window.lastD = null     // último objeto de resposta completo (capturado após fetch /v1/query)
-window.IS_SUBDOMAIN = IS_SUBDOMAIN
-window._wcInit = wInit
-```
-**Regra:** qualquer variável do IIFE que precise ser acessada por elementos criados dinamicamente (dropdowns, botões de export) DEVE ser exposta no window.
-
-#### Bugs corrigidos
-
-**save-server crashando (Bia não respondia no webchat):**
-- Causa: `src/save-server.js` tem TypeScript mas extensão `.js`; plist chamava `node` direto
-- Fix: `cp src/save-server.js src/save-server.ts && npm run build`
-- Plist atualizado para: `node dist/save-server.js`
-- Verificar: `curl http://localhost:3104/health`
-- Diagnóstico completo em `ARCHITECTURE_v2.md` — seção "Regras Críticas de Build"
-
-**CORS — Bia não respondia no chat do Insights:**
-- Causa: `insights.onemanarmyproject.com.br` não estava na lista `allowed` do `oma-clients-api`
-- Fix: adicionado ao array CORS no `/opt/oma-clients/server.js`
-
-**`google is not defined` no send-email:**
-- Causa: `import { google } from 'googleapis'` estava faltando no server.js
-- Fix: adicionado após `import Database from 'better-sqlite3'`
-
-**`lastQ is not defined` / `lastD vazio` no email:**
-- Causa: variáveis dentro do IIFE não acessíveis pelo dropdown criado dinamicamente
-- Fix: expor no `window` e capturar com `window.lastQ=msg` e `window.lastD=d`
-
-**Email sem conteúdo (só cabeçalho + pergunta + rodapé):**
-- Causa: `response_data: window.lastD||{}` mas `window.lastD` era `null` (não estava exposto)
-- Fix: `window.lastD=null` declarado + `window.lastD=d` capturado após `/v1/query`
-
-#### Instagram corrigido
-- Texto: `@1manarmy_project` → `@onemanarmy.ai`
-- Link: `instagram.com/1manarmy_project` → `https://instagram.com/onemanarmy.ai/`
-
-#### Rotas novas no Hetzner (`/opt/oma-clients/server.js`)
-- `POST /insights/send-email` — adicionada à `publicPaths`
-- Recebe: `{nome, empresa, email, telefone, pergunta, response_data}`
-- `response_data` é o objeto `lastD` completo: `response_blocks`, `references`, `cta_primary`, `followup_prompt`
-
-
----
-
-### Sessão 12/04/2026 (continuação) — CRM canais dinâmicos + Pipeline fix
-
-#### CRM — Canais Dinâmicos
-
-**Problema:** canais hardcoded no sidebar (`WhatsApp`, `Instagram`, `Site`, `Indicação`).
-Qualquer nova origem não aparecia sem editar o código.
-
-**Fix aplicado em `crm.html`:**
-- `mapL()` usa `_canalMap` com aliases conhecidos + fallback automático para capitalizar origens desconhecidas
-- Sidebar de canais gerado dinamicamente em `stats()` — mostra apenas canais existentes, ordenados por volume
-- Emoji automático por canal; origens novas ganham `📌` por padrão
-
-**Mapa de aliases atual:**
-```js
-{'webchat':'Webchat','whatsapp':'WhatsApp','bia':'WhatsApp',
- 'instagram':'Instagram','academy':'Academia','rex_telegram':'Telegram',
- 'insights':'Site','indicacao':'Indicação','roi_calculator':'Site','manual':'Manual'}
-```
-
-**Regra:** ao criar novo canal de captação, basta gravar `origem` corretamente no banco.
-O CRM detecta e exibe automaticamente. Nunca mais editar o código para novo canal.
-
-#### CRM — Bug Pipeline (leads Insights não apareciam)
-
-**Causa raiz:** rota `POST /insights/send-email` gravava `status='lead'` no banco.
-O Pipeline Kanban aceita apenas: `novo`, `qualificado`, `conversa`, `agendado`, `proposta`, `cliente`, `perdido`.
-Status `'lead'` não era um stage válido — card existia na lista mas não aparecia em nenhuma coluna.
-
-**Fixes:**
-1. Banco: `UPDATE leads SET status='novo' WHERE status='lead'` (2 registros corrigidos)
-2. Servidor: INSERT do Insights agora grava `'novo'` em vez de `'lead'`
-3. CRM `mapL()`: stage validado — qualquer valor inválido → `'novo'`
-
-#### CRM — init() robusto
-
-**Fix:** `init()` reescrito com `try/catch/finally` — `render()` e `stats()` sempre executados
-mesmo que qualquer parte do carregamento falhe. Meta tags `no-cache` adicionadas ao HTML.
-
+*Última atualização: 13/04/2026 — sessão OMA Ideias completa*
