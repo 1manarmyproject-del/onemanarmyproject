@@ -281,3 +281,37 @@ Para ativar R$349,90 (desligar modo teste):
 - **Antes:** `href="#"` — levava ao topo da página
 - **Depois:** `href="https://insights.onemanarmyproject.com.br/?utm_source=ideias&case_id=X"`
 - Abre em `target="_blank"`, preenchido dinamicamente no `loadDeliveryScreen()`
+
+---
+
+## Segurança nos Checkouts — Padrão OMA (13/04/2026)
+
+### Padrão implementado em todos os produtos com checkout
+
+Todos os checkouts OMA exibem um rodapé de segurança com 4 elementos:
+
+```
+🔒 SSL Seguro   [PCI DSS] Nível 1   Cobrança por ASAAS (link)   Dados não armazenados pelo OMA
+```
+
+**Estilo:** `Space Mono`, 8-9px, uppercase, discreto. Cores: laranja `rgba(200,88,32,...)` para destaques, cinza/bone para texto. Borda superior separadora.
+
+### Por produto
+
+**OMA Ideias** (`/opt/oma-ideias-sandbox/public/index.html`)
+- **Camada 1:** Rodapé do modal de checkout (`.ck-overlay`) — aparece em todas as etapas
+- **Camada 2:** Abaixo do CTA na landing, após "Texto ou áudio. Sem briefing complexo." — linha com ícone de cadeado SVG + "Pagamento seguro via ASAAS · PCI DSS · Dados criptografados"
+
+**OMA Scribe** (`/Users/georgejetson/oma-project-site/scribe.html`)
+- Rodapé do modal `.co-security` — mesmo padrão 4 elementos
+- Fundo escuro (tema Scribe): cores `rgba(228,221,211,...)` e `rgba(200,88,32,...)`
+
+**OMA Predictions / demais produtos** (`/Users/georgejetson/oma-project-site/oma-checkout.js`)
+- Componente compartilhado `.oma-co-sec` — mesmo padrão 4 elementos
+- Aplica-se a: Predictions, ROI, e qualquer produto que use `oma-checkout.js`
+
+### Por que ASAAS
+- Processador oficial de todos os pagamentos OMA
+- Certificação PCI DSS Nível 1 (mais alto nível)
+- O OMA não armazena dados de cartão — processamento 100% via ASAAS
+- Link sempre aponta para `https://www.asaas.com` com `target="_blank" rel="noopener"`
