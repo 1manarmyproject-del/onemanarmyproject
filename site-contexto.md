@@ -168,3 +168,91 @@ cd ~/nanoclaw && npm run build && launchctl kickstart -k gui/$(id -u)/com.nanocl
 ---
 
 *Última atualização: 13/04/2026 — sessão OMA Ideias completa*
+
+---
+
+## Checkout OMA Ideias — Modelo Nativo (13/04/2026)
+
+### Princípio
+O checkout OMA Ideias segue o mesmo padrão do OMA Scribe: **100% dentro da experiência OMA**, sem redirecionar para o ASAAS em momento algum. O cliente paga sem sair da página.
+
+### Componentes
+
+**Frontend — `/opt/oma-ideias-sandbox/public/index.html`**
+
+Variáveis de controle:
+```js
+var MODO_TESTE = true;  // false = produção R$349,90 | true = teste R$5
+```
+
+Fluxo do modal `.ck-overlay`:
+1. Botão CTA → `openCheckout()` → modal abre com título e preço dinâmicos
+2. Step 1 (dados): Nome + Email + CPF + WhatsApp → `ckContinuar()`
+3. Step 2 (pagamento): tabs PIX / Cartão
+   - **PIX**: `ckGerarPix()` → `POST /ideias/checkout/pix` → QR Code real → polling 3s → confirma
+   - **Cartão**: `ckPagarCard()` → `POST /ideias/checkout/card` → aprovação imediata
+4. Tela de sucesso → redirect automático após 2s para `start?email=X`
+
+**Backend — `/opt/oma-clients/server.js`**
+
+Rotas expostas (publicPaths):
+```
+POST /ideias/checkout/pix    → cria customer ASAAS + cobrança PIX + retorna QR Code
+POST /ideias/checkout/card   → cria customer ASAAS + pagamento cartão direto
+GET  /ideias/checkout/status/:paymentId → polling de confirmação (confirmed: true/false)
+```
+
+Lógica interna:
+- `getOrCreateAsaasCustomer()` — busca cliente por email no ASAAS, cria se não existir
+- Após aprovar pagamento → chama `POST /internal/authorize-email` no oma-ideias
+- Valores: `IDEIAS_VALUE_PROD = 349.90` | `IDEIAS_VALUE_TESTE = 5.00`
+
+**Backend — `/opt/oma-ideias/src/server.js`**
+
+Rotas internas:
+```
+POST /internal/authorize-email   → grava email na tabela authorized_emails (chave protegida)
+GET  /api/v1/auth/check?email=X  → verifica se email está autorizado + retorna case_id se existir
+```
+
+Tabela: `authorized_emails` em `/opt/oma-ideias/oma-ideias.db`
+```sql
+email, customer_name, payment_id, paid_at, case_id, modo_teste
+```
+
+**Frontend — `/opt/oma-ideias-sandbox/public/start.html`**
+
+Parâmetro `?email=X` no init():
+- Se email autorizado + sem case → intake com email pré-preenchido
+- Se email autorizado + com case → vai direto para o case
+- Se não autorizado → intake normal (sem restrição)
+
+### Fluxo completo pós-pagamento
+
+```
+1. Cliente paga (PIX confirmado ou cartão aprovado)
+2. Frontend detecta confirmação → mostra tela de sucesso
+3. Após 2s → redireciona para start?email=X
+4. start.html chama GET /api/v1/auth/check?email=X
+5. Resposta: authorized=true, case_id=null (ainda sem case)
+6. Cliente digita a ideia → POST /cases/text-intake com email pré-preenchido
+7. Case criado → fluxo normal (briefing → agentes → blueprint)
+
+Alternativo (via webhook ASAAS):
+1. ASAAS confirma pagamento → webhook chama POST /ideias/checkout do oma-clients
+2. oma-clients chama POST /internal/authorize-email no oma-ideias
+3. Email registrado na tabela authorized_emails
+4. Email enviado para cliente com link start?email=X
+```
+
+### Ativar produção
+
+Para ativar R$349,90 (desligar modo teste):
+1. `/opt/oma-ideias-sandbox/public/index.html` linha ~1291: `var MODO_TESTE = false;`
+2. Verificar que webhook ASAAS em `/opt/oma-clients/server.js` detecta `value >= 349 && value <= 350`
+
+### Links ASAAS criados via API (13/04/2026)
+- Teste R$5: `https://www.asaas.com/c/xnx6pyj2zo2gr004`
+- PIX R$349,90: `https://www.asaas.com/c/u5w9jrhdc20azcsp`
+- Cartão R$349,90: `https://www.asaas.com/c/ifc2rr706g9fbs2m`
+(Links de backup — não usados no checkout nativo, apenas como fallback)
