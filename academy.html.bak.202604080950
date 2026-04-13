@@ -61,14 +61,14 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 .s-nav{padding:8px 0 24px;}
 .s-phase-label{
   padding:14px 20px 6px;
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;
-  text-transform:uppercase;color:#777;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;color:#666;
   display:flex;align-items:center;gap:8px;
 }
 .s-phase-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .s-module{
   display:flex;align-items:center;gap:10px;
-  padding:10px 20px;cursor:pointer;
+  padding:8px 20px;cursor:pointer;
   transition:background .15s;
   border-left:3px solid transparent;
 }
@@ -83,7 +83,7 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
   transition:background .2s,color .2s;
 }
 .s-module.active .s-mod-icon{background:var(--fire);color:#fff;}
-.s-mod-label{font-size:14px;color:#c8c2bc;line-height:1.4;}
+.s-mod-label{font-size:13px;color:#aaa;line-height:1.3;}
 .s-module.active .s-mod-label,.s-module:hover .s-mod-label{color:#e0d9cf;}
 .s-module.done .s-mod-label{color:#777;}
 
@@ -166,26 +166,25 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 
 /* Continue CTA */
 .continue-cta{
-  background:var(--char);border-radius:10px;
+  background:var(--fire);border-radius:10px;
   padding:20px 24px;margin-bottom:28px;
   display:flex;align-items:center;justify-content:space-between;
   gap:16px;flex-wrap:wrap;cursor:pointer;
   transition:background .2s,transform .15s;
-  border-left:4px solid var(--fire);
-  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  box-shadow:0 4px 12px rgba(232,112,58,.3);
 }
-.continue-cta:hover{background:#1a1a1a;transform:translateY(-1px);}
-.cc-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:5px;}
-.cc-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:#fff;margin-bottom:2px;}
-.cc-meta{font-size:12px;color:#888;}
+.continue-cta:hover{background:var(--ember);transform:translateY(-1px);}
+.cc-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:5px;}
+.cc-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:#fff;margin-bottom:2px;}
+.cc-meta{font-size:12px;color:rgba(255,255,255,.7);}
 .cc-btn{
-  background:var(--fire);border:none;
-  color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:900;
-  font-size:13px;letter-spacing:1px;padding:11px 22px;
-  cursor:pointer;white-space:nowrap;flex-shrink:0;border-radius:6px;
+  background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);
+  color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:1px;padding:10px 20px;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;border-radius:4px;
   transition:background .15s;
 }
-.cc-btn:hover{background:var(--ember);}
+.cc-btn:hover{background:rgba(255,255,255,.3);}
 
 /* Phase map */
 .section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
@@ -198,7 +197,7 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 .phase-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--border2);}
 .phase-card.pc-done{border-left:3px solid var(--green);}
 .phase-card.pc-active{border-left:3px solid var(--fire);}
-.pc-icon{width:36px;height:36px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border-radius:8px;color:var(--text2);}
+.pc-icon{font-size:22px;margin-bottom:8px;}
 .pc-num{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text4);margin-bottom:3px;}
 .pc-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin-bottom:6px;}
 .pc-sub{font-size:11px;color:var(--text3);line-height:1.4;margin-bottom:10px;}
@@ -1221,38 +1220,38 @@ select.precert-input{cursor:pointer;}
 .tg-intro-banner{background:linear-gradient(135deg,var(--fire-light) 0%,#fff 100%);border:1px solid var(--fire-mid);border-radius:10px;padding:16px 18px;margin-bottom:16px;}
 .tg-intro-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:4px;}
 .tg-intro-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;color:var(--text);line-height:1.2;margin-bottom:6px;}
-.tg-intro-sub{font-size:13px;color:#888;line-height:1.65;}
+.tg-intro-sub{font-size:13px;color:var(--text2);line-height:1.65;}
 .tg-type-block{margin-bottom:20px;}
 .tg-type-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:8px 12px;border-radius:7px;}
 .tg-type-header.especialidade{background:#eef2ff;border:1px solid #c7d2fe;}
-.tg-type-header.vertical{background:rgba(232,112,58,.08);border:1px solid rgba(232,112,58,.2);}
+.tg-type-header.vertical{background:#fef0e8;border:1px solid #f4b08a;}
 .tg-type-icon{font-size:16px;}
 .tg-type-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
 .tg-type-header.especialidade .tg-type-label{color:#4338ca;}
 .tg-type-header.vertical .tg-type-label{color:var(--fire);}
-.tg-type-desc{font-size:12px;color:var(--text3);margin-top:2px;}
+.tg-type-desc{font-size:12px;color:var(--text2);margin-top:2px;}
 .tg-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
-.tg-card{background:var(--char);border:1px solid #2a2a2a;border-radius:9px;padding:16px;cursor:pointer;transition:box-shadow .15s,transform .15s,border-color .15s;position:relative;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.25);}
+.tg-card{background:#fff;border:1px solid var(--border2);border-radius:9px;padding:16px;cursor:pointer;transition:box-shadow .15s,transform .15s,border-color .15s;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1);}
 .tg-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
 .tg-card.locked{cursor:default;}
 .tg-card.locked:hover{transform:none;box-shadow:var(--shadow);}
 .tg-card.purchased{border-color:#86efac;border-left:3px solid var(--green);}
 .tg-card-badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 8px;margin-bottom:8px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;}
 .tg-card-badge.especialidade{background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;}
-.tg-card-badge.vertical{background:rgba(232,112,58,.12);color:var(--fire);border:1px solid rgba(232,112,58,.2);}
+.tg-card-badge.vertical{background:var(--fire-light);color:var(--fire);border:1px solid var(--fire-mid);}
 .tg-card-badge.purchased-badge{background:var(--green-light);color:var(--green);border:1px solid #86efac;}
-.tg-card-icon{width:36px;height:36px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;background:#1e1e1e;border-radius:8px;color:#888;}
-.tg-card-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;color:#e8e2da;line-height:1.2;margin-bottom:5px;}
-.tg-card-promise{font-size:12px;color:#888;line-height:1.5;margin-bottom:10px;}
-.tg-card-price{font-family:'Space Mono',monospace;font-size:11px;color:#666;margin-bottom:8px;}
+.tg-card-icon{width:36px;height:36px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border-radius:8px;color:var(--text2);}
+.tg-card-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;color:var(--text);line-height:1.2;margin-bottom:5px;}
+.tg-card-promise{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px;}
+.tg-card-price{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:8px;}
 .tg-card-price strong{color:var(--fire);font-size:15px;font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.5px;}
 .tg-card-cta{width:100%;border:none;padding:9px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:5px;transition:all .15s;}
 .tg-card-cta.buy{background:var(--fire);color:#fff;}
 .tg-card-cta.buy:hover{background:var(--ember);}
 .tg-card-cta.open{background:var(--green);color:#fff;}
 .tg-card-cta.open:hover{background:#15803d;}
-.tg-card-cta.preview{background:#f5f0e8;color:#3d3830;border:1px solid #ccc6bc;font-weight:700;}
-.tg-card-cta.preview:hover{background:#ede8df;}
+.tg-card-cta.preview{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.tg-card-cta.preview:hover{background:var(--bg4);}
 .tg-card-lock{position:absolute;top:10px;right:10px;font-size:14px;opacity:.35;}
 /* Screen de trilha */
 .trail-screen{padding:0 0 80px;}
@@ -1328,17 +1327,17 @@ select.precert-input{cursor:pointer;}
 .s-tg-section{border-top:1px solid #2a2a2a;padding-top:12px;margin-top:8px;}
 .s-tg-label{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text4);padding:0 20px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .s-tg-label::after{content:'';flex:1;height:1px;background:#2a2a2a;}
-.s-tg-type-sep{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:10px 20px 5px;display:flex;align-items:center;gap:6px;font-weight:700;}
+.s-tg-type-sep{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:8px 20px 4px;display:flex;align-items:center;gap:6px;font-weight:700;}
 .s-tg-type-sep.especialidade{color:#4338ca;}
 .s-tg-type-sep.vertical{color:var(--fire);}
-.s-tg-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:background .12s;border-left:3px solid transparent;}
+.s-tg-item{display:flex;align-items:center;gap:9px;padding:7px 20px;cursor:pointer;transition:background .12s;border-left:3px solid transparent;}
 .s-tg-item:hover{background:var(--bg3);}
 .s-tg-item.active{background:var(--fire-light);border-left-color:var(--fire);}
 .s-tg-item.locked{opacity:.4;cursor:not-allowed;}
 .s-tg-item.locked:hover{background:transparent;}
 .s-tg-icon{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#888;}
 .s-tg-info{flex:1;min-width:0;}
-.s-tg-name{font-size:14px;color:#ddd8d2;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-tg-name{font-size:13px;color:#d4cfc9;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .s-tg-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase;}
 .s-tg-badge.especialidade{background:#eef2ff;color:#4338ca;}
 .s-tg-badge.vertical{background:var(--fire-light);color:var(--fire);}
@@ -1797,13 +1796,6 @@ select.precert-input{cursor:pointer;}
   max-width:480px;margin:0 auto 28px;line-height:1.7;
 }
 
-
-.tg-card-price-wrap{margin-bottom:10px;}
-.tg-card-price-de{font-family:'Space Mono',monospace;font-size:10px;color:#777;margin-bottom:2px;letter-spacing:.5px;}
-.tg-card-price-de span{text-decoration:line-through;color:#555;}
-.tg-card-price-por{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;color:var(--fire);letter-spacing:.5px;line-height:1;margin-bottom:3px;}
-.tg-card-price-cond{font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);letter-spacing:.5px;opacity:.8;}
-
 /* ── SKELETON ────────────────────────────────────────────── */
 .skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200%;animation:shimmer 1.4s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -1836,7 +1828,6 @@ select.precert-input{cursor:pointer;}
 #sara-snd:disabled{opacity:.4;cursor:not-allowed;}
 @media(max-width:480px){#sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}#sara-bubble{right:16px;bottom:16px;}}
 </style>
-<script src="/tracker.js" defer></script>
 </head>
 <body>
 <div id="sara-bubble" onclick="saraToggle()" title="Precisa de ajuda?">
@@ -2129,17 +2120,17 @@ select.precert-input{cursor:pointer;}
 
           <div class="intro-pillars">
             <div class="intro-pillar">
-              <div class="intro-pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-4.66A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-4.66A2.5 2.5 0 0 0 14.5 2z"/></svg></div>
+              <div class="intro-pillar-icon">🧠</div>
               <div class="intro-pillar-title">Entender</div>
               <div class="intro-pillar-desc">Fundamentos gratuitos — vocabulário, conceitos, fluência</div>
             </div>
             <div class="intro-pillar">
-              <div class="intro-pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+              <div class="intro-pillar-icon">🔧</div>
               <div class="intro-pillar-title">Construir</div>
               <div class="intro-pillar-desc">Trilhas guiadas por especialidade e por vertical</div>
             </div>
             <div class="intro-pillar">
-              <div class="intro-pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+              <div class="intro-pillar-icon">🚀</div>
               <div class="intro-pillar-title">Operar</div>
               <div class="intro-pillar-desc">Sistema rodando — ou handoff para o OMA executar</div>
             </div>
@@ -2213,7 +2204,7 @@ select.precert-input{cursor:pointer;}
     <div class="screen active" id="screenDash">
       <div class="dash fadein">
         <div class="dash-hero">
-          <div class="dash-hello">Ol&#225;, <span id="dashName">&#8212;</span> </div>
+          <div class="dash-hello">Ol&#225;, <span id="dashName">&#8212;</span> &#x1F44B;</div>
           <div class="dash-sub" id="dashSub">Carregando progresso...</div>
         </div>
         <div class="stats-row">
@@ -2562,7 +2553,7 @@ select.precert-input{cursor:pointer;}
                 <label class="precert-label">Como nos encontrou?</label>
                 <select class="precert-input" id="pcOrigin">
                   <option value="">Selecione...</option>
-                  <option>Instagram @onemanarmy.ai</option>
+                  <option>Instagram @1manarmy_project</option>
                   <option>Instagram @fabio_xavier_br</option>
                   <option>Indicação de amigo/colega</option>
                   <option>LinkedIn</option>
@@ -2872,350 +2863,9 @@ select.precert-input{cursor:pointer;}
   </div>
 </div>
 
-
-<script>
-/**
- * OMA Checkout — Componente nativo reutilizável
- * Uso: omaCheckout.open({ product, value, description, email, onSuccess })
- * Não depende de nenhum framework. Injeta CSS+HTML automaticamente.
- */
-(function(global) {
-  'use strict';
-
-  var API = 'https://api.onemanarmyproject.com.br';
-  var _injected = false;
-  var _pollInterval = null;
-  var _cfg = {};
-
-  // ── CSS ──────────────────────────────────────────────────────────
-  var CSS = `
-.oma-co-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9500;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px);}
-.oma-co-overlay.open{display:flex;}
-.oma-co-box{background:#0f0f0f;border:1px solid #2a2a2a;width:100%;max-width:460px;max-height:92vh;overflow-y:auto;position:relative;animation:oma-co-in .2s ease;}
-@keyframes oma-co-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.oma-co-hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:18px 22px;display:flex;align-items:flex-start;justify-content:space-between;}
-.oma-co-hdr-info{flex:1;}
-.oma-co-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#e8703a;margin-bottom:4px;}
-.oma-co-title{font-family:'Black Ops One',cursive;font-size:20px;color:#e0d9cf;letter-spacing:1px;}
-.oma-co-price{font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-top:3px;}
-.oma-co-x{background:none;border:none;color:#555;font-size:22px;cursor:pointer;padding:2px 6px;line-height:1;margin-left:12px;}
-.oma-co-x:hover{color:#e0d9cf;}
-.oma-co-body{padding:22px;}
-/* Steps */
-.oma-co-step{display:none;}
-.oma-co-step.active{display:block;}
-/* Labels e inputs */
-.oma-co-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#666;display:block;margin-bottom:5px;}
-.oma-co-input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:11px 13px;font-size:14px;font-family:'Barlow',sans-serif;outline:none;margin-bottom:14px;transition:border-color .15s;}
-.oma-co-input:focus{border-color:#e8703a;}
-.oma-co-input::placeholder{color:#3a3a3a;}
-.oma-co-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-/* Tabs PIX / Cartão */
-.oma-co-tabs{display:flex;margin-bottom:20px;border:1px solid #2a2a2a;}
-.oma-co-tab{flex:1;padding:11px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;cursor:pointer;border:none;background:#1a1a1a;color:#555;transition:all .15s;}
-.oma-co-tab.active{background:#e8703a;color:#000;font-weight:700;}
-.oma-co-tab:not(.active):hover{background:#242424;color:#888;}
-/* Botão principal */
-.oma-co-btn{width:100%;background:#e8703a;border:none;color:#000;padding:15px;font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:2px;cursor:pointer;margin-top:6px;transition:background .15s;}
-.oma-co-btn:hover:not(:disabled){background:#c05020;}
-.oma-co-btn:disabled{opacity:.45;cursor:not-allowed;}
-/* Erro */
-.oma-co-err{font-family:'Space Mono',monospace;font-size:10px;color:#e24b4a;margin-top:10px;padding:10px 12px;background:rgba(226,75,74,.08);border:1px solid rgba(226,75,74,.2);display:none;line-height:1.5;}
-/* PIX */
-.oma-co-qr-wrap{background:#1a1a1a;border:1px solid #2a2a2a;padding:20px;text-align:center;margin:14px 0;}
-.oma-co-qr-wrap img{width:180px;height:180px;image-rendering:pixelated;}
-.oma-co-pix-copy{background:#161616;border:1px solid #2a2a2a;padding:9px 12px;font-family:'Space Mono',monospace;font-size:9px;color:#666;word-break:break-all;margin-bottom:10px;cursor:pointer;line-height:1.5;transition:border-color .15s;}
-.oma-co-pix-copy:hover{border-color:#e8703a;color:#aaa;}
-.oma-co-copy-btn{width:100%;background:#1c1c1e;border:1px solid #2a2a2a;color:#888;padding:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;cursor:pointer;transition:all .15s;}
-.oma-co-copy-btn:hover{border-color:#e8703a;color:#e8703a;}
-.oma-co-waiting{font-family:'Space Mono',monospace;font-size:10px;color:#555;text-align:center;margin-top:12px;letter-spacing:1px;}
-.oma-co-waiting b{color:#e8703a;animation:oma-blink 1.2s infinite;}
-@keyframes oma-blink{0%,100%{opacity:.2}50%{opacity:1}}
-/* Sucesso */
-.oma-co-success-icon{font-size:44px;text-align:center;margin-bottom:14px;}
-.oma-co-success-title{font-family:'Black Ops One',cursive;font-size:22px;color:#e0d9cf;text-align:center;letter-spacing:1px;margin-bottom:8px;}
-.oma-co-success-sub{font-size:13px;color:#888;text-align:center;line-height:1.7;margin-bottom:22px;}
-/* Segurança */
-.oma-co-sec{border-top:1px solid #1a1a1a;padding-top:12px;margin-top:14px;font-family:'Space Mono',monospace;font-size:9px;color:#3a3a3a;letter-spacing:1px;text-align:center;}
-@media(max-width:480px){.oma-co-box{max-height:100vh;}.oma-co-row{grid-template-columns:1fr;}}
-`;
-
-  // ── HTML ─────────────────────────────────────────────────────────
-  var HTML = `
-<div class="oma-co-overlay" id="oma-co-overlay">
-  <div class="oma-co-box">
-    <div class="oma-co-hdr">
-      <div class="oma-co-hdr-info">
-        <div class="oma-co-badge" id="oma-co-badge">CHECKOUT</div>
-        <div class="oma-co-title" id="oma-co-title">OMA</div>
-        <div class="oma-co-price" id="oma-co-price"></div>
-      </div>
-      <button class="oma-co-x" onclick="omaCheckout.close()">&#x2715;</button>
-    </div>
-    <div class="oma-co-body">
-
-      <!-- Step 1: Dados -->
-      <div class="oma-co-step active" id="oma-co-s1">
-        <label class="oma-co-label">NOME COMPLETO</label>
-        <input class="oma-co-input" id="oma-co-name" type="text" placeholder="Seu nome completo" />
-        <label class="oma-co-label">EMAIL</label>
-        <input class="oma-co-input" id="oma-co-email" type="email" placeholder="seu@email.com" />
-        <label class="oma-co-label">WHATSAPP (com DDD)</label>
-        <input class="oma-co-input" id="oma-co-phone" type="tel" placeholder="(11) 99999-9999" />
-        <label class="oma-co-label">CPF</label>
-        <input class="oma-co-input" id="oma-co-cpf" type="text" placeholder="000.000.000-00" maxlength="14" oninput="omaCheckout._fmtCpf(this)" />
-        <button class="oma-co-btn" onclick="omaCheckout._step2()">CONTINUAR &#x2192;</button>
-        <div class="oma-co-err" id="oma-co-err1"></div>
-      </div>
-
-      <!-- Step 2: Pagamento -->
-      <div class="oma-co-step" id="oma-co-s2">
-        <div class="oma-co-tabs">
-          <button class="oma-co-tab active" id="oma-co-tab-pix" onclick="omaCheckout._tab('pix')">&#128386; PIX</button>
-          <button class="oma-co-tab" id="oma-co-tab-card" onclick="omaCheckout._tab('card')">&#128179; CARTÃO</button>
-        </div>
-
-        <!-- PIX form -->
-        <div id="oma-co-pix-form">
-          <p style="font-family:'Space Mono',monospace;font-size:10px;color:#666;line-height:1.6;margin-bottom:18px;letter-spacing:.5px;">Gere o QR Code e pague pelo app do seu banco. Confirmação em segundos.</p>
-          <button class="oma-co-btn" id="oma-co-btn-pix" onclick="omaCheckout._gerarPix()">GERAR QR CODE PIX &#x2192;</button>
-        </div>
-
-        <!-- PIX QR -->
-        <div id="oma-co-pix-qr" style="display:none;">
-          <div class="oma-co-qr-wrap"><img id="oma-co-qr-img" src="" alt="QR PIX" /></div>
-          <p class="oma-co-label" style="text-align:center;margin-bottom:6px;">OU COPIE O CÓDIGO</p>
-          <div class="oma-co-pix-copy" id="oma-co-pix-payload" onclick="omaCheckout._copiar()"></div>
-          <button class="oma-co-copy-btn" onclick="omaCheckout._copiar()">&#128203; COPIAR CÓDIGO PIX</button>
-          <div class="oma-co-waiting">AGUARDANDO PAGAMENTO <b>...</b></div>
-        </div>
-
-        <!-- Cartão -->
-        <div id="oma-co-card-form" style="display:none;">
-          <label class="oma-co-label">NÚMERO DO CARTÃO</label>
-          <input class="oma-co-input" id="oma-co-cardnum" type="text" placeholder="0000 0000 0000 0000" maxlength="19" oninput="omaCheckout._fmtCard(this)" />
-          <label class="oma-co-label">NOME NO CARTÃO</label>
-          <input class="oma-co-input" id="oma-co-cardname" type="text" placeholder="NOME COMO IMPRESSO" style="text-transform:uppercase;" />
-          <div class="oma-co-row">
-            <div>
-              <label class="oma-co-label">VALIDADE</label>
-              <input class="oma-co-input" id="oma-co-cardexp" type="text" placeholder="MM/AA" maxlength="5" oninput="omaCheckout._fmtExp(this)" />
-            </div>
-            <div>
-              <label class="oma-co-label">CVV</label>
-              <input class="oma-co-input" id="oma-co-cardcvv" type="text" placeholder="123" maxlength="4" />
-            </div>
-          </div>
-          <label class="oma-co-label">CEP</label>
-          <input class="oma-co-input" id="oma-co-cep" type="text" placeholder="00000-000" maxlength="9" oninput="omaCheckout._fmtCep(this)" />
-          <button class="oma-co-btn" id="oma-co-btn-card" onclick="omaCheckout._pagarCard()">PAGAR COM CARTÃO &#x2192;</button>
-        </div>
-
-        <div class="oma-co-err" id="oma-co-err2"></div>
-        <div class="oma-co-sec">&#128274; PAGAMENTO SEGURO &middot; ASAAS &middot; DADOS CRIPTOGRAFADOS</div>
-      </div>
-
-      <!-- Step 3: Sucesso -->
-      <div class="oma-co-step" id="oma-co-s3">
-        <div class="oma-co-success-icon">&#9989;</div>
-        <div class="oma-co-success-title">PAGAMENTO CONFIRMADO!</div>
-        <div class="oma-co-success-sub" id="oma-co-success-msg">Seu pedido foi processado com sucesso.</div>
-        <button class="oma-co-btn" id="oma-co-success-btn" onclick="omaCheckout._onSuccessBtn()">CONTINUAR &#x2192;</button>
-      </div>
-
-    </div>
-  </div>
-</div>`;
-
-  // ── API pública ───────────────────────────────────────────────────
-  global.omaCheckout = {
-
-    open: function(cfg) {
-      _cfg = cfg || {};
-      _inject();
-      // Preenche header
-      document.getElementById('oma-co-badge').textContent = (_cfg.badge || 'CHECKOUT').toUpperCase();
-      document.getElementById('oma-co-title').textContent = _cfg.title || _cfg.product || 'OMA';
-      document.getElementById('oma-co-price').textContent = _cfg.priceLabel || '';
-    if(_cfg.priceNote){var noteEl=document.getElementById('oma-co-note');if(noteEl)noteEl.textContent=_cfg.priceNote;}
-      // Preenche email se já vier
-      if (_cfg.email) document.getElementById('oma-co-email').value = _cfg.email;
-      if (_cfg.name)  document.getElementById('oma-co-name').value  = _cfg.name;
-      // Reset
-      _showStep('s1');
-      _clearErr();
-      document.getElementById('oma-co-pix-form').style.display = 'block';
-      document.getElementById('oma-co-pix-qr').style.display = 'none';
-      document.getElementById('oma-co-card-form').style.display = 'none';
-      document.getElementById('oma-co-tab-pix').classList.add('active');
-      document.getElementById('oma-co-tab-card').classList.remove('active');
-      document.getElementById('oma-co-btn-pix').disabled = false;
-      document.getElementById('oma-co-btn-pix').textContent = 'GERAR QR CODE PIX →';
-      if (_pollInterval) { clearInterval(_pollInterval); _pollInterval = null; }
-      document.getElementById('oma-co-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    },
-
-    close: function() {
-      var el = document.getElementById('oma-co-overlay');
-      if (el) el.classList.remove('open');
-      document.body.style.overflow = '';
-      if (_pollInterval) { clearInterval(_pollInterval); _pollInterval = null; }
-    },
-
-    // Privados
-    _step2: function() {
-      var name  = document.getElementById('oma-co-name').value.trim();
-      var email = document.getElementById('oma-co-email').value.trim();
-      var phone = document.getElementById('oma-co-phone').value.trim();
-      var cpf   = document.getElementById('oma-co-cpf').value.trim();
-      var err   = document.getElementById('oma-co-err1');
-      if (!name)  { _showErr('oma-co-err1','Informe seu nome.'); return; }
-      if (!email || email.indexOf('@') < 0) { _showErr('oma-co-err1','Email inválido.'); return; }
-      if (cpf.replace(/\D/g,'').length < 11) { _showErr('oma-co-err1','CPF inválido.'); return; }
-      // Preenche nome no cartão
-      document.getElementById('oma-co-cardname').value = name.toUpperCase();
-      _showStep('s2');
-    },
-
-    _tab: function(tab) {
-      document.getElementById('oma-co-tab-pix').classList.toggle('active', tab==='pix');
-      document.getElementById('oma-co-tab-card').classList.toggle('active', tab==='card');
-      document.getElementById('oma-co-pix-form').style.display = tab==='pix' ? 'block' : 'none';
-      document.getElementById('oma-co-pix-qr').style.display = 'none';
-      document.getElementById('oma-co-card-form').style.display = tab==='card' ? 'block' : 'none';
-      _clearErr();
-    },
-
-    _gerarPix: async function() {
-      var btn = document.getElementById('oma-co-btn-pix');
-      btn.disabled = true; btn.textContent = 'GERANDO...';
-      _clearErr();
-      try {
-        var r = await fetch(API+'/checkout/onetime/pix', {
-          method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
-          body: JSON.stringify({
-            email: document.getElementById('oma-co-email').value.trim(),
-            name:  document.getElementById('oma-co-name').value.trim(),
-            phone: document.getElementById('oma-co-phone').value.replace(/\D/g,''),
-            cpf:   document.getElementById('oma-co-cpf').value.trim(),
-            product: _cfg.product, value: _cfg.value,
-            description: _cfg.description || _cfg.title
-          })
-        });
-        var d = await r.json();
-        if (d.error) { _showErr('oma-co-err2', d.error); btn.disabled=false; btn.textContent='TENTAR NOVAMENTE →'; return; }
-        document.getElementById('oma-co-qr-img').src = 'data:image/png;base64,'+d.qr_code_image;
-        document.getElementById('oma-co-pix-payload').textContent = d.qr_code_text;
-        document.getElementById('oma-co-pix-form').style.display = 'none';
-        document.getElementById('oma-co-pix-qr').style.display = 'block';
-        // Polling
-        var payId = d.payment_id;
-        _pollInterval = setInterval(async function() {
-          try {
-            var rs = await fetch(API+'/checkout/onetime/status/'+payId);
-            var ds = await rs.json();
-            if (ds.confirmed) {
-              clearInterval(_pollInterval); _pollInterval = null;
-              omaCheckout._sucesso();
-            }
-          } catch(e) {}
-        }, 3000);
-      } catch(e) { _showErr('oma-co-err2','Erro de conexão.'); btn.disabled=false; btn.textContent='GERAR QR CODE PIX →'; }
-    },
-
-    _pagarCard: async function() {
-      var btn = document.getElementById('oma-co-btn-card');
-      btn.disabled = true; btn.textContent = 'PROCESSANDO...';
-      _clearErr();
-      try {
-        var r = await fetch(API+'/checkout/onetime/card', {
-          method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
-          body: JSON.stringify({
-            email:      document.getElementById('oma-co-email').value.trim(),
-            name:       document.getElementById('oma-co-name').value.trim(),
-            phone:      document.getElementById('oma-co-phone').value.replace(/\D/g,''),
-            cpf:        document.getElementById('oma-co-cpf').value.trim(),
-            postalCode: document.getElementById('oma-co-cep').value.replace(/\D/g,''),
-            product: _cfg.product, value: _cfg.value,
-            description: _cfg.description || _cfg.title,
-            cardNumber: document.getElementById('oma-co-cardnum').value.replace(/\s/g,''),
-            cardName:   document.getElementById('oma-co-cardname').value.trim(),
-            cardExpiry: document.getElementById('oma-co-cardexp').value.trim(),
-            cardCvv:    document.getElementById('oma-co-cardcvv').value.trim()
-          })
-        });
-        var d = await r.json();
-        if (d.error) { _showErr('oma-co-err2', d.error); btn.disabled=false; btn.textContent='PAGAR COM CARTÃO →'; return; }
-        omaCheckout._sucesso();
-      } catch(e) { _showErr('oma-co-err2','Erro de conexão.'); btn.disabled=false; btn.textContent='PAGAR COM CARTÃO →'; }
-    },
-
-    _sucesso: function() {
-      document.getElementById('oma-co-success-msg').innerHTML = _cfg.successMsg || 'Pagamento confirmado! Em instantes você receberá a confirmação no email.';
-      document.getElementById('oma-co-success-btn').textContent = _cfg.successBtnLabel || 'FECHAR';
-      _showStep('s3');
-      if (typeof _cfg.onSuccess === 'function') _cfg.onSuccess();
-    },
-
-    _onSuccessBtn: function() {
-      if (typeof _cfg.onSuccessBtn === 'function') _cfg.onSuccessBtn();
-      else omaCheckout.close();
-    },
-
-    _copiar: function() {
-      var txt = document.getElementById('oma-co-pix-payload').textContent;
-      navigator.clipboard.writeText(txt).then(function() {
-        var b = document.querySelector('.oma-co-copy-btn');
-        if (b) { b.textContent = '✓ COPIADO!'; b.style.color='#2d8a50'; setTimeout(function(){b.textContent='⊕ COPIAR CÓDIGO PIX';b.style.color='';},2000); }
-      });
-    },
-
-    _fmtCard: function(el) { var v=el.value.replace(/\D/g,'').slice(0,16); el.value=v.replace(/(\d{4})/g,'$1 ').trim(); },
-    _fmtExp:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,4); if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2); el.value=v; },
-    _fmtCep:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,8); if(v.length>5)v=v.slice(0,5)+'-'+v.slice(5); el.value=v; },
-    _fmtCpf:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,11); if(v.length>9)v=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9); else if(v.length>6)v=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6); else if(v.length>3)v=v.slice(0,3)+'.'+v.slice(3); el.value=v; }
-  };
-
-  // ── helpers ───────────────────────────────────────────────────────
-  function _inject() {
-    if (_injected) return;
-    _injected = true;
-    var style = document.createElement('style');
-    style.textContent = CSS;
-    document.head.appendChild(style);
-    var div = document.createElement('div');
-    div.innerHTML = HTML;
-    document.body.appendChild(div.firstElementChild);
-    // Fecha ao clicar fora
-    document.getElementById('oma-co-overlay').addEventListener('click', function(e) {
-      if (e.target.id === 'oma-co-overlay') omaCheckout.close();
-    });
-  }
-
-  function _showStep(id) {
-    ['s1','s2','s3'].forEach(function(s) {
-      var el = document.getElementById('oma-co-'+s);
-      if (el) el.classList.toggle('active', s===id);
-    });
-  }
-
-  function _showErr(id, msg) {
-    var el = document.getElementById(id);
-    if (el) { el.textContent = msg; el.style.display = 'block'; }
-  }
-
-  function _clearErr() {
-    ['oma-co-err1','oma-co-err2'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-  }
-
-})(window);
-
-</script>
-<script>
+<script src="/oma-checkout.js"></script>
+</body>
+</html><script>
 const API='https://api.onemanarmyproject.com.br';
 
 
@@ -3243,7 +2893,7 @@ async function saraToggle(){
 
 async function saraStart(){
   try{
-    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
+    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({segmento:'suporte',produto:'academy',cliente_nome:saraCtx.nome||'',cliente_phone:saraCtx.phone||'',cliente_plano:saraCtx.plano||''})});
     var d=await r.json();
     saraSid=d.session_id;
@@ -3278,7 +2928,7 @@ async function saraSend(){
   t.innerHTML='<span></span><span></span><span></span>';
   document.getElementById('sara-msgs').appendChild(t);
   saraMsgs().scrollTop=saraMsgs().scrollHeight;
-  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},body:JSON.stringify({session_id:saraSid,content:txt})});}
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:saraSid,content:txt})});}
   catch(e){}
   document.getElementById('sara-snd').disabled=false;
 }
@@ -5682,8 +5332,8 @@ const TRAILS = {
     shortName: 'Gestor Comercial',
     promise: 'Construa o sistema operacional do seu comercial com IA, automação e agentes.',
     audience: 'Gestores comerciais, founders e líderes de receita com operação ativa',
-    priceBeta: 397,
-    priceFull: 799,
+    priceBeta: 497,
+    priceFull: 697,
     product: 'trail_sales_manager',
     stages: [
       {
@@ -5756,7 +5406,7 @@ const TRAILS = {
     name: 'Gestor Financeiro OMA', shortName: 'Gestor Financeiro',
     promise: 'Construa o sistema operacional do seu financeiro com IA, automação e agentes.',
     audience: 'CFOs, controllers e gestores financeiros de PMEs',
-    priceBeta: 397, priceFull: 799, product: 'trail_finance_manager',
+    priceBeta: 497, priceFull: 697, product: 'trail_finance_manager',
     stages: [] // conteúdo em breve
   },
   'hr-manager': {
@@ -5764,7 +5414,7 @@ const TRAILS = {
     name: 'Gestor de RH OMA', shortName: 'Gestor de RH',
     promise: 'Construa o sistema operacional do seu RH com IA, automação e agentes.',
     audience: 'HRBPs, heads de pessoas e gestores de RH em PMEs',
-    priceBeta: 397, priceFull: 799, product: 'trail_hr_manager',
+    priceBeta: 497, priceFull: 697, product: 'trail_hr_manager',
     stages: []
   },
   'legal-office': {
@@ -5772,7 +5422,7 @@ const TRAILS = {
     name: 'Escritório Jurídico OMA', shortName: 'Escritório Jurídico',
     promise: 'Mapeie e redesenhe a operação do seu escritório com IA, automação e agentes.',
     audience: 'Sócios e gestores de escritórios de advocacia (2-20 advogados)',
-    priceBeta: 397, priceFull: 799, product: 'trail_legal_office',
+    priceBeta: 497, priceFull: 697, product: 'trail_legal_office',
     stages: []
   },
   'clinic': {
@@ -5780,7 +5430,7 @@ const TRAILS = {
     name: 'Clínica OMA', shortName: 'Clínica',
     promise: 'Mapeie e redesenhe a operação da sua clínica com IA, automação e agentes.',
     audience: 'Donos de clínicas médicas, odontológicas, veterinárias e de psicologia',
-    priceBeta: 397, priceFull: 799, product: 'trail_clinic',
+    priceBeta: 497, priceFull: 697, product: 'trail_clinic',
     stages: []
   },
   'optical': {
@@ -5788,7 +5438,7 @@ const TRAILS = {
     name: 'Ótica OMA', shortName: 'Ótica',
     promise: 'Mapeie e redesenhe a operação da sua ótica com IA, automação e agentes.',
     audience: 'Donos de óticas independentes ou pequenas redes (1-5 lojas)',
-    priceBeta: 397, priceFull: 799, product: 'trail_optical',
+    priceBeta: 497, priceFull: 697, product: 'trail_optical',
     stages: []
   },
   'petshop': {
@@ -5796,7 +5446,7 @@ const TRAILS = {
     name: 'Petshop OMA', shortName: 'Petshop',
     promise: 'Mapeie e redesenhe a operação do seu petshop com IA, automação e agentes.',
     audience: 'Donos e gestores de petshops com agenda, banho/tosa e atendimento recorrente',
-    priceBeta: 397, priceFull: 799, product: 'trail_petshop',
+    priceBeta: 497, priceFull: 697, product: 'trail_petshop',
     stages: []
   },
   'distributor': {
@@ -5804,7 +5454,7 @@ const TRAILS = {
     name: 'Distribuidora OMA', shortName: 'Distribuidora',
     promise: 'Mapeie e redesenhe a operação da sua distribuidora com IA, automação e agentes.',
     audience: 'Donos e gestores de distribuidoras com ruído entre comercial, operação e financeiro',
-    priceBeta: 397, priceFull: 799, product: 'trail_distributor',
+    priceBeta: 697, priceFull: 997, product: 'trail_distributor',
     stages: []
   }
 };
@@ -5839,7 +5489,7 @@ function isStageComplete(trailId, stageId) {
 async function verifyTrailAccess(trailId) {
   if (isTrailPurchased(trailId)) return true;
   try {
-    const user = ST.user;
+    const user = getUser();
     if (!user || !user.email) return false;
     const r = await fetch('https://api.onemanarmyproject.com.br/academy/trail-access', {
       method: 'POST',
@@ -5866,12 +5516,7 @@ function renderTrailCards() {
       const bought = purchased.includes(id);
       const hasContent = (t.stages && t.stages.length > 0) || (typeof TRL_STAGES_DATA !== 'undefined' && TRL_STAGES_DATA[id] && TRL_STAGES_DATA[id].length > 0);
       const typeCls = t.type;
-      const priceStr = bought ? '' : `
-        <div class="tg-card-price-wrap">
-          <div class="tg-card-price-de">De <span>R$ ${t.priceFull}</span></div>
-          <div class="tg-card-price-por">R$ ${t.priceBeta}</div>
-          <div class="tg-card-price-cond">Lançamento · 3x no cartão</div>
-        </div>`;
+      const priceStr = bought ? '' : `<div class="tg-card-price">Beta · <strong>R$ ${t.priceBeta}</strong></div>`;
       let ctaHtml = '';
       if (bought) {
         const prog = getTrailProgress(id);
@@ -5879,9 +5524,9 @@ function renderTrailCards() {
         const pct = total > 0 ? Math.round((prog.length / total) * 100) : 0;
         ctaHtml = `<div class="tg-card-badge purchased-badge">✓ Adquirida</div><div style="margin-bottom:8px;"><div style="height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--green);border-radius:2px;"></div></div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text3);margin-top:3px;">${prog.length}/${total} etapas</div></div><button class="tg-card-cta open" onclick="openTrail('${id}')">Continuar trilha →</button>`;
       } else if (!hasContent) {
-        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div>${priceStr}<button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button>`;
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? '🎯 Especialidade' : '🏢 Vertical'}</div><div class="tg-card-price"><strong>R$ ${t.priceBeta}</strong> beta</div><button class="tg-card-cta preview" onclick="openWaitlistTrail('${id}')">Lista de espera →</button><div class="tg-card-lock">🔒</div>`;
       } else {
-        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? 'Especialidade' : 'Vertical'}</div>${priceStr}<button class="tg-card-cta preview" onclick="openTrailPreview('${id}')">Ver preview grátis</button><button class="tg-card-cta buy" onclick="buyTrail('${id}')">Comprar trilha →</button>`;
+        ctaHtml = `<div class="tg-card-badge ${typeCls}">${typeCls === 'especialidade' ? '🎯 Especialidade' : '🏢 Vertical'}</div><div class="tg-card-price">Beta · <strong>R$ ${t.priceBeta}</strong></div><button class="tg-card-cta preview" onclick="openTrailPreview('${id}')">Ver preview grátis</button><button class="tg-card-cta buy" style="margin-top:6px;" onclick="buyTrail('${id}')">Comprar trilha →</button>`;
       }
       html += `<div class="tg-card ${bought ? 'purchased' : ''}">
         <div class="tg-card-icon">${t.icon}</div>
@@ -5916,11 +5561,11 @@ function openTrail(trailId) {
 
 function buyTrail(trailId) {
   const t = TRAILS[trailId];
-  const user = ST.user || {};
+  const user = getUser ? getUser() : {};
   omaCheckout.open({
     badge: t.type === 'especialidade' ? 'Trilha · Especialidade' : 'Trilha · Vertical',
     title: t.name,
-    priceLabel: 'R$ ' + t.priceBeta,
+    priceLabel: 'Beta · R$ ' + t.priceBeta,
     product: t.product,
     value: t.priceBeta,
     description: t.name + ' — OMA Academy',
@@ -6495,7 +6140,7 @@ function trlRenderStage(idx) {
       <div style="font-size:32px;margin-bottom:12px;">🔒</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:var(--text);margin-bottom:8px;">Etapa bloqueada</div>
       <div style="font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:16px;max-width:360px;margin-left:auto;margin-right:auto;">Compre a trilha completa para acessar todas as 7 etapas e sair com um plano executável na mão.</div>
-      <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:14px;"><strong style="color:var(--fire);font-size:15px;">R$ ${t.priceBeta}</strong></div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:14px;">Beta · <strong style="color:var(--fire);font-size:15px;">R$ ${t.priceBeta}</strong></div>
       <button onclick="buyTrail('${tid}')" style="background:var(--fire);color:#fff;border:none;padding:13px 32px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Desbloquear trilha →</button>
     </div>`;
   }
@@ -6564,8 +6209,6 @@ function trlSaveInputs() {
 
 // ── Tabs workspace ───────────────────────────────────────
 function trlSwitchTab(tab, btn) {
-  // Salvar inputs ANTES de qualquer manipulação do DOM
-  trlSaveInputs();
   document.querySelectorAll('.trl-ws-tab').forEach(b=>b.classList.remove('trl-tab-open'));
   btn.classList.add('trl-tab-open');
   document.getElementById('trlWsReflection').classList.toggle('trl-tab-open', tab==='reflection');
@@ -6631,8 +6274,8 @@ async function trlShowFinish() {
     return;
   }
   try {
-    const res = await fetch('https://api.onemanarmyproject.com.br/academy/ai-chat',{
-      method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,
         system:`Você é um especialista em operações com IA da OMA Academy. O usuário acabou de concluir a trilha "${t.name}".
 Sua função: 1) Parabenizar genuinamente pelo que foi construído (conciso, sem bajulação). 2) Resumir em 3-4 pontos os principais aprendizados evidentes nos inputs. 3) Destacar 1-2 oportunidades ou pontos de atenção que você identificou. 4) Recomendar o próximo passo concreto.
@@ -6691,9 +6334,8 @@ Sua função: reagir ao que o usuário escreveu, aprofundar reflexões, conectar
 
 async function trlAutoContext() {
   const filled = trlGetFilledInputs();
-  const contextKey = TRL_STATE.currentTrailId + ':' + TRL_STATE.currentStageIdx + ':' + filled;
-  if(!filled || contextKey===TRL_STATE.lastContextSent) return;
-  TRL_STATE.lastContextSent = contextKey;
+  if(!filled || filled===TRL_STATE.lastContextSent) return;
+  TRL_STATE.lastContextSent = filled;
   TRL_STATE.chatHistory.push({role:'user',content:`Acabei de preencher o workspace desta etapa:
 
 ${filled}
@@ -6702,8 +6344,8 @@ Comente o que escreví — o que chamou atenção e qual pergunta faria sentido 
   const typ = trlAddTyping();
   document.getElementById('trlChatSend').disabled = true;
   try {
-    const res = await fetch('https://api.onemanarmyproject.com.br/academy/ai-chat',{
-      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,system:trlBuildSystem(),messages:TRL_STATE.chatHistory})
     });
     const d = await res.json();
@@ -6725,8 +6367,8 @@ async function trlSendMsg() {
   TRL_STATE.chatHistory.push({role:'user',content:txt});
   const typ = trlAddTyping();
   try {
-    const res = await fetch('https://api.onemanarmyproject.com.br/academy/ai-chat',{
-      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(ST.token||'')},
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,system:trlBuildSystem(),messages:TRL_STATE.chatHistory})
     });
     const d = await res.json();
@@ -6796,5 +6438,4 @@ authCheck();
 
 
 </script>
-</body>
-</html>
+

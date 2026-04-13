@@ -175,7 +175,7 @@ function render(){
   var h='';
   Object.values(groups).forEach(function(g){
     var tot=g.cards.length,dn=g.cards.filter(function(c){return(local[c.id]?.status||'pending')!=='pending';}).length;
-    var canlbl=g.canal==='1manarmy'?'@1manarmy_project':'@fabio_xavier_br';
+    var canlbl=g.canal==='1manarmy'?'@onemanarmy.ai':'@fabio_xavier_br';
     h+='<div class="sh"><span class="sl">'+canlbl+'</span><span class="st">'+g.serie+'</span>';
     h+='<div class="sab"><button onclick="apAll(\''+g.canal+'\',\''+encodeURIComponent(g.serie)+'\')">Aprovar série</button></div>';
     h+='<span class="sc">'+dn+'/'+tot+'</span><div class="spb"><div class="spbf" style="width:'+Math.round(dn/tot*100)+'%"></div></div></div>';

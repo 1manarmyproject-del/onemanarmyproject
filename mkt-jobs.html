@@ -178,7 +178,7 @@ main{padding:24px 28px 60px;}
     <div class="mtitle">Novo Job</div>
     <div class="field"><label class="flabel">Título *</label><input class="finput" id="nt" placeholder="Ex: Post 10 — O Próximo Passo"></div>
     <div class="frow">
-      <div class="field"><label class="flabel">Canal</label><select class="fsel" id="nc"><option value="fabio">@fabio_xavier_br</option><option value="1manarmy">@1manarmy_project</option></select></div>
+      <div class="field"><label class="flabel">Canal</label><select class="fsel" id="nc"><option value="fabio">@fabio_xavier_br</option><option value="1manarmy">@onemanarmy.ai</option></select></div>
       <div class="field"><label class="flabel">Tipo</label><select class="fsel" id="ntp"><option value="post">Post / Carrossel</option><option value="reels">Reels</option><option value="stories">Stories</option><option value="serie">Série de Cards</option></select></div>
       <div class="field"><label class="flabel">Slides</label><input class="finput" id="nsl" type="number" placeholder="0" min="0"></div>
     </div>
@@ -208,7 +208,7 @@ var HDR=getAuthHeaders();
 var jobs=[],fS='all',fC='all',view='grid',cur=null,ctab='ov';
 var SC={publicado:'var(--gr)',producao:'var(--or)',revisao:'var(--ye)',briefing:'var(--bl)',pausado:'var(--mu)'};
 var SL={publicado:'Publicado',producao:'Produção',revisao:'Revisão',briefing:'Briefing',pausado:'Pausado'};
-var CL={fabio:'@fabio_xavier_br','1manarmy':'@1manarmy_project'};
+var CL={fabio:'@fabio_xavier_br','1manarmy':'@onemanarmy.ai'};
 
 async function load(){
   try{
@@ -315,7 +315,7 @@ function setTab(t){
       +'<div class="frow">'
       +'<div class="field"><label class="flabel">Canal</label><select class="fsel" id="e-ca" onchange="cur.canal=this.value">'
       +'<option value="fabio"'+(j.canal==='fabio'?' selected':'')+'>@fabio_xavier_br</option>'
-      +'<option value="1manarmy"'+(j.canal==='1manarmy'?' selected':'')+'>@1manarmy_project</option>'
+      +'<option value="1manarmy"'+(j.canal==='1manarmy'?' selected':'')+'>@onemanarmy.ai</option>'
       +'</select></div>'
       +'<div class="field"><label class="flabel">Nº Slides</label><input class="finput" id="e-sl" type="number" value="'+(j.num_slides||0)+'" onchange="cur.num_slides=parseInt(this.value)||0" min="0"></div>'
       +'<div class="field"><label class="flabel">Publicado em</label><input class="finput" id="e-pub" type="date" value="'+(j.publicado_em||'')+'" onchange="cur.publicado_em=this.value"></div>'
