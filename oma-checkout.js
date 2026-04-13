@@ -136,7 +136,12 @@
         </div>
 
         <div class="oma-co-err" id="oma-co-err2"></div>
-        <div class="oma-co-sec">&#128274; PAGAMENTO SEGURO &middot; ASAAS &middot; DADOS CRIPTOGRAFADOS</div>
+        <div class="oma-co-sec" style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid #1e1e1e;">
+          <span style="display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:.1em;color:#555;text-transform:uppercase;">&#128274; SSL Seguro</span>
+          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;color:rgba(200,88,32,.6);border:1px solid rgba(200,88,32,.3);padding:2px 5px;">PCI DSS</span>
+          <span style="font-size:9px;letter-spacing:.08em;color:#444;text-transform:uppercase;">Cobrança por <a href="https://www.asaas.com" target="_blank" rel="noopener" style="color:rgba(200,88,32,.6);text-decoration:none;font-weight:700;">ASAAS</a></span>
+          <span style="font-size:9px;letter-spacing:.08em;color:#444;text-transform:uppercase;">Dados não armazenados pelo OMA</span>
+        </div>
       </div>
 
       <!-- Step 3: Sucesso -->
