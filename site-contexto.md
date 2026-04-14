@@ -45,6 +45,10 @@ Arquivo completamente reescrito (899 linhas):
 - **Mobile responsivo** completo em `@media(max-width:760px)`
 
 ### Segurança
+- **Secrets em `.env`** (gitignored, chmod 600) — nunca passar token literal na CLI
+  - `~/oma-project-site/.env` contém `VERCEL_TOKEN` e `VERCEL_ORG`
+  - Template em `.env.example` (comitado) pra novos clones do repo
+  - Deploy: `set -a && source .env && set +a && npx vercel --prod --yes --token "$VERCEL_TOKEN"`
 - Token Vercel anterior (`vcp_7SEW...`) **revogado** no dashboard
 - Token novo criado: referenciado como `$VERCEL_TOKEN` em docs — nunca comitar literal
 - `git-filter-repo` usado pra purgar 3 commits que continham o token antigo
@@ -196,8 +200,10 @@ Implementado em dois lugares:
 ## Deploy
 
 ```bash
-# Site público
-cd ~/oma-project-site && git add -A && git commit -m "msg" && git push origin main
+# Site público — load .env primeiro
+cd ~/oma-project-site
+set -a && source .env && set +a   # carrega VERCEL_TOKEN, VERCEL_ORG
+git add -A && git commit -m "msg" && git push origin main
 npx vercel --prod --yes --token "$VERCEL_TOKEN"
 
 # IA Insights (frontend)
