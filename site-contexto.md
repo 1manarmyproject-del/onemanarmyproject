@@ -60,6 +60,13 @@ Arquivo completamente reescrito (899 linhas):
 `agentes.html.bak.pre-mobile-*`, `blog/index.html.bak.pre-mobile-*`, `index.html.bak.pre-mobile-menu-*`, `index.html.bak.pre-svg-icons-*`, `predictions.html.bak.pre-mobile-*`, `reports/oma-case-study.html.bak.pre-rewrite-*`, `scribe.html.bak.pre-mobile-*`, `solutions.html.bak.pre-mobile-*`
 
 ### Pendências pós-sessão
+- **Revisão dos checkouts** (mencionada pelo Fabio pra próxima sessão) — incluir como sub-tarefa:
+  - Adicionar `autocomplete="cc-number|cc-name|cc-exp|cc-csc"` nos inputs de cartão do `oma-checkout.js` (+ `autocomplete` genéricos nos dados pessoais)
+  - Listener de `change` pra garantir que `_fmtCard` roda mesmo quando autofill não dispara `input` event
+  - Teste manual em iPhone real (Safari) e Android (Chrome) antes de produção
+  - Objetivo: habilitar auto-preenchimento do cartão do Wallet sem precisar de Apple Pay real
+  - Decisão: NÃO usar Payment Request API (risco de "fake Apple Pay" sem Merchant ID da Apple)
+- **Apple Pay real** — avaliar quando tiver dados de abandono de checkout por device; caminho provável é **Stripe como gateway secundário** (manter Asaas pra PIX/boleto, Stripe pra Apple Pay/Google Pay). Esforço estimado: 1-2 semanas
 - **Blog individual articles** (34 arquivos em `~/oma-project-site/blog/*.html`) — aplicar mesmo tratamento: font fix, palette harmonization, emoji replacement
 - **Checkouts** — revisão completa de todos os fluxos de checkout mencionada pelo Fabio
 - **Tarball backup** `~/backups/oma-site-pre-launch-20260414.tar.gz` criado como rollback point do estado "pronto pro AR"
