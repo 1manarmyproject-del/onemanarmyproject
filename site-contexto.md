@@ -1,6 +1,64 @@
 # OMA Site — Documento de Contexto
-> Versão: abril/2026 — atualizado pós-sessão OMA Ideias (12–13/04/2026)
+> Versão: abril/2026 — atualizado pós-sessão pré-lançamento mobile (14/04/2026)
 > Para carregar em qualquer sessão de desenvolvimento
+
+---
+
+## 🚀 Sessão 14/04/2026 — Revisão pré-lançamento mobile
+
+**Escopo:** 9 páginas + 1 relatório revisados com rigor cirúrgico pra lançamento oficial do AR.
+
+### Padrão estabelecido
+- **Hamburger mobile** 38×38px com 3 spans animando X, overlay fullscreen (`rgba(8,8,8,.98)` dark / `rgba(245,240,232,.98)` light), CSS scopado por página
+- **SVGs Lucide style** (24×24 viewBox, stroke currentColor, width 2, linecap/linejoin round) em substituição a 80+ emojis
+- **Paleta terracota light**: `--fire:#c85820 --ember:#a04010 --char:#f5f0e8 --coal:#ede8df --bone:#2a2018`
+- **Paleta dark (hero)**: `--fire:#e8703a --char:#080808 --bone:#e4ddd3`
+- **Texto legível em dark**: `#b5ada3` (corpo), `#9a9187` (metadata), `#7a7268` (dividers)
+- **CSS variable scoping** bate `!important` pra overrides localizados
+- **`.textContent` → `.innerHTML`** em JS pra swap de emoji→SVG em button states
+
+### Páginas revisadas (produção)
+| Página | Principais mudanças |
+|---|---|
+| `/` home | hamburger, 9 segments + 9 modules SVGs, ROI Magnet mobile, footer 2-col |
+| `/agentes` | hamburger, remoção duplicate templates, proof-grid 5º card full-width |
+| `/solutions` | hamburger, sara auto-open removido, AI products stack mobile, 20 emojis→SVG, light terracota wrapper |
+| `/predictions` | hamburger, 8 emojis→SVG, mobile stacking full, Sara widget limpo adicionado, cores legíveis, bia lagosta IIFE removido |
+| `/scribe` | hamburger, sara auto-open removido, plan cards mobile commercial (`.plan-period` removido, buttons edge-to-edge via padding nos filhos), 8 emojis→SVG |
+| `/blog` index | fonts (Black Ops One + Playfair), paleta harmonizada, hero title em Playfair, hamburger, 3 auto-open removidos, 37 emojis→SVG |
+| `/academy` | nav com links absolutos pro domínio principal, hamburger `#omaNavBurger` |
+| `/ideias` (Hetzner) | hamburger light terracota, SANDBOX removido, clipboard SVG, card 5 STACK + 9 full-width, botão solid "Saber mais" |
+| `/insights` (Hetzner) | hamburger light terracota, bolt data-URI SVG, 6 emojis→SVG, debug removido, `.powered` mobile fix, deploy via `pm2 restart` |
+
+### `/reports/oma-case-study.html` — reescrita McKinsey-level
+Arquivo completamente reescrito (899 linhas):
+- Paleta terracota light + Playfair Display italic + Barlow Condensed + Space Mono
+- **Cover**: 4 metrics (sem Custo R$1,50), Playfair 64px italic em accent terracota
+- **Sumário executivo**: card destacado com 3 descobertas-chave (#1, 72%, 78→45%), label `RESUMO EXECUTIVO · NÃO EXAUSTIVO · PREVIEW PARA DEMONSTRAÇÃO`
+- **§01 Adoção**: bar chart ranqueado 01–07, top 2 em destaque terracota, big-num callouts 40% e 12–18 meses, pull quote
+- **CTA mid-report**: bloco gradient terracota→ember com botão branco → `/predictions#formulario`
+- **§02 Competitivo**: timeline 3 colunas (Mês 1–2 / 3–4 / 5–6), big-num 72%, pull quote
+- **§03 Percepção**: sentiment chart 3 períodos red→fire, 5 objeções grid 3-col, 55/45 split (Nunca Programei Nada)
+- **§04 Opp & Crisis**: 2-col grid opp (fire) vs crisis (red), 4 cards cada
+- **CTA final**: bloco gradient de conversão
+- **Sara widget** contexto `predictions-report`
+- **Mobile responsivo** completo em `@media(max-width:760px)`
+
+### Segurança
+- Token Vercel anterior (`vcp_7SEW...`) **revogado** no dashboard
+- Token novo criado: referenciado como `$VERCEL_TOKEN` em docs — nunca comitar literal
+- `git-filter-repo` usado pra purgar 3 commits que continham o token antigo
+- 969 commits reescritos, force push no `origin/main`
+- `.gitignore` expandido com `*.bak.*` pra não poluir repo com backups de patch
+
+### Backups `.bak.*` (untracked, agora ignorados)
+9 arquivos de backup criados ao longo da sessão, preservados localmente mas fora do repo:
+`agentes.html.bak.pre-mobile-*`, `blog/index.html.bak.pre-mobile-*`, `index.html.bak.pre-mobile-menu-*`, `index.html.bak.pre-svg-icons-*`, `predictions.html.bak.pre-mobile-*`, `reports/oma-case-study.html.bak.pre-rewrite-*`, `scribe.html.bak.pre-mobile-*`, `solutions.html.bak.pre-mobile-*`
+
+### Pendências pós-sessão
+- **Blog individual articles** (34 arquivos em `~/oma-project-site/blog/*.html`) — aplicar mesmo tratamento: font fix, palette harmonization, emoji replacement
+- **Checkouts** — revisão completa de todos os fluxos de checkout mencionada pelo Fabio
+- **Tarball backup** `~/backups/oma-site-pre-launch-20260414.tar.gz` criado como rollback point do estado "pronto pro AR"
 
 ---
 
