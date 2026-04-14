@@ -16,12 +16,12 @@
 <meta name="twitter:image" content="https://onemanarmyproject.com.br/lobster-logo.png">
 <link rel="canonical" href="https://onemanarmyproject.com.br/blog">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{--fire:#e8703a;--ember:#c05020;--fire-light:#fef3ec;--fire-mid:#fde0cc;--bg:#fff;--bg2:#fafafa;--bg3:#f5f5f5;--border:#e5e5e5;--text:#111;--text2:#444;--text3:#777;}
+:root{--fire:#c85820;--ember:#a04010;--fire-light:rgba(200,88,32,.08);--fire-mid:rgba(200,88,32,.22);--bg:#f7f4ef;--bg2:#ede8df;--bg3:#e8e2d8;--border:#e8e2d9;--text:#1a1612;--text2:#4a4035;--text3:#7a7068;--card-bg:#ffffff;}
 body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar{background:var(--bg);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
 .topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
 .topbar-logo img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--fire-mid);}
 .topbar-logo-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
@@ -32,7 +32,7 @@ body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);}
 .topbar-cta{background:var(--fire);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:4px;text-decoration:none;}
 .hero{max-width:960px;margin:0 auto;padding:48px 24px 32px;}
 .hero-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:10px;}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,52px);color:var(--text);margin-bottom:10px;}
+.hero-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,5.5vw,60px);color:var(--text);margin-bottom:10px;line-height:1.05;}
 .hero-sub{font-size:16px;color:var(--text3);max-width:520px;line-height:1.6;margin-bottom:8px;}
 .hero-count{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);}
 .hero-count span{color:var(--fire);font-weight:700;}
@@ -43,7 +43,7 @@ body{background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);}
 .phase-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:var(--text);}
 .phase-sub{font-size:12px;color:var(--text3);margin-top:2px;}
 .articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
-.article-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-decoration:none;transition:box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:8px;}
+.article-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-decoration:none;transition:box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:8px;}
 .article-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px);}
 .card-tag{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);font-weight:700;}
 .card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--text);line-height:1.2;}
@@ -175,15 +175,36 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid #1a1a1a;backdrop
 
 /* ---- body padding para nav fixo ---- */
 body{padding-top:80px;}
+
+/* ── HAMBURGER MENU - mobile ─────────────────────────── */
+.nav-burger{display:none;}
+.mobile-menu{display:none;}
+@media(max-width:680px){
+  nav > a[href="/portal"],
+  nav > .nav-insights,
+  nav > .nav-cta{display:none!important;}
+  .nav-brand img,
+  .nav-brand > div + div{display:none!important;}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;}
+  .nav-burger span{display:block;width:18px;height:1.5px;background:#e4ddd3;transition:transform .3s,opacity .3s;}
+  .nav-burger.open{border-color:#c85820;}
+  .nav-burger.open span{background:#c85820;}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:#e4ddd3;text-decoration:none;text-transform:uppercase;padding:8px 0;}
+  .mobile-menu a.mm-fire{color:#c85820;}
+  .mobile-menu a.mm-active{color:#c85820;}
+  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
+  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:#c85820;color:#f5f0e8;padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
+  body.mm-locked{overflow:hidden;}
+}
+
 </style>
 
 
-<!-- Webchat auto-trigger preview -->
-<div id="oma-preview">
-  <button class="prev-close" onclick="dismissPreview()">✕</button>
-  <p>Olá! Posso te ajudar a entender como o OMA funciona para o seu negócio?</p>
-  <button class="prev-cta" onclick="openFromPreview()">Conversar com a Bia →</button>
-</div>
 </style>
 <script src="/tracker.js" defer></script>
 </head>
@@ -206,7 +227,19 @@ body{padding-top:80px;}
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
   <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
   <a href="#" onclick="if(window.oT)oT();return false;" class="nav-cta">Falar com a Bia</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
+  <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
+  <a href="/blog" class="mm-active" onclick="toggleMobileMenu()">Blog</a>
+  <div class="mm-divider"></div>
+  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="#" class="mm-cta" onclick="toggleMobileMenu();if(window.oT)oT();return false;">Falar com a Bia</a>
+</div>
 
 <div class="hero">
   <div class="hero-eyebrow">OMA Blog</div>
@@ -221,7 +254,7 @@ body{padding-top:80px;}
   
   <!-- ARTIGO 00 — DESTAQUE ESPECIAL -->
   <div style="margin-bottom:48px;">
-    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:14px;">✦ Artigo zero — a origem</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:14px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><path d="M12 3l1.9 5.8L20 10l-5.8 1.9L12 18l-1.9-5.8L4 10l5.8-1.9L12 3z"/></g></svg> Artigo zero — a origem</div>
     <a href="/blog/from-the-scratch" style="display:block;background:linear-gradient(135deg,#0f0f0f 0%,#1a1008 100%);border-radius:12px;padding:36px 40px;text-decoration:none;transition:transform .15s,box-shadow .15s;border:1px solid #2a1a08;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(232,112,58,.25)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
         <img src="/lobster-logo.png" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #e8703a;" alt="OMA">
@@ -235,99 +268,99 @@ body{padding-top:80px;}
 
 <div class="phase-block">
     <div class="phase-header">
-      <span class="phase-icon">🧠</span>
+      <span class="phase-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-4.66A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-4.66A2.5 2.5 0 0 0 14.5 2z"/></g></svg></span>
       <div><div class="phase-name">Inteligência Artificial</div><div class="phase-sub">O que LLMs realmente são e fazem</div></div>
     </div>
     <div class="articles-grid">
-      <a href="/blog/o-que-e-um-llm" class="article-card"><div class="card-tag">IA</div><div class="card-title">O que é um LLM</div><div class="card-desc">O estagiário que leu tudo mas nunca viveu nada. O que são Large Language Models e como isso muda tudo.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/prompt-engineering" class="article-card"><div class="card-tag">IA</div><div class="card-title">Prompt Engineering</div><div class="card-desc">A arte do briefing perfeito. Role, Context, Task, Format — a estrutura que funciona na primeira vez.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/modelos-de-ia-qual-usar" class="article-card"><div class="card-tag">IA</div><div class="card-title">Modelos de IA — qual usar</div><div class="card-desc">Claude, GPT, Gemini, Llama. Guia prático para founders tomarem a decisão certa sem se perder.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/rag-bases-de-conhecimento" class="article-card"><div class="card-tag">IA</div><div class="card-title">RAG — memória real para IA</div><div class="card-desc">Como dar um pendrive de documentos para o modelo antes da reunião. Menos alucinação, mais precisão.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/fine-tuning-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Fine-tuning</div><div class="card-desc">Quando treinar seu próprio modelo faz sentido — e quando prompt + RAG já resolve melhor.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/avaliacao-qualidade-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Avaliação e Qualidade</div><div class="card-desc">Como saber se a IA está funcionando. Evals, métricas e monitoramento em produção.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/o-que-e-um-llm" class="article-card"><div class="card-tag">IA</div><div class="card-title">O que é um LLM</div><div class="card-desc">O estagiário que leu tudo mas nunca viveu nada. O que são Large Language Models e como isso muda tudo.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 8 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/prompt-engineering" class="article-card"><div class="card-tag">IA</div><div class="card-title">Prompt Engineering</div><div class="card-desc">A arte do briefing perfeito. Role, Context, Task, Format — a estrutura que funciona na primeira vez.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/modelos-de-ia-qual-usar" class="article-card"><div class="card-tag">IA</div><div class="card-title">Modelos de IA — qual usar</div><div class="card-desc">Claude, GPT, Gemini, Llama. Guia prático para founders tomarem a decisão certa sem se perder.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 8 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/rag-bases-de-conhecimento" class="article-card"><div class="card-tag">IA</div><div class="card-title">RAG — memória real para IA</div><div class="card-desc">Como dar um pendrive de documentos para o modelo antes da reunião. Menos alucinação, mais precisão.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/fine-tuning-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Fine-tuning</div><div class="card-desc">Quando treinar seu próprio modelo faz sentido — e quando prompt + RAG já resolve melhor.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/avaliacao-qualidade-ia" class="article-card"><div class="card-tag">IA</div><div class="card-title">Avaliação e Qualidade</div><div class="card-desc">Como saber se a IA está funcionando. Evals, métricas e monitoramento em produção.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
     </div>
   </div>
 
   <!-- FASE 2: Agentes -->
   <div class="phase-block">
     <div class="phase-header">
-      <span class="phase-icon">🤖</span>
+      <span class="phase-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></g></svg></span>
       <div><div class="phase-name">Agentes e Automação</div><div class="phase-sub">Da IA passiva ao agente que age</div></div>
     </div>
     <div class="articles-grid">
-      <a href="/blog/o-que-e-um-agente-de-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">O que é um Agente de IA</div><div class="card-desc">Além do chatbot. A diferença entre seguir um menu e receber um objetivo e decidir os passos.</div><div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/mcp-model-context-protocol" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">MCP — o USB da IA</div><div class="card-desc">O protocolo que padroniza como agentes se conectam a ferramentas. O ramal interno da empresa.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/automacao-de-processos" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Automação de Processos</div><div class="card-desc">A esteira da fábrica digital. Trigger, lógica, ação e monitoramento — toda automação começa aqui.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/multi-agentes-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Multi-agentes</div><div class="card-desc">Quando um agente não basta. CEO orquestrador + gerentes especialistas — a estrutura de empresa.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/memoria-de-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Memória de Agentes</div><div class="card-desc">RAM, HD e biblioteca. Os três tipos de memória e por que contextos separados evitam bugs bizarros.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/seguranca-em-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Segurança em Agentes</div><div class="card-desc">Prompt injection, mínimo privilégio e audit trail. O que pode dar errado quando agentes têm autonomia.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/o-que-e-um-agente-de-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">O que é um Agente de IA</div><div class="card-desc">Além do chatbot. A diferença entre seguir um menu e receber um objetivo e decidir os passos.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 8 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/mcp-model-context-protocol" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">MCP — o USB da IA</div><div class="card-desc">O protocolo que padroniza como agentes se conectam a ferramentas. O ramal interno da empresa.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/automacao-de-processos" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Automação de Processos</div><div class="card-desc">A esteira da fábrica digital. Trigger, lógica, ação e monitoramento — toda automação começa aqui.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/multi-agentes-ia" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Multi-agentes</div><div class="card-desc">Quando um agente não basta. CEO orquestrador + gerentes especialistas — a estrutura de empresa.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/memoria-de-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Memória de Agentes</div><div class="card-desc">RAM, HD e biblioteca. Os três tipos de memória e por que contextos separados evitam bugs bizarros.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/seguranca-em-agentes" class="article-card"><div class="card-tag">Agentes</div><div class="card-title">Segurança em Agentes</div><div class="card-desc">Prompt injection, mínimo privilégio e audit trail. O que pode dar errado quando agentes têm autonomia.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
     </div>
   </div>
 
   <!-- FASE 3: O Mundo Digital -->
   <div class="phase-block">
     <div class="phase-header">
-      <span class="phase-icon">🌐</span>
+      <span class="phase-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></g></svg></span>
       <div><div class="phase-name">O Mundo Digital</div><div class="phase-sub">Como a internet funciona de verdade</div></div>
     </div>
     <div class="articles-grid">
-      <a href="/blog/o-que-e-um-servidor" class="article-card"><div class="card-tag">Web</div><div class="card-title">O que é um Servidor</div><div class="card-desc">A loja que nunca fecha. Cloud, IaaS, PaaS, latência e uptime — o vocabulário de infraestrutura.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/dns-e-dominios" class="article-card"><div class="card-tag">Web</div><div class="card-title">DNS e Domínios</div><div class="card-desc">A lista telefônica da internet. Como domínios, subdomínios e Cloudflare funcionam nos bastidores.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/http-e-apis" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTP e APIs</div><div class="card-desc">O cardápio do restaurante digital. GET, POST, JSON e por que toda integração moderna fala REST.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/https-e-seguranca" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTPS e Segurança</div><div class="card-desc">O envelope lacrado da internet. Por que HTTP sem S é carta aberta e o que SSL realmente protege.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/cloud-e-infraestrutura" class="article-card"><div class="card-tag">Web</div><div class="card-title">Cloud e Infraestrutura</div><div class="card-desc">O mercado imobiliário digital. IaaS, PaaS, SaaS, CDN e edge — como escolher o modelo certo.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/banco-de-dados" class="article-card"><div class="card-tag">Web</div><div class="card-title">Banco de Dados</div><div class="card-desc">O arquivo morto pesquisável em milissegundos. SQL, NoSQL, índices e backup — o mínimo para founders.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/o-que-e-um-servidor" class="article-card"><div class="card-tag">Web</div><div class="card-title">O que é um Servidor</div><div class="card-desc">A loja que nunca fecha. Cloud, IaaS, PaaS, latência e uptime — o vocabulário de infraestrutura.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/dns-e-dominios" class="article-card"><div class="card-tag">Web</div><div class="card-title">DNS e Domínios</div><div class="card-desc">A lista telefônica da internet. Como domínios, subdomínios e Cloudflare funcionam nos bastidores.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 5 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/http-e-apis" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTP e APIs</div><div class="card-desc">O cardápio do restaurante digital. GET, POST, JSON e por que toda integração moderna fala REST.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/https-e-seguranca" class="article-card"><div class="card-tag">Web</div><div class="card-title">HTTPS e Segurança</div><div class="card-desc">O envelope lacrado da internet. Por que HTTP sem S é carta aberta e o que SSL realmente protege.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 5 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/cloud-e-infraestrutura" class="article-card"><div class="card-tag">Web</div><div class="card-title">Cloud e Infraestrutura</div><div class="card-desc">O mercado imobiliário digital. IaaS, PaaS, SaaS, CDN e edge — como escolher o modelo certo.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/banco-de-dados" class="article-card"><div class="card-tag">Web</div><div class="card-title">Banco de Dados</div><div class="card-desc">O arquivo morto pesquisável em milissegundos. SQL, NoSQL, índices e backup — o mínimo para founders.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
     </div>
   </div>
 
   <!-- FASE 4: Dados e Sistemas -->
   <div class="phase-block">
     <div class="phase-header">
-      <span class="phase-icon">⚙️</span>
+      <span class="phase-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></g></svg></span>
       <div><div class="phase-name">Dados e Sistemas</div><div class="phase-sub">Como as peças se conectam</div></div>
     </div>
     <div class="articles-grid">
-      <a href="/blog/codigo-e-programacao" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Código e Programação</div><div class="card-desc">A receita ultra-precisa. O que todo founder precisa entender sobre Git, build, deploy e vibe coding.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/containers-e-docker" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Docker e Containers</div><div class="card-desc">A franquia do software. Como containers resolvem o "no meu computador funcionava" de vez.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/variaveis-de-ambiente" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Variáveis de Ambiente</div><div class="card-desc">Os segredos que não entram no código. Por que senhas no GitHub custam fortunas e como evitar.</div><div class="card-footer"><span class="card-read">⏱ 5 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/filas-e-processamento-assincrono" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Filas e Processamento</div><div class="card-desc">A senha de banco digital. Por que usuários não podem esperar e como filas resolvem operações lentas.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/logs-e-observabilidade" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Logs e Observabilidade</div><div class="card-desc">A caixa preta do produto. Sem logs você está no escuro. Com alertas você sabe antes de quebrar.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/seguranca-digital-basica" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Segurança Digital Básica</div><div class="card-desc">SQL injection, LGPD, mínimo privilégio. As portas que precisam estar fechadas em qualquer PME.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/codigo-e-programacao" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Código e Programação</div><div class="card-desc">A receita ultra-precisa. O que todo founder precisa entender sobre Git, build, deploy e vibe coding.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/containers-e-docker" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Docker e Containers</div><div class="card-desc">A franquia do software. Como containers resolvem o "no meu computador funcionava" de vez.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/variaveis-de-ambiente" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Variáveis de Ambiente</div><div class="card-desc">Os segredos que não entram no código. Por que senhas no GitHub custam fortunas e como evitar.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 5 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/filas-e-processamento-assincrono" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Filas e Processamento</div><div class="card-desc">A senha de banco digital. Por que usuários não podem esperar e como filas resolvem operações lentas.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/logs-e-observabilidade" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Logs e Observabilidade</div><div class="card-desc">A caixa preta do produto. Sem logs você está no escuro. Com alertas você sabe antes de quebrar.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/seguranca-digital-basica" class="article-card"><div class="card-tag">Sistemas</div><div class="card-title">Segurança Digital Básica</div><div class="card-desc">SQL injection, LGPD, mínimo privilégio. As portas que precisam estar fechadas em qualquer PME.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
     </div>
   </div>
 
   <!-- FASE 5: Construir e Escalar -->
   <div class="phase-block">
     <div class="phase-header">
-      <span class="phase-icon">🚀</span>
+      <span class="phase-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></g></svg></span>
       <div><div class="phase-name">Construir e Escalar</div><div class="phase-sub">Do protótipo ao produto real</div></div>
     </div>
     <div class="articles-grid">
-      <a href="/blog/arquitetura-de-produto" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Arquitetura de Produto</div><div class="card-desc">O projeto antes da obra. Monolito, microsserviços e API-first — decisões que definem anos de produto.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/deploy-e-cicd" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Deploy e CI/CD</div><div class="card-desc">A esteira de qualidade. Como colocar código em produção com confiança e sem surpresas.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/precificacao-produtos-ia" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Precificação de Produtos de IA</div><div class="card-desc">Quanto cobrar quando IA custa por uso. Custo real, modelos de precificação e o risco do super-usuário.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/escala-e-onboarding" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Escala e Onboarding</div><div class="card-desc">Crescer sem quebrar. Multi-tenancy, time-to-value e por que onboarding manual é teto de crescimento.</div><div class="card-footer"><span class="card-read">⏱ 6 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/metricas-que-importam" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Métricas que Importam</div><div class="card-desc">MRR, churn, LTV/CAC e North Star Metric. O painel de controle do avião para founders de produto digital.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
-      <a href="/blog/o-founder-tecnico" class="article-card"><div class="card-tag">Produto</div><div class="card-title">O Founder Técnico</div><div class="card-desc">Liderar sem programar. O que founders com fluência técnica fazem diferente — e como chegar lá.</div><div class="card-footer"><span class="card-read">⏱ 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/arquitetura-de-produto" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Arquitetura de Produto</div><div class="card-desc">O projeto antes da obra. Monolito, microsserviços e API-first — decisões que definem anos de produto.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/deploy-e-cicd" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Deploy e CI/CD</div><div class="card-desc">A esteira de qualidade. Como colocar código em produção com confiança e sem surpresas.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/precificacao-produtos-ia" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Precificação de Produtos de IA</div><div class="card-desc">Quanto cobrar quando IA custa por uso. Custo real, modelos de precificação e o risco do super-usuário.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/escala-e-onboarding" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Escala e Onboarding</div><div class="card-desc">Crescer sem quebrar. Multi-tenancy, time-to-value e por que onboarding manual é teto de crescimento.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 6 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/metricas-que-importam" class="article-card"><div class="card-tag">Produto</div><div class="card-title">Métricas que Importam</div><div class="card-desc">MRR, churn, LTV/CAC e North Star Metric. O painel de controle do avião para founders de produto digital.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
+      <a href="/blog/o-founder-tecnico" class="article-card"><div class="card-tag">Produto</div><div class="card-title">O Founder Técnico</div><div class="card-desc">Liderar sem programar. O que founders com fluência técnica fazem diferente — e como chegar lá.</div><div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 7 min</span><span class="card-arrow">→</span></div></a>
     </div>
   </div>
 
 
     <!-- Artigos especiais -->
     <div style="margin-bottom:40px;">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:16px;">✦ Em profundidade</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:16px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><path d="M12 3l1.9 5.8L20 10l-5.8 1.9L12 18l-1.9-5.8L4 10l5.8-1.9L12 3z"/></g></svg> Em profundidade</div>
       <div class="articles-grid">
         <a href="/blog/swarm-intelligence" class="article-card" style="border-color:#dbeafe;background:linear-gradient(135deg,#fff 0%,#f0f7ff 100%);">
           <div class="card-tag" style="color:#2563eb;background:#dbeafe;border-color:#bfdbfe;">Swarm Intelligence</div>
           <div class="card-title">O que cardumes ensinam sobre decisões de negócio</div>
           <div class="card-desc">Nenhum peixe lidera. Mas o cardume toma decisões melhores que a maioria dos comitês executivos. Como aplicamos isso a cenários reais.</div>
-          <div class="card-footer"><span class="card-read">⏱ 9 min</span><span class="card-arrow">→</span></div>
+          <div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 9 min</span><span class="card-arrow">→</span></div>
         </a>
         <a href="/blog/lgpd-para-pmes" class="article-card">
           <div class="card-tag">Segurança e Privacidade</div>
           <div class="card-title">LGPD para PMEs — o que sua empresa precisa fazer agora</div>
           <div class="card-desc">Checklist prático, os 8 direitos do titular, multas reais e o que muda quando você usa IA com dados de clientes.</div>
-          <div class="card-footer"><span class="card-read">⏱ 8 min</span><span class="card-arrow">→</span></div>
+          <div class="card-footer"><span class="card-read"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g></svg> 8 min</span><span class="card-arrow">→</span></div>
         </a>
       </div>
     </div>
@@ -475,37 +508,21 @@ window.oT=oT;window.oS=oS;
     oT();
   };
 
-  // Trigger 1 — tempo: 8 segundos na página
-  setTimeout(function(){
-    if(!triggered && !op){
-      triggered = true;
-      showPreview();
-    }
-  }, 8000);
-
-  // Trigger 2 — scroll: 40% da página
-  window.addEventListener('scroll', function(){
-    if(triggered || op) return;
-    var scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    if(scrolled >= 0.4){
-      triggered = true;
-      showPreview();
-    }
-  }, {passive: true});
-
-  // Trigger 3 — exit intent (desktop): mouse sai pelo topo
-  document.addEventListener('mouseleave', function(e){
-    if(triggered || op || dismissed) return;
-    if(e.clientY <= 0){
-      triggered = true;
-      showPreview();
-    }
-  });
+  // Auto-open triggers removidos — bolha só abre com clique do usuário
 })();
 
 })();
 </script>
 <script>
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.classList.toggle('mm-locked',open);
+  b.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+}
 // nav scroll
 (function(){
   var n=document.getElementById('nav');

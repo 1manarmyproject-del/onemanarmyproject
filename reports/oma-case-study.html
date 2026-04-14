@@ -4,198 +4,896 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OMA Predictions — Case Study: One Man Army Project</title>
+<meta name="description" content="Relatório completo gerado pelo OMA Predictions para o próprio negócio OMA. 43 agentes autônomos, 334 interações, 15 rounds de simulação.">
 <link rel="icon" type="image/png" href="/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,900&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&family=Black+Ops+One&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--fire:#e8703a;--ember:#c05020;--blood:#7a2204;--char:#080808;--coal:#0f0f0f;--iron:#1a1a1a;--steel:#252525;--ash:#555;--fog:#888;--bone:#e4ddd3;--white:#f5f0e8;--green:#3d9e60;--red:#c44;--blue:#4a8fc4;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--char);color:var(--bone);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.7;}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
-.back{position:fixed;top:20px;left:20px;z-index:100;font-family:'Space Mono',monospace;font-size:10px;color:var(--fire);text-decoration:none;letter-spacing:2px;}
-.back:hover{color:var(--bone);}
-.cover{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px 60px;position:relative;}
-.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(232,112,58,.04) 0%,transparent 60%);}
-.cover-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:32px;position:relative;z-index:1;}
-.cover h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5vw,52px);color:var(--white);line-height:1.05;margin-bottom:12px;position:relative;z-index:1;}
-.cover h1 em{color:var(--fire);font-style:italic;}
-.cover>p{font-size:15px;color:var(--fog);max-width:500px;position:relative;z-index:1;}
-.metrics{display:flex;gap:24px;justify-content:center;margin-top:32px;flex-wrap:wrap;position:relative;z-index:1;}
-.m{text-align:center;}.m-v{font-family:'Black Ops One',cursive;font-size:24px;color:var(--fire);}.m-l{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--ash);text-transform:uppercase;}
-.sec{max-width:760px;margin:0 auto;padding:60px 32px;}
-.sec-num{font-family:'Black Ops One',cursive;font-size:64px;color:var(--iron);line-height:1;margin-bottom:4px;}
-.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--fire);text-transform:uppercase;margin-bottom:10px;}
-.sec h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:20px;line-height:1.2;}
+:root{
+  --fire:#c85820;--ember:#a04010;
+  --fire-dim:rgba(200,88,32,.08);--fire-mid:rgba(200,88,32,.22);
+  --char:#f5f0e8;--coal:#ede8df;--iron:#e8e2d8;--steel:#cec8be;
+  --ash:#7a7068;--fog:#5a5048;--bone:#2a2018;--white:#1a1008;
+  --red:#a83030;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Barlow',sans-serif;background:var(--char);color:var(--bone);
+  font-weight:400;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* ── BACK LINK ───────────────────────────────────────── */
+.back{
+  position:fixed;top:24px;left:24px;z-index:100;
+  font-family:'Space Mono',monospace;font-size:10px;
+  color:var(--fire);text-decoration:none;
+  letter-spacing:.15em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;background:rgba(245,240,232,.85);
+  border:1px solid var(--steel);
+  backdrop-filter:blur(8px);
+  transition:background .2s,border-color .2s;
+}
+.back:hover{background:var(--fire-dim);border-color:var(--fire);}
+
+/* ── COVER ───────────────────────────────────────────── */
+.cover{
+  min-height:80vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:120px 32px 80px;position:relative;
+  background:linear-gradient(180deg,var(--char) 0%,var(--coal) 100%);
+}
+.cover-tag{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.35em;color:var(--fire);text-transform:uppercase;
+  margin-bottom:32px;display:inline-flex;align-items:center;gap:12px;
+}
+.cover-tag::before,.cover-tag::after{
+  content:'';width:28px;height:1px;background:var(--fire);
+}
+.cover h1{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(32px,5.5vw,64px);
+  line-height:1.05;margin-bottom:20px;
+  color:var(--white);max-width:880px;
+}
+.cover h1 em{font-style:italic;color:var(--fire);}
+.cover-sub{
+  font-size:16px;color:var(--fog);
+  max-width:560px;line-height:1.8;margin-bottom:56px;
+}
+.cover-metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  max-width:720px;width:100%;
+  border-top:1px solid var(--steel);border-bottom:1px solid var(--steel);
+}
+.cover-metric{
+  padding:28px 16px;text-align:center;
+  border-right:1px solid var(--steel);
+}
+.cover-metric:last-child{border-right:none;}
+.cover-metric-val{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(34px,5vw,52px);color:var(--fire);
+  line-height:1;margin-bottom:10px;
+}
+.cover-metric-lbl{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.2em;color:var(--ash);text-transform:uppercase;
+}
+
+/* ── TL;DR EXECUTIVE SUMMARY ─────────────────────────── */
+.tldr{max-width:920px;margin:80px auto 0;padding:0 32px;}
+.tldr-box{
+  background:#fff;border:1px solid var(--steel);
+  border-left:4px solid var(--fire);
+  padding:44px 48px;position:relative;
+}
+.tldr-label{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.3em;color:var(--fire);text-transform:uppercase;
+  margin-bottom:18px;
+}
+.tldr-title{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:26px;color:var(--white);margin-bottom:32px;
+  line-height:1.2;
+}
+.tldr-title em{color:var(--fire);font-style:italic;}
+.tldr-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+}
+.tldr-item{padding-left:20px;border-left:2px solid var(--fire);}
+.tldr-item-num{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:38px;color:var(--fire);line-height:1;margin-bottom:10px;
+}
+.tldr-item-txt{font-size:13px;color:var(--fog);line-height:1.65;}
+
+/* ── SECTIONS ─────────────────────────────────────────── */
+.sec{max-width:920px;margin:0 auto;padding:80px 32px 60px;}
+.sec-header{margin-bottom:48px;}
+.sec-num{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:120px;color:var(--iron);line-height:.8;
+  margin-bottom:4px;letter-spacing:-.02em;
+}
+.sec-label{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.3em;color:var(--fire);text-transform:uppercase;
+  margin-bottom:16px;
+}
+.sec h2{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(28px,4.2vw,46px);color:var(--white);
+  line-height:1.1;margin-bottom:20px;
+}
 .sec h2 em{color:var(--fire);font-style:italic;}
-.sec h3{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin:28px 0 10px;}
-.sec p{font-size:14px;line-height:1.8;margin-bottom:12px;}
-.sec strong{color:var(--white);font-weight:600;}
-.sec em{color:var(--fire);font-style:italic;}
-.quote{border-left:3px solid var(--blood);padding:14px 20px;margin:16px 0;background:rgba(122,34,4,.05);}
-.quote p{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--bone);margin:0;}
-.quote cite{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);display:block;margin-top:6px;font-style:normal;}
-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
-th{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--fire);text-align:left;padding:10px 12px;border-bottom:2px solid var(--blood);}
-td{padding:10px 12px;border-bottom:1px solid var(--iron);}
-.bar{display:inline-block;height:6px;background:var(--fire);border-radius:3px;vertical-align:middle;margin-right:8px;}
-.finding{background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--fire);padding:20px;margin:12px 0;}
-.finding h4{font-size:14px;color:var(--white);margin-bottom:6px;}
-.finding p{font-size:13px;color:var(--fog);margin:0;}
-.crisis{background:var(--coal);border:1px solid var(--iron);border-top:3px solid var(--red);padding:20px;margin:12px 0;}
-.crisis h4{font-size:14px;color:var(--white);margin-bottom:6px;}
-.crisis p{font-size:13px;color:var(--fog);margin:0;}
-.sent{margin:20px 0;}
-.sent-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.sent-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);width:70px;text-align:right;}
-.sent-bar{flex:1;height:20px;background:var(--iron);display:flex;overflow:hidden;}
-.sent-neg{background:var(--red);height:100%;}.sent-pos{background:var(--green);height:100%;}
-.divider{display:flex;align-items:center;gap:16px;max-width:760px;margin:0 auto;padding:0 32px;}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--iron);}
-.divider-gem{width:6px;height:6px;background:var(--blood);transform:rotate(45deg);}
-footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
-footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;margin-top:6px;}
+.sec-intro{
+  font-size:16px;color:var(--fog);line-height:1.8;max-width:680px;
+}
+.sec-intro strong{color:var(--bone);font-weight:600;}
+.sec-h3{
+  font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+  font-size:24px;color:var(--white);margin:56px 0 24px;line-height:1.2;
+}
+
+/* ── SEGMENT BAR CHART ───────────────────────────────── */
+.seg-chart{display:grid;gap:20px;margin:40px 0;}
+.seg-row{
+  display:grid;grid-template-columns:50px 1fr;
+  gap:20px;align-items:center;
+}
+.seg-rank{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:34px;color:var(--steel);line-height:1;text-align:right;
+}
+.seg-row.top .seg-rank{color:var(--fire);}
+.seg-content{min-width:0;}
+.seg-name-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:16px;margin-bottom:10px;
+}
+.seg-name{
+  font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:17px;color:var(--white);
+}
+.seg-row.top .seg-name{color:var(--fire);}
+.seg-roi{
+  font-family:'Space Mono',monospace;font-size:10px;
+  color:var(--ash);letter-spacing:.05em;white-space:nowrap;
+}
+.seg-bar-wrap{
+  height:12px;background:var(--iron);position:relative;border-radius:1px;
+}
+.seg-bar{
+  height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));
+  transition:width .6s ease;position:relative;
+}
+.seg-bar-lbl{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-family:'Space Mono',monospace;font-size:9px;
+  color:#fff;font-weight:700;letter-spacing:.05em;
+}
+
+/* ── BIG NUMBER CALLOUT ──────────────────────────────── */
+.big-num{
+  display:grid;grid-template-columns:auto 1fr;
+  gap:40px;align-items:center;padding:36px 40px;
+  background:#fff;border:1px solid var(--steel);
+  border-top:4px solid var(--fire);margin:36px 0;
+}
+.big-num-v{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(56px,8vw,108px);color:var(--fire);
+  line-height:.88;letter-spacing:-.02em;
+}
+.big-num-lbl{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.22em;color:var(--fire);text-transform:uppercase;
+  margin-bottom:12px;
+}
+.big-num-desc{font-size:14px;color:var(--fog);line-height:1.75;}
+.big-num-desc strong{color:var(--bone);font-weight:600;}
+
+/* ── PULL QUOTE ──────────────────────────────────────── */
+.pullq{
+  border-left:4px solid var(--fire);
+  padding:28px 36px;margin:36px 0;
+  background:var(--fire-dim);
+}
+.pullq p{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:22px;color:var(--white);line-height:1.35;
+  font-weight:700;margin:0;
+}
+.pullq cite{
+  display:block;margin-top:16px;
+  font-family:'Space Mono',monospace;font-size:9px;
+  color:var(--ash);letter-spacing:.2em;font-style:normal;
+  text-transform:uppercase;
+}
+
+/* ── FINDING CARDS GRID ──────────────────────────────── */
+.finding-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:16px;margin:32px 0;
+}
+.finding{
+  background:#fff;border:1px solid var(--steel);
+  padding:28px 24px;transition:border-color .2s,transform .15s;
+}
+.finding:hover{border-color:var(--fire);transform:translateY(-2px);}
+.finding-n{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:36px;color:var(--fire);line-height:1;margin-bottom:12px;
+}
+.finding h4{
+  font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:15px;color:var(--white);margin-bottom:10px;line-height:1.3;
+}
+.finding p{font-size:13px;color:var(--fog);line-height:1.65;}
+
+/* ── COMPETITIVE TIMELINE ────────────────────────────── */
+.timeline{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin:40px 0;background:var(--steel);
+}
+.tl-col{
+  background:#fff;padding:32px 28px;
+  border-top:3px solid var(--fire);position:relative;
+}
+.tl-phase{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.25em;color:var(--fire);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.tl-title{
+  font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+  font-size:24px;color:var(--white);margin-bottom:16px;line-height:1.1;
+}
+.tl-body{font-size:13px;color:var(--fog);line-height:1.75;}
+.tl-body strong{color:var(--bone);font-weight:600;}
+
+/* ── SENTIMENT CHART ─────────────────────────────────── */
+.sent{margin:32px 0;}
+.sent-row{
+  display:flex;align-items:center;gap:18px;margin-bottom:14px;
+}
+.sent-lbl{
+  font-family:'Space Mono',monospace;font-size:10px;
+  color:var(--ash);width:90px;flex-shrink:0;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.sent-bar{
+  flex:1;height:36px;background:var(--iron);
+  display:flex;overflow:hidden;position:relative;
+}
+.sent-neg{
+  background:var(--red);height:100%;
+  display:flex;align-items:center;justify-content:flex-end;
+  padding-right:12px;
+  font-family:'Space Mono',monospace;font-size:11px;
+  color:#fff;font-weight:700;transition:width .6s ease;
+}
+.sent-pos{
+  background:var(--fire);height:100%;
+  display:flex;align-items:center;padding-left:12px;
+  font-family:'Space Mono',monospace;font-size:11px;
+  color:#fff;font-weight:700;transition:width .6s ease;
+}
+
+/* ── 55/45 SPLIT (Never Programmed) ──────────────────── */
+.split{
+  display:grid;grid-template-columns:55fr 45fr;gap:2px;
+  margin:32px 0;background:var(--steel);
+}
+.split-cell{background:#fff;padding:40px 32px;text-align:center;}
+.split-cell.fire{background:linear-gradient(135deg,var(--fire),var(--ember));color:#fff;}
+.split-pct{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:64px;line-height:.9;margin-bottom:12px;color:var(--fire);
+}
+.split-cell.fire .split-pct{color:#fff;}
+.split-lbl{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:14px;color:var(--ash);
+}
+.split-cell.fire .split-lbl{color:rgba(255,255,255,.8);}
+.split-desc{font-size:14px;line-height:1.65;color:var(--fog);}
+.split-cell.fire .split-desc{color:rgba(255,255,255,.95);}
+
+/* ── OPPORTUNITIES VS CRISIS ─────────────────────────── */
+.opp-crisis{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:40px;margin:40px 0;
+}
+.col-hdr{
+  font-family:'Space Mono',monospace;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:2px solid var(--steel);
+}
+.col-hdr.opp{color:var(--fire);border-bottom-color:var(--fire);}
+.col-hdr.crisis{color:var(--red);border-bottom-color:var(--red);}
+.card-item{
+  background:#fff;border:1px solid var(--steel);
+  padding:22px 24px;margin-bottom:12px;
+  transition:border-color .2s,transform .15s;
+}
+.card-item:hover{transform:translateY(-2px);}
+.card-item.opp{border-left:3px solid var(--fire);}
+.card-item.opp:hover{border-color:var(--fire);}
+.card-item.crisis{border-left:3px solid var(--red);}
+.card-item.crisis:hover{border-color:var(--red);}
+.card-item h4{
+  font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:15px;color:var(--white);margin-bottom:8px;
+}
+.card-item p{font-size:13px;color:var(--fog);line-height:1.65;}
+
+/* ── CTA BLOCKS ──────────────────────────────────────── */
+.cta-block{max-width:920px;margin:60px auto;padding:0 32px;}
+.cta-box{
+  background:linear-gradient(135deg,var(--fire) 0%,var(--ember) 100%);
+  padding:64px 48px;text-align:center;position:relative;
+  overflow:hidden;
+}
+.cta-box::before{
+  content:'';position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+.cta-box-label{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.3em;color:rgba(255,255,255,.85);
+  text-transform:uppercase;margin-bottom:18px;position:relative;
+}
+.cta-box h3{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(28px,4vw,42px);color:#fff;
+  line-height:1.15;margin-bottom:18px;position:relative;
+}
+.cta-box h3 em{font-style:italic;}
+.cta-box p{
+  font-size:15px;color:rgba(255,255,255,.92);
+  max-width:560px;margin:0 auto 36px;line-height:1.75;
+  position:relative;
+}
+.cta-btn{
+  display:inline-block;background:#fff;color:var(--ember);
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:15px;letter-spacing:.18em;text-transform:uppercase;
+  padding:20px 48px;text-decoration:none;
+  border:2px solid #fff;transition:background .2s,color .2s;
+  position:relative;
+}
+.cta-btn:hover{background:var(--white);color:#fff;border-color:var(--white);}
+
+/* ── DIVIDER ─────────────────────────────────────────── */
+.divider{
+  display:flex;align-items:center;gap:20px;
+  max-width:920px;margin:0 auto;padding:0 32px;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:var(--steel);
+}
+.divider-gem{
+  width:8px;height:8px;background:var(--fire);transform:rotate(45deg);
+}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+footer{
+  text-align:center;padding:56px 32px 100px;
+  border-top:1px solid var(--steel);margin-top:60px;
+  background:var(--coal);
+}
+footer p{
+  font-family:'Space Mono',monospace;font-size:9px;
+  color:var(--ash);letter-spacing:.15em;
+  margin-bottom:8px;text-transform:uppercase;
+}
 footer a{color:var(--fire);text-decoration:none;}
+footer a:hover{color:var(--ember);}
+
+/* ── SARA SUPPORT BUBBLE ─────────────────────────────── */
+#sara-bubble{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:#2d5a8e;box-shadow:0 4px 20px rgba(45,90,142,.35);cursor:pointer;display:none;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#sara-bubble:hover{transform:scale(1.08);}
+#sara-bubble svg{width:24px;height:24px;fill:white;}
+#sara-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:var(--fire);border-radius:50%;font-size:9px;color:#fff;font-family:monospace;font-weight:700;display:none;align-items:center;justify-content:center;}
+#sara-widget{position:fixed;bottom:88px;right:24px;width:340px;max-height:480px;background:#111;border:1px solid #222;display:none;flex-direction:column;z-index:9001;box-shadow:0 8px 40px rgba(0,0,0,.25);}
+#sara-hdr{background:#0d1f35;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2d45;}
+.sara-hdr-l{display:flex;align-items:center;gap:10px;}
+.sara-av{width:32px;height:32px;border-radius:50%;background:#2d5a8e;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;color:#fff;font-weight:700;flex-shrink:0;}
+.sara-nm{font-family:monospace;font-size:10px;color:#e0d9cf;letter-spacing:1px;}
+.sara-st{font-family:monospace;font-size:8px;color:#3d9e60;}
+#sara-x{background:none;border:none;color:#555;font-size:18px;cursor:pointer;padding:0;line-height:1;}
+#sara-x:hover{color:#e0d9cf;}
+#sara-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:200px;}
+#sara-msgs .sma{background:#1a1a1a;border:1px solid #2a2a2a;padding:10px 14px;font-size:13px;color:#e0d9cf;line-height:1.6;align-self:flex-start;max-width:85%;white-space:pre-wrap;}
+#sara-msgs .smu{background:#2d5a8e;padding:10px 14px;font-size:13px;color:#fff;line-height:1.6;align-self:flex-end;max-width:85%;}
+#sara-msgs .smt{display:flex;gap:5px;padding:10px 14px;background:#1a1a1a;border:1px solid #2a2a2a;align-self:flex-start;width:50px;}
+#sara-msgs .smt span{width:6px;height:6px;border-radius:50%;background:#555;animation:sb 1.2s infinite;}
+#sara-msgs .smt span:nth-child(2){animation-delay:.2s;}
+#sara-msgs .smt span:nth-child(3){animation-delay:.4s;}
+@keyframes sb{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sara-inp-area{padding:12px;border-top:1px solid #222;display:flex;gap:8px;}
+#sara-inp{flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:8px 12px;font-family:sans-serif;font-size:13px;outline:none;resize:none;height:36px;}
+#sara-inp:focus{border-color:#2d5a8e;}
+#sara-snd{background:#2d5a8e;border:none;color:#fff;width:36px;height:36px;cursor:pointer;font-size:16px;flex-shrink:0;}
+#sara-snd:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ── MOBILE ──────────────────────────────────────────── */
+@media(max-width:760px){
+  .back{top:16px;left:16px;font-size:9px;padding:6px 10px;letter-spacing:.1em;}
+  .cover{padding:100px 20px 60px;min-height:auto;}
+  .cover-tag{font-size:9px;letter-spacing:.25em;}
+  .cover-tag::before,.cover-tag::after{width:18px;}
+  .cover h1{font-size:clamp(30px,8vw,44px);}
+  .cover-sub{font-size:14px;margin-bottom:40px;padding:0 8px;}
+  .cover-metrics{grid-template-columns:repeat(2,1fr);max-width:340px;border:none;gap:2px;background:var(--steel);}
+  .cover-metric{border:none;background:var(--char);padding:24px 12px;}
+  .cover-metric-val{font-size:36px;}
+  .tldr{margin-top:48px;padding:0 20px;}
+  .tldr-box{padding:28px 24px;}
+  .tldr-label{font-size:9px;letter-spacing:.2em;}
+  .tldr-title{font-size:19px;margin-bottom:24px;}
+  .tldr-grid{grid-template-columns:1fr;gap:24px;}
+  .tldr-item-num{font-size:32px;}
+  .sec{padding:56px 20px 40px;}
+  .sec-num{font-size:72px;}
+  .sec h2{font-size:clamp(26px,7vw,34px);}
+  .sec-intro{font-size:15px;}
+  .sec-h3{font-size:20px;margin:40px 0 20px;}
+  .seg-row{grid-template-columns:34px 1fr;gap:14px;}
+  .seg-rank{font-size:24px;}
+  .seg-name{font-size:14px;}
+  .seg-name-row{flex-direction:column;gap:4px;align-items:flex-start;margin-bottom:8px;}
+  .seg-roi{font-size:9px;}
+  .seg-bar-lbl{font-size:8px;}
+  .big-num{grid-template-columns:1fr;gap:14px;padding:28px 24px;text-align:center;}
+  .big-num-v{font-size:64px;}
+  .pullq{padding:22px 24px;}
+  .pullq p{font-size:17px;}
+  .finding-grid{grid-template-columns:1fr;}
+  .finding{padding:22px 20px;}
+  .finding-n{font-size:28px;}
+  .timeline{grid-template-columns:1fr;}
+  .tl-col{padding:24px 22px;}
+  .tl-title{font-size:20px;}
+  .sent-row{flex-direction:column;align-items:stretch;gap:6px;margin-bottom:20px;}
+  .sent-lbl{width:auto;text-align:left;}
+  .sent-bar{height:30px;}
+  .split{grid-template-columns:1fr;}
+  .split-cell{padding:32px 24px;}
+  .split-pct{font-size:48px;}
+  .opp-crisis{grid-template-columns:1fr;gap:40px;}
+  .card-item{padding:20px;}
+  .cta-block{margin:40px auto;padding:0 20px;}
+  .cta-box{padding:44px 24px;}
+  .cta-box h3{font-size:26px;}
+  .cta-box p{font-size:14px;}
+  .cta-btn{padding:18px 32px;font-size:13px;display:block;}
+  #sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}
+  #sara-bubble{right:16px;bottom:16px;width:48px;height:48px;}
+  footer{padding:44px 20px 100px;}
+}
 </style>
 </head>
 <body>
-<a href="/solutions" class="back">← Voltar para Soluções</a>
 
+<a href="/predictions" class="back">← Voltar para Predictions</a>
+
+<!-- ═══════════════════ COVER ═══════════════════ -->
 <section class="cover">
-  <p class="cover-badge">🔮 OMA Predictions — Case Study Real</p>
+  <div class="cover-tag">Case Study Real</div>
   <h1>One Man Army Project:<br><em>Projeção de Mercado</em></h1>
-  <p>Este relatório foi gerado pelo OMA Predictions para o nosso próprio negócio. Sem filtro. Sem edição. Transparência brutal.</p>
-  <div class="metrics">
-    <div class="m"><div class="m-v">43</div><div class="m-l">Agentes</div></div>
-    <div class="m"><div class="m-v">334</div><div class="m-l">Interações</div></div>
-    <div class="m"><div class="m-v">44</div><div class="m-l">Entidades</div></div>
-    <div class="m"><div class="m-v">15</div><div class="m-l">Rounds</div></div>
-    <div class="m"><div class="m-v">R$1,50</div><div class="m-l">Custo</div></div>
+  <p class="cover-sub">Este relatório foi gerado pelo OMA Predictions para o nosso próprio negócio. Sem filtro. Sem edição. Transparência brutal.</p>
+  <div class="cover-metrics">
+    <div class="cover-metric"><div class="cover-metric-val">43</div><div class="cover-metric-lbl">Agentes</div></div>
+    <div class="cover-metric"><div class="cover-metric-val">334</div><div class="cover-metric-lbl">Interações</div></div>
+    <div class="cover-metric"><div class="cover-metric-val">44</div><div class="cover-metric-lbl">Entidades</div></div>
+    <div class="cover-metric"><div class="cover-metric-val">15</div><div class="cover-metric-lbl">Rounds</div></div>
   </div>
 </section>
 
-<div class="divider"><div class="divider-gem"></div></div>
+<!-- ═══════════════════ EXECUTIVE SUMMARY ═══════════════════ -->
+<div class="tldr">
+  <div class="tldr-box">
+    <div class="tldr-label">Resumo Executivo · Não exaustivo · Preview para demonstração</div>
+    <div class="tldr-title">3 descobertas que mudam a prioridade <em>dos próximos 6 meses</em></div>
+    <div class="tldr-grid">
+      <div class="tldr-item">
+        <div class="tldr-item-num">#1</div>
+        <div class="tldr-item-txt">Condomínios são o segmento de entrada mais agressivo — ROI de 40% em redução de staff.</div>
+      </div>
+      <div class="tldr-item">
+        <div class="tldr-item-num">72%</div>
+        <div class="tldr-item-txt">Das consultorias vão adicionar "treinamento de IA" ao portfólio em 3 meses após observar o OMA.</div>
+      </div>
+      <div class="tldr-item">
+        <div class="tldr-item-num">78→45%</div>
+        <div class="tldr-item-txt">Sentimento negativo inverte em 4–6 meses, quando os primeiros cases de ROI forem publicados.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- SECTION 1 -->
+<!-- ═══════════════════ SECTION 1 ═══════════════════ -->
 <section class="sec">
-  <div class="sec-num">01</div>
-  <div class="sec-label">Adoção por Segmento</div>
-  <h2>Quem compra <em>primeiro</em></h2>
+  <div class="sec-header">
+    <div class="sec-num">01</div>
+    <div class="sec-label">Adoção por Segmento</div>
+    <h2>Quem compra <em>primeiro</em></h2>
+    <p class="sec-intro">A simulação classificou 7 segmentos de PME pela velocidade de adoção esperada. <strong>Condomínios e consultórios lideram</strong>; advocacia tem 12–18 meses de latência por conservadorismo natural do setor.</p>
+  </div>
 
-  <table>
-    <thead><tr><th>#</th><th>Segmento</th><th>Velocidade</th><th>ROI estimado</th></tr></thead>
-    <tbody>
-      <tr><td><strong>1</strong></td><td>Condomínios</td><td><span class="bar" style="width:90px"></span>Agressiva</td><td>40% redução staff</td></tr>
-      <tr><td><strong>2</strong></td><td>Consultórios médicos</td><td><span class="bar" style="width:80px"></span>Rápida</td><td>40%+ eficiência admin</td></tr>
-      <tr><td><strong>3</strong></td><td>Distribuidores</td><td><span class="bar" style="width:65px"></span>Moderada+</td><td>20-30% custos logísticos</td></tr>
-      <tr><td><strong>4</strong></td><td>Óticas</td><td><span class="bar" style="width:55px"></span>Moderada</td><td>30-40% discrepância estoque</td></tr>
-      <tr><td><strong>5</strong></td><td>Shopping centers</td><td><span class="bar" style="width:50px"></span>Moderada</td><td>15% economia energia</td></tr>
-      <tr><td><strong>6</strong></td><td>Franquias</td><td><span class="bar" style="width:40px"></span>Moderada-</td><td>Padronização operacional</td></tr>
-      <tr><td><strong>7</strong></td><td>Advocacia</td><td><span class="bar" style="width:25px"></span>Lenta</td><td>20-30% custo operacional</td></tr>
-    </tbody>
-  </table>
+  <div class="seg-chart">
+    <div class="seg-row top">
+      <div class="seg-rank">01</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Condomínios</span><span class="seg-roi">40% ↓ staff</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:95%"><span class="seg-bar-lbl">AGRESSIVA</span></div></div>
+      </div>
+    </div>
+    <div class="seg-row top">
+      <div class="seg-rank">02</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Consultórios médicos</span><span class="seg-roi">40%+ eficiência admin</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:82%"><span class="seg-bar-lbl">RÁPIDA</span></div></div>
+      </div>
+    </div>
+    <div class="seg-row">
+      <div class="seg-rank">03</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Distribuidores</span><span class="seg-roi">20–30% ↓ custo logístico</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:65%"><span class="seg-bar-lbl">MODERADA+</span></div></div>
+      </div>
+    </div>
+    <div class="seg-row">
+      <div class="seg-rank">04</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Óticas</span><span class="seg-roi">30–40% ↓ discrepância estoque</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:55%"><span class="seg-bar-lbl">MODERADA</span></div></div>
+      </div>
+    </div>
+    <div class="seg-row">
+      <div class="seg-rank">05</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Shopping centers</span><span class="seg-roi">15% ↓ energia</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:48%"><span class="seg-bar-lbl">MODERADA</span></div></div>
+      </div>
+    </div>
+    <div class="seg-row">
+      <div class="seg-rank">06</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Franquias</span><span class="seg-roi">Padronização operacional</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:38%"><span class="seg-bar-lbl">MODERADA−</span></div></div>
+      </div>
+    </div>
+    <div class="seg-row">
+      <div class="seg-rank">07</div>
+      <div class="seg-content">
+        <div class="seg-name-row"><span class="seg-name">Advocacia</span><span class="seg-roi">20–30% ↓ custo operacional</span></div>
+        <div class="seg-bar-wrap"><div class="seg-bar" style="width:22%"><span class="seg-bar-lbl">LENTA</span></div></div>
+      </div>
+    </div>
+  </div>
 
-  <h3>🏢 Condomínios — O segmento #1</h3>
-  <p>A Amanda já faz reserva de quadra no condomínio do Fabio — <strong>isso é produto funcionando, não piloto</strong>. Administradoras têm dores claras e baixa resistência porque o morador final não interage diretamente com o agente.</p>
+  <div class="big-num">
+    <div class="big-num-v">40%</div>
+    <div>
+      <div class="big-num-lbl">Condomínios · Segmento #1</div>
+      <p class="big-num-desc">Economia de staff projetada em administradoras de condomínios médios. Dores claras, baixa resistência — o morador final não interage com o agente. <strong>É produto funcionando, não piloto.</strong></p>
+    </div>
+  </div>
 
-  <div class="quote">
+  <div class="pullq">
     <p>"Automatizar requests de manutenção economizaria 40% do tempo da equipe — um pain point enorme para condomínios médios."</p>
-    <cite>— Agente simulado: Condomínios</cite>
+    <cite>Agente simulado · Administradoras de condomínios</cite>
   </div>
 
-  <h3>🏥 Consultórios — O segundo mais promissor</h3>
-  <p>Alta demanda por automação administrativa (agendamento, confirmação, fila de espera). A barreira é LGPD e compliance. <strong>Posicionar como "automação administrativa" — nunca como "assistente médico".</strong></p>
-
-  <h3>⚖️ Advocacia — O mais desafiador</h3>
-  <p>Advogados são conservadores, têm preocupações reais sobre confidencialidade. Na simulação, <em>12-18 meses para adoção mainstream</em>. Recomendação: não priorizar nos primeiros 6 meses.</p>
-</section>
-
-<div class="divider"><div class="divider-gem"></div></div>
-
-<!-- SECTION 2 -->
-<section class="sec">
-  <div class="sec-num">02</div>
-  <div class="sec-label">Panorama Competitivo</div>
-  <h2>Como os concorrentes vão <em>reagir</em></h2>
-
-  <h3>Mês 1-2: Observação</h3>
-  <p>Consultorias tradicionais <strong>ignoram ou subestimam</strong> o OMA. UiPath e Automation Anywhere classificam como "nicho irrelevante".</p>
-
-  <h3>Mês 3-4: Reação</h3>
-  <p>Consultorias oferecem "integração com agentes de IA" (~R$20-50k). UiPath lança pacote SME. <strong>72% das consultorias adicionam "treinamento de IA" ao portfólio em 3 meses.</strong></p>
-
-  <h3>Mês 5-6: Adaptação</h3>
-  <p>Pressão de preço de <strong>30-40%</strong> em RPA tradicional. Surgem boutiques especializadas. O modelo pay-per-use do OMA vira benchmark de pricing.</p>
-
-  <div class="quote">
-    <p>"Provedores tradicionais de RPA enfrentam pressão de preço de 30-40% enquanto o modelo pay-per-use do OMA disrupta a precificação por subscrição."</p>
-    <cite>— Agente simulado: Analista de Mercado</cite>
-  </div>
-
-  <div class="finding">
-    <h4>⚠️ Riscos competitivos</h4>
-    <p><strong>Big techs</strong> podem lançar soluções genéricas de agentes para PMEs. <strong>Consultorias</strong> podem copiar o modelo. <strong>Open source</strong> pode comoditizar a camada de agentes. O ecossistema (Academy + Blog + ZipTalk) é a defesa.</p>
+  <div class="big-num">
+    <div class="big-num-v">12–18</div>
+    <div>
+      <div class="big-num-lbl">Meses · Advocacia</div>
+      <p class="big-num-desc">Tempo estimado para adoção mainstream no segmento jurídico. Advogados são conservadores, preocupações reais sobre confidencialidade. <strong>Não priorizar nos primeiros 6 meses de go-to-market.</strong></p>
+    </div>
   </div>
 </section>
 
 <div class="divider"><div class="divider-gem"></div></div>
 
-<!-- SECTION 3 -->
-<section class="sec">
-  <div class="sec-num">03</div>
-  <div class="sec-label">Percepção Pública</div>
-  <h2>A batalha é <em>psicológica</em>, não tecnológica</h2>
+<!-- ═══════════════════ CTA BLOCK 1 (mid-report) ═══════════════════ -->
+<div class="cta-block">
+  <div class="cta-box">
+    <div class="cta-box-label">Quer esse nível de análise pro seu negócio?</div>
+    <h3>Antes de construir,<br><em>descubra como o mercado reage.</em></h3>
+    <p>43 agentes autônomos simulando stakeholders reais do seu mercado em 30 minutos. Uma fração do custo de uma consultoria — com profundidade de pesquisa que nenhum analista individual consegue entregar.</p>
+    <a href="/predictions#formulario" class="cta-btn">Quero meu relatório →</a>
+  </div>
+</div>
 
-  <h3>Evolução do sentimento</h3>
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- ═══════════════════ SECTION 2 ═══════════════════ -->
+<section class="sec">
+  <div class="sec-header">
+    <div class="sec-num">02</div>
+    <div class="sec-label">Panorama Competitivo</div>
+    <h2>Como concorrentes vão <em>reagir</em></h2>
+    <p class="sec-intro">A simulação mapeou a evolução da reação competitiva em <strong>3 fases ao longo de 6 meses</strong>. O modelo pay-per-use do OMA vira benchmark de pricing já no mês 5.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-col">
+      <div class="tl-phase">Mês 1–2</div>
+      <div class="tl-title">Observação</div>
+      <p class="tl-body">Consultorias tradicionais <strong>ignoram ou subestimam</strong> o OMA. UiPath e Automation Anywhere classificam como "nicho irrelevante".</p>
+    </div>
+    <div class="tl-col">
+      <div class="tl-phase">Mês 3–4</div>
+      <div class="tl-title">Reação</div>
+      <p class="tl-body">Consultorias oferecem "integração com agentes de IA" (R$20–50k). UiPath lança pacote SME. Pressão começa a ficar visível.</p>
+    </div>
+    <div class="tl-col">
+      <div class="tl-phase">Mês 5–6</div>
+      <div class="tl-title">Adaptação</div>
+      <p class="tl-body">Pressão de preço de <strong>30–40%</strong> em RPA tradicional. O modelo pay-per-use do OMA vira benchmark de mercado.</p>
+    </div>
+  </div>
+
+  <div class="big-num">
+    <div class="big-num-v">72%</div>
+    <div>
+      <div class="big-num-lbl">Das consultorias tradicionais</div>
+      <p class="big-num-desc">Vão adicionar "treinamento de IA" ao portfólio em até 3 meses após observar o OMA. A reação é rápida — <strong>o ecossistema (Academy + Blog + Insights) é a defesa de longo prazo.</strong></p>
+    </div>
+  </div>
+
+  <div class="pullq">
+    <p>"Provedores tradicionais de RPA enfrentam pressão de preço de 30–40% enquanto o modelo pay-per-use do OMA disrupta a precificação por subscrição."</p>
+    <cite>Agente simulado · Analista de mercado</cite>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-gem"></div></div>
+
+<!-- ═══════════════════ SECTION 3 ═══════════════════ -->
+<section class="sec">
+  <div class="sec-header">
+    <div class="sec-num">03</div>
+    <div class="sec-label">Percepção Pública</div>
+    <h2>A batalha é <em>psicológica</em>,<br>não tecnológica</h2>
+    <p class="sec-intro">O sentimento público começa em <strong>78% negativo</strong> — ceticismo dominante: "Isso é real?". Cases de ROI publicados inverteram essa curva em 4 meses na simulação.</p>
+  </div>
+
   <div class="sent">
-    <div class="sent-row"><div class="sent-lbl">Mês 1-2</div><div class="sent-bar"><div class="sent-neg" style="width:78%"></div><div class="sent-pos" style="width:22%"></div></div></div>
-    <div class="sent-row"><div class="sent-lbl">Mês 3-4</div><div class="sent-bar"><div class="sent-neg" style="width:55%"></div><div class="sent-pos" style="width:45%"></div></div></div>
-    <div class="sent-row"><div class="sent-lbl">Mês 5-6</div><div class="sent-bar"><div class="sent-neg" style="width:38%"></div><div class="sent-pos" style="width:62%"></div></div></div>
+    <div class="sent-row">
+      <div class="sent-lbl">Mês 1–2</div>
+      <div class="sent-bar">
+        <div class="sent-neg" style="width:78%">78%</div>
+        <div class="sent-pos" style="width:22%">22%</div>
+      </div>
+    </div>
+    <div class="sent-row">
+      <div class="sent-lbl">Mês 3–4</div>
+      <div class="sent-bar">
+        <div class="sent-neg" style="width:55%">55%</div>
+        <div class="sent-pos" style="width:45%">45%</div>
+      </div>
+    </div>
+    <div class="sent-row">
+      <div class="sent-lbl">Mês 5–6</div>
+      <div class="sent-bar">
+        <div class="sent-neg" style="width:38%">38%</div>
+        <div class="sent-pos" style="width:62%">62%</div>
+      </div>
+    </div>
   </div>
 
-  <p><strong>78% de sentimento negativo nos primeiros 2 meses.</strong> Ceticismo dominante: "Isso é real?" O que inverte: cases reais de ROI publicados. No mês 3-4, com os primeiros resultados, o sentimento vira para <strong>45% positivo</strong>.</p>
+  <h3 class="sec-h3">As 5 objeções mais frequentes</h3>
 
-  <h3>As 5 objeções mais frequentes</h3>
-  <div class="finding"><h4>1. "Vai substituir meus funcionários?"</h4><p>Posicionar como complemento. O agente faz o operacional, o humano faz o estratégico.</p></div>
-  <div class="finding"><h4>2. "E se der errado?"</h4><p>Escalação automática para humano nos 20% de casos complexos. SLA de resposta.</p></div>
-  <div class="finding"><h4>3. "Um homem só? E se ele sumir?"</h4><p>Mostrar infraestrutura distribuída (Hetzner, Oracle, Vercel) e roadmap de contratação.</p></div>
-  <div class="finding"><h4>4. "Meus dados ficam seguros?"</h4><p>Criptografia, LGPD, auditoria contínua (Darwin), hospedagem Brasil (Oracle SP).</p></div>
-  <div class="finding"><h4>5. "Não entendo de tecnologia"</h4><p>Academy com 30+ módulos gratuitos. Nenhum concorrente oferece educação + ferramenta.</p></div>
+  <div class="finding-grid">
+    <div class="finding">
+      <div class="finding-n">01</div>
+      <h4>"Vai substituir meus funcionários?"</h4>
+      <p>Posicionar como complemento. O agente faz o operacional, o humano faz o estratégico.</p>
+    </div>
+    <div class="finding">
+      <div class="finding-n">02</div>
+      <h4>"E se der errado?"</h4>
+      <p>Escalação automática para humano nos 20% de casos complexos. SLA de resposta garantido.</p>
+    </div>
+    <div class="finding">
+      <div class="finding-n">03</div>
+      <h4>"Um homem só? E se ele sumir?"</h4>
+      <p>Mostrar infraestrutura distribuída (Hetzner, Oracle, Vercel) e roadmap de contratação.</p>
+    </div>
+    <div class="finding">
+      <div class="finding-n">04</div>
+      <h4>"Meus dados ficam seguros?"</h4>
+      <p>Criptografia, LGPD, auditoria contínua (Darwin), hospedagem Brasil (Oracle SP).</p>
+    </div>
+    <div class="finding">
+      <div class="finding-n">05</div>
+      <h4>"Não entendo de tecnologia"</h4>
+      <p>Academy com 30+ módulos gratuitos. Nenhum concorrente oferece educação + ferramenta juntas.</p>
+    </div>
+  </div>
 
-  <h3>O efeito "Nunca Programei Nada"</h3>
-  <p><strong>55% veem como força</strong> — identificação com founders não-técnicos. <strong>45% veem como risco</strong> — concorrentes usam pra questionar robustez. Recomendação: manter para marca pessoal, não usar em propostas B2B.</p>
+  <h3 class="sec-h3">O efeito "Nunca Programei Nada"</h3>
+
+  <div class="split">
+    <div class="split-cell fire">
+      <div class="split-pct">55%</div>
+      <div class="split-lbl">Veem como força</div>
+      <p class="split-desc">Identificação com founders não-técnicos. Narrativa inspiradora, humaniza a marca e conecta com o público PME.</p>
+    </div>
+    <div class="split-cell">
+      <div class="split-pct">45%</div>
+      <div class="split-lbl">Veem como risco</div>
+      <p class="split-desc">Concorrentes usam pra questionar robustez técnica. Evitar em propostas B2B corporativas formais.</p>
+    </div>
+  </div>
 </section>
 
 <div class="divider"><div class="divider-gem"></div></div>
 
-<!-- SECTION 4 -->
+<!-- ═══════════════════ SECTION 4 ═══════════════════ -->
 <section class="sec">
-  <div class="sec-num">04</div>
-  <div class="sec-label">Oportunidades e Crises</div>
-  <h2>O que pode dar <em>muito certo</em> — e o que pode dar errado</h2>
+  <div class="sec-header">
+    <div class="sec-num">04</div>
+    <div class="sec-label">Oportunidades & Crises</div>
+    <h2>O que pode dar <em>muito certo</em><br>— e o que pode dar errado</h2>
+    <p class="sec-intro">A simulação identificou <strong>4 oportunidades principais</strong> e <strong>4 pontos críticos de crise</strong> que exigem playbooks prontos desde o dia 1.</p>
+  </div>
 
-  <h3>Oportunidades</h3>
-  <div class="finding"><h4>1. Ecossistema como moat</h4><p>Academy + Blog + ZipTalk + Smart Noter + Predictions formam barreira que nenhum concorrente copia rápido.</p></div>
-  <div class="finding"><h4>2. Freelancers treinados pelo OMA</h4><p>A simulação prevê implementadores independentes usando a plataforma. Escala sem contratar.</p></div>
-  <div class="finding"><h4>3. Templates por vertical</h4><p>Templates pré-configurados por segmento (cobrança pra condomínio, follow-up pra ótica) como upsell.</p></div>
-  <div class="finding"><h4>4. Pay-per-use adaptado ao Brasil</h4><p>Setup parcelado + mensalidade fixa baixa. Adaptado à realidade de crédito de 2026.</p></div>
-
-  <h3>Pontos de crise</h3>
-  <div class="crisis"><h4>⚡ Fabio como single point of failure</h4><p>Se Fabio ficar indisponível por 1+ semana, a operação para. George assume coordenação mas precisa de humano para decisões comerciais.</p></div>
-  <div class="crisis"><h4>⚡ Queda de API da Anthropic</h4><p>Se Claude sair por horas, todos os agentes param. Failover via OpenRouter implementado mas precisa de stress test.</p></div>
-  <div class="crisis"><h4>⚡ Migração WhatsApp</h4><p>API não-oficial pode ser bloqueada pela Meta. Migração para Cloud API é crítica e planejada.</p></div>
-  <div class="crisis"><h4>⚡ Primeiro cliente insatisfeito</h4><p>Inevitável. A resposta define a reputação. Playbook de crise pronto, com SLA e template de comunicação.</p></div>
+  <div class="opp-crisis">
+    <div>
+      <div class="col-hdr opp">Oportunidades</div>
+      <div class="card-item opp">
+        <h4>Ecossistema como moat</h4>
+        <p>Academy + Blog + Insights + Scribe + Predictions formam uma barreira que nenhum concorrente copia rápido.</p>
+      </div>
+      <div class="card-item opp">
+        <h4>Freelancers treinados pelo OMA</h4>
+        <p>Implementadores independentes usando a plataforma. Escala de operação sem contratar equipe interna.</p>
+      </div>
+      <div class="card-item opp">
+        <h4>Templates por vertical</h4>
+        <p>Pré-configurados por segmento (cobrança pra condomínio, follow-up pra ótica) como upsell recorrente.</p>
+      </div>
+      <div class="card-item opp">
+        <h4>Pay-per-use adaptado ao Brasil</h4>
+        <p>Setup parcelado + mensalidade fixa baixa. Adaptado à realidade de crédito de 2026.</p>
+      </div>
+    </div>
+    <div>
+      <div class="col-hdr crisis">Pontos de crise</div>
+      <div class="card-item crisis">
+        <h4>Single point of failure</h4>
+        <p>Se Fabio ficar indisponível por 1+ semana, a operação para. George assume coordenação mas decisões comerciais precisam de humano.</p>
+      </div>
+      <div class="card-item crisis">
+        <h4>Queda de API da Anthropic</h4>
+        <p>Failover via OpenRouter implementado mas precisa de stress test. Risco de hora crítica sem plano B testado.</p>
+      </div>
+      <div class="card-item crisis">
+        <h4>Migração WhatsApp</h4>
+        <p>API não-oficial pode ser bloqueada pela Meta. Migração para Cloud API é crítica e já está planejada.</p>
+      </div>
+      <div class="card-item crisis">
+        <h4>Primeiro cliente insatisfeito</h4>
+        <p>Inevitável. A resposta define reputação. Playbook de crise pronto, com SLA e template de comunicação.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="divider"><div class="divider-gem"></div></div>
 
-<div style="max-width:760px;margin:0 auto;padding:20px 32px 60px;text-align:center;">
-  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:1px;">Relatório gerado por OMA Predictions · MiroFish + DeepSeek V3 · Abril 2026</p>
-  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);margin-top:4px;">Simulação com 43 agentes autônomos · 334 interações · 15 rounds</p>
-  <p style="margin-top:16px;"><a href="/predictions" style="color:var(--fire);text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;">QUERO UM RELATÓRIO ASSIM PARA O MEU NEGÓCIO →</a></p>
+<!-- ═══════════════════ FINAL CTA ═══════════════════ -->
+<div class="cta-block">
+  <div class="cta-box">
+    <div class="cta-box-label">Sua vez</div>
+    <h3>Antes de apostar no próximo passo,<br><em>saiba como o mundo reage.</em></h3>
+    <p>43 agentes autônomos. Personalidades reais baseadas em dados públicos. 15 rounds de simulação. Um relatório como esse pode mudar a sua estratégia dos próximos 6 meses — por uma fração do custo de uma consultoria.</p>
+    <a href="/predictions#formulario" class="cta-btn">Quero um relatório assim →</a>
+  </div>
 </div>
 
 <footer>
-  <p>ONE MAN ARMY PROJECT · 2026</p>
+  <p>Relatório gerado por OMA Predictions · MiroFish + DeepSeek V3 · Abril 2026</p>
+  <p>Simulação com 43 agentes autônomos · 334 interações · 15 rounds</p>
   <p><a href="/">Home</a> · <a href="/solutions">Soluções</a> · <a href="/predictions">Predictions</a></p>
 </footer>
+
+<!-- ═══════════════════ SARA SUPPORT ═══════════════════ -->
+<div id="sara-bubble" onclick="saraToggle()" title="Precisa de ajuda?">
+  <div id="sara-badge"></div>
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+</div>
+<div id="sara-widget">
+  <div id="sara-hdr">
+    <div class="sara-hdr-l">
+      <div class="sara-av">SA</div>
+      <div><div class="sara-nm">SARA &middot; SUPORTE OMA</div><div class="sara-st">&#9679; online</div></div>
+    </div>
+    <button id="sara-x" onclick="saraToggle()">&#x2715;</button>
+  </div>
+  <div id="sara-msgs"></div>
+  <div id="sara-inp-area">
+    <textarea id="sara-inp" placeholder="Como posso ajudar?" rows="1"></textarea>
+    <button id="sara-snd" onclick="saraSend()">&#8593;</button>
+  </div>
+</div>
+<script>
+var saraOpen=false,saraSid=null,saraLid=0,saraPollT=null,saraCtx={};
+var SARA_API='https://api.onemanarmyproject.com.br';
+function saraShow(){var b=document.getElementById('sara-bubble');if(b)b.style.display='flex';}
+function saraInit(ctx){saraCtx=ctx||{};saraShow();}
+async function saraToggle(){
+  var w=document.getElementById('sara-widget');if(!w)return;
+  saraOpen=!saraOpen;
+  w.style.display=saraOpen?'flex':'none';
+  var badge=document.getElementById('sara-badge');if(badge)badge.style.display='none';
+  if(saraOpen&&!saraSid)await saraStart();
+}
+async function saraStart(){
+  try{
+    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({segmento:'suporte',produto:saraCtx.produto||'predictions-report',cliente_nome:'',cliente_phone:'',cliente_plano:''})});
+    var d=await r.json();saraSid=d.session_id;
+    var h=await fetch(SARA_API+'/webchat/history/'+saraSid);
+    var hd=await h.json();
+    hd.messages.forEach(function(m){saraAdd(m.role==='agent'?'sma':'smu',m.content,m.id);});
+    saraPollT=setInterval(saraPoll,2000);
+  }catch(e){saraAdd('sma','Olá! Sou a Sara, suporte OMA. Posso te ajudar com dúvidas sobre o relatório ou sobre como gerar um para seu próprio negócio.',0);}
+}
+async function saraPoll(){
+  if(!saraSid)return;
+  try{
+    var r=await fetch(SARA_API+'/webchat/poll/'+saraSid+'?since='+saraLid);
+    var d=await r.json();
+    if(d.messages&&d.messages.length){
+      d.messages.forEach(function(m){saraAdd('sma',m.content,m.id);});
+      if(!saraOpen){var b=document.getElementById('sara-badge');if(b){b.style.display='flex';b.textContent='!';}}
+    }
+  }catch(e){}
+}
+async function saraSend(){
+  var inp=document.getElementById('sara-inp');
+  var txt=inp.value.trim();if(!txt||!saraSid)return;
+  inp.value='';inp.style.height='36px';
+  document.getElementById('sara-snd').disabled=true;
+  saraAdd('smu',txt,null);
+  var t=document.createElement('div');t.className='smt';t.id='sara-t';
+  t.innerHTML='<span></span><span></span><span></span>';
+  saraMsgs().appendChild(t);saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({session_id:saraSid,content:txt})});}catch(e){}
+  document.getElementById('sara-snd').disabled=false;
+}
+function saraAdd(cls,txt,id){
+  var t=document.getElementById('sara-t');if(t)t.remove();
+  var d=document.createElement('div');d.className=cls;d.textContent=txt;
+  saraMsgs().appendChild(d);saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  if(id)saraLid=Math.max(saraLid,id);
+}
+function saraMsgs(){return document.getElementById('sara-msgs');}
+document.addEventListener('DOMContentLoaded',function(){
+  saraInit({produto:'predictions-report'});
+  var i=document.getElementById('sara-inp');
+  if(i)i.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}
+  });
+});
+</script>
 </body>
 </html>

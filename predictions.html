@@ -21,7 +21,51 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--fire);}
 .nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
-@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
+/* ── HAMBURGER MENU + MOBILE ───────────────────────────── */
+.nav-burger{display:none;}
+.mobile-menu{display:none;}
+@media(max-width:760px){
+  nav{padding:14px 20px;flex-wrap:nowrap;}
+  .nav-brand img{display:none;}
+  .nav-links{display:none;}
+  nav > a[href="https://insights.onemanarmyproject.com.br"],
+  nav > a[href="/portal"]{display:none!important;}
+  nav > a.nav-cta{display:none!important;}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;margin-left:auto;}
+  .nav-burger span{display:block;width:18px;height:1.5px;background:#e4ddd3;transition:transform .3s,opacity .3s;}
+  .nav-burger.open{border-color:var(--fire);}
+  .nav-burger.open span{background:var(--fire);}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:#e4ddd3;text-decoration:none;text-transform:uppercase;padding:8px 0;}
+  .mobile-menu a.mm-fire{color:var(--fire);}
+  .mobile-menu a.mm-active{color:var(--fire);}
+  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
+  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:var(--fire);color:#0a0a0a;padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
+  body.mm-locked{overflow:hidden;}
+  /* HERO */
+  .hero{padding:100px 20px 48px;}
+  .metrics{gap:18px;}
+  .metric-val{font-size:20px;}
+  /* PRICING 2col → 1col */
+  .sec > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;max-width:380px!important;}
+  .pricing-box{padding:26px 22px;}
+  .pricing-new{font-size:32px;}
+  .pricing-box div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  /* COMO FUNCIONA 3col → 1col */
+  .sec div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;}
+  /* "Como ler" 2col → 1col */
+  .sec div[style*="grid-template-columns:1fr 1fr;gap:2px"]{grid-template-columns:1fr!important;}
+  /* Case study flex - empilha */
+  .sec > section > div[style*="display:flex"][style*="gap:24px"]{flex-direction:column!important;text-align:center;}
+  /* Limitações 2 col list → 1 col */
+  ul[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  /* sec padding */
+  .sec{padding:48px 20px;}
+}
 .hero{padding:140px 32px 60px;text-align:center;position:relative;}
 .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(232,112,58,.05) 0%,transparent 60%);}
 .hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--fire);text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
@@ -78,6 +122,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 footer{text-align:center;padding:48px 32px;border-top:1px solid var(--iron);}
 footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:2px;margin-top:6px;}
 footer a{color:var(--ash);text-decoration:none;}
+
+/* ── SARA — bolha de suporte ─────────────────────────── */
+#sara-bubble{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:#2d5a8e;box-shadow:0 4px 20px rgba(45,90,142,.45);cursor:pointer;display:none;align-items:center;justify-content:center;z-index:9000;transition:transform .2s;}
+#sara-bubble:hover{transform:scale(1.08);}
+#sara-bubble svg{width:24px;height:24px;fill:white;}
+#sara-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#e8703a;border-radius:50%;font-size:9px;color:#000;font-family:monospace;font-weight:700;display:none;align-items:center;justify-content:center;}
+#sara-widget{position:fixed;bottom:88px;right:24px;width:340px;max-height:480px;background:#111;border:1px solid #222;display:none;flex-direction:column;z-index:9001;box-shadow:0 8px 40px rgba(0,0,0,.7);}
+#sara-hdr{background:#0d1f35;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2d45;}
+.sara-hdr-l{display:flex;align-items:center;gap:10px;}
+.sara-av{width:32px;height:32px;border-radius:50%;background:#2d5a8e;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;color:#fff;font-weight:700;flex-shrink:0;}
+.sara-nm{font-family:monospace;font-size:10px;color:#e0d9cf;letter-spacing:1px;}
+.sara-st{font-family:monospace;font-size:8px;color:#3d9e60;}
+#sara-x{background:none;border:none;color:#555;font-size:18px;cursor:pointer;padding:0;line-height:1;}
+#sara-x:hover{color:#e0d9cf;}
+#sara-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:200px;}
+#sara-msgs .sma{background:#1a1a1a;border:1px solid #2a2a2a;padding:10px 14px;border-radius:3px;font-size:13px;color:#e0d9cf;line-height:1.6;align-self:flex-start;max-width:85%;white-space:pre-wrap;}
+#sara-msgs .smu{background:#2d5a8e;padding:10px 14px;border-radius:3px;font-size:13px;color:#fff;line-height:1.6;align-self:flex-end;max-width:85%;}
+#sara-msgs .smt{display:flex;gap:5px;padding:10px 14px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:3px;align-self:flex-start;width:50px;}
+#sara-msgs .smt span{width:6px;height:6px;border-radius:50%;background:#555;animation:sb 1.2s infinite;}
+#sara-msgs .smt span:nth-child(2){animation-delay:.2s;}
+#sara-msgs .smt span:nth-child(3){animation-delay:.4s;}
+@keyframes sb{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sara-inp-area{padding:12px;border-top:1px solid #222;display:flex;gap:8px;}
+#sara-inp{flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:#e0d9cf;padding:8px 12px;font-family:sans-serif;font-size:13px;outline:none;resize:none;height:36px;border-radius:2px;}
+#sara-inp:focus{border-color:#2d5a8e;}
+#sara-snd{background:#2d5a8e;border:none;color:#fff;width:36px;height:36px;cursor:pointer;font-size:16px;border-radius:2px;flex-shrink:0;}
+#sara-snd:disabled{opacity:.4;cursor:not-allowed;}
+@media(max-width:480px){#sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}#sara-bubble{right:16px;bottom:16px;}}
 </style>
 
 <script src="/oma-checkout.js" defer></script>
@@ -96,12 +168,24 @@ footer a{color:var(--ash);text-decoration:none;}
   <a href="https://insights.onemanarmyproject.com.br" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#e8703a;text-decoration:none;border:1px solid rgba(232,112,58,.4);padding:6px 12px;transition:all .2s;" onmouseover="this.style.background='rgba(232,112,58,.1)'" onmouseout="this.style.background='transparent'">IA Insights</a>
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
   <a href="#formulario" class="nav-cta">Solicitar relatório</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
+  <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
+  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+  <div class="mm-divider"></div>
+  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="#formulario" class="mm-cta" onclick="toggleMobileMenu()">Solicitar relatório</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
-  <p class="hero-badge">🔮 OMA Predictions</p>
+  <p class="hero-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-1px;margin-right:6px;"><path d="M12 3l1.9 5.8L20 10l-5.8 1.9L12 18l-1.9-5.8L4 10l5.8-1.9L12 3z"/><path d="M5 2v4M19 16v4M3 4h4M17 18h4"/></svg>OMA Predictions</p>
   <h1>Antecipe reações.<br><em>Decida com mais convicção.</em></h1>
   <p>43 agentes autônomos de IA simulam como seu mercado, concorrentes e clientes vão reagir — em 30 minutos, por uma fração do custo de uma consultoria.</p>
   <div class="metrics">
@@ -117,11 +201,11 @@ footer a{color:var(--ash);text-decoration:none;}
   <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:16px;">Transparência brutal</div>
   <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--bone);margin-bottom:24px;">Usamos o Predictions no <em style="color:var(--fire);font-style:italic;">nosso próprio negócio.</em></div>
   <div style="background:var(--iron);border:1px solid var(--steel);padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
-    <div style="font-size:40px;flex-shrink:0;">📊</div>
+    <div style="flex-shrink:0;color:var(--fire);"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
     <div style="flex:1;min-width:200px;">
       <div style="font-size:16px;font-weight:700;color:var(--bone);margin-bottom:6px;">Analisamos o OMA Project com o OMA Predictions</div>
-      <div style="font-size:13px;color:var(--ash);line-height:1.7;margin-bottom:12px;">43 agentes simulados debateram sobre nosso negócio por 15 rounds. Veja o que descobrimos — sem filtro, sem edição.</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;">43 agentes · 334 interações · 4 seções · custo R$1,50</div>
+      <div style="font-size:13px;color:#b5ada3;line-height:1.7;margin-bottom:12px;">43 agentes simulados debateram sobre nosso negócio por 15 rounds. Veja o que descobrimos — sem filtro, sem edição.</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#9a9187;letter-spacing:1px;">43 agentes · 334 interações · 4 seções · custo R$1,50</div>
     </div>
     <a href="/reports/oma-case-study.html" target="_blank" style="background:var(--fire);color:#000;padding:12px 24px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;text-decoration:none;flex-shrink:0;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='var(--fire)'">VER RELATÓRIO →</a>
   </div>
@@ -133,7 +217,7 @@ footer a{color:var(--ash);text-decoration:none;}
 <section class="sec">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:700px;margin:0 auto;">
     <div class="pricing-box" style="max-width:none;">
-      <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
+      <div class="pricing-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-1px;margin-right:5px;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>Lançamento — 50% OFF</div>
       <div class="pricing-old">De R$ 2.599,00</div>
       <div class="pricing-new">R$ 1.299<span>,00</span></div>
       <div class="pricing-detail">5 relatórios · R$260 cada</div>
@@ -150,7 +234,7 @@ footer a{color:var(--ash);text-decoration:none;}
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
     </div>
     <div class="pricing-box" style="max-width:none;border:1px solid var(--fire);">
-      <div class="pricing-badge" style="background:var(--green);">⚡ Plano Profissional</div>
+      <div class="pricing-badge" style="background:var(--green);"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-1px;margin-right:5px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Plano Profissional</div>
       <div class="pricing-old">De R$ 7.999,00</div>
       <div class="pricing-new">R$ 3.999<span>,00</span></div>
       <div class="pricing-detail">30 relatórios · 1 por dia · R$133 cada</div>
@@ -209,19 +293,19 @@ footer a{color:var(--ash);text-decoration:none;}
 
     <div style="background:var(--char);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:22px 32px;margin-top:2px">
       <p style="font-family:Space Mono,monospace;font-size:9px;letter-spacing:3px;color:var(--blood);text-transform:uppercase;margin-bottom:10px">A metodologia — Swarm Intelligence</p>
-      <p style="font-size:13px;color:var(--fog);line-height:1.75;max-width:720px;margin-bottom:12px">Swarm Intelligence é o mesmo princípio que explica como abelhas encontram a melhor flor, ou como mercados formam preços antes de qualquer analista declarar uma tendência. Comportamento coletivo inteligente emergindo de agentes simples interagindo entre si.</p>
-      <p style="font-size:13px;color:var(--fog);line-height:1.75;max-width:720px">Aplicamos isso ao cenário do seu negócio: criamos dezenas de stakeholders autônomos — cada um com personalidade, histórico e motivação baseados em fontes públicas reais — e os colocamos para interagir. O que emerge dessas interações são padrões que nenhum analista individual conseguiria prever. Quando um tema concentra engajamento inesperado na simulação, isso é sinal — não palpite.</p>
+      <p style="font-size:13px;color:#b5ada3;line-height:1.75;max-width:720px;margin-bottom:12px">Swarm Intelligence é o mesmo princípio que explica como abelhas encontram a melhor flor, ou como mercados formam preços antes de qualquer analista declarar uma tendência. Comportamento coletivo inteligente emergindo de agentes simples interagindo entre si.</p>
+      <p style="font-size:13px;color:#b5ada3;line-height:1.75;max-width:720px">Aplicamos isso ao cenário do seu negócio: criamos dezenas de stakeholders autônomos — cada um com personalidade, histórico e motivação baseados em fontes públicas reais — e os colocamos para interagir. O que emerge dessas interações são padrões que nenhum analista individual conseguiria prever. Quando um tema concentra engajamento inesperado na simulação, isso é sinal — não palpite.</p>
     </div>
 
     <div style="background:var(--char);border:1px solid var(--iron);border-left:3px solid var(--ash);padding:22px 32px;margin-top:2px">
-      <p style="font-family:Space Mono,monospace;font-size:9px;letter-spacing:3px;color:var(--ash);text-transform:uppercase;margin-bottom:10px">Limitações que você deve conhecer</p>
+      <p style="font-family:Space Mono,monospace;font-size:9px;letter-spacing:3px;color:#9a9187;text-transform:uppercase;margin-bottom:10px">Limitações que você deve conhecer</p>
       <ul style="list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px">
-        <li style="font-size:12px;color:var(--fog);line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ash)">—</span>Agentes simulados com base em dados públicos disponíveis até a data de geração</li>
-        <li style="font-size:12px;color:var(--fog);line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ash)">—</span>Eventos imprevisíveis (crises, escândalos, mudanças bruscas) não estão no modelo</li>
-        <li style="font-size:12px;color:var(--fog);line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ash)">—</span>Citações dos agentes são simuladas — não são declarações reais das pessoas</li>
-        <li style="font-size:12px;color:var(--fog);line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ash)">—</span>Probabilidades são indicativas — não determinísticas</li>
-        <li style="font-size:12px;color:var(--fog);line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ash)">—</span>Nenhum dado pessoal é armazenado (LGPD Art. 12)</li>
-        <li style="font-size:12px;color:var(--fog);line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--ash)">—</span>O relatório não constitui consultoria jurídica, política ou financeira</li>
+        <li style="font-size:12px;color:#b5ada3;line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:#7a7268">—</span>Agentes simulados com base em dados públicos disponíveis até a data de geração</li>
+        <li style="font-size:12px;color:#b5ada3;line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:#7a7268">—</span>Eventos imprevisíveis (crises, escândalos, mudanças bruscas) não estão no modelo</li>
+        <li style="font-size:12px;color:#b5ada3;line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:#7a7268">—</span>Citações dos agentes são simuladas — não são declarações reais das pessoas</li>
+        <li style="font-size:12px;color:#b5ada3;line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:#7a7268">—</span>Probabilidades são indicativas — não determinísticas</li>
+        <li style="font-size:12px;color:#b5ada3;line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:#7a7268">—</span>Nenhum dado pessoal é armazenado (LGPD Art. 12)</li>
+        <li style="font-size:12px;color:#b5ada3;line-height:1.6;padding-left:14px;position:relative"><span style="position:absolute;left:0;color:#7a7268">—</span>O relatório não constitui consultoria jurídica, política ou financeira</li>
       </ul>
     </div>
   </div>
@@ -260,7 +344,7 @@ footer a{color:var(--ash);text-decoration:none;}
   <!-- PRICING AQUI TAMBÉM -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:700px;margin:0 auto;">
     <div class="pricing-box" style="max-width:none;">
-      <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
+      <div class="pricing-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-1px;margin-right:5px;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>Lançamento — 50% OFF</div>
       <div class="pricing-old">De R$ 2.599,00</div>
       <div class="pricing-new">R$ 1.299<span>,00</span></div>
       <div class="pricing-detail">5 relatórios · R$260 cada</div>
@@ -277,7 +361,7 @@ footer a{color:var(--ash);text-decoration:none;}
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-align:center;margin-top:8px;">PIX em minutos · Boleto 1 dia útil · Cartão em até 4x</p>
     </div>
     <div class="pricing-box" style="max-width:none;border:1px solid var(--fire);">
-      <div class="pricing-badge" style="background:var(--green);">⚡ Plano Profissional</div>
+      <div class="pricing-badge" style="background:var(--green);"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-1px;margin-right:5px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Plano Profissional</div>
       <div class="pricing-old">De R$ 7.999,00</div>
       <div class="pricing-new">R$ 3.999<span>,00</span></div>
       <div class="pricing-detail">30 relatórios · 1 por dia · R$133 cada</div>
@@ -372,30 +456,6 @@ async function submitPrediction() {
 }
 </script>
 
-<!-- BIA WEBCHAT -->
-<script>
-(function(){
-  var btn = document.createElement('div');
-  btn.id = 'bia-float';
-  btn.innerHTML = '🦞';
-  btn.title = 'Falar com a Bia';
-  btn.style.cssText = 'position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:var(--fire);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:200;box-shadow:0 4px 16px rgba(232,112,58,.3);transition:transform .2s;';
-  btn.onmouseover = function(){ this.style.transform='scale(1.1)'; };
-  btn.onmouseout = function(){ this.style.transform='scale(1)'; };
-  btn.onclick = function(){
-    var iframe = document.getElementById('bia-chat');
-    if(iframe){
-      iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
-    } else {
-      var f = document.createElement('iframe');
-      f.id = 'bia-chat';
-      f.src = 'https://onemanarmyproject.com.br/webchat?context=predictions';
-      f.style.cssText = 'position:fixed;bottom:90px;right:24px;width:380px;height:520px;border:1px solid var(--iron);border-radius:8px;z-index:200;background:var(--char);box-shadow:0 8px 32px rgba(0,0,0,.5);';
-      document.body.appendChild(f);
-    }
-  };
-  document.body.appendChild(btn);
-})();
 
 function abrirCheckoutPred(value, qtd) {
   omaCheckout.open({
@@ -412,5 +472,99 @@ function abrirCheckoutPred(value, qtd) {
 
 </script>
 
+<script>
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.classList.toggle('mm-locked',open);
+  b.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+}
+</script>
+
+<!-- SARA Support Widget -->
+<div id="sara-bubble" onclick="saraToggle()" title="Precisa de ajuda?">
+  <div id="sara-badge"></div>
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+</div>
+<div id="sara-widget">
+  <div id="sara-hdr">
+    <div class="sara-hdr-l">
+      <div class="sara-av">SA</div>
+      <div><div class="sara-nm">SARA &middot; SUPORTE OMA</div><div class="sara-st">&#9679; online</div></div>
+    </div>
+    <button id="sara-x" onclick="saraToggle()">&#x2715;</button>
+  </div>
+  <div id="sara-msgs"></div>
+  <div id="sara-inp-area">
+    <textarea id="sara-inp" placeholder="Como posso ajudar?" rows="1"></textarea>
+    <button id="sara-snd" onclick="saraSend()">&#8593;</button>
+  </div>
+</div>
+<script>
+/* ── SARA JS ── */
+var saraOpen=false,saraSid=null,saraLid=0,saraPollT=null,saraCtx={};
+var SARA_API='https://api.onemanarmyproject.com.br';
+function saraShow(){var b=document.getElementById('sara-bubble');if(b)b.style.display='flex';}
+function saraInit(ctx){saraCtx=ctx||{};saraShow();/* sem auto-open */}
+async function saraToggle(){
+  var w=document.getElementById('sara-widget');if(!w)return;
+  saraOpen=!saraOpen;
+  w.style.display=saraOpen?'flex':'none';
+  var badge=document.getElementById('sara-badge');if(badge)badge.style.display='none';
+  if(saraOpen&&!saraSid)await saraStart();
+}
+async function saraStart(){
+  try{
+    var r=await fetch(SARA_API+'/webchat/session',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({segmento:'suporte',produto:saraCtx.produto||'predictions',cliente_nome:'',cliente_phone:'',cliente_plano:''})});
+    var d=await r.json();saraSid=d.session_id;
+    var h=await fetch(SARA_API+'/webchat/history/'+saraSid);
+    var hd=await h.json();
+    hd.messages.forEach(function(m){saraAdd(m.role==='agent'?'sma':'smu',m.content,m.id);});
+    saraPollT=setInterval(saraPoll,2000);
+  }catch(e){saraAdd('sma','Olá! Sou a Sara, suporte OMA. Posso te ajudar com dúvidas sobre o Predictions?',0);}
+}
+async function saraPoll(){
+  if(!saraSid)return;
+  try{
+    var r=await fetch(SARA_API+'/webchat/poll/'+saraSid+'?since='+saraLid);
+    var d=await r.json();
+    if(d.messages&&d.messages.length){
+      d.messages.forEach(function(m){saraAdd('sma',m.content,m.id);});
+      if(!saraOpen){var b=document.getElementById('sara-badge');if(b){b.style.display='flex';b.textContent='!';}}
+    }
+  }catch(e){}
+}
+async function saraSend(){
+  var inp=document.getElementById('sara-inp');
+  var txt=inp.value.trim();if(!txt||!saraSid)return;
+  inp.value='';inp.style.height='36px';
+  document.getElementById('sara-snd').disabled=true;
+  saraAdd('smu',txt,null);
+  var t=document.createElement('div');t.className='smt';t.id='sara-t';
+  t.innerHTML='<span></span><span></span><span></span>';
+  saraMsgs().appendChild(t);saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  try{await fetch(SARA_API+'/webchat/message',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({session_id:saraSid,content:txt})});}catch(e){}
+  document.getElementById('sara-snd').disabled=false;
+}
+function saraAdd(cls,txt,id){
+  var t=document.getElementById('sara-t');if(t)t.remove();
+  var d=document.createElement('div');d.className=cls;d.textContent=txt;
+  saraMsgs().appendChild(d);saraMsgs().scrollTop=saraMsgs().scrollHeight;
+  if(id)saraLid=Math.max(saraLid,id);
+}
+function saraMsgs(){return document.getElementById('sara-msgs');}
+document.addEventListener('DOMContentLoaded',function(){
+  saraInit({produto:'predictions'});
+  var i=document.getElementById('sara-inp');
+  if(i)i.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}
+  });
+});
+</script>
 </body>
 </html>

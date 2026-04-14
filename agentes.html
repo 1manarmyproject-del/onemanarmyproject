@@ -97,9 +97,51 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   .academy-banner-grid{grid-template-columns:1fr!important;text-align:center;}
   .sec{padding:48px 20px;}
   .proof-grid{grid-template-columns:repeat(2,1fr);}
+  .proof-grid .proof-card:nth-child(5){grid-column:1 / -1;}
   .vert-grid,.mod-grid,.princ-grid{grid-template-columns:1fr;}
   footer{padding:28px 20px;}.footer-links{flex-direction:column;gap:10px;align-items:center;}
 }
+
+/* MOBILE NAV MENU (mobile only - desktop unchanged) */
+.nav-burger{display:none;}
+.mobile-menu{display:none;}
+@media(max-width:680px){
+  nav > a[href="/portal"],
+  nav > .nav-insights,
+  nav > .nav-cta{display:none!important;}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;}
+  .nav-burger span{display:block;width:18px;height:1.5px;background:var(--bone);transition:transform .3s,opacity .3s;}
+  .nav-burger.open{border-color:var(--fire);}
+  .nav-burger.open span{background:var(--fire);}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:var(--bone);text-decoration:none;text-transform:uppercase;padding:8px 0;}
+  .mobile-menu a.mm-fire{color:var(--fire);}
+  .mobile-menu a.mm-active{color:var(--fire);}
+  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
+  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:var(--fire);color:var(--char);padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
+  body.mm-locked{overflow:hidden;}
+}
+/* SVG icons in vert-card and mod-card */
+.vert-ico{flex-shrink:0;width:28px;height:28px;color:var(--fire);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.vert-ico svg{width:28px;height:28px;display:block;}
+.mod-ico{flex-shrink:0;width:28px;height:28px;color:var(--fire);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.mod-ico svg{width:28px;height:28px;display:block;}
+/* TEMPLATES 70 - mobile reorg (stack big number under text) */
+@media(max-width:700px){
+  #templates-70-block > div{grid-template-columns:1fr!important;padding:24px 20px!important;gap:18px!important;}
+  #templates-70-block .t70-num{font-size:56px!important;}
+}
+/* BANNER ACADEMY - mobile reorg */
+@media(max-width:700px){
+  #banner-academy{padding:48px 20px!important;}
+  #banner-academy > div{grid-template-columns:1fr!important;gap:28px!important;}
+  #banner-academy a[href="/academy"]{display:block!important;width:100%!important;text-align:center!important;box-sizing:border-box!important;padding:16px 20px!important;font-size:11px!important;}
+}
+
 </style>
 
 <style>
@@ -165,7 +207,19 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
   <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
   <a href="/" onclick="if(window.oT)oT();return true;" class="nav-cta">Falar com a Bia</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
+  <a href="/agentes" class="mm-active" onclick="toggleMobileMenu()">Agentes</a>
+  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
+  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+  <div class="mm-divider"></div>
+  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="/" class="mm-cta" onclick="toggleMobileMenu();if(window.oT)oT();return true;">Falar com a Bia</a>
+</div>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
@@ -196,7 +250,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   </div>
 
   <!-- DESTAQUE 70 TEMPLATES -->
-  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
+  <div id="templates-70-block" style="max-width:860px;margin:32px auto 0;padding:0 32px;">
     <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
       <div>
         <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
@@ -214,7 +268,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
         </div>
       </div>
       <div style="text-align:center;flex-shrink:0;">
-        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
+        <div class="t70-num" style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
         <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
       </div>
     </div>
@@ -237,32 +291,6 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-005 · MONITORAMENTO</div><div class="agent-name">Darwin</div><div class="agent-role">Qualidade 24/7</div><div class="agent-desc">Monitora a operação 24/7, identifica falhas, desvios e gargalos antes que virem problema para o cliente.</div></div>
     <div class="agent-card"><div class="agent-dot"></div><div class="agent-id">AGT-006 · MARKETING</div><div class="agent-name">Flávia</div><div class="agent-role">Operação de Conteúdo</div><div class="agent-desc">Coordena calendário, briefing, produção e publicação de conteúdo com operação contínua.</div></div>
   </div>
-
-  <!-- DESTAQUE 70 TEMPLATES -->
-  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
-    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
-        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
-        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
-        </div>
-      </div>
-      <div style="text-align:center;flex-shrink:0;">
-        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
-      </div>
-    </div>
-  </div>
-
 </section>
 
 <div class="div"><div class="div-gem"></div></div>
@@ -274,43 +302,17 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <h2 class="sec-title" style="color:var(--dark-text)">Dores diferentes,<br><span>mesma lógica operacional.</span></h2>
     <p class="sec-body" style="max-width:580px;color:var(--mid-text)">Cada segmento tem suas próprias rotinas críticas. O agente é configurado para entender o contexto específico do negócio — não uma solução genérica.</p>
     <div class="vert-grid">
-      <div class="vert-card"><div class="vert-ico">⚖️</div><div class="vert-name">Advocacia</div><div class="vert-dor">"Perco 3h por dia em controle de prazos"</div><div class="vert-res">Opera controle de prazos, cobrança de documentos e agendamento com menos dependência do time.</div></div>
-      <div class="vert-card"><div class="vert-ico">🏥</div><div class="vert-name">Clínicas e Hospitais</div><div class="vert-dor">"5 faltas por semana sem aviso"</div><div class="vert-res">Confirma consultas, reage a faltas, reorganiza agenda e recupera encaixes ociosos.</div></div>
-      <div class="vert-card"><div class="vert-ico">🍺</div><div class="vert-name">Distribuidores</div><div class="vert-dor">"Meu time vende menos porque responde WhatsApp"</div><div class="vert-res">Assume atendimento operacional e pedidos para liberar o time comercial para vender.</div></div>
-      <div class="vert-card"><div class="vert-ico">🏢</div><div class="vert-name">Administradoras</div><div class="vert-dor">"42 condomínios, backoffice manual"</div><div class="vert-res">Centraliza comunicação, cobrança e rotina operacional por unidade com mais previsibilidade.</div></div>
-      <div class="vert-card"><div class="vert-ico">👓</div><div class="vert-name">Varejo e Óticas</div><div class="vert-dor">"Perco clientes fora do horário"</div><div class="vert-res">Opera atendimento, follow-up e recuperação de oportunidades dentro e fora do horário comercial.</div></div>
-      <div class="vert-card"><div class="vert-ico">🍽️</div><div class="vert-name">Restaurantes</div><div class="vert-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div><div class="vert-res">Organiza reservas, pedidos, repasses e confirmações para tirar o dono do gargalo operacional.</div></div>
-      <div class="vert-card"><div class="vert-ico">⚽</div><div class="vert-name">Clubes</div><div class="vert-dor">"Centenas de associados, time pequeno"</div><div class="vert-res">Atende associados, controla mensalidades e organiza comunicação por categoria.</div></div>
-      <div class="vert-card"><div class="vert-ico">📊</div><div class="vert-name">Contabilidade</div><div class="vert-dor">"Fico mais tempo coletando do que analisando"</div><div class="vert-res">Coleta, organiza, cobra pendências e reduz o tempo consumido em tarefas que não geram valor.</div></div>
-      <div class="vert-card"><div class="vert-ico">🏗️</div><div class="vert-name">Outros segmentos</div><div class="vert-dor">"Tenho uma operação diferente"</div><div class="vert-res">Se existe dor operacional recorrente, existe fluxo para um agente assumir. A Bia faz o diagnóstico.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div><div class="vert-name">Advocacia</div><div class="vert-dor">"Perco 3h por dia em controle de prazos"</div><div class="vert-res">Opera controle de prazos, cobrança de documentos e agendamento com menos dependência do time.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></div><div class="vert-name">Clínicas e Hospitais</div><div class="vert-dor">"5 faltas por semana sem aviso"</div><div class="vert-res">Confirma consultas, reage a faltas, reorganiza agenda e recupera encaixes ociosos.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><div class="vert-name">Distribuidores</div><div class="vert-dor">"Meu time vende menos porque responde WhatsApp"</div><div class="vert-res">Assume atendimento operacional e pedidos para liberar o time comercial para vender.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div><div class="vert-name">Administradoras</div><div class="vert-dor">"42 condomínios, backoffice manual"</div><div class="vert-res">Centraliza comunicação, cobrança e rotina operacional por unidade com mais previsibilidade.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"/><path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2"/></svg></div><div class="vert-name">Varejo e Óticas</div><div class="vert-dor">"Perco clientes fora do horário"</div><div class="vert-res">Opera atendimento, follow-up e recuperação de oportunidades dentro e fora do horário comercial.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div><div class="vert-name">Restaurantes</div><div class="vert-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div><div class="vert-res">Organiza reservas, pedidos, repasses e confirmações para tirar o dono do gargalo operacional.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="vert-name">Clubes</div><div class="vert-dor">"Centenas de associados, time pequeno"</div><div class="vert-res">Atende associados, controla mensalidades e organiza comunicação por categoria.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div><div class="vert-name">Contabilidade</div><div class="vert-dor">"Fico mais tempo coletando do que analisando"</div><div class="vert-res">Coleta, organiza, cobra pendências e reduz o tempo consumido em tarefas que não geram valor.</div></div>
+      <div class="vert-card"><div class="vert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></div><div class="vert-name">Outros segmentos</div><div class="vert-dor">"Tenho uma operação diferente"</div><div class="vert-res">Se existe dor operacional recorrente, existe fluxo para um agente assumir. A Bia faz o diagnóstico.</div></div>
     </div>
   </div>
-
-  <!-- DESTAQUE 70 TEMPLATES -->
-  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
-    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
-        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
-        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
-        </div>
-      </div>
-      <div style="text-align:center;flex-shrink:0;">
-        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
-      </div>
-    </div>
-  </div>
-
 </section>
 
 <div class="div"><div class="div-gem"></div></div>
@@ -321,15 +323,15 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <h2 class="sec-title">8 frentes que empresas grandes<br><span>já tratam como sistema.</span></h2>
   <p class="sec-body" style="max-width:560px">Agora qualquer negócio pode operar assim — sem a complexidade, o custo e o headcount. Cada módulo resolve uma dor operacional específica. Sozinho já gera ganho. Combinado, vira uma camada operacional completa.</p>
   <div class="mod-grid">
-    <div class="mod-card"><div class="mod-ico">🎧</div><div class="mod-name">SAC 24h</div><div class="mod-dor">"Sou eu que respondo às 23h"</div><div class="mod-res">Resolve a maior parte dos atendimentos sozinho e entrega as exceções com contexto completo.</div></div>
-    <div class="mod-card"><div class="mod-ico">📋</div><div class="mod-name">Consultor de Processos</div><div class="mod-dor">"Ninguém lê o manual"</div><div class="mod-res">Transforma manuais e rotinas em resposta útil, imediata e acessível para o time.</div></div>
-    <div class="mod-card"><div class="mod-ico">📅</div><div class="mod-name">Gestão de Agenda</div><div class="mod-dor">"5 faltas por semana sem aviso"</div><div class="mod-res">Confirma, reage, reorganiza e ocupa espaços ociosos sem depender de controle humano constante.</div></div>
-    <div class="mod-card"><div class="mod-ico">💰</div><div class="mod-name">Cobrança e Follow-up</div><div class="mod-dor">"Odeio cobrar cliente"</div><div class="mod-res">Mantém a cadência da cobrança com registro, timing certo e persistência — sem você entrar na conversa.</div></div>
-    <div class="mod-card"><div class="mod-ico">📊</div><div class="mod-name">Relatórios e Indicadores</div><div class="mod-dor">"Não sei o que está acontecendo"</div><div class="mod-res">Consolida KPIs e envia o que importa no momento certo, sem você precisar puxar.</div></div>
-    <div class="mod-card"><div class="mod-ico">🛒</div><div class="mod-name">Vendedor Digital</div><div class="mod-dor">"Perco venda fora do horário"</div><div class="mod-res">Qualifica, apresenta, responde, acompanha e mantém oportunidades vivas fora do horário comercial.</div></div>
-    <div class="mod-card"><div class="mod-ico">🗂️</div><div class="mod-name">Assistente Operacional</div><div class="mod-dor">"Metade do meu dia é execução sem decisão"</div><div class="mod-res">Assume tarefas repetitivas e formais para liberar o time para o que exige decisão.</div></div>
-    <div class="mod-card"><div class="mod-ico">🔢</div><div class="mod-name">Conciliador de Dados</div><div class="mod-dor">"Todo mês passo dias conciliando — e ainda erro"</div><div class="mod-res">Compara, organiza, valida e reduz erro em rotinas que hoje consomem dias inteiros.</div></div>
-    <div class="mod-card"><div class="mod-ico">📱</div><div class="mod-name">Social Mídia Express</div><div class="mod-dor">"Não tenho tempo nem equipe para postar"</div><div class="mod-res">Briefing, copy, curadoria, publicação e sequência editorial com operação contínua.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1v-6a9 9 0 0 1 18 0v6a1 1 0 0 1-1 1h-2a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></div><div class="mod-name">SAC 24h</div><div class="mod-dor">"Sou eu que respondo às 23h"</div><div class="mod-res">Resolve a maior parte dos atendimentos sozinho e entrega as exceções com contexto completo.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div><div class="mod-name">Consultor de Processos</div><div class="mod-dor">"Ninguém lê o manual"</div><div class="mod-res">Transforma manuais e rotinas em resposta útil, imediata e acessível para o time.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="mod-name">Gestão de Agenda</div><div class="mod-dor">"5 faltas por semana sem aviso"</div><div class="mod-res">Confirma, reage, reorganiza e ocupa espaços ociosos sem depender de controle humano constante.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/></svg></div><div class="mod-name">Cobrança e Follow-up</div><div class="mod-dor">"Odeio cobrar cliente"</div><div class="mod-res">Mantém a cadência da cobrança com registro, timing certo e persistência — sem você entrar na conversa.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div><div class="mod-name">Relatórios e Indicadores</div><div class="mod-dor">"Não sei o que está acontecendo"</div><div class="mod-res">Consolida KPIs e envia o que importa no momento certo, sem você precisar puxar.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div class="mod-name">Vendedor Digital</div><div class="mod-dor">"Perco venda fora do horário"</div><div class="mod-res">Qualifica, apresenta, responde, acompanha e mantém oportunidades vivas fora do horário comercial.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="mod-name">Assistente Operacional</div><div class="mod-dor">"Metade do meu dia é execução sem decisão"</div><div class="mod-res">Assume tarefas repetitivas e formais para liberar o time para o que exige decisão.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="8" y2="18"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div><div class="mod-name">Conciliador de Dados</div><div class="mod-dor">"Todo mês passo dias conciliando — e ainda erro"</div><div class="mod-res">Compara, organiza, valida e reduz erro em rotinas que hoje consomem dias inteiros.</div></div>
+    <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div class="mod-name">Social Mídia Express</div><div class="mod-dor">"Não tenho tempo nem equipe para postar"</div><div class="mod-res">Briefing, copy, curadoria, publicação e sequência editorial com operação contínua.</div></div>
   </div>
   <div style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:2px;">
     <div style="background:var(--coal);border:1px solid var(--iron);border-left:3px solid var(--blood);padding:32px 28px">
@@ -347,7 +349,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <div class="div"><div class="div-gem"></div></div>
 
 <!-- BANNER ACADEMY -->
-<section style="background:var(--coal);border-top:1px solid var(--iron);border-bottom:1px solid var(--iron);padding:56px 32px;">
+<section id="banner-academy" style="background:var(--coal);border-top:1px solid var(--iron);border-bottom:1px solid var(--iron);padding:56px 32px;">
   <div style="max-width:1020px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;">
     <div>
       <div style="display:inline-block;font-family:'Black Ops One',cursive;font-size:9px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:4px 10px;margin-bottom:16px;">Formação Gratuita</div>
@@ -359,32 +361,6 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
       <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:10px;letter-spacing:1px;">Gratuito · Sem cadastro obrigatório</p>
     </div>
   </div>
-
-  <!-- DESTAQUE 70 TEMPLATES -->
-  <div style="max-width:860px;margin:32px auto 0;padding:0 32px;">
-    <div style="background:linear-gradient(135deg,rgba(232,112,58,.1),rgba(232,112,58,.03));border:1px solid rgba(232,112,58,.25);padding:32px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;">BIBLIOTECA DE AGENTES</div>
-        <div style="font-size:20px;font-weight:700;color:var(--dark-text);margin-bottom:8px;">70+ templates pré-construídos.<br>Prontos para o seu negócio.</div>
-        <div style="font-size:14px;color:var(--mid-text);line-height:1.7;max-width:540px;">Para cada segmento e função estratégica — atendimento, vendas, financeiro, operações, RH, marketing — já temos agentes testados e documentados. Não partimos do zero. Adaptamos, configuramos e entregamos.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Atendimento</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Vendas B2B</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Financeiro</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Operações</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Marketing</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">RH</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Clipping</span>
-          <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(232,112,58,.1);color:var(--fire);padding:4px 10px;border-radius:2px;letter-spacing:1px;">Jurídico</span>
-        </div>
-      </div>
-      <div style="text-align:center;flex-shrink:0;">
-        <div style="font-family:'Black Ops One',cursive;font-size:72px;color:var(--fire);line-height:1;">70+</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mid-text);">TEMPLATES PRONTOS</div>
-      </div>
-    </div>
-  </div>
-
 </section>
 
 <div class="div"><div class="div-gem"></div></div>
@@ -472,6 +448,17 @@ window.addEventListener('scroll',function(){if(triggered||op)return;var scrolled
 document.addEventListener('mouseleave',function(e){if(triggered||op||dismissed)return;if(e.clientY<=0){triggered=true;showPreview();}});
 })();
 })();
+</script>
+<script>
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.classList.toggle('mm-locked',open);
+  b.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+}
 </script>
 </body>
 </html>

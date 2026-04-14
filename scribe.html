@@ -11,15 +11,6 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--coal);font-family:'Barlow',sans-serif;min-height:100vh;}
 
-/* HEADER */
-.hdr{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;}
-.hlogo{font-family:'Black Ops One',cursive;font-size:16px;letter-spacing:2px;color:#e0d9cf;}
-.hlogo span{color:var(--fire);}
-.hnav{display:flex;gap:24px;align-items:center;}
-.hnav a{font-family:'Space Mono',monospace;font-size:10px;color:#6a6a6a;text-decoration:none;letter-spacing:1px;}
-.hnav a:hover{color:var(--fire);}
-.hnav .btn-login{background:var(--fire);color:#000;padding:6px 14px;font-weight:700;}
-
 /* HERO */
 .hero{background:#1c1c1e;border-bottom:1px solid #2a2a2a;padding:80px 24px;text-align:center;}
 .hero-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--fire);margin-bottom:16px;}
@@ -194,7 +185,7 @@ footer{background:#1c1c1e;border-top:1px solid #2a2a2a;padding:24px;text-align:c
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
 nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid #1a1a1a;backdrop-filter:blur(8px);}
 .nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;flex-direction:column;align-items:flex-start;gap:3px;}
-.nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:#e4ddd3;}
+.nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:#c85820;}
 .nav-name span{color:#c85820;}
 .nav-links{display:flex;align-items:center;gap:32px;}
 .nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
@@ -203,7 +194,71 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid #1a1a1a;backdrop
 .nav-insights:hover{background:rgba(232,112,58,.1);}
 .nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:#c85820;color:#f5f0e8;border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
 .nav-cta:hover{background:#a04010;}
-@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
+/* ── HAMBURGER MENU + MOBILE ─────────────────────────── */
+.nav-burger{display:none;}
+.mobile-menu{display:none;}
+@media(max-width:760px){
+  nav{padding:14px 20px;flex-wrap:nowrap;}
+  .nav-brand > div:last-child{display:none;}
+  .nav-brand img{display:none;}
+  .nav-links{display:none;}
+  nav > a[href="/portal"]{display:none!important;}
+  nav > .nav-insights{display:none!important;}
+  nav > .nav-cta{display:none!important;}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;margin-left:auto;}
+  .nav-burger span{display:block;width:18px;height:1.5px;background:#e4ddd3;transition:transform .3s,opacity .3s;}
+  .nav-burger.open{border-color:#c85820;}
+  .nav-burger.open span{background:#c85820;}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:#e4ddd3;text-decoration:none;text-transform:uppercase;padding:8px 0;}
+  .mobile-menu a.mm-fire{color:#c85820;}
+  .mobile-menu a.mm-active{color:#c85820;}
+  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
+  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:#c85820;color:#f5f0e8;padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
+  body.mm-locked{overflow:hidden;}
+  /* HERO */
+  .hero{padding:56px 20px;}
+  .hero-title{font-size:clamp(28px,7vw,42px)!important;}
+  .hero-sub{font-size:15px;padding:0 8px;}
+  .hero-demo{flex-direction:column;align-items:stretch;gap:14px;padding:18px;margin-left:0;margin-right:0;width:100%;}
+  .hero-demo > div[style*="color:#333"]{transform:rotate(90deg);margin:0 auto!important;}
+  .demo-text{text-align:center;}
+  .hero-cta,.hero-cta-sec{display:block;margin:8px 0!important;text-align:center;padding:16px 24px;}
+  /* COMO FUNCIONA */
+  .how{margin:56px auto;padding:0 20px;}
+  .section-title{font-size:22px;margin-bottom:32px;}
+  /* PRICING */
+  .pricing{padding:56px 20px;}
+  .plans{grid-template-columns:1fr!important;gap:12px;}
+  .plan:first-child{grid-column:auto;}
+  /* Cards comerciais - fontes maiores + botão edge-to-edge harmônico */
+  .plan{padding:36px 0 0!important;overflow:hidden;}
+  .plan > .plan-name,
+  .plan > .plan-price,
+  .plan > .plan-period,
+  .plan > .plan-min,
+  .plan > .plan-min-label{padding-left:20px;padding-right:20px;}
+  .plan-name{font-size:11px;margin-bottom:16px;}
+  .plan-price{font-size:48px!important;margin-bottom:6px;}
+  .plan-free .plan-price{font-size:40px!important;}
+  .plan-min{font-size:34px!important;margin-bottom:6px;margin-top:8px;}
+  .plan-min-label{font-size:12px;margin-bottom:24px;}
+  .plan-btn{margin:0!important;padding:20px!important;font-size:12px!important;letter-spacing:2px!important;width:100%;}
+  /* PORTAL */
+  .portal-section{margin:56px auto;padding:0 20px;}
+  .portal-card{padding:28px 22px;}
+  .portal-title{font-size:20px;}
+  /* SEGURANÇA section flex */
+  section[style*="rgba(45,138,80"] > div{flex-direction:column;gap:16px;}
+  /* Section headings within pricing */
+  .pricing-inner h2{font-size:22px!important;}
+  /* Tabs QR/Código */
+  #panel-qr .qr-instructions,#panel-code .qr-instructions{font-size:12px;}
+}
 
 body{padding-top:80px;}
 </style>
@@ -222,6 +277,15 @@ body{padding-top:80px;}
 
 <script>
 /* ── SARA JS ── */
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.classList.toggle('mm-locked',open);
+  b.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+}
 var saraOpen=false,saraSid=null,saraLid=0,saraPollT=null,saraCtx={};
 var SARA_API='https://api.onemanarmyproject.com.br';
 
@@ -239,12 +303,7 @@ function saraHide(){
 function saraInit(ctx){
   saraCtx=ctx||{};
   saraShow();
-  var visto=sessionStorage.getItem('sara_visto_'+( ctx&&ctx.produto||'x'));
-  if(!visto){
-    setTimeout(function(){
-      if(!saraOpen){saraToggle();sessionStorage.setItem('sara_visto_'+(saraCtx.produto||'x'),'1');}
-    },5000);
-  }
+  // Auto-open removido - bolha só abre com clique do usuário
 }
 async function saraToggle(){
   var w=document.getElementById('sara-widget');
@@ -339,7 +398,19 @@ document.addEventListener('DOMContentLoaded',function(){
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
   <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
   <a href="#" onclick="if(window.oT)oT();return false;" class="nav-cta">Falar com a Bia</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
+  <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
+  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+  <div class="mm-divider"></div>
+  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="#" class="mm-cta" onclick="toggleMobileMenu();if(window.oT)oT();return false;">Falar com a Bia</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -347,13 +418,13 @@ document.addEventListener('DOMContentLoaded',function(){
   <h1 class="hero-title">Manda o áudio.<br>O Scribe <span>escreve.</span></h1>
   <p class="hero-sub">Transcrição de áudio diretamente no seu WhatsApp. Sem app, sem cadastro complicado — só mandar o áudio e receber o texto.</p>
   <div class="hero-demo">
-    <div class="demo-icon">🎙️</div>
+    <div class="demo-icon" style="color:var(--fire);display:inline-flex;align-items:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
     <div class="demo-text">
       <div class="demo-label">VOCÊ MANDA</div>
-      <div class="demo-msg">🎵 Áudio de 2 minutos</div>
+      <div class="demo-msg"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-1px;margin-right:5px;color:var(--fire);"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Áudio de 2 minutos</div>
     </div>
     <div style="color:#333;font-size:20px;margin:0 8px;">→</div>
-    <div class="demo-icon">📝</div>
+    <div class="demo-icon" style="color:var(--fire);display:inline-flex;align-items:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
     <div class="demo-text">
       <div class="demo-label">SCRIBE RESPONDE</div>
       <div class="demo-msg">"Bom, então o combinado é..."</div>
@@ -397,7 +468,6 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="plan plan-free">
         <div class="plan-name">FREE</div>
         <div class="plan-price">R$0</div>
-        <div class="plan-period">para sempre</div>
         <div class="plan-min">30</div>
         <div class="plan-min-label">min/mês</div>
         <button class="plan-btn plan-btn-secondary" onclick="assinar('free','')">COMEÇAR GRÁTIS</button>
@@ -405,7 +475,6 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="plan">
         <div class="plan-name">STARTER</div>
         <div class="plan-price">R$19</div>
-        <div class="plan-period">,90/mês</div>
         <div class="plan-min">150</div>
         <div class="plan-min-label">min/mês</div>
         <button class="plan-btn plan-btn-secondary" onclick="assinar('starter','ouelv075jn9jyef9')">ASSINAR</button>
@@ -414,7 +483,6 @@ document.addEventListener('DOMContentLoaded',function(){
         <div class="plan-badge">MAIS POPULAR</div>
         <div class="plan-name">LIGHT</div>
         <div class="plan-price">R$29</div>
-        <div class="plan-period">,90/mês</div>
         <div class="plan-min">300</div>
         <div class="plan-min-label">min/mês</div>
         <button class="plan-btn plan-btn-primary" onclick="assinar('light','70a534lujq5qa32a')">ASSINAR</button>
@@ -422,7 +490,6 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="plan">
         <div class="plan-name">BASIC</div>
         <div class="plan-price">R$49</div>
-        <div class="plan-period">,90/mês</div>
         <div class="plan-min">600</div>
         <div class="plan-min-label">min/mês</div>
         <button class="plan-btn plan-btn-secondary" onclick="assinar('basic','05lbyamdsjm64rjv')">ASSINAR</button>
@@ -430,7 +497,6 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="plan">
         <div class="plan-name">PRO</div>
         <div class="plan-price">R$89</div>
-        <div class="plan-period">,90/mês</div>
         <div class="plan-min">1.500</div>
         <div class="plan-min-label">min/mês</div>
         <button class="plan-btn plan-btn-secondary" onclick="assinar('pro','peun5nw70qp5vl09')">ASSINAR</button>
@@ -465,7 +531,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <!-- SEGURANÇA -->
 <section style="background:#1c1c1e;border-top:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;padding:48px 24px;">
   <div style="max-width:720px;margin:0 auto;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
-    <div style="flex-shrink:0;width:48px;height:48px;background:rgba(45,138,80,.15);border:1px solid rgba(45,138,80,.3);display:flex;align-items:center;justify-content:center;font-size:24px;">🔒</div>
+    <div style="flex-shrink:0;width:48px;height:48px;background:rgba(45,138,80,.15);border:1px solid rgba(45,138,80,.3);display:flex;align-items:center;justify-content:center;color:var(--green);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
     <div style="flex:1;min-width:260px;">
       <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:8px;">CRIPTOGRAFIA DE PONTA A PONTA</div>
       <p style="font-size:15px;color:#e0d9cf;font-weight:600;margin-bottom:8px;">Seus áudios ficam protegidos pela mesma criptografia do WhatsApp.</p>
@@ -524,7 +590,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
         <!-- Aviso mobile -->
         <div id="mobile-warning" style="display:none;background:rgba(232,112,58,.1);border:1px solid rgba(232,112,58,.3);padding:14px;margin-bottom:20px;">
-          <p style="font-size:13px;color:#e0d9cf;font-weight:600;margin-bottom:4px;">📱 Você está no celular</p>
+          <p style="font-size:13px;color:#e0d9cf;font-weight:600;margin-bottom:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:6px;color:var(--fire);"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>Você está no celular</p>
           <p style="font-size:12px;color:#888;line-height:1.6;">Para escanear o QR você precisa de outro dispositivo. Use o <strong style="color:var(--fire);">Código de Conexão</strong> abaixo — é mais fácil no celular.</p>
         </div>
 
@@ -659,7 +725,7 @@ function carregarStatus() {
       if(pendingPhone && d.plan && d.plan !== 'free' && pendingPlan) {
         localStorage.removeItem('scribe_pending_phone');
         localStorage.removeItem('scribe_pending_plan');
-        document.getElementById('pv-titulo').textContent = '✅ Plano ' + d.plan.toUpperCase() + ' ativo!';
+        document.getElementById('pv-titulo').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:6px;color:var(--green);"><polyline points="20 6 9 17 4 12"/></svg>Plano ' + d.plan.toUpperCase() + ' ativo!';
       }
       if(d.connected){
         dot.className='status-dot connected';
@@ -792,7 +858,7 @@ function checkPostPayment() {
         if(d.ok) {
           document.getElementById('login-view').style.display='none';
           document.getElementById('portal-view').classList.add('show');
-          document.getElementById('pv-titulo').textContent = status==='success' ? '✅ Pagamento confirmado!' : 'Meu OMA Scribe';
+          if(status==='success'){document.getElementById('pv-titulo').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:6px;color:var(--green);"><polyline points="20 6 9 17 4 12"/></svg>Pagamento confirmado!';}else{document.getElementById('pv-titulo').textContent='Meu OMA Scribe';}
           document.getElementById('portal').scrollIntoView({behavior:'smooth'});
           carregarStatus();
           setTimeout(function(){ saraInit({produto:'scribe',nome:'',phone:currentPhone||'',plano:''}); }, 1000);
@@ -967,7 +1033,7 @@ function copiarPix() {
   var txt = document.getElementById('co-pix-payload').textContent;
   navigator.clipboard.writeText(txt).then(function(){
     var btn = document.querySelector('.copy-btn');
-    btn.textContent = '✓ COPIADO!'; btn.style.color = 'var(--green)';
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:5px;"><polyline points="20 6 9 17 4 12"/></svg>COPIADO!'; btn.style.color = 'var(--green)';
     setTimeout(function(){ btn.textContent = '⊕ COPIAR CÓDIGO PIX'; btn.style.color = ''; }, 2000);
   });
 }

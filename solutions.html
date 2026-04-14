@@ -81,7 +81,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 
 /* PREDICTIONS PRICING */
 .pricing{background:var(--iron);border:1px solid var(--steel);padding:32px;margin-top:20px;}
-.pricing-badge{display:inline-block;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:4px 12px;margin-bottom:12px;}
+.pricing-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Black Ops One',cursive;font-size:10px;letter-spacing:2px;background:var(--fire);color:var(--char);padding:6px 14px;margin-bottom:12px;white-space:nowrap;}
+.pricing-badge .sol-ico{margin-right:0;vertical-align:0;}
 .pricing-old{font-family:'Space Mono',monospace;font-size:13px;color:var(--ash);text-decoration:line-through;}
 .pricing-new{font-family:'Black Ops One',cursive;font-size:36px;color:var(--white);line-height:1;margin:4px 0;}
 .pricing-new span{font-size:18px;color:var(--fire);}
@@ -203,6 +204,141 @@ footer a:hover{color:var(--bone);}
 #sara-snd:disabled{opacity:.4;cursor:not-allowed;}
 @media(max-width:480px){#sara-widget{width:calc(100vw - 32px);right:16px;bottom:80px;}#sara-bubble{right:16px;bottom:16px;}}
 
+
+/* MOBILE NAV MENU (mobile only - desktop unchanged) */
+.nav-burger{display:none;}
+.mobile-menu{display:none;}
+@media(max-width:680px){
+  nav > a[href="https://insights.onemanarmyproject.com.br"],
+  nav > a[href="/portal"]{display:none!important;}
+  .nav-brand img,
+  .nav-brand > div + div,
+  .nav-brand div[style*="color:var(--blood)"]{display:none!important;}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;}
+  .nav-burger span{display:block;width:18px;height:1.5px;background:var(--bone);transition:transform .3s,opacity .3s;}
+  .nav-burger.open{border-color:var(--fire);}
+  .nav-burger.open span{background:var(--fire);}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:var(--bone);text-decoration:none;text-transform:uppercase;padding:8px 0;}
+  .mobile-menu a.mm-fire{color:var(--fire);}
+  .mobile-menu a.mm-active{color:var(--fire);}
+  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
+  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:var(--fire);color:var(--char);padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
+  body.mm-locked{overflow:hidden;}
+}
+
+
+/* AUTOMATION INTELLIGENCE - mobile stack (override inline grid) */
+@media(max-width:800px){
+  .product#roi,
+  .product#priority,
+  .product#roadmap{grid-template-columns:1fr!important;gap:24px!important;padding:24px 20px!important;}
+  .product#roi a[href="/roi"],
+  .product#priority a[href="/roi"],
+  .product#roadmap a[href="/roi"]{display:block!important;width:100%!important;text-align:center!important;box-sizing:border-box!important;padding:16px 20px!important;font-size:10px!important;letter-spacing:1.5px!important;}
+  .product#roi > div:last-child,
+  .product#priority > div:last-child,
+  .product#roadmap > div:last-child{padding:20px 16px!important;}
+}
+
+
+/* INLINE SVG ICONS - solutions */
+.sol-ico{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;vertical-align:-2px;margin-right:8px;flex-shrink:0;color:var(--fire);}
+.sol-ico svg{width:14px;height:14px;display:block;}
+.sol-ico-lg{width:18px;height:18px;vertical-align:-3px;}
+.sol-ico-lg svg{width:18px;height:18px;}
+.case-ico-svg{width:36px;height:36px;color:var(--fire);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.case-ico-svg svg{width:36px;height:36px;display:block;}
+
+
+/* AI LIGHT SECTION - scoped variable overrides for terracota light mode */
+.ai-light-section{
+  /* full-bleed inside .products padding */
+  margin:0 -32px;
+  padding:80px 32px;
+  background:#f7f4ef;
+  /* override CSS vars inside this scope */
+  --white:#1a1612;
+  --bone:#1a1612;
+  --fog:#5a5048;
+  --ash:#7a7068;
+  --iron:#ffffff;
+  --coal:#faf7f0;
+  --border:#e8e2d9;
+  --fire:#c85820;
+  --ember:#a04010;
+}
+.ai-light-section .product#roi,
+.ai-light-section .product#priority,
+.ai-light-section .product#roadmap{
+  border-top:3px solid #c85820!important;
+}
+/* Buttons inside light section: terracota + white text */
+.ai-light-section a[href="/roi"]{
+  background:#c85820!important;
+  color:#ffffff!important;
+  border:none!important;
+}
+.ai-light-section a[href="/roi"]:hover{background:#a04010!important;}
+/* Inline color:#000 on text elements needs override (rare cases) */
+.ai-light-section [style*="color:#000"]{color:#1a1612!important;}
+/* Smooth transition padding around the section */
+.ai-light-section + div,
+.ai-light-section + .product{margin-top:48px;}
+@media(max-width:800px){
+  .ai-light-section{padding:48px 20px;margin:0 -20px;}
+}
+
+
+/* CASES LIGHT SECTION - terracota light mode */
+.case-section.cases-light{
+  max-width:none;
+  margin:0;
+  padding:80px 32px;
+  background:#f7f4ef;
+  /* scoped variable overrides */
+  --white:#1a1612;
+  --bone:#1a1612;
+  --fog:#5a5048;
+  --ash:#7a7068;
+  --fire:#c85820;
+  --ember:#a04010;
+  --coal:#ffffff;
+  --blood:#e8e2d9;
+}
+.case-section.cases-light > div{
+  max-width:860px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.case-section.cases-light .case-card{
+  background:linear-gradient(135deg,rgba(200,88,32,.06) 0%,#ffffff 100%)!important;
+  border:1px solid #e8e2d9!important;
+}
+.case-section.cases-light .case-card:hover{
+  border-color:#c85820!important;
+}
+.case-section.cases-light .case-dl a{
+  background:#c85820!important;
+  color:#ffffff!important;
+  border:1px solid #c85820!important;
+}
+.case-section.cases-light .case-dl a:hover{
+  background:#a04010!important;
+  border-color:#a04010!important;
+}
+.case-section.cases-light .case-tag{
+  background:rgba(200,88,32,.1)!important;
+  color:#c85820!important;
+}
+@media(max-width:800px){
+  .case-section.cases-light{padding:48px 20px;}
+}
+
 </style>
 
 <style>
@@ -232,7 +368,19 @@ footer a:hover{color:var(--bone);}
   </div>
   <a href="https://insights.onemanarmyproject.com.br" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#e8703a;text-decoration:none;border:1px solid rgba(232,112,58,.4);padding:6px 12px;transition:all .2s;" onmouseover="this.style.background='rgba(232,112,58,.1)'" onmouseout="this.style.background='transparent'">IA Insights</a>
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
+  <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  <a href="/solutions" class="mm-active" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
+  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+  <div class="mm-divider"></div>
+  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="/" class="mm-cta" onclick="toggleMobileMenu();if(window.oT)oT();return true;">Falar com a Bia</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -245,6 +393,7 @@ footer a:hover{color:var(--bone);}
 <!-- PRODUCTS -->
 <div class="products">
 
+  <div class="ai-light-section">
   <!-- LINHA: AUTOMATION INTELLIGENCE -->
   <div style="max-width:860px;margin:0 auto 16px;padding:0 32px;">
     <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:8px;">Nova linha</div>
@@ -254,13 +403,13 @@ footer a:hover{color:var(--bone);}
 
   <div class="product" id="roi" style="max-width:860px;margin:0 auto 2px;padding:32px;background:var(--iron);border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
     <div>
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--green);margin-bottom:12px;border:1px solid rgba(61,158,96,.3);display:inline-block;padding:4px 12px;">✅ GRATUITO — SEM CADASTRO</div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--green);margin-bottom:12px;border:1px solid rgba(61,158,96,.3);display:inline-block;padding:4px 12px;"><span class="sol-ico" style="color:var(--green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>GRATUITO — SEM CADASTRO</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">OMA Automation ROI</h2>
       <p style="font-size:14px;color:var(--fog);line-height:1.7;margin-bottom:20px;">Quantifique o tempo e o dinheiro escondidos no trabalho manual da sua operação. Em minutos, você vê o custo real e a economia potencial.</p>
       <ul style="list-style:none;padding:0;margin-bottom:24px;">
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">⚡ Diagnóstico gratuito e instantâneo</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">📊 Custo anual estimado do trabalho manual</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;">💡 Interpretação personalizada por IA</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>Diagnóstico gratuito e instantâneo</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>Custo anual estimado do trabalho manual</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M2 12c0-3.31 2.69-6 6-6 1.5 0 2.85.55 3.89 1.46C12.91 6.55 14.27 6 15.77 6 19.08 6 22 8.69 22 12c0 2-1 3.8-2.5 5L18 18H6l-1.5-1C3 15.8 2 14 2 12z"/></svg></span>Interpretação personalizada por IA</li>
       </ul>
       <a href="/roi" style="display:inline-block;background:var(--fire);color:#000;padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">FAZER DIAGNÓSTICO GRÁTIS →</a>
     </div>
@@ -279,38 +428,38 @@ footer a:hover{color:var(--bone);}
 
   <div class="product" id="priority" style="max-width:860px;margin:0 auto 2px;padding:32px;background:var(--iron);border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
     <div>
-      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--fire);margin-bottom:12px;">💳 R$ 97,00 — Pague apenas uma vez pelo relatório</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--fire);margin-bottom:12px;"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>R$ 97,00 — Pague apenas uma vez pelo relatório</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">OMA Priority Map</h2>
       <p style="font-size:14px;color:var(--fog);line-height:1.7;margin-bottom:12px;">Veja exatamente o que atacar primeiro. Lista priorizada por impacto × esforço, quick wins, recomendações por tarefa — e um <strong style="color:var(--bone);">relatório PDF completo</strong> enviado no seu email.</p>
-      <div style="background:rgba(232,112,58,.08);border:1px solid rgba(232,112,58,.2);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--fog);">📄 Quer ver como é o relatório antes de comprar? <a href="/context/priority-map-exemplo.pdf" target="_blank" download style="color:var(--fire);text-decoration:none;font-weight:700;">Baixe um exemplo aqui →</a></div>
+      <div style="background:rgba(232,112,58,.08);border:1px solid rgba(232,112,58,.2);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--fog);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></span>Quer ver como é o relatório antes de comprar? <a href="/context/priority-map-exemplo.pdf" target="_blank" download style="color:var(--fire);text-decoration:none;font-weight:700;">Baixe um exemplo aqui →</a></div>
       <ul style="list-style:none;padding:0;margin-bottom:24px;">
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">🎯 Priorização automática por impacto e esforço</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">⚡ Quick wins identificados em segundos</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;">📋 Recomendação por tarefa gerada por IA</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Priorização automática por impacto e esforço</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>Quick wins identificados em segundos</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></span>Recomendação por tarefa gerada por IA</li>
       </ul>
-      <a href="/roi" style="display:inline-block;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">COMECE GRATUITAMENTE PELO DIAGNÓSTICO →</a>
+      <a href="/roi" style="display:inline-block;background:var(--fire);color:#000;padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">COMECE GRATUITAMENTE PELO DIAGNÓSTICO →</a>
     </div>
     <div style="background:linear-gradient(145deg,var(--coal) 0%,rgba(232,112,58,.06) 100%);padding:24px;border:1px solid var(--border);">
       <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px;">EXEMPLO DE PRIORITY MAP</div>
-      <div style="background:rgba(61,158,96,.1);border-left:3px solid var(--green);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);">⚡ <strong style="color:var(--green);">QUICK WIN</strong> — Triagem de emails</div>
-      <div style="background:rgba(61,158,96,.1);border-left:3px solid var(--green);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);">⚡ <strong style="color:var(--green);">QUICK WIN</strong> — Agendamento de reuniões</div>
-      <div style="background:rgba(200,164,86,.1);border-left:3px solid var(--gold);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);">📋 <strong style="color:var(--gold);">PLANEJAR</strong> — Relatório semanal</div>
-      <div style="background:rgba(106,106,106,.1);border-left:3px solid var(--ash);padding:10px 12px;font-size:12px;color:var(--fog);">⏸ <strong style="color:var(--ash);">IGNORAR</strong> — Arquivo de documentos</div>
+      <div style="background:rgba(61,158,96,.1);border-left:3px solid var(--green);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);"><span class="sol-ico" style="color:var(--green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><strong style="color:var(--green);">QUICK WIN</strong> — Triagem de emails</div>
+      <div style="background:rgba(61,158,96,.1);border-left:3px solid var(--green);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);"><span class="sol-ico" style="color:var(--green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><strong style="color:var(--green);">QUICK WIN</strong> — Agendamento de reuniões</div>
+      <div style="background:rgba(200,164,86,.1);border-left:3px solid var(--gold);padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--fog);"><span class="sol-ico" style="color:var(--gold);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></span><strong style="color:var(--gold);">PLANEJAR</strong> — Relatório semanal</div>
+      <div style="background:rgba(106,106,106,.1);border-left:3px solid var(--ash);padding:10px 12px;font-size:12px;color:var(--fog);"><span class="sol-ico" style="color:var(--ash);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></span><strong style="color:var(--ash);">IGNORAR</strong> — Arquivo de documentos</div>
     </div>
   </div>
 
   <div class="product" id="roadmap" style="max-width:860px;margin:0 auto 48px;padding:32px;background:var(--iron);border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
     <div>
-      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--fire);margin-bottom:12px;">💳 R$ 297,00 — Entrega única e imediata</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--fire);margin-bottom:12px;"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>R$ 297,00 — Entrega única e imediata</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">OMA Automation Roadmap</h2>
       <p style="font-size:14px;color:var(--fog);line-height:1.7;margin-bottom:20px;">Transforme seu Priority Map em um <strong style="color:var(--bone);">plano de execução real</strong>. 30/60/90 dias estruturados com ações, ferramentas sugeridas e resultado esperado por fase — tudo personalizado para o seu setor e operação.</p>
       <ul style="list-style:none;padding:0;margin-bottom:24px;">
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">🗓 Plano 30/60/90 dias personalizado</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">🔧 Ferramentas sugeridas por fase</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);">👤 Responsável e resultado esperado por ação</li>
-        <li style="font-size:13px;color:var(--fog);padding:4px 0;">📧 Entregue por email imediatamente</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Plano 30/60/90 dias personalizado</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>Ferramentas sugeridas por fase</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;border-bottom:1px solid var(--border);"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Responsável e resultado esperado por ação</li>
+        <li style="font-size:13px;color:var(--fog);padding:4px 0;"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Entregue por email imediatamente</li>
       </ul>
-      <a href="/roi" style="display:inline-block;background:transparent;color:var(--fire);border:1px solid var(--fire);padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">COMECE GRATUITAMENTE PELO DIAGNÓSTICO →</a>
+      <a href="/roi" style="display:inline-block;background:var(--fire);color:#000;padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;">COMECE GRATUITAMENTE PELO DIAGNÓSTICO →</a>
     </div>
     <div style="background:linear-gradient(145deg,var(--coal) 0%,rgba(232,112,58,.06) 100%);padding:24px;border:1px solid var(--border);">
       <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px;">EXEMPLO DE ROADMAP</div>
@@ -331,6 +480,7 @@ footer a:hover{color:var(--bone);}
       </div>
     </div>
   </div>
+  </div><!-- /ai-light-section -->
 
   <!-- DIVISOR -->
   <div style="max-width:860px;margin:0 auto 32px;padding:0 32px;display:flex;align-items:center;gap:16px;">
@@ -566,7 +716,7 @@ footer a:hover{color:var(--bone);}
       </ul>
 
       <div class="pricing">
-        <div class="pricing-badge">🚀 Lançamento — 50% OFF</div>
+        <div class="pricing-badge"><span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>Lançamento — 50% OFF</div>
         <div class="pricing-old">De R$ 2.599,00</div>
         <div class="pricing-new">R$ 1.299<span>,00</span></div>
         <div class="pricing-detail">Pacote com 5 relatórios preditivos · Cada um por menos de R$260</div>
@@ -626,11 +776,11 @@ footer a:hover{color:var(--bone);}
 <div class="divider"><div class="divider-gem"></div></div>
 
 <!-- CASE STUDY -->
-<section class="case-section" id="cases">
+<section class="case-section cases-light" id="cases">
   <div class="section-label">Transparência Brutal</div>
   <div class="section-title" style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,3.5vw,32px);color:var(--white);margin-bottom:24px;">Nosso próprio relatório. <em style="color:var(--fire);font-style:italic;">Aberto.</em></div>
   <div class="case-card">
-    <div class="case-icon">📊</div>
+    <div class="case-icon"><span class="case-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span></div>
     <div class="case-info">
       <h4>Analisamos o OMA Project com o OMA Predictions</h4>
       <p>43 agentes simulados debateram sobre nosso negócio por 15 rounds. Veja o que descobrimos — sem filtro, sem edição.</p>
@@ -724,13 +874,9 @@ function saraAdd(cls,txt,id){
 
 function saraMsgs(){return document.getElementById('sara-msgs');}
 
-// Auto-abre após 5s
 document.addEventListener('DOMContentLoaded',function(){
   var inp=document.getElementById('sara-inp');
   if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saraSend();}});
-  if(!sessionStorage.getItem('sara_visto_solutions')){
-    setTimeout(function(){if(!saraOpen){saraToggle();sessionStorage.setItem('sara_visto_solutions','1');}},5000);
-  }
   saraShow();
 });
 </script>
@@ -754,5 +900,17 @@ document.addEventListener('DOMContentLoaded',function(){
   </div>
 </div>
 
+
+<script>
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.classList.toggle('mm-locked',open);
+  b.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+}
+</script>
 </body>
 </html>
