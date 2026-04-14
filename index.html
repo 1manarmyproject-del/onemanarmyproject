@@ -93,7 +93,8 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);back
 .segs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px;}
 @media(max-width:700px){.segs-grid{grid-template-columns:1fr;}}
 .seg-card{background:var(--light-surface);border:1px solid var(--light-border);border-top:3px solid var(--fire);padding:18px 20px;display:flex;align-items:center;gap:14px;}
-.seg-ico{font-size:22px;flex-shrink:0;}
+.seg-ico{flex-shrink:0;width:26px;height:26px;color:var(--fire);display:flex;align-items:center;justify-content:center;}
+.seg-ico svg{width:26px;height:26px;display:block;}
 .seg-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:1px;color:var(--dark-text);}
 .seg-dor{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);margin-top:3px;line-height:1.4;}
 
@@ -126,7 +127,8 @@ nav.scrolled{background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);back
 .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px;}
 @media(max-width:700px){.mod-grid{grid-template-columns:1fr;}}
 .mod-card{background:var(--coal);border:1px solid var(--iron);padding:16px 18px;display:flex;align-items:center;gap:12px;}
-.mod-ico{font-size:20px;flex-shrink:0;}
+.mod-ico{flex-shrink:0;width:24px;height:24px;color:var(--fire);display:flex;align-items:center;justify-content:center;}
+.mod-ico svg{width:24px;height:24px;display:block;}
 .mod-name{font-family:'Black Ops One',cursive;font-size:12px;letter-spacing:1px;color:var(--bone);}
 .mod-dor{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:3px;line-height:1.4;}
 
@@ -232,8 +234,9 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   .cta-band{padding:48px 20px;}
   .cta-band-title{font-size:clamp(18px,5vw,28px);}
   .cta-band a{padding:16px 24px;font-size:11px;}
-  footer{padding:28px 20px;}
-  .footer-links{flex-direction:column;gap:10px;align-items:center;}
+  footer{padding:32px 20px 96px;}
+  .footer-brand{text-align:center;width:100%;margin-bottom:20px;}
+  .footer-links{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;justify-items:center;width:100%;max-width:280px;margin:0 auto;}
   #oma-window{width:calc(100vw - 24px)!important;left:12px!important;right:12px!important;bottom:72px!important;height:auto!important;max-height:calc(100vh - 100px)!important;}
   #oma-bubble{bottom:16px;right:16px;width:50px;height:50px;}
 }
@@ -242,6 +245,40 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   .steps{grid-template-columns:1fr!important;}
 }
 @media(max-width:480px){.hero-arrow{display:none!important;}}
+
+/* MOBILE NAV MENU (mobile only - desktop unchanged) */
+.nav-burger{display:none;}
+.mobile-menu{display:none;}
+@media(max-width:680px){
+  nav > a[href="/portal"],
+  nav > .nav-insights,
+  nav > .nav-cta{display:none!important;}
+  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;}
+  .nav-burger span{display:block;width:18px;height:1.5px;background:var(--bone);transition:transform .3s,opacity .3s;}
+  .nav-burger.open{border-color:var(--fire);}
+  .nav-burger.open span{background:var(--fire);}
+  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:var(--bone);text-decoration:none;text-transform:uppercase;padding:8px 0;}
+  .mobile-menu a.mm-fire{color:var(--fire);}
+  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
+  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:var(--fire);color:var(--char);padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
+  body.mm-locked{overflow:hidden;}
+  .nav-brand img,
+  .nav-brand > div + div{display:none!important;}
+}
+
+
+/* ROI MAGNET - mobile fixes */
+@media(max-width:700px){
+  #roi-magnet{padding:48px 20px!important;}
+  #roi-magnet > div{grid-template-columns:1fr!important;gap:32px!important;}
+  #roi-magnet a[href="/roi"]{display:block!important;width:100%!important;text-align:center!important;box-sizing:border-box!important;padding:16px 20px!important;font-size:11px!important;}
+}
+
 </style>
 </head>
 <body>
@@ -266,7 +303,20 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
   <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
   <a href="#" onclick="oT();return false;" class="nav-cta">Falar com a Bia</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
+  <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
+  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+  <a href="#como-funciona" onclick="toggleMobileMenu()">Como funciona</a>
+  <div class="mm-divider"></div>
+  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="#" class="mm-cta" onclick="toggleMobileMenu();oT();return false;">Falar com a Bia</a>
+</div>
 
 <!-- HERO CARROSSEL -->
 <section class="hero" style="padding:0;overflow:hidden;position:relative;min-height:100vh;" id="hero-section">
@@ -295,7 +345,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
       <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
         <p class="hero-scratch" style="margin-bottom:8px;">OMA Solutions</p>
         <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">AUTOMATION <span style="color:var(--fire)">INTELLIGENCE</span></p>
-        <p class="hero-badge">⚡ &nbsp; <em>Diagnóstico gratuito disponível agora</em></p>
+        <p class="hero-badge"><em>Diagnóstico gratuito disponível agora</em></p>
         <h1 class="hero-h1">Descubra quanto custa<br>seu trabalho<br><em>manual.</em></h1>
         <p class="hero-sub">Mapeie as tarefas repetitivas da sua operação e veja em minutos o custo real — e o que automatizar primeiro. <strong>100% gratuito.</strong></p>
         <div class="hero-cta">
@@ -308,7 +358,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
       <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
         <p class="hero-scratch" style="margin-bottom:8px;">OMA Academy</p>
         <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">CONSTRUA SUA <span style="color:var(--fire)">OPERAÇÃO</span></p>
-        <p class="hero-badge">🧠 &nbsp; <em>Fundamentos gratuitos disponíveis agora</em></p>
+        <p class="hero-badge"><em>Fundamentos gratuitos disponíveis agora</em></p>
         <h1 class="hero-h1">Construa seu sistema<br>operacional<br><em>com IA.</em></h1>
         <p class="hero-sub">Fundamentos gratuitos, trilhas guiadas e o mesmo método que o OMA usa para transformar entendimento em operação real.</p>
         <div class="hero-cta">
@@ -378,15 +428,15 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <h2 class="sec-title" style="color:var(--dark-text)">Você é bom no que faz.<br><span style="color:var(--fire)">Mas quanto do seu dia é realmente isso?</span></h2>
     <p class="sec-body" style="max-width:580px;color:var(--mid-text);margin-bottom:0">Toda empresa tem trabalho necessário que não deveria continuar concentrado no dono ou num time sobrecarregado.</p>
     <div class="segs-grid">
-      <div class="seg-card"><div class="seg-ico">⚖️</div><div><div class="seg-name">Advocacia</div><div class="seg-dor">"Perco 3h por dia em controle de prazos"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">🏥</div><div><div class="seg-name">Clínicas</div><div class="seg-dor">"5 faltas por semana sem aviso"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">🍺</div><div><div class="seg-name">Distribuidores</div><div class="seg-dor">"Meu time vende menos porque responde WhatsApp"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">🏢</div><div><div class="seg-name">Administradoras</div><div class="seg-dor">"42 condomínios, backoffice manual"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">👓</div><div><div class="seg-name">Varejo e Óticas</div><div class="seg-dor">"Perco clientes fora do horário"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">🍽️</div><div><div class="seg-name">Restaurantes</div><div class="seg-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">⚽</div><div><div class="seg-name">Clubes</div><div class="seg-dor">"Centenas de associados, time pequeno"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">📊</div><div><div class="seg-name">Contabilidade</div><div class="seg-dor">"Fico mais tempo coletando do que analisando"</div></div></div>
-      <div class="seg-card"><div class="seg-ico">🏗️</div><div><div class="seg-name">Outros segmentos</div><div class="seg-dor">"Tenho uma operação diferente"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div><div><div class="seg-name">Advocacia</div><div class="seg-dor">"Perco 3h por dia em controle de prazos"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></div><div><div class="seg-name">Clínicas</div><div class="seg-dor">"5 faltas por semana sem aviso"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><div><div class="seg-name">Distribuidores</div><div class="seg-dor">"Meu time vende menos porque responde WhatsApp"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div><div><div class="seg-name">Administradoras</div><div class="seg-dor">"42 condomínios, backoffice manual"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"/><path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2"/></svg></div><div><div class="seg-name">Varejo e Óticas</div><div class="seg-dor">"Perco clientes fora do horário"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div><div><div class="seg-name">Restaurantes</div><div class="seg-dor">"Reserva, pedido, delivery — tudo no WhatsApp do dono"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="seg-name">Clubes</div><div class="seg-dor">"Centenas de associados, time pequeno"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div><div><div class="seg-name">Contabilidade</div><div class="seg-dor">"Fico mais tempo coletando do que analisando"</div></div></div>
+      <div class="seg-card"><div class="seg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></div><div><div class="seg-name">Outros segmentos</div><div class="seg-dor">"Tenho uma operação diferente"</div></div></div>
     </div>
     <div style="margin-top:32px">
       <a href="/agentes" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--fire);text-decoration:none;border-bottom:1px solid var(--blood);padding-bottom:2px;">Ver como funciona para o seu segmento →</a>
@@ -453,15 +503,15 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <h2 class="sec-title" style="color:var(--dark-text)">8 frentes que empresas grandes<br><span>já tratam como sistema.</span></h2>
     <p class="sec-body" style="max-width:560px;color:var(--mid-text)">Agora qualquer negócio pode operar assim — sem a complexidade, o custo e o headcount.</p>
     <div class="mod-grid">
-      <div class="mod-card"><div class="mod-ico">🎧</div><div><div class="mod-name">SAC 24h</div><div class="mod-dor">"Sou eu que respondo às 23h"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">📋</div><div><div class="mod-name">Consultor de Processos</div><div class="mod-dor">"Ninguém lê o manual"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">📅</div><div><div class="mod-name">Gestão de Agenda</div><div class="mod-dor">"5 faltas por semana sem aviso"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">💰</div><div><div class="mod-name">Cobrança e Follow-up</div><div class="mod-dor">"Odeio cobrar cliente"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">📊</div><div><div class="mod-name">Relatórios e Indicadores</div><div class="mod-dor">"Não sei o que está acontecendo"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">🛒</div><div><div class="mod-name">Vendedor Digital</div><div class="mod-dor">"Perco venda fora do horário"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">🗂️</div><div><div class="mod-name">Assistente Operacional</div><div class="mod-dor">"Metade do meu dia é execução sem decisão"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">🔢</div><div><div class="mod-name">Conciliador de Dados</div><div class="mod-dor">"Todo mês passo dias conciliando — e ainda erro"</div></div></div>
-      <div class="mod-card"><div class="mod-ico">📱</div><div><div class="mod-name">Social Mídia Express</div><div class="mod-dor">"Não tenho tempo nem equipe para postar"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1v-6a9 9 0 0 1 18 0v6a1 1 0 0 1-1 1h-2a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></div><div><div class="mod-name">SAC 24h</div><div class="mod-dor">"Sou eu que respondo às 23h"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div><div><div class="mod-name">Consultor de Processos</div><div class="mod-dor">"Ninguém lê o manual"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="mod-name">Gestão de Agenda</div><div class="mod-dor">"5 faltas por semana sem aviso"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/></svg></div><div><div class="mod-name">Cobrança e Follow-up</div><div class="mod-dor">"Odeio cobrar cliente"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div><div><div class="mod-name">Relatórios e Indicadores</div><div class="mod-dor">"Não sei o que está acontecendo"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div><div class="mod-name">Vendedor Digital</div><div class="mod-dor">"Perco venda fora do horário"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div><div class="mod-name">Assistente Operacional</div><div class="mod-dor">"Metade do meu dia é execução sem decisão"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="8" y2="18"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div><div><div class="mod-name">Conciliador de Dados</div><div class="mod-dor">"Todo mês passo dias conciliando — e ainda erro"</div></div></div>
+      <div class="mod-card"><div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mod-name">Social Mídia Express</div><div class="mod-dor">"Não tenho tempo nem equipe para postar"</div></div></div>
     </div>
     <div style="margin-top:32px">
       <a href="/agentes" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--fire);text-decoration:none;border-bottom:1px solid var(--blood);padding-bottom:2px;">Ver detalhes de cada frente →</a>
@@ -551,17 +601,17 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 </section>
 
 <!-- ROI MAGNET -->
-<section style="padding:60px 48px;background:#111;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;">
+<section id="roi-magnet" style="padding:60px 48px;background:#111;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;">
   <div style="max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
     <div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#e8703a;margin-bottom:12px;">⚡ DIAGNÓSTICO GRATUITO</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#e8703a;margin-bottom:12px;">DIAGNÓSTICO GRATUITO</div>
       <h2 style="font-family:'Black Ops One',cursive;font-size:clamp(22px,3vw,30px);letter-spacing:1px;color:#e0d9cf;line-height:1.2;margin-bottom:12px;">Quanto custa seu<br>trabalho manual?</h2>
       <p style="font-size:14px;color:#6a6a6a;line-height:1.7;margin-bottom:24px;">Mapeie as tarefas repetitivas da sua operação e descubra em minutos o custo real — e o que automatizar primeiro.</p>
       <a href="/roi" style="display:inline-block;background:#e8703a;color:#000;padding:14px 28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-decoration:none;font-weight:700;transition:background .2s;" onmouseover="this.style.background='#c05020'" onmouseout="this.style.background='#e8703a'">FAZER DIAGNÓSTICO GRÁTIS →</a>
       <p style="font-size:11px;color:#4a4a4a;margin-top:10px;">Sem cadastro · Resultado em 2 minutos · 100% gratuito</p>
     </div>
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:28px;text-align:center;">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#888;margin-bottom:20px;border-bottom:1px solid #2a2a2a;padding-bottom:12px;">📊 EXEMPLO REAL DE RESULTADO</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#888;margin-bottom:20px;border-bottom:1px solid #2a2a2a;padding-bottom:12px;">EXEMPLO REAL DE RESULTADO</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;">
         <div style="background:#1c1c1e;padding:16px 12px;"><div style="font-size:9px;color:#4a4a4a;margin-bottom:4px;">HORAS/SEMANA</div><div style="font-family:'Black Ops One',cursive;font-size:24px;color:#e8703a;">12,4h</div></div>
         <div style="background:#1c1c1e;padding:16px 12px;"><div style="font-size:9px;color:#4a4a4a;margin-bottom:4px;">CUSTO/ANO</div><div style="font-family:'Black Ops One',cursive;font-size:24px;color:#e8703a;">R$47k</div></div>
@@ -592,9 +642,9 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <a href="/privacidade.html">Privacidade</a>
     <a href="/termos.html">Termos de Uso</a>
     <a href="https://instagram.com/onemanarmy.ai" target="_blank">@onemanarmy.ai</a>
-    <a href="#" onclick="oT();return false;">💬 Webchat</a>
-    <a href="/hub">⬛ Hub</a>
-    <a href="/portal">⬛ Portal</a>
+    <a href="#" onclick="oT();return false;">Webchat</a>
+    <a href="/hub">Hub</a>
+    <a href="/portal">Portal</a>
   </div>
 </footer>
 
@@ -627,6 +677,15 @@ function toggleFaq(el){document.querySelectorAll('.faq-item').forEach(i=>{if(i!=
 function submitNewsletter(e){e.preventDefault();fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('nl-email').value})}).catch(()=>{});document.getElementById('newsletter-form').style.display='none';document.getElementById('nl-success').style.display='block';}
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.classList.toggle('mm-locked',open);
+  b.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+}
 </script>
 
 <script>
