@@ -946,16 +946,50 @@ function coTab(tab) {
   document.getElementById('co-err-pag').style.display = 'none';
 }
 
+function coCepInput(el){
+  var v = el.value.replace(/\D/g,'').slice(0,8);
+  el.value = v.length>5 ? v.slice(0,5)+'-'+v.slice(5) : v;
+  var st = document.getElementById('co-cep-status');
+  if (v.length === 8) {
+    st.style.display='block'; st.style.color='#e8703a'; st.textContent='Buscando endereço...';
+    fetch('https://viacep.com.br/ws/'+v+'/json/').then(function(r){return r.json();}).then(function(d){
+      if (d.erro) { st.style.color='#c66'; st.textContent='CEP não encontrado'; return; }
+      if (d.logradouro) document.getElementById('co-address').value = d.logradouro;
+      if (d.bairro)     document.getElementById('co-province').value = d.bairro;
+      if (d.localidade) document.getElementById('co-city').value     = d.localidade;
+      if (d.uf)         document.getElementById('co-state').value    = d.uf;
+      st.style.color='#3d9e60'; st.textContent='✓ Endereço encontrado';
+      var addrNum = document.getElementById('co-addrnum');
+      if (addrNum && !addrNum.value) addrNum.focus();
+    }).catch(function(){ st.style.color='#c66'; st.textContent='Erro ao buscar CEP'; });
+  } else {
+    st.style.display='none';
+  }
+}
+
 function coContinuar() {
   var phone = cleanPhone(document.getElementById('co-phone').value);
   var name  = document.getElementById('co-name').value.trim();
   var email = document.getElementById('co-email').value.trim();
   var cpf   = document.getElementById('co-cpf').value.trim();
+  var cep   = document.getElementById('co-cep').value.replace(/\D/g,'');
+  var addr  = document.getElementById('co-address').value.trim();
+  var anum  = document.getElementById('co-addrnum').value.trim();
+  var prov  = document.getElementById('co-province').value.trim();
+  var city  = document.getElementById('co-city').value.trim();
+  var uf    = document.getElementById('co-state').value.trim().toUpperCase();
   var err   = document.getElementById('co-err-dados');
   if (phone.length < 10) { err.textContent='Número com DDD inválido.'; err.style.display='block'; return; }
   if (!name) { err.textContent='Informe seu nome.'; err.style.display='block'; return; }
   if (!email || !email.includes('@')) { err.textContent='Email inválido.'; err.style.display='block'; return; }
   if (cpf.replace(/\D/g,'').length < 11) { err.textContent='CPF inválido.'; err.style.display='block'; return; }
+  if (cep.length !== 8) { err.textContent='CEP inválido (8 dígitos).'; err.style.display='block'; return; }
+  if (!addr) { err.textContent='Informe a rua/logradouro.'; err.style.display='block'; return; }
+  if (!anum) { err.textContent='Informe o número.'; err.style.display='block'; return; }
+  if (!prov) { err.textContent='Informe o bairro.'; err.style.display='block'; return; }
+  if (!city) { err.textContent='Informe a cidade.'; err.style.display='block'; return; }
+  if (uf.length !== 2) { err.textContent='UF inválido (2 letras).'; err.style.display='block'; return; }
+  err.style.display='none';
   coCurrentPhone = phone;
   localStorage.setItem('scribe_phone', phone);
   document.getElementById('co-step-dados').style.display = 'none';
@@ -977,7 +1011,14 @@ async function coGerarPix() {
         plan: coCurrentPlan,
         name: document.getElementById('co-name').value.trim(),
         email: document.getElementById('co-email').value.trim(),
-        cpf: document.getElementById('co-cpf').value.trim()
+        cpf: document.getElementById('co-cpf').value.trim(),
+        postalCode:    document.getElementById('co-cep').value.replace(/\D/g,''),
+        address:       document.getElementById('co-address').value.trim(),
+        addressNumber: document.getElementById('co-addrnum').value.trim(),
+        complement:    document.getElementById('co-complement').value.trim(),
+        province:      document.getElementById('co-province').value.trim(),
+        city:          document.getElementById('co-city').value.trim(),
+        state:         document.getElementById('co-state').value.trim().toUpperCase()
       })
     });
     var d = await r.json();
@@ -1015,8 +1056,13 @@ async function coPagarCard() {
         name: document.getElementById('co-name').value.trim(),
         email: document.getElementById('co-email').value.trim(),
         cpf: document.getElementById('co-cpf').value.trim(),
-        postalCode: document.getElementById('co-cep').value.replace(/\D/g,''),
-        addressNumber: '1',
+        postalCode:    document.getElementById('co-cep').value.replace(/\D/g,''),
+        address:       document.getElementById('co-address').value.trim(),
+        addressNumber: document.getElementById('co-addrnum').value.trim(),
+        complement:    document.getElementById('co-complement').value.trim(),
+        province:      document.getElementById('co-province').value.trim(),
+        city:          document.getElementById('co-city').value.trim(),
+        state:         document.getElementById('co-state').value.trim().toUpperCase(),
         cardNumber: document.getElementById('co-cardnum').value.replace(/\s/g,''),
         cardName: document.getElementById('co-cardname').value.trim(),
         cardExpiry: document.getElementById('co-cardexp').value.trim(),
@@ -1123,8 +1169,47 @@ document.addEventListener('click', function(e) {
         </div>
         <div class="co-field">
           <label class="co-label">CPF</label>
-          <input class="co-input" type="text" id="co-cpf" placeholder="000.000.000-00" maxlength="14" />
+          <input class="co-input" type="text" id="co-cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" autocomplete="off" />
         </div>
+
+        <!-- BLOCO ENDEREÇO (NF) -->
+        <div style="border-top:1px solid #2a2a2a;margin:20px 0 16px;padding-top:16px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2.5px;color:#666;margin-bottom:0;">NECESSÁRIO P/ NOTA FISCAL</div>
+        </div>
+        <div class="co-field">
+          <label class="co-label">CEP</label>
+          <input class="co-input" type="text" id="co-cep" placeholder="00000-000" maxlength="9" inputmode="numeric" autocomplete="postal-code" oninput="coCepInput(this)" />
+          <div id="co-cep-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#666;margin-top:4px;display:none;"></div>
+        </div>
+        <div class="co-field">
+          <label class="co-label">RUA / LOGRADOURO</label>
+          <input class="co-input" type="text" id="co-address" placeholder="Rua, avenida..." autocomplete="address-line1" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="co-field">
+            <label class="co-label">NÚMERO</label>
+            <input class="co-input" type="text" id="co-addrnum" placeholder="123" inputmode="numeric" />
+          </div>
+          <div class="co-field">
+            <label class="co-label">COMPLEMENTO</label>
+            <input class="co-input" type="text" id="co-complement" placeholder="Apto, sala..." />
+          </div>
+        </div>
+        <div class="co-field">
+          <label class="co-label">BAIRRO</label>
+          <input class="co-input" type="text" id="co-province" placeholder="Bairro" autocomplete="address-level3" />
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;">
+          <div class="co-field">
+            <label class="co-label">CIDADE</label>
+            <input class="co-input" type="text" id="co-city" placeholder="Cidade" autocomplete="address-level2" />
+          </div>
+          <div class="co-field">
+            <label class="co-label">UF</label>
+            <input class="co-input" type="text" id="co-state" placeholder="SP" maxlength="2" style="text-transform:uppercase;" autocomplete="address-level1" />
+          </div>
+        </div>
+
         <button class="co-pay-btn" id="co-btn-continuar" onclick="coContinuar()">CONTINUAR →</button>
         <div class="co-error" id="co-err-dados"></div>
       </div>
@@ -1175,10 +1260,6 @@ document.addEventListener('click', function(e) {
               <label class="co-label">CVV</label>
               <input class="co-input" type="text" id="co-cardcvv" placeholder="123" maxlength="4" />
             </div>
-          </div>
-          <div class="co-field">
-            <label class="co-label">CEP (para fatura)</label>
-            <input class="co-input" type="text" id="co-cep" placeholder="00000-000" maxlength="9" oninput="fmtCep(this)" />
           </div>
           <button class="co-pay-btn" id="co-btn-card" onclick="coPagarCard()">PAGAR COM CARTÃO →</button>
         </div>

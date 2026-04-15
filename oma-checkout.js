@@ -78,17 +78,50 @@
     </div>
     <div class="oma-co-body">
 
-      <!-- Step 1: Dados -->
+      <!-- Step 1: Dados + Endereço -->
       <div class="oma-co-step active" id="oma-co-s1">
         <label class="oma-co-label">NOME COMPLETO</label>
-        <input class="oma-co-input" id="oma-co-name" type="text" placeholder="Seu nome completo" />
+        <input class="oma-co-input" id="oma-co-name" type="text" placeholder="Seu nome completo" autocomplete="name" />
         <label class="oma-co-label">EMAIL</label>
-        <input class="oma-co-input" id="oma-co-email" type="email" placeholder="seu@email.com" />
+        <input class="oma-co-input" id="oma-co-email" type="email" placeholder="seu@email.com" autocomplete="email" />
         <label class="oma-co-label">WHATSAPP (com DDD)</label>
-        <input class="oma-co-input" id="oma-co-phone" type="tel" placeholder="(11) 99999-9999" />
+        <input class="oma-co-input" id="oma-co-phone" type="tel" placeholder="(11) 99999-9999" autocomplete="tel" />
         <label class="oma-co-label">CPF</label>
-        <input class="oma-co-input" id="oma-co-cpf" type="text" placeholder="000.000.000-00" maxlength="14" oninput="omaCheckout._fmtCpf(this)" />
-        <button class="oma-co-btn" onclick="omaCheckout._step2()">CONTINUAR &#x2192;</button>
+        <input class="oma-co-input" id="oma-co-cpf" type="text" placeholder="000.000.000-00" maxlength="14" oninput="omaCheckout._fmtCpf(this)" autocomplete="off" inputmode="numeric" />
+
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid #1e1e1e;">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;color:#666;text-transform:uppercase;margin-bottom:14px;">ENDEREÇO &middot; NECESSÁRIO P/ NOTA FISCAL</div>
+          <label class="oma-co-label">CEP</label>
+          <input class="oma-co-input" id="oma-co-cep" type="text" placeholder="00000-000" maxlength="9" oninput="omaCheckout._fmtCep(this)" autocomplete="postal-code" inputmode="numeric" />
+          <div id="oma-co-cep-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#666;margin-top:-12px;margin-bottom:14px;display:none;"></div>
+
+          <div class="oma-co-row">
+            <div style="flex:3;">
+              <label class="oma-co-label">RUA / LOGRADOURO</label>
+              <input class="oma-co-input" id="oma-co-address" type="text" placeholder="Rua das Flores" autocomplete="address-line1" />
+            </div>
+            <div style="flex:1;">
+              <label class="oma-co-label">NÚMERO</label>
+              <input class="oma-co-input" id="oma-co-number" type="text" placeholder="123" autocomplete="address-line2" inputmode="numeric" />
+            </div>
+          </div>
+          <label class="oma-co-label">COMPLEMENTO (OPCIONAL)</label>
+          <input class="oma-co-input" id="oma-co-complement" type="text" placeholder="Apto 45, Bloco B" />
+          <label class="oma-co-label">BAIRRO</label>
+          <input class="oma-co-input" id="oma-co-province" type="text" placeholder="Centro" />
+          <div class="oma-co-row">
+            <div style="flex:3;">
+              <label class="oma-co-label">CIDADE</label>
+              <input class="oma-co-input" id="oma-co-city" type="text" placeholder="São Paulo" autocomplete="address-level2" />
+            </div>
+            <div style="flex:1;">
+              <label class="oma-co-label">UF</label>
+              <input class="oma-co-input" id="oma-co-state" type="text" placeholder="SP" maxlength="2" style="text-transform:uppercase;" autocomplete="address-level1" />
+            </div>
+          </div>
+        </div>
+
+        <button class="oma-co-btn" style="margin-top:18px;" onclick="omaCheckout._step2()">CONTINUAR &#x2192;</button>
         <div class="oma-co-err" id="oma-co-err1"></div>
       </div>
 
@@ -117,21 +150,19 @@
         <!-- Cartão -->
         <div id="oma-co-card-form" style="display:none;">
           <label class="oma-co-label">NÚMERO DO CARTÃO</label>
-          <input class="oma-co-input" id="oma-co-cardnum" type="text" placeholder="0000 0000 0000 0000" maxlength="19" oninput="omaCheckout._fmtCard(this)" />
+          <input class="oma-co-input" id="oma-co-cardnum" type="text" placeholder="0000 0000 0000 0000" maxlength="19" oninput="omaCheckout._fmtCard(this)" onchange="omaCheckout._fmtCard(this)" autocomplete="cc-number" inputmode="numeric" />
           <label class="oma-co-label">NOME NO CARTÃO</label>
-          <input class="oma-co-input" id="oma-co-cardname" type="text" placeholder="NOME COMO IMPRESSO" style="text-transform:uppercase;" />
+          <input class="oma-co-input" id="oma-co-cardname" type="text" placeholder="NOME COMO IMPRESSO" style="text-transform:uppercase;" autocomplete="cc-name" />
           <div class="oma-co-row">
             <div>
               <label class="oma-co-label">VALIDADE</label>
-              <input class="oma-co-input" id="oma-co-cardexp" type="text" placeholder="MM/AA" maxlength="5" oninput="omaCheckout._fmtExp(this)" />
+              <input class="oma-co-input" id="oma-co-cardexp" type="text" placeholder="MM/AA" maxlength="5" oninput="omaCheckout._fmtExp(this)" onchange="omaCheckout._fmtExp(this)" autocomplete="cc-exp" inputmode="numeric" />
             </div>
             <div>
               <label class="oma-co-label">CVV</label>
-              <input class="oma-co-input" id="oma-co-cardcvv" type="text" placeholder="123" maxlength="4" />
+              <input class="oma-co-input" id="oma-co-cardcvv" type="text" placeholder="123" maxlength="4" autocomplete="cc-csc" inputmode="numeric" />
             </div>
           </div>
-          <label class="oma-co-label">CEP</label>
-          <input class="oma-co-input" id="oma-co-cep" type="text" placeholder="00000-000" maxlength="9" oninput="omaCheckout._fmtCep(this)" />
           <button class="oma-co-btn" id="oma-co-btn-card" onclick="omaCheckout._pagarCard()">PAGAR COM CARTÃO &#x2192;</button>
         </div>
 
@@ -197,13 +228,50 @@
       var email = document.getElementById('oma-co-email').value.trim();
       var phone = document.getElementById('oma-co-phone').value.trim();
       var cpf   = document.getElementById('oma-co-cpf').value.trim();
-      var err   = document.getElementById('oma-co-err1');
+      var cep   = document.getElementById('oma-co-cep').value.trim();
+      var addr  = document.getElementById('oma-co-address').value.trim();
+      var num   = document.getElementById('oma-co-number').value.trim();
+      var prov  = document.getElementById('oma-co-province').value.trim();
+      var city  = document.getElementById('oma-co-city').value.trim();
+      var uf    = document.getElementById('oma-co-state').value.trim();
       if (!name)  { _showErr('oma-co-err1','Informe seu nome.'); return; }
       if (!email || email.indexOf('@') < 0) { _showErr('oma-co-err1','Email inválido.'); return; }
+      if (phone.replace(/\D/g,'').length < 10) { _showErr('oma-co-err1','WhatsApp inválido.'); return; }
       if (cpf.replace(/\D/g,'').length < 11) { _showErr('oma-co-err1','CPF inválido.'); return; }
+      if (cep.replace(/\D/g,'').length < 8) { _showErr('oma-co-err1','CEP inválido.'); return; }
+      if (!addr) { _showErr('oma-co-err1','Informe o endereço.'); return; }
+      if (!num) { _showErr('oma-co-err1','Informe o número.'); return; }
+      if (!prov) { _showErr('oma-co-err1','Informe o bairro.'); return; }
+      if (!city) { _showErr('oma-co-err1','Informe a cidade.'); return; }
+      if (!uf || uf.length !== 2) { _showErr('oma-co-err1','UF inválida (ex: SP).'); return; }
       // Preenche nome no cartão
       document.getElementById('oma-co-cardname').value = name.toUpperCase();
       _showStep('s2');
+    },
+
+    _lookupCep: async function(cep) {
+      var clean = (cep||'').replace(/\D/g,'');
+      if (clean.length !== 8) return;
+      var st = document.getElementById('oma-co-cep-status');
+      st.style.display = 'block';
+      st.style.color = '#666';
+      st.textContent = 'BUSCANDO...';
+      try {
+        var r = await fetch('https://viacep.com.br/ws/'+clean+'/json/');
+        var d = await r.json();
+        if (d.erro) { st.textContent = 'CEP NÃO ENCONTRADO — PREENCHA MANUALMENTE'; st.style.color='#c85820'; return; }
+        if (d.logradouro) document.getElementById('oma-co-address').value = d.logradouro;
+        if (d.bairro) document.getElementById('oma-co-province').value = d.bairro;
+        if (d.localidade) document.getElementById('oma-co-city').value = d.localidade;
+        if (d.uf) document.getElementById('oma-co-state').value = d.uf;
+        st.textContent = '✓ ENDEREÇO ENCONTRADO';
+        st.style.color = '#4ade80';
+        // Foca no campo número (único que falta)
+        setTimeout(function(){ document.getElementById('oma-co-number').focus(); }, 100);
+      } catch(e) {
+        st.textContent = 'PREENCHA MANUALMENTE';
+        st.style.color = '#c85820';
+      }
     },
 
     _tab: function(tab) {
@@ -227,6 +295,13 @@
             name:  document.getElementById('oma-co-name').value.trim(),
             phone: document.getElementById('oma-co-phone').value.replace(/\D/g,''),
             cpf:   document.getElementById('oma-co-cpf').value.trim(),
+            postalCode: document.getElementById('oma-co-cep').value.replace(/\D/g,''),
+            address: document.getElementById('oma-co-address').value.trim(),
+            addressNumber: document.getElementById('oma-co-number').value.trim(),
+            complement: document.getElementById('oma-co-complement').value.trim(),
+            province: document.getElementById('oma-co-province').value.trim(),
+            city: document.getElementById('oma-co-city').value.trim(),
+            state: document.getElementById('oma-co-state').value.trim().toUpperCase(),
             product: _cfg.product, value: _cfg.value,
             description: _cfg.description || _cfg.title
           })
@@ -265,6 +340,12 @@
             phone:      document.getElementById('oma-co-phone').value.replace(/\D/g,''),
             cpf:        document.getElementById('oma-co-cpf').value.trim(),
             postalCode: document.getElementById('oma-co-cep').value.replace(/\D/g,''),
+            address:    document.getElementById('oma-co-address').value.trim(),
+            addressNumber: document.getElementById('oma-co-number').value.trim(),
+            complement: document.getElementById('oma-co-complement').value.trim(),
+            province:   document.getElementById('oma-co-province').value.trim(),
+            city:       document.getElementById('oma-co-city').value.trim(),
+            state:      document.getElementById('oma-co-state').value.trim().toUpperCase(),
             product: _cfg.product, value: _cfg.value,
             description: _cfg.description || _cfg.title,
             cardNumber: document.getElementById('oma-co-cardnum').value.replace(/\s/g,''),
@@ -301,7 +382,7 @@
 
     _fmtCard: function(el) { var v=el.value.replace(/\D/g,'').slice(0,16); el.value=v.replace(/(\d{4})/g,'$1 ').trim(); },
     _fmtExp:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,4); if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2); el.value=v; },
-    _fmtCep:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,8); if(v.length>5)v=v.slice(0,5)+'-'+v.slice(5); el.value=v; },
+    _fmtCep:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,8); if(v.length>5)v=v.slice(0,5)+'-'+v.slice(5); el.value=v; if(v.replace(/\D/g,'').length===8) omaCheckout._lookupCep(v); },
     _fmtCpf:  function(el) { var v=el.value.replace(/\D/g,'').slice(0,11); if(v.length>9)v=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9); else if(v.length>6)v=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6); else if(v.length>3)v=v.slice(0,3)+'.'+v.slice(3); el.value=v; }
   };
 
