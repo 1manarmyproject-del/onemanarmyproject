@@ -113,6 +113,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.95);backdrop
     <button class="ctb active" data-c="all" onclick="setCanal('all')">Todos</button>
     <button class="ctb" data-c="1manarmy" onclick="setCanal('1manarmy')">@1manarmy</button>
     <button class="ctb" data-c="fabio" onclick="setCanal('fabio')">@fabio_xavier</button>
+    <button class="ctb" data-c="produtos" onclick="setCanal('produtos')">Produtos</button>
   </div>
   <input type="text" class="srch" placeholder="Buscar..." oninput="render()" id="si">
   <div class="ft">
@@ -175,7 +176,7 @@ function render(){
   var h='';
   Object.values(groups).forEach(function(g){
     var tot=g.cards.length,dn=g.cards.filter(function(c){return(local[c.id]?.status||'pending')!=='pending';}).length;
-    var canlbl=g.canal==='1manarmy'?'@onemanarmy.ai':'@fabio_xavier_br';
+    var canlbl=g.canal==='1manarmy'?'@onemanarmy.ai':g.canal==='fabio'?'@fabio_xavier_br':g.canal==='produtos'?'Produtos OMA':g.canal;
     h+='<div class="sh"><span class="sl">'+canlbl+'</span><span class="st">'+g.serie+'</span>';
     h+='<div class="sab"><button onclick="apAll(\''+g.canal+'\',\''+encodeURIComponent(g.serie)+'\')">Aprovar série</button></div>';
     h+='<span class="sc">'+dn+'/'+tot+'</span><div class="spb"><div class="spbf" style="width:'+Math.round(dn/tot*100)+'%"></div></div></div>';
