@@ -310,6 +310,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
   <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
   <a href="/revenue-flow" onclick="toggleMobileMenu()" style="color:var(--fire)">Revenue Flow</a>
+  <a href="/revenue-flow" onclick="toggleMobileMenu()" style="color:var(--fire)">Revenue Flow</a>
   <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
   <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
   <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
@@ -328,10 +329,10 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <!-- VIEWPORT -->
   <div style="position:relative;width:100%;min-height:100vh;overflow:hidden;">
     <!-- TRACK — 3 slides lado a lado -->
-    <div id="hero-track" style="display:flex;width:300%;min-height:100vh;transition:transform .7s cubic-bezier(.77,0,.18,1);transform:translateX(0);will-change:transform;">
+    <div id="hero-track" style="display:flex;width:400%;min-height:100vh;transition:transform .7s cubic-bezier(.77,0,.18,1);transform:translateX(0);will-change:transform;">
 
       <!-- SLIDE 0: OMA Agentes (SEMPRE PRIMEIRO) -->
-      <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
+      <div style="width:25%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
         <p class="hero-scratch" style="margin-bottom:8px;">Agents As a Service</p>
         <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">ONE MAN <span style="color:var(--fire)">ARMY</span><span style="color:var(--fire);opacity:.7">.AI</span></p>
         <p class="hero-badge">🦞 &nbsp; No ar desde <em>02 de abril de 2026</em></p>
@@ -343,8 +344,22 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
         </div>
       </div>
 
-      <!-- SLIDE 1: Solutions / ROI -->
-      <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
+      
+      <!-- SLIDE 1: Revenue Flow (CREME) -->
+      <div style="width:25%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;background:#f5f0e8;position:relative;">
+        <p style="font-family:'Space Mono',monospace;font-size:clamp(9px,1vw,11px);letter-spacing:4px;color:#7a7068;text-transform:uppercase;margin-bottom:8px;">OMA Revenue Flow</p>
+        <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:#2a2018;margin-bottom:20px;">DA CAPTAÇÃO AO <span style="color:#c85820">BOLETO</span></p>
+        <p style="display:inline-block;border:1px solid rgba(200,88,32,.3);padding:6px 14px;background:rgba(200,88,32,.06);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#c85820;margin-bottom:28px;"><em style="font-style:normal;">6 clicks. Uma pessoa. Zero código.</em></p>
+        <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,5vw,68px);line-height:1.05;color:#1a1008;margin-bottom:24px;letter-spacing:-.02em;">Uma esteira inteligente<br>para transformar lead em<br><em style="font-style:italic;color:#c85820;">cliente operando.</em></h1>
+        <p style="font-size:clamp(14px,1.6vw,17px);font-weight:300;line-height:1.7;color:rgba(42,32,24,.6);max-width:560px;margin-bottom:36px;">11 etapas conectadas. Do primeiro contato ao onboarding e à operação recorrente — assistida por agentes.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+          <a href="/revenue-flow" style="background:#2a2018;color:#f5f0e8;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:16px 36px;text-decoration:none;transition:background .2s;display:inline-block;">Conhecer a esteira</a>
+          <a href="#" onclick="oT();return false;" style="background:transparent;color:#2a2018;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;text-decoration:none;border:1.5px solid rgba(42,32,24,.2);transition:all .2s;display:inline-block;">Falar com a Bia</a>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Solutions / ROI -->
+      <div style="width:25%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
         <p class="hero-scratch" style="margin-bottom:8px;">OMA Solutions</p>
         <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">AUTOMATION <span style="color:var(--fire)">INTELLIGENCE</span></p>
         <p class="hero-badge"><em>Diagnóstico gratuito disponível agora</em></p>
@@ -356,8 +371,8 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
         </div>
       </div>
 
-      <!-- SLIDE 2: Academy -->
-      <div style="width:33.333%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
+      <!-- SLIDE 3: Academy -->
+      <div style="width:25%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 32px 100px;flex-shrink:0;">
         <p class="hero-scratch" style="margin-bottom:8px;">OMA Academy</p>
         <p style="font-family:'Black Ops One',cursive;font-size:clamp(11px,1.5vw,16px);letter-spacing:5px;color:var(--bone);margin-bottom:20px;">CONSTRUA SUA <span style="color:var(--fire)">OPERAÇÃO</span></p>
         <p class="hero-badge"><em>Fundamentos gratuitos disponíveis agora</em></p>
@@ -376,11 +391,12 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
     <button class="hdot" id="hdot-0" onclick="heroGo(0)" aria-label="Slide 1"></button>
     <button class="hdot" id="hdot-1" onclick="heroGo(1)" aria-label="Slide 2"></button>
     <button class="hdot" id="hdot-2" onclick="heroGo(2)" aria-label="Slide 3"></button>
+    <button class="hdot" id="hdot-3" onclick="heroGo(3)" aria-label="Slide 4"></button>
   </div>
 
   <!-- SETAS -->
-  <button class="hero-arrow" onclick="heroGo((heroCurrent-1+3)%3)" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid #3a3a3a;color:#6a6a6a;width:44px;height:44px;cursor:pointer;font-size:22px;z-index:10;line-height:1;" onmouseover="this.style.borderColor='#e8703a';this.style.color='#e8703a'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#6a6a6a'">‹</button>
-  <button class="hero-arrow" onclick="heroGo((heroCurrent+1)%3)" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid #3a3a3a;color:#6a6a6a;width:44px;height:44px;cursor:pointer;font-size:22px;z-index:10;line-height:1;" onmouseover="this.style.borderColor='#e8703a';this.style.color='#e8703a'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#6a6a6a'">›</button>
+  <button class="hero-arrow" onclick="heroGo((heroCurrent-1+4)%4)" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid #3a3a3a;color:#6a6a6a;width:44px;height:44px;cursor:pointer;font-size:22px;z-index:10;line-height:1;" onmouseover="this.style.borderColor='#e8703a';this.style.color='#e8703a'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#6a6a6a'">‹</button>
+  <button class="hero-arrow" onclick="heroGo((heroCurrent+1)%4)" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid #3a3a3a;color:#6a6a6a;width:44px;height:44px;cursor:pointer;font-size:22px;z-index:10;line-height:1;" onmouseover="this.style.borderColor='#e8703a';this.style.color='#e8703a'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#6a6a6a'">›</button>
 
 </section>
 
@@ -396,12 +412,12 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 
   function go(n) {
     cur = n;
-    document.getElementById('hero-track').style.transform = 'translateX(-' + (n * 33.333333) + '%)';
+    document.getElementById('hero-track').style.transform = 'translateX(-' + (n * 25) + '%)';
     document.querySelectorAll('.hdot').forEach(function(d,i){
       d.classList.toggle('on', i===n);
     });
     clearInterval(timer);
-    timer = setInterval(function(){ go((cur+1)%3); }, 6000);
+    timer = setInterval(function(){ go((cur+1)%4); }, 6000);
   }
 
   // expor globalmente
