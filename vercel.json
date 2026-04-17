@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/revenue-flow",
+      "destination": "/revenue-flow.html"
+    },
+    {
       "source": "/oma-checkout.js",
       "destination": "/oma-checkout.js"
     },

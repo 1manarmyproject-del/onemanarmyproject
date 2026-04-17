@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMA Revenue Flow — Da captação ao boleto em 6 clicks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@500;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--fire:#c85820;--ember:#a04010;--char:#f5f0e8;--coal:#ede8df;--iron:#e8e2d8;--steel:#cec8be;--ash:#7a7068;--fog:#5a5048;--bone:#2a2018;--white:#1a1008;--b1:#ddd8ce;--b2:#c8c2b8;--fd:rgba(200,88,32,.07);--green:#3a8a6a;--green-bg:rgba(58,138,106,.06);--red:#a03030;--red-bg:rgba(160,48,48,.05)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--char);color:var(--bone);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.7}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:56px;background:rgba(8,8,8,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,112,58,.12)}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#e4ddd3;text-decoration:none;line-height:1.1;display:flex;flex-direction:column}
+.nav-logo small{font-size:9px;font-weight:500;letter-spacing:.12em;color:#666}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none}
+.nav-links a{font-family:'Barlow',sans-serif;font-size:13px;font-weight:400;color:#999;text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:#e4ddd3}
+.nav-pill{font-family:'Space Mono',monospace !important;font-size:10px !important;letter-spacing:.08em;text-transform:uppercase;color:#e8703a !important;border:1px solid rgba(232,112,58,.4);padding:3px 10px;background:rgba(232,112,58,.06)}
+.nav-cta{background:#e8703a;color:#080808 !important;font-family:'Barlow Condensed',sans-serif !important;font-size:12px !important;font-weight:900 !important;letter-spacing:.1em !important;text-transform:uppercase;padding:8px 18px;border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+.nav-cta:hover{background:#c05020 !important;color:#f0ebe4 !important}
+@media(max-width:960px){nav{padding:0 24px}.nav-links{display:none}}
+
+/* ── HERO ── */
+.hero{position:relative;padding:100px 52px 80px;max-width:1280px;margin:0 auto;text-align:center}
+.hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:800px;height:500px;pointer-events:none;background:radial-gradient(ellipse,rgba(200,88,32,.06) 0%,transparent 65%)}
+.lockup{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(200,88,32,.22);padding:8px 16px 8px 12px;background:var(--fd);margin-bottom:32px}
+.lockup-dot{width:9px;height:9px;border-radius:50%;background:var(--fire);flex-shrink:0;box-shadow:0 0 10px var(--fire);animation:breathe 2.8s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1;box-shadow:0 0 10px var(--fire)}50%{opacity:.45;box-shadow:0 0 4px var(--fire)}}
+.lockup-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--fire)}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(48px,7vw,88px);line-height:1.02;letter-spacing:-.018em;color:var(--white);margin-bottom:24px}
+h1 em{font-style:italic;color:var(--fire)}
+.hero-sub{font-size:19px;font-weight:300;line-height:1.76;color:rgba(42,32,24,.62);max-width:640px;margin:0 auto 48px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:600px;margin:0 auto;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:28px 0}
+.stat{text-align:center;border-right:1px solid var(--b1)}
+.stat:last-child{border-right:none}
+.stat-val{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(38px,5vw,56px);color:var(--fire);line-height:1}
+.stat-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);text-transform:uppercase;letter-spacing:1.2px;margin-top:8px}
+@media(max-width:640px){.hero{padding:60px 24px 48px}.hero-stats{grid-template-columns:repeat(2,1fr)}.stat{border-right:none;padding:12px 0}}
+
+/* ── SECTIONS ── */
+.page{max-width:880px;margin:0 auto;padding:0 52px}
+@media(max-width:640px){.page{padding:0 24px}}
+.section{padding:72px 0;border-bottom:1px solid var(--b1)}
+.section:last-of-type{border-bottom:none}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:14px}
+.section h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.015em;margin-bottom:20px;color:var(--white)}
+.section h2 em{font-style:italic;color:var(--fire)}
+.section p{color:rgba(42,32,24,.7);margin:12px 0;line-height:1.8;font-size:.95em}
+.section p.lead{font-size:1.1em;color:var(--bone);font-weight:400}
+
+/* ── PAIN CARDS ── */
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:28px 0}
+.pain-card{background:var(--red-bg);border-left:2px solid var(--red);padding:16px 18px}
+.pain-card strong{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88em;letter-spacing:.04em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:4px}
+.pain-card span{font-size:.92em;color:var(--fog);line-height:1.6}
+
+/* ── COMPARE ── */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:32px 0;border:1px solid var(--b1);overflow:hidden}
+.compare-col{padding:28px 24px}
+.compare-col.old{background:var(--red-bg);border-right:1px solid var(--b1)}
+.compare-col.new{background:var(--green-bg)}
+.compare-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.82em;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px}
+.compare-col.old .compare-title{color:var(--red)}
+.compare-col.new .compare-title{color:var(--green)}
+.compare-item{display:flex;align-items:flex-start;gap:8px;margin:10px 0;font-size:.85em;color:var(--fog);line-height:1.5}
+.compare-item .icon{flex-shrink:0;font-size:13px;margin-top:2px}
+.compare-col.old .icon{color:var(--red)}
+.compare-col.new .icon{color:var(--green)}
+.compare-total{margin-top:20px;padding-top:18px;border-top:1px solid rgba(0,0,0,.08);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15em;letter-spacing:.06em;text-transform:uppercase}
+.compare-col.old .compare-total{color:var(--red)}
+.compare-col.new .compare-total{color:var(--green)}
+@media(max-width:600px){.compare{grid-template-columns:1fr}.compare-col.old{border-right:none;border-bottom:1px solid var(--b1)}}
+
+/* ── PIPELINE ── */
+.pipeline{margin:32px 0}
+.pipe-step{display:grid;grid-template-columns:56px 1fr;gap:0;cursor:pointer}
+.pipe-icon{display:flex;flex-direction:column;align-items:center}
+.pipe-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;transition:all .2s}
+.pipe-num.auto{background:var(--fire);color:var(--char)}
+.pipe-num.click{background:var(--char);border:2px solid var(--fire);color:var(--fire)}
+.pipe-num.zero{background:var(--green);color:var(--char)}
+.pipe-line{width:1px;flex:1;min-height:8px;background:var(--b2);margin:0 auto}
+.pipe-step:last-child .pipe-line{display:none}
+.pipe-card{background:var(--coal);border:1px solid var(--b1);padding:16px 20px;margin:4px 0 8px;transition:all .2s}
+.pipe-card:hover{border-color:var(--fire);background:rgba(200,88,32,.03)}
+.pipe-card.expanded{border-color:var(--fire);background:rgba(200,88,32,.04)}
+.pipe-head{display:flex;justify-content:space-between;align-items:center}
+.pipe-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2em;letter-spacing:.03em;text-transform:uppercase;color:var(--bone)}
+.pipe-badge{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;letter-spacing:.5px;text-transform:uppercase}
+.pipe-badge.auto-b{background:var(--fd);color:var(--fire)}
+.pipe-badge.click-b{background:rgba(42,32,24,.05);color:var(--fog)}
+.pipe-badge.zero-b{background:var(--green-bg);color:var(--green)}
+.pipe-tagline{font-size:.85em;color:var(--ash);margin-top:4px;font-weight:300}
+.pipe-detail{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--b1);font-size:.88em;color:var(--fog);line-height:1.7}
+.pipe-card.expanded .pipe-detail{display:block}
+.pipe-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.pipe-detail-item strong{display:block;font-family:'Space Mono',monospace;font-size:9px;color:var(--fire);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+@media(max-width:600px){.pipe-detail-grid{grid-template-columns:1fr}}
+
+/* ── VALUE ── */
+.value-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
+.value-card{background:var(--coal);border:1px solid var(--b1);padding:24px 20px}
+.value-icon{margin-bottom:0}
+.formula{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:40px 20px;margin:20px 0;border:1px solid var(--b1);background:var(--coal)}
+.formula-item{text-align:center;padding:12px 20px}
+.formula-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(13px,2vw,16px);letter-spacing:.06em;text-transform:uppercase;color:var(--bone)}
+.formula-sub{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--ash);margin-top:4px}
+.formula-op{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--fire);line-height:1}
+.formula-eq{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--bone);line-height:1}
+.formula-result{border-left:2px solid var(--fire);padding-left:20px}
+.formula-result .formula-label{color:var(--fire)}
+
+.dot-red{width:6px;height:6px;border-radius:50%;background:var(--red);margin-top:6px}
+.dot-green{width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:6px}
+
+.prop-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--fire);border:1px solid rgba(200,88,32,.3);padding:3px 10px;margin-top:8px;background:var(--fd)}
+.v-ico{width:28px;height:28px;color:var(--fire);margin-bottom:10px;display:block}
+
+.value-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1em;letter-spacing:.04em;text-transform:uppercase;color:var(--bone);margin-bottom:6px}
+.value-desc{font-size:.82em;color:var(--ash);line-height:1.6;font-weight:300}
+
+/* ── INSTITUTIONAL ── */
+.instit{background:rgba(8,8,8,.96);color:#e4ddd3;padding:48px 40px;margin:40px 0;text-align:center;border:1px solid rgba(232,112,58,.12)}
+.instit h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(16px,2.5vw,22px);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+.instit h3 span{color:var(--fire)}
+.instit p{font-size:.92em;max-width:600px;margin:0 auto;line-height:1.7;color:rgba(228,221,211,.65);font-weight:300}
+
+/* ── CTA ── */
+.cta-section{text-align:center;padding:80px 24px 100px}
+.cta-section h2{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(24px,3.5vw,36px);margin-bottom:12px;color:var(--white);letter-spacing:-.015em}
+.cta-section h2 em{font-style:italic;color:var(--fire)}
+.cta-section p{color:var(--ash);font-size:1em;margin-bottom:32px;font-weight:300}
+.btn-cta{display:inline-flex;align-items:center;gap:10px;background:var(--bone);color:var(--char);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:18px 40px;border:none;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn-cta:hover{background:var(--fire);color:#080808}
+.btn-cta .arr{transition:transform .2s}
+.btn-cta:hover .arr{transform:translateX(4px)}
+.btn-secondary{display:inline-block;margin-top:16px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--fire);text-decoration:none;border-bottom:1px solid rgba(200,88,32,.3);padding-bottom:2px;transition:border-color .15s}
+.btn-secondary:hover{border-color:var(--fire)}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:24px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:.08em;border-top:1px solid var(--b1)}
+.footer span{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.footer span em{font-style:normal;color:var(--fire)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://onemanarmyproject.com.br" class="nav-logo">ONE MAN ARMY<small>FROM THE SCRATCH · 2026</small></a>
+  <ul class="nav-links">
+    <li><a href="https://onemanarmyproject.com.br/solutions" target="_blank">Soluções</a></li>
+    <li><a href="https://insights.onemanarmyproject.com.br" target="_blank">Insights</a></li>
+    <li><a href="https://ideias.onemanarmyproject.com.br" target="_blank" class="nav-pill">OMA Ideias</a></li>
+    <li><a href="https://wa.me/5511920135700" target="_blank" class="nav-cta">Falar com a Bia</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<div class="hero">
+  <div class="lockup">
+    <div class="lockup-dot"></div>
+    <div><div class="lockup-name">OMA Revenue Flow</div></div>
+  </div>
+  <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,10vw,100px);letter-spacing:.08em;text-transform:uppercase;color:var(--white);line-height:.95;margin-bottom:20px">REVENUE <span style="color:var(--fire)">FLOW</span></div>
+  <h1>Da captação ao boleto.<br><em>6 clicks.</em> Uma pessoa.</h1>
+  <p class="hero-sub">Uma esteira inteligente para transformar lead em cliente operando. Do primeiro contato ao onboarding e à operação recorrente — assistida por agentes, sem código.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">11</div><div class="stat-label">Etapas conectadas</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">Clicks do operador</div></div>
+    <div class="stat"><div class="stat-val">0</div><div class="stat-label">Linhas de código</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">Pessoa operando</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══════ DOR ═══════ -->
+<div class="section">
+  <div class="section-label">O problema</div>
+  <h2>O caos mora <em>no meio</em> do caminho</h2>
+  <p class="lead">A maioria das empresas não perde eficiência só na venda ou só na entrega. Perde entre as duas.</p>
+  <p>Lead entra por um canal, proposta sai por outro, contrato depende de alguém lembrar, cobrança atrasa, onboarding muda toda vez e a operação começa sem contexto. Cada etapa vive em uma ferramenta, uma planilha, uma cabeça diferente.</p>
+  <div class="pain-grid">
+    <div class="pain-card"><strong>Qualificação fraca</strong><span>Lead entra quente e esfria porque ninguém estruturou os próximos passos.</span></div>
+    <div class="pain-card"><strong>Proposta lenta</strong><span>Cada proposta montada do zero. Sem pricing padronizado, sem histórico.</span></div>
+    <div class="pain-card"><strong>Contrato manual</strong><span>Word, email, assinatura por foto. Sem rastreabilidade, sem padrão.</span></div>
+    <div class="pain-card"><strong>Cobrança desalinhada</strong><span>Financeiro descobre que tem que cobrar quando alguém lembra de avisar.</span></div>
+    <div class="pain-card"><strong>Onboarding improvisado</strong><span>Cada cliente onboardado de um jeito. Sem checklist, sem SLA.</span></div>
+    <div class="pain-card"><strong>Operação sem contexto</strong><span>Quem opera não sabe o que foi vendido. Quem vendeu não sabe como está.</span></div>
+  </div>
+</div>
+
+<!-- ═══════ COMPARATIVO ═══════ -->
+<div class="section">
+  <div class="section-label">Antes vs. depois</div>
+  <h2>Processo tradicional vs. <em>Revenue Flow</em></h2>
+  <div class="compare">
+    <div class="compare-col old">
+      <div class="compare-title">PROCESSO TRADICIONAL</div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Lead chega por WhatsApp, fica no chat</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Qualificação na cabeça do vendedor</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Proposta montada no Word ou Canva</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Preço decidido por feeling</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Contrato por email, assinatura manual</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Cobrança criada na mão no sistema</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>NF emitida quando alguém lembra</span></div>
+      <div class="compare-item"><span class="icon dot-red"></span><span>Onboarding começa quando der</span></div>
+      <div class="compare-total">~47 passos manuais · 3-5 pessoas · 2-4 semanas</div>
+    </div>
+    <div class="compare-col new">
+      <div class="compare-title">REVENUE FLOW</div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Lead entra, diagnóstico automático</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Qualificação estruturada, CRM alimentado</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Proposta gerada por IA com dados da ficha</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Pricing Engine calcula com justificativa</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Contrato gerado e assinado eletronicamente</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Cobrança recorrente ativada na assinatura</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>NF emitida automaticamente a cada pagamento</span></div>
+      <div class="compare-item"><span class="icon dot-green"></span><span>Onboarding inicia com 1 click, contexto completo</span></div>
+      <div class="compare-total">6 clicks · 1 pessoa · minutos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MID CTA ═══════ -->
+<div style="text-align:center;padding:48px 0;border-bottom:1px solid var(--b1)">
+  <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(14px,2vw,18px);letter-spacing:.08em;text-transform:uppercase;color:var(--bone);margin-bottom:20px">Quer ver essa esteira funcionando no seu negócio?</p>
+  <a class="btn-cta" href="https://wa.me/5511920135700?text=Oi!%20Quero%20conhecer%20o%20Revenue%20Flow" target="_blank" style="font-size:12px;padding:14px 32px">Falar com a Bia <span class="arr">&rarr;</span></a>
+</div>
+
+<!-- ═══════ PIPELINE ═══════ -->
+<div class="section">
+  <div class="section-label">A esteira completa</div>
+  <h2>11 etapas. Do lead ao cliente <em>operando.</em></h2>
+  <p>Clique em cada etapa para ver o que acontece e o que é automatizado.</p>
+  <div class="pipeline" id="pipeline">
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num zero">1</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Entrada</span><span class="pipe-badge zero-b">Zero clicks</span></div><div class="pipe-tagline">Lead chega e é recebido automaticamente.</div><div class="pipe-detail"><p>O lead entra via WhatsApp, webchat ou indicação. Um agente comercial inicia o diagnóstico com perguntas estruturadas e qualifica antes de qualquer humano intervir.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Recebe o lead, faz as perguntas certas e entrega tudo organizado</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Lead qualificado e pronto pra próximo passo — sem esforço manual</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num zero">2</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Qualificação</span><span class="pipe-badge zero-b">Zero clicks</span></div><div class="pipe-tagline">CRM alimentado com régua de follow-up.</div><div class="pipe-detail"><p>O CRM recebe o lead com todos os dados do diagnóstico. Régua de follow-up ativada — cadência de contato, lembretes, classificação por temperatura.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Organiza os leads, mantém contato ativo e avisa quando agir</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Nenhum lead esquecido, cada um no timing certo</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num click">3</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Cadastro</span><span class="pipe-badge click-b">1 click</span></div><div class="pipe-tagline">Ficha técnica alimentada automaticamente por todas as interações anteriores.</div><div class="pipe-detail"><p>O agente Rex escuta a reunião, transcreve, extrai dados e envia o briefing completo para preencher a ficha do cliente. Sem anotar nada na mão. 50 campos estruturados — comerciais, técnicos e operacionais — preenchidos com dados que já existem no CRM, no diagnóstico e no briefing da reunião.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Escuta a reunião, transcreve, extrai os dados e preenche a ficha sozinho</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Ficha completa sem pegar numa caneta — alimentada por tudo que aconteceu antes</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num click">4</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Pricing</span><span class="pipe-badge click-b">1 click</span></div><div class="pipe-tagline">Um click. O sistema analisa o projeto e entrega o preço certo com justificativa pronta.</div><div class="pipe-detail"><p>Você não precisa mais calcular preço na mão nem defender um número que saiu da sua cabeça. O motor analisa a complexidade do projeto, o esforço envolvido e o valor que o serviço gera — e entrega setup, mensalidade e estimativa de custo operacional com uma justificativa que você pode enviar direto pro cliente. Se os dados forem insuficientes, ele avisa antes de sugerir. Se o escopo for extraordinário, ele sinaliza pra você revisar.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Analisa o projeto inteiro, cruza mais de uma dezena de variáveis e entrega preço calculado com justificativa — pronto pra proposta</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Preço defensável, coerente e rastreável. Sem achismo, sem planilha, sem retrabalho</div></div><div class="prop-badge">Tecnologia proprietária OMA</div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num click">5</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Proposta</span><span class="pipe-badge click-b">1 click</span></div><div class="pipe-tagline">Proposta gerada por IA com diagnóstico, solução, valores e aceite em um click.</div><div class="pipe-detail"><p>Com os dados do Client Record e os valores calculados pelo Pricing Engine, a IA gera uma proposta comercial completa: diagnóstico da dor, solução proposta, plano de implementação e quadro de investimento. O operador revisa em modo preview antes de enviar. O cliente recebe uma página premium com aceite eletrônico — um click e a próxima etapa dispara sozinha.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Gera a proposta completa com base nos dados do projeto. Você revisa e envia</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Cliente aceita em um click. O contrato é gerado automaticamente</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num click">6</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Contrato</span><span class="pipe-badge click-b">1 click</span></div><div class="pipe-tagline">Proposta aceita, contrato gerado e enviado para assinatura eletrônica — outro click.</div><div class="pipe-detail"><p>O contrato é gerado automaticamente a partir da proposta aceita e do Client Record — 20 cláusulas jurídicas cobrindo propriedade intelectual, LGPD, disclaimer de IA, obrigações do cliente, offboarding, API variável e mais. PDF gerado, enviado para assinatura eletrônica com validade jurídica. Webhook confirma a assinatura e dispara a próxima etapa sem ninguém precisar fazer nada.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Gera o contrato, envia pra assinatura eletrônica e monitora até a conclusão</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Contrato assinado, cobrança ativada e onboarding liberado — tudo automático</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num auto">7</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Cobrança</span><span class="pipe-badge auto-b">Automático</span></div><div class="pipe-tagline">Assinatura recorrente criada ao assinar o contrato.</div><div class="pipe-detail"><p>Contrato assinado dispara webhook: cria cliente no gateway, configura assinatura mensal, cobra setup como pagamento único. Trial? Primeira cobrança postergada.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Configura a cobrança recorrente automaticamente ao assinar o contrato</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Todo mês o dinheiro cai. Sem lembrar, sem cobrar, sem correr atrás</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num auto">8</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Fiscal</span><span class="pipe-badge auto-b">Automático</span></div><div class="pipe-tagline">NF emitida a cada pagamento, email ao cliente.</div><div class="pipe-detail"><p>Pagamento confirmado → NF emitida automaticamente → PDF baixado → email enviado ao cliente. Rastreabilidade completa: fatura, NF e email em tabelas cruzadas.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Emite nota fiscal automaticamente a cada pagamento confirmado</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Nota fiscal no email do cliente em minutos. Sem planilha, sem atraso</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num click">9</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Onboarding</span><span class="pipe-badge click-b">1 click</span></div><div class="pipe-tagline">Um click e o onboarding começa — com todo o contexto da venda, sem perguntar de novo.</div><div class="pipe-detail"><p>O cliente não precisa repetir nada. Tudo o que foi dito na reunião, escrito na proposta e assinado no contrato já está lá. Um agente especializado conduz o processo passo a passo: coleta o que falta, mapeia o que precisa ser configurado, valida com o cliente e gera o plano de implementação. Nenhuma etapa é pulada — o sistema garante a sequência.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Conduz todo o onboarding de forma inteligente, preservando contexto e garantindo que nada fique pendente</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Onboarding padronizado, rápido e sem improviso — mesmo que você tenha 10 clientes entrando ao mesmo tempo</div></div><div class="prop-badge">Tecnologia proprietária OMA</div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num auto">10</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Go Live</span><span class="pipe-badge auto-b">Assistido</span></div><div class="pipe-tagline">Configuração, testes e ativação em produção.</div><div class="pipe-detail"><p>Com o briefing do onboarding, os agentes são construídos, testados e ativados. PMO rastreia cada entrega. Go-live com monitoramento ativo.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Acompanha cada entrega, valida testes e ativa a operação</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Tudo ligado, testado e funcionando — com registro de cada passo</div></div></div></div></div>
+
+    <div class="pipe-step" onmouseenter="openStep(this)" onmouseleave="closeStep(this)" onclick="toggleStep(this)"><div class="pipe-icon"><div class="pipe-num zero">11</div><div class="pipe-line"></div></div><div class="pipe-card"><div class="pipe-head"><span class="pipe-name">Operação</span><span class="pipe-badge zero-b">Contínuo</span></div><div class="pipe-tagline">Monitoramento, evolução e cobrança recorrente no piloto automático.</div><div class="pipe-detail"><p>Operação 24/7 com monitoramento contínuo, health checks, relatórios diários e evolução. Todo mês: cobrança automática, NF emitida, fatura registrada. Sem intervenção humana.</p><div class="pipe-detail-grid"><div class="pipe-detail-item"><strong>O que faz</strong>Monitora a operação, gera relatórios e avisa se algo precisa de atenção</div><div class="pipe-detail-item"><strong>O que você ganha</strong>Operação no piloto automático. Receita previsível. Tempo livre pra crescer</div></div></div></div></div>
+
+  </div>
+</div>
+
+<!-- ═══════ FÓRMULA ═══════ -->
+<div class="section" style="padding-bottom:32px">
+  <div class="section-label">A equação</div>
+  <h2>O que está <em>por trás</em></h2>
+  <div class="formula">
+    <div class="formula-item"><div class="formula-label">Inteligência artificial</div><div class="formula-sub">LLMs, agentes, automação</div></div>
+    <div class="formula-op">+</div>
+    <div class="formula-item"><div class="formula-label">Inteligência de negócio</div><div class="formula-sub">Dados, contexto, regras</div></div>
+    <div class="formula-op">+</div>
+    <div class="formula-item"><div class="formula-label">Motores sob medida</div><div class="formula-sub">Pricing, onboarding, operação</div></div>
+    <div class="formula-eq">=</div>
+    <div class="formula-item formula-result"><div class="formula-label">Revenue Flow</div><div class="formula-sub">Esteira que opera sozinha</div></div>
+  </div>
+</div>
+
+<!-- ═══════ VALOR ═══════ -->
+<div class="section">
+  <div class="section-label">O que muda</div>
+  <h2>Na prática, o que você <em>ganha</em></h2>
+  <div class="value-grid">
+    <div class="value-card"><div class="value-icon"><svg class="v-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="value-title">Velocidade</div><div class="value-desc">De semanas entre venda e operação para minutos entre proposta e contrato.</div></div>
+    <div class="value-card"><div class="value-icon"><svg class="v-ico" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="15" y1="15" x2="21" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="value-title">Rastreabilidade</div><div class="value-desc">Cada etapa gera registro. Nada se perde entre venda e entrega.</div></div>
+    <div class="value-card"><div class="value-icon"><svg class="v-ico" viewBox="0 0 24 24"><polyline points="4 18 10 12 14 16 20 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="value-title">Previsibilidade</div><div class="value-desc">Pricing calculado, cobrança automática, NF emitida. Receita sem surpresas.</div></div>
+    <div class="value-card"><div class="value-icon"><svg class="v-ico" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 20c0-4 3.5-7 7-7s7 3 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M19 20c0-3 1.5-5 3-5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></div><div class="value-title">Independência</div><div class="value-desc">Uma pessoa opera a esteira inteira. Cresce sem empilhar gente.</div></div>
+    <div class="value-card"><div class="value-icon"><svg class="v-ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></div><div class="value-title">Contexto preservado</div><div class="value-desc">Quem opera sabe o que foi vendido. Quem vende sabe como está a operação.</div></div>
+    <div class="value-card"><div class="value-icon"><svg class="v-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></div><div class="value-title">Menos retrabalho</div><div class="value-desc">Dados preenchidos uma vez fluem por toda a esteira. Sem redigitar.</div></div>
+  </div>
+</div>
+
+<!-- ═══════ INSTITUCIONAL ═══════ -->
+<div class="section" style="border-bottom:none;padding-bottom:0">
+  <div class="instit">
+    <h3>ONE MAN <span>ARMY</span></h3>
+    <p>A tecnologia que usamos para operar o próprio OMA é a mesma que pode estruturar a operação do seu negócio. Construída por um empreendedor solo, sem escrever uma linha de código, usando a mesma inteligência artificial que colocamos pra trabalhar pra você.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════ CTA ═══════ -->
+<div class="cta-section">
+  <h2>Aplique essas e outras automações<br>ao <em>seu negócio</em></h2>
+  <p>Converse com a Bia e descubra como o Revenue Flow se aplica à sua operação.</p>
+  <a class="btn-cta" href="https://wa.me/5511920135700?text=Oi!%20Quero%20conhecer%20o%20OMA%20Revenue%20Flow" target="_blank">Falar com a Bia <span class="arr">&rarr;</span></a>
+  <br>
+  <a class="btn-secondary" href="https://onemanarmyproject.com.br/solutions" target="_blank">Ver todas as soluções OMA</a>
+</div>
+
+<div class="footer">
+  <span>ONE MAN <em>ARMY</em></span> &middot; Riva Labs Ltda &middot; CNPJ 65.452.151/0001-26 &middot; onemanarmyproject.com.br
+</div>
+
+<script>
+function openStep(el){document.querySelectorAll('.pipe-card.expanded').forEach(function(x){x.classList.remove('expanded')});el.querySelector('.pipe-card').classList.add('expanded')}
+function closeStep(el){el.querySelector('.pipe-card').classList.remove('expanded')}
+function toggleStep(el){var c=el.querySelector('.pipe-card');c.classList.toggle('expanded')}
+</script>
+</body>
+</html>
