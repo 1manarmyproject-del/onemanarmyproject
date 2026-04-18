@@ -23,6 +23,18 @@ nav{position:sticky;top:0;z-index:800;display:flex;align-items:center;justify-co
 .nav-cta{background:#e8703a;color:#080808 !important;font-family:'Barlow Condensed',sans-serif !important;font-size:12px !important;font-weight:900 !important;letter-spacing:.1em !important;text-transform:uppercase;padding:8px 18px;border:none;text-decoration:none;transition:background .15s}
 .nav-cta:hover{background:#c05020 !important;color:#f0ebe4 !important}
 @media(max-width:960px){nav{padding:0 24px}.nav-links{display:none}}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:900;flex-direction:column;gap:5px}
+.nav-burger span{display:block;width:22px;height:2px;background:#e4ddd3;transition:all .2s}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4px,5px)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:850;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e4ddd3;text-decoration:none;transition:color .15s}
+.mobile-menu a:hover{color:#e8703a}
+.mm-cta{background:#e8703a !important;color:#080808 !important;padding:14px 32px !important;font-size:14px !important}
+@media(max-width:960px){.nav-burger{display:flex}}
+
 
 .hero{padding:72px 52px 48px;max-width:1280px;margin:0 auto;text-align:center}
 .lockup{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(200,88,32,.22);padding:8px 16px 8px 12px;background:var(--fd);margin-bottom:28px}
@@ -69,7 +81,18 @@ h1 em{font-style:italic;color:var(--fire)}
     <li><a href="https://insights.onemanarmyproject.com.br" class="nav-pill">IA Insights</a></li>
     <li><a href="https://wa.me/5511920135700" target="_blank" class="nav-cta">Falar com a Bia</a></li>
   </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://onemanarmyproject.com.br" onclick="toggleMobileMenu()">Home</a>
+  <a href="https://onemanarmyproject.com.br/solutions" onclick="toggleMobileMenu()">Soluções</a>
+  <a href="https://onemanarmyproject.com.br/revenue-flow" onclick="toggleMobileMenu()">Revenue Flow</a>
+  <a href="https://onemanarmyproject.com.br/news" onclick="toggleMobileMenu()">News</a>
+  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  <a href="https://ideias.onemanarmyproject.com.br" onclick="toggleMobileMenu()">OMA Ideias</a>
+  <a href="https://academy.onemanarmyproject.com.br" onclick="toggleMobileMenu()">Academy</a>
+  <a href="https://wa.me/5511920135700" target="_blank" class="mm-cta" onclick="toggleMobileMenu()">Falar com a Bia</a>
+</div>
 
 <div class="hero">
   <div class="lockup"><div class="lockup-dot"></div><div class="lockup-name">OMA News</div></div>
@@ -88,6 +111,15 @@ h1 em{font-style:italic;color:var(--fire)}
 </div>
 
 <script>
+function toggleMobileMenu(){
+  var b=document.getElementById('navBurger');
+  var m=document.getElementById('mobileMenu');
+  if(!b||!m)return;
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+
 (async function(){
   const grid = document.getElementById('news-grid');
   try {
