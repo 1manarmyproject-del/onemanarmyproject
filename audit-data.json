@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-17T03:27:21Z",
-  "updated_at_brt": "00:27 BRT · 17/04/2026",
+  "updated_at": "2026-04-18T17:46:10Z",
+  "updated_at_brt": "14:46 BRT · 18/04/2026",
   "categories": [
     {
       "cat": "INFRAESTRUTURA & REDUNDÂNCIA",
@@ -8,9 +8,9 @@
         {
           "id": "nanoclaw",
           "title": "NanoClaw Core",
-          "current": "Operacional",
-          "nota": 10,
-          "farol": "g",
+          "current": "OFFLINE",
+          "nota": 0,
+          "farol": "r",
           "risk": "Downtime total se Mac Mini falhar",
           "action": "Hetzner/Oracle como failover",
           "tag": "planned",
@@ -68,7 +68,7 @@
         {
           "id": "backup",
           "title": "Backup multi-camada",
-          "current": "4x/dia. Último: 00:27 BRT · 17/04/2026",
+          "current": "4x/dia. Último: 14:46 BRT · 18/04/2026",
           "nota": 10,
           "farol": "g",
           "risk": "Perda de dados",

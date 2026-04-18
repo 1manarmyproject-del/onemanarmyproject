@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/news",
+      "destination": "/news.html"
+    },
+    {
       "source": "/revenue-flow",
       "destination": "/revenue-flow.html"
     },
