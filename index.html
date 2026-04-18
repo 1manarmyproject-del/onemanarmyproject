@@ -247,21 +247,23 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 @media(max-width:480px){.hero-arrow{display:none!important;}}
 
 /* MOBILE NAV MENU (mobile only - desktop unchanged) */
-.nav-burger{display:none;}
-.mobile-menu{display:none;}
+.nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;transition:border-color .2s;}
+.nav-burger:hover{border-color:var(--fire);}
+.nav-burger span{display:block;width:18px;height:1.5px;background:var(--bone);transition:transform .3s,opacity .3s;}
+.nav-burger.open{border-color:var(--fire);}
+.nav-burger.open span{background:var(--fire);}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;display:none;flex-direction:column;justify-content:center;align-items:center;gap:0;padding:80px 24px 40px;}
+.mobile-menu.open{display:flex;}
+.mm-section{text-align:center;margin:16px 0;}
+.mm-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,112,58,.5);margin-bottom:12px;}
+.mobile-menu a{font-family:'Barlow',sans-serif;font-size:18px;font-weight:400;color:#e0d9cf;text-decoration:none;display:block;padding:8px 0;transition:color .15s;}
+.mobile-menu a:hover{color:var(--fire);}
 @media(max-width:680px){
   nav > a[href="/portal"],
-  nav > .nav-insights,
-  nav > .nav-cta{display:none!important;}
-  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;}
-  .nav-burger span{display:block;width:18px;height:1.5px;background:var(--bone);transition:transform .3s,opacity .3s;}
-  .nav-burger.open{border-color:var(--fire);}
-  .nav-burger.open span{background:var(--fire);}
-  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-  .nav-burger.open span:nth-child(2){opacity:0;}
-  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
-  .mobile-menu.open{display:flex;}
+  /* burger agora é global — não precisa redefinir aqui */
   .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:var(--bone);text-decoration:none;text-transform:uppercase;padding:8px 0;}
   .mobile-menu a.mm-fire{color:var(--fire);}
   .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
@@ -293,32 +295,31 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 
   </a>
   <div class="nav-links">
-    <a href="/agentes">Agentes</a>
-    <a href="/solutions" class="hl">Soluções</a>
-    <a href="/academy" class="hl">Academy</a>
-    <a href="https://ideias.onemanarmyproject.com.br/" style="color:var(--fire);border-bottom:1px solid rgba(200,88,32,.4);padding-bottom:1px;">Ideias</a>
-    <a href="/revenue-flow" style="color:var(--fire);border-bottom:1px solid rgba(200,88,32,.4);padding-bottom:1px;">Revenue Flow</a>
-    <a href="/blog">Blog</a>
-    <a href="#como-funciona">Como funciona</a>
+    <a href="/solutions">Soluções</a>
+    <a href="/news">News</a>
   </div>
-  <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
-  <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
-  <a href="#" onclick="oT();return false;" class="nav-cta">Falar com a Bia</a>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
-  <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
-  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
-  <a href="/revenue-flow" onclick="toggleMobileMenu()" style="color:var(--fire)">Revenue Flow</a>
-  <a href="/revenue-flow" onclick="toggleMobileMenu()" style="color:var(--fire)">Revenue Flow</a>
-  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
-  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
-  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
-  <a href="#como-funciona" onclick="toggleMobileMenu()">Como funciona</a>
-  <div class="mm-divider"></div>
-  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
-  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
-  <a href="#" class="mm-cta" onclick="toggleMobileMenu();oT();return false;">Falar com a Bia</a>
+  <div class="mm-section">
+    <div class="mm-label">Produtos</div>
+    <a href="/revenue-flow" onclick="toggleMobileMenu()">Revenue Flow</a>
+    <a href="https://ideias.onemanarmyproject.com.br/" onclick="toggleMobileMenu()">OMA Ideias</a>
+    <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
+    <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  </div>
+  <div class="mm-section">
+    <div class="mm-label">Conteúdo</div>
+    <a href="/news" onclick="toggleMobileMenu()">News</a>
+    <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+    <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+    <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  </div>
+  <div class="mm-section">
+    <div class="mm-label">Empresa</div>
+    <a href="#como-funciona" onclick="toggleMobileMenu()">Como funciona</a>
+    <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  </div>
 </div>
 
 <!-- HERO CARROSSEL -->
