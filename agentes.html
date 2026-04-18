@@ -22,12 +22,25 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.96);border-bottom:1px solid var(--iron);backdrop-filter:blur(8px);}
 .nav-name{font-family:'Black Ops One',cursive;font-size:13px;letter-spacing:3px;color:var(--bone);}
 .nav-name span{color:var(--fire);}
-.nav-links{display:flex;align-items:center;gap:32px;}
-.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#aaa9a0;text-decoration:none;transition:color .2s;}
-.nav-links a:hover,.nav-links a.hl{color:var(--fire);}
-.nav-cta{font-family:'Black Ops One',cursive;font-size:11px;letter-spacing:2px;background:var(--fire);color:var(--char);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;}
-.nav-cta:hover{background:var(--ember);}.nav-insights{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#e8703a;border:1px solid rgba(232,112,58,.4);padding:6px 12px;text-decoration:none;transition:all .2s;}.nav-insights:hover{background:rgba(232,112,58,.1);}
-@media(max-width:680px){nav{padding:16px 20px;}.nav-links{display:none;}}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#e4ddd3;text-decoration:none;line-height:1.1;display:flex;flex-direction:column}
+.nav-logo small{font-size:9px;font-weight:500;letter-spacing:.12em;color:#666}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-links a{font-family:'Barlow',sans-serif;font-size:13px;font-weight:400;color:#999;text-decoration:none;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:#e4ddd3}
+.nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid rgba(232,112,58,.4);cursor:pointer;padding:0;z-index:101;transition:border-color .2s}
+.nav-burger:hover{border-color:#e8703a;background:rgba(232,112,58,.06)}
+.nav-burger span{display:block;width:18px;height:1.5px;background:#e8703a;transition:transform .3s,opacity .3s}
+.nav-burger.open{border-color:#e8703a}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;display:none;flex-direction:column;justify-content:center;align-items:center;gap:0;padding:80px 24px 40px}
+.mobile-menu.open{display:flex}
+.mm-section{text-align:center;margin:16px 0}
+.mm-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,112,58,.5);margin-bottom:12px}
+.mobile-menu a{font-family:'Barlow',sans-serif;font-size:18px;font-weight:400;color:#e0d9cf;text-decoration:none;display:block;padding:8px 0;transition:color .15s}
+.mobile-menu a:hover{color:#e8703a}
+@media(max-width:960px){nav{padding:0 24px;}.nav-links{display:none;}}
 .page-hero{padding:140px 32px 80px;text-align:center;position:relative;}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(122,34,4,.07) 0%,transparent 60%);pointer-events:none;}
 .sec{max-width:1020px;margin:0 auto;padding:80px 32px;}
@@ -103,27 +116,9 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 }
 
 /* MOBILE NAV MENU (mobile only - desktop unchanged) */
-.nav-burger{display:none;}
-.mobile-menu{display:none;}
+/* burger+menu CSS moved to global */
 @media(max-width:680px){
-  nav > a[href="/portal"],
-  nav > .nav-insights,
-  nav > .nav-cta{display:none!important;}
-  .nav-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid #2a2a2a;cursor:pointer;padding:0;z-index:101;}
-  .nav-burger span{display:block;width:18px;height:1.5px;background:var(--bone);transition:transform .3s,opacity .3s;}
-  .nav-burger.open{border-color:var(--fire);}
-  .nav-burger.open span{background:var(--fire);}
-  .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-  .nav-burger.open span:nth-child(2){opacity:0;}
-  .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-  .mobile-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(12px);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:80px 24px 40px;}
-  .mobile-menu.open{display:flex;}
-  .mobile-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2.5px;color:var(--bone);text-decoration:none;text-transform:uppercase;padding:8px 0;}
-  .mobile-menu a.mm-fire{color:var(--fire);}
-  .mobile-menu a.mm-active{color:var(--fire);}
-  .mobile-menu .mm-divider{width:48px;height:1px;background:#2a2a2a;margin:8px 0;}
-  .mobile-menu a.mm-cta{font-family:'Black Ops One',cursive;background:var(--fire);color:var(--char);padding:14px 28px;margin-top:8px;font-size:12px;letter-spacing:2px;}
-  body.mm-locked{overflow:hidden;}
+  /* mobile menu now global */
 }
 /* SVG icons in vert-card and mod-card */
 .vert-ico{flex-shrink:0;width:28px;height:28px;color:var(--fire);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
@@ -207,39 +202,35 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <body>
 
 <nav>
-  <a href="/" style="text-decoration:none"><span class="nav-name">ONE MAN <span>ARMY</span></span></a>
+  <a href="https://onemanarmyproject.com.br" class="nav-logo">ONE MAN ARMY<small>FROM THE SCRATCH · 2026</small></a>
   <div class="nav-links">
-    <a href="/agentes" class="hl">Agentes</a>
-    <a href="/solutions">Soluções</a>
+    <a href="/agentes" class="active">Agentes</a>
+    <a href="/produtos">Soluções</a>
+    <a href="/news">News</a>
     <a href="/academy">Academy</a>
-    <a href="https://ideias.onemanarmyproject.com.br/" style="color:var(--fire);border-bottom:1px solid rgba(200,88,32,.4);padding-bottom:1px;">Ideias</a>
-    <a href="/blog">Blog</a>
+    <a href="https://insights.onemanarmyproject.com.br">Insights</a>
   </div>
-  <a href="/portal" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);text-decoration:none;border:1px solid #2a2a2a;padding:6px 12px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--fire)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--ash)';this.style.borderColor='#2a2a2a'">Meu Portal</a>
-  <a href="https://insights.onemanarmyproject.com.br" class="nav-insights">IA Insights</a>
-  <a href="/" onclick="if(window.oT)oT();return true;" class="nav-cta">Falar com a Bia</a>
-  <button class="nav-burger" id="navBurger" aria-label="Abrir menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação">
-  <a href="/agentes" class="mm-active" onclick="toggleMobileMenu()">Agentes</a>
-  <a href="/solutions" onclick="toggleMobileMenu()">Soluções</a>
-  <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
-  <a href="https://ideias.onemanarmyproject.com.br/" class="mm-fire" onclick="toggleMobileMenu()">Ideias</a>
-  <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
-  <div class="mm-divider"></div>
-  <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
-  <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
-  <a href="/" class="mm-cta" onclick="toggleMobileMenu();if(window.oT)oT();return true;">Falar com a Bia</a>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mm-section"><div class="mm-label">Produtos</div>
+    <a href="/produtos" onclick="toggleMobileMenu()">Soluções</a>
+    <a href="/revenue-flow" onclick="toggleMobileMenu()">Revenue Flow</a>
+    <a href="https://ideias.onemanarmyproject.com.br/" onclick="toggleMobileMenu()">OMA Ideias</a>
+    <a href="/agentes" onclick="toggleMobileMenu()">Agentes</a>
+  </div>
+  <div class="mm-section"><div class="mm-label">Conteúdo</div>
+    <a href="/news" onclick="toggleMobileMenu()">News</a>
+    <a href="/academy" onclick="toggleMobileMenu()">Academy</a>
+    <a href="/blog" onclick="toggleMobileMenu()">Blog</a>
+    <a href="https://insights.onemanarmyproject.com.br" onclick="toggleMobileMenu()">IA Insights</a>
+  </div>
+  <div class="mm-section"><div class="mm-label">Empresa</div>
+    <a href="/#como-funciona" onclick="toggleMobileMenu()">Como funciona</a>
+    <a href="/portal" onclick="toggleMobileMenu()">Meu Portal</a>
+  </div>
 </div>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--blood);margin-bottom:20px;animation:up .6s ease both;">SISTEMA DE AGENTES</p>
-  <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,6vw,72px);line-height:.95;color:var(--white);margin-bottom:16px;animation:up .8s .1s ease both;">Uma equipe digital com<br><em style="color:var(--fire)">função, contexto e responsabilidade.</em></h1>
-  <p style="font-size:clamp(14px,1.8vw,17px);color:var(--fog);max-width:540px;margin:0 auto;line-height:1.75;animation:up .9s .2s ease both;">Não é chatbot. É operação. Cada agente tem nome, papel definido e responde por uma parte do negócio — 24 horas por dia.</p>
-</section>
-
-<div class="div"><div class="div-gem"></div></div>
 
 <!-- POR QUE CONFIAR -->
 <section style="background:var(--light-bg);border-top:1px solid var(--light-border);border-bottom:1px solid var(--light-border);">
@@ -404,7 +395,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
   <div class="footer-brand">ONE MAN <span>ARMY</span> PROJECT 🦞</div>
   <div class="footer-links">
     <a href="/">Home</a>
-    <a href="/solutions">Soluções</a>
+    <a href="/produtos">Soluções</a>
     <a href="/academy">Academy</a>
     <a href="/hub">Hub</a>
     <a href="/portal">⬛ Portal</a>
