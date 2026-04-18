@@ -62,6 +62,11 @@ h1 em{font-style:italic;color:var(--fire)}
 .pc-stat{text-align:center;margin:8px 0}
 .pc-stat-val{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,3vw,40px);color:var(--fire);line-height:1}
 .pc-stat-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px;margin-top:4px;text-transform:uppercase}
+
+.pc-hook{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--fog);margin-bottom:12px;line-height:1.5}
+.pc-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:.05em;margin-top:6px}
+.pc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pc-tags span{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:rgba(200,88,32,.06);border:1px solid rgba(200,88,32,.15);color:var(--fire);letter-spacing:.5px}
 .pc-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--fire);border:1px solid rgba(200,88,32,.3);padding:3px 10px;margin-top:12px;background:var(--fd)}
 
 .small-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:16px}
@@ -119,67 +124,78 @@ h1 em{font-style:italic;color:var(--fire)}
 
 <div class="grid-container">
 
-  <!-- ═══ PRODUTOS HERO ═══ -->
+  <!-- ═══ ESTEIRAS E PLATAFORMAS ═══ -->
   <div class="section-label">Esteiras e plataformas</div>
 
   <a class="product-card hero-card" href="/revenue-flow">
     <div class="pc-content">
-      <div class="pc-tag">Esteira operacional</div>
+      <div class="pc-tag">Esteira operacional completa</div>
       <div class="pc-name">Revenue <em>Flow</em></div>
-      <div class="pc-desc">Da captação do lead ao boleto recorrente. 11 etapas conectadas, 6 clicks, 1 pessoa operando. Pricing, proposta, contrato, cobrança, fiscal e onboarding — tudo assistido por agentes.</div>
-      <div class="pc-cta">Conhecer a esteira <span>&rarr;</span></div>
-      <div class="pc-badge">Tecnologia proprietária OMA</div>
+      <div class="pc-hook">47 passos manuais, 3-5 pessoas, 2-4 semanas. Ou 6 clicks.</div>
+      <div class="pc-desc">Uma esteira inteligente que conecta captação, pricing, proposta, contrato, cobrança, fiscal e onboarding em um fluxo único. Uma pessoa opera tudo.</div>
+      <div class="pc-cta">Ver a esteira funcionando <span>&rarr;</span></div>
+      <div class="pc-sub">11 etapas conectadas · zero código · tecnologia proprietária OMA</div>
     </div>
     <div class="pc-visual">
-      <div class="pc-stat"><div class="pc-stat-val">6</div><div class="pc-stat-label">Clicks</div></div>
-      <div class="pc-stat"><div class="pc-stat-val">11</div><div class="pc-stat-label">Etapas</div></div>
-      <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-label">Pessoa</div></div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px">ANTES vs. DEPOIS</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><span style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--ash);text-decoration:line-through">47</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">&rarr;</span><span style="font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--fire)">6</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:1px">CLICKS DO OPERADOR</div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--b1)">
+        <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-label">Pessoa operando tudo</div></div>
+      </div>
     </div>
   </a>
 
   <a class="product-card" href="https://ideias.onemanarmyproject.com.br/" target="_blank">
     <div class="pc-content">
-      <div class="pc-tag">Da ideia ao produto</div>
+      <div class="pc-tag">Da ideia ao produto · Lançamento</div>
       <div class="pc-name">OMA <em>Ideias</em></div>
-      <div class="pc-desc">Transforme uma ideia de negócio em um plano estruturado, validado e pronto para implementação. Agentes especializados analisam viabilidade, definem MVP e entregam um blueprint completo.</div>
-      <div class="pc-cta">Explorar o Ideias <span>&rarr;</span></div>
+      <div class="pc-hook">Você tem a ideia. O que falta é o plano.</div>
+      <div class="pc-desc">Agentes especializados analisam viabilidade, fazem benchmark, identificam riscos, definem MVP e entregam um blueprint completo pronto pra implementar.</div>
+      <div class="pc-cta">Estruturar minha ideia <span>&rarr;</span></div>
     </div>
     <div class="pc-visual">
       <div class="pc-stat"><div class="pc-stat-val" style="font-size:18px;color:var(--ash);text-decoration:line-through">R$ 699</div><div class="pc-stat-label">De</div></div>
-      <div class="pc-stat"><div class="pc-stat-val">R$ 349</div><div class="pc-stat-label">Lançamento</div></div>
-      <div class="pc-stat"><div class="pc-stat-val" style="font-size:28px;color:var(--fire)">Blueprint</div><div class="pc-stat-label">Completo</div></div>
+      <div class="pc-stat"><div class="pc-stat-val">R$ 349</div><div class="pc-stat-label">Preço de lançamento</div></div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b1)">
+        <div class="pc-tags"><span>Mercado</span><span>Modelo de negócio</span><span>MVP</span><span>Roadmap</span><span>Riscos</span></div>
+      </div>
     </div>
   </a>
 
-  <!-- ═══ FERRAMENTAS ═══ -->
+  <!-- ═══ AUTOMATION INTELLIGENCE ═══ -->
   <div class="section-label">Automation Intelligence — Diagnóstico + Priorização + Plano</div>
-  <p style="font-size:14px;color:var(--ash);margin-bottom:24px;line-height:1.7;font-weight:300">Três ferramentas que funcionam em sequência: comece pelo diagnóstico gratuito, depois priorize o que atacar e receba um plano de ação semanal.</p>
+  <p style="font-size:14px;color:var(--ash);margin-bottom:24px;line-height:1.7;font-weight:300">Três ferramentas em sequência: descubra quanto custa, priorize o que atacar e receba um plano de ação semanal.</p>
 
   <a class="product-card" href="/roi">
     <div class="pc-content">
-      <div class="pc-tag" style="color:#3a8a6a">Gratuito — sem cadastro</div>
+      <div class="pc-tag" style="color:#3a8a6a">Gratuito · sem cadastro · 2 minutos</div>
       <div class="pc-name">Automation <em>ROI</em></div>
-      <div class="pc-desc">Quantifique o tempo e o dinheiro escondidos no trabalho manual da sua operação. Em minutos, você vê o custo real e a economia potencial. Diagnóstico instantâneo com interpretação por IA.</div>
-      <div class="pc-cta">Fazer diagnóstico grátis <span>&rarr;</span></div>
+      <div class="pc-hook">Quanto custa o trabalho manual que ninguém contabiliza?</div>
+      <div class="pc-desc">Responda 5 perguntas e veja o custo real das tarefas repetitivas da sua operação. Resultado instantâneo com interpretação por IA.</div>
+      <div class="pc-cta">Calcular meu custo em 2 minutos <span>&rarr;</span></div>
+      <div class="pc-sub">Sem cadastro. Resultado na hora.</div>
     </div>
     <div class="pc-visual" style="background:linear-gradient(145deg,var(--coal) 0%,rgba(200,88,32,.06) 100%)">
       <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:12px">EXEMPLO DE RESULTADO</div>
-      <div style="font-size:9px;color:var(--ash);letter-spacing:1px;font-family:'Space Mono',monospace;margin-bottom:4px">CUSTO ESTIMADO</div>
+      <div style="font-size:9px;color:var(--ash);letter-spacing:1px;font-family:'Space Mono',monospace;margin-bottom:4px">CUSTO ESTIMADO NA SUA OPERAÇÃO</div>
       <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--fire);margin-bottom:16px">R$ 47.840</div>
-      <div style="font-size:9px;color:var(--ash);letter-spacing:1px;font-family:'Space Mono',monospace;margin-bottom:4px">ECONOMIA POTENCIAL</div>
+      <div style="font-size:9px;color:var(--ash);letter-spacing:1px;font-family:'Space Mono',monospace;margin-bottom:4px">ECONOMIA POTENCIAL COM AUTOMAÇÃO</div>
       <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#3a8a6a">R$ 19.136</span><span style="background:rgba(58,138,106,.15);border:1px solid rgba(58,138,106,.3);padding:3px 8px;font-family:'Space Mono',monospace;font-size:10px;color:#3a8a6a;font-weight:700">40%</span></div>
     </div>
   </a>
 
   <a class="product-card" href="/roi" style="margin-bottom:2px">
     <div class="pc-content">
-      <div class="pc-tag">Inicia pelo diagnóstico · R$ 97</div>
+      <div class="pc-tag">Após diagnóstico · R$ 97 · PDF completo</div>
       <div class="pc-name">Priority <em>Map</em></div>
-      <div class="pc-desc">Lista priorizada por impacto e esforço. Quick wins identificados, recomendação por tarefa gerada por IA e relatório PDF completo enviado no seu email.</div>
-      <div class="pc-cta">Comece pelo diagnóstico grátis <span>&rarr;</span></div>
+      <div class="pc-hook">Automatizar tudo ao mesmo tempo e não terminar nada — ou focar no que dá mais retorno?</div>
+      <div class="pc-desc">Lista priorizada por impacto e esforço. Quick wins identificados em segundos, recomendação por tarefa gerada por IA. Relatório PDF enviado no seu email.</div>
+      <div class="pc-cta">Descobrir minhas prioridades <span>&rarr;</span></div>
+      <div class="pc-sub">Começa pelo diagnóstico gratuito</div>
     </div>
     <div class="pc-visual" style="background:linear-gradient(145deg,var(--coal) 0%,rgba(200,88,32,.04) 100%)">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:12px">EXEMPLO DE PRIORITY MAP</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:12px">EXEMPLO DE PRIORIZAÇÃO</div>
       <div style="border-left:3px solid #3a8a6a;padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:rgba(58,138,106,.06)"><strong style="color:#3a8a6a">QUICK WIN</strong> — Triagem de emails</div>
       <div style="border-left:3px solid #3a8a6a;padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:rgba(58,138,106,.06)"><strong style="color:#3a8a6a">QUICK WIN</strong> — Agendamento</div>
       <div style="border-left:3px solid #c8a854;padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:rgba(200,164,84,.06)"><strong style="color:#c8a854">PLANEJAR</strong> — Relatório semanal</div>
@@ -189,17 +205,20 @@ h1 em{font-style:italic;color:var(--fire)}
 
   <a class="product-card" href="/roi">
     <div class="pc-content">
-      <div class="pc-tag">Inicia pelo diagnóstico · R$ 297</div>
+      <div class="pc-tag">Após diagnóstico · R$ 297 · PDF 12 páginas</div>
       <div class="pc-name">Automation <em>Roadmap</em></div>
-      <div class="pc-desc">Plano de ação semanal gerado por IA com base no seu diagnóstico e na sua priorização. Saiba exatamente o que fazer, quando e por quê.</div>
-      <div class="pc-cta">Comece pelo diagnóstico grátis <span>&rarr;</span></div>
+      <div class="pc-hook">Sem plano, automação vira projeto infinito.</div>
+      <div class="pc-desc">Plano de ação semanal gerado por IA com base no seu diagnóstico e na sua priorização. Sabe exatamente o que fazer, quando fazer e por que fazer primeiro.</div>
+      <div class="pc-cta">Montar meu plano de ação <span>&rarr;</span></div>
+      <div class="pc-sub">Começa pelo diagnóstico gratuito</div>
     </div>
     <div class="pc-visual" style="background:linear-gradient(145deg,var(--coal) 0%,rgba(200,88,32,.04) 100%)">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:12px">PLANO DE AÇÃO</div>
-      <div style="border-left:3px solid var(--fire);padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 1</strong> — Quick wins</div>
-      <div style="border-left:3px solid var(--fire);padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 2</strong> — Processos core</div>
-      <div style="border-left:3px solid var(--fire);padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 3</strong> — Integrações</div>
-      <div style="border-left:3px solid var(--fire);padding:8px 12px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 4</strong> — Otimização</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:12px">SEU PLANO SEMANAL</div>
+      <div style="border-left:3px solid var(--fire);padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 1</strong> — Quick wins de alto impacto</div>
+      <div style="border-left:3px solid var(--fire);padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 2</strong> — Processos core do negócio</div>
+      <div style="border-left:3px solid var(--fire);padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 3</strong> — Integrações e conectores</div>
+      <div style="border-left:3px solid var(--fire);padding:8px 12px;font-size:12px;color:var(--fog);background:var(--fd)"><strong style="color:var(--fire)">SEMANA 4</strong> — Otimização e escala</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);margin-top:10px;letter-spacing:1px">PDF · 12 PÁGINAS · PLANO DETALHADO</div>
     </div>
   </a>
 
@@ -208,43 +227,60 @@ h1 em{font-style:italic;color:var(--fire)}
 
   <a class="product-card" href="/predictions">
     <div class="pc-content">
-      <div class="pc-tag">Simulação com 43 agentes</div>
+      <div class="pc-tag">Simulação com IA · Lançamento</div>
       <div class="pc-name">OMA <em>Predictions</em></div>
-      <div class="pc-desc">Simule como seu mercado vai reagir nos próximos 6 meses. 43 agentes autônomos de IA debatem sobre o seu cenário e entregam um relatório nível consultoria — sem filtro, sem edição.</div>
-      <div class="pc-cta">Ver o Predictions <span>&rarr;</span></div>
+      <div class="pc-hook">Você está prestes a tomar uma decisão importante. O mercado vai reagir como?</div>
+      <div class="pc-desc">43 agentes autônomos de IA debatem sobre o seu cenário por 15 rounds e entregam um relatório com consensos, divergências, riscos e recomendações. Nível consultoria — sem filtro.</div>
+      <div class="pc-cta">Simular meu cenário <span>&rarr;</span></div>
     </div>
     <div class="pc-visual">
-      <div class="pc-stat"><div class="pc-stat-val">43</div><div class="pc-stat-label">Agentes simulados</div></div>
-      <div class="pc-stat"><div class="pc-stat-val" style="font-size:24px">15 rounds</div><div class="pc-stat-label">de debate autônomo</div></div>
+      <div class="pc-stat"><div class="pc-stat-val" style="font-size:18px;color:var(--ash);text-decoration:line-through">R$ 699</div><div class="pc-stat-label">De</div></div>
+      <div class="pc-stat"><div class="pc-stat-val">R$ 349</div><div class="pc-stat-label">Preço de lançamento</div></div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b1)">
+        <div class="pc-stat"><div class="pc-stat-val" style="font-size:28px">43</div><div class="pc-stat-label">Agentes simulados</div></div>
+      </div>
+      <div class="pc-tags" style="margin-top:10px"><span>Consensos</span><span>Riscos</span><span>Recomendações</span></div>
     </div>
   </a>
 
   <!-- ═══ PRODUTIVIDADE ═══ -->
   <div class="section-label">Produtividade</div>
 
-  <div class="small-grid">
-    <a class="sm-card" href="/scribe">
-      <div class="sm-tag">Transcrição ao vivo</div>
-      <div class="sm-name">OMA Scribe</div>
-      <div class="sm-desc">Fale. O Scribe escreve. Transcrição de áudio em tempo real direto do navegador.</div>
-      <div class="sm-cta">Usar o Scribe <span>&rarr;</span></div>
-    </a>
-
-  </div>
+  <a class="product-card" href="/scribe">
+    <div class="pc-content">
+      <div class="pc-tag" style="color:#3a8a6a">Gratuito · funciona no navegador</div>
+      <div class="pc-name">OMA <em>Scribe</em></div>
+      <div class="pc-hook">Quanto contexto você perde por não anotar?</div>
+      <div class="pc-desc">Fale. O Scribe escreve. Transcrição de áudio em tempo real direto do navegador. Sem instalar nada, sem cadastro, sem limite.</div>
+      <div class="pc-cta">Transcrever agora <span>&rarr;</span></div>
+      <div class="pc-sub">Sem instalação. Resultado instantâneo.</div>
+    </div>
+    <div class="pc-visual" style="background:linear-gradient(145deg,var(--coal) 0%,rgba(200,88,32,.04) 100%)">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ash);margin-bottom:16px">COMO FUNCIONA</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--fire);flex-shrink:0"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--ash)">&rarr;</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--fire);flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div style="font-family:'Barlow',sans-serif;font-size:13px;color:var(--fog);line-height:1.5;font-weight:300">Você fala<br>O Scribe transcreve<br>Em tempo real</div>
+    </div>
+  </a>
 
   <!-- ═══ EDUCAÇÃO ═══ -->
   <div class="section-label">Educação</div>
 
   <a class="product-card" href="/academy">
     <div class="pc-content">
-      <div class="pc-tag">Gratuito · 30+ módulos</div>
+      <div class="pc-tag" style="color:#3a8a6a">Gratuito · 30+ módulos</div>
       <div class="pc-name">OMA <em>Academy</em></div>
-      <div class="pc-desc">Tech fluency para founders e gestores. Entenda IA, agentes e automação no contexto do seu negócio. Fundamentos gratuitos, trilhas guiadas e o mesmo método que o OMA usa internamente.</div>
-      <div class="pc-cta">Acessar a Academy <span>&rarr;</span></div>
+      <div class="pc-hook">Você não precisa ser técnico pra entender IA. Precisa de contexto.</div>
+      <div class="pc-desc">Tech fluency para founders e gestores. Entenda IA, agentes e automação no contexto do seu negócio. Fundamentos gratuitos, trilhas guiadas e o mesmo método que o OMA usa pra operar.</div>
+      <div class="pc-cta">Começar pelos fundamentos <span>&rarr;</span></div>
     </div>
     <div class="pc-visual">
-      <div class="pc-stat"><div class="pc-stat-val">30+</div><div class="pc-stat-label">Módulos</div></div>
-      <div class="pc-stat"><div class="pc-stat-val" style="font-size:28px">Free</div><div class="pc-stat-label">Fundamentos</div></div>
+      <div class="pc-stat"><div class="pc-stat-val">30+</div><div class="pc-stat-label">Módulos disponíveis</div></div>
+      <div class="pc-stat"><div class="pc-stat-val" style="font-size:28px;color:#3a8a6a">Free</div><div class="pc-stat-label">Fundamentos</div></div>
+      <div class="pc-tags" style="margin-top:12px"><span>IA para operação</span><span>Agentes</span><span>Automação</span><span>LGPD</span><span>Métricas</span></div>
     </div>
   </a>
 
