@@ -77,11 +77,8 @@ h1 em{font-style:italic;color:var(--fire)}
 <nav>
   <a href="https://onemanarmyproject.com.br" class="nav-logo">ONE MAN ARMY<small>FROM THE SCRATCH · 2026</small></a>
   <div class="nav-links">
-    <a href="/agentes">Agentes</a>
     <a href="/produtos">Soluções</a>
     <a href="/news" class="active">News</a>
-    <a href="/academy">Academy</a>
-    <a href="https://insights.onemanarmyproject.com.br">Insights</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
@@ -134,6 +131,16 @@ function toggleMobileMenu(){
   b.classList.toggle('open',open);
   document.body.style.overflow=open?'hidden':'';
 }
+
+(async function(){
+  var grid = document.getElementById('news-grid');
+  try {
+    var r = await fetch('https://api.onemanarmyproject.com.br/news/items');
+    var d = await r.json();
+    if (!d.ok || !d.items || d.items.length === 0) {
+      grid.innerHTML = '<div class="empty">Nenhuma notícia publicada ainda.</div>';
+      return;
+    }
     grid.innerHTML = '';
     d.items.forEach(function(item) {
       var date = '';
