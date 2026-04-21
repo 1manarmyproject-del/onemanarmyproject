@@ -91,6 +91,16 @@ h1 em{font-style:italic;color:var(--fire)}
 .feat-source{font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);letter-spacing:.5px}
 .feat-arrow{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
 .feat-card:hover .feat-arrow{gap:10px}
+
+.card-actions{display:flex;align-items:center;gap:0;border-top:1px solid var(--b1);margin-top:auto;padding-top:10px}
+.card-actions button{background:none;border:none;cursor:pointer;padding:6px 10px;display:flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);transition:all .15s;border-radius:4px}
+.card-actions button:hover{background:rgba(200,88,32,.06);color:var(--fire)}
+.card-actions button.voted{color:var(--fire)}
+.card-actions button svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5}
+.card-actions button.voted svg{fill:currentColor}
+.card-actions .share-btn{margin-left:auto}
+.card-actions .share-btn svg{width:14px;height:14px}
+.card-actions .count{font-size:10px;min-width:8px}
 .footer{text-align:center;padding:24px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:.08em;border-top:1px solid var(--b1)}
 .footer span{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
 .footer span em{font-style:normal;color:var(--fire)}
@@ -152,6 +162,44 @@ h1 em{font-style:italic;color:var(--fire)}
 </div>
 
 <script>
+
+function vote(e,btn){
+  e.preventDefault();e.stopPropagation();
+  var id=btn.dataset.id, type=btn.dataset.type;
+  var key='news_vote_'+id;
+  var prev=localStorage.getItem(key);
+  // Toggle
+  if(prev===type){localStorage.removeItem(key);btn.classList.remove('voted');return;}
+  localStorage.setItem(key,type);
+  // Remove sibling voted
+  var siblings=btn.parentElement.querySelectorAll('.vote-btn');
+  siblings.forEach(function(s){s.classList.remove('voted');});
+  btn.classList.add('voted');
+}
+
+function shareNews(e,btn){
+  e.preventDefault();e.stopPropagation();
+  var url=btn.dataset.url;
+  if(navigator.share){
+    navigator.share({url:url}).catch(function(){});
+  } else {
+    navigator.clipboard.writeText(url).then(function(){
+      btn.innerHTML='<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(function(){btn.innerHTML='<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';},1500);
+    });
+  }
+}
+
+// Restore votes on load
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    document.querySelectorAll('.vote-btn').forEach(function(btn){
+      var id=btn.dataset.id, type=btn.dataset.type;
+      if(localStorage.getItem('news_vote_'+id)===type) btn.classList.add('voted');
+    });
+  },1000);
+});
+
 function toggleMobileMenu(){
   var b=document.getElementById('navBurger');
   var m=document.getElementById('mobileMenu');
@@ -199,8 +247,13 @@ function toggleMobileMenu(){
         + '<div class="card-meta">'
         + '<span class="card-source">' + (item.source_name || '') + '</span>'
         + '<span class="card-date">' + date + '</span>'
-        + '<span class="card-arrow">&rarr;</span>'
-        + '</div></div>';
+        + '</div>'
+        + '<div class="card-actions">'
+        + '<button class="vote-btn" data-id="' + item.id + '" data-type="up" onclick="vote(event,this)" title="Gostei"><svg viewBox="0 0 24 24"><path d="M7 10v12"/><path d="M15 5.88L14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"/></svg><span class="count"></span></button>'
+        + '<button class="vote-btn" data-id="' + item.id + '" data-type="down" onclick="vote(event,this)" title="Não gostei"><svg viewBox="0 0 24 24"><path d="M17 14V2"/><path d="M9 18.12L10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88z"/></svg><span class="count"></span></button>'
+        + '<button class="share-btn" onclick="shareNews(event,this)" data-url="' + item.url + '" title="Compartilhar"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>'
+        + '</div>'
+        + '</div>';
       grid.appendChild(card);
     });
     // Render featured banner + Insights banner

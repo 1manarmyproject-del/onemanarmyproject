@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-18T21:16:33.355639Z",
-  "updated_at_brt": "18:16 BRT · 18/04/2026",
+  "updated_at": "2026-04-21T09:18:47.917805Z",
+  "updated_at_brt": "06:18 BRT · 21/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 7.8378,
+  "total_cost_usd": 9.3323,
   "services": {
     "system": {
       "name": "Sistema",
@@ -11,19 +11,19 @@
           "activity": "Compactação de sessões",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.2842,
-          "runs": 67
+          "cost": 0.30870000000000003,
+          "runs": 76
         },
         {
           "activity": "Aprendizado e memória",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.2666,
-          "runs": 231
+          "cost": 0.2762,
+          "runs": 239
         }
       ],
-      "total_cost": 0.5508,
-      "total_runs": 298
+      "total_cost": 0.5849,
+      "total_runs": 315
     },
     "ekhoa": {
       "name": "Ekhoa",
@@ -32,12 +32,12 @@
           "activity": "Análise contextual / temática",
           "llm": "Sonnet 4",
           "llm_color": "anthropic",
-          "cost": 0.27580000000000005,
-          "runs": 18
+          "cost": 0.28370000000000006,
+          "runs": 19
         }
       ],
-      "total_cost": 0.27580000000000005,
-      "total_runs": 18
+      "total_cost": 0.28370000000000006,
+      "total_runs": 19
     },
     "george": {
       "name": "George",
@@ -46,19 +46,19 @@
           "activity": "Orquestração, email, agenda, tarefas",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 6.4803999999999995,
-          "runs": 70
+          "cost": 7.8290999999999995,
+          "runs": 77
         },
         {
           "activity": "Diagnóstico diário",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.11030000000000002,
-          "runs": 17
+          "cost": 0.11630000000000003,
+          "runs": 18
         }
       ],
-      "total_cost": 6.590699999999999,
-      "total_runs": 87
+      "total_cost": 7.945399999999999,
+      "total_runs": 95
     },
     "bia": {
       "name": "Bia",
@@ -81,12 +81,12 @@
           "activity": "Auditoria técnica, monitoramento",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.12239999999999998,
-          "runs": 17
+          "cost": 0.12789999999999999,
+          "runs": 18
         }
       ],
-      "total_cost": 0.12239999999999998,
-      "total_runs": 17
+      "total_cost": 0.12789999999999999,
+      "total_runs": 18
     },
     "other": {
       "name": "Ekhoa-Digest",
@@ -95,12 +95,12 @@
           "activity": "Outros",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.2272,
-          "runs": 2
+          "cost": 0.3195,
+          "runs": 3
         }
       ],
-      "total_cost": 0.2272,
-      "total_runs": 2
+      "total_cost": 0.3195,
+      "total_runs": 3
     }
   },
   "products": {

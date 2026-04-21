@@ -1,32 +1,32 @@
 {
-  "updated_at": "2026-04-18T18:09:02Z",
-  "updated_at_brt": "15:09 BRT · 18/04/2026",
+  "updated_at": "2026-04-21T00:09:06Z",
+  "updated_at_brt": "21:09 BRT · 20/04/2026",
   "layers": {
     "hd_externo": {
       "status": "ok",
       "volume": "FX_BACKUP_S",
       "connected": true,
-      "last_backup": "15:09 BRT · 18/04/2026"
+      "last_backup": "21:09 BRT · 20/04/2026"
     },
     "github": {
       "status": "ok",
       "repo": "nanoclaw",
-      "last_backup": "15:09 BRT · 18/04/2026"
+      "last_backup": "21:09 BRT · 20/04/2026"
     },
     "oracle_sp": {
       "status": "ok",
       "host": "163.176.167.148",
-      "last_backup": "15:09 BRT · 18/04/2026"
+      "last_backup": "21:09 BRT · 20/04/2026"
     },
     "google_drive": {
       "status": "ok",
       "account": "fabio@onemanarmy.com.br",
-      "last_backup": "15:09 BRT · 18/04/2026"
+      "last_backup": "21:09 BRT · 20/04/2026"
     },
     "hetzner_crm": {
       "status": "ok",
       "via": "API pull to Oracle",
-      "last_backup": "15:09 BRT · 18/04/2026"
+      "last_backup": "21:09 BRT · 20/04/2026"
     }
   },
   "coverage": {
