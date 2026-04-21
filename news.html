@@ -101,6 +101,20 @@ h1 em{font-style:italic;color:var(--fire)}
 .card-actions .share-btn{margin-left:auto}
 .card-actions .share-btn svg{width:14px;height:14px}
 .card-actions .count{font-size:10px;min-width:8px}
+
+.promo-carousel{position:relative;overflow:hidden}
+.promo-slide{display:none;width:100%;height:100%}
+.promo-slide.active{display:flex}
+.promo-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}
+.promo-dot{width:6px;height:6px;border-radius:50%;background:rgba(224,217,207,.2);cursor:pointer;transition:background .2s}
+.promo-dot.active{background:var(--fire)}
+.feat-actions{display:flex;align-items:center;gap:0;border-top:1px solid rgba(200,88,32,.15);margin-top:16px;padding-top:10px}
+.feat-actions button{background:none;border:none;cursor:pointer;padding:6px 10px;display:flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:10px;color:var(--ash);transition:all .15s;border-radius:4px}
+.feat-actions button:hover{background:rgba(200,88,32,.06);color:var(--fire)}
+.feat-actions button.voted{color:var(--fire)}
+.feat-actions button svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5}
+.feat-actions button.voted svg{fill:currentColor}
+.feat-actions .share-btn{margin-left:auto}
 .footer{text-align:center;padding:24px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:.08em;border-top:1px solid var(--b1)}
 .footer span{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
 .footer span em{font-style:normal;color:var(--fire)}
@@ -227,6 +241,20 @@ function loadReactions(){
 }
 setTimeout(loadReactions,1200);
 
+
+var promoIdx=0;
+function goSlide(n){
+  var slides=document.querySelectorAll('.promo-slide');
+  var dots=document.querySelectorAll('.promo-dot');
+  if(!slides.length)return;
+  slides.forEach(function(s){s.classList.remove('active');});
+  dots.forEach(function(d){d.classList.remove('active');});
+  promoIdx=n%slides.length;
+  slides[promoIdx].classList.add('active');
+  dots[promoIdx].classList.add('active');
+}
+setInterval(function(){goSlide(promoIdx+1);},5000);
+
 function toggleMobileMenu(){
   var b=document.getElementById('navBurger');
   var m=document.getElementById('mobileMenu');
@@ -289,18 +317,46 @@ function toggleMobileMenu(){
       var fc = document.getElementById('feat-container');
       var fdate = '';
       try { fdate = new Date(feat.published_at).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); } catch(e){}
-      fc.innerHTML = '<a class="feat-card" href="' + feat.url + '" target="_blank" rel="noopener">'
+      fc.innerHTML = '<div class="feat-card" style="cursor:default">'
+        + '<a href="' + feat.url + '" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">'
         + '<div class="feat-label">Destaque</div>'
         + '<div class="feat-title">' + feat.title + '</div>'
         + '<div class="feat-desc">' + (feat.description||'') + '</div>'
         + '<div class="feat-meta"><span class="feat-source">' + (feat.source_name||'') + ' \u00B7 ' + fdate + '</span><span class="feat-arrow">Ler artigo <span>&rarr;</span></span></div>'
         + '</a>'
-        + '<a class="insights-banner" href="https://insights.onemanarmyproject.com.br" target="_blank">'
+        + '<div class="feat-actions">'
+        + '<button class="vote-btn" data-id="' + feat.id + '" data-type="up" onclick="vote(event,this)" title="Gostei"><svg viewBox="0 0 24 24"><path d="M7 10v12"/><path d="M15 5.88L14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"/></svg><span class="count"></span></button>'
+        + '<button class="vote-btn" data-id="' + feat.id + '" data-type="down" onclick="vote(event,this)" title="Não gostei"><svg viewBox="0 0 24 24"><path d="M17 14V2"/><path d="M9 18.12L10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88z"/></svg><span class="count"></span></button>'
+        + '<button class="share-btn" data-id="' + feat.id + '" onclick="shareNews(event,this)" data-url="' + feat.url + '" title="Compartilhar"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="count"></span></button>'
+        + '</div>'
+        + '</div>'
+        + '<div class="insights-banner promo-carousel" id="promoCarousel">'
+        + '<a class="promo-slide active" href="https://insights.onemanarmyproject.com.br" target="_blank" style="flex-direction:column;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#e0d9cf">'
         + '<div class="ins-lockup">OMA Insights</div>'
         + '<div class="ins-title">Relatórios de<br><em>inteligência</em></div>'
         + '<div class="ins-desc">Análises sob demanda com dados reais, fontes verificáveis e recomendações acionáveis — geradas por IA.</div>'
         + '<div class="ins-cta">Explorar Insights <span>&rarr;</span></div>'
-        + '</a>';
+        + '</a>'
+        + '<a class="promo-slide" href="https://ideias.onemanarmyproject.com.br" target="_blank" style="flex-direction:column;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#e0d9cf">'
+        + '<div class="ins-lockup">OMA Ideias</div>'
+        + '<div class="ins-title">Da ideia ao<br><em>blueprint</em></div>'
+        + '<div class="ins-desc">Transforme uma ideia de negócio em um plano validado e pronto pra implementar. De R$699 por R$349.</div>'
+        + '<div class="ins-cta">Estruturar minha ideia <span>&rarr;</span></div>'
+        + '</a>'
+        + '<a class="promo-slide" href="https://onemanarmyproject.com.br/predictions" target="_blank" style="flex-direction:column;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#e0d9cf">'
+        + '<div class="ins-lockup">OMA Predictions</div>'
+        + '<div class="ins-title">O mercado vai<br><em>reagir como?</em></div>'
+        + '<div class="ins-desc">43 agentes de IA debatem seu cenário por 15 rounds. Relatório com consensos, riscos e recomendações.</div>'
+        + '<div class="ins-cta">Simular meu cenário <span>&rarr;</span></div>'
+        + '</a>'
+        + '<a class="promo-slide" href="https://onemanarmyproject.com.br/agentes" target="_blank" style="flex-direction:column;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#e0d9cf">'
+        + '<div class="ins-lockup">OMA Agentes</div>'
+        + '<div class="ins-title">Agentes de IA<br><em>que operam</em></div>'
+        + '<div class="ins-desc">Comercial, financeiro, marketing, atendimento — agentes que trabalham 24/7 dentro do seu negócio.</div>'
+        + '<div class="ins-cta">Conhecer os agentes <span>&rarr;</span></div>'
+        + '</a>'
+        + '<div class="promo-dots"><span class="promo-dot active" onclick="goSlide(0)"></span><span class="promo-dot" onclick="goSlide(1)"></span><span class="promo-dot" onclick="goSlide(2)"></span><span class="promo-dot" onclick="goSlide(3)"></span></div>'
+        + '</div>';
     }
   } catch(e) {
     grid.innerHTML = '<div class="empty">Erro ao carregar notícias.</div>';
