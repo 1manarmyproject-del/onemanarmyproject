@@ -115,6 +115,18 @@ h1 em{font-style:italic;color:var(--fire)}
 .feat-actions button svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5}
 .feat-actions button.voted svg{fill:currentColor}
 .feat-actions .share-btn{margin-left:auto}
+
+.nl-break{grid-column:1/-1;background:#1a1a1a;border:1px solid rgba(232,112,58,.15);padding:40px 32px;text-align:center;margin:8px 0}
+.nl-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);border:1px solid rgba(232,112,58,.3);padding:4px 12px;margin-bottom:12px;background:rgba(232,112,58,.08)}
+.nl-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(18px,2.5vw,26px);color:#e0d9cf;line-height:1.15;margin-bottom:8px}
+.nl-title em{font-style:italic;color:var(--fire)}
+.nl-sub{font-size:13px;color:rgba(224,217,207,.45);margin-bottom:20px;line-height:1.6;font-weight:300}
+.nl-form{display:flex;gap:8px;max-width:400px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.nl-form input{flex:1;min-width:200px;background:#0f0f0f;border:1px solid #333;padding:10px 14px;font-family:'Space Mono',monospace;font-size:11px;color:#e0d9cf;outline:none;letter-spacing:1px}
+.nl-form button{background:var(--fire);color:#000;border:none;padding:10px 18px;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;white-space:nowrap}
+.nl-form button:hover{background:#a04010}
+.nl-note{font-family:'Space Mono',monospace;font-size:9px;color:rgba(224,217,207,.3);margin-top:10px;letter-spacing:.5px}
+.nl-ok{display:none;font-family:'Space Mono',monospace;font-size:11px;color:var(--fire);margin-top:12px;letter-spacing:1px}
 .footer{text-align:center;padding:24px;font-family:'Space Mono',monospace;font-size:9px;color:var(--ash);letter-spacing:.08em;border-top:1px solid var(--b1)}
 .footer span{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
 .footer span em{font-style:normal;color:var(--fire)}
@@ -255,6 +267,14 @@ function goSlide(n){
 }
 setInterval(function(){goSlide(promoIdx+1);},5000);
 
+
+function nlSubscribe(){
+  var email=document.getElementById('nl-email-news').value;
+  if(!email||email.indexOf('@')<0)return;
+  fetch(API_R+'/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,source:'news'})}).catch(function(){});
+  document.getElementById('nl-form-news').style.display='none';
+  document.getElementById('nl-ok-news').style.display='block';
+}
 function toggleMobileMenu(){
   var b=document.getElementById('navBurger');
   var m=document.getElementById('mobileMenu');
@@ -274,6 +294,7 @@ function toggleMobileMenu(){
       return;
     }
     grid.innerHTML = '';
+    var gridIdx = 0;
     d.items.forEach(function(item) {
       var date = '';
       if (item.published_at) {
@@ -310,6 +331,19 @@ function toggleMobileMenu(){
         + '</div>'
         + '</div>';
       grid.appendChild(card);
+      // Newsletter break after 8th card
+      if (gridIdx === 7) {
+        var nlDiv = document.createElement('div');
+        nlDiv.className = 'nl-break';
+        nlDiv.innerHTML = '<div class="nl-badge">EM BREVE</div>'
+          + '<div class="nl-title">Os bastidores do OMA.<br><em>Toda semana na sua caixa.</em></div>'
+          + '<div class="nl-sub">O que colocamos no ar, o que quebrou, o que aprendemos — operando agentes em negócio real.</div>'
+          + '<div class="nl-form" id="nl-form-news"><input type="email" id="nl-email-news" placeholder="seu@email.com"><button onclick="nlSubscribe()">INSCREVER →</button></div>'
+          + '<div class="nl-ok" id="nl-ok-news">✓ Inscrito!</div>'
+          + '<div class="nl-note">Sem spam. Cancelamento em 1 clique.</div>';
+        grid.appendChild(nlDiv);
+      }
+      gridIdx++;
     });
     // Render featured banner + Insights banner
     var feat = d.items.find(function(i){ return i.featured === 1; });

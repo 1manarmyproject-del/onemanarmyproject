@@ -646,7 +646,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 <!-- NEWSLETTER -->
 <section style="background:var(--iron);padding:64px 32px;border-top:1px solid #222;">
   <div style="max-width:600px;margin:0 auto;text-align:center;">
-    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:16px">NEWSLETTER</p>
+    <div style="display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);border:1px solid rgba(232,112,58,.3);padding:4px 12px;margin-bottom:14px;background:rgba(232,112,58,.08)">EM BREVE</div><br><p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--blood);margin-bottom:16px">NEWSLETTER</p>
     <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,3.5vw,34px);color:var(--white);line-height:1.1;margin-bottom:12px">Os bastidores da operação do OMA.<br><span style="color:var(--fire)">Toda semana na sua caixa.</span></h3>
     <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px;line-height:1.7">O que colocamos no ar, o que quebrou, o que aprendemos — operando agentes em negócio real.</p>
     <form id="newsletter-form" onsubmit="submitNewsletter(event)" style="display:flex;gap:8px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center;">
@@ -696,7 +696,7 @@ footer{padding:28px 48px;border-top:1px solid var(--iron);display:flex;align-ite
 
 <script>
 function toggleFaq(el){document.querySelectorAll('.faq-item').forEach(i=>{if(i!==el)i.classList.remove('open');});el.classList.toggle('open');}
-function submitNewsletter(e){e.preventDefault();fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('nl-email').value})}).catch(()=>{});document.getElementById('newsletter-form').style.display='none';document.getElementById('nl-success').style.display='block';}
+function submitNewsletter(e){e.preventDefault();fetch('https://api.onemanarmyproject.com.br/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('nl-email').value,source:'home'})}).catch(()=>{});document.getElementById('newsletter-form').style.display='none';document.getElementById('nl-success').style.display='block';}
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
 function toggleMobileMenu(){
