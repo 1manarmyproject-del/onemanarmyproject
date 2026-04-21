@@ -163,42 +163,69 @@ h1 em{font-style:italic;color:var(--fire)}
 
 <script>
 
+var API_R='https://api.onemanarmyproject.com.br';
+
 function vote(e,btn){
   e.preventDefault();e.stopPropagation();
   var id=btn.dataset.id, type=btn.dataset.type;
-  var key='news_vote_'+id;
-  var prev=localStorage.getItem(key);
-  // Toggle
-  if(prev===type){localStorage.removeItem(key);btn.classList.remove('voted');return;}
-  localStorage.setItem(key,type);
-  // Remove sibling voted
-  var siblings=btn.parentElement.querySelectorAll('.vote-btn');
-  siblings.forEach(function(s){s.classList.remove('voted');});
-  btn.classList.add('voted');
+  fetch(API_R+'/news/react',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({news_id:parseInt(id),reaction:type})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+    if(!d.ok)return;
+    var bar=btn.parentElement;
+    bar.querySelectorAll('.vote-btn').forEach(function(b){b.classList.remove('voted');});
+    if(d.action==='added') btn.classList.add('voted');
+    // Update counts
+    var ups=bar.querySelector('[data-type=up] .count');
+    var dns=bar.querySelector('[data-type=down] .count');
+    if(ups) ups.textContent=d.counts.up||'';
+    if(dns) dns.textContent=d.counts.down||'';
+  });
 }
 
 function shareNews(e,btn){
   e.preventDefault();e.stopPropagation();
-  var url=btn.dataset.url;
+  var url=btn.dataset.url, id=btn.dataset.id;
+  // Track share
+  fetch(API_R+'/news/react',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({news_id:parseInt(id),reaction:'share'})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+    if(d.ok){var sc=btn.querySelector('.count');if(sc)sc.textContent=d.counts.share||'';}
+  });
+  // Share or copy
   if(navigator.share){
     navigator.share({url:url}).catch(function(){});
   } else {
     navigator.clipboard.writeText(url).then(function(){
-      btn.innerHTML='<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2"><polyline points="20 6 9 17 4 12"/></svg>';
-      setTimeout(function(){btn.innerHTML='<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';},1500);
+      var orig=btn.innerHTML;
+      btn.querySelector('svg').outerHTML='<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(function(){btn.querySelector('svg').outerHTML='<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';},1500);
     });
   }
 }
 
-// Restore votes on load
-document.addEventListener('DOMContentLoaded',function(){
-  setTimeout(function(){
+// Load counts + visitor votes on page load
+function loadReactions(){
+  Promise.all([
+    fetch(API_R+'/news/reactions',{credentials:'include'}).then(function(r){return r.json()}),
+    fetch(API_R+'/news/visitor',{credentials:'include'}).then(function(r){return r.json()})
+  ]).then(function(results){
+    var counts=results[0].counts||{};
+    var votes=results[1].votes||{};
     document.querySelectorAll('.vote-btn').forEach(function(btn){
       var id=btn.dataset.id, type=btn.dataset.type;
-      if(localStorage.getItem('news_vote_'+id)===type) btn.classList.add('voted');
+      var c=counts[id];
+      if(c){var span=btn.querySelector('.count');if(span)span.textContent=c[type]||'';}
+      if(votes[id]===type) btn.classList.add('voted');
     });
-  },1000);
-});
+    document.querySelectorAll('.share-btn').forEach(function(btn){
+      var id=btn.dataset.id;
+      var c=counts[id];
+      if(c&&c.share){var span=btn.querySelector('.count');if(span)span.textContent=c.share;}
+    });
+  });
+}
+setTimeout(loadReactions,1200);
 
 function toggleMobileMenu(){
   var b=document.getElementById('navBurger');
@@ -251,7 +278,7 @@ function toggleMobileMenu(){
         + '<div class="card-actions">'
         + '<button class="vote-btn" data-id="' + item.id + '" data-type="up" onclick="vote(event,this)" title="Gostei"><svg viewBox="0 0 24 24"><path d="M7 10v12"/><path d="M15 5.88L14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"/></svg><span class="count"></span></button>'
         + '<button class="vote-btn" data-id="' + item.id + '" data-type="down" onclick="vote(event,this)" title="Não gostei"><svg viewBox="0 0 24 24"><path d="M17 14V2"/><path d="M9 18.12L10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88z"/></svg><span class="count"></span></button>'
-        + '<button class="share-btn" onclick="shareNews(event,this)" data-url="' + item.url + '" title="Compartilhar"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>'
+        + '<button class="share-btn" data-id="' + item.id + '" onclick="shareNews(event,this)" data-url="' + item.url + '" title="Compartilhar"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="count"></span></button>'
         + '</div>'
         + '</div>';
       grid.appendChild(card);
