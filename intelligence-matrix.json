@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-21T10:18:53.950997Z",
-  "updated_at_brt": "07:18 BRT · 21/04/2026",
+  "updated_at": "2026-04-21T10:33:55.386776Z",
+  "updated_at_brt": "07:33 BRT · 21/04/2026",
   "month": "2026-04",
-  "total_cost_usd": 10.9315,
+  "total_cost_usd": 11.3456,
   "services": {
     "system": {
       "name": "Sistema",
@@ -11,8 +11,8 @@
           "activity": "Compactação de sessões",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 0.3264,
-          "runs": 82
+          "cost": 0.33140000000000003,
+          "runs": 84
         },
         {
           "activity": "Aprendizado e memória",
@@ -22,8 +22,8 @@
           "runs": 239
         }
       ],
-      "total_cost": 0.6026,
-      "total_runs": 321
+      "total_cost": 0.6076,
+      "total_runs": 323
     },
     "ekhoa": {
       "name": "Ekhoa",
@@ -46,8 +46,8 @@
           "activity": "Orquestração, email, agenda, tarefas",
           "llm": "Haiku 4.5",
           "llm_color": "anthropic",
-          "cost": 9.410599999999999,
-          "runs": 85
+          "cost": 9.8197,
+          "runs": 87
         },
         {
           "activity": "Diagnóstico diário",
@@ -57,8 +57,8 @@
           "runs": 18
         }
       ],
-      "total_cost": 9.5269,
-      "total_runs": 103
+      "total_cost": 9.936,
+      "total_runs": 105
     },
     "bia": {
       "name": "Bia",

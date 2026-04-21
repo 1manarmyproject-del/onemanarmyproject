@@ -116,6 +116,17 @@ h1 em{font-style:italic;color:var(--fire)}
 .feat-actions button.voted svg{fill:currentColor}
 .feat-actions .share-btn{margin-left:auto}
 
+
+.acad-break{grid-column:1/-1;background:#0a0a0a;border:1px solid rgba(232,112,58,.12);padding:48px 32px;text-align:center;margin:8px 0;position:relative;overflow:hidden}
+.acad-break::before{content:'';position:absolute;top:-40%;left:-10%;width:300px;height:300px;background:radial-gradient(circle,rgba(200,88,32,.06) 0%,transparent 70%);pointer-events:none}
+.acad-break::after{content:'';position:absolute;bottom:-40%;right:-10%;width:300px;height:300px;background:radial-gradient(circle,rgba(200,88,32,.06) 0%,transparent 70%);pointer-events:none}
+.acad-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(24px,3.5vw,36px);color:#e0d9cf;line-height:1.1;margin-bottom:12px;position:relative;z-index:1}
+.acad-title em{font-style:italic;color:var(--fire)}
+.acad-sub{font-size:14px;color:rgba(224,217,207,.45);margin-bottom:24px;line-height:1.6;font-weight:300;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.acad-cta{display:inline-block;background:var(--fire);color:#000;padding:14px 32px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-decoration:none;transition:background .2s;position:relative;z-index:1}
+.acad-cta:hover{background:#a04010}
+.acad-ghost{display:inline-block;color:var(--fire);border:1px solid rgba(232,112,58,.4);padding:14px 32px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-decoration:none;transition:all .2s;margin-left:8px;position:relative;z-index:1}
+.acad-ghost:hover{border-color:var(--fire);background:rgba(232,112,58,.08)}
 .nl-break{grid-column:1/-1;background:#1a1a1a;border:1px solid rgba(232,112,58,.15);padding:40px 32px;text-align:center;margin:8px 0}
 .nl-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--fire);border:1px solid rgba(232,112,58,.3);padding:4px 12px;margin-bottom:12px;background:rgba(232,112,58,.08)}
 .nl-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(18px,2.5vw,26px);color:#e0d9cf;line-height:1.15;margin-bottom:8px}
@@ -342,6 +353,16 @@ function toggleMobileMenu(){
           + '<div class="nl-ok" id="nl-ok-news">✓ Inscrito!</div>'
           + '<div class="nl-note">Sem spam. Cancelamento em 1 clique.</div>';
         grid.appendChild(nlDiv);
+      }
+      // Academy break after 16th card (8 after newsletter)
+      if (gridIdx === 15) {
+        var acDiv = document.createElement('div');
+        acDiv.className = 'acad-break';
+        acDiv.innerHTML = '<div style="font-family:\'Space Mono\',monospace;font-size:9px;letter-spacing:3px;color:rgba(232,112,58,.5);margin-bottom:16px">OMA ACADEMY</div>'
+          + '<div class="acad-title">Construa seu sistema<br>operacional <em>com IA.</em></div>'
+          + '<div class="acad-sub">Fundamentos gratuitos, trilhas guiadas e o mesmo método que o OMA usa para transformar entendimento em operação real.</div>'
+          + '<div><a class="acad-cta" href="https://academy.onemanarmyproject.com.br" target="_blank">Conhecer a Academy</a><a class="acad-ghost" href="https://onemanarmyproject.com.br/produtos" target="_blank">Ver soluções</a></div>';
+        grid.appendChild(acDiv);
       }
       gridIdx++;
     });
